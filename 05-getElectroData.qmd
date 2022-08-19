@@ -4,7 +4,6 @@
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ```
 
-
 ```{r librariesGetElectroData, echo = FALSE}
 #library(devtools)
 #options(download.file.method = "wininet") or turn off VPN
@@ -20,11 +19,11 @@ library(targets)
 ```
 
 Get electrofishing data target
+
 ```{r getEnvData}
 cdWB_electro <- tar_read(cdWB_electro_target)
 str(cdWB_electro)
 ```
-
 
 ```{r electroDataFlowGraph}
 #| fig-cap: 
@@ -48,5 +47,3 @@ lwReg <- cdWB_electro %>%
 lwReg %>% summarise(broom::tidy(reg))  
 lwReg %>% summarise(broom::glance(reg))
 ```
-
-

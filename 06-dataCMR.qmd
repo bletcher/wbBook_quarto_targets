@@ -1,0 +1,55 @@
+# Capture mark Recapture data
+
+```{r dataCMROptions, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
+```{r librariesdataCMR, echo = FALSE}
+#library(devtools)
+#options(download.file.method = "wininet") or turn off VPN
+#devtools::install_github('Conte-Ecology/westBrookData/getWBData')
+library(data.table)
+library(getWBData)
+library(lubridate)
+library(validate)
+library(rlang)
+library(stringi)
+library(writexl)
+library(tidyverse)
+library(hrbrthemes)
+library(viridis)
+library(targets)
+
+# devtools::install_github('bletcher/getPrepareWBData')
+# use this if command above doesn't work: options(download.file.method = "wininet")
+#library(getPrepareWBData)
+```
+
+Get electrofishing data target
+
+```{r dataDMR}
+
+cdWB_CMR0 <- tar_read(cdWB_CMR0_target)
+cdWB_CMR0 %>% group_by(riverN, cohort) %>% summarize(n = n())
+
+```
+
+```{r}
+# eh <- tar_read(eh_target)
+# 
+# fileName = paste0("eh_", stri_paste_list(vals, collapse = "_"))
+# save(eh, file = paste0('./models/cmrFlow4rivers/dataOut/', fileName, '.RData'))
+```
+
+```{r }
+#| fig-cap: 
+#|   - "length/weight graph"
+
+
+
+
+```
+
+```{r }
+
+```

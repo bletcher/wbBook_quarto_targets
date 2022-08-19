@@ -7,10 +7,14 @@ book:
   date: "today"
   chapters:
     - index.qmd
-    - runTargets.qmd
-    - getData.qmd
-    - getEnvData.qmd
-    - getElectroData.qmd
+    - 02-vizTargets.qmd
+    - 03-getData.qmd
+    - 04-getEnvData.qmd
+    - 05-getElectroData.qmd
+    - 06-dataCMR.qmd
+    - 07-dataWanding.qmd
+    - 08-dataAntenna.qmd
+    - 09-modelYOY.qmd
     - references.qmd
 
 bibliography: references.bib

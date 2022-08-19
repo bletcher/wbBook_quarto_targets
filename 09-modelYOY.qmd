@@ -1,0 +1,227 @@
+# Young-of-year size model
+
+```{r dataModelYOYOptions, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
+```{r librariesModelYOY, echo = FALSE}
+#library(devtools)
+#options(download.file.method = "wininet") or turn off VPN
+#devtools::install_github('Conte-Ecology/westBrookData/getWBData')
+library(tidyverse)
+library(lubridate)
+library(getWBData)
+library(validate)
+library(targets)
+
+
+# devtools::install_github('bletcher/getPrepareWBData')
+# use this if command above doesn't work: options(download.file.method = "wininet")
+#library(getPrepareWBData)
+```
+
+
+The question here is what is driving _body size variation_ across years in brook trout and brown trout in the WB?  
+
+We focus on ageInSamples == 1 (age-0 fish in the fall sample) fish for growth model. This is the first sampling occasion that most fish are big enough to tag. Not all fish are big enough, however, and there is a number of untagged fish each year. We need to include both tagged and untagged fish in our age-0 size model.
+
+Factors to include in the model are   
+1. Sample date  
+2. Cumulative temperature prior to sampling  
+3. Cumulative flow prior to sampling  
+4. Extreme flow events?? Floods, droughts?  
+5. Fish density, age-0 counts across all three salmonids  
+
+## Raw data for YOY model
+1. Environmental data (flow, temperature) are from 1, 3, or 5 months prior to date of individual capture. Also can used fixed dates: assumed spawning dates, assumed emergence dates and actual observation (sample) dates.
+2. All fish data are from age-0 in autumn.
+3. Abundance data.
+
+## Get data from targets
+
+West Brook environmental data (flow and temperature) and electrofishing data
+```{r dataWB}
+envDataWB <- tar_read(envDataWB_target)
+cdWB_electro <- tar_read(cdWB_electro_target)
+
+```
+
+## Get first observations
+
+1. Filter cdWB_electro for first observations in the autumn for age-0 fish (ageInsamples == 1). Including both tagged and untagged fish.
+```{r}
+firstObs_noTag <- tar_read(firstObs_noTag_target)
+firstObs_tag <- tar_read(firstObs_tag_target)
+firstObs0 <- tar_read(firstObs0_target)
+
+```
+
+
+For each date in firstObs0 that at least one fish was captured, calculate summary stats for flow and temperature for different time periods:   
+1. Assumed spawning to capture  
+2. Assumed spawning to assumed emergence  
+3. Assumed emergence to capture  
+4. One month preceding capture  
+5. Three months preceding capture  
+5. Five months preceding capture
+
+Then merge results with firstObs0 to create firstObs.
+```{r firstObs}
+firstObsDates <- tar_read(firstObsDates_target) 
+    
+firstObs_Env <- tar_read(firstObs_Env_target)
+# merge env data into firstObs0
+firstObs <- tar_read(firstObs_target)
+
+str(firstObs)
+```
+
+Unnest firstObs so environmental summary stats are available as data frame with the name of the time interval as the prefix to the statisticVariable name
+```{r firstObsUnnested}
+firstObsUnnested <- tar_read(firstObsUnnested_target)
+
+str(firstObsUnnested)
+#ggplot(firstObsUnnested, aes(oneMonth_sumTScaled, fiveMonth_sumTScaled)) +
+#  geom_point() +
+#  facet_wrap(~river)
+```
+
+### Counts of captured fish
+Min and max years (inclusive) for standardizing counts
+This is in targets, not sure if needed here
+```{r minMaxYear}
+minYear <- 2000
+maxYear <- 2015
+```
+
+Counts by river and species
+```{r rawCounts}
+countsRSY <- tar_read(countsRSY_target)
+
+ggplot(countsRSY, aes(year, countRS_Scaled, color = species)) +
+  geom_point() +
+  geom_line() +
+  facet_wrap(~ river)
+```
+
+Counts by river
+```{r countsRY}
+countsRY <- tar_read(countsRY_target)
+
+ggplot(countsRY, aes(year, countR_Scaled, color = river)) +
+  geom_point() +
+  geom_line()
+```
+
+Counts for the metaPopulation (WB, Jimmy, Mitchell)  
+Use these for modelling.
+```{r countsMeta}
+countsMetaY <- tar_read(countsMetaY_target)
+
+ggplot(countsMetaY, aes(year, count_Scaled)) +
+  geom_point() +
+  geom_line()
+```
+
+Merge metapopulation scaled counts into firstObsUnnested
+```{r mergeMeta}
+
+firstObsUnnested <- tar_read(firstObsUnnested_target)
+firstObsUnnestedWB <- tar_read(firstObsUnnestedWB_target)
+```
+
+## Raw data plots
+
+### Frequency plots by species and river
+
+### Brook Trout, West brook 
+```{r raw data plots1}
+  #cd1 <- cdWB_electro %>% filter(ageInSamples == 1, species != 'ats')
+
+  plotSppRiv = function(s, r) { 
+    ggplot(firstObs %>% filter(species == s, river == r), aes(observedLength, color = is.na(tag))) +
+      geom_freqpoly() +
+      geom_vline(xintercept = 60) +
+      ggtitle(paste(s, r, sep = ', ')) +
+      xlim(c(30,125)) +
+      facet_wrap(~ year, scales = "free_y")
+  }
+  
+  species = 'bkt'
+  riverOrdered = "west brook"
+
+  plotSppRiv(species, riverOrdered)
+```  
+
+
+### Brook Trout, wb jimmy 
+```{r raw data plots2, echo = FALSE}
+  species = 'bkt'
+  riverOrdered = "wb jimmy"
+
+  plotSppRiv(species, riverOrdered)
+```  
+
+### Brook Trout, wb mitchell  
+```{r raw data plots3, echo = FALSE}
+  species = 'bkt'
+  riverOrdered = "wb mitchell"
+
+  plotSppRiv(species, riverOrdered)
+```  
+
+### Brook Trout, wb obear  
+```{r raw data plots4, echo = FALSE}
+  species = 'bkt'
+  riverOrdered = "wb obear"
+
+  plotSppRiv(species, riverOrdered)
+```  
+
+### Brown Trout, West brook  
+```{r raw data plots5, echo = FALSE}
+  species = 'bnt'
+  riverOrdered = "west brook"
+
+  plotSppRiv(species, riverOrdered)
+```  
+
+### Brown Trout, wb jimmy 
+```{r raw data plots6, echo = FALSE}
+  species = 'bnt'
+  riverOrdered = "wb jimmy"
+
+  plotSppRiv(species, riverOrdered)
+```  
+
+### Brown Trout, wb mitchell  
+```{r raw data plots7, echo = FALSE}
+  species = 'bnt'
+  riverOrdered = "wb mitchell"
+
+  plotSppRiv(species, riverOrdered)
+```  
+
+### Brown Trout, wb obear - there are no Brown trout in O'Bear  
+
+### Trout, in the WB mainstem only
+```{r troutWB}
+  
+  ggplot(firstObs %>% filter(species != "ats"), aes(observedLength)) +
+    geom_freqpoly() +
+    geom_vline(xintercept = 60, color = 'orange') +
+    facet_grid(species ~ year)
+  
+  ggplot(firstObs %>% filter(species != "ats"), aes(observedLength, color = is.na(tag))) +
+    geom_freqpoly() +
+    geom_vline(xintercept = 60, color = 'orange') +
+    facet_grid(species ~ year)
+```
+  
+continue from line 333 in book....
+
+
+```{r}
+
+```
+

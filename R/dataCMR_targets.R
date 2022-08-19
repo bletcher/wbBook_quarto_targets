@@ -56,17 +56,17 @@ dataCMR_target <-
       addRiverTagged() %>%
       scaleEnvData() %>%
       addIsYOY() %>%
-      addRiverN()
+      addRiverN(),
 
-   # eh_target = getEH_AIS(cdWB_CMR0, cols, ops, vals, maxAgeInSamples)#, maxIndexByCohort = 100)
-    
-    
+   eh_target = getEH_AIS(cdWB_CMR0_target, cols, ops, vals, maxAgeInSamples)#, maxIndexByCohort = 100)
   )  
 
 #####################################
 ## dataCMR functions 
 #####################################
 addEnvironmental <- function(coreData, sampleFlow = F, funName = "mean") {
+  reconnect()
+  
   func <- get(funName)
   whichDrainage <- "west"
   if (all(!unique(coreData$river) %in% c("west brook", "wb jimmy", 

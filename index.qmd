@@ -9,3 +9,9 @@ The Ecology Section at the USGS Conte Laboratory has studied fish in the West Br
 ```{r, echo = FALSE}
 knitr::include_url("https://pitdata.ecosheds.org/", height = "1200px")
 ```
+
+```{r}
+#when .qmd's are in quarto subdir
+#tar_config_set(store = "../_targets")
+```
+

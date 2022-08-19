@@ -1,4 +1,6 @@
-# Run targets
+# Visualize targets
+
+Run buildBook.R to update targets and run quarto_render()
 
 ```{r include=FALSE}
 #knitr::opts_chunk$set(message = FALSE, warning = FALSE)
@@ -12,18 +14,8 @@ library(tarchetypes)
 library(visNetwork)
 ```
 
-Update all targets
-```{r, warning=FALSE}
-tar_make()
-```
-
-Test that we can read in a target
-```{r}
-str(tar_read(envDataWB_Target))
-```
-
 Visualize the targets network
+
 ```{r, message=FALSE, warning=FALSE}
 tar_visnetwork()
 ```
-
