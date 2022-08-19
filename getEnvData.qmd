@@ -1,0 +1,46 @@
+# Get environmental data
+
+```{r getEnvDataOptions, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
+
+```{r librariesGetData, echo = FALSE}
+#library(devtools)
+#options(download.file.method = "wininet") or turn off VPN
+#devtools::install_github('Conte-Ecology/westBrookData/getWBData')
+library(getWBData)
+library(tidyverse)
+library(lubridate)
+library(validate)
+library(targets)
+```
+
+Get environmental data target
+```{r getEnvData}
+envDataWB <- tar_read(envDataWB_Target)
+str(envDataWB)
+```
+
+
+```{r envDataFlowGraph}
+#| fig-cap: 
+#|   - "Stream flow (m3/s) by river"
+
+ggplot(envDataWB, aes(date, flow)) +
+  geom_point() +
+  facet_wrap(~river)
+
+
+```
+
+```{r envDataTemperatureGraph}
+#| fig-cap: 
+#|   - "Stream temperature (C) by river"
+
+ggplot(envDataWB, aes(date, temperature)) +
+  geom_point(size = 0.5) +
+  facet_wrap(~river)
+```
+
+

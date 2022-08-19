@@ -1,0 +1,52 @@
+# Get electrofishing data
+
+```{r getEnvDataOptions, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
+
+```{r librariesGetElectroData, echo = FALSE}
+#library(devtools)
+#options(download.file.method = "wininet") or turn off VPN
+#devtools::install_github('Conte-Ecology/westBrookData/getWBData')
+library(getWBData)
+library(tidyverse)
+library(lubridate)
+library(targets)
+
+# devtools::install_github('bletcher/getPrepareWBData')
+# use this if command above doesn't work: options(download.file.method = "wininet")
+#library(getPrepareWBData)
+```
+
+Get electrofishing data target
+```{r getEnvData}
+cdWB_electro <- tar_read(cdWB_electro_target)
+str(cdWB_electro)
+```
+
+
+```{r electroDataFlowGraph}
+#| fig-cap: 
+#|   - "length/weight graph"
+
+ggplot(cdWB_electro, aes(observedLength, observedWeight, color = species)) +
+  geom_point(alpha = 0.1) +
+  scale_x_log10() +
+  scale_y_log10() +
+#  theme_publication() +
+  facet_wrap(~ species)
+
+
+```
+
+```{r lwReg}
+lwReg <- cdWB_electro %>%
+  nest_by(species) %>%
+  mutate(reg = list(lm(log(observedWeight) ~ log(observedLength), data = data)))
+
+lwReg %>% summarise(broom::tidy(reg))  
+lwReg %>% summarise(broom::glance(reg))
+```
+
+

@@ -1,0 +1,25 @@
+project:
+  type: book
+
+book:
+  title: "The West Brook story"
+  author: "Ben Letcher"
+  date: "today"
+  chapters:
+    - index.qmd
+    - runTargets.qmd
+    - getData.qmd
+    - getEnvData.qmd
+    - getElectroData.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+
