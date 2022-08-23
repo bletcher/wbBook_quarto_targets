@@ -62,7 +62,7 @@ modelYOY_target <-
       left_join(firstObs_Env_target),
     
     # this scales across all individuals - I think this is ok
-    firstObsUnnested_target = firstObs_target %>% 
+    firstObsUnnested_target0 = firstObs_target %>% 
       unnest(cols = c(spawn_emerge, emerge_detect, spawn_detect, oneMonth, threeMonth, fiveMonth), names_sep = "_") %>%
       mutate(
         emerge_detect_sumTScaled = getScaled(emerge_detect_sumT),
@@ -91,7 +91,7 @@ modelYOY_target <-
              countRS_Scaled = (count - meanCountRS) / sdCountRS) %>%
       ungroup(), 
     
-    countsRY_target <- firstObs_target %>%
+    countsRY_target = firstObs_target %>%
       filter(year %in% minYear:maxYear) %>%
       group_by(river, year) %>%
       summarize(
@@ -106,7 +106,7 @@ modelYOY_target <-
              countR_Scaled = (count - meanCountR) / sdCountR) %>%
       ungroup(),
     
-    countsMetaY_target <- firstObs_target %>%
+    countsMetaY_target = firstObs_target %>%
       filter(river != "wb obear", year %in% minYear:maxYear) %>%
       group_by(year) %>%
       summarize(
@@ -120,10 +120,24 @@ modelYOY_target <-
              count_Scaled = (count - meanCount) / sdCount),
     # missing data for tribs in 2000, 2001 - may skew scaled count a bit low - should fix
     
-    firstObsUnnested_target = firstObsUnnested_target %>%
+    firstObsUnnested_target = firstObsUnnested_target0 %>%
       left_join(countsMetaY_target %>% dplyr::select(year, count_Scaled)),
     
-    firstObsUnnestedWB_target = firstObsUnnested_target %>% filter(river == "west brook")
+    firstObsUnnestedWB_target = firstObsUnnested_target %>% filter(river == "west brook"),
+    
+    envDataWBFlow_target = envDataWB %>%
+      mutate(year = year(dateDate),
+             yday = yday(dateDate),
+             flowNoNAs = ifelse(is.na(flow), 0, flow),
+             tempNoNAs = ifelse(is.na(temperature), 0, temperature)) %>%
+      filter(year %in% minYear:maxYear, 
+             yday > 100, yday < 300,
+             river == "west brook") %>%
+      group_by(year) %>%
+      mutate(cumulFlow = cumsum(flowNoNAs),
+             cumulFlow01 = cumulFlow / max(cumulFlow),
+             cumulTemp = cumsum(tempNoNAs)) %>%
+      ungroup()
     
   )
 
@@ -157,4 +171,55 @@ getEnvMeans <- function(d, riverIn, start, end) {
 
 getScaled <- function(d){
   (d - mean(d, na.rm = TRUE)) / sd(d, na.rm = TRUE)
+}
+
+getMeansData <- function(d, t, f) {
+  means <- d %>% 
+    group_by(species, year) %>% 
+    summarize(meanLength = mean(observedLength, na.rm = TRUE), 
+              meanEmerge_detect_sumTScaled = mean(emerge_detect_sumTScaled, na.rm = TRUE),
+              meanEmerge_detect_sumFScaled = mean(emerge_detect_sumTScaled, na.rm = TRUE),
+              meanTTime_sumTScaled = mean(get(t), na.rm = TRUE),
+              meanFTime_sumFScaled = mean(get(f), na.rm = TRUE),
+              meanYdayScaled = mean(ydayScaled, na.rm = TRUE),
+              meanCount_Scaled = mean(count_Scaled, na.rm = TRUE)
+    )
+  return(means)
+}
+
+getMeansDataByRiver <- function(d, t, f) {
+  means <- d %>% 
+    group_by(species, year, river) %>% 
+    summarize(meanLength = mean(observedLength, na.rm = TRUE), 
+              meanEmerge_detect_sumTScaled = mean(emerge_detect_sumTScaled, na.rm = TRUE),
+              meanEmerge_detect_sumFScaled = mean(emerge_detect_sumTScaled, na.rm = TRUE),
+              meanTTime_sumTScaled = mean(get(t), na.rm = TRUE),
+              meanFTime_sumFScaled = mean(get(f), na.rm = TRUE),
+              meanYdayScaled = mean(ydayScaled, na.rm = TRUE),
+              meanCount_Scaled = mean(count_Scaled, na.rm = TRUE)
+    )
+  return(means)
+}
+
+plotMeans <- function(means){
+  out <- list()
+  out[[1]] <- ggplot(means, aes(meanTTime_sumTScaled, meanLength, color = species)) +
+    geom_point() + 
+    geom_smooth(method = "lm", se = FALSE)
+  
+  out[[2]] <- ggplot(means, aes(meanFTime_sumFScaled, meanLength, color = species)) +
+    geom_point() + 
+    geom_smooth(method = "lm", se = FALSE)
+  
+  out[[3]] <- ggplot(means, aes(meanTTime_sumTScaled, meanFTime_sumFScaled, color = species)) +
+    geom_point() + 
+    geom_smooth(method = "lm", se = FALSE)
+  return(out)
+}
+
+runMeanModels <- function(means) {
+  modLMMeans1 <- lm(meanLength ~ (factor(species) + meanFTime_sumFScaled + meanTTime_sumTScaled + meanYdayScaled + meanCount_Scaled), data = means)
+  modLMMeans2 <- lm(meanLength ~ (factor(species) + meanFTime_sumFScaled + meanTTime_sumTScaled + meanYdayScaled + meanCount_Scaled)^2, data = means)
+  modLMMeans3 <- lm(meanLength ~ (factor(species) + meanFTime_sumFScaled + meanTTime_sumTScaled + meanYdayScaled + meanCount_Scaled)^3, data = means)
+  return(list(modLMMeans1, modLMMeans2, modLMMeans3))
 }

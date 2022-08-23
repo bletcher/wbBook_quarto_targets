@@ -14,4 +14,3 @@ knitr::include_url("https://pitdata.ecosheds.org/", height = "1200px")
 #when .qmd's are in quarto subdir
 #tar_config_set(store = "../_targets")
 ```
-

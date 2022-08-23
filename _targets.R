@@ -12,6 +12,7 @@ library(getWBData)
 tar_option_set(
   packages = c("tibble",     
                "tidyverse",
+               "tidyr",
                "lubridate",
                "knitr",
                "targets",
@@ -36,12 +37,15 @@ options(clustermq.scheduler = "multiprocess")
 lapply(list.files("R", full.names = TRUE, recursive = TRUE), source)
 
 list(
-  #target_globalVariables
   getEnvData_target,
   getElectroData_target,
-  dataCMR_target,
+  dataCMR_WB_2002_2014_target,
+  dataCMR_OB_2002_2014_target, #dataCMR_target,
   dataWanding_target,
   dataAntenna_target,
-  modelYOY_target
-  #tar_quarto(report, need to fill in
+  modelYOY_target,
+  modelFlow_target,
+  #modelCMR_Flow_OB_target,
+  modelCMR_tt_OB_target,
+  tar_quarto(book) 
 )

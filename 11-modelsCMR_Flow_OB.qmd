@@ -1,0 +1,49 @@
+# Flow effects on survival (phi) models - O'Bear only
+
+The goal of this modelling exercise is to evaluate the effect of new tributary-specific stream flow estimates on survival of brook trout and brown trout. We will compare survival across the WB and tributaries with flow input data as 1) single flow estimate for all locations (historical approach) and 2) hindcasted flows for each tributary based on new tributary-specific flows which are available since 2000.
+
+The goal is to find the best structure for the survival model, then compare survival estimates with tributary-specific flow to estimates with common flow across locations.
+
+Structure options include
+[species, cohort, season, isYOY, flow, flow^2]
+
+
+```{r globalModelsNimbleRiver, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+
+```{r librariesModelsNimbleRiver, echo = FALSE}
+library(getWBData)
+library(lubridate)
+library(kableExtra)
+library(GGally)
+library(nimble)
+library(nimbleEcology)
+library(MCMCvis)
+library(tidyverse)
+library(targets)
+```
+
+### Model phiT_pT (tt)
+Single estimates of phi and p (across, cohorts, flow)  
+
+#### Set up and run model
+Model is run using targets in modelCMR_tt_OB.R
+```{r OB_tt}
+# Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
+# 
+  out <- tar_read(tt_modelOut_OB)
+
+  MCMCplot(object = out$mcmc)
+  MCMCsummary(object = out$mcmc, round = 3)
+  
+  priors <- runif(out$runData$nIter * out$runData$nChains, 0, 1)
+  MCMCtrace(object = out$mcmc,
+            #ISB = FALSE,
+            #exact = TRUE, 
+            params = c("phi", "p"),
+            pdf = FALSE, 
+            priors = priors)
+
+```

@@ -25,14 +25,26 @@ library(targets)
 #library(getPrepareWBData)
 ```
 
-Get electrofishing data target
+Get electrofishing data target for WB
 
-```{r dataDMR}
+```{r dataCMR_WB}
 
-cdWB_CMR0 <- tar_read(cdWB_CMR0_target)
-cdWB_CMR0 %>% group_by(riverN, cohort) %>% summarize(n = n())
+cdWB_CMR0_WB <- tar_read(eh_WB_2002_2014_target)
+cdWB_CMR0_WB$data %>% group_by(riverN, cohort) %>% summarize(n = n())
+cdWB_CMR0_WB$data %>% filter(enc == 1) %>% group_by(riverN, cohort) %>% summarize(n = n())
 
 ```
+
+Get electrofishing data target for OB
+
+```{r dataCMR_OB}
+
+cdWB_CMR0_OB <- tar_read(eh_OB_2002_2014_target)
+cdWB_CMR0_OB$data %>% group_by(riverN, cohort) %>% summarize(n = n())
+cdWB_CMR0_OB$data %>% filter(enc == 1) %>% group_by(riverN, cohort) %>% summarize(n = n())
+
+```
+
 
 ```{r}
 # eh <- tar_read(eh_target)

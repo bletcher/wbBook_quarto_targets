@@ -1,0 +1,63 @@
+# Flow model
+
+```{r dataModelFlowOptions, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
+
+```{r librariesModelsFlow, echo = FALSE}
+library(getWBData)
+library(tidyverse)
+library(lubridate)
+library(kableExtra)
+library(GGally)
+library(lme4)
+library(targets)
+```
+
+```{r readInFlowData}
+dataFlow <- tar_read(dataFlow_target)
+dFlow <- tar_read(dFlow_target)
+dFlowWide <- tar_read(dFlowWide_target)
+```
+
+
+```{r filterDataFlow}
+tibble(dataFlow)
+table(dataFlow$Site_Name)
+
+#check for real entries
+dFlow %>% filter(is.infinite(dischargeLog))
+
+```
+
+
+```{r flowPlots, cache = TRUE}
+
+ggplot(dFlow, aes(date, dischargeLog, color = Site_Name)) +
+  geom_point(size = 0.02) +
+  facet_wrap(~Site_Name)
+
+ggpairs(dFlowWide,
+          columns = 6:9,
+          mapping = ggplot2::aes(color = as.factor(year), alpha = 0.7),
+          #diag = list(continuous = myDens),
+          lower = list(continuous = wrap("points", alpha = 0.3, size=0.1), 
+                       combo = wrap("dot", alpha = 0.4, size=0.2))
+        )
+
+ggpairs(dFlowWide %>% filter(yday > 90, yday < 300),
+          columns = 6:9,
+          mapping = ggplot2::aes(color = as.factor(year)),
+          lower = list(continuous = wrap("points", alpha = 0.3, size=0.1), 
+                       combo = wrap("dot", alpha = 0.4, size=0.2))
+        )
+
+ggpairs(dFlowWide %>% filter(yday == 110),
+          columns = 8:11,
+          mapping = ggplot2::aes(color = as.factor(year)),
+          lower = list(continuous = wrap("points", alpha = 0.3, size=0.2), 
+                       combo = wrap("dot", alpha = 0.4, size=0.2))
+        )
+```
+

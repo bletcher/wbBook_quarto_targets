@@ -1,5 +1,5 @@
 tar_option_set(packages = c("tidyverse", "lubridate", "getWBData", "data.table", 
-                            "validate", "rlang", "stringi", "writexl", "hrbrthemes", "viridis"))
+                            "validate", "rlang", "stringi", "writexl", "hrbrthemes", "viridis", "targets"))
 
 # maximum ageInSamples for both createCmrData and getEH
 maxAgeInSamples <- 12
@@ -11,7 +11,7 @@ cols <- list("cohort")
 ops <-  list("%in%")
 vals <- list(2002:2014)
 
-dataCMR_target <-
+dataCMR_WB_2002_2014_target <-
   tar_plan(
     cdWB_CMR0_target = 
       createCoreData(
@@ -58,8 +58,26 @@ dataCMR_target <-
       addIsYOY() %>%
       addRiverN(),
 
-   eh_target = getEH_AIS(cdWB_CMR0_target, cols, ops, vals, maxAgeInSamples)#, maxIndexByCohort = 100)
+   eh_WB_2002_2014_target = getEH_AIS(cdWB_CMR0_target, cols, ops, vals, maxAgeInSamples)#, maxIndexByCohort = 100)
   )  
+
+## OB fish
+
+# #########################################
+# # all cohorts from O'Bear 2002:2014
+
+# read down through the cols, ops, vals variables for filter conditions
+cols_OB <- list("cohort",  "riverTagged")
+ops_OB <-  list("%in%",    "==")
+vals_OB <- list(2002:2014, "wb obear")
+######################################  
+
+dataCMR_OB_2002_2014_target <-
+  tar_plan(
+    eh_OB_2002_2014_target = getEH_AIS(tar_read(cdWB_CMR0_target), cols, ops, vals, maxAgeInSamples)#, maxIndexByCohort = 100)
+  )  
+
+
 
 #####################################
 ## dataCMR functions 
