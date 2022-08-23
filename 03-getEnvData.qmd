@@ -1,9 +1,8 @@
-# Get environmental data
+## Get environmental data
 
 ```{r getEnvDataOptions, include=FALSE}
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ```
-
 
 ```{r librariesGetData, echo = FALSE}
 #library(devtools)
@@ -17,11 +16,11 @@ library(targets)
 ```
 
 Get environmental data target
+
 ```{r getEnvData}
 envDataWB <- tar_read(envDataWB_Target)
 str(envDataWB)
 ```
-
 
 ```{r envDataFlowGraph}
 #| fig-cap: 
@@ -42,5 +41,3 @@ ggplot(envDataWB, aes(date, temperature)) +
   geom_point(size = 0.5) +
   facet_wrap(~river)
 ```
-
-

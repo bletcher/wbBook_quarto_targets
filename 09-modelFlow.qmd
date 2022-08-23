@@ -4,7 +4,6 @@
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ```
 
-
 ```{r librariesModelsFlow, echo = FALSE}
 library(getWBData)
 library(tidyverse)
@@ -21,7 +20,6 @@ dFlow <- tar_read(dFlow_target)
 dFlowWide <- tar_read(dFlowWide_target)
 ```
 
-
 ```{r filterDataFlow}
 tibble(dataFlow)
 table(dataFlow$Site_Name)
@@ -31,8 +29,7 @@ dFlow %>% filter(is.infinite(dischargeLog))
 
 ```
 
-
-```{r flowPlots, cache = TRUE}
+```{r flowPlots}
 
 ggplot(dFlow, aes(date, dischargeLog, color = Site_Name)) +
   geom_point(size = 0.02) +
@@ -60,4 +57,3 @@ ggpairs(dFlowWide %>% filter(yday == 110),
                        combo = wrap("dot", alpha = 0.4, size=0.2))
         )
 ```
-

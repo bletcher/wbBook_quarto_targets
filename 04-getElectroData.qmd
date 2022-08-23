@@ -1,4 +1,4 @@
-# Get electrofishing data
+## Get electrofishing data
 
 ```{r getEnvDataOptions, include=FALSE}
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)

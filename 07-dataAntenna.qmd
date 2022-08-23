@@ -1,4 +1,4 @@
-# Antenna data
+## Get antenna data
 
 ```{r dataAntennaOptions, include=FALSE}
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
@@ -21,6 +21,7 @@ library(targets)
 ```
 
 Get antenna data target
+
 ```{r dataAntenna}
 
 cdWB_antenna0 <- tar_read(cdWB_antenna0_target)

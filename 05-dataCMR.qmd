@@ -1,4 +1,4 @@
-# Capture mark Recapture data
+## Create Capture-Recapture data
 
 ```{r dataCMROptions, include=FALSE}
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
@@ -44,7 +44,6 @@ cdWB_CMR0_OB$data %>% group_by(riverN, cohort) %>% summarize(n = n())
 cdWB_CMR0_OB$data %>% filter(enc == 1) %>% group_by(riverN, cohort) %>% summarize(n = n())
 
 ```
-
 
 ```{r}
 # eh <- tar_read(eh_target)

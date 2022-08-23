@@ -8,16 +8,24 @@ book:
   chapters:
     - index.qmd
     - 01-vizTargets.qmd
-    - 02-getData.qmd
-    - 03-getEnvData.qmd
-    - 04-getElectroData.qmd
-    - 05-dataCMR.qmd
-    - 06-dataWanding.qmd
-    - 07-dataAntenna.qmd
-    - 08-modelYOY.qmd
-    - 09-modelFlow.qmd
-    - 10-modelsCMR_Flow_OB.qmd
+    - part: "Get data"
+      chapters: 
+        - 02-getData.qmd
+        - 03-getEnvData.qmd
+        - 04-getElectroData.qmd
+        - 05-dataCMR.qmd
+        - 06-dataWanding.qmd
+        - 07-dataAntenna.qmd
+    - part: "General models"
+      chapters: 
+        - 08-modelYOY.qmd
+        - 09-modelFlow.qmd
+    - part: "Capture-recpature models"
+      chapters: 
+        - 10-modelsCMR_Flow_OB.qmd
+        - 11-modelsCMR_Flow_4Rivers.qmd
     - references.qmd
+  number-depth: 2
 
 bibliography: references.bib
 
