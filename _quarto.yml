@@ -7,16 +7,16 @@ book:
   date: "today"
   chapters:
     - index.qmd
-    - 02-vizTargets.qmd
-    - 03-getData.qmd
-    - 04-getEnvData.qmd
-    - 05-getElectroData.qmd
-    - 06-dataCMR.qmd
-    - 07-dataWanding.qmd
-    - 08-dataAntenna.qmd
-    - 09-modelYOY.qmd
-    - 10-modelFlow.qmd
-    - 11-modelsCMR_Flow_OB.qmd
+    - 01-vizTargets.qmd
+    - 02-getData.qmd
+    - 03-getEnvData.qmd
+    - 04-getElectroData.qmd
+    - 05-dataCMR.qmd
+    - 06-dataWanding.qmd
+    - 07-dataAntenna.qmd
+    - 08-modelYOY.qmd
+    - 09-modelFlow.qmd
+    - 10-modelsCMR_Flow_OB.qmd
     - references.qmd
 
 bibliography: references.bib
