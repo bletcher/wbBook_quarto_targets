@@ -1,10 +1,11 @@
 project:
   type: book
+  output-dir: docs
 
 book:
   title: "The West Brook story"
   author: "Ben Letcher"
-  date: "today"
+  date: today
   chapters:
     - index.qmd
     - 01-vizTargets.qmd

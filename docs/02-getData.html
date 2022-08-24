@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>The West Brook story - 6&nbsp; Get wanding data</title>
+<title>The West Brook story - 2&nbsp; Get data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -88,8 +88,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./07-dataAntenna.html" rel="next">
-<link href="./05-dataCMR.html" rel="prev">
+<link href="./03-getEnvData.html" rel="next">
+<link href="./01-vizTargets.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -128,7 +128,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Get wanding data</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Get data</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -171,7 +171,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02-getData.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Get data</span></a>
+  <a href="./02-getData.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Get data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -191,7 +191,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06-dataWanding.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Get wanding data</span></a>
+  <a href="./06-dataWanding.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Get wanding data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -234,6 +234,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="./10-modelsCMR_Flow_OB.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Flow effects on survival (phi) models - O’Bear only</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-modelsCMR_Flow_4Rivers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Flow effects on survival (phi) models - 4 rivers</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item">
@@ -253,7 +258,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Get wanding data</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Get data</span></h1>
 </div>
 
 
@@ -267,47 +272,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
+<p><em>THis will be rewritten once targets is implemented</em></p>
+<p>The database is now (as of 6/14/2022) on AWS. It can be accessed using functions in the ‘getWBData’ R package. Use <code>devtools::install_github('Conte-Ecology/westBrookData/getWBData')</code> (with VPN off) to install. Most of the functions will run reconnect() to connect to the server with your username and password (which you won’t need if you have set up a .Rprofile file).<br>
+Run <code>reconnect()</code> from the console to connect if necessary. Use <code>DBI::dbListTables(con)</code> to see the list of available tables on the server. Details about the ‘getWBData’ package are <a href="https://github.com/Conte-Ecology/westBrookData/blob/master/getWBData/vignettes/getWBDataTutorial.pdf">here</a>.</p>
+<p>We have two types of databases: Environmental and fish</p>
+<p>The environmental database contains daily mean temperature and flow data. Flow data are from a flow extension model and are not tributary-specific. Temperature data are from tributary-specific loggers.</p>
+<p>There are four main fish databases we want to create:<br>
+1. <strong>cdWB_electro0</strong> West Brook electrofishing data, 3 species (brook trout, brown trout and Atlantic salmon), tagged and untagged fish<br>
+2. <strong>cdWB_CMR0</strong> West Brook electrofishing data formatted for Capture-Mark-Recapture analysis for tagged individuals<br>
+3. <strong>cdWB_wanding0</strong> West Brook wanding (portable antenna) data, all tagged salmonids<br>
+4. <strong>cdWB_antenna0</strong> West Brook stationary antenna data, all tagged salmonids</p>
+<p>The “0” at the end of these file names indicates that they are the initial files that will be wrangled in the next step (next chapter). “cd” stands for “core data”.</p>
+<p>The <code>getNew_...</code> variables determine whether the data are retrieved from the server. Change to ‘TRUE’ to get a new data frame, e.g.&nbsp;when there are new data on the server.</p>
 <div class="cell">
-
-</div>
-<p>Get wanding data target</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>cdWB_wanding0 <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cdWB_wanding0_target)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cdWB_wanding0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>tibble [14,880 × 19] (S3: tbl_df/tbl/data.frame)
- $ tag          : chr [1:14880] "00088cf41b" "00088cf41b" "00088cf41b" "00088cf435" ...
- $ detectionDate: POSIXct[1:14880], format: "2010-09-27 15:08:45" "2010-10-18 18:16:22" ...
- $ sampleName   : chr [1:14880] "92710.00" "101810.00" "102510.00" "12610.00" ...
- $ river        : chr [1:14880] "wb jimmy" "wb jimmy" "wb jimmy" "wb jimmy" ...
- $ section      : chr [1:14880] "13" "14" "14" "2" ...
- $ area         : chr [1:14880] "trib" "trib" "trib" "trib" ...
- $ survey       : chr [1:14880] "portableAntenna" "portableAntenna" "portableAntenna" "portableAntenna" ...
- $ readerId     : chr [1:14880] "iso" "iso" "iso" "iso" ...
- $ aliveOrDead  : chr [1:14880] "alive" "alive" NA "alive" ...
- $ instance     : num [1:14880] 1 2 3 1 1 1 2 1 1 1 ...
- $ pass         : num [1:14880] NA NA NA NA NA NA NA NA NA NA ...
- $ quarter      : num [1:14880] 2 1 NA 4 2 4 4 3 4 2 ...
- $ leftOrRight  : chr [1:14880] "l" "m" NA "r" ...
- $ habitat      : chr [1:14880] "pool" "run" NA "pool" ...
- $ cover        : chr [1:14880] NA NA NA NA ...
- $ justification: chr [1:14880] NA NA NA NA ...
- $ comment      : chr [1:14880] NA NA NA NA ...
- $ species      : chr [1:14880] "bkt" "bkt" "bkt" "bkt" ...
- $ cohort       : num [1:14880] 2010 2010 2010 2010 2009 ...</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># eh &lt;- tar_read(eh_target)</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># fileName = paste0("eh_", stri_paste_list(vals, collapse = "_"))</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># save(eh, file = paste0('./models/cmrFlow4rivers/dataOut/', fileName, '.RData'))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-
-</div>
-<div class="cell">
-
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>getNew_cdWB_electro0 <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>getNew_cdWB_CMR0 <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>getNew_cdWB_wanding0 <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>getNew_cdWB_antenna0 <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
@@ -412,13 +393,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./05-dataCMR.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Create Capture-Recapture data</span></span>
+      <a href="./01-vizTargets.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Visualize targets</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./07-dataAntenna.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Get antenna data</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./03-getEnvData.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Get environmental data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

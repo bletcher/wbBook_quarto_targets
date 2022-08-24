@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>The West Brook story - 7&nbsp; Get antenna data</title>
+<title>The West Brook story - 10&nbsp; Flow effects on survival (phi) models - O’Bear only</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -88,8 +88,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./08-modelYOY.html" rel="next">
-<link href="./06-dataWanding.html" rel="prev">
+<link href="./11-modelsCMR_Flow_4Rivers.html" rel="next">
+<link href="./09-modelFlow.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -128,7 +128,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Get antenna data</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Flow effects on survival (phi) models - O’Bear only</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -196,7 +196,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07-dataAntenna.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Get antenna data</span></a>
+  <a href="./07-dataAntenna.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Get antenna data</span></a>
   </div>
 </li>
       </ul>
@@ -231,7 +231,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./10-modelsCMR_Flow_OB.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Flow effects on survival (phi) models - O’Bear only</span></a>
+  <a href="./10-modelsCMR_Flow_OB.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Flow effects on survival (phi) models - O’Bear only</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-modelsCMR_Flow_4Rivers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Flow effects on survival (phi) models - 4 rivers</span></a>
   </div>
 </li>
       </ul>
@@ -246,14 +251,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#model-phit_pt-tt" id="toc-model-phit_pt-tt" class="nav-link active" data-scroll-target="#model-phit_pt-tt"> <span class="header-section-number">10.0.1</span> Model phiT_pT (tt)</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Get antenna data</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Flow effects on survival (phi) models - O’Bear only</span></h1>
 </div>
 
 
@@ -267,41 +278,89 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
+<p>The goal of this modelling exercise is to evaluate the effect of new tributary-specific stream flow estimates on survival of brook trout and brown trout. We will compare survival across the WB and tributaries with flow input data as 1) single flow estimate for all locations (historical approach) and 2) hindcasted flows for each tributary based on new tributary-specific flows which are available since 2000.</p>
+<p>The goal is to find the best structure for the survival model, then compare survival estimates with tributary-specific flow to estimates with common flow across locations.</p>
+<p>Structure options include [species, cohort, season, isYOY, flow, flow^2]</p>
 <div class="cell">
 
 </div>
-<p>Get antenna data target</p>
+<section id="model-phit_pt-tt" class="level3" data-number="10.0.1">
+<h3 data-number="10.0.1" class="anchored" data-anchor-id="model-phit_pt-tt"><span class="header-section-number">10.0.1</span> Model phiT_pT (tt)</h3>
+<p>Single estimates of phi and p (across, cohorts, flow)</p>
+<section id="set-up-and-run-model" class="level4" data-number="10.0.1.1">
+<h4 data-number="10.0.1.1" class="anchored" data-anchor-id="set-up-and-run-model"><span class="header-section-number">10.0.1.1</span> Set up and run model</h4>
+<p>Model is run using targets in modelCMR_tt_OB.R</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>cdWB_antenna0 <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cdWB_antenna0_target)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cdWB_antenna0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(tt_modelOut_OB)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">MCMCplot</span>(<span class="at">object =</span> out<span class="sc">$</span>mcmc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="10-modelsCMR_Flow_OB_files/figure-html/OB_tt-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">MCMCsummary</span>(<span class="at">object =</span> out<span class="sc">$</span>mcmc, <span class="at">round =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>tibble [410,915 × 10] (S3: tbl_df/tbl/data.frame)
- $ tag          : chr [1:410915] "00088cbed9" "00088cbed9" "00088cbed9" "00088cbed9" ...
- $ detectionDate: POSIXct[1:410915], format: "2014-10-18 00:22:33" "2014-10-24 19:34:31" ...
- $ river        : chr [1:410915] "wb mitchell" "wb mitchell" "wb mitchell" "wb mitchell" ...
- $ riverMeter   : num [1:410915] 4797 4797 4830 4830 5524 ...
- $ survey       : chr [1:410915] "stationaryAntenna" "stationaryAntenna" "stationaryAntenna" "stationaryAntenna" ...
- $ comment      : chr [1:410915] NA NA NA NA ...
- $ cohort       : num [1:410915] 2013 2013 2013 2013 2013 ...
- $ species      : chr [1:410915] "bkt" "bkt" "bkt" "bkt" ...
- $ dateEmigrated: Date[1:410915], format: "2014-10-25" "2014-10-25" ...
- $ sex          : chr [1:410915] NA NA NA NA ...</code></pre>
+<pre><code>         mean    sd  2.5%   50% 97.5% Rhat n.eff
+p[1]    0.293 0.006 0.281 0.293 0.305 1.00   275
+p[2]    0.421 0.007 0.407 0.421 0.434 1.01   575
+p[3]    0.667 0.007 0.652 0.667 0.683 1.00   382
+p[4]    0.713 0.009 0.696 0.713 0.730 1.00   313
+p[5]    0.364 0.010 0.347 0.364 0.384 1.09   259
+p[6]    0.519 0.012 0.496 0.519 0.542 1.01   427
+p[7]    0.687 0.014 0.658 0.687 0.716 1.00   334
+p[8]    0.740 0.021 0.698 0.741 0.778 1.02   201
+p[9]    0.454 0.027 0.400 0.455 0.508 1.01   236
+p[10]   0.573 0.038 0.489 0.573 0.646 1.00   244
+p[11]   0.681 0.141 0.469 0.668 0.969 1.92    18
+phi[1]  0.789 0.010 0.771 0.789 0.812 1.00   141
+phi[2]  0.713 0.010 0.693 0.713 0.732 1.00   194
+phi[3]  0.764 0.009 0.747 0.764 0.781 1.02   238
+phi[4]  0.642 0.008 0.626 0.642 0.659 1.00   260
+phi[5]  0.670 0.015 0.640 0.670 0.700 1.11   130
+phi[6]  0.562 0.015 0.533 0.562 0.592 1.14   142
+phi[7]  0.683 0.015 0.652 0.683 0.712 1.03   233
+phi[8]  0.623 0.019 0.586 0.623 0.663 1.04   210
+phi[9]  0.466 0.027 0.415 0.466 0.520 1.03   149
+phi[10] 0.563 0.043 0.483 0.563 0.645 1.02   122
+phi[11] 0.684 0.146 0.442 0.668 0.945 1.93    15</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>  priors <span class="ot">&lt;-</span> <span class="fu">runif</span>(out<span class="sc">$</span>runData<span class="sc">$</span>nIter <span class="sc">*</span> out<span class="sc">$</span>runData<span class="sc">$</span>nChains, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">MCMCtrace</span>(<span class="at">object =</span> out<span class="sc">$</span>mcmc,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>            <span class="co">#ISB = FALSE,</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>            <span class="co">#exact = TRUE, </span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"phi"</span>, <span class="st">"p"</span>),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">pdf =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">priors =</span> priors)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="10-modelsCMR_Flow_OB_files/figure-html/OB_tt-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="10-modelsCMR_Flow_OB_files/figure-html/OB_tt-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="10-modelsCMR_Flow_OB_files/figure-html/OB_tt-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="10-modelsCMR_Flow_OB_files/figure-html/OB_tt-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="10-modelsCMR_Flow_OB_files/figure-html/OB_tt-6.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="10-modelsCMR_Flow_OB_files/figure-html/OB_tt-7.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="10-modelsCMR_Flow_OB_files/figure-html/OB_tt-8.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="10-modelsCMR_Flow_OB_files/figure-html/OB_tt-9.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># eh &lt;- tar_read(eh_target)</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># fileName = paste0("eh_", stri_paste_list(vals, collapse = "_"))</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># save(eh, file = paste0('./models/cmrFlow4rivers/dataOut/', fileName, '.RData'))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
 
-</div>
-<div class="cell">
 
-</div>
-
-
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -403,13 +462,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./06-dataWanding.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Get wanding data</span></span>
+      <a href="./09-modelFlow.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Flow model</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./08-modelYOY.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Young-of-year size model</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./11-modelsCMR_Flow_4Rivers.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Flow effects on survival (phi) models - 4 rivers</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

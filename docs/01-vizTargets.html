@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>The West Brook story - 1&nbsp; Visualize targets</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./02-getData.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="site_libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+<script src="site_libs/vis-9.1.0/vis-network.min.js"></script>
+<script src="site_libs/visNetwork-binding-2.1.0/visNetwork.js"></script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Visualize targets</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">The West Brook story</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Introduction</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-vizTargets.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Visualize targets</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Get data</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-getData.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Get data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-getEnvData.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Get environmental data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-getElectroData.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Get electrofishing data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-dataCMR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Create Capture-Recapture data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-dataWanding.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Get wanding data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-dataAntenna.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Get antenna data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">General models</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-modelYOY.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Young-of-year size model</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-modelFlow.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Flow model</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Capture-recpature models</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-modelsCMR_Flow_OB.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Flow effects on survival (phi) models - O’Bear only</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-modelsCMR_Flow_4Rivers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Flow effects on survival (phi) models - 4 rivers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Visualize targets</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<p>Run buildBook.R to update targets and run quarto_render()</p>
+<p>Data processing and model running is controlled by <code>targets</code>. Targets are only re-run if the upstream data source changes</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tarchetypes)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visNetwork)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Visualize the targets network</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_visnetwork</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "loading .Rprofile"
+Loading required package: dplyr
+
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Loading required package: DBI
+Loading required package: RPostgres
+Warning messages:
+1: package 'targets' was built under R version 4.2.1 
+2: package 'tarchetypes' was built under R version 4.2.1 
+3: package 'dplyr' was built under R version 4.2.1 
+4: package 'DBI' was built under R version 4.2.1 
+5: package 'RPostgres' was built under R version 4.2.1 
+6: In result_fetch(res@ptr, n = n) :
+  Don't need to call dbFetch() for statements, only for queries</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="htmlwidget-17a35300efb21f8f661c" style="width:100%;height:464px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-17a35300efb21f8f661c">{"x":{"nodes":{"name":["cdWB_antenna0_target","cdWB_CMR0_target","cdWB_electro_target","cdWB_electro0_target","cdWB_wanding0_target","countsMetaY_target","countsRSY_target","countsRY_target","dataFlow_target","dFlow_target","dFlowWide_target","eh_OB_2002_2014_target","eh_WB_2002_2014_target","envDataWB_target","envDataWBFlow_target","firstObs_Env_target","firstObs_noTag_target","firstObs_tag_target","firstObs_target","firstObs0_target","firstObsDates_target","firstObsUnnested_target","firstObsUnnested_target0","firstObsUnnestedWB_target","toSave_ttt_WB_target","tt_Cmcmc_OB","tt_Cmodel_OB","tt_conf_OB","tt_inputData_OB","tt_model_OB","tt_modelCode_OB","tt_modelOut_OB","tt_myConstants_OB","tt_myData_OB","tt_parametersToSave_OB","tt_Rmcmc_OB","tt_Rmodel_OB","tt_runData_OB","tt_save_OB","getMeansData","conDplyr","ops_OB","minYear","scale_this","vals","getElectroData_target","getScaled","modelCMR_ttt_WB_target","drainage","%notin%","emerge_month","addIsYOY","spawn_day","op_call","addRiverN","con","scaleEnvData","cols_OB","saveModelOut_tt_OB","envDataWB","getKnown","vals_OB","getInits_tt_OB","plotMeans","getEnvMeans","maxAgeInSamples","getNeverCaptured","runMeanModels","target_globalVariables","cols","dataCMR_OB_2002_2014_target","dataAntenna_target","modelFlow_target","dataWanding_target","modelYOY_target","getEnvData_target","tmpEnv","scaleCol","fillRiver","getMeansDataByRiver","maxYear","selectedVariables","ops","addRiverTagged","modelCMR_tt_OB_target","addFirstLast","dataCMR_WB_2002_2014_target","spawn_month","emerge_day","addLaggedSectionRiverN","addLaggedSection","cdWB_electro","addEnvironmental2","addEnvironmental","ehFilter","addKnownZ2","tt_initialValues_OB","getEHDataWide_AIS","getEH_AIS"],"type":["stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","stem","function","object","object","object","function","object","object","function","object","object","function","object","function","object","function","function","object","function","object","function","object","function","object","function","function","function","object","function","function","object","object","object","object","object","object","object","object","object","function","function","function","object","object","object","function","object","function","object","object","object","function","function","object","function","function","function","function","function","function","function"],"status":["uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","outdated","uptodate","outdated","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","outdated","outdated","outdated","outdated","outdated","outdated","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","outdated","uptodate","outdated","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate","uptodate"],"seconds":[43.38,87.19,17.76,76,10.61,0.09,0.2,0.15,5.39,0.33,0.11,8.39,7.11,3.08,1.58,42.57,0.01,7.1,0.12,0.01,0.04,0.07,1.88,0.07,6.82,5478.85,73.82,913.47,6.11,3890.31,9.91,0,0,0,0,3650.05,97.5,8.19,0.02,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"bytes":[1826467,2957794,2829092,1278626,165340,522,1802,1206,2997222,2575212,1354554,3051294,3051294,604704,177353,76604,25493,137650,795675,193947,860,1044281,1040846,821624,141469327,560733113,83576226,167832872,34807,184835,411,187720,1711,31779,58,205922261,68632342,126,43,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"branches":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"label":["cdWB_antenna0_target","cdWB_CMR0_target","cdWB_electro_target","cdWB_electro0_target","cdWB_wanding0_target","countsMetaY_target","countsRSY_target","countsRY_target","dataFlow_target","dFlow_target","dFlowWide_target","eh_OB_2002_2014_target","eh_WB_2002_2014_target","envDataWB_target","envDataWBFlow_target","firstObs_Env_target","firstObs_noTag_target","firstObs_tag_target","firstObs_target","firstObs0_target","firstObsDates_target","firstObsUnnested_target","firstObsUnnested_target0","firstObsUnnestedWB_target","toSave_ttt_WB_target","tt_Cmcmc_OB","tt_Cmodel_OB","tt_conf_OB","tt_inputData_OB","tt_model_OB","tt_modelCode_OB","tt_modelOut_OB","tt_myConstants_OB","tt_myData_OB","tt_parametersToSave_OB","tt_Rmcmc_OB","tt_Rmodel_OB","tt_runData_OB","tt_save_OB","getMeansData","conDplyr","ops_OB","minYear","scale_this","vals","getElectroData_target","getScaled","modelCMR_ttt_WB_target","drainage","%notin%","emerge_month","addIsYOY","spawn_day","op_call","addRiverN","con","scaleEnvData","cols_OB","saveModelOut_tt_OB","envDataWB","getKnown","vals_OB","getInits_tt_OB","plotMeans","getEnvMeans","maxAgeInSamples","getNeverCaptured","runMeanModels","target_globalVariables","cols","dataCMR_OB_2002_2014_target","dataAntenna_target","modelFlow_target","dataWanding_target","modelYOY_target","getEnvData_target","tmpEnv","scaleCol","fillRiver","getMeansDataByRiver","maxYear","selectedVariables","ops","addRiverTagged","modelCMR_tt_OB_target","addFirstLast","dataCMR_WB_2002_2014_target","spawn_month","emerge_day","addLaggedSectionRiverN","addLaggedSection","cdWB_electro","addEnvironmental2","addEnvironmental","ehFilter","addKnownZ2","tt_initialValues_OB","getEHDataWide_AIS","getEH_AIS"],"color":["#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#78B7C5","#354823","#78B7C5","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5","#78B7C5","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#78B7C5","#354823","#78B7C5","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823","#354823"],"id":["cdWB_antenna0_target","cdWB_CMR0_target","cdWB_electro_target","cdWB_electro0_target","cdWB_wanding0_target","countsMetaY_target","countsRSY_target","countsRY_target","dataFlow_target","dFlow_target","dFlowWide_target","eh_OB_2002_2014_target","eh_WB_2002_2014_target","envDataWB_target","envDataWBFlow_target","firstObs_Env_target","firstObs_noTag_target","firstObs_tag_target","firstObs_target","firstObs0_target","firstObsDates_target","firstObsUnnested_target","firstObsUnnested_target0","firstObsUnnestedWB_target","toSave_ttt_WB_target","tt_Cmcmc_OB","tt_Cmodel_OB","tt_conf_OB","tt_inputData_OB","tt_model_OB","tt_modelCode_OB","tt_modelOut_OB","tt_myConstants_OB","tt_myData_OB","tt_parametersToSave_OB","tt_Rmcmc_OB","tt_Rmodel_OB","tt_runData_OB","tt_save_OB","getMeansData","conDplyr","ops_OB","minYear","scale_this","vals","getElectroData_target","getScaled","modelCMR_ttt_WB_target","drainage","%notin%","emerge_month","addIsYOY","spawn_day","op_call","addRiverN","con","scaleEnvData","cols_OB","saveModelOut_tt_OB","envDataWB","getKnown","vals_OB","getInits_tt_OB","plotMeans","getEnvMeans","maxAgeInSamples","getNeverCaptured","runMeanModels","target_globalVariables","cols","dataCMR_OB_2002_2014_target","dataAntenna_target","modelFlow_target","dataWanding_target","modelYOY_target","getEnvData_target","tmpEnv","scaleCol","fillRiver","getMeansDataByRiver","maxYear","selectedVariables","ops","addRiverTagged","modelCMR_tt_OB_target","addFirstLast","dataCMR_WB_2002_2014_target","spawn_month","emerge_day","addLaggedSectionRiverN","addLaggedSection","cdWB_electro","addEnvironmental2","addEnvironmental","ehFilter","addKnownZ2","tt_initialValues_OB","getEHDataWide_AIS","getEH_AIS"],"level":[0,3,4,3,0,7,7,7,1,2,3,5,5,2,2,5,2,2,6,3,4,8,7,9,2,11,9,9,6,12,1,13,7,7,1,10,8,1,14,0,1,0,1,0,1,0,1,0,1,1,1,1,1,1,1,0,1,0,1,1,1,0,1,0,1,1,1,0,0,1,0,0,0,0,0,0,1,1,1,0,1,1,1,1,0,1,0,1,1,0,0,1,2,2,2,2,2,3,4],"shape":["dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","triangle","triangleDown","triangleDown","triangleDown","triangle","triangleDown","triangleDown","triangle","triangleDown","triangleDown","triangle","triangleDown","triangle","triangleDown","triangle","triangle","triangleDown","triangle","triangleDown","triangle","triangleDown","triangle","triangleDown","triangle","triangle","triangle","triangleDown","triangle","triangle","triangleDown","triangleDown","triangleDown","triangleDown","triangleDown","triangleDown","triangleDown","triangleDown","triangleDown","triangle","triangle","triangle","triangleDown","triangleDown","triangleDown","triangle","triangleDown","triangle","triangleDown","triangleDown","triangleDown","triangle","triangle","triangleDown","triangle","triangle","triangle","triangle","triangle","triangle","triangle"]},"edges":{"from":["conDplyr","conDplyr","ehFilter","ehFilter","getEHDataWide_AIS","%notin%","op_call","getKnown","getInits_tt_OB","getNeverCaptured","saveModelOut_tt_OB","tt_modelOut_OB","tt_inputData_OB","firstObs_target","maxYear","minYear","tt_inputData_OB","eh_OB_2002_2014_target","tt_initialValues_OB","cdWB_electro0_target","drainage","cdWB_CMR0_target","cols","getEH_AIS","maxAgeInSamples","ops","vals","cdWB_electro","selectedVariables","addEnvironmental","addFirstLast","addIsYOY","addKnownZ2","addRiverN","addRiverTagged","fillRiver","maxAgeInSamples","scaleEnvData","tt_Cmcmc_OB","tt_runData_OB","firstObs_target","maxYear","minYear","firstObs_noTag_target","firstObs_tag_target","firstObs0_target","tt_model_OB","tt_modelCode_OB","tt_myConstants_OB","tt_runData_OB","dFlow_target","scaleCol","addEnvironmental2","firstObsUnnested_target","firstObs_Env_target","firstObs0_target","tt_parametersToSave_OB","tt_Rmodel_OB","cdWB_electro","selectedVariables","tt_Rmcmc_OB","tt_Rmodel_OB","conDplyr","tt_initialValues_OB","tt_inputData_OB","tt_modelCode_OB","tt_myConstants_OB","tt_myData_OB","firstObs_target","getScaled","emerge_day","emerge_month","envDataWB","firstObsDates_target","getEnvMeans","spawn_day","spawn_month","firstObs_target","maxYear","minYear","tmpEnv","cdWB_CMR0_target","cols","getEH_AIS","maxAgeInSamples","ops","vals","dataFlow_target","envDataWB","maxYear","minYear","tt_conf_OB","countsMetaY_target","firstObsUnnested_target0","tt_Rmodel_OB"],"to":["addEnvironmental2","addEnvironmental","getEHDataWide_AIS","getEH_AIS","getEH_AIS","getEH_AIS","ehFilter","addKnownZ2","tt_initialValues_OB","getEH_AIS","tt_save_OB","tt_save_OB","tt_myData_OB","countsRY_target","countsRY_target","countsRY_target","tt_myConstants_OB","tt_inputData_OB","tt_inputData_OB","cdWB_electro_target","cdWB_electro_target","eh_OB_2002_2014_target","eh_OB_2002_2014_target","eh_OB_2002_2014_target","eh_OB_2002_2014_target","eh_OB_2002_2014_target","eh_OB_2002_2014_target","firstObs_tag_target","firstObs_tag_target","cdWB_CMR0_target","cdWB_CMR0_target","cdWB_CMR0_target","cdWB_CMR0_target","cdWB_CMR0_target","cdWB_CMR0_target","cdWB_CMR0_target","cdWB_CMR0_target","cdWB_CMR0_target","tt_model_OB","tt_model_OB","countsMetaY_target","countsMetaY_target","countsMetaY_target","firstObs0_target","firstObs0_target","firstObsDates_target","tt_modelOut_OB","tt_modelOut_OB","tt_modelOut_OB","tt_modelOut_OB","dFlowWide_target","dFlowWide_target","cdWB_electro0_target","firstObsUnnestedWB_target","firstObs_target","firstObs_target","tt_conf_OB","tt_conf_OB","firstObs_noTag_target","firstObs_noTag_target","tt_Cmcmc_OB","tt_Cmcmc_OB","envDataWB_target","tt_Rmodel_OB","tt_Rmodel_OB","tt_Rmodel_OB","tt_Rmodel_OB","tt_Rmodel_OB","firstObsUnnested_target0","firstObsUnnested_target0","firstObs_Env_target","firstObs_Env_target","firstObs_Env_target","firstObs_Env_target","firstObs_Env_target","firstObs_Env_target","firstObs_Env_target","countsRSY_target","countsRSY_target","countsRSY_target","toSave_ttt_WB_target","eh_WB_2002_2014_target","eh_WB_2002_2014_target","eh_WB_2002_2014_target","eh_WB_2002_2014_target","eh_WB_2002_2014_target","eh_WB_2002_2014_target","dFlow_target","envDataWBFlow_target","envDataWBFlow_target","envDataWBFlow_target","tt_Rmcmc_OB","firstObsUnnested_target","firstObsUnnested_target","tt_Cmodel_OB"],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"edges":{"smooth":{"type":"cubicBezier","forceDirection":"horizontal"}},"physics":{"stabilization":false},"interaction":{"zoomSpeed":1},"layout":{"hierarchical":{"enabled":true,"direction":"LR"}}},"groups":null,"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":{"from":1,"to":1},"algorithm":"hierarchical","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"right","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Up to date","Outdated","Stem","Function","Object"],"color":["#354823","#78B7C5","#899DA4","#899DA4","#899DA4"],"shape":["dot","dot","dot","triangle","triangleDown"]},"nodesToDataframe":true},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./02-getData.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Get data</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
