@@ -46,6 +46,6 @@ list(
   modelYOY_target,
   modelFlow_target,
   modelCMR_tt_OB_target,
-  modelCMR_ttt_WB_target 
-  #tar_quarto(book) # not exactly sure what this does
+  modelCMR_ttt_WB_target, 
+  tar_quarto(book) # not exactly sure what this does
 )
