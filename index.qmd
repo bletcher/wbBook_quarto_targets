@@ -1,16 +1,38 @@
 # Introduction {.unnumbered}
 
-## The West Brook
+## The West Brook stream network
 
-The Ecology Section at the USGS Conte Laboratory has studied fish in the West Brook since 1997. The goal is to understand the strength and direction of drivers on fish growth, movement, reproduction and survival in the wild. We hope to provide a comprehensive understanding of fish population dynamics and ultimately individual fitness (natural selection and evolution) in the study area.
+The Ecology Section at the USGS Conte Laboratory has studied fish in the West Brook (MA, USA) since 1997. The goal is to understand the strength and direction of drivers on fish growth, movement, reproduction and survival in a small stream network. We hope to provide a comprehensive understanding of fish population dynamics and ultimately individual fitness (natural selection and evolution) in the study area.
 
-[Interactive applications](https://pitdata.ecosheds.org/) allow exploration of the raw data.
+See below or [here](https://pitdata.ecosheds.org/) for interactive applications to explore the raw data.
 
 ```{r, echo = FALSE}
-knitr::include_url("https://pitdata.ecosheds.org/", height = "1200px")
+knitr::include_url("https://pitdata.ecosheds.org/", height = "850px")
 ```
 
+Data extraction and manipulation and models are run using targets from the R package `targets`.
+Run the following code to rebuild all the targets.  
+`library(targets) library(quarto)`  
+`tar_make()`   
+Run this code to rebuild the book.  
+`quarto::quarto_render(output_format = "html")`
+
+
+## Mainstem and tributary names
+
+There are four locations within the study area. Here are the primary names and aliases:
+
+| Primary name   | Alias | Alias-long     | River # |
+|----------------|-------|----------------|---------|
+| West Brook     | WB    | West Brook     | 1       |
+| Jimmy Brook    | OL    | Open Large     | 2       |
+| Mitchell Brook | OS    | Open Small     | 3       |
+| OBear Brook    | IL    | Isolated Large | 4       |
+
+: River names and aliases {#tbl-rivers}
+
 ```{r}
-#when .qmd's are in quarto subdir
+#if/when .qmd's are in quarto subdir
 #tar_config_set(store = "../_targets")
 ```
+

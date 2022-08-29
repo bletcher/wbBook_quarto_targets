@@ -15,27 +15,32 @@ library(validate)
 library(targets)
 ```
 
-Get environmental data target
+Get environmental data target and show data frame structure
 
 ```{r getEnvData}
 envDataWB <- tar_read(envDataWB_Target)
 str(envDataWB)
 ```
 
+Plot flow over time for the West Brook by year
 ```{r envDataFlowGraph}
-#| fig-cap: 
-#|   - "Stream flow (m3/s) by river"
+#| label: fig-envFlow
+#| fig-cap: "Stream flow (m3/s) for the West Brook"
 
-ggplot(envDataWB, aes(date, flow)) +
-  geom_point() +
-  facet_wrap(~river)
+ggplot(envDataWB, aes(yday, flow)) +
+  geom_point() + 
+  scale_y_continuous("Day of year") +
+  facet_wrap(~year(date))
 
 
 ```
+Test: referring to @fig-envFlow.
 
+
+Plot temperature over time for each tributary
 ```{r envDataTemperatureGraph}
-#| fig-cap: 
-#|   - "Stream temperature (C) by river"
+#| label: fig-envTemp
+#| fig-cap: "Stream temperature (C) by river"
 
 ggplot(envDataWB, aes(date, temperature)) +
   geom_point(size = 0.5) +

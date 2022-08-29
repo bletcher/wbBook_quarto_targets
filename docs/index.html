@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ben Letcher">
-<meta name="dcterms.date" content="2022-08-24">
+<meta name="dcterms.date" content="2022-08-29">
 
 <title>The West Brook story</title>
 <style>
@@ -172,7 +172,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02-getData.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Get data</span></a>
+  <a href="./02-getData.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Get data info</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -258,7 +258,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
   <ul class="collapse">
-  <li><a href="#the-west-brook" id="toc-the-west-brook" class="nav-link" data-scroll-target="#the-west-brook">The West Brook</a></li>
+  <li><a href="#the-west-brook-stream-network" id="toc-the-west-brook-stream-network" class="nav-link" data-scroll-target="#the-west-brook-stream-network">The West Brook stream network</a></li>
+  <li><a href="#mainstem-and-tributary-names" id="toc-mainstem-and-tributary-names" class="nav-link" data-scroll-target="#mainstem-and-tributary-names">Mainstem and tributary names</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -285,7 +286,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 24, 2022</p>
+      <p class="date">August 29, 2022</p>
     </div>
   </div>
     
@@ -296,16 +297,64 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="introduction" class="level1 unnumbered">
 <h1 class="unnumbered">Introduction</h1>
-<section id="the-west-brook" class="level2">
-<h2 class="anchored" data-anchor-id="the-west-brook">The West Brook</h2>
-<p>The Ecology Section at the USGS Conte Laboratory has studied fish in the West Brook since 1997. The goal is to understand the strength and direction of drivers on fish growth, movement, reproduction and survival in the wild. We hope to provide a comprehensive understanding of fish population dynamics and ultimately individual fitness (natural selection and evolution) in the study area.</p>
-<p><a href="https://pitdata.ecosheds.org/">Interactive applications</a> allow exploration of the raw data.</p>
+<section id="the-west-brook-stream-network" class="level2">
+<h2 class="anchored" data-anchor-id="the-west-brook-stream-network">The West Brook stream network</h2>
+<p>The Ecology Section at the USGS Conte Laboratory has studied fish in the West Brook (MA, USA) since 1997. The goal is to understand the strength and direction of drivers on fish growth, movement, reproduction and survival in a small stream network. We hope to provide a comprehensive understanding of fish population dynamics and ultimately individual fitness (natural selection and evolution) in the study area.</p>
+<p>See below or <a href="https://pitdata.ecosheds.org/">here</a> for interactive applications to explore the raw data.</p>
 <div class="cell">
-<iframe src="https://pitdata.ecosheds.org/" width="672" height="1200px" data-external="1">
+<iframe src="https://pitdata.ecosheds.org/" width="672" height="850px" data-external="1">
 </iframe>
 </div>
+<p>Data extraction and manipulation and models are run using targets from the R package <code>targets</code>. Run the following code to rebuild all the targets.<br>
+<code>library(targets) library(quarto)</code><br>
+<code>tar_make()</code><br>
+Run this code to rebuild the book.<br>
+<code>quarto::quarto_render(output_format = "html")</code></p>
+</section>
+<section id="mainstem-and-tributary-names" class="level2">
+<h2 class="anchored" data-anchor-id="mainstem-and-tributary-names">Mainstem and tributary names</h2>
+<p>There are four locations within the study area. Here are the primary names and aliases:</p>
+<div id="tbl-rivers" class="anchored">
+<table class="table">
+<caption>Table 1: River names and aliases</caption>
+<thead>
+<tr class="header">
+<th>Primary name</th>
+<th>Alias</th>
+<th>Alias-long</th>
+<th>River #</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>West Brook</td>
+<td>WB</td>
+<td>West Brook</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Jimmy Brook</td>
+<td>OL</td>
+<td>Open Large</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>Mitchell Brook</td>
+<td>OS</td>
+<td>Open Small</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>OBear Brook</td>
+<td>IL</td>
+<td>Isolated Large</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#when .qmd's are in quarto subdir</span></span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#if/when .qmd's are in quarto subdir</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#tar_config_set(store = "../_targets")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
