@@ -24,9 +24,8 @@ library(targets)
 
 #### Load pre-run model
 
-This model is too big (88 Gb) and needs to be run on workbench  
+This model is too big (88 Gb) and needs to be run on workbench\
 Output files are here: "C:\Users\bletcher\OneDrive - DOI\projects\westBrook-book\models\cmrFlow4rivers\runsOut\fromWorkbench"
-
 
 ```{r WB_ttt_dirch}
 # Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
@@ -70,8 +69,8 @@ Output files are here: "C:\Users\bletcher\OneDrive - DOI\projects\westBrook-book
   
 ```
 
-Code from westBrook-book
-Needs to be run on workBench
+Code from westBrook-book Needs to be run on workBench
+
 ```{r phiT_pT_psiT_River2_dirch_infPriors, eval=FALSE}
 # copy code below into workbench for model runs
 # Put zipped output into ./models/cmrFlow4rivers/runsOut/fromWorkbench/rstudio-export.zip and then unzip
@@ -498,4 +497,3 @@ if(!useWorkbenchRuns) {
 }
 
 ```
-

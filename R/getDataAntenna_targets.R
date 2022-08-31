@@ -22,6 +22,9 @@ dataAntenna_target <-
         "dateEmigrated",
         "sex",
         "species")
+      ) %>%
+      mutate(riverOrdered = factor(river, levels = c('west brook', 'wb jimmy', 'wb mitchell',"wb obear"),
+                                   labels = c("West Brook","WB Jimmy","WB Mitchell","WB OBear"), ordered = T)
       )
   )
 

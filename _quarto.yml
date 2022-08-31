@@ -12,11 +12,11 @@ book:
     - part: "Get data"
       chapters: 
         - 02-getData.qmd
-        - 03-getEnvData.qmd
-        - 04-getElectroData.qmd
-        - 05-dataCMR.qmd
-        - 06-dataWanding.qmd
-        - 07-dataAntenna.qmd
+        - 03-getDataEnv.qmd
+        - 04-getDataElectro.qmd
+        - 05-getDataCMR.qmd
+        - 06-getDataWanding.qmd
+        - 07-getDataAntenna.qmd
     - part: "General models"
       chapters: 
         - 08-modelYOY.qmd

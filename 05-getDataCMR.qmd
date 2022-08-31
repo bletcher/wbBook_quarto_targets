@@ -1,0 +1,86 @@
+## Create Capture-Recapture data
+
+```{r dataCMROptions, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
+```{r librariesdataCMR, echo = FALSE}
+library(tidyverse)
+library(targets)
+library(kableExtra)
+```
+
+Data are generated in `R/getDataCMR-targets.R` [file](https://github.com/bletcher/wbBook_quarto_targets/blob/main/R/getDataCMR_targets.R)
+
+## Get electrofishing data target WB 
+West brook and 3 tributaries
+
+```{r dataCMR_WB}
+
+cdWB_CMR0_WB <- tar_read(eh_WB_2002_2014_target)
+str(cdWB_CMR0_WB)
+```
+
+```{r}
+#| label: tbl-cmrWBAll
+#| tbl-cap: "Count of CMR data (including 0's) by river"
+
+cdWB_CMR0_WB$data %>% 
+  group_by(riverOrdered, cohort) %>% 
+  summarize(n = n()) %>%
+  pivot_wider(values_from = "n", names_from = "riverOrdered") %>%
+  kable() %>%
+  kable_styling(full_width = T)
+```
+
+
+```{r}
+#| label: tbl-cmrWBEnc1
+#| tbl-cap: "Count of CMR data (encounters only) by river"
+
+cdWB_CMR0_WB$data %>% 
+  filter(enc == 1) %>% 
+  group_by(riverOrdered, cohort) %>% 
+  summarize(n = n()) %>%
+  pivot_wider(values_from = "n", names_from = "riverOrdered") %>%
+  kable() %>%
+  kable_styling(full_width = T)
+```
+
+
+## Get electrofishing data target OB  
+O'Bear also known asl Isolated Large
+
+```{r dataCMR_OB}
+
+cdWB_CMR0_OB <- tar_read(eh_OB_2002_2014_target)
+```
+
+```{r}
+#| label: tbl-cmrOBAll
+#| tbl-cap: "Count of CMR data (including 0's) by river"
+
+cdWB_CMR0_OB$data %>% 
+  group_by(riverOrdered, cohort) %>% 
+  summarize(n = n()) %>%
+  pivot_wider(values_from = "n", names_from = "riverOrdered") %>%
+  kable() %>%
+  kable_styling(full_width = T)
+```
+
+
+```{r}
+#| label: tbl-cmrOBEnc1
+#| tbl-cap: "Count of CMR data (encounters only) by river"
+
+cdWB_CMR0_OB$data %>% 
+  filter(enc == 1) %>% 
+  group_by(riverOrdered, cohort) %>% 
+  summarize(n = n()) %>%
+  pivot_wider(values_from = "n", names_from = "riverOrdered") %>%
+  kable() %>%
+  kable_styling(full_width = T)
+```
+
+
+

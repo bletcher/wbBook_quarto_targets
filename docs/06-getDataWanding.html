@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>The West Brook story - 3&nbsp; Get environmental data</title>
+<title>The West Brook story - 6&nbsp; Get wanding data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -88,8 +88,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./04-getElectroData.html" rel="next">
-<link href="./02-getData.html" rel="prev">
+<link href="./07-getDataAntenna.html" rel="next">
+<link href="./05-getDataCMR.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -119,6 +119,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 }</script>
 
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 
 </head>
 
@@ -128,7 +131,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Get environmental data</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Get wanding data</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -176,27 +179,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03-getEnvData.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Get environmental data</span></a>
+  <a href="./03-getDataEnv.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Get environmental data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04-getElectroData.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Get electrofishing data</span></a>
+  <a href="./04-getDataElectro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Get electrofishing data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05-dataCMR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Create Capture-Recapture data</span></a>
+  <a href="./05-getDataCMR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Create Capture-Recapture data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06-dataWanding.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Get wanding data</span></a>
+  <a href="./06-getDataWanding.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Get wanding data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07-dataAntenna.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Get antenna data</span></a>
+  <a href="./07-getDataAntenna.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Get antenna data</span></a>
   </div>
 </li>
       </ul>
@@ -251,14 +254,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#get-wanding-data-target" id="toc-get-wanding-data-target" class="nav-link active" data-scroll-target="#get-wanding-data-target"> <span class="header-section-number">6.1</span> Get wanding data target</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Get environmental data</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Get wanding data</span></h1>
 </div>
 
 
@@ -275,54 +284,182 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 
 </div>
-<p>Get environmental data target and show data frame structure</p>
+<p>Data are generated in <code>R/getDataWanding-targets.R</code> <a href="https://github.com/bletcher/wbBook_quarto_targets/blob/main/R/getDataWanding_targets.R">file</a></p>
+<section id="get-wanding-data-target" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="get-wanding-data-target"><span class="header-section-number">6.1</span> Get wanding data target</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>envDataWB <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(envDataWB_Target)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(envDataWB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>cdWB_wanding0 <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cdWB_wanding0_target)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cdWB_wanding0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>tibble [32,189 × 8] (S3: tbl_df/tbl/data.frame)
- $ river         : chr [1:32189] "wb jimmy" "wb jimmy" "wb jimmy" "wb jimmy" ...
- $ date          : POSIXct[1:32189], format: "1997-05-14 04:00:00" "1997-05-15 04:00:00" ...
- $ temperature   : num [1:32189] 11.57 10.4 10.55 8.84 9.09 ...
- $ daily_max_temp: num [1:32189] 11.6 12.3 11.9 10.2 11.6 ...
- $ daily_min_temp: num [1:32189] 11.57 8.96 9.73 7.74 7.45 ...
- $ flow          : num [1:32189] NA NA NA NA NA NA NA NA NA NA ...
- $ dateDate      : Date[1:32189], format: "1997-05-14" "1997-05-15" ...
- $ yday          : num [1:32189] 134 135 136 137 138 139 140 141 142 143 ...</code></pre>
+<pre><code>tibble [14,880 × 20] (S3: tbl_df/tbl/data.frame)
+ $ tag          : chr [1:14880] "00088cf41b" "00088cf41b" "00088cf41b" "00088cf435" ...
+ $ detectionDate: POSIXct[1:14880], format: "2010-09-27 15:08:45" "2010-10-18 18:16:22" ...
+ $ sampleName   : chr [1:14880] "92710.00" "101810.00" "102510.00" "12610.00" ...
+ $ river        : chr [1:14880] "wb jimmy" "wb jimmy" "wb jimmy" "wb jimmy" ...
+ $ section      : chr [1:14880] "13" "14" "14" "2" ...
+ $ area         : chr [1:14880] "trib" "trib" "trib" "trib" ...
+ $ survey       : chr [1:14880] "portableAntenna" "portableAntenna" "portableAntenna" "portableAntenna" ...
+ $ readerId     : chr [1:14880] "iso" "iso" "iso" "iso" ...
+ $ aliveOrDead  : chr [1:14880] "alive" "alive" NA "alive" ...
+ $ instance     : num [1:14880] 1 2 3 1 1 1 2 1 1 1 ...
+ $ pass         : num [1:14880] NA NA NA NA NA NA NA NA NA NA ...
+ $ quarter      : num [1:14880] 2 1 NA 4 2 4 4 3 4 2 ...
+ $ leftOrRight  : chr [1:14880] "l" "m" NA "r" ...
+ $ habitat      : chr [1:14880] "pool" "run" NA "pool" ...
+ $ cover        : chr [1:14880] NA NA NA NA ...
+ $ justification: chr [1:14880] NA NA NA NA ...
+ $ comment      : chr [1:14880] NA NA NA NA ...
+ $ species      : chr [1:14880] "bkt" "bkt" "bkt" "bkt" ...
+ $ cohort       : num [1:14880] 2010 2010 2010 2010 2009 ...
+ $ riverOrdered : Ord.factor w/ 4 levels "West Brook"&lt;"WB Jimmy"&lt;..: 2 2 2 2 2 2 2 2 2 3 ...</code></pre>
 </div>
 </div>
-<p>Plot flow over time for the West Brook by year</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envDataWB, <span class="fu">aes</span>(yday, flow)) <span class="sc">+</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Day of year"</span>) <span class="sc">+</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span><span class="fu">year</span>(date))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cdWB_wanding0 <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(riverOrdered, cohort) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">values_from =</span> <span class="st">"n"</span>, <span class="at">names_from =</span> <span class="st">"riverOrdered"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(cohort) <span class="sc">%&gt;%</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-envFlow" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="03-getEnvData_files/figure-html/fig-envFlow-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Figure 3.1: Stream flow (m3/s) for the West Brook</figcaption><p></p>
-</figure>
+<div id="tbl-wandAll" class="anchored">
+
+<table class="table" style="margin-left: auto; margin-right: auto;"><caption>Table 6.1:  Count of wanding data by river </caption>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> cohort </th>
+   <th style="text-align:right;"> West Brook </th>
+   <th style="text-align:right;"> WB Jimmy </th>
+   <th style="text-align:right;"> WB Mitchell </th>
+   <th style="text-align:right;"> WB OBear </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1996 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1997 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1998 </td>
+   <td style="text-align:right;"> 33 </td>
+   <td style="text-align:right;"> 41 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1999 </td>
+   <td style="text-align:right;"> 141 </td>
+   <td style="text-align:right;"> 44 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2000 </td>
+   <td style="text-align:right;"> 352 </td>
+   <td style="text-align:right;"> 211 </td>
+   <td style="text-align:right;"> 116 </td>
+   <td style="text-align:right;"> 66 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2001 </td>
+   <td style="text-align:right;"> 1966 </td>
+   <td style="text-align:right;"> 1022 </td>
+   <td style="text-align:right;"> 414 </td>
+   <td style="text-align:right;"> 639 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2002 </td>
+   <td style="text-align:right;"> 2169 </td>
+   <td style="text-align:right;"> 615 </td>
+   <td style="text-align:right;"> 467 </td>
+   <td style="text-align:right;"> 894 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2003 </td>
+   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 650 </td>
+   <td style="text-align:right;"> 277 </td>
+   <td style="text-align:right;"> 1004 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2004 </td>
+   <td style="text-align:right;"> 195 </td>
+   <td style="text-align:right;"> 118 </td>
+   <td style="text-align:right;"> 298 </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2005 </td>
+   <td style="text-align:right;"> 61 </td>
+   <td style="text-align:right;"> 51 </td>
+   <td style="text-align:right;"> 90 </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2006 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 95 </td>
+   <td style="text-align:right;"> 126 </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2007 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 125 </td>
+   <td style="text-align:right;"> 256 </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2008 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 186 </td>
+   <td style="text-align:right;"> 41 </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2009 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 1089 </td>
+   <td style="text-align:right;"> 840 </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2010 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 50 </td>
+   <td style="text-align:right;"> 28 </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+</tbody>
+</table>
+
 </div>
 </div>
 </div>
-<p>Test: referring to <a href="#fig-envFlow">Figure&nbsp;<span>3.1</span></a>.</p>
-<p>Plot temperature over time for each tributary</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envDataWB, <span class="fu">aes</span>(date, temperature)) <span class="sc">+</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>river)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="fig-envTemp" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="03-getEnvData_files/figure-html/fig-envTemp-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Figure 3.2: Stream temperature (C) by river</figcaption><p></p>
-</figure>
-</div>
-</div>
+
 </div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -424,13 +561,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./02-getData.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Get data info</span></span>
+      <a href="./05-getDataCMR.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Create Capture-Recapture data</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./04-getElectroData.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Get electrofishing data</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./07-getDataAntenna.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Get antenna data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

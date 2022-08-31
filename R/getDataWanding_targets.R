@@ -11,6 +11,7 @@ dataWanding_target <-
                          "area", 
                          "section", 
                          "survey", 
+                         "cohort",
                          "sampleName", 
                          "readerId", 
                          "aliveOrDead", 
@@ -24,5 +25,8 @@ dataWanding_target <-
                          "comment")
       ) %>% 
       addTagProperties() %>%
-      dplyr::filter(species %in% c( "bkt","bnt","ats" ))
+      dplyr::filter(species %in% c( "bkt","bnt","ats" )) %>%
+      mutate(riverOrdered = factor(river, levels = c('west brook', 'wb jimmy', 'wb mitchell',"wb obear"),
+                            labels = c("West Brook","WB Jimmy","WB Mitchell","WB OBear"), ordered = T)
+      )
   )

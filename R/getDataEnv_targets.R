@@ -10,7 +10,10 @@ getEnvData_target <-
       select(-source) %>% 
       rename(temperature = daily_mean_temp, flow = qPredicted) %>%
       mutate(dateDate = as_date(date),
-             yday = yday(dateDate))
+             yday = yday(dateDate))%>%
+      mutate(riverOrdered = factor(river, levels = c('west brook', 'wb jimmy', 'wb mitchell',"wb obear"),
+                                   labels = c("West Brook","WB Jimmy","WB Mitchell","WB OBear"), ordered = T)
+      )
   )  
 
 

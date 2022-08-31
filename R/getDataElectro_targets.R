@@ -33,7 +33,10 @@ getElectroData_target <-
                     area %in% c("trib","inside","below","above"),
                     !is.na(sampleNumber)) %>%
       addSampleProperties() %>%
-      addEnvironmental2(),
+      addEnvironmental2() %>%
+      mutate(riverOrdered = factor(river, levels = c('west brook', 'wb jimmy', 'wb mitchell',"wb obear"),
+                                   labels = c("West Brook","WB Jimmy","WB Mitchell","WB OBear"), ordered = T)
+      ),
     
     # functions in getPrepareWBData library
     cdWB_electro_target = cdWB_electro0_target %>%

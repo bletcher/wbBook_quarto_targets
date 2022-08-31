@@ -15,34 +15,42 @@ library(validate)
 library(targets)
 ```
 
-Get environmental data target and show data frame structure
+Data are generated in `R/getDataEnv-targets.R` [file](https://github.com/bletcher/wbBook_quarto_targets/blob/main/R/getDataEnv_targets.R)  
+
+## Get environmental data target and show data frame structure
 
 ```{r getEnvData}
 envDataWB <- tar_read(envDataWB_Target)
 str(envDataWB)
 ```
 
-Plot flow over time for the West Brook by year
+## Plot flow over time for the West Brook by year
+
 ```{r envDataFlowGraph}
 #| label: fig-envFlow
 #| fig-cap: "Stream flow (m3/s) for the West Brook"
 
 ggplot(envDataWB, aes(yday, flow)) +
-  geom_point() + 
-  scale_y_continuous("Day of year") +
+  geom_point(size = 0.1) + 
+  #geom_line() +
+  scale_x_continuous("Day of year") +
+  scale_y_continuous("Stream flow (m^3/s)") +
   facet_wrap(~year(date))
 
 
 ```
+
 Test: referring to @fig-envFlow.
 
+## Plot temperature over time for each tributary
 
-Plot temperature over time for each tributary
 ```{r envDataTemperatureGraph}
 #| label: fig-envTemp
 #| fig-cap: "Stream temperature (C) by river"
 
 ggplot(envDataWB, aes(date, temperature)) +
-  geom_point(size = 0.5) +
+  geom_point(size = 0.2) +
+  scale_x_continuous("Day of year") +
+  scale_y_continuous("Stream temperature (C)") +
   facet_wrap(~river)
 ```

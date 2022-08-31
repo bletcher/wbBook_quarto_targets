@@ -19,8 +19,10 @@ library(targets)
 # use this if command above doesn't work: options(download.file.method = "wininet")
 #library(getPrepareWBData)
 ```
+Data are generated in `R/getDataAntenna-targets.R` [file](https://github.com/bletcher/wbBook_quarto_targets/blob/main/R/getDataAntenna_targets.R)  
 
-Get antenna data target
+
+## Get antenna data target
 
 ```{r dataAntenna}
 
@@ -29,22 +31,3 @@ str(cdWB_antenna0)
 
 ```
 
-```{r}
-# eh <- tar_read(eh_target)
-# 
-# fileName = paste0("eh_", stri_paste_list(vals, collapse = "_"))
-# save(eh, file = paste0('./models/cmrFlow4rivers/dataOut/', fileName, '.RData'))
-```
-
-```{r }
-#| fig-cap: 
-#|   - "length/weight graph"
-
-
-
-
-```
-
-```{r }
-
-```

@@ -56,7 +56,10 @@ dataCMR_WB_2002_2014_target <-
       addRiverTagged() %>%
       scaleEnvData() %>%
       addIsYOY() %>%
-      addRiverN(),
+      addRiverN()%>%
+      mutate(riverOrdered = factor(river, levels = c('west brook', 'wb jimmy', 'wb mitchell',"wb obear"),
+                                   labels = c("West Brook","WB Jimmy","WB Mitchell","WB OBear"), ordered = T)
+      ),
 
    eh_WB_2002_2014_target = getEH_AIS(cdWB_CMR0_target, cols, ops, vals, maxAgeInSamples)#, maxIndexByCohort = 100)
   )  

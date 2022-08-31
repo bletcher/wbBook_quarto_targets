@@ -18,26 +18,33 @@ library(targets)
 #library(getPrepareWBData)
 ```
 
-Get electrofishing data target
+Data are generated in `R/getDataElectro-targets.R` [file](https://github.com/bletcher/wbBook_quarto_targets/blob/main/R/getDataElectro_targets.R)  
+
+
+## Get electrofishing data target
 
 ```{r getEnvData}
 cdWB_electro <- tar_read(cdWB_electro_target)
 str(cdWB_electro)
 ```
 
+## Length-weight graph
+
 ```{r electroDataFlowGraph}
-#| label: fig-electroLW
-#| fig-cap: "Length - weight graph"
+#| label: fig-electroLM
+#| fig-cap: "Length - mass graph"
 
 ggplot(cdWB_electro, aes(observedLength, observedWeight, color = species)) +
-  geom_point(alpha = 0.1) +
-  scale_x_log10() +
-  scale_y_log10() +
+  geom_point(size = 0.75, alpha = 0.1) +
+  scale_x_log10("Length (mm)") +
+  scale_y_log10("Mass (mg)") +
 #  theme_publication() +
   facet_wrap(~ species)
 
 
 ```
+
+## Length-weight regression
 
 ```{r lwReg}
 lwReg <- cdWB_electro %>%
