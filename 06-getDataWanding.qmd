@@ -10,18 +10,28 @@ library(lubridate)
 library(getWBData)
 library(targets)
 library(kableExtra)
+
+library(lme4)
+library(merTools)
 ```
 
-Data are generated in `R/getDataWanding-targets.R` [file](https://github.com/bletcher/wbBook_quarto_targets/blob/main/R/getDataWanding_targets.R)  
+Data are generated in `R/getDataWanding-targets.R` [file](https://github.com/bletcher/wbBook_quarto_targets/blob/main/R/getDataWanding_targets.R)
+
+Thinking about using the wanding data to evaluate whether we can use the seasonal shocking data to talk about patterns of movement. If there is a lot of movement in the wanding data, may be difficult to justify using the 4 seasonal samples to describe movemenmts. If not much movement, may be ok.  
+Also, just interesting to see movement patterns from the wanding data.  
 
 
-## Get wanding data target
+## Get wanding data targets
 
 ```{r dataWanding}
 
 cdWB_wanding0 <- tar_read(cdWB_wanding0_target)
 str(cdWB_wanding0)
 
+cdWB_wandingTribs3 <- tar_read(cdWB_wandingTribs3_target)
+
+cdWB_wandingWB2 <- tar_read(cdWB_wandingWB2_target)
+cdWB_wandingWB3 <- tar_read(cdWB_wandingWB3_target)
 ```
 
 ```{r}
@@ -41,6 +51,246 @@ cdWB_wanding0 %>%
 #| label: fig-wanding
 #| fig-cap: "graph"
 
+
+```
+## All wanding data  
+Based on the following, looks like best data for analysis are trout in the tribs in 2009 2010. Need to decide what to do for salmon
+```{r rawWandingDataGraphs}
+
+#everything
+ggplot(cdWB_wanding0, aes(j, sectionWQuarter, color = tag) )+
+  geom_point()+
+  geom_line() +
+  scale_y_continuous(limits = c(0,50))+
+  theme(legend.position = "none")+
+  ggtitle("Everything") +
+  facet_grid(riverOrdered ~ year)
+
+#everything
+ggplot(filter(cdWB_wanding0, aliveOrDead != 'dead'), aes(j, sectionWQuarter, color = tag) )+
+  geom_point()+
+  geom_line() +
+  scale_y_continuous(limits = c(0, 50))+
+  theme(legend.position = "none")+
+  ggtitle("Not dead") +
+  facet_grid(river~year)
+
+```
+## West brook
+```{r, cache=TRUE}
+# Loop over species
+for (s in unique(cdWB_wanding0$species)) {
+  tmp <-
+    ggplot(filter(cdWB_wanding0, river == "west brook" & species==s & aliveOrDead != 'dead'), 
+           aes(detectionDate,sectionWQuarter, color = tag))+
+    geom_point(size=2)+
+    geom_line() +
+    scale_y_continuous(limits = c(30,35))+
+    theme(legend.position = "none")+
+    ggtitle(paste("WB", s, "not dead")) +
+    facet_wrap(~ year, scales = 'free')
+  print(tmp)
+}
+```
+
+
+## Tributaries
+```{r, cache=TRUE}
+# Tribs
+# Loop over species
+for (s in c("bkt","bnt") ) {
+  tmp2 <-
+    ggplot(filter(cdWB_wanding0, river!="west brook" & species == s & aliveOrDead != 'dead'), 
+           aes(detectionDate,sectionWQuarter, group = tag) )+
+    geom_point(aes(shape = aliveOrDead), size = 2)+
+    geom_line() +
+    scale_y_continuous(limits = c(-2, 15))+
+    #  theme(legend.position="none")+
+    ggtitle(paste("Tribs", s, "not dead")) +
+    facet_grid(river ~ year, scales = 'free')
+  print(tmp2)
+}
+
+```
+
+## Which species_year_tributary?  
+Raw data graphs for the 4 sets of data to focus on
+```{r wanding_yearByYear, cache=TRUE}
+
+# Tribs - focus on a year
+for (s in c("bkt", "bnt") ) {
+  for (y in c(2009, 2010) ) {
+    for (r in c("wb mitchell", "wb jimmy", "wb obear")) {
+
+      tmp <-
+        ggplot(filter(cdWB_wanding0, river == r & species == s & year == y & aliveOrDead != 'dead'), 
+               aes(detectionDate,sectionWQuarter, color = tag))+
+        geom_point(aes(shape=aliveOrDead),size=2)+
+        geom_line() +
+        #  scale_y_continuous(limits=c(0,15))+
+        theme(legend.position="none")+
+        ggtitle(paste("Tribs", s, y, r, "not dead"))
+      #  facet_grid(species~year,scales='free')
+
+      print(tmp)
+    }
+  }
+}
+
+```
+
+## Movement
+```{r}
+table(cdWB_wandingTribs3$month, cdWB_wandingTribs3$river, cdWB_wandingTribs3$year)
+
+ ggplot(cdWB_wandingTribs3, aes(moveRate, color = species)) +
+   geom_freqpoly() +
+   facet_grid(river ~ year)
+```
+
+```{r}
+#Jimmy on the left, Mitchell on the right
+ggplot(cdWB_wandingTribs3, aes(moveRate, linetype = species)) +
+  geom_freqpoly(binwidth=5,origin = min(cdWB_wandingTribs3$moveRate)) +
+  scale_x_continuous("Movement rate (m/week)") +
+  scale_y_continuous("Frequency") +
+  theme_bw(base_size=25)+
+  theme( strip.background = element_blank(),
+         strip.text = element_blank(),
+         legend.position = "none") +
+  facet_grid(~ river)
+
+```
+## Intervals
+```{r}
+# #Cut moveTime into intervals to make sure patterns look same for recaptures of different intervals
+
+# ggplot(cdWB_wandingTribs4_target, aes( moveRate, color=interval ) ) +
+#   geom_freqpoly() +
+#   facet_grid(river~year+species)
+
+ #Try a boxplot
+ ggplot( cdWB_wandingTribs3 %>% filter(month %in% 9:11), 
+         aes( factor(month),moveRate, color = species ) ) +
+   geom_boxplot() +
+   facet_grid(river~year)
+
+```
+
+## Random effect models
+```{r}
+# RE model for individual movement variation
+# 
+ mod0 <- lmer(abs(moveRate) ~ (1|tag), data = cdWB_wandingTribs3)
+# ####
+ mod1 <- lmer(abs(moveRate) ~ factor(species) + (1|tag), data = cdWB_wandingTribs3)
+# ####
+ mod2 <- lmer(abs(moveRate) ~ factor(species) * factor(month) + (1|tag), data = cdWB_wandingTribs3)
+# ####
+ mod3 <- lmer(abs(moveRate) ~ factor(species) + factor(month) + factor(year) + (1|tag), data = cdWB_wandingTribs3)
+# ####
+ mod4 <- lmer(abs(moveRate) ~ factor(species) * factor(month) * factor(year) + (1|tag), data = cdWB_wandingTribs3)
+# 
+ AIC(mod0,mod1,mod2,mod3,mod4) %>% arrange(AIC)
+# 
+ summary(mod4)
+# 
+ randoms <- REsim( mod4, n.sims = 1000 )
+ plotREsim(randoms)
+# 
+
+ ggplot(randoms, aes(mean)) + 
+   geom_histogram(binwidth = 0.75, boundary = min(randoms$mean)) +
+   scale_x_continuous("Indivdual random effect for movement rate (m/week)") +
+   scale_y_continuous("Frequency") +
+   theme_bw(base_size = 25)
+
+# # % of fish with CI that don't overlap 0
+ randoms$lCI <- randoms$mean - randoms$sd * 1.96
+ randoms$uCI <- randoms$mean + randoms$sd * 1.96
+ randoms$sig <- (randoms$uCI < 0 | randoms$lCI > 0)
+# 
+ count(randoms, sig)$n/nrow(randoms)
+
+```
+
+## Young-of-year fish
+```{r}
+ggplot(cdWB_wandingTribs3, aes(moveRate, linetype = species)) +
+  geom_freqpoly() +
+  scale_x_continuous("Movement rate (m/week)") +
+  scale_y_continuous("Frequency") +
+  #theme_bw(base_size=25)+
+  facet_grid(month ~ yoy + river)
+
+```
+
+## West Brook
+Calculate and plot movement  
+Did not filter by moveTime > 1 because there were within-day samples in the WB (in contrast to the tribs)
+
+```{r wb}
+
+table(cdWB_wandingWB3$species,cdWB_wandingWB3$month,cdWB_wandingWB3$river,cdWB_wandingWB3$year)
+# 
+# # raw
+ ggplot(cdWB_wandingWB3, aes(j,sectionWQuarter,color = tag)) +
+   geom_point()+
+   geom_line() +
+   #  scale_y_continuous(limits=c(0,50))+
+   theme(legend.position="none")+
+   ggtitle("Not dead") +
+   facet_grid(river~year)
+
+ ggplot(cdWB_wandingWB3, aes(moveRate, color = species)) +
+   geom_freqpoly() +
+   facet_grid(river ~ year)
+
+ ggplot(cdWB_wandingWB3, aes(moveRate, linetype=species)) +
+   geom_freqpoly(binwidth = 5, boundary = min(cdWB_wandingWB3$moveRate, na.rm=T)) +
+   scale_x_continuous("Movement rate (m/week)") +
+   scale_y_continuous("Frequency") +
+   theme_bw(base_size=25)+
+   theme( strip.background = element_blank(),
+          strip.text = element_blank(),
+          legend.position = "none") 
+# #ats is solid line
+
+# 
+```
+
+## West Brook models
+```{r RE model for individual movement variation WB}
+ 
+  mod0WB <- lmer( abs(moveRate) ~ (1|tag), data=cdWB_wandingWB3 )
+  ####
+  mod1WB <- lmer( abs(moveRate) ~ factor(species) + (1|tag), data=cdWB_wandingWB3 )
+  ####
+  mod2WB <- lmer( abs(moveRate) ~ factor(species) * factor(month) + (1|tag), data=cdWB_wandingWB3 )
+  ####
+  mod3WB <- lmer( abs(moveRate) ~ factor(species) + factor(month) + factor(year) + (1|tag), data=cdWB_wandingWB3 )
+ 
+ 
+  AIC(mod0WB,mod1WB,mod2WB,mod3WB) %>% arrange(AIC)
+ 
+  summary(mod2WB)
+ 
+  randomsWB <- REsim(mod2WB, n.sims = 1000)
+  plotREsim(randomsWB)
+  
+
+  ggplot(randomsWB, aes(mean)) +
+    geom_histogram(binwidth = 4.75, boundary = min(randomsWB$mean)) +
+    scale_x_continuous("Indivdual random effect for movement rate (m/week)") +
+    scale_y_continuous("Frequency") +
+    theme_bw(base_size = 25)
+
+  # % of fish with CI that don't overlap 0
+  randomsWB$lCI <- randomsWB$mean - randomsWB$sd * 1.96
+  randomsWB$uCI <- randomsWB$mean + randomsWB$sd * 1.96
+  randomsWB$sig <- (randomsWB$uCI < 0 | randomsWB$lCI > 0)
+  
+  count(randomsWB,sig)$n/nrow(randomsWB)
 
 ```
 

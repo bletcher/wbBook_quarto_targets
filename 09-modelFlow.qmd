@@ -29,7 +29,7 @@ dFlow %>% filter(is.infinite(dischargeLog))
 
 ```
 
-```{r flowPlots}
+```{r flowPlots, cache=TRUE}
 
 ggplot(dFlow, aes(date, dischargeLog, color = Site_Name)) +
   geom_point(size = 0.02) +

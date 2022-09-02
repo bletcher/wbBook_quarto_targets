@@ -47,5 +47,5 @@ list(
   modelFlow_target,
   modelCMR_tt_OB_target,
   modelCMR_ttt_WB_target, 
-  tar_quarto(book) # not exactly sure what this does
+  tar_quarto(book) # not exactly sure what this does, except create correct tar_visualize() result
 )
