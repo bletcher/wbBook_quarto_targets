@@ -18,6 +18,27 @@ getElectroData_target <-
                        "observedLength",
                        "observedWeight",
                        "comments"),
+      # # merged electro, wanding, and antenna
+      #   columnsToAdd = c("sampleNumber",
+      #                    "detectionDate", 
+      #                    "river", 
+      #                    "area", 
+      #                    "section", 
+      #                    "survey", 
+      #                    #"cohort",
+      #                    "sampleName", 
+      #                    "readerId", 
+      #                    "aliveOrDead", 
+      #                    "instance", 
+      #                    "pass", 
+      #                    "quarter", 
+      #                    "leftOrRight", 
+      #                    "habitat", 
+      #                    "cover", 
+      #                    "observedLength",
+      #                    "observedWeight",
+      #                    "justification", 
+      #                    "comment"),
       includeUntagged = TRUE,
       whichDrainage = "west"
     ) %>%
@@ -25,8 +46,7 @@ getElectroData_target <-
         columnsToAdd = c("cohort",
                          "species",
                          "dateEmigrated",
-                         "sex",
-                         "species"
+                         "sex"
         )
       ) %>%
       dplyr::filter(species %in% c( "bkt","bnt","ats"),
@@ -35,7 +55,21 @@ getElectroData_target <-
       addSampleProperties() %>%
       addEnvironmental2() %>%
       mutate(riverOrdered = factor(river, levels = c('west brook', 'wb jimmy', 'wb mitchell',"wb obear"),
-                                   labels = c("West Brook","WB Jimmy","WB Mitchell","WB OBear"), ordered = T)
+                                   labels = c("West Brook","WB Jimmy","WB Mitchell","WB OBear"), ordered = T),
+             # # variables to allow merging with wanding data
+             readerId = NA,
+             sectionN = as.numeric(section),
+             aliveOrDead = "alive",
+             instance = NA,
+             quarter = NA,
+             leftOrRight = NA,
+             habitat = NA,
+             cover = NA,
+             justification = NA,
+             sectionWQuarter = NA,
+             j = NA, # not sure what this is,
+             
+             date = date(detectionDate)
       ),
     
     # functions in getPrepareWBData library

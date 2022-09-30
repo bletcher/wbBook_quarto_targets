@@ -40,12 +40,14 @@ list(
   getEnvData_target,
   getElectroData_target,
   dataCMR_WB_2002_2014_target,
-  dataCMR_OB_2002_2014_target, #dataCMR_target,
+  dataCMR_OB_2002_2014_target, 
+  #dataCMR_target,
   dataWanding_target,
   dataAntenna_target,
+  dataAll_target,
   modelYOY_target,
   modelFlow_target,
-  modelCMR_tt_OB_target,
-  modelCMR_ttt_WB_target, 
-  tar_quarto(book) # not exactly sure what this does, except create correct tar_visualize() result
+  # modelCMR_tt_OB_target,
+  # modelCMR_ttt_WB_target, 
+   tar_quarto(book) # not exactly sure what this does, except create correct tar_visualize() result
 )

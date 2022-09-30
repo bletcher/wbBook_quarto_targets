@@ -49,7 +49,7 @@ cdWB_CMR0_WB$data %>%
 
 
 ## Get electrofishing data target OB  
-O'Bear also known asl Isolated Large
+O'Bear also known as Isolated Large
 
 ```{r dataCMR_OB}
 

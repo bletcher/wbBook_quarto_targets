@@ -12,16 +12,17 @@ dataAntenna_target <-
           "survey",
           #"section",
           "readerID",
-          "comment"
+          "comments"
         )
       ) %>%  
       filter(!is.na(tag)) %>% # for now
-      addTagProperties(columnsToAdd = c(
-        "cohort",
-        "species",
-        "dateEmigrated",
-        "sex",
-        "species")
+      addTagProperties(
+        columnsToAdd = c("cohort",
+                         "species",
+                         "dateEmigrated",
+                         "sex",
+                         "species"
+                        )
       ) %>%
       mutate(riverOrdered = factor(river, levels = c('west brook', 'wb jimmy', 'wb mitchell',"wb obear"),
                                    labels = c("West Brook","WB Jimmy","WB Mitchell","WB OBear"), ordered = T)
@@ -31,7 +32,7 @@ dataAntenna_target <-
     sites_target = data.frame(tbl(conDplyr,"data_sites")) %>%
       filter(is.na(quarter) & !is.na(quarter_length) & drainage == 'west') %>% 
       select(-quarter) %>%
-      mutate(section = as.numeric(section)) %>%
+      #mutate(section = as.numeric(section)) %>%
       rename(riverMeter = river_meter)
   )
 
@@ -44,12 +45,13 @@ updateAntennaData <- function(d0, s) {
   d <- left_join(d0, s)
   
   # some formatting fixes
-  d$sectionOriginal <- d$section
+  d$sectionOriginal <- as.character(d$section)
   d$section <- as.numeric(d$section)
   d$inside <- ifelse(d$section %in% 1:47 | d$survey == "stationaryAntenna", T, F)
 
   d$year <- year(d$detectionDate)
   d$yday <- yday(d$detectionDate)
+  d$date <- date(d$detectionDate)
 
   d <- d %>%
     group_by(tag) %>%

@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>The West Brook story - 8&nbsp; Young-of-year size model</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./09-modelFlow.html" rel="next">
+<link href="./07-dataAntenna.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Young-of-year size model</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">The West Brook story</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Introduction</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-vizTargets.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Visualize targets</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Get data</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-getData.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Get data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-getEnvData.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Get environmental data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-getElectroData.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Get electrofishing data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-dataCMR.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Create Capture-Recapture data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-dataWanding.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Get wanding data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-dataAntenna.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Get antenna data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">General models</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-modelYOY.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Young-of-year size model</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-modelFlow.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Flow model</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Capture-recpature models</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-modelsCMR_Flow_OB.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Flow effects on survival (phi) models - O’Bear only</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-modelsCMR_Flow_4Rivers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Flow effects on survival (phi) models - 4 rivers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#raw-data-for-yoy-model" id="toc-raw-data-for-yoy-model" class="nav-link active" data-scroll-target="#raw-data-for-yoy-model"> <span class="header-section-number">8.1</span> Raw data for YOY model</a></li>
+  <li><a href="#get-data-from-targets" id="toc-get-data-from-targets" class="nav-link" data-scroll-target="#get-data-from-targets"> <span class="header-section-number">8.2</span> Get data from targets</a></li>
+  <li><a href="#get-first-observations" id="toc-get-first-observations" class="nav-link" data-scroll-target="#get-first-observations"> <span class="header-section-number">8.3</span> Get first observations</a>
+  <ul class="collapse">
+  <li><a href="#counts-of-captured-fish" id="toc-counts-of-captured-fish" class="nav-link" data-scroll-target="#counts-of-captured-fish"> <span class="header-section-number">8.3.1</span> Counts of captured fish</a></li>
+  </ul></li>
+  <li><a href="#raw-data-plots" id="toc-raw-data-plots" class="nav-link" data-scroll-target="#raw-data-plots"> <span class="header-section-number">8.4</span> Raw data plots</a>
+  <ul class="collapse">
+  <li><a href="#frequency-plots-by-species-and-river" id="toc-frequency-plots-by-species-and-river" class="nav-link" data-scroll-target="#frequency-plots-by-species-and-river"> <span class="header-section-number">8.4.1</span> Frequency plots by species and river</a></li>
+  <li><a href="#brook-trout-west-brook" id="toc-brook-trout-west-brook" class="nav-link" data-scroll-target="#brook-trout-west-brook"> <span class="header-section-number">8.4.2</span> Brook Trout, West brook</a></li>
+  <li><a href="#brook-trout-wb-jimmy" id="toc-brook-trout-wb-jimmy" class="nav-link" data-scroll-target="#brook-trout-wb-jimmy"> <span class="header-section-number">8.4.3</span> Brook Trout, wb jimmy</a></li>
+  <li><a href="#brook-trout-wb-mitchell" id="toc-brook-trout-wb-mitchell" class="nav-link" data-scroll-target="#brook-trout-wb-mitchell"> <span class="header-section-number">8.4.4</span> Brook Trout, wb mitchell</a></li>
+  <li><a href="#brook-trout-wb-obear" id="toc-brook-trout-wb-obear" class="nav-link" data-scroll-target="#brook-trout-wb-obear"> <span class="header-section-number">8.4.5</span> Brook Trout, wb obear</a></li>
+  <li><a href="#brown-trout-west-brook" id="toc-brown-trout-west-brook" class="nav-link" data-scroll-target="#brown-trout-west-brook"> <span class="header-section-number">8.4.6</span> Brown Trout, West brook</a></li>
+  <li><a href="#brown-trout-wb-jimmy" id="toc-brown-trout-wb-jimmy" class="nav-link" data-scroll-target="#brown-trout-wb-jimmy"> <span class="header-section-number">8.4.7</span> Brown Trout, wb jimmy</a></li>
+  <li><a href="#brown-trout-wb-mitchell" id="toc-brown-trout-wb-mitchell" class="nav-link" data-scroll-target="#brown-trout-wb-mitchell"> <span class="header-section-number">8.4.8</span> Brown Trout, wb mitchell</a></li>
+  <li><a href="#brown-trout-wb-obear---there-are-no-brown-trout-in-obear" id="toc-brown-trout-wb-obear---there-are-no-brown-trout-in-obear" class="nav-link" data-scroll-target="#brown-trout-wb-obear---there-are-no-brown-trout-in-obear"> <span class="header-section-number">8.4.9</span> Brown Trout, wb obear - there are no Brown trout in O’Bear</a></li>
+  <li><a href="#trout-in-the-wb-mainstem-only" id="toc-trout-in-the-wb-mainstem-only" class="nav-link" data-scroll-target="#trout-in-the-wb-mainstem-only"> <span class="header-section-number">8.4.10</span> Trout, in the WB mainstem only</a></li>
+  <li><a href="#why-are-there-untagged-fish-bigger-than-60mm" id="toc-why-are-there-untagged-fish-bigger-than-60mm" class="nav-link" data-scroll-target="#why-are-there-untagged-fish-bigger-than-60mm"> <span class="header-section-number">8.4.11</span> Why are there untagged fish bigger than 60mm?</a></li>
+  </ul></li>
+  <li><a href="#models-based-on-yearly-means" id="toc-models-based-on-yearly-means" class="nav-link" data-scroll-target="#models-based-on-yearly-means"> <span class="header-section-number">8.5</span> Models based on yearly means</a>
+  <ul class="collapse">
+  <li><a href="#models-with-extreme-flow-events-droughts" id="toc-models-with-extreme-flow-events-droughts" class="nav-link" data-scroll-target="#models-with-extreme-flow-events-droughts"> <span class="header-section-number">8.5.1</span> Models with extreme flow events (droughts)</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Young-of-year size model</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+
+</div>
+<p>The question here is what is driving <em>body size variation</em> across years in brook trout and brown trout in the WB?</p>
+<p>We focus on ageInSamples == 1 (age-0 fish in the fall sample) fish for growth model. This is the first sampling occasion that most fish are big enough to tag. Not all fish are big enough, however, and there is a number of untagged fish each year. We need to include both tagged and untagged fish in our age-0 size model.</p>
+<p>Factors to include in the model are<br>
+1. Sample date<br>
+2. Cumulative temperature prior to sampling<br>
+3. Cumulative flow prior to sampling<br>
+4. Extreme flow events?? Floods, droughts?<br>
+5. Fish density, age-0 counts across all three salmonids</p>
+<section id="raw-data-for-yoy-model" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="raw-data-for-yoy-model"><span class="header-section-number">8.1</span> Raw data for YOY model</h2>
+<ol type="1">
+<li>Environmental data (flow, temperature) are from 1, 3, or 5 months prior to date of individual capture. Also can used fixed dates: assumed spawning dates, assumed emergence dates and actual observation (sample) dates.</li>
+<li>All fish data are from age-0 in autumn.</li>
+<li>Abundance data.</li>
+</ol>
+</section>
+<section id="get-data-from-targets" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="get-data-from-targets"><span class="header-section-number">8.2</span> Get data from targets</h2>
+<p>West Brook environmental data (flow and temperature) and electrofishing data</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>envDataWB <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(envDataWB_target)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>cdWB_electro <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cdWB_electro_target)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="get-first-observations" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="get-first-observations"><span class="header-section-number">8.3</span> Get first observations</h2>
+<ol type="1">
+<li>Filter cdWB_electro for first observations in the autumn for age-0 fish (ageInsamples == 1). Including both tagged and untagged fish.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>firstObs_noTag <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(firstObs_noTag_target)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>firstObs_tag <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(firstObs_tag_target)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>firstObs0 <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(firstObs0_target)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For each date in firstObs0 that at least one fish was captured, calculate summary stats for flow and temperature for different time periods:<br>
+1. Assumed spawning to capture<br>
+2. Assumed spawning to assumed emergence<br>
+3. Assumed emergence to capture<br>
+4. One month preceding capture<br>
+5. Three months preceding capture<br>
+5. Five months preceding capture</p>
+<p>Then merge results with firstObs0 to create firstObs.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>firstObsDates <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(firstObsDates_target) </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>firstObs_Env <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(firstObs_Env_target)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># merge env data into firstObs0</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>firstObs <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(firstObs_target)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Unnest firstObs so environmental summary stats are available as data frame with the name of the time interval as the prefix to the statisticVariable name</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>firstObsUnnested <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(firstObsUnnested_target)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(firstObsUnnested, <span class="fu">aes</span>(oneMonth_sumTScaled, fiveMonth_sumTScaled)) <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a> <span class="fu">facet_wrap</span>(<span class="sc">~</span>river)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/firstObsUnnested-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="counts-of-captured-fish" class="level3" data-number="8.3.1">
+<h3 data-number="8.3.1" class="anchored" data-anchor-id="counts-of-captured-fish"><span class="header-section-number">8.3.1</span> Counts of captured fish</h3>
+<p>Min and max years (inclusive) for standardizing counts This is in targets, not sure if needed here</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>minYear <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>maxYear <span class="ot">&lt;-</span> <span class="dv">2015</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Counts by river and species</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>countsRSY <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(countsRSY_target)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(countsRSY, <span class="fu">aes</span>(year, countRS_Scaled, <span class="at">color =</span> species)) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> river)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/rawCounts-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Counts by river</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>countsRY <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(countsRY_target)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(countsRY, <span class="fu">aes</span>(year, countR_Scaled, <span class="at">color =</span> river)) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/countsRY-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Counts for the metaPopulation (WB, Jimmy, Mitchell)<br>
+Use these for modelling.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>countsMetaY <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(countsMetaY_target)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(countsMetaY, <span class="fu">aes</span>(year, count_Scaled)) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/countsMeta-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Merge metapopulation scaled counts into firstObsUnnested</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>firstObsUnnested <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(firstObsUnnested_target)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>firstObsUnnestedWB <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(firstObsUnnestedWB_target)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="raw-data-plots" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="raw-data-plots"><span class="header-section-number">8.4</span> Raw data plots</h2>
+<section id="frequency-plots-by-species-and-river" class="level3" data-number="8.4.1">
+<h3 data-number="8.4.1" class="anchored" data-anchor-id="frequency-plots-by-species-and-river"><span class="header-section-number">8.4.1</span> Frequency plots by species and river</h3>
+</section>
+<section id="brook-trout-west-brook" class="level3" data-number="8.4.2">
+<h3 data-number="8.4.2" class="anchored" data-anchor-id="brook-trout-west-brook"><span class="header-section-number">8.4.2</span> Brook Trout, West brook</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">#cd1 &lt;- cdWB_electro %&gt;% filter(ageInSamples == 1, species != 'ats')</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  plotSppRiv <span class="ot">=</span> <span class="cf">function</span>(s, r) { </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(firstObs <span class="sc">%&gt;%</span> <span class="fu">filter</span>(species <span class="sc">==</span> s, river <span class="sc">==</span> r), <span class="fu">aes</span>(observedLength, <span class="at">color =</span> <span class="fu">is.na</span>(tag))) <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_freqpoly</span>() <span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">60</span>) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggtitle</span>(<span class="fu">paste</span>(s, r, <span class="at">sep =</span> <span class="st">', '</span>)) <span class="sc">+</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="dv">30</span>,<span class="dv">125</span>)) <span class="sc">+</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">facet_wrap</span>(<span class="sc">~</span> year, <span class="at">scales =</span> <span class="st">"free_y"</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  species <span class="ot">=</span> <span class="st">'bkt'</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  riverOrdered <span class="ot">=</span> <span class="st">"west brook"</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plotSppRiv</span>(species, riverOrdered)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/raw%20data%20plots1-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="brook-trout-wb-jimmy" class="level3" data-number="8.4.3">
+<h3 data-number="8.4.3" class="anchored" data-anchor-id="brook-trout-wb-jimmy"><span class="header-section-number">8.4.3</span> Brook Trout, wb jimmy</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/raw%20data%20plots2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="brook-trout-wb-mitchell" class="level3" data-number="8.4.4">
+<h3 data-number="8.4.4" class="anchored" data-anchor-id="brook-trout-wb-mitchell"><span class="header-section-number">8.4.4</span> Brook Trout, wb mitchell</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/raw%20data%20plots3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="brook-trout-wb-obear" class="level3" data-number="8.4.5">
+<h3 data-number="8.4.5" class="anchored" data-anchor-id="brook-trout-wb-obear"><span class="header-section-number">8.4.5</span> Brook Trout, wb obear</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/raw%20data%20plots4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="brown-trout-west-brook" class="level3" data-number="8.4.6">
+<h3 data-number="8.4.6" class="anchored" data-anchor-id="brown-trout-west-brook"><span class="header-section-number">8.4.6</span> Brown Trout, West brook</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/raw%20data%20plots5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="brown-trout-wb-jimmy" class="level3" data-number="8.4.7">
+<h3 data-number="8.4.7" class="anchored" data-anchor-id="brown-trout-wb-jimmy"><span class="header-section-number">8.4.7</span> Brown Trout, wb jimmy</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/raw%20data%20plots6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="brown-trout-wb-mitchell" class="level3" data-number="8.4.8">
+<h3 data-number="8.4.8" class="anchored" data-anchor-id="brown-trout-wb-mitchell"><span class="header-section-number">8.4.8</span> Brown Trout, wb mitchell</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/raw%20data%20plots7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="brown-trout-wb-obear---there-are-no-brown-trout-in-obear" class="level3" data-number="8.4.9">
+<h3 data-number="8.4.9" class="anchored" data-anchor-id="brown-trout-wb-obear---there-are-no-brown-trout-in-obear"><span class="header-section-number">8.4.9</span> Brown Trout, wb obear - there are no Brown trout in O’Bear</h3>
+</section>
+<section id="trout-in-the-wb-mainstem-only" class="level3" data-number="8.4.10">
+<h3 data-number="8.4.10" class="anchored" data-anchor-id="trout-in-the-wb-mainstem-only"><span class="header-section-number">8.4.10</span> Trout, in the WB mainstem only</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(firstObs <span class="sc">%&gt;%</span> <span class="fu">filter</span>(species <span class="sc">!=</span> <span class="st">"ats"</span>), <span class="fu">aes</span>(observedLength)) <span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_freqpoly</span>() <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">60</span>, <span class="at">color =</span> <span class="st">'orange'</span>) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(species <span class="sc">~</span> year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/troutWB-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(firstObs <span class="sc">%&gt;%</span> <span class="fu">filter</span>(species <span class="sc">!=</span> <span class="st">"ats"</span>), <span class="fu">aes</span>(observedLength, <span class="at">color =</span> <span class="fu">is.na</span>(tag))) <span class="sc">+</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_freqpoly</span>() <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">60</span>, <span class="at">color =</span> <span class="st">'orange'</span>) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(species <span class="sc">~</span> year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/troutWB-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="why-are-there-untagged-fish-bigger-than-60mm" class="level3" data-number="8.4.11">
+<h3 data-number="8.4.11" class="anchored" data-anchor-id="why-are-there-untagged-fish-bigger-than-60mm"><span class="header-section-number">8.4.11</span> Why are there untagged fish bigger than 60mm?</h3>
+<p>Check 2002/bkt/WB, as an example Answer: because they are outside the study area (area = ‘above’ or ‘below’) or were tagging mortalities</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>  firstObs2002BKT <span class="ot">&lt;-</span> firstObs <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2002</span>, species <span class="sc">==</span> <span class="st">"bkt"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">table</span>(<span class="fu">is.na</span>(firstObs2002BKT<span class="sc">$</span>tag))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+FALSE  TRUE 
+  295   253 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(firstObs2002BKT, <span class="fu">aes</span>(observedLength, <span class="at">color =</span> <span class="fu">is.na</span>(tag))) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_freqpoly</span>() <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">60</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/2002%20untagged-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># looks like untagged area=inside fish wee morts, the rest were above or below</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(firstObs2002BKT, <span class="fu">aes</span>(observedLength, <span class="at">color =</span> <span class="fu">is.na</span>(tag))) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_freqpoly</span>() <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">60</span>) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(<span class="sc">~</span>area)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/2002%20untagged-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># check 2003</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(firstObs <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2003</span>, species <span class="sc">==</span> <span class="st">"bkt"</span>), <span class="fu">aes</span>(observedLength, <span class="at">color =</span> <span class="fu">is.na</span>(tag))) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_freqpoly</span>() <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">60</span>) <span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(<span class="sc">~</span>area)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/2002%20untagged-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># same story as 2002</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="models-based-on-yearly-means" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="models-based-on-yearly-means"><span class="header-section-number">8.5</span> Models based on yearly means</h2>
+<p>Filter firstObsUnnestedWB for bkt, bnt and min/maxYear</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>d_WB_BKT_BNT <span class="ot">&lt;-</span> firstObsUnnestedWB <span class="sc">%&gt;%</span> <span class="fu">filter</span>(species <span class="sc">!=</span> <span class="st">"ats"</span>, year <span class="sc">%in%</span> minYear<span class="sc">:</span>maxYear) <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species01 =</span> <span class="fu">ifelse</span>(species <span class="sc">==</span> <span class="st">"bkt"</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(d_WB_BKT_BNT<span class="sc">$</span>detectionDate, <span class="at">breaks =</span> <span class="dv">250</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/filter%20firstObsUnnestedWB-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>d_BKT_BNT <span class="ot">&lt;-</span> firstObsUnnested <span class="sc">%&gt;%</span> <span class="fu">filter</span>(species <span class="sc">!=</span> <span class="st">"ats"</span>, year <span class="sc">%in%</span> minYear<span class="sc">:</span>maxYear) <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species01 =</span> <span class="fu">ifelse</span>(species <span class="sc">==</span> <span class="st">"bkt"</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Mean model functions</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>getMeansData <span class="ot">&lt;-</span> <span class="cf">function</span>(d, t, f) {</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  means <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(species, year) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">meanLength =</span> <span class="fu">mean</span>(observedLength, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">meanEmerge_detect_sumTScaled =</span> <span class="fu">mean</span>(emerge_detect_sumTScaled, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">meanEmerge_detect_sumFScaled =</span> <span class="fu">mean</span>(emerge_detect_sumTScaled, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">meanTTime_sumTScaled =</span> <span class="fu">mean</span>(<span class="fu">get</span>(t), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">meanFTime_sumFScaled =</span> <span class="fu">mean</span>(<span class="fu">get</span>(f), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">meanYdayScaled =</span> <span class="fu">mean</span>(ydayScaled, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">meanCount_Scaled =</span> <span class="fu">mean</span>(count_Scaled, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>              )</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(means)</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>getMeansDataByRiver <span class="ot">&lt;-</span> <span class="cf">function</span>(d, t, f) {</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  means <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span> </span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(species, year, river) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">meanLength =</span> <span class="fu">mean</span>(observedLength, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>              <span class="at">meanEmerge_detect_sumTScaled =</span> <span class="fu">mean</span>(emerge_detect_sumTScaled, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>              <span class="at">meanEmerge_detect_sumFScaled =</span> <span class="fu">mean</span>(emerge_detect_sumTScaled, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>              <span class="at">meanTTime_sumTScaled =</span> <span class="fu">mean</span>(<span class="fu">get</span>(t), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>              <span class="at">meanFTime_sumFScaled =</span> <span class="fu">mean</span>(<span class="fu">get</span>(f), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>              <span class="at">meanYdayScaled =</span> <span class="fu">mean</span>(ydayScaled, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>              <span class="at">meanCount_Scaled =</span> <span class="fu">mean</span>(count_Scaled, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>              )</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(means)</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>plotMeans <span class="ot">&lt;-</span> <span class="cf">function</span>(means){</span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>  out[[<span class="dv">1</span>]] <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(means, <span class="fu">aes</span>(meanTTime_sumTScaled, meanLength, <span class="at">color =</span> species)) <span class="sc">+</span></span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a>  out[[<span class="dv">2</span>]] <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(means, <span class="fu">aes</span>(meanFTime_sumFScaled, meanLength, <span class="at">color =</span> species)) <span class="sc">+</span></span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a>  out[[<span class="dv">3</span>]] <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(means, <span class="fu">aes</span>(meanTTime_sumTScaled, meanFTime_sumFScaled, <span class="at">color =</span> species)) <span class="sc">+</span></span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(out)</span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a>runMeanModels <span class="ot">&lt;-</span> <span class="cf">function</span>(means) {</span>
+<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a>  modLMMeans1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(meanLength <span class="sc">~</span> (<span class="fu">factor</span>(species) <span class="sc">+</span> meanFTime_sumFScaled <span class="sc">+</span> meanTTime_sumTScaled <span class="sc">+</span> meanYdayScaled <span class="sc">+</span> meanCount_Scaled), <span class="at">data =</span> means)</span>
+<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a>  modLMMeans2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(meanLength <span class="sc">~</span> (<span class="fu">factor</span>(species) <span class="sc">+</span> meanFTime_sumFScaled <span class="sc">+</span> meanTTime_sumTScaled <span class="sc">+</span> meanYdayScaled <span class="sc">+</span> meanCount_Scaled)<span class="sc">^</span><span class="dv">2</span>, <span class="at">data =</span> means)</span>
+<span id="cb21-48"><a href="#cb21-48" aria-hidden="true" tabindex="-1"></a>  modLMMeans3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(meanLength <span class="sc">~</span> (<span class="fu">factor</span>(species) <span class="sc">+</span> meanFTime_sumFScaled <span class="sc">+</span> meanTTime_sumTScaled <span class="sc">+</span> meanYdayScaled <span class="sc">+</span> meanCount_Scaled)<span class="sc">^</span><span class="dv">3</span>, <span class="at">data =</span> means)</span>
+<span id="cb21-49"><a href="#cb21-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(modLMMeans1, modLMMeans2, modLMMeans3))</span>
+<span id="cb21-50"><a href="#cb21-50" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Mean lengths by river. This is information only. Using the WB data only shown here and in the next graph for the models.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/meanLengthsR-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Mean lengths for the mean length model.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/meanLengths-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Graphs for variables that do not depend on number of months</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/staticGraphs-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/staticGraphs-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="models-with-flow-and-temperature-from-previous-one-month" class="level4" data-number="8.5.0.1">
+<h4 data-number="8.5.0.1" class="anchored" data-anchor-id="models-with-flow-and-temperature-from-previous-one-month"><span class="header-section-number">8.5.0.1</span> Models with flow and temperature from previous <em>one</em> month</h4>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/means1Month-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[2]]</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/means1Month-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[3]]</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/means1Month-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          df      AIC
+mod1[[2]] 17 176.2075
+mod1[[3]] 27 181.7035
+mod1[[1]]  7 181.8187</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = meanLength ~ (factor(species) + meanFTime_sumFScaled + 
+    meanTTime_sumTScaled + meanYdayScaled + meanCount_Scaled), 
+    data = means)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-6.2779 -1.9839 -0.8754  1.0981 10.5908 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)           72.4359     1.0722  67.558  &lt; 2e-16 ***
+factor(species)bnt     0.6550     1.3128   0.499 0.622039    
+meanFTime_sumFScaled   1.6769     0.3849   4.356 0.000184 ***
+meanTTime_sumTScaled -10.3842     2.3734  -4.375 0.000175 ***
+meanYdayScaled        -3.4856     1.7314  -2.013 0.054554 .  
+meanCount_Scaled      -2.5187     0.7068  -3.564 0.001443 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.695 on 26 degrees of freedom
+Multiple R-squared:  0.6966,    Adjusted R-squared:  0.6383 
+F-statistic: 11.94 on 5 and 26 DF,  p-value: 4.544e-06</code></pre>
+</div>
+</div>
+<p>Relative importance for main effects model</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>     factor(species) meanFTime_sumFScaled meanTTime_sumTScaled 
+          0.00395522           0.24940595           0.19990058 
+      meanYdayScaled     meanCount_Scaled 
+          0.06280977           0.18053989 </code></pre>
+</div>
+</div>
+</section>
+<section id="models-with-flow-and-temperature-from-previous-three-months" class="level4" data-number="8.5.0.2">
+<h4 data-number="8.5.0.2" class="anchored" data-anchor-id="models-with-flow-and-temperature-from-previous-three-months"><span class="header-section-number">8.5.0.2</span> Models with flow and temperature from previous <em>three</em> months</h4>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/means3Month-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[2]]</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/means3Month-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[3]]</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/means3Month-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          df      AIC
+mod3[[3]] 27 177.0683
+mod3[[2]] 17 181.7547
+mod3[[1]]  7 187.3979</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = meanLength ~ (factor(species) + meanFTime_sumFScaled + 
+    meanTTime_sumTScaled + meanYdayScaled + meanCount_Scaled), 
+    data = means)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-6.3569 -2.8523  0.3445  1.8018  9.2951 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)           73.4882     1.8809  39.070  &lt; 2e-16 ***
+factor(species)bnt     0.8334     1.4312   0.582 0.565351    
+meanFTime_sumFScaled   2.2450     0.5866   3.827 0.000732 ***
+meanTTime_sumTScaled  -8.8499     3.6769  -2.407 0.023489 *  
+meanYdayScaled         0.7120     1.4287   0.498 0.622411    
+meanCount_Scaled      -3.1604     0.7937  -3.982 0.000490 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4.032 on 26 degrees of freedom
+Multiple R-squared:  0.6388,    Adjusted R-squared:  0.5694 
+F-statistic: 9.197 on 5 and 26 DF,  p-value: 3.902e-05</code></pre>
+</div>
+</div>
+<p>Relative importance for main effects model</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>     factor(species) meanFTime_sumFScaled meanTTime_sumTScaled 
+         0.004325792          0.281631981          0.060776249 
+      meanYdayScaled     meanCount_Scaled 
+         0.066333713          0.225756051 </code></pre>
+</div>
+</div>
+</section>
+<section id="models-with-flow-and-temperature-from-previous-five-months" class="level4" data-number="8.5.0.3">
+<h4 data-number="8.5.0.3" class="anchored" data-anchor-id="models-with-flow-and-temperature-from-previous-five-months"><span class="header-section-number">8.5.0.3</span> Models with flow and temperature from previous <em>five</em> months</h4>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/means5Month-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[2]]</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/means5Month-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[3]]</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/means5Month-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          df      AIC
+mod5[[3]] 27 167.4034
+mod5[[1]]  7 193.2144
+mod5[[2]] 17 208.3847</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = meanLength ~ (factor(species) + meanFTime_sumFScaled + 
+    meanTTime_sumTScaled + meanYdayScaled + meanCount_Scaled), 
+    data = means)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-5.9186 -3.3732  0.3856  2.4470 11.8564 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)           71.1144     1.9342  36.767  &lt; 2e-16 ***
+factor(species)bnt     0.8911     1.5671   0.569  0.57450    
+meanFTime_sumFScaled   2.6934     0.8705   3.094  0.00468 ** 
+meanTTime_sumTScaled  -3.5748     2.9746  -1.202  0.24029    
+meanYdayScaled         3.2403     1.5506   2.090  0.04657 *  
+meanCount_Scaled      -2.8957     0.8613  -3.362  0.00240 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4.415 on 26 degrees of freedom
+Multiple R-squared:  0.5668,    Adjusted R-squared:  0.4835 
+F-statistic: 6.805 on 5 and 26 DF,  p-value: 0.0003537</code></pre>
+</div>
+</div>
+<p>Relative importance for main effects model</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>     factor(species) meanFTime_sumFScaled meanTTime_sumTScaled 
+         0.004330339          0.226812955          0.017322018 
+      meanYdayScaled     meanCount_Scaled 
+         0.107186866          0.211177826 </code></pre>
+</div>
+</div>
+<p>r-squared values and AICs for 1st, 2nd (2-way interactions) and 3rd (3-way interactions) order models</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:right;"> Order </th>
+   <th style="text-align:right;"> r2 </th>
+   <th style="text-align:right;"> numMonths </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.697 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 0.864 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 0.913 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:right;"> Order </th>
+   <th style="text-align:right;"> r2 </th>
+   <th style="text-align:right;"> numMonths </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.639 </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 0.838 </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 0.925 </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:right;"> Order </th>
+   <th style="text-align:right;"> r2 </th>
+   <th style="text-align:right;"> numMonths </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 0.567 </td>
+   <td style="text-align:right;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 0.628 </td>
+   <td style="text-align:right;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 0.945 </td>
+   <td style="text-align:right;"> 5 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> df </th>
+   <th style="text-align:right;"> AIC </th>
+   <th style="text-align:right;"> numMonths </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> mod1[[2]] </td>
+   <td style="text-align:right;"> 17 </td>
+   <td style="text-align:right;"> 176.207 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> mod1[[3]] </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 181.703 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> mod1[[1]] </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 181.819 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> df </th>
+   <th style="text-align:right;"> AIC </th>
+   <th style="text-align:right;"> numMonths </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> mod3[[3]] </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 177.068 </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> mod3[[2]] </td>
+   <td style="text-align:right;"> 17 </td>
+   <td style="text-align:right;"> 181.755 </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> mod3[[1]] </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 187.398 </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> df </th>
+   <th style="text-align:right;"> AIC </th>
+   <th style="text-align:right;"> numMonths </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> mod5[[3]] </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 167.403 </td>
+   <td style="text-align:right;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> mod5[[1]] </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 193.214 </td>
+   <td style="text-align:right;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> mod5[[2]] </td>
+   <td style="text-align:right;"> 17 </td>
+   <td style="text-align:right;"> 208.385 </td>
+   <td style="text-align:right;"> 5 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<p>Relative importance of main effects models (repeat of above, but all in one place here)</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> var </th>
+   <th style="text-align:right;"> relImp </th>
+   <th style="text-align:right;"> numMonths </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> factor(species) </td>
+   <td style="text-align:right;"> 0.004 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> meanFTime_sumFScaled </td>
+   <td style="text-align:right;"> 0.249 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> meanTTime_sumTScaled </td>
+   <td style="text-align:right;"> 0.200 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> meanYdayScaled </td>
+   <td style="text-align:right;"> 0.063 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> meanCount_Scaled </td>
+   <td style="text-align:right;"> 0.181 </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> var </th>
+   <th style="text-align:right;"> relImp </th>
+   <th style="text-align:right;"> numMonths </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> factor(species) </td>
+   <td style="text-align:right;"> 0.004 </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> meanFTime_sumFScaled </td>
+   <td style="text-align:right;"> 0.282 </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> meanTTime_sumTScaled </td>
+   <td style="text-align:right;"> 0.061 </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> meanYdayScaled </td>
+   <td style="text-align:right;"> 0.066 </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> meanCount_Scaled </td>
+   <td style="text-align:right;"> 0.226 </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+<div class="cell-output-display">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> var </th>
+   <th style="text-align:right;"> relImp </th>
+   <th style="text-align:right;"> numMonths </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> factor(species) </td>
+   <td style="text-align:right;"> 0.004 </td>
+   <td style="text-align:right;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> meanFTime_sumFScaled </td>
+   <td style="text-align:right;"> 0.227 </td>
+   <td style="text-align:right;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> meanTTime_sumTScaled </td>
+   <td style="text-align:right;"> 0.017 </td>
+   <td style="text-align:right;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> meanYdayScaled </td>
+   <td style="text-align:right;"> 0.107 </td>
+   <td style="text-align:right;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> meanCount_Scaled </td>
+   <td style="text-align:right;"> 0.211 </td>
+   <td style="text-align:right;"> 5 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</section>
+<section id="models-with-extreme-flow-events-droughts" class="level3" data-number="8.5.1">
+<h3 data-number="8.5.1" class="anchored" data-anchor-id="models-with-extreme-flow-events-droughts"><span class="header-section-number">8.5.1</span> Models with extreme flow events (droughts)</h3>
+<p>We get negative cumulFlows because we have some negative flows from the flow extension model</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># put some of these calculations into envDataWB</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>envDataWBFlow <span class="ot">=</span> <span class="fu">tar_read</span>(envDataWBFlow_target)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>firstObsYears <span class="ot">&lt;-</span> firstObs <span class="sc">%&gt;%</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">%in%</span> minYear<span class="sc">:</span>maxYear, </span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>           yday <span class="sc">&gt;</span> <span class="dv">100</span>, yday <span class="sc">&lt;</span> <span class="dv">300</span>)</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envDataWBFlow, <span class="fu">aes</span>(yday, flow)) <span class="sc">+</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(yday, observedLength<span class="sc">/</span><span class="dv">20</span>), <span class="at">size =</span> <span class="fl">0.75</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">color =</span> <span class="st">'lightblue'</span>, <span class="at">data =</span> firstObsYears) <span class="sc">+</span></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">300</span>, <span class="dv">30</span>)) <span class="sc">+</span></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/drought-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envDataWBFlow, <span class="fu">aes</span>(yday, cumulFlow <span class="sc">/</span> <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(yday, observedLength <span class="sc">/</span> <span class="dv">20</span>), <span class="at">size =</span> <span class="fl">0.75</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">color =</span> <span class="st">'lightblue'</span>, <span class="at">data =</span> firstObsYears) <span class="sc">+</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">'darkgrey'</span>) <span class="sc">+</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(yday, cumulTemp <span class="sc">/</span> <span class="dv">800</span>), <span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">"orange"</span>, <span class="at">data =</span> envDataWBFlow) <span class="sc">+</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(yday, flow), <span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">data =</span> envDataWBFlow) <span class="sc">+</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">300</span>, <span class="dv">30</span>)) <span class="sc">+</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#theme_publication() +</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/drought-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envDataWBFlow, <span class="fu">aes</span>(yday, cumulFlow, <span class="at">color =</span> (year))) <span class="sc">+</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">300</span>, <span class="dv">30</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/drought-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envDataWBFlow, <span class="fu">aes</span>(yday, cumulTemp, <span class="at">color =</span> (year))) <span class="sc">+</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_point(aes(yday, cumulTemp / 800, color = factor(year)), data = tmp) +</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">300</span>, <span class="dv">30</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/drought-4.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Is there a sampling section effect?</p>
+<p>Note: there are fish in sections &gt; 50 for years 2002 and 2003, need to filter out early</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d_WB_BKT_BNT <span class="sc">%&gt;%</span> <span class="fu">filter</span>( section <span class="sc">&lt;=</span> <span class="dv">47</span>), <span class="fu">aes</span>(<span class="fu">factor</span>(section), observedLength)) <span class="sc">+</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d_WB_BKT_BNT <span class="sc">%&gt;%</span> <span class="fu">filter</span>( section <span class="sc">&lt;=</span> <span class="dv">47</span>), <span class="fu">aes</span>(<span class="fu">factor</span>(year), observedLength)) <span class="sc">+</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>section)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="08-modelYOY_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./07-dataAntenna.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Get antenna data</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./09-modelFlow.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Flow model</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

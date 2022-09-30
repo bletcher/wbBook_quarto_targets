@@ -17,6 +17,7 @@ book:
         - 05-getDataCMR.qmd
         - 06-getDataWanding.qmd
         - 07-getDataAntenna.qmd
+        - 07_5-dataAll.qmd
     - part: "General models"
       chapters: 
         - 08-modelYOY.qmd

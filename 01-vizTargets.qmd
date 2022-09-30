@@ -22,5 +22,5 @@ library(visNetwork)
 Visualize the targets network
 
 ```{r, message=FALSE, warning=FALSE}
-tar_visnetwork()
+# tar_visnetwork()
 ```

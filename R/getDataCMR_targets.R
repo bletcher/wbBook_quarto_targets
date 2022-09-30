@@ -417,6 +417,10 @@ getEH_AIS <- function(dIn, cols, ops, vals, maxOccasionValue, maxIndexByCohort =
   isYOYWide <- getEHDataWide_AIS(d, cols, ops, vals, "isYOY", maxOccasionValue, valuesFill = 2)
   isYOYMatrix <- as.matrix(isYOYWide %>% dplyr::select(-tag), nrow = nrow(isYOYWide), ncol = ncol(riverWide) - 1)
   
+  lengthWide <- getEHDataWide_AIS(d, cols, ops, vals, "observedLength", maxOccasionValue, valuesFill = NA)
+  lengthMatrix <- as.matrix(lengthWide %>% dplyr::select(-tag), nrow = nrow(lengthWide), ncol = ncol(lengthWide) - 1)
+  
+  
   tags <- encWide %>% dplyr::select(tag)
   
   data <- d %>%
@@ -434,6 +438,6 @@ getEH_AIS <- function(dIn, cols, ops, vals, maxOccasionValue, maxIndexByCohort =
   last <- ifelse(last == maxOccasionValue, last, last - 1)
   
   return(list(eh = eh, flow = flowMatrix, temperature = temperatureMatrix, river = riverMatrix, section = sectionRiverNMatrix,
-              riverN = riverNMatrix, isYOY = isYOYMatrix, tags = tags, cohorts = cohorts, seasons = seasons, species = species,
+              riverN = riverNMatrix, isYOY = isYOYMatrix, length = lengthMatrix, tags = tags, cohorts = cohorts, seasons = seasons, species = species,
               first = first, last = last, data = data))
 }

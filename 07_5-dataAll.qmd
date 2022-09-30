@@ -1,0 +1,97 @@
+---
+title: "All data"
+format:
+  html:
+    toc: false
+    echo: false
+    keep-hidden: false
+    code-tools: true
+---
+
+Note need to do a full book render to get OJS funtionality.
+
+## Merge All data
+
+```{r dataAllOptions, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
+```{r librariesdataAll, echo = FALSE}
+#library(devtools)
+#options(download.file.method = "wininet") or turn off VPN
+#devtools::install_github('Conte-Ecology/westBrookData/getWBData')
+library(tidyverse)
+library(lubridate)
+library(validate)
+library(targets)
+
+
+# devtools::install_github('bletcher/getPrepareWBData')
+# use this if command above doesn't work: options(download.file.method = "wininet")
+#library(getPrepareWBData)
+```
+
+### Read merged data target
+
+```{r dataAll}
+
+all <- tar_read(cdWB_all)
+str(all)
+
+```
+
+```{r}
+tags <- all %>%
+  group_by(tag) %>%
+  summarize(n = n()) %>%
+  arrange(desc(n)) %>%
+  filter(!is.na(tag))
+
+ojs_define(tagsOJS = tags)
+```
+
+```{ojs}
+//| panel: input
+
+viewof selectTags = Inputs.select(
+  tagsOJS, 
+  { value: ["1bf20eb10c"], 
+    label: "Tags:"
+  }
+)
+```
+
+
+```{ojs}
+//| panel: input
+
+viewof bill_length_min = Inputs.range(
+  [32, 50], 
+  {value: 35, step: 1, label: "Bill length (min):"}
+)
+```
+
+
+```{ojs}
+d3 = require('d3')
+
+contributors = await d3.json(
+  "https://api.github.com/repos/pandas-dev/pandas/stats/contributors"
+)
+
+commits = contributors.map(contributor => {
+  const author = contributor.author;
+  return {
+    name: author.login,
+    title: author.login,
+    group: author.type,
+    value: contributor.total
+  }
+})
+```
+
+```{ojs}
+Inputs.table(commits, { sort: "value", reverse: true })
+```
+
+Need to find previous antenna analysis - lower left drawer in office desk.

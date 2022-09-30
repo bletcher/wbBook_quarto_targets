@@ -207,6 +207,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="./07-getDataAntenna.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Get antenna data</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_5-dataAll.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">All data</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -219,12 +224,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08-modelYOY.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Young-of-year size model</span></a>
+  <a href="./08-modelYOY.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Young-of-year size model</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./09-modelFlow.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Flow model</span></a>
+  <a href="./09-modelFlow.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Flow model</span></a>
   </div>
 </li>
       </ul>
@@ -239,12 +244,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./10-modelsCMR_Flow_OB.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Flow effects on survival (phi) models - O’Bear only</span></a>
+  <a href="./10-modelsCMR_Flow_OB.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Flow effects on survival (phi) models - O’Bear only</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./11-modelsCMR_Flow_4Rivers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Flow effects on survival (phi) models - 4 rivers</span></a>
+  <a href="./11-modelsCMR_Flow_4Rivers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Flow effects on survival (phi) models - 4 rivers</span></a>
   </div>
 </li>
       </ul>
@@ -316,12 +321,12 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cdWB_wanding0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>tibble [14,880 × 24] (S3: tbl_df/tbl/data.frame)
+<pre><code>tibble [14,880 × 25] (S3: tbl_df/tbl/data.frame)
  $ tag            : chr [1:14880] "00088cf41b" "00088cf41b" "00088cf41b" "00088cf435" ...
  $ detectionDate  : POSIXct[1:14880], format: "2010-09-27 15:08:45" "2010-10-18 18:16:22" ...
  $ sampleName     : chr [1:14880] "92710.00" "101810.00" "102510.00" "12610.00" ...
  $ river          : chr [1:14880] "wb jimmy" "wb jimmy" "wb jimmy" "wb jimmy" ...
- $ section        : chr [1:14880] "13" "14" "14" "2" ...
+ $ section        : num [1:14880] 13 14 14 2 6 8 8 11 12 10 ...
  $ area           : chr [1:14880] "trib" "trib" "trib" "trib" ...
  $ survey         : chr [1:14880] "portableAntenna" "portableAntenna" "portableAntenna" "portableAntenna" ...
  $ readerId       : chr [1:14880] "iso" "iso" "iso" "iso" ...
@@ -333,9 +338,10 @@ Also, just interesting to see movement patterns from the wanding data.</p>
  $ habitat        : chr [1:14880] "pool" "run" NA "pool" ...
  $ cover          : chr [1:14880] NA NA NA NA ...
  $ justification  : chr [1:14880] NA NA NA NA ...
- $ comment        : chr [1:14880] NA NA NA NA ...
- $ species        : chr [1:14880] "bkt" "bkt" "bkt" "bkt" ...
  $ cohort         : num [1:14880] 2010 2010 2010 2010 2009 ...
+ $ species        : chr [1:14880] "bkt" "bkt" "bkt" "bkt" ...
+ $ dateEmigrated  : Date[1:14880], format: NA NA ...
+ $ sex            : chr [1:14880] NA NA NA NA ...
  $ riverOrdered   : Ord.factor w/ 4 levels "West Brook"&lt;"WB Jimmy"&lt;..: 2 2 2 2 2 2 2 2 2 3 ...
  $ sectionN       : num [1:14880] 13 14 14 2 6 8 8 11 12 10 ...
  $ year           : num [1:14880] 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 ...
