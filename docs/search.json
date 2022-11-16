@@ -179,7 +179,7 @@
     "href": "dataAll.html#merge-all-data",
     "title": "8  All data",
     "section": "8.1 Merge All data",
-    "text": "8.1 Merge All data\n\n\n\n\n8.1.1 Read merged data target\n\n\ntibble [516,898 × 5] (S3: tbl_df/tbl/data.frame)\n $ tag           : chr [1:516898] \"00088cbed0\" \"00088cbed3\" \"00088cbed4\" \"00088cbed4\" ...\n $ detectionDate : POSIXct[1:516898], format: \"2013-03-25 04:00:00\" \"2012-06-07 13:03:00\" ...\n $ river         : chr [1:516898] \"wb obear\" \"west brook\" \"west brook\" \"west brook\" ...\n $ section       : num [1:516898] 7 1 40 44 25 32 32 3 3 23 ...\n $ observedLength: num [1:516898] 62 62 109 154 113 120 147 70 74 86 ...\n\n\n\n\n\n\n\nCode\n\nviewof selectTag = Inputs.select(\n  tagsOJS.map((d) => d.tag),\n  {\n    value: \"1bf20ebcae\",\n    label: \"Tags:\",\n    multiple: true\n  }\n)\n\n\n\n\n\n\n\n\n\nCode\nselectTag"
+    "text": "8.1 Merge All data\n\n\n\n\n8.1.1 Read merged data target\n\n\ntibble [516,898 × 5] (S3: tbl_df/tbl/data.frame)\n $ tag           : chr [1:516898] \"00088cbed0\" \"00088cbed3\" \"00088cbed4\" \"00088cbed4\" ...\n $ detectionDate : POSIXct[1:516898], format: \"2013-03-25 04:00:00\" \"2012-06-07 13:03:00\" ...\n $ river         : chr [1:516898] \"wb obear\" \"west brook\" \"west brook\" \"west brook\" ...\n $ section       : num [1:516898] 7 1 40 44 25 32 32 3 3 23 ...\n $ observedLength: num [1:516898] 62 62 109 154 113 120 147 70 74 86 ...\n\n\n\n\n\n\n\nCode\ntagsOJS\n/*\nviewof selectTag = Inputs.select(\n  tagsOJS.map((d) => d.tag),\n  {\n    value: \"1bf20ebcae\",\n    label: \"Tags:\",\n    multiple: true\n  }\n)\n*/"
   },
   {
     "objectID": "modelYOY.html",

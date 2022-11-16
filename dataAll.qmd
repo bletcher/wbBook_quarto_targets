@@ -55,7 +55,8 @@ ojs_define(tagsOJS = tags)
 
 ```{ojs}
 //| panel: input
-
+tagsOJS
+/*
 viewof selectTag = Inputs.select(
   tagsOJS.map((d) => d.tag),
   {
@@ -64,10 +65,8 @@ viewof selectTag = Inputs.select(
     multiple: true
   }
 )
+*/
 ```
 
-```{ojs}
-selectTag
-```
 
 
