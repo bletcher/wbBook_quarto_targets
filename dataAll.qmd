@@ -61,7 +61,7 @@ allTop10 <- all %>%
   select(tag, detectionDate, river, section, observedLength)
   
   
-ojs_define(allOJS = transpose(allTop10))
+ojs_define(allOJS = allTop10)
 ```
 
 
@@ -71,7 +71,7 @@ ojs_define(allOJS = transpose(allTop10))
 viewof selectTag = Inputs.select(
   tagsOJS,
   {
-    value: "1bf20ebcae",
+    //value: "1bf20ebcae",
     label: "Tags:",
     multiple: true
   }
@@ -85,7 +85,7 @@ selectTag
 
 
 ```{ojs}
-tagsToPlot = allOJS.filter((d) => selectTag.includes(d.tag))
+tagsToPlot = transpose(allOJS).filter((d) => selectTag.includes(d.tag))
 
 tagsOverTime = Plot.plot({
   marks: [
