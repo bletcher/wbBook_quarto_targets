@@ -35,9 +35,12 @@ library(targets)
 
 ```{r dataAll}
 
-all <- tar_read(cdWB_all)
+all <- tar_read(cdWB_all) %>%
+  select(tag, detectionDate, river, section, observedLength)
+
 str(all)
 
+#ojs_define(allOJS = all)
 ```
 
 ```{r}
@@ -47,59 +50,46 @@ tags <- all %>%
   arrange(desc(n)) %>%
   filter(!is.na(tag))
 
-ojs_define(tagsOJS = tags$tag)
+ojs_define(tagsOJS = tags)
 ```
 
 ```{ojs}
 //| panel: input
 
-viewof selectTags = Inputs.select(
-  tagsOJS, 
-  { value: "1bf20ebcae", 
-    label: "Tags:"
+viewof selectTag = Inputs.select(
+  tagsOJS.map((d) => d.tag),
+  {
+    value: "1bf20ebcae",
+    label: "Tags:",
+    multiple: true
   }
 )
 ```
 
 ```{ojs}
-selectTags
+selectTag
 ```
 
-```{r}
-#selectTags
+```{ojs}
+selectTag
+//tagsToPlot = all.filter((d) => selectTag.includes(d.tag))
 ```
 
 
 ```{ojs}
 //| panel: input
 
-viewof bill_length_min = Inputs.range(
-  [32, 50], 
-  {value: 35, step: 1, label: "Bill length (min):"}
-)
-```
 
-
-```{ojs}
-d3 = require('d3')
-
-contributors = await d3.json(
-  "https://api.github.com/repos/pandas-dev/pandas/stats/contributors"
-)
-
-commits = contributors.map(contributor => {
-  const author = contributor.author;
-  return {
-    name: author.login,
-    title: author.login,
-    group: author.type,
-    value: contributor.total
-  }
+selectTag
+/*
+tagsOverTime = Plot.plot({
+  marks: [
+    Plot.dot(tagsToPlot, { x: "detectionDate", y: "section", stroke: "tag" }),
+    Plot.line(tagsToPlot, { x: "detectionDate", y: "section", stroke: "tag" })
+  ]
 })
+*/
 ```
 
-```{ojs}
-Inputs.table(commits, { sort: "value", reverse: true })
-```
 
 
