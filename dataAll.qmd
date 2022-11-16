@@ -80,6 +80,11 @@ viewof selectTag = Inputs.select(
 ```
 
 ```{ojs}
+selectTag
+```
+
+
+```{ojs}
 tagsToPlot = allOJS.filter((d) => selectTag.includes(d.tag))
 
 tagsOverTime = Plot.plot({
