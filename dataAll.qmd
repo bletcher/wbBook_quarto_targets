@@ -48,13 +48,13 @@ tags <- all %>%
   filter(!is.na(tag))
 
   tags10 <- tags %>%
-    filter(n >450, n < 500)
+    filter(n > 450, n < 500)
     
 
 ojs_define(tagsOJS = tags$tag)
 ```
 
-```{ojs}
+```{r}
 
 allTop10 <- all %>%
   filter(tag %in% tags10$tag) %>%
