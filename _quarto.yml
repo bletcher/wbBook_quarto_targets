@@ -8,24 +8,26 @@ book:
   date: today
   chapters:
     - index.qmd
-    - 01-vizTargets.qmd
+    - vizTargets.qmd
     - part: "Get data"
       chapters: 
-        - 02-getData.qmd
-        - 03-getDataEnv.qmd
-        - 04-getDataElectro.qmd
-        - 05-getDataCMR.qmd
-        - 06-getDataWanding.qmd
-        - 07-getDataAntenna.qmd
-        - 07_5-dataAll.qmd
+        - getData.qmd
+        - getDataEnv.qmd
+        - getDataElectro.qmd
+        - getDataCMR.qmd
+        - getDataWanding.qmd
+        - getDataAntenna.qmd
+    - part: "All data"
+      chapters: 
+        - dataAll.qmd
     - part: "General models"
       chapters: 
-        - 08-modelYOY.qmd
-        - 09-modelFlow.qmd
+        - modelYOY.qmd
+        - modelFlow.qmd
     - part: "Capture-recpature models"
       chapters: 
-        - 10-modelsCMR_Flow_OB.qmd
-        - 11-modelsCMR_Flow_4Rivers.qmd
+        - modelsCMR_Flow_OB.qmd
+        - modelsCMR_Flow_4Rivers.qmd
     - references.qmd
   number-depth: 2
 

@@ -1,0 +1,26 @@
+# Visualize targets
+
+Run code in buildBook.R to update targets and run quarto_render()
+
+```{r include=FALSE}
+#knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
+```{r getVizTargetsOptions, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
+
+Data processing and model running is controlled by `targets`. Targets are only re-run if the upstream data source changes
+
+```{r, warning=FALSE}
+library(targets)
+library(tarchetypes)
+library(visNetwork)
+```
+
+Visualize the targets network
+
+```{r, message=FALSE, warning=FALSE}
+#tar_visnetwork()
+```
