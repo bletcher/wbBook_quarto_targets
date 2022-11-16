@@ -55,12 +55,22 @@ ojs_define(tagsOJS = tags)
 
 viewof selectTags = Inputs.select(
   tagsOJS, 
-  { value: ["1bf20eb10c"], 
+  { value: "tag", 
     label: "Tags:"
   }
 )
 ```
 
+```{ojs}
+//| panel: input
+
+viewof selectTags2 = Inputs.select(
+  tagsOJS, 
+  { value: ["tag"], 
+    label: "Tags:"
+  }
+)
+```
 
 ```{ojs}
 //| panel: input
