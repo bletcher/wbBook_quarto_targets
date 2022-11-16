@@ -47,7 +47,7 @@ tags <- all %>%
   arrange(desc(n)) %>%
   filter(!is.na(tag))
 
-ojs_define(tagsOJS = tags)
+ojs_define(tagsOJS = tags$tag)
 ```
 
 ```{ojs}
@@ -55,18 +55,7 @@ ojs_define(tagsOJS = tags)
 
 viewof selectTags = Inputs.select(
   tagsOJS, 
-  { value: "tag", 
-    label: "Tags:"
-  }
-)
-```
-
-```{ojs}
-//| panel: input
-
-viewof selectTags2 = Inputs.select(
-  tagsOJS, 
-  { value: ["tag"], 
+  { value: "1bf20ebcae", 
     label: "Tags:"
   }
 )
