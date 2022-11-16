@@ -442,14 +442,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details class="hidden">
 <summary>Code</summary>
-<div class="sourceCode cell-code hidden" id="cb6" data-startfrom="90" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 89;"><span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>tagsToPlot <span class="op">=</span> <span class="fu">transpose</span>(allOJS)<span class="op">.</span><span class="fu">filter</span>((d) <span class="kw">=&gt;</span> selectTag<span class="op">.</span><span class="fu">includes</span>(d<span class="op">.</span><span class="at">tag</span>))</span>
+<div class="sourceCode cell-code hidden" id="cb6" data-startfrom="90" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 89;"><span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>allOJS_T <span class="op">=</span> <span class="fu">transpose</span>(allOJS)</span>
 <span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a>tagsOverTime <span class="op">=</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(tagsToPlot<span class="op">,</span> { <span class="dt">x</span><span class="op">:</span> <span class="st">"detectionDate"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"section"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"tag"</span> })<span class="op">,</span></span>
-<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(tagsToPlot<span class="op">,</span> { <span class="dt">x</span><span class="op">:</span> <span class="st">"detectionDate"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"section"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"tag"</span> })</span>
-<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a>  ]</span>
-<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a>tagsToPlot <span class="op">=</span> allOJS_T<span class="op">.</span><span class="fu">filter</span>((d) <span class="kw">=&gt;</span> selectTag<span class="op">.</span><span class="fu">includes</span>(d<span class="op">.</span><span class="at">tag</span>))</span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a>tagsOverTime <span class="op">=</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(tagsToPlot<span class="op">,</span> { <span class="dt">x</span><span class="op">:</span> <span class="st">"detectionDate"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"section"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"tag"</span> })<span class="op">,</span></span>
+<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(tagsToPlot<span class="op">,</span> { <span class="dt">x</span><span class="op">:</span> <span class="st">"detectionDate"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"section"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"tag"</span> })</span>
+<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -465,6 +467,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
 </div>
 
 
@@ -475,7 +484,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </main> <!-- /main -->
 <script type="ojs-module-contents">
-{"contents":[{"methodName":"interpret","cellName":"ojs-cell-1","inline":false,"source":"\nviewof selectTag = Inputs.select(\n  tagsOJS,\n  {\n    //value: \"1bf20ebcae\",\n    label: \"Tags:\",\n    multiple: true\n  }\n)\n\n"},{"methodName":"interpret","cellName":"ojs-cell-2","inline":false,"source":"selectTag\ntagsToPlot\ntranspose(allOJS)\n"},{"methodName":"interpret","cellName":"ojs-cell-3","inline":false,"source":"tagsToPlot = transpose(allOJS).filter((d) => selectTag.includes(d.tag))\n\ntagsOverTime = Plot.plot({\n  marks: [\n    Plot.dot(tagsToPlot, { x: \"detectionDate\", y: \"section\", stroke: \"tag\" }),\n    Plot.line(tagsToPlot, { x: \"detectionDate\", y: \"section\", stroke: \"tag\" })\n  ]\n})\n"},{"methodName":"interpretQuiet","source":"shinyInput('selectTag')"}]}
+{"contents":[{"methodName":"interpret","cellName":"ojs-cell-1","inline":false,"source":"\nviewof selectTag = Inputs.select(\n  tagsOJS,\n  {\n    //value: \"1bf20ebcae\",\n    label: \"Tags:\",\n    multiple: true\n  }\n)\n\n"},{"methodName":"interpret","cellName":"ojs-cell-2","inline":false,"source":"selectTag\ntagsToPlot\ntranspose(allOJS)\n"},{"methodName":"interpret","cellName":"ojs-cell-3","inline":false,"source":"allOJS_T = transpose(allOJS)\n\ntagsToPlot = allOJS_T.filter((d) => selectTag.includes(d.tag))\n\ntagsOverTime = Plot.plot({\n  marks: [\n    Plot.dot(tagsToPlot, { x: \"detectionDate\", y: \"section\", stroke: \"tag\" }),\n    Plot.line(tagsToPlot, { x: \"detectionDate\", y: \"section\", stroke: \"tag\" })\n  ]\n})\n"},{"methodName":"interpretQuiet","source":"shinyInput('selectTag')"}]}
 </script>
 <script type="module">
 window._ojs.paths.runtimeToDoc = "..\..";
@@ -835,16 +844,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
-<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a>tagsToPlot <span class="op">=</span> <span class="fu">transpose</span>(allOJS)<span class="op">.</span><span class="fu">filter</span>((d) <span class="kw">=&gt;</span> selectTag<span class="op">.</span><span class="fu">includes</span>(d<span class="op">.</span><span class="at">tag</span>))</span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a>allOJS_T <span class="op">=</span> <span class="fu">transpose</span>(allOJS)</span>
 <span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a>tagsOverTime <span class="op">=</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(tagsToPlot<span class="op">,</span> { <span class="dt">x</span><span class="op">:</span> <span class="st">"detectionDate"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"section"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"tag"</span> })<span class="op">,</span></span>
-<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(tagsToPlot<span class="op">,</span> { <span class="dt">x</span><span class="op">:</span> <span class="st">"detectionDate"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"section"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"tag"</span> })</span>
-<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a>  ]</span>
-<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
-<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a>tagsToPlot <span class="op">=</span> allOJS_T<span class="op">.</span><span class="fu">filter</span>((d) <span class="kw">=&gt;</span> selectTag<span class="op">.</span><span class="fu">includes</span>(d<span class="op">.</span><span class="at">tag</span>))</span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a>tagsOverTime <span class="op">=</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(tagsToPlot<span class="op">,</span> { <span class="dt">x</span><span class="op">:</span> <span class="st">"detectionDate"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"section"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"tag"</span> })<span class="op">,</span></span>
+<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(tagsToPlot<span class="op">,</span> { <span class="dt">x</span><span class="op">:</span> <span class="st">"detectionDate"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"section"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"tag"</span> })</span>
+<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

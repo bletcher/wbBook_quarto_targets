@@ -87,7 +87,9 @@ transpose(allOJS)
 
 
 ```{ojs}
-tagsToPlot = transpose(allOJS).filter((d) => selectTag.includes(d.tag))
+allOJS_T = transpose(allOJS)
+
+tagsToPlot = allOJS_T.filter((d) => selectTag.includes(d.tag))
 
 tagsOverTime = Plot.plot({
   marks: [
