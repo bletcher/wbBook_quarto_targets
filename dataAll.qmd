@@ -40,7 +40,7 @@ all <- tar_read(cdWB_all) %>%
 
 str(all)
 
-#ojs_define(allOJS = all)
+ojs_define(allOJS = all)
 ```
 
 ```{r}
