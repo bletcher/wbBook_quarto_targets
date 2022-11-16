@@ -62,6 +62,15 @@ viewof selectTags = Inputs.select(
 ```
 
 ```{ojs}
+selectTags
+```
+
+```{r}
+#selectTags
+```
+
+
+```{ojs}
 //| panel: input
 
 viewof bill_length_min = Inputs.range(
