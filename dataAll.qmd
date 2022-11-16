@@ -82,6 +82,7 @@ viewof selectTag = Inputs.select(
 ```{ojs}
 selectTag
 tagsToPlot
+transpose(allOJS)
 ```
 
 
