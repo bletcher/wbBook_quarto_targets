@@ -70,26 +70,4 @@ viewof selectTag = Inputs.select(
 selectTag
 ```
 
-```{ojs}
-selectTag
-//tagsToPlot = all.filter((d) => selectTag.includes(d.tag))
-```
-
-
-```{ojs}
-//| panel: input
-
-
-selectTag
-/*
-tagsOverTime = Plot.plot({
-  marks: [
-    Plot.dot(tagsToPlot, { x: "detectionDate", y: "section", stroke: "tag" }),
-    Plot.line(tagsToPlot, { x: "detectionDate", y: "section", stroke: "tag" })
-  ]
-})
-*/
-```
-
-
 
