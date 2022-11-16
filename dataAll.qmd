@@ -35,12 +35,9 @@ library(targets)
 
 ```{r dataAll}
 
-all <- tar_read(cdWB_all) %>%
-  select(tag, detectionDate, river, section, observedLength)
-
+all <- tar_read(cdWB_all)
+  
 str(all)
-
-ojs_define(allOJS = all)
 ```
 
 ```{r}
@@ -50,8 +47,23 @@ tags <- all %>%
   arrange(desc(n)) %>%
   filter(!is.na(tag))
 
+  tags10 <- tags %>%
+    filter(n >450, n < 500)
+    
+
 ojs_define(tagsOJS = tags$tag)
 ```
+
+```{ojs}
+
+allTop10 <- all %>%
+  filter(tag %in% tags10$tag) %>%
+  select(tag, detectionDate, river, section, observedLength)
+  
+  
+ojs_define(allOJS = transpose(allTop10))
+```
+
 
 ```{ojs}
 //| panel: input
@@ -67,5 +79,15 @@ viewof selectTag = Inputs.select(
 
 ```
 
+```{ojs}
+tagsToPlot = allOJS.filter((d) => selectTag.includes(d.tag))
+
+tagsOverTime = Plot.plot({
+  marks: [
+    Plot.dot(tagsToPlot, { x: "detectionDate", y: "section", stroke: "tag" }),
+    Plot.line(tagsToPlot, { x: "detectionDate", y: "section", stroke: "tag" })
+  ]
+})
+```
 
 
