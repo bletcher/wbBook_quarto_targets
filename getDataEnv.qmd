@@ -50,7 +50,115 @@ Test: referring to @fig-envFlow.
 
 ggplot(envDataWB, aes(date, temperature)) +
   geom_point(size = 0.2) +
-  scale_x_continuous("Day of year") +
+  scale_x_continuous("Date") +
   scale_y_continuous("Stream temperature (C)") +
   facet_wrap(~river)
 ```
+
+
+## Plot air and water temperature over time for each tributary
+
+```{r envDataAirWaterTemperatureGraph}
+#| label: fig-envAirTemp
+#| fig-cap: "Stream and air temperature (C) by river"
+
+getTempYear <- function(d, yearIn){
+  d %>% filter(year == yearIn)
+}
+
+tempYear <- getTempYear(envDataWB, 2002)
+#write.csv(tempYear, "./data/tempYear.csv")
+ojs_define(tempYearOJS = tempYear)
+
+ggplot(tempYear, aes(date, temperature)) +
+  geom_point(size = 0.2) +
+  geom_point(aes(date, airTempMedian), color = "blue", size = 0.2) +
+  scale_x_continuous("Date") +
+  scale_y_continuous("Stream temperature (C)") +
+  facet_wrap(~river)
+
+ggplot(tempYear, aes(airTempMedian, temperature)) +
+  geom_point(size = 0.2) +
+  scale_x_continuous("Air Temperature") +
+  scale_y_continuous("Stream temperature (C)") +
+  facet_wrap(~river)
+```
+
+
+
+
+
+
+Will move this to its own chapter
+```{ojs}
+dateChunks = {
+  let daysCount = rangeWindowWidth;
+  let days = [
+    {
+      daysCount0: 0,
+      start: tempYear[0].dateDate,
+      end: tempYear[rangeWindowWidth].dateDate,
+      daysCount: rangeWindowWidth,
+      data: tempYear.filter(
+        (d) => d.yday >= 0 && d.yday <= 0 + rangeWindowWidth
+      )
+    }
+  ];
+
+  do {
+    if (daysCount < 365) {
+      // dont push if the whole year is seleceted, array will be empty
+      days.push({
+        daysCount0: daysCount,
+        start: tempYear[daysCount].dateDate,
+        end: tempYear[daysCount + rangeWindowWidth].dateDate,
+        daysCount: daysCount,
+        data: tempYear.filter(
+          (d) =>
+            d.yday >= daysCount + 1 && d.yday <= daysCount + rangeWindowWidth
+        )
+      });
+    }
+    daysCount = daysCount + rangeWindowWidth;
+  } while (daysCount <= 365);
+  return days;
+}
+```
+
+
+```{ojs}
+viewof rangeWindowWidth = Inputs.range([1, 365 - 0], {
+  label: "Window Width",
+  value: 14,
+  step: 1
+})
+```
+
+```{ojs}
+viewof rangeWhichWindow = Inputs.range([0, dateChunks.length - 1], {
+  label: "Which window?",
+  step: 1,
+  value: 0
+})
+```
+
+```{ojs}
+Plot.plot({
+  width: width,
+  marks: [
+    Plot.dot(dateChunks[rangeWhichWindow].data, {
+      x: "airTempMedian",
+      y: "temperature"
+    }),
+    Plot.linearRegressionY(dateChunks[rangeWhichWindow].data, {
+      x: "airTempMedian",
+      y: "temperature"
+    })
+  ],
+  facet: {
+    data: dateChunks[rangeWhichWindow].data,
+    x: "river"
+  }
+})
+```
+

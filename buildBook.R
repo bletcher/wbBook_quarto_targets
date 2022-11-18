@@ -7,3 +7,6 @@ library(quarto)
 
 tar_make()
 quarto::quarto_render(output_format = "html")
+
+
+quarto::quarto_render("dataAll.qmd", output_format = "html")
