@@ -159,10 +159,10 @@ Plot.plot({
       x: "airTempMedian",
       y: "temperature"
     }),
-    Plot.linearRegressionY(dateChunks[rangeWhichWindow].data, {
-      x: "airTempMedian",
-      y: "temperature"
-    })
+//    Plot.linearRegressionY(dateChunks[rangeWhichWindow].data, {
+//      x: "airTempMedian",
+//      y: "temperature"
+//    })
   ],
   facet: {
     data: dateChunks[rangeWhichWindow].data,
