@@ -46,6 +46,14 @@
         "tidyr"
       ]
     },
+    "KernSmooth": {
+      "Package": "KernSmooth",
+      "Version": "2.23-20",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "8dcfa99b14c296bc9f1fd64d52fd3ce7",
+      "Requirements": []
+    },
     "MASS": {
       "Package": "MASS",
       "Version": "7.3-58.1",
@@ -69,10 +77,10 @@
     },
     "Matrix": {
       "Package": "Matrix",
-      "Version": "1.5-3",
+      "Version": "1.5-1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "4006dffe49958d2dd591c17e61e60591",
+      "Hash": "539dc0c0c05636812f1080f473d2c177",
       "Requirements": [
         "lattice"
       ]
@@ -376,6 +384,28 @@
         "backports"
       ]
     },
+    "class": {
+      "Package": "class",
+      "Version": "7.3-20",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "da09d82223e669d270e47ed24ac8686e",
+      "Requirements": [
+        "MASS"
+      ]
+    },
+    "classInt": {
+      "Package": "classInt",
+      "Version": "0.4-8",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "298fa500d773db0845935cd73bfd9c2e",
+      "Requirements": [
+        "KernSmooth",
+        "class",
+        "e1071"
+      ]
+    },
     "cli": {
       "Package": "cli",
       "Version": "3.4.1",
@@ -465,6 +495,20 @@
       "Repository": "CRAN",
       "Hash": "b9b912b41064aaa79270f24d123c887d",
       "Requirements": []
+    },
+    "daymetr": {
+      "Package": "daymetr",
+      "Version": "1.6",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "cd7a3ce105e376dd2150077abaf114fe",
+      "Requirements": [
+        "httr",
+        "raster",
+        "sf",
+        "tibble",
+        "tidyr"
+      ]
     },
     "dbplyr": {
       "Package": "dbplyr",
@@ -557,6 +601,17 @@
         "tibble",
         "tidyselect",
         "vctrs"
+      ]
+    },
+    "e1071": {
+      "Package": "e1071",
+      "Version": "1.7-12",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "0d776df7577206e100c2c4b508208b10",
+      "Requirements": [
+        "class",
+        "proxy"
       ]
     },
     "ellipsis": {
@@ -1510,6 +1565,14 @@
         "rlang"
       ]
     },
+    "proxy": {
+      "Package": "proxy",
+      "Version": "0.4-27",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "e0ef355c12942cf7a6b91a6cfaea8b3e",
+      "Requirements": []
+    },
     "ps": {
       "Package": "ps",
       "Version": "1.7.2",
@@ -1552,6 +1615,18 @@
       "Repository": "CRAN",
       "Hash": "5e3c5dc0b071b21fa128676560dbe94d",
       "Requirements": []
+    },
+    "raster": {
+      "Package": "raster",
+      "Version": "3.6-3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "d550f9d6dbb4dce7cbd146b09d663343",
+      "Requirements": [
+        "Rcpp",
+        "sp",
+        "terra"
+      ]
     },
     "readr": {
       "Package": "readr",
@@ -1753,6 +1828,17 @@
         "xml2"
       ]
     },
+    "s2": {
+      "Package": "s2",
+      "Version": "1.1.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "73748e27d17db3c1c400e8114fcf9824",
+      "Requirements": [
+        "Rcpp",
+        "wk"
+      ]
+    },
     "sass": {
       "Package": "sass",
       "Version": "0.4.2",
@@ -1803,6 +1889,21 @@
       "Hash": "044078dfd387c9a6e160103978d23be4",
       "Requirements": []
     },
+    "sf": {
+      "Package": "sf",
+      "Version": "1.0-9",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "8a348490fefb623e7935f405230900a7",
+      "Requirements": [
+        "DBI",
+        "Rcpp",
+        "classInt",
+        "magrittr",
+        "s2",
+        "units"
+      ]
+    },
     "shiny": {
       "Package": "shiny",
       "Version": "1.7.3",
@@ -1839,6 +1940,16 @@
       "Repository": "CRAN",
       "Hash": "947e4e02a79effa5d512473e10f41797",
       "Requirements": []
+    },
+    "sp": {
+      "Package": "sp",
+      "Version": "1.5-1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "7b6b37e9d8e3295ccd5a73ac6d62db98",
+      "Requirements": [
+        "lattice"
+      ]
     },
     "stringi": {
       "Package": "stringi",
@@ -1954,6 +2065,16 @@
         "vctrs",
         "withr",
         "yaml"
+      ]
+    },
+    "terra": {
+      "Package": "terra",
+      "Version": "1.6-17",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "3e264754dde87261bc7ccdb30d29d3b4",
+      "Requirements": [
+        "Rcpp"
       ]
     },
     "testthat": {
@@ -2102,6 +2223,16 @@
         "cpp11"
       ]
     },
+    "units": {
+      "Package": "units",
+      "Version": "0.8-0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "6c374b265ba437f8d384ec7a313edd96",
+      "Requirements": [
+        "Rcpp"
+      ]
+    },
     "utf8": {
       "Package": "utf8",
       "Version": "1.2.2",
@@ -2232,6 +2363,14 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "c0e49a9760983e81e55cdd9be92e7182",
+      "Requirements": []
+    },
+    "wk": {
+      "Package": "wk",
+      "Version": "0.7.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "4801d436beeacde30e87f3485a042326",
       "Requirements": []
     },
     "writexl": {

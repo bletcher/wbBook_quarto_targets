@@ -96,10 +96,10 @@ dateChunks = {
   let days = [
     {
       daysCount0: 0,
-      start: tempYear[0].dateDate,
-      end: tempYear[rangeWindowWidth].dateDate,
+      start: tempYearOJS[0].dateDate,
+      end: tempYearOJS[rangeWindowWidth].dateDate,
       daysCount: rangeWindowWidth,
-      data: tempYear.filter(
+      data: tempYearOJS.filter(
         (d) => d.yday >= 0 && d.yday <= 0 + rangeWindowWidth
       )
     }
@@ -110,10 +110,10 @@ dateChunks = {
       // dont push if the whole year is seleceted, array will be empty
       days.push({
         daysCount0: daysCount,
-        start: tempYear[daysCount].dateDate,
-        end: tempYear[daysCount + rangeWindowWidth].dateDate,
+        start: tempYearOJS[daysCount].dateDate,
+        end: tempYearOJS[daysCount + rangeWindowWidth].dateDate,
         daysCount: daysCount,
-        data: tempYear.filter(
+        data: tempYearOJS.filter(
           (d) =>
             d.yday >= daysCount + 1 && d.yday <= daysCount + rangeWindowWidth
         )
