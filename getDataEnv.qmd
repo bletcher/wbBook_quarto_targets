@@ -68,7 +68,7 @@ getTempYear <- function(d, yearIn){
 
 tempYear <- getTempYear(envDataWB, 2002)
 #write.csv(tempYear, "./data/tempYear.csv")
-ojs_define(tempYearOJS = tempYear)
+ojs_define(tempYearOJS0 = tempYear)
 
 ggplot(tempYear, aes(date, temperature)) +
   geom_point(size = 0.2) +
@@ -90,6 +90,13 @@ ggplot(tempYear, aes(airTempMedian, temperature)) +
 
 
 Will move this to its own chapter
+```{ojs}
+tempYearOJS = tempYearOJS0
+
+dataChunks
+```
+
+
 ```{ojs}
 dateChunks = {
   let daysCount = rangeWindowWidth;
