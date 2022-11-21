@@ -621,6 +621,36 @@ Start date = <span><span id="ojs-element-id-2"></span>,</span> end date = <span>
 </div>
 </div>
 </div>
+<p>iframe in html block</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;iframe</span> <span class="er">width</span><span class="ot">=</span><span class="st">"100%"</span> <span class="er">height</span><span class="ot">=</span><span class="st">"510"</span> <span class="er">frameborder</span><span class="ot">=</span><span class="st">"0"</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ot">  src=</span><span class="st">"https://observablehq.com/embed/@bletcher/playground?cells=viewof+rangeWindowWidth%2Cviewof+rangeWhichWindow%2CplotChunk"</span><span class="kw">&gt;&lt;/iframe&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>runtime with javascript in html block</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;div</span> <span class="er">id</span><span class="ot">=</span><span class="st">"observablehq-viewof-rangeWindowWidth-7d7c4d0d"</span><span class="kw">&gt;&lt;/div&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;div</span> <span class="er">id</span><span class="ot">=</span><span class="st">"observablehq-viewof-rangeWhichWindow-7d7c4d0d"</span><span class="kw">&gt;&lt;/div&gt;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;div</span> <span class="er">id</span><span class="ot">=</span><span class="st">"observablehq-plotChunk-7d7c4d0d"</span><span class="kw">&gt;&lt;/div&gt;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;p&gt;</span>Credit: <span class="kw">&lt;a</span> <span class="er">href</span><span class="ot">=</span><span class="st">"https://observablehq.com/@bletcher/playground"</span><span class="kw">&gt;</span>Playground by Ben Letcher<span class="kw">&lt;/a&gt;&lt;/p&gt;</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;link</span> <span class="er">rel</span><span class="ot">=</span><span class="st">"stylesheet"</span> <span class="er">href</span><span class="ot">=</span><span class="st">"https://cdn.jsdelivr.net/npm/@observablehq/inspector@5/dist/inspector.css"</span><span class="kw">&gt;</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;script</span><span class="ot"> type=</span><span class="st">"module"</span><span class="kw">&gt;</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {Runtime<span class="op">,</span> Inspector} <span class="im">from</span> <span class="st">"https://cdn.jsdelivr.net/npm/@observablehq/runtime@5/dist/runtime.js"</span><span class="op">;</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> define <span class="im">from</span> <span class="st">"https://api.observablehq.com/@bletcher/playground@190.js?v=3"</span><span class="op">;</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="kw">new</span> <span class="fu">Runtime</span>()<span class="op">.</span><span class="fu">module</span>(define<span class="op">,</span> name <span class="kw">=&gt;</span> {</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (name <span class="op">===</span> <span class="st">"viewof rangeWindowWidth"</span>) <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Inspector</span>(<span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">"#observablehq-viewof-rangeWindowWidth-7d7c4d0d"</span>))<span class="op">;</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (name <span class="op">===</span> <span class="st">"viewof rangeWhichWindow"</span>) <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Inspector</span>(<span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">"#observablehq-viewof-rangeWhichWindow-7d7c4d0d"</span>))<span class="op">;</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (name <span class="op">===</span> <span class="st">"plotChunk"</span>) <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Inspector</span>(<span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">"#observablehq-plotChunk-7d7c4d0d"</span>))<span class="op">;</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> [<span class="st">"dateChunks"</span>]<span class="op">.</span><span class="fu">includes</span>(name)<span class="op">;</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/script&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 
 
 <!-- -->
@@ -910,203 +940,229 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb15" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Get environmental data</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="in">```{r getEnvDataOptions, include=FALSE}</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">message =</span> <span class="cn">FALSE</span>, <span class="at">warning =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="in">```{r librariesGetData, echo = FALSE}</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co">#library(devtools)</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">#options(download.file.method = "wininet") or turn off VPN</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co">#devtools::install_github('Conte-Ecology/westBrookData/getWBData')</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(getWBData)</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(validate)</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>Data are generated in <span class="in">`R/getDataEnv-targets.R`</span> <span class="co">[</span><span class="ot">file</span><span class="co">](https://github.com/bletcher/wbBook_quarto_targets/blob/main/R/getDataEnv_targets.R)</span>  </span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Get environmental data target and show data frame structure</span></span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="in">```{r getEnvData}</span></span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>envDataWB <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(envDataWB_Target)</span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(envDataWB)</span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## Plot flow over time for the West Brook by year</span></span>
-<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a><span class="in">```{r envDataFlowGraph}</span></span>
-<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-envFlow</span></span>
-<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Stream flow (m3/s) for the West Brook"</span></span>
-<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envDataWB, <span class="fu">aes</span>(yday, flow)) <span class="sc">+</span></span>
-<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.1</span>) <span class="sc">+</span> </span>
-<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_line() +</span></span>
-<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Day of year"</span>) <span class="sc">+</span></span>
-<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Stream flow (m^3/s)"</span>) <span class="sc">+</span></span>
-<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span><span class="fu">year</span>(date))</span>
-<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a>Test: referring to @fig-envFlow.</span>
-<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## Plot temperature over time for each tributary</span></span>
-<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a><span class="in">```{r envDataTemperatureGraph}</span></span>
-<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-envTemp</span></span>
-<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Stream temperature (C) by river"</span></span>
-<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envDataWB, <span class="fu">aes</span>(date, temperature)) <span class="sc">+</span></span>
-<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Date"</span>) <span class="sc">+</span></span>
-<span id="cb15-54"><a href="#cb15-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Stream temperature (C)"</span>) <span class="sc">+</span></span>
-<span id="cb15-55"><a href="#cb15-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>river)</span>
-<span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-58"><a href="#cb15-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-59"><a href="#cb15-59" aria-hidden="true" tabindex="-1"></a><span class="fu">## Plot air and water temperature over time for each tributary</span></span>
-<span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a><span class="in">```{r envDataAirWaterTemperatureGraph}</span></span>
-<span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-envAirTemp</span></span>
-<span id="cb15-63"><a href="#cb15-63" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Stream and air temperature (C) by river"</span></span>
-<span id="cb15-64"><a href="#cb15-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-65"><a href="#cb15-65" aria-hidden="true" tabindex="-1"></a>getTempYear <span class="ot">&lt;-</span> <span class="cf">function</span>(d, yearIn){</span>
-<span id="cb15-66"><a href="#cb15-66" aria-hidden="true" tabindex="-1"></a>  d <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year <span class="sc">==</span> yearIn)</span>
-<span id="cb15-67"><a href="#cb15-67" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb15-68"><a href="#cb15-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-69"><a href="#cb15-69" aria-hidden="true" tabindex="-1"></a>tempYear <span class="ot">&lt;-</span> <span class="fu">getTempYear</span>(envDataWB, <span class="dv">2002</span>)</span>
-<span id="cb15-70"><a href="#cb15-70" aria-hidden="true" tabindex="-1"></a><span class="co">#write.csv(tempYear, "./data/tempYear.csv")</span></span>
-<span id="cb15-71"><a href="#cb15-71" aria-hidden="true" tabindex="-1"></a><span class="fu">ojs_define</span>(<span class="at">tempYearOJS0 =</span> tempYear)</span>
-<span id="cb15-72"><a href="#cb15-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-73"><a href="#cb15-73" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tempYear, <span class="fu">aes</span>(date, temperature)) <span class="sc">+</span></span>
-<span id="cb15-74"><a href="#cb15-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb15-75"><a href="#cb15-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(date, airTempMedian), <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb15-76"><a href="#cb15-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Date"</span>) <span class="sc">+</span></span>
-<span id="cb15-77"><a href="#cb15-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Stream temperature (C)"</span>) <span class="sc">+</span></span>
-<span id="cb15-78"><a href="#cb15-78" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>river)</span>
-<span id="cb15-79"><a href="#cb15-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-80"><a href="#cb15-80" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tempYear, <span class="fu">aes</span>(airTempMedian, temperature, <span class="at">color =</span> yday)) <span class="sc">+</span></span>
-<span id="cb15-81"><a href="#cb15-81" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb15-82"><a href="#cb15-82" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Air Temperature"</span>) <span class="sc">+</span></span>
-<span id="cb15-83"><a href="#cb15-83" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Stream temperature (C)"</span>) <span class="sc">+</span></span>
-<span id="cb15-84"><a href="#cb15-84" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>river)</span>
-<span id="cb15-85"><a href="#cb15-85" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-86"><a href="#cb15-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-87"><a href="#cb15-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-88"><a href="#cb15-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-89"><a href="#cb15-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-90"><a href="#cb15-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-91"><a href="#cb15-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-92"><a href="#cb15-92" aria-hidden="true" tabindex="-1"></a>Will move this to its own chapter</span>
-<span id="cb15-95"><a href="#cb15-95" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
-<span id="cb15-96"><a href="#cb15-96" aria-hidden="true" tabindex="-1"></a>tempYearOJS <span class="op">=</span> <span class="fu">transpose</span>(tempYearOJS0)</span>
-<span id="cb15-97"><a href="#cb15-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-98"><a href="#cb15-98" aria-hidden="true" tabindex="-1"></a><span class="co">//tempYearOJS0</span></span>
-<span id="cb15-99"><a href="#cb15-99" aria-hidden="true" tabindex="-1"></a><span class="co">//tempYearOJS</span></span>
-<span id="cb15-100"><a href="#cb15-100" aria-hidden="true" tabindex="-1"></a>dateChunks</span>
-<span id="cb15-101"><a href="#cb15-101" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
-<span id="cb15-102"><a href="#cb15-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-103"><a href="#cb15-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-106"><a href="#cb15-106" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
-<span id="cb15-107"><a href="#cb15-107" aria-hidden="true" tabindex="-1"></a>dateChunks <span class="op">=</span> {</span>
-<span id="cb15-108"><a href="#cb15-108" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> daysCount <span class="op">=</span> rangeWindowWidth<span class="op">;</span></span>
-<span id="cb15-109"><a href="#cb15-109" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> days <span class="op">=</span> [</span>
-<span id="cb15-110"><a href="#cb15-110" aria-hidden="true" tabindex="-1"></a>    {</span>
-<span id="cb15-111"><a href="#cb15-111" aria-hidden="true" tabindex="-1"></a>      <span class="dt">daysCount0</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
-<span id="cb15-112"><a href="#cb15-112" aria-hidden="true" tabindex="-1"></a>      <span class="dt">start</span><span class="op">:</span> tempYearOJS[<span class="dv">0</span>]<span class="op">.</span><span class="at">dateDate</span><span class="op">,</span></span>
-<span id="cb15-113"><a href="#cb15-113" aria-hidden="true" tabindex="-1"></a>      <span class="dt">end</span><span class="op">:</span> tempYearOJS[rangeWindowWidth]<span class="op">.</span><span class="at">dateDate</span><span class="op">,</span></span>
-<span id="cb15-114"><a href="#cb15-114" aria-hidden="true" tabindex="-1"></a>      <span class="dt">daysCount</span><span class="op">:</span> rangeWindowWidth<span class="op">,</span></span>
-<span id="cb15-115"><a href="#cb15-115" aria-hidden="true" tabindex="-1"></a>      <span class="dt">data</span><span class="op">:</span> tempYearOJS<span class="op">.</span><span class="fu">filter</span>(</span>
-<span id="cb15-116"><a href="#cb15-116" aria-hidden="true" tabindex="-1"></a>        (d) <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">yday</span> <span class="op">&gt;=</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span> d<span class="op">.</span><span class="at">yday</span> <span class="op">&lt;=</span> <span class="dv">0</span> <span class="op">+</span> rangeWindowWidth</span>
-<span id="cb15-117"><a href="#cb15-117" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb15-118"><a href="#cb15-118" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb15-119"><a href="#cb15-119" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">;</span></span>
-<span id="cb15-120"><a href="#cb15-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-121"><a href="#cb15-121" aria-hidden="true" tabindex="-1"></a>  <span class="cf">do</span> {</span>
-<span id="cb15-122"><a href="#cb15-122" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (daysCount <span class="op">&lt;</span> <span class="dv">365</span>) {</span>
-<span id="cb15-123"><a href="#cb15-123" aria-hidden="true" tabindex="-1"></a>      <span class="co">// dont push if the whole year is seleceted, array will be empty</span></span>
-<span id="cb15-124"><a href="#cb15-124" aria-hidden="true" tabindex="-1"></a>      days<span class="op">.</span><span class="fu">push</span>({</span>
-<span id="cb15-125"><a href="#cb15-125" aria-hidden="true" tabindex="-1"></a>        <span class="dt">daysCount0</span><span class="op">:</span> daysCount<span class="op">,</span></span>
-<span id="cb15-126"><a href="#cb15-126" aria-hidden="true" tabindex="-1"></a>        <span class="dt">start</span><span class="op">:</span> tempYearOJS[daysCount]<span class="op">.</span><span class="at">dateDate</span><span class="op">,</span></span>
-<span id="cb15-127"><a href="#cb15-127" aria-hidden="true" tabindex="-1"></a>        <span class="dt">end</span><span class="op">:</span> tempYearOJS[daysCount <span class="op">+</span> rangeWindowWidth]<span class="op">.</span><span class="at">dateDate</span><span class="op">,</span></span>
-<span id="cb15-128"><a href="#cb15-128" aria-hidden="true" tabindex="-1"></a>        <span class="dt">daysCount</span><span class="op">:</span> daysCount<span class="op">,</span></span>
-<span id="cb15-129"><a href="#cb15-129" aria-hidden="true" tabindex="-1"></a>        <span class="dt">data</span><span class="op">:</span> tempYearOJS<span class="op">.</span><span class="fu">filter</span>(</span>
-<span id="cb15-130"><a href="#cb15-130" aria-hidden="true" tabindex="-1"></a>          (d) <span class="kw">=&gt;</span></span>
-<span id="cb15-131"><a href="#cb15-131" aria-hidden="true" tabindex="-1"></a>            d<span class="op">.</span><span class="at">yday</span> <span class="op">&gt;=</span> daysCount <span class="op">+</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span> d<span class="op">.</span><span class="at">yday</span> <span class="op">&lt;=</span> daysCount <span class="op">+</span> rangeWindowWidth</span>
-<span id="cb15-132"><a href="#cb15-132" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb15-133"><a href="#cb15-133" aria-hidden="true" tabindex="-1"></a>      })<span class="op">;</span></span>
-<span id="cb15-134"><a href="#cb15-134" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb15-135"><a href="#cb15-135" aria-hidden="true" tabindex="-1"></a>    daysCount <span class="op">=</span> daysCount <span class="op">+</span> rangeWindowWidth<span class="op">;</span></span>
-<span id="cb15-136"><a href="#cb15-136" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">while</span> (daysCount <span class="op">&lt;=</span> <span class="dv">365</span>)<span class="op">;</span></span>
-<span id="cb15-137"><a href="#cb15-137" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> days<span class="op">;</span></span>
-<span id="cb15-138"><a href="#cb15-138" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb15-139"><a href="#cb15-139" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
-<span id="cb15-140"><a href="#cb15-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-141"><a href="#cb15-141" aria-hidden="true" tabindex="-1"></a><span class="vs">Use the slider below to set the length (# of days) of each data chunk.</span></span>
-<span id="cb15-144"><a href="#cb15-144" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
-<span id="cb15-145"><a href="#cb15-145" aria-hidden="true" tabindex="-1"></a>viewof rangeWindowWidth <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">365</span> <span class="op">-</span> <span class="dv">0</span>]<span class="op">,</span> {</span>
-<span id="cb15-146"><a href="#cb15-146" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Data chunk length"</span><span class="op">,</span></span>
-<span id="cb15-147"><a href="#cb15-147" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">14</span><span class="op">,</span></span>
-<span id="cb15-148"><a href="#cb15-148" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span></span>
-<span id="cb15-149"><a href="#cb15-149" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb15-150"><a href="#cb15-150" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
-<span id="cb15-151"><a href="#cb15-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-152"><a href="#cb15-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-153"><a href="#cb15-153" aria-hidden="true" tabindex="-1"></a><span class="vs">Number of data chunks: </span><span class="sc">${</span>dateChunks<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs">.   </span></span>
-<span id="cb15-154"><a href="#cb15-154" aria-hidden="true" tabindex="-1"></a><span class="vs">Start date = </span><span class="sc">${</span>dateChunks[rangeWhichWindow]<span class="op">.</span><span class="at">data</span>[<span class="dv">0</span>]<span class="op">.</span><span class="at">date</span><span class="sc">}</span><span class="vs">, end date = </span><span class="sc">${</span>dateChunks[rangeWhichWindow]<span class="op">.</span><span class="at">data</span>[dateChunks<span class="op">.</span><span class="at">length</span> <span class="op">-</span> <span class="dv">1</span>]<span class="op">.</span><span class="at">date</span><span class="sc">}</span></span>
-<span id="cb15-157"><a href="#cb15-157" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
-<span id="cb15-158"><a href="#cb15-158" aria-hidden="true" tabindex="-1"></a>dateChunks<span class="op">.</span><span class="at">length</span></span>
-<span id="cb15-159"><a href="#cb15-159" aria-hidden="true" tabindex="-1"></a>dateChunks[rangeWhichWindow]<span class="op">.</span><span class="at">data</span>[<span class="dv">0</span>]<span class="op">.</span><span class="at">date</span></span>
-<span id="cb15-160"><a href="#cb15-160" aria-hidden="true" tabindex="-1"></a>dateChunks[rangeWhichWindow]<span class="op">.</span><span class="at">data</span>[dateChunks<span class="op">.</span><span class="at">length</span> <span class="op">-</span> <span class="dv">1</span>]<span class="op">.</span><span class="at">date</span></span>
-<span id="cb15-161"><a href="#cb15-161" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
-<span id="cb15-162"><a href="#cb15-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-163"><a href="#cb15-163" aria-hidden="true" tabindex="-1"></a><span class="vs">Of the data chunks defined above which one should we graph. 0 is the first one and you won't be able to go past the last one (range updates automatically) but you might get as few as one observation in the last chunk.</span></span>
-<span id="cb15-164"><a href="#cb15-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-167"><a href="#cb15-167" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
-<span id="cb15-168"><a href="#cb15-168" aria-hidden="true" tabindex="-1"></a>viewof rangeWhichWindow <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> dateChunks<span class="op">.</span><span class="at">length</span> <span class="op">-</span> <span class="dv">1</span>]<span class="op">,</span> {</span>
-<span id="cb15-169"><a href="#cb15-169" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Which data chunk?"</span><span class="op">,</span></span>
-<span id="cb15-170"><a href="#cb15-170" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb15-171"><a href="#cb15-171" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span></span>
-<span id="cb15-172"><a href="#cb15-172" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb15-173"><a href="#cb15-173" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
-<span id="cb15-174"><a href="#cb15-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-177"><a href="#cb15-177" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
-<span id="cb15-178"><a href="#cb15-178" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb15-179"><a href="#cb15-179" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> width<span class="op">,</span></span>
-<span id="cb15-180"><a href="#cb15-180" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">350</span><span class="op">,</span></span>
-<span id="cb15-181"><a href="#cb15-181" aria-hidden="true" tabindex="-1"></a>  <span class="dt">inset</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span></span>
-<span id="cb15-182"><a href="#cb15-182" aria-hidden="true" tabindex="-1"></a>  <span class="dt">color</span><span class="op">:</span> {</span>
-<span id="cb15-183"><a href="#cb15-183" aria-hidden="true" tabindex="-1"></a>    <span class="dt">scheme</span><span class="op">:</span> <span class="st">"greys"</span></span>
-<span id="cb15-184"><a href="#cb15-184" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
-<span id="cb15-185"><a href="#cb15-185" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"Air temperature (C)"</span> }<span class="op">,</span></span>
-<span id="cb15-186"><a href="#cb15-186" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"Water temperature (C)"</span> }<span class="op">,</span></span>
-<span id="cb15-187"><a href="#cb15-187" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb15-188"><a href="#cb15-188" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">frame</span>()<span class="op">,</span></span>
-<span id="cb15-189"><a href="#cb15-189" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(dateChunks[rangeWhichWindow]<span class="op">.</span><span class="at">data</span><span class="op">,</span> {</span>
-<span id="cb15-190"><a href="#cb15-190" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> <span class="st">"airTempMedian"</span><span class="op">,</span></span>
-<span id="cb15-191"><a href="#cb15-191" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> <span class="st">"temperature"</span><span class="op">,</span></span>
-<span id="cb15-192"><a href="#cb15-192" aria-hidden="true" tabindex="-1"></a>      <span class="dt">stroke</span><span class="op">:</span> <span class="st">"yday"</span></span>
-<span id="cb15-193"><a href="#cb15-193" aria-hidden="true" tabindex="-1"></a>    })<span class="co">//,</span></span>
-<span id="cb15-194"><a href="#cb15-194" aria-hidden="true" tabindex="-1"></a> <span class="co">//   Plot.linearRegressionY(dateChunks[rangeWhichWindow].data, {</span></span>
-<span id="cb15-195"><a href="#cb15-195" aria-hidden="true" tabindex="-1"></a><span class="co">//      x: "airTempMedian",</span></span>
-<span id="cb15-196"><a href="#cb15-196" aria-hidden="true" tabindex="-1"></a> <span class="co">//     y: "temperature"</span></span>
-<span id="cb15-197"><a href="#cb15-197" aria-hidden="true" tabindex="-1"></a> <span class="co">//   })</span></span>
-<span id="cb15-198"><a href="#cb15-198" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">,</span></span>
-<span id="cb15-199"><a href="#cb15-199" aria-hidden="true" tabindex="-1"></a>  <span class="dt">facet</span><span class="op">:</span> {</span>
-<span id="cb15-200"><a href="#cb15-200" aria-hidden="true" tabindex="-1"></a>    <span class="dt">data</span><span class="op">:</span> dateChunks[rangeWhichWindow]<span class="op">.</span><span class="at">data</span><span class="op">,</span></span>
-<span id="cb15-201"><a href="#cb15-201" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> <span class="st">"river"</span></span>
-<span id="cb15-202"><a href="#cb15-202" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb15-203"><a href="#cb15-203" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb15-204"><a href="#cb15-204" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
-<span id="cb15-205"><a href="#cb15-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-208"><a href="#cb15-208" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
-<span id="cb15-209"><a href="#cb15-209" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { plotChunk } <span class="im">from</span> <span class="st">"@bletcher/Playground"</span></span>
-<span id="cb15-210"><a href="#cb15-210" aria-hidden="true" tabindex="-1"></a>plotChunk</span>
-<span id="cb15-211"><a href="#cb15-211" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<div class="sourceCode" id="cb17" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Get environmental data</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="in">```{r getEnvDataOptions, include=FALSE}</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">message =</span> <span class="cn">FALSE</span>, <span class="at">warning =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="in">```{r librariesGetData, echo = FALSE}</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co">#library(devtools)</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co">#options(download.file.method = "wininet") or turn off VPN</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co">#devtools::install_github('Conte-Ecology/westBrookData/getWBData')</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(getWBData)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(validate)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>Data are generated in <span class="in">`R/getDataEnv-targets.R`</span> <span class="co">[</span><span class="ot">file</span><span class="co">](https://github.com/bletcher/wbBook_quarto_targets/blob/main/R/getDataEnv_targets.R)</span>  </span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Get environmental data target and show data frame structure</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="in">```{r getEnvData}</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>envDataWB <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(envDataWB_Target)</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(envDataWB)</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## Plot flow over time for the West Brook by year</span></span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a><span class="in">```{r envDataFlowGraph}</span></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-envFlow</span></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Stream flow (m3/s) for the West Brook"</span></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envDataWB, <span class="fu">aes</span>(yday, flow)) <span class="sc">+</span></span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.1</span>) <span class="sc">+</span> </span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_line() +</span></span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Day of year"</span>) <span class="sc">+</span></span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Stream flow (m^3/s)"</span>) <span class="sc">+</span></span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span><span class="fu">year</span>(date))</span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a>Test: referring to @fig-envFlow.</span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## Plot temperature over time for each tributary</span></span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a><span class="in">```{r envDataTemperatureGraph}</span></span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-envTemp</span></span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Stream temperature (C) by river"</span></span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envDataWB, <span class="fu">aes</span>(date, temperature)) <span class="sc">+</span></span>
+<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Date"</span>) <span class="sc">+</span></span>
+<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Stream temperature (C)"</span>) <span class="sc">+</span></span>
+<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>river)</span>
+<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a><span class="fu">## Plot air and water temperature over time for each tributary</span></span>
+<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-61"><a href="#cb17-61" aria-hidden="true" tabindex="-1"></a><span class="in">```{r envDataAirWaterTemperatureGraph}</span></span>
+<span id="cb17-62"><a href="#cb17-62" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-envAirTemp</span></span>
+<span id="cb17-63"><a href="#cb17-63" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Stream and air temperature (C) by river"</span></span>
+<span id="cb17-64"><a href="#cb17-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-65"><a href="#cb17-65" aria-hidden="true" tabindex="-1"></a>getTempYear <span class="ot">&lt;-</span> <span class="cf">function</span>(d, yearIn){</span>
+<span id="cb17-66"><a href="#cb17-66" aria-hidden="true" tabindex="-1"></a>  d <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year <span class="sc">==</span> yearIn)</span>
+<span id="cb17-67"><a href="#cb17-67" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-68"><a href="#cb17-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-69"><a href="#cb17-69" aria-hidden="true" tabindex="-1"></a>tempYear <span class="ot">&lt;-</span> <span class="fu">getTempYear</span>(envDataWB, <span class="dv">2002</span>)</span>
+<span id="cb17-70"><a href="#cb17-70" aria-hidden="true" tabindex="-1"></a><span class="co">#write.csv(tempYear, "./data/tempYear.csv")</span></span>
+<span id="cb17-71"><a href="#cb17-71" aria-hidden="true" tabindex="-1"></a><span class="fu">ojs_define</span>(<span class="at">tempYearOJS0 =</span> tempYear)</span>
+<span id="cb17-72"><a href="#cb17-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-73"><a href="#cb17-73" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tempYear, <span class="fu">aes</span>(date, temperature)) <span class="sc">+</span></span>
+<span id="cb17-74"><a href="#cb17-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb17-75"><a href="#cb17-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(date, airTempMedian), <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb17-76"><a href="#cb17-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Date"</span>) <span class="sc">+</span></span>
+<span id="cb17-77"><a href="#cb17-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Stream temperature (C)"</span>) <span class="sc">+</span></span>
+<span id="cb17-78"><a href="#cb17-78" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>river)</span>
+<span id="cb17-79"><a href="#cb17-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-80"><a href="#cb17-80" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tempYear, <span class="fu">aes</span>(airTempMedian, temperature, <span class="at">color =</span> yday)) <span class="sc">+</span></span>
+<span id="cb17-81"><a href="#cb17-81" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb17-82"><a href="#cb17-82" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Air Temperature"</span>) <span class="sc">+</span></span>
+<span id="cb17-83"><a href="#cb17-83" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Stream temperature (C)"</span>) <span class="sc">+</span></span>
+<span id="cb17-84"><a href="#cb17-84" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>river)</span>
+<span id="cb17-85"><a href="#cb17-85" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-86"><a href="#cb17-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-87"><a href="#cb17-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-88"><a href="#cb17-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-89"><a href="#cb17-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-90"><a href="#cb17-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-91"><a href="#cb17-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-92"><a href="#cb17-92" aria-hidden="true" tabindex="-1"></a>Will move this to its own chapter</span>
+<span id="cb17-95"><a href="#cb17-95" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb17-96"><a href="#cb17-96" aria-hidden="true" tabindex="-1"></a>tempYearOJS <span class="op">=</span> <span class="fu">transpose</span>(tempYearOJS0)</span>
+<span id="cb17-97"><a href="#cb17-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-98"><a href="#cb17-98" aria-hidden="true" tabindex="-1"></a><span class="co">//tempYearOJS0</span></span>
+<span id="cb17-99"><a href="#cb17-99" aria-hidden="true" tabindex="-1"></a><span class="co">//tempYearOJS</span></span>
+<span id="cb17-100"><a href="#cb17-100" aria-hidden="true" tabindex="-1"></a>dateChunks</span>
+<span id="cb17-101"><a href="#cb17-101" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb17-102"><a href="#cb17-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-103"><a href="#cb17-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-106"><a href="#cb17-106" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb17-107"><a href="#cb17-107" aria-hidden="true" tabindex="-1"></a>dateChunks <span class="op">=</span> {</span>
+<span id="cb17-108"><a href="#cb17-108" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> daysCount <span class="op">=</span> rangeWindowWidth<span class="op">;</span></span>
+<span id="cb17-109"><a href="#cb17-109" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> days <span class="op">=</span> [</span>
+<span id="cb17-110"><a href="#cb17-110" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb17-111"><a href="#cb17-111" aria-hidden="true" tabindex="-1"></a>      <span class="dt">daysCount0</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb17-112"><a href="#cb17-112" aria-hidden="true" tabindex="-1"></a>      <span class="dt">start</span><span class="op">:</span> tempYearOJS[<span class="dv">0</span>]<span class="op">.</span><span class="at">dateDate</span><span class="op">,</span></span>
+<span id="cb17-113"><a href="#cb17-113" aria-hidden="true" tabindex="-1"></a>      <span class="dt">end</span><span class="op">:</span> tempYearOJS[rangeWindowWidth]<span class="op">.</span><span class="at">dateDate</span><span class="op">,</span></span>
+<span id="cb17-114"><a href="#cb17-114" aria-hidden="true" tabindex="-1"></a>      <span class="dt">daysCount</span><span class="op">:</span> rangeWindowWidth<span class="op">,</span></span>
+<span id="cb17-115"><a href="#cb17-115" aria-hidden="true" tabindex="-1"></a>      <span class="dt">data</span><span class="op">:</span> tempYearOJS<span class="op">.</span><span class="fu">filter</span>(</span>
+<span id="cb17-116"><a href="#cb17-116" aria-hidden="true" tabindex="-1"></a>        (d) <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">yday</span> <span class="op">&gt;=</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span> d<span class="op">.</span><span class="at">yday</span> <span class="op">&lt;=</span> <span class="dv">0</span> <span class="op">+</span> rangeWindowWidth</span>
+<span id="cb17-117"><a href="#cb17-117" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb17-118"><a href="#cb17-118" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb17-119"><a href="#cb17-119" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">;</span></span>
+<span id="cb17-120"><a href="#cb17-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-121"><a href="#cb17-121" aria-hidden="true" tabindex="-1"></a>  <span class="cf">do</span> {</span>
+<span id="cb17-122"><a href="#cb17-122" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (daysCount <span class="op">&lt;</span> <span class="dv">365</span>) {</span>
+<span id="cb17-123"><a href="#cb17-123" aria-hidden="true" tabindex="-1"></a>      <span class="co">// dont push if the whole year is seleceted, array will be empty</span></span>
+<span id="cb17-124"><a href="#cb17-124" aria-hidden="true" tabindex="-1"></a>      days<span class="op">.</span><span class="fu">push</span>({</span>
+<span id="cb17-125"><a href="#cb17-125" aria-hidden="true" tabindex="-1"></a>        <span class="dt">daysCount0</span><span class="op">:</span> daysCount<span class="op">,</span></span>
+<span id="cb17-126"><a href="#cb17-126" aria-hidden="true" tabindex="-1"></a>        <span class="dt">start</span><span class="op">:</span> tempYearOJS[daysCount]<span class="op">.</span><span class="at">dateDate</span><span class="op">,</span></span>
+<span id="cb17-127"><a href="#cb17-127" aria-hidden="true" tabindex="-1"></a>        <span class="dt">end</span><span class="op">:</span> tempYearOJS[daysCount <span class="op">+</span> rangeWindowWidth]<span class="op">.</span><span class="at">dateDate</span><span class="op">,</span></span>
+<span id="cb17-128"><a href="#cb17-128" aria-hidden="true" tabindex="-1"></a>        <span class="dt">daysCount</span><span class="op">:</span> daysCount<span class="op">,</span></span>
+<span id="cb17-129"><a href="#cb17-129" aria-hidden="true" tabindex="-1"></a>        <span class="dt">data</span><span class="op">:</span> tempYearOJS<span class="op">.</span><span class="fu">filter</span>(</span>
+<span id="cb17-130"><a href="#cb17-130" aria-hidden="true" tabindex="-1"></a>          (d) <span class="kw">=&gt;</span></span>
+<span id="cb17-131"><a href="#cb17-131" aria-hidden="true" tabindex="-1"></a>            d<span class="op">.</span><span class="at">yday</span> <span class="op">&gt;=</span> daysCount <span class="op">+</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span> d<span class="op">.</span><span class="at">yday</span> <span class="op">&lt;=</span> daysCount <span class="op">+</span> rangeWindowWidth</span>
+<span id="cb17-132"><a href="#cb17-132" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb17-133"><a href="#cb17-133" aria-hidden="true" tabindex="-1"></a>      })<span class="op">;</span></span>
+<span id="cb17-134"><a href="#cb17-134" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb17-135"><a href="#cb17-135" aria-hidden="true" tabindex="-1"></a>    daysCount <span class="op">=</span> daysCount <span class="op">+</span> rangeWindowWidth<span class="op">;</span></span>
+<span id="cb17-136"><a href="#cb17-136" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">while</span> (daysCount <span class="op">&lt;=</span> <span class="dv">365</span>)<span class="op">;</span></span>
+<span id="cb17-137"><a href="#cb17-137" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> days<span class="op">;</span></span>
+<span id="cb17-138"><a href="#cb17-138" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-139"><a href="#cb17-139" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb17-140"><a href="#cb17-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-141"><a href="#cb17-141" aria-hidden="true" tabindex="-1"></a><span class="vs">Use the slider below to set the length (# of days) of each data chunk.</span></span>
+<span id="cb17-144"><a href="#cb17-144" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb17-145"><a href="#cb17-145" aria-hidden="true" tabindex="-1"></a>viewof rangeWindowWidth <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">365</span> <span class="op">-</span> <span class="dv">0</span>]<span class="op">,</span> {</span>
+<span id="cb17-146"><a href="#cb17-146" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Data chunk length"</span><span class="op">,</span></span>
+<span id="cb17-147"><a href="#cb17-147" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">14</span><span class="op">,</span></span>
+<span id="cb17-148"><a href="#cb17-148" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span></span>
+<span id="cb17-149"><a href="#cb17-149" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb17-150"><a href="#cb17-150" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb17-151"><a href="#cb17-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-152"><a href="#cb17-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-153"><a href="#cb17-153" aria-hidden="true" tabindex="-1"></a><span class="vs">Number of data chunks: </span><span class="sc">${</span>dateChunks<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs">.   </span></span>
+<span id="cb17-154"><a href="#cb17-154" aria-hidden="true" tabindex="-1"></a><span class="vs">Start date = </span><span class="sc">${</span>dateChunks[rangeWhichWindow]<span class="op">.</span><span class="at">data</span>[<span class="dv">0</span>]<span class="op">.</span><span class="at">date</span><span class="sc">}</span><span class="vs">, end date = </span><span class="sc">${</span>dateChunks[rangeWhichWindow]<span class="op">.</span><span class="at">data</span>[dateChunks<span class="op">.</span><span class="at">length</span> <span class="op">-</span> <span class="dv">1</span>]<span class="op">.</span><span class="at">date</span><span class="sc">}</span></span>
+<span id="cb17-157"><a href="#cb17-157" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb17-158"><a href="#cb17-158" aria-hidden="true" tabindex="-1"></a>dateChunks<span class="op">.</span><span class="at">length</span></span>
+<span id="cb17-159"><a href="#cb17-159" aria-hidden="true" tabindex="-1"></a>dateChunks[rangeWhichWindow]<span class="op">.</span><span class="at">data</span>[<span class="dv">0</span>]<span class="op">.</span><span class="at">date</span></span>
+<span id="cb17-160"><a href="#cb17-160" aria-hidden="true" tabindex="-1"></a>dateChunks[rangeWhichWindow]<span class="op">.</span><span class="at">data</span>[dateChunks<span class="op">.</span><span class="at">length</span> <span class="op">-</span> <span class="dv">1</span>]<span class="op">.</span><span class="at">date</span></span>
+<span id="cb17-161"><a href="#cb17-161" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb17-162"><a href="#cb17-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-163"><a href="#cb17-163" aria-hidden="true" tabindex="-1"></a><span class="vs">Of the data chunks defined above which one should we graph. 0 is the first one and you won't be able to go past the last one (range updates automatically) but you might get as few as one observation in the last chunk.</span></span>
+<span id="cb17-164"><a href="#cb17-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-167"><a href="#cb17-167" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb17-168"><a href="#cb17-168" aria-hidden="true" tabindex="-1"></a>viewof rangeWhichWindow <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> dateChunks<span class="op">.</span><span class="at">length</span> <span class="op">-</span> <span class="dv">1</span>]<span class="op">,</span> {</span>
+<span id="cb17-169"><a href="#cb17-169" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Which data chunk?"</span><span class="op">,</span></span>
+<span id="cb17-170"><a href="#cb17-170" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb17-171"><a href="#cb17-171" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span></span>
+<span id="cb17-172"><a href="#cb17-172" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb17-173"><a href="#cb17-173" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb17-174"><a href="#cb17-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-177"><a href="#cb17-177" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb17-178"><a href="#cb17-178" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb17-179"><a href="#cb17-179" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> width<span class="op">,</span></span>
+<span id="cb17-180"><a href="#cb17-180" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">350</span><span class="op">,</span></span>
+<span id="cb17-181"><a href="#cb17-181" aria-hidden="true" tabindex="-1"></a>  <span class="dt">inset</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span></span>
+<span id="cb17-182"><a href="#cb17-182" aria-hidden="true" tabindex="-1"></a>  <span class="dt">color</span><span class="op">:</span> {</span>
+<span id="cb17-183"><a href="#cb17-183" aria-hidden="true" tabindex="-1"></a>    <span class="dt">scheme</span><span class="op">:</span> <span class="st">"greys"</span></span>
+<span id="cb17-184"><a href="#cb17-184" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb17-185"><a href="#cb17-185" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"Air temperature (C)"</span> }<span class="op">,</span></span>
+<span id="cb17-186"><a href="#cb17-186" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"Water temperature (C)"</span> }<span class="op">,</span></span>
+<span id="cb17-187"><a href="#cb17-187" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb17-188"><a href="#cb17-188" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">frame</span>()<span class="op">,</span></span>
+<span id="cb17-189"><a href="#cb17-189" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(dateChunks[rangeWhichWindow]<span class="op">.</span><span class="at">data</span><span class="op">,</span> {</span>
+<span id="cb17-190"><a href="#cb17-190" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> <span class="st">"airTempMedian"</span><span class="op">,</span></span>
+<span id="cb17-191"><a href="#cb17-191" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> <span class="st">"temperature"</span><span class="op">,</span></span>
+<span id="cb17-192"><a href="#cb17-192" aria-hidden="true" tabindex="-1"></a>      <span class="dt">stroke</span><span class="op">:</span> <span class="st">"yday"</span></span>
+<span id="cb17-193"><a href="#cb17-193" aria-hidden="true" tabindex="-1"></a>    })<span class="co">//,</span></span>
+<span id="cb17-194"><a href="#cb17-194" aria-hidden="true" tabindex="-1"></a> <span class="co">//   Plot.linearRegressionY(dateChunks[rangeWhichWindow].data, {</span></span>
+<span id="cb17-195"><a href="#cb17-195" aria-hidden="true" tabindex="-1"></a><span class="co">//      x: "airTempMedian",</span></span>
+<span id="cb17-196"><a href="#cb17-196" aria-hidden="true" tabindex="-1"></a> <span class="co">//     y: "temperature"</span></span>
+<span id="cb17-197"><a href="#cb17-197" aria-hidden="true" tabindex="-1"></a> <span class="co">//   })</span></span>
+<span id="cb17-198"><a href="#cb17-198" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">,</span></span>
+<span id="cb17-199"><a href="#cb17-199" aria-hidden="true" tabindex="-1"></a>  <span class="dt">facet</span><span class="op">:</span> {</span>
+<span id="cb17-200"><a href="#cb17-200" aria-hidden="true" tabindex="-1"></a>    <span class="dt">data</span><span class="op">:</span> dateChunks[rangeWhichWindow]<span class="op">.</span><span class="at">data</span><span class="op">,</span></span>
+<span id="cb17-201"><a href="#cb17-201" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> <span class="st">"river"</span></span>
+<span id="cb17-202"><a href="#cb17-202" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb17-203"><a href="#cb17-203" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb17-204"><a href="#cb17-204" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb17-205"><a href="#cb17-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-208"><a href="#cb17-208" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb17-209"><a href="#cb17-209" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { plotChunk } <span class="im">from</span> <span class="st">"@bletcher/Playground"</span></span>
+<span id="cb17-210"><a href="#cb17-210" aria-hidden="true" tabindex="-1"></a>plotChunk</span>
+<span id="cb17-211"><a href="#cb17-211" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb17-212"><a href="#cb17-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-213"><a href="#cb17-213" aria-hidden="true" tabindex="-1"></a><span class="vs">iframe in html block</span></span>
+<span id="cb17-216"><a href="#cb17-216" aria-hidden="true" tabindex="-1"></a><span class="in">```{html}</span></span>
+<span id="cb17-217"><a href="#cb17-217" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>iframe width<span class="op">=</span><span class="st">"100%"</span> height<span class="op">=</span><span class="st">"510"</span> frameborder<span class="op">=</span><span class="st">"0"</span></span>
+<span id="cb17-218"><a href="#cb17-218" aria-hidden="true" tabindex="-1"></a>  src<span class="op">=</span><span class="st">"https://observablehq.com/embed/@bletcher/playground?cells=viewof+rangeWindowWidth%2Cviewof+rangeWhichWindow%2CplotChunk"</span><span class="op">&gt;&lt;/</span>iframe<span class="op">&gt;</span></span>
+<span id="cb17-219"><a href="#cb17-219" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb17-220"><a href="#cb17-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-221"><a href="#cb17-221" aria-hidden="true" tabindex="-1"></a><span class="vs">runtime with javascript in html block</span></span>
+<span id="cb17-224"><a href="#cb17-224" aria-hidden="true" tabindex="-1"></a><span class="in">```{html}</span></span>
+<span id="cb17-225"><a href="#cb17-225" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>div id<span class="op">=</span><span class="st">"observablehq-viewof-rangeWindowWidth-7d7c4d0d"</span><span class="op">&gt;&lt;/</span>div<span class="op">&gt;</span></span>
+<span id="cb17-226"><a href="#cb17-226" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>div id<span class="op">=</span><span class="st">"observablehq-viewof-rangeWhichWindow-7d7c4d0d"</span><span class="op">&gt;&lt;/</span>div<span class="op">&gt;</span></span>
+<span id="cb17-227"><a href="#cb17-227" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>div id<span class="op">=</span><span class="st">"observablehq-plotChunk-7d7c4d0d"</span><span class="op">&gt;&lt;/</span>div<span class="op">&gt;</span></span>
+<span id="cb17-228"><a href="#cb17-228" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>p<span class="op">&gt;</span>Credit<span class="op">:</span> <span class="op">&lt;</span>a href<span class="op">=</span><span class="st">"https://observablehq.com/@bletcher/playground"</span><span class="op">&gt;</span>Playground by Ben Letcher<span class="op">&lt;/</span>a<span class="op">&gt;&lt;/</span>p<span class="op">&gt;</span></span>
+<span id="cb17-229"><a href="#cb17-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-230"><a href="#cb17-230" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>link rel<span class="op">=</span><span class="st">"stylesheet"</span> href<span class="op">=</span><span class="st">"https://cdn.jsdelivr.net/npm/@observablehq/inspector@5/dist/inspector.css"</span><span class="op">&gt;</span></span>
+<span id="cb17-231"><a href="#cb17-231" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>script type<span class="op">=</span><span class="st">"module"</span><span class="op">&gt;</span></span>
+<span id="cb17-232"><a href="#cb17-232" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {Runtime<span class="op">,</span> Inspector} <span class="im">from</span> <span class="st">"https://cdn.jsdelivr.net/npm/@observablehq/runtime@5/dist/runtime.js"</span><span class="op">;</span></span>
+<span id="cb17-233"><a href="#cb17-233" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> define <span class="im">from</span> <span class="st">"https://api.observablehq.com/@bletcher/playground@190.js?v=3"</span><span class="op">;</span></span>
+<span id="cb17-234"><a href="#cb17-234" aria-hidden="true" tabindex="-1"></a><span class="kw">new</span> <span class="fu">Runtime</span>()<span class="op">.</span><span class="fu">module</span>(define<span class="op">,</span> name <span class="kw">=&gt;</span> {</span>
+<span id="cb17-235"><a href="#cb17-235" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (name <span class="op">===</span> <span class="st">"viewof rangeWindowWidth"</span>) <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Inspector</span>(<span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">"#observablehq-viewof-rangeWindowWidth-7d7c4d0d"</span>))<span class="op">;</span></span>
+<span id="cb17-236"><a href="#cb17-236" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (name <span class="op">===</span> <span class="st">"viewof rangeWhichWindow"</span>) <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Inspector</span>(<span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">"#observablehq-viewof-rangeWhichWindow-7d7c4d0d"</span>))<span class="op">;</span></span>
+<span id="cb17-237"><a href="#cb17-237" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (name <span class="op">===</span> <span class="st">"plotChunk"</span>) <span class="cf">return</span> <span class="kw">new</span> <span class="fu">Inspector</span>(<span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">"#observablehq-plotChunk-7d7c4d0d"</span>))<span class="op">;</span></span>
+<span id="cb17-238"><a href="#cb17-238" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> [<span class="st">"dateChunks"</span>]<span class="op">.</span><span class="fu">includes</span>(name)<span class="op">;</span></span>
+<span id="cb17-239"><a href="#cb17-239" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb17-240"><a href="#cb17-240" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;/</span>script<span class="op">&gt;</span></span>
+<span id="cb17-241"><a href="#cb17-241" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

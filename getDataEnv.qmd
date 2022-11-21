@@ -196,3 +196,29 @@ import { plotChunk } from "@bletcher/Playground"
 plotChunk
 ```
 
+iframe in html block
+```{html}
+<iframe width="100%" height="510" frameborder="0"
+  src="https://observablehq.com/embed/@bletcher/playground?cells=viewof+rangeWindowWidth%2Cviewof+rangeWhichWindow%2CplotChunk"></iframe>
+```
+
+runtime with javascript in html block
+```{html}
+<div id="observablehq-viewof-rangeWindowWidth-7d7c4d0d"></div>
+<div id="observablehq-viewof-rangeWhichWindow-7d7c4d0d"></div>
+<div id="observablehq-plotChunk-7d7c4d0d"></div>
+<p>Credit: <a href="https://observablehq.com/@bletcher/playground">Playground by Ben Letcher</a></p>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@observablehq/inspector@5/dist/inspector.css">
+<script type="module">
+import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@5/dist/runtime.js";
+import define from "https://api.observablehq.com/@bletcher/playground@190.js?v=3";
+new Runtime().module(define, name => {
+  if (name === "viewof rangeWindowWidth") return new Inspector(document.querySelector("#observablehq-viewof-rangeWindowWidth-7d7c4d0d"));
+  if (name === "viewof rangeWhichWindow") return new Inspector(document.querySelector("#observablehq-viewof-rangeWhichWindow-7d7c4d0d"));
+  if (name === "plotChunk") return new Inspector(document.querySelector("#observablehq-plotChunk-7d7c4d0d"));
+  return ["dateChunks"].includes(name);
+});
+</script>
+```
+
