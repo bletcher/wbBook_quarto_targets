@@ -192,7 +192,7 @@ Plot.plot({
 ```
 
 ```{ojs}
-import { plotChunk } from "@uwdata/Playground"
+import { plotChunk } from "@bletcher/Playground"
 plotChunk
 ```
 
