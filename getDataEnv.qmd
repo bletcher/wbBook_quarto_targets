@@ -134,7 +134,11 @@ dateChunks = {
 }
 ```
 
-Use the slider below to set the length (# of days) of each data chunk.
+Use the slider below to set the length (# of days) of each data chunk.  
+Number of data chunks: ${dateChunks.length}  
+Start date = ${dateChunks[rangeWhichWindow].data[0].date}  
+end date = ${dateChunks[rangeWhichWindow].data[dateChunks.length - 1].date}  
+
 ```{ojs}
 viewof rangeWindowWidth = Inputs.range([1, 365 - 0], {
   label: "Data chunk length",
@@ -144,8 +148,6 @@ viewof rangeWindowWidth = Inputs.range([1, 365 - 0], {
 ```
 
 
-Number of data chunks: ${dateChunks.length}.   
-Start date = ${dateChunks[rangeWhichWindow].data[0].date}, end date = ${dateChunks[rangeWhichWindow].data[dateChunks.length - 1].date}
 
 Of the data chunks defined above which one should we graph. 0 is the first one and you won't be able to go past the last one (range updates automatically) but you might get as few as one observation in the last chunk.
 
@@ -188,8 +190,9 @@ Plot.plot({
 
 
 
-=======================================================
-some integration alternatives - most are not so slick and are independent from  the ojs code blocks above
+=======================================================  
+some integration alternatives - most are not so slick and are independent from  the ojs code blocks above  
+Seems like it is best to devleop in observable and copy/paste code blocks in here.
 
 
 import chunk from 'Playground'
