@@ -143,20 +143,9 @@ viewof rangeWindowWidth = Inputs.range([1, 365 - 0], {
 })
 ```
 
-Slider in html frame
-```{=html}
-<iframe width="100%" height="101" frameborder="0"
-  src="https://observablehq.com/embed/@bletcher/playground?cells=viewof+rangeWindowWidth"></iframe>
-```
-
 
 Number of data chunks: ${dateChunks.length}.   
 Start date = ${dateChunks[rangeWhichWindow].data[0].date}, end date = ${dateChunks[rangeWhichWindow].data[dateChunks.length - 1].date}
-```{ojs}
-dateChunks.length
-dateChunks[rangeWhichWindow].data[0].date
-dateChunks[rangeWhichWindow].data[dateChunks.length - 1].date
-```
 
 Of the data chunks defined above which one should we graph. 0 is the first one and you won't be able to go past the last one (range updates automatically) but you might get as few as one observation in the last chunk.
 
@@ -196,6 +185,12 @@ Plot.plot({
   }
 })
 ```
+
+
+
+=======================================================
+some integration alternatives - most are not so slick and are independent from  the ojs code blocks above
+
 
 import chunk from 'Playground'
 ```{ojs}
