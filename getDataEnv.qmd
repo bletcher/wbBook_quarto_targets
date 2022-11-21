@@ -191,3 +191,8 @@ Plot.plot({
 })
 ```
 
+```{ojs}
+import { plotChunk } from "@uwdata/Playground"
+plotChunk
+```
+
