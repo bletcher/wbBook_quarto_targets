@@ -192,7 +192,7 @@ Plot.plot({
 ```
 
 ```{ojs}
-import { plotChunk } from "https://api.observablehq.com@bletcher/Playground"
+import { plotChunk } from "@bletcher/Playground"
 plotChunk
 ```
 
