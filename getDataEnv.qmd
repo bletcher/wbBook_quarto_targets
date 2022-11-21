@@ -93,8 +93,8 @@ Will move this to its own chapter
 ```{ojs}
 tempYearOJS = transpose(tempYearOJS0)
 
-tempYearOJS0
-tempYearOJS
+//tempYearOJS0
+//tempYearOJS
 dateChunks
 ```
 
@@ -105,10 +105,10 @@ dateChunks = {
   let days = [
     {
       daysCount0: 0,
-      start: tempYearOJS[0].dateDate,
-      end: tempYearOJS[rangeWindowWidth].dateDate,
+      start: tempYear[0].dateDate,
+      end: tempYear[rangeWindowWidth].dateDate,
       daysCount: rangeWindowWidth,
-      data: tempYearOJS.filter(
+      data: tempYear.filter(
         (d) => d.yday >= 0 && d.yday <= 0 + rangeWindowWidth
       )
     }
@@ -119,10 +119,10 @@ dateChunks = {
       // dont push if the whole year is seleceted, array will be empty
       days.push({
         daysCount0: daysCount,
-        start: tempYearOJS[daysCount].dateDate,
-        end: tempYearOJS[daysCount + rangeWindowWidth].dateDate,
+        start: tempYear[daysCount].dateDate,
+        end: tempYear[daysCount + rangeWindowWidth].dateDate,
         daysCount: daysCount,
-        data: tempYearOJS.filter(
+        data: tempYear.filter(
           (d) =>
             d.yday >= daysCount + 1 && d.yday <= daysCount + rangeWindowWidth
         )
@@ -134,18 +134,29 @@ dateChunks = {
 }
 ```
 
-
+Use the slider below to set the length (# of days) of each data chunk.
 ```{ojs}
 viewof rangeWindowWidth = Inputs.range([1, 365 - 0], {
-  label: "Window Width",
+  label: "Data chunk length",
   value: 14,
   step: 1
 })
 ```
 
+
+Number of data chunks: ${dateChunks.length}.   
+Start date = ${dateChunks[rangeWhichWindow].data[0].date}, end date = ${dateChunks[rangeWhichWindow].data[dateChunks.length - 1].date}
+```{ojs}
+dateChunks.length
+dateChunks[rangeWhichWindow].data[0].date
+dateChunks[rangeWhichWindow].data[dateChunks.length - 1].date
+```
+
+Of the data chunks defined above which one should we graph. 0 is the first one and you won't be able to go past the last one (range updates automatically) but you might get as few as one observation in the last chunk.
+
 ```{ojs}
 viewof rangeWhichWindow = Inputs.range([0, dateChunks.length - 1], {
-  label: "Which window?",
+  label: "Which data chunk?",
   step: 1,
   value: 0
 })
@@ -154,15 +165,24 @@ viewof rangeWhichWindow = Inputs.range([0, dateChunks.length - 1], {
 ```{ojs}
 Plot.plot({
   width: width,
+  height: 350,
+  inset: 10,
+  color: {
+    scheme: "greys"
+  },
+  x: { label: "Air temperature (C)" },
+  y: { label: "Water temperature (C)" },
   marks: [
+    Plot.frame(),
     Plot.dot(dateChunks[rangeWhichWindow].data, {
       x: "airTempMedian",
-      y: "temperature"
+      y: "temperature",
+      stroke: "yday"
     }),
-//    Plot.linearRegressionY(dateChunks[rangeWhichWindow].data, {
-//      x: "airTempMedian",
-//      y: "temperature"
-//    })
+    Plot.linearRegressionY(dateChunks[rangeWhichWindow].data, {
+      x: "airTempMedian",
+      y: "temperature"
+    })
   ],
   facet: {
     data: dateChunks[rangeWhichWindow].data,

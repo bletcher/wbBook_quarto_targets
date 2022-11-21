@@ -10,3 +10,4 @@ quarto::quarto_render(output_format = "html")
 
 
 quarto::quarto_render("dataAll.qmd", output_format = "html")
+quarto::quarto_render("getDataEnv.qmd", output_format = "html")
