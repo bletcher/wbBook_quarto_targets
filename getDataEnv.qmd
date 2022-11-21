@@ -143,6 +143,12 @@ viewof rangeWindowWidth = Inputs.range([1, 365 - 0], {
 })
 ```
 
+Slider in html frame
+```{=html}
+<iframe width="100%" height="101" frameborder="0"
+  src="https://observablehq.com/embed/@bletcher/playground?cells=viewof+rangeWindowWidth"></iframe>
+```
+
 
 Number of data chunks: ${dateChunks.length}.   
 Start date = ${dateChunks[rangeWhichWindow].data[0].date}, end date = ${dateChunks[rangeWhichWindow].data[dateChunks.length - 1].date}
