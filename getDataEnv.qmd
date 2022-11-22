@@ -22,7 +22,7 @@ Data are generated in `R/getDataEnv-targets.R` [file](https://github.com/bletche
 ```{r getEnvData}
 envDataWB <- tar_read(envDataWB_Target)
 str(envDataWB)
-ojs_define(envDataWB_OJS = envDataWB)
+ojs_define(envDataWB_OJS = transpose(envDataWB))
 ```
 
 ## Plot flow over time for the West Brook by year
