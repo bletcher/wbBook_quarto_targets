@@ -90,6 +90,36 @@ Plot.plot({
 
 ```
 
+```{ojs}
+
+Plot.plot({
+    width: width,
+    height: 350,
+    inset: 10,
+    x: { label: "Day of year" },
+    y: { label: "Stream flow (m3/s)" },
+    marks: [
+      Plot.frame(),
+      Plot.dot(envDataWB_OJSplot, {
+        x: "dateDate",
+        y: "flowByRiverm3s"
+      })
+    ],
+    marks: [
+      Plot.frame(),
+      Plot.dot(envDataWB_OJSplot, {
+        x: "dateDate",
+        y: "flow"
+      })
+    ],
+    facet: {
+      data: envDataWB_OJSplot,
+      x: "riverOrdered"
+    }
+  });
+
+```
+
 
 Test: referring to @fig-envFlow.
 
