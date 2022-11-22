@@ -22,6 +22,7 @@ Data are generated in `R/getDataEnv-targets.R` [file](https://github.com/bletche
 ```{r getEnvData}
 envDataWB <- tar_read(envDataWB_Target)
 str(envDataWB)
+ojs_define(envDataWB_OJS = envDataWB)
 ```
 
 ## Plot flow over time for the West Brook by year
@@ -30,15 +31,65 @@ str(envDataWB)
 #| label: fig-envFlow
 #| fig-cap: "Stream flow (m3/s) for the West Brook"
 
-ggplot(envDataWB, aes(yday, flow)) +
-  geom_point(size = 0.1) + 
+ggplot(envDataWB %>% filter(riverOrdered == "West Brook"), aes(yday, flow)) +
+  geom_point(size = 0.1) +
+  geom_point(size = 0.1, color = "blue", aes(yday, flowByRiverm3s)) +
   #geom_line() +
   scale_x_continuous("Day of year") +
   scale_y_continuous("Stream flow (m^3/s)") +
   facet_wrap(~year(date))
 
+```
+
+```{r envDataFlowGraphByRiver}
+
+#| label: fig-envFlowByRiver
+#| fig-cap: "Stream flow (m3/s) for the West Brook with Jenn's model predictions"
+ggplot(envDataWB %>% filter(riverOrdered == "West Brook", year %in% (1998:2021)), aes(flow, flowByRiverm3s, color = yday)) +
+  geom_point(size = 0.1) +
+  geom_abline(slope = 1) +
+  scale_y_continuous("Stream flow (m^3/s) from Jenn's model") +
+  scale_x_continuous("Stream flow (m^3/s) from flow extension") +
+  facet_wrap(~year(date))
+```
+
+
+```{ojs}
+viewof rangeYear = Inputs.range([1997, 2022], {
+  label: "Which year?",
+  value: 2002,
+  step: 1
+})
+
+envDataWB_OJSplot = envDataWB_OJS.filter(d => d.year === rangeYear)
+```
+
+```{ojs}
+
+Plot.plot({
+    width: width,
+    height: 350,
+    inset: 10,
+    color: {
+      scheme: "greys"
+    },
+    x: { label: "Stream flow (m3/s)" },
+    y: { label: "Stream flow (m3/s) from Jenn's model" },
+    marks: [
+      Plot.frame(),
+      Plot.dot(envDataWB_OJSplot, {
+        x: "flow",
+        y: "flowByRiverm3s"
+      })
+    ],
+    facet: {
+      data: envDataWB_OJSplot,
+      x: "riverOrdered"
+    }
+  });
 
 ```
+
 
 Test: referring to @fig-envFlow.
 
