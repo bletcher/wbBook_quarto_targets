@@ -96,6 +96,10 @@ Plot.plot({
     width: width,
     height: 350,
     inset: 10,
+    color: {
+      type: "categorical",
+      scheme: schemec
+    },
     x: { label: "Day of year" },
     y: { label: "Stream flow (m3/s)" },
     marks: [
