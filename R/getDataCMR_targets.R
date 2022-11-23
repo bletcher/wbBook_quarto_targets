@@ -47,7 +47,7 @@ dataCMR_WB_2002_2014_target <-
       filter(sampleNumber <= 83) %>%
       addSampleProperties() %>%
       addEnvironmental() %>%
-      # these functions do not work for CMR data - they separate out shock and non-shock samples
+      # these functions below do not work for CMR data - they separate out shock and non-shock samples
       #addEnvironmentalDaily() %>%
       #addEnvironmentalInterval() %>%
       addKnownZ2() %>%
@@ -85,6 +85,7 @@ dataCMR_OB_2002_2014_target <-
 #####################################
 ## dataCMR functions 
 #####################################
+
 addEnvironmental <- function(coreData, sampleFlow = F, funName = "mean") {
   reconnect()
   
@@ -103,7 +104,9 @@ addEnvironmental <- function(coreData, sampleFlow = F, funName = "mean") {
       dplyr::filter(date <= max(coreData$detectionDate), 
                     date >= min(coreData$detectionDate)) %>% 
       rename(temperature = daily_mean_temp, flow = qPredicted) %>% 
-      data.frame()
+      data.frame() %>%
+      mutate(dateDate = date(date)) %>%
+      left_join(tar_read(flowByRiver_target))
   }
   else {
     envData <- tbl(conDplyr, "stanley_environmental") %>% 
@@ -136,6 +139,13 @@ addEnvironmental <- function(coreData, sampleFlow = F, funName = "mean") {
         envCol <- "flow"
         meanVar <- fun(envData[d >= start & d <= end, envCol], na.rm = T)
       }
+      if (e == "FlowByRiver") {
+        envCol <- "flowByRiverm3s"
+        if (is.na(r)) 
+          meanVar <- fun(envData[d >= start & d <= end, envCol], na.rm = T)
+        if (!is.na(r)) 
+          meanVar <- fun(envData[d >= start & d <= end & envData$river == r, envCol], na.rm = T)
+      }
       return(meanVar)
     }
     
@@ -144,7 +154,8 @@ addEnvironmental <- function(coreData, sampleFlow = F, funName = "mean") {
       unique() %>% 
       group_by(river, detectionDate, lagDetectionDate) %>% 
       mutate(meanTemperature = getIntervalMean(detectionDate, lagDetectionDate, river, "Temperature"), 
-             meanFlow =        getIntervalMean(detectionDate, lagDetectionDate, river, "Flow")) %>% 
+             meanFlow =        getIntervalMean(detectionDate, lagDetectionDate, river, "Flow"),
+             meanFlowByRiver = getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByRiver")) %>% 
       ungroup()
     
     coreData <- left_join(coreData, coreDataUniqueDates, 
@@ -188,6 +199,7 @@ addEnvironmental <- function(coreData, sampleFlow = F, funName = "mean") {
   }
   names(coreData)[which(names(coreData) == "meanTemperature")] <- paste0(funName, "Temperature")
   names(coreData)[which(names(coreData) == "meanFlow")] <- paste0(funName,  "Flow")
+  names(coreData)[which(names(coreData) == "meanFlowByRiver")] <- paste0(funName,  "FlowByRiver")
   return(coreData)
 }
 
@@ -258,6 +270,8 @@ scaleEnvData <- function(d){
     group_by(river, season) %>% 
     summarize(meanMeanFlow = mean(meanFlow, na.rm = TRUE),
               sdMeanFlow = sd(meanFlow, na.rm = TRUE),
+              meanMeanFlowByRiver = mean(meanFlowByRiver, na.rm = TRUE),
+              sdMeanFlowByRiver = sd(meanFlowByRiver, na.rm = TRUE),
               meanMeanTemperature = mean(meanTemperature, na.rm = TRUE),
               sdMeanTemperature = sd(meanTemperature, na.rm = TRUE)
     ) %>%
@@ -266,6 +280,7 @@ scaleEnvData <- function(d){
   out <- left_join(d, tmp) %>%
     mutate(
       meanFlowScaled = (meanFlow - meanMeanFlow) / sdMeanFlow,
+      meanFlowByRiverScaled = (meanFlowByRiver - meanMeanFlowByRiver) / sdMeanFlowByRiver,
       meanTemperatureScaled = (meanTemperature - meanMeanTemperature) / sdMeanTemperature
     )  
 }
@@ -400,6 +415,12 @@ getEH_AIS <- function(dIn, cols, ops, vals, maxOccasionValue, maxIndexByCohort =
   flowMatrix <- as.matrix(flowWide %>% dplyr::select(-tag), nrow = nrow(flowWide), ncol = ncol(flowWide) - 1)
   flowMatrix <- ifelse(is.finite(flowMatrix), flowMatrix, flowFill)
   
+  flowByRiverFill <- 0
+  flowByRiverWide <- getEHDataWide_AIS(d, cols, ops, vals, "meanFlowByRiverScaled", maxOccasionValue, valuesFill = flowByRiverFill)
+  flowByRiverMatrix <- as.matrix(flowByRiverWide %>% dplyr::select(-tag), nrow = nrow(flowByRiverWide), ncol = ncol(flowByRiverWide) - 1)
+  flowByRiverMatrix <- ifelse(is.finite(flowByRiverMatrix), flowByRiverMatrix, flowByRiverFill)
+  
+  
   temperatureFill <- 0
   temperatureWide <- getEHDataWide_AIS(d, cols, ops, vals, "meanTemperatureScaled", maxOccasionValue, valuesFill = temperatureFill)
   temperatureMatrix <- as.matrix(temperatureWide %>% dplyr::select(-tag), nrow = nrow(temperatureWide), ncol = ncol(temperatureWide) - 1)
@@ -437,7 +458,7 @@ getEH_AIS <- function(dIn, cols, ops, vals, maxOccasionValue, maxIndexByCohort =
   last <- apply(riverMatrix, 1, function(x) max(which(!is.na(x))))
   last <- ifelse(last == maxOccasionValue, last, last - 1)
   
-  return(list(eh = eh, flow = flowMatrix, temperature = temperatureMatrix, river = riverMatrix, section = sectionRiverNMatrix,
+  return(list(eh = eh, flow = flowMatrix, flowByRiver = flowByRiverMatrix, temperature = temperatureMatrix, river = riverMatrix, section = sectionRiverNMatrix,
               riverN = riverNMatrix, isYOY = isYOYMatrix, length = lengthMatrix, tags = tags, cohorts = cohorts, seasons = seasons, species = species,
               first = first, last = last, data = data))
 }

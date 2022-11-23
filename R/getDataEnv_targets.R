@@ -15,6 +15,7 @@ getDaymet <- function(lat, lon, start_year, end_year) {
 }
 
 # loads 'WBFlow'
+# for now, fixed dataframe uploaded to ../dataIn. Will want to automate uploading...
 getFlowByRiver <- function(){
   load('./dataIn/wbFlow/WBFlow_fromJenn.RData')
   wbFlow2 <- WBFlow %>%
@@ -31,14 +32,14 @@ getFlowByRiver <- function(){
       riverOrdered = factor(river, levels = c('west brook','wb jimmy','wb mitchell',"wb obear"),
                                    labels = c("West Brook","WB Jimmy","WB Mitchell","WB OBear"), ordered = T)
     ) %>%
-    select(!c("flow", "cfs", "river", "date")) 
+    select(!c("flow", "cfs", "date")) 
   return(wbFlow2)
 }
 
 getEnvData_target <-
   tar_plan(
     WB_daymet_target = getDaymet(42.43896889699634, -72.67994313694251, 1997, 2021),
-    flowByRiver = getFlowByRiver(), # data from Jenn's modeling
+    flowByRiver_target = getFlowByRiver(), # data from Jenn's modeling
     
     envDataWB_target = 
       tbl(conDplyr, "data_daily_temperature") %>% 
@@ -54,7 +55,7 @@ getEnvData_target <-
                                    labels = c("West Brook","WB Jimmy","WB Mitchell","WB OBear"), ordered = T)
       ) %>%
       left_join(WB_daymet_target, by = c('year', 'yday')) %>%
-      left_join(flowByRiver)
+      left_join(flowByRiver_target)
   )  
 
 ######################################################
