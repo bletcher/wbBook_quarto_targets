@@ -28,7 +28,7 @@ library(targets)
 ### Model phiT_pT (tt)
 Single estimates of phi and p (across, cohorts, flow)  
 
-#### Set up and run model
+#### Retrieve model results
 Model is run using targets in R/modelCMR_tt_OB.R
 ```{r OB_tt}
 # Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
@@ -47,3 +47,129 @@ Model is run using targets in R/modelCMR_tt_OB.R
             priors = priors)
 
 ```
+
+### Model phiT_pT flow (tt_OB_flow)
+Cohort-dependent estimates of phi and p with flow and flow^2 hierarchical effects  
+
+#### Retrieve model results
+Model is run using targets in R/modelCMR_tt_OB.R
+```{r OB_tt_flow}
+# Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
+# 
+  out_flow <- tar_read(tt_modelOut_OB_flow)
+
+  MCMCplot(object = out_flow$mcmc)
+  MCMCsummary(object = out_flow$mcmc, round = 3)
+  
+  priors <- runif(out_flow$runData$nIter * out_flow$runData$nChains, 0, 1)
+  MCMCtrace(object = out_flow$mcmc,
+            #ISB = FALSE,
+            #exact = TRUE, 
+            #params = c("betaInt", "betaPhi", "betaP"),
+            params = c("betaPhiCohort", "betaPCohort",
+                                    "betaPhiOut", "betaPOut", "betaPhiCohortOut", "betaPCohortOut", 
+                                    "betaFlow",
+                                    "betaFlowCohort", "betaFlowTop"),
+            pdf = FALSE, 
+            priors = priors)
+
+```
+
+
+### Model phiT_pT flow ByRiver (tt_OB_flowByRiver)
+Cohort-dependent estimates of phi and p with flowByRiver and flowByRiver^2 hierarchical effects  
+
+#### Retrieve model results
+Model is run using targets in R/modelCMR_tt_OB.R
+```{r OB_tt_flowByRiver}
+# Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
+# 
+  out_flowByRiver <- tar_read(tt_modelOut_OB_flowByRiver)
+
+  MCMCplot(object = out_flowByRiver$mcmc)
+  MCMCsummary(object = out_flowByRiver$mcmc, round = 3)
+  
+  priors <- runif(out_flowByRiver$runData$nIter * out_flowByRiver$runData$nChains, 0, 1)
+  MCMCtrace(object = out_flowByRiver$mcmc,
+            #ISB = FALSE,
+            #exact = TRUE, 
+            params = c("phi", "p"),
+            pdf = FALSE, 
+            priors = priors)
+
+
+```
+
+Flow predictions
+```{r}
+predFlowByRiverCohort <- getPredictionsFlowCohort(out_flowByRiver, everyNIters = 2)
+```
+
+
+```{r}
+
+getPredictionsFlowCohort <- function(toSave, everyNIters = 10, flowStep = 0.5){
+  
+  mcmc <- toSave$mcmc
+  ## betaInt
+  predictorsBetaInt <- expand.grid(
+    iter = seq(1, dim(mcmc$chain1)[1], everyNIters)
+  )
+  for(i in 1:nrow(predictorsBetaInt)){
+    predictorsBetaInt$betaInt[i] <- mcmc$chain1[[ predictorsBetaInt[i, "iter"], "betaInt" ]]
+  }
+  
+  
+  ## betaFlow
+  predictorsBetaFlow <- expand.grid(
+    iter = seq(1, dim(mcmc$chain1)[1], everyNIters),
+    season = 1:toSave$nSeasons,
+    cohort = 1:toSave$nCohorts
+  )
+  
+  for(i in 1:nrow(predictorsBetaFlow)){
+    predictorsBetaFlow$betaFlow1[i] <- mcmc$chain1[[predictorsBetaFlow[i, "iter"], 
+                                                    paste0("betaFlow[1, ", predictorsBetaFlow[i, "season"],
+                                                           ", ",           predictorsBetaFlow[i, "cohort"],
+                                                           "]")
+    ]]
+    predictorsBetaFlow$betaFlow2[i] <- mcmc$chain1[[predictorsBetaFlow[i, "iter"], 
+                                                    paste0("betaFlow[2, ", predictorsBetaFlow[i, "season"],
+                                                           ", ",           predictorsBetaFlow[i, "cohort"],
+                                                           "]")
+    ]]
+  }
+  
+  ## betaPhi
+  predictorsBetaPhi <- expand.grid(
+    iter = seq(1, dim(mcmc$chain1)[1], everyNIters),
+    cohort = 1:toSave$nCohorts
+  )
+  
+  # this step is very slow for some reason......
+  for(i in 1:nrow(predictorsBetaPhi)){
+    predictorsBetaPhi$betaPhi[i] <- mcmc$chain1[[predictorsBetaPhi[i, "iter"], 
+                                                 paste0("betaPhiCohort[", predictorsBetaPhi[i, "cohort"],
+                                                        "]")
+    ]]
+  }
+  
+  predictorsAll <- expand.grid(
+    iter = seq(1, dim(mcmc$chain1)[1], everyNIters),
+    cohort = 1:toSave$nCohorts,
+    season = 1:toSave$nSeasons,
+    flow = seq(-1.5, 1.5, flowStep)
+  )
+  
+  preds <- predictorsAll %>%
+    left_join(predictorsBetaInt) %>%
+    left_join(predictorsBetaFlow) %>%
+    left_join(predictorsBetaPhi) %>%
+    mutate(predPhi = plogis(betaInt + betaPhi + betaFlow1 * flow + betaFlow2 * flow^2))
+  
+  return(preds)
+}
+
+
+```
+
