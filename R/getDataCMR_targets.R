@@ -77,7 +77,7 @@ vals_OB <- list(2002:2014, "wb obear")
 
 dataCMR_OB_2002_2014_target <-
   tar_plan(
-    eh_OB_2002_2014_target = getEH_AIS(tar_read(cdWB_CMR0_target), cols, ops, vals, maxAgeInSamples)#, maxIndexByCohort = 100)
+    eh_OB_2002_2014_target = getEH_AIS(tar_read(cdWB_CMR0_target), cols_OB, ops_OB, vals_OB, maxAgeInSamples)#, maxIndexByCohort = 100)
   )  
 
 

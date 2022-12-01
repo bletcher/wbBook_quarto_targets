@@ -179,6 +179,8 @@ modelCMR_tt_OB_flow_target <-
     
     tt_modelCode_OB_flow = nimbleCode({
       # from https://bletcher.github.io/westBrook-book/models.html#model-phit_pt_cohort_flowcohorthierdhmm
+      delta[1] <- 1                    # Pr(alive t = 1) = 1
+      delta[2] <- 0                    # Pr(dead t = 1) = 0
       
       for (i in 1:N){
         for (t in 1:(T-1)){ # loop over time
@@ -383,6 +385,8 @@ modelCMR_tt_OB_flowByRiver_target <-
     
     tt_modelCode_OB_flowByRiver = nimbleCode({
       # from https://bletcher.github.io/westBrook-book/models.html#model-phit_pt_cohort_flowcohorthierdhmm
+      delta[1] <- 1                    # Pr(alive t = 1) = 1
+      delta[2] <- 0                    # Pr(dead t = 1) = 0
       
       for (i in 1:N){
         for (t in 1:(T-1)){ # loop over time
