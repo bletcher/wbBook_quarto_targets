@@ -134,7 +134,8 @@ modelCMR_tt_OB_flow_target <-
         nCohorts = length(unique(eh_OB_2002_2014_target$cohorts$cohort)),
         cohort = eh_OB_2002_2014_target$cohorts$cohort,
         nSeasons = length(unique(eh_OB_2002_2014_target$data$season)),
-        seasonArray = c(3,4,1,2,3,4,1,2,3,4,1,2)
+        seasonArray = c(3,4,1,2,3,4,1,2,3,4,1,2),
+        isYOY = eh_OB_2002_2014_target$isYOY
         # nStates = length(unique(eh_OB_2002_2014_target$data$sizeState)),
         # nRivers = length(unique(eh_OB_2002_2014_target$data$sizeState)) # for now
       ), 
@@ -157,6 +158,7 @@ modelCMR_tt_OB_flow_target <-
       season = tt_inputData_OB_flow$seasonArray,
       flow = tt_inputData_OB_flow$flow,
       length = tt_inputData_OB_flow$last - tt_inputData_OB_flow$first + 1,
+      isYOY = tt_inputData_OB_flow$isYOY,
       indToKeep = which(tt_inputData_OB_flow$first < 12)
     ),
     
@@ -170,7 +172,8 @@ modelCMR_tt_OB_flow_target <-
       flow = tt_myConstants_OB_flow0$flow[tt_myConstants_OB_flow0$indToKeep,],
       length = tt_myConstants_OB_flow0$length[tt_myConstants_OB_flow0$indToKeep],
       nCohorts = tt_inputData_OB_flow$nCohorts,
-      nSeasons = tt_inputData_OB_flow$nSeasons
+      nSeasons = tt_inputData_OB_flow$nSeasons,
+      isYOY = tt_inputData_OB_flow$isYOY[tt_myConstants_OB_flow0$indToKeep,]
     ),
     
     tt_myData_OB_flow = list(
@@ -178,6 +181,8 @@ modelCMR_tt_OB_flow_target <-
     ),
     
     tt_modelCode_OB_flow = nimbleCode({
+      dummy  ~ dnorm(0,1)
+      
       # from https://bletcher.github.io/westBrook-book/models.html#model-phit_pt_cohort_flowcohorthierdhmm
       
       delta[1] <- 1                    # Pr(alive t = 1) = 1
@@ -186,44 +191,30 @@ modelCMR_tt_OB_flow_target <-
       for (i in 1:N){
         for (t in 1:(T-1)){ # loop over time
           logit(phi[t,i]) <- 
-            betaInt +
-            betaPhi[t,cohort[i]] + 
-            betaFlow[1,season[t],cohort[i]] * flow[i,t] +
-            betaFlow[2,season[t],cohort[i]] * flow[i,t] * flow[i,t]
+            betaInt[   isYOY[i,t],season[t],cohort[i]] +
+            betaPhi[   isYOY[i,t],season[t],cohort[i]] + 
+            betaFlow[1,isYOY[i,t],season[t],cohort[i]] * flow[i,t] +
+            betaFlow[2,isYOY[i,t],season[t],cohort[i]] * flow[i,t] * flow[i,t]
           # prior survival
           ##
           gamma[1,1,t,i] <- phi[t,i]         # Pr(alive t -> alive t+1)
           gamma[1,2,t,i] <- 1 - phi[t,i]     # Pr(alive t -> dead t+1)
           gamma[2,1,t,i] <- 0              # Pr(dead t -> alive t+1)
           gamma[2,2,t,i] <- 1              # Pr(dead t -> dead t+1)
-          ##            
-          ## DT changes:
-          ## definition of omega is moved below, to make it
-          ## correctly condition on the first (positive) observation
-          ##logit(p[t,i]) <- betaP[t,cohort[i]]             # prior detection
-          ##omega[1,1,t,i] <- 1 - p[t,i]       # Pr(alive t -> non-detected t)
-          ##omega[1,2,t,i] <- p[t,i]           # Pr(alive t -> detected t)
-          ##omega[2,1,t,i] <- 1              # Pr(dead t -> non-detected t)
-          ##omega[2,2,t,i] <- 0              # Pr(dead t -> detected t)
         }
-        ## DT changes:
-        ## need to pad the gamma matrix with an extra t=T row, to ensure it's
-        ## always a matrix.  This values are never actually used (except maybe for internal checking of row sums = 1),
-        ## but defining them is necessary.
+
         gamma[1,1,T,i] <- 0
         gamma[1,2,T,i] <- 1
         gamma[2,1,T,i] <- 0
         gamma[2,2,T,i] <- 1
-        ## DT changes:
-        ## time period t = first[i]: guaranteed detection:
+
         omega[1,1,first[i],i] <- 0       # Pr(alive t -> non-detected t)
         omega[1,2,first[i],i] <- 1           # Pr(alive t -> detected t)
         omega[2,1,first[i],i] <- 1              # Pr(dead t -> non-detected t)
         omega[2,2,first[i],i] <- 0              # Pr(dead t -> detected t)
-        ## DT changes:
-        ## time t > first[i]:
+
         for(t in (first[i]+1):last[i]) {
-          logit(p[t,i]) <- betaP[t-1,cohort[i]]             # prior detection
+          logit(p[t,i]) <- betaP[isYOY[i,t],season[t-1],cohort[i]]             # prior detection
           omega[1,1,t,i] <- 1 - p[t,i]       # Pr(alive t -> non-detected t)
           omega[1,2,t,i] <- p[t,i]           # Pr(alive t -> detected t)
           omega[2,1,t,i] <- 1              # Pr(dead t -> non-detected t)
@@ -231,38 +222,65 @@ modelCMR_tt_OB_flow_target <-
         }
       }
       ## 
-      dummy  ~ dnorm(0,1)
-      betaInt ~ dnorm(0,1)
+      
+      ##    
+      for (y in 1:2) {
+        for (s in 1:nSeasons){ 
+          for (c in 1:nCohorts){
+            
+            betaInt[y,s,c] ~ dnorm(betaIntYOYCohort[y,c],1)
+            betaPhi[y,s,c] ~ dnorm(betaPhiYOYCohort[y,c],1)
+            betaFlow[1,y,s,c] ~ dnorm(betaFlowYOYCohort[1,y,c],1)
+            betaFlow[2,y,s,c] ~ dnorm(betaFlowYOYCohort[2,y,c],1)
+            
+            betaP[y,s,c] ~ dnorm(betaPYOYCohort[y,c],1)
+          }
+        }
+      }
+            
+      for (y in 1:2) {
+          for (c in 1:nCohorts){
+            
+            betaIntYOYCohort[y,c] ~ dnorm(betaIntYOY[y],1)
+            betaPhiYOYCohort[y,c] ~ dnorm(betaPhiYOY[y],1)
+            betaFlowYOYCohort[1,y,c] ~ dnorm(betaFlowYOY[1,y],1)
+            betaFlowYOYCohort[2,y,c] ~ dnorm(betaFlowYOY[2,y],1)
+            
+            betaPYOYCohort[y,c] ~ dnorm(betaPYOY[y],1)
+        }
+      }
+          
+      for (y in 1:2) {
+        
+        betaIntYOY[y] ~ dnorm(betaIntTop,1)
+        betaPhiYOY[y] ~ dnorm(betaPhiTop,1)
+        betaFlowYOY[1,y] ~ dnorm(0,1)
+        betaFlowYOY[2,y] ~ dnorm(0,1)
+        
+        betaPYOY[y] ~ dnorm(0,1)
+      }
+      
+      betaIntTop ~ dnorm(0,1)
+      betaPhiTop ~ dnorm(0,1)
       betaFlowTop[1] ~ dnorm(0,1)
       betaFlowTop[2] ~ dnorm(0,1)
-      ##    
-      for (c in 1:nCohorts){
-        # mean values
-        betaPhiCohort[c] ~ dnorm(0,1)
-        betaPCohort[c] ~ dnorm(0,1)
-        betaFlowCohort[1,c] ~ dnorm(betaFlowTop[1],1)
-        betaFlowCohort[2,c] ~ dnorm(betaFlowTop[2],1)
-        for (t in 1:(T-1)){ 
-          betaPhi[t,c] ~ dnorm(betaPhiCohort[c],1)
-          betaP[t,c] ~ dnorm(betaPCohort[c],1)
-        }
-      }
+      
+      betaPTop ~ dnorm(0,1)
+            
       ##    
       # back-transform for examining output
-      for (c in 1:nCohorts){
-        betaPhiCohortOut[c] <- 1/(1 + exp(-betaPhiCohort[c]))
-        betaPCohortOut[c] <- 1/(1 + exp(-betaPCohort[c]))
-        for (t in 1:(T-1)){ 
-          betaPhiOut[t,c] <- 1/(1 + exp(-betaPhi[t,c]))
-          betaPOut[t,c] <- 1/(1 + exp(-betaP[t,c])) 
+      ##
+      for (y in 1:2) {
+        for (s in 1:nSeasons){
+          for (c in 1:nCohorts){
+            betaIntOut[y,s,c] <- 1/(1 + exp(-betaInt[y,s,c]))
+            betaPhiOut[y,s,c] <- 1/(1 + exp(-betaPhi[y,s,c]))
+            betaFlowOut[1,y,s,c] <- 1/(1 + exp(-betaFlow[1,y,s,c]))
+            betaFlowOut[2,y,s,c] <- 1/(1 + exp(-betaFlow[2,y,s,c]))
+            
+            betaPOut[y,s,c] <- 1/(1 + exp(-betaP[y,s,c]))
+          }
         }
-      }
-      ##    
-      for (s in 1:nSeasons){
-        for (c in 1:nCohorts){
-          betaFlow[1,s,c] ~ dnorm(betaFlowCohort[1,c],1)
-          betaFlow[2,s,c] ~ dnorm(betaFlowCohort[2,c],1)
-        }   
       }
       ##    
       # likelihood
@@ -284,11 +302,12 @@ modelCMR_tt_OB_flow_target <-
       calculate = FALSE
     ),
     
-    tt_parametersToSave_OB_flow = c("betaInt", 
-                                    "betaPhi", "betaP", "betaPhiCohort", "betaPCohort",
-                                    "betaPhiOut", "betaPOut", "betaPhiCohortOut", "betaPCohortOut", 
-                                    "betaFlow",
-                                    "betaFlowCohort", "betaFlowTop"),
+    tt_parametersToSave_OB_flow = c("betaIntTop", "betaPhiTop","betaFlowTop","betaPTop",  
+                                    "betaIntYOY", "betaPhiYOY","betaFlowYOY","betaPYOY",
+                                    "betaIntYOYCohort", "betaPhiYOYCohort","betaFlowYOYCohort","betaPYOYCohort",
+                                    "betaInt", "betaPhi","betaFlow","betaP",
+                                    "betaIntOut", "betaPhiOut","betaFlowOut","betaPOut"
+                                    ),
     
     tt_conf_OB_flow = configureMCMC(
       tt_Rmodel_OB_flow,
@@ -336,13 +355,14 @@ modelCMR_tt_OB_flowByRiver_target <-
         zInits = tt_initialValues_OB(ncol(eh_OB_2002_2014_target$eh), 
                                      eh_OB_2002_2014_target$eh),
         zInitsNA = ifelse(is.na(eh_OB_2002_2014_target$flow), NA, 1),
-        ###### Change input flow data compared to OB_flow model above.
+        ##########################################
         flow = eh_OB_2002_2014_target$flowByRiver,
-        ######
+        ##########################################
         nCohorts = length(unique(eh_OB_2002_2014_target$cohorts$cohort)),
         cohort = eh_OB_2002_2014_target$cohorts$cohort,
         nSeasons = length(unique(eh_OB_2002_2014_target$data$season)),
-        seasonArray = c(3,4,1,2,3,4,1,2,3,4,1,2)
+        seasonArray = c(3,4,1,2,3,4,1,2,3,4,1,2),
+        isYOY = eh_OB_2002_2014_target$isYOY
         # nStates = length(unique(eh_OB_2002_2014_target$data$sizeState)),
         # nRivers = length(unique(eh_OB_2002_2014_target$data$sizeState)) # for now
       ), 
@@ -365,6 +385,7 @@ modelCMR_tt_OB_flowByRiver_target <-
       season = tt_inputData_OB_flowByRiver$seasonArray,
       flow = tt_inputData_OB_flowByRiver$flow,
       length = tt_inputData_OB_flowByRiver$last - tt_inputData_OB_flowByRiver$first + 1,
+      isYOY = tt_inputData_OB_flowByRiver$isYOY,
       indToKeep = which(tt_inputData_OB_flowByRiver$first < 12)
     ),
     
@@ -378,7 +399,8 @@ modelCMR_tt_OB_flowByRiver_target <-
       flow = tt_myConstants_OB_flowByRiver0$flow[tt_myConstants_OB_flowByRiver0$indToKeep,],
       length = tt_myConstants_OB_flowByRiver0$length[tt_myConstants_OB_flowByRiver0$indToKeep],
       nCohorts = tt_inputData_OB_flowByRiver$nCohorts,
-      nSeasons = tt_inputData_OB_flowByRiver$nSeasons
+      nSeasons = tt_inputData_OB_flowByRiver$nSeasons,
+      isYOY = tt_inputData_OB_flowByRiver$isYOY[tt_myConstants_OB_flowByRiver0$indToKeep,]
     ),
     
     tt_myData_OB_flowByRiver = list(
@@ -386,6 +408,8 @@ modelCMR_tt_OB_flowByRiver_target <-
     ),
     
     tt_modelCode_OB_flowByRiver = nimbleCode({
+      dummy  ~ dnorm(0,1)
+      
       # from https://bletcher.github.io/westBrook-book/models.html#model-phit_pt_cohort_flowcohorthierdhmm
       
       delta[1] <- 1                    # Pr(alive t = 1) = 1
@@ -394,83 +418,96 @@ modelCMR_tt_OB_flowByRiver_target <-
       for (i in 1:N){
         for (t in 1:(T-1)){ # loop over time
           logit(phi[t,i]) <- 
-            betaInt +
-            betaPhi[t,cohort[i]] + 
-            betaFlow[1,season[t],cohort[i]] * flow[i,t] +
-            betaFlow[2,season[t],cohort[i]] * flow[i,t] * flow[i,t]
+            betaInt[   isYOY[i,t],season[t],cohort[i]] +
+            betaPhi[   isYOY[i,t],season[t],cohort[i]] + 
+            betaFlow[1,isYOY[i,t],season[t],cohort[i]] * flow[i,t] +
+            betaFlow[2,isYOY[i,t],season[t],cohort[i]] * flow[i,t] * flow[i,t]
           # prior survival
           ##
           gamma[1,1,t,i] <- phi[t,i]         # Pr(alive t -> alive t+1)
           gamma[1,2,t,i] <- 1 - phi[t,i]     # Pr(alive t -> dead t+1)
           gamma[2,1,t,i] <- 0              # Pr(dead t -> alive t+1)
           gamma[2,2,t,i] <- 1              # Pr(dead t -> dead t+1)
-          ##            
-          ## DT changes:
-          ## definition of omega is moved below, to make it
-          ## correctly condition on the first (positive) observation
-          ##logit(p[t,i]) <- betaP[t,cohort[i]]             # prior detection
-          ##omega[1,1,t,i] <- 1 - p[t,i]       # Pr(alive t -> non-detected t)
-          ##omega[1,2,t,i] <- p[t,i]           # Pr(alive t -> detected t)
-          ##omega[2,1,t,i] <- 1              # Pr(dead t -> non-detected t)
-          ##omega[2,2,t,i] <- 0              # Pr(dead t -> detected t)
         }
-        ## DT changes:
-        ## need to pad the gamma matrix with an extra t=T row, to ensure it's
-        ## always a matrix.  This values are never actually used (except maybe for internal checking of row sums = 1),
-        ## but defining them is necessary.
+        
         gamma[1,1,T,i] <- 0
         gamma[1,2,T,i] <- 1
         gamma[2,1,T,i] <- 0
         gamma[2,2,T,i] <- 1
-        ## DT changes:
-        ## time period t = first[i]: guaranteed detection:
+        
         omega[1,1,first[i],i] <- 0       # Pr(alive t -> non-detected t)
         omega[1,2,first[i],i] <- 1           # Pr(alive t -> detected t)
         omega[2,1,first[i],i] <- 1              # Pr(dead t -> non-detected t)
         omega[2,2,first[i],i] <- 0              # Pr(dead t -> detected t)
-        ## DT changes:
-        ## time t > first[i]:
+        
         for(t in (first[i]+1):last[i]) {
-          logit(p[t,i]) <- betaP[t-1,cohort[i]]             # prior detection
+          logit(p[t,i]) <- betaP[isYOY[i,t],season[t-1],cohort[i]]             # prior detection
           omega[1,1,t,i] <- 1 - p[t,i]       # Pr(alive t -> non-detected t)
           omega[1,2,t,i] <- p[t,i]           # Pr(alive t -> detected t)
           omega[2,1,t,i] <- 1              # Pr(dead t -> non-detected t)
           omega[2,2,t,i] <- 0              # Pr(dead t -> detected t)
         }
       }
+      ## 
+      #dummy  ~ dnorm(0,1)
       ##    
-      dummy  ~ dnorm(0,1)
-      betaInt ~ dnorm(0,1)
+      for (y in 1:2) {
+        for (s in 1:nSeasons){ 
+          for (c in 1:nCohorts){
+            
+            betaInt[y,s,c] ~ dnorm(betaIntYOYCohort[y,c],1)
+            betaPhi[y,s,c] ~ dnorm(betaPhiYOYCohort[y,c],1)
+            betaFlow[1,y,s,c] ~ dnorm(betaFlowYOYCohort[1,y,c],1)
+            betaFlow[2,y,s,c] ~ dnorm(betaFlowYOYCohort[2,y,c],1)
+            
+            betaP[y,s,c] ~ dnorm(betaPYOYCohort[y,c],1)
+          }
+        }
+      }
+      
+      for (y in 1:2) {
+        for (c in 1:nCohorts){
+          
+          betaIntYOYCohort[y,c] ~ dnorm(betaIntYOY[y],1)
+          betaPhiYOYCohort[y,c] ~ dnorm(betaPhiYOY[y],1)
+          betaFlowYOYCohort[1,y,c] ~ dnorm(betaFlowYOY[1,y],1)
+          betaFlowYOYCohort[2,y,c] ~ dnorm(betaFlowYOY[2,y],1)
+          
+          betaPYOYCohort[y,c] ~ dnorm(betaPYOY[y],1)
+        }
+      }
+      
+      for (y in 1:2) {
+        
+        betaIntYOY[y] ~ dnorm(betaIntTop,1)
+        betaPhiYOY[y] ~ dnorm(betaPhiTop,1)
+        betaFlowYOY[1,y] ~ dnorm(0,1)
+        betaFlowYOY[2,y] ~ dnorm(0,1)
+        
+        betaPYOY[y] ~ dnorm(0,1)
+      }
+      
+      betaIntTop ~ dnorm(0,1)
+      betaPhiTop ~ dnorm(0,1)
       betaFlowTop[1] ~ dnorm(0,1)
       betaFlowTop[2] ~ dnorm(0,1)
-      ##    
-      for (c in 1:nCohorts){
-        # mean values
-        betaPhiCohort[c] ~ dnorm(0,1)
-        betaPCohort[c] ~ dnorm(0,1)
-        betaFlowCohort[1,c] ~ dnorm(betaFlowTop[1],1)
-        betaFlowCohort[2,c] ~ dnorm(betaFlowTop[2],1)
-        for (t in 1:(T-1)){ 
-          betaPhi[t,c] ~ dnorm(betaPhiCohort[c],1)
-          betaP[t,c] ~ dnorm(betaPCohort[c],1)
-        }
-      }
+      
+      betaPTop ~ dnorm(0,1)
+      
       ##    
       # back-transform for examining output
-      for (c in 1:nCohorts){
-        betaPhiCohortOut[c] <- 1/(1 + exp(-betaPhiCohort[c]))
-        betaPCohortOut[c] <- 1/(1 + exp(-betaPCohort[c]))
-        for (t in 1:(T-1)){ 
-          betaPhiOut[t,c] <- 1/(1 + exp(-betaPhi[t,c]))
-          betaPOut[t,c] <- 1/(1 + exp(-betaP[t,c])) 
+      ##
+      for (y in 1:2) {
+        for (s in 1:nSeasons){
+          for (c in 1:nCohorts){
+            betaIntOut[y,s,c] <- 1/(1 + exp(-betaInt[y,s,c]))
+            betaPhiOut[y,s,c] <- 1/(1 + exp(-betaPhi[y,s,c]))
+            betaFlowOut[1,y,s,c] <- 1/(1 + exp(-betaFlow[1,y,s,c]))
+            betaFlowOut[2,y,s,c] <- 1/(1 + exp(-betaFlow[2,y,s,c]))
+            
+            betaPOut[y,s,c] <- 1/(1 + exp(-betaP[y,s,c]))
+          }
         }
-      }
-      ##    
-      for (s in 1:nSeasons){
-        for (c in 1:nCohorts){
-          betaFlow[1,s,c] ~ dnorm(betaFlowCohort[1,c],1)
-          betaFlow[2,s,c] ~ dnorm(betaFlowCohort[2,c],1)
-        }   
       }
       ##    
       # likelihood
@@ -492,11 +529,12 @@ modelCMR_tt_OB_flowByRiver_target <-
       calculate = FALSE
     ),
     
-    tt_parametersToSave_OB_flowByRiver = c("betaInt", 
-                                    "betaPhi", "betaP", "betaPhiCohort", "betaPCohort",
-                                    "betaPhiOut", "betaPOut", "betaPhiCohortOut", "betaPCohortOut", 
-                                    "betaFlow",
-                                    "betaFlowCohort", "betaFlowTop"),
+    tt_parametersToSave_OB_flowByRiver = c("betaIntTop", "betaPhiTop","betaFlowTop","betaPTop",  
+                                    "betaIntYOY", "betaPhiYOY","betaFlowYOY","betaPYOY",
+                                    "betaIntYOYCohort", "betaPhiYOYCohort","betaFlowYOYCohort","betaPYOYCohort",
+                                    "betaInt", "betaPhi","betaFlow","betaP",
+                                    "betaIntOut", "betaPhiOut","betaFlowOut","betaPOut"
+    ),
     
     tt_conf_OB_flowByRiver = configureMCMC(
       tt_Rmodel_OB_flowByRiver,
@@ -528,7 +566,6 @@ modelCMR_tt_OB_flowByRiver_target <-
   )
 
     
-    
 ######################################
 #### Functions
 #####################################
@@ -540,23 +577,26 @@ tt_initialValues_OB = function(t, y) {
 }
 
 
-tt_initialValues_OB_flow  <- function(t, c, y, z) list(
-  betaInt = rnorm(1, 0, 1),
-  ## DT change:
-  ## don't give phi and p initial values;
-  ## they're deterministic nodes, so they'll be calculated
-  ## in terms of other variables.  Also, when I made changes to these
-  ## in the code, these (unnecessary) initial values were the wrong sizes
-  ##phi = array(runif((t - 1) * myConstants$N, 0, 1),c((t - 1), myConstants$N)),
-  ##p =   array(runif((t - 1) * myConstants$N, 0, 1),c((t - 1), myConstants$N)),
-  #z = getInits_tt_OB(z),
-  betaPhi = array(runif((t - 1) * c, 0, 1), c((t - 1), c)),
-  betaP =   array(runif((t - 1) * c, 0, 1), c((t - 1), c)),
-  betaPhiCohort = array(runif(c, 0, 1),c(c)),
-  betaPCohort =   array(runif(c, 0, 1),c(c)),
-  betaFlow = array(rnorm(2 * 4 * c, 0, 1), c(2, 4, c)),
-  betaFlowCohort = array(rnorm(2 * c, 0, 1), c(2, c)),
-  betaFlowTop = rnorm(2, 0, 1)
+tt_initialValues_OB_flow <- function(t, c, y, z) list(
+  betaIntTop = array(rnorm(1, 0, 1), 1),
+  betaPhiTop = array(rnorm(1, 0, 1), 1),
+  betaFlowTop = array(rnorm(2, 0, 1), 2),
+  betaPTop = array(rnorm(1, 0, 1), 1),
+  
+  betaIntYOY = array(rnorm(2, 0, 1), 2),
+  betaPhiYOY = array(rnorm(2, 0, 1), 2),
+  betaFlowYOY = array(rnorm(2, 0, 1), c(2,2)),
+  betaPYOY = array(rnorm(2, 0, 1), 2),
+  
+  betaIntYOYCohort = array(rnorm(2*c, 0, 1), c(2,c)),
+  betaPhiYOYCohort = array(rnorm(2*c, 0, 1), c(2,c)),
+  betaFlowYOYCohort = array(rnorm(2*2*c, 0, 1), c(2,2,c)),
+  betaPYOYCohort = array(rnorm(2*c, 0, 1), c(2,c)),
+  
+  betaInt = array(rnorm(2*4*c, 0, 1), c(2,4,c)),
+  betaPhi = array(rnorm(2*4*c, 0, 1), c(2,4,c)),
+  betaFlow = array(rnorm(2*2*4*c, 0, 1), c(2,2,4,c)),
+  betaP = array(rnorm(2*4*c, 0, 1), c(2,4,c))
 )
 
 

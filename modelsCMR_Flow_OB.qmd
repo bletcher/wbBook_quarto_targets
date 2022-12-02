@@ -67,12 +67,11 @@ Model is run using targets in R/modelCMR_tt_OB.R
   MCMCtrace(object = out_flow$mcmc,
             #ISB = FALSE,
             #exact = TRUE, 
-            #params = c("betaInt", "betaPhi", "betaP"),
-            params = c("betaPhiCohort", "betaPCohort",
-                       # "betaPhiOut", "betaPOut", 
-                       "betaPhiCohortOut", "betaPCohortOut", 
-                        # "betaFlow",
-                       "betaFlowCohort", "betaFlowTop"),
+            params = c(
+              "betaIntTop", "betaPhiTop","betaFlowTop","betaPTop"  
+            #  "betaInt", "betaPhi","betaFlow","betaP",
+            #  "betaIntOut", "betaPhiOut","betaFlowOut","betaPOut"
+            ),
             pdf = FALSE, 
             priors = priors)
 
@@ -109,7 +108,7 @@ Model is run using targets in R/modelCMR_tt_OB.R
 
 ```
 
-#### Compare models with flow and flowByRiver
+#### Compare parameter estimates of models with flow and flowByRiver
 ```{r}
 both <- bind_rows(summary_flow, summary_flowByRiver) %>%
   rename(lo = '2.5%', hi = '97.5%')
@@ -149,7 +148,56 @@ ggplot(both %>% filter(grepl("betaPOut", var)), aes(color = flowData)) +
 
 Flow predictions
 ```{r}
-#predFlowByRiverCohort <- getPredictionsFlowCohort(out_flowByRiver, everyNIters = 2)
+predFlowCohort <- getPredictionsFlowCohort(out_flow, everyNIters = 3) %>%
+    mutate(flowData = "flow") 
+
+predFlowByRiverCohort <- getPredictionsFlowCohort(out_flowByRiver, everyNIters = 3) %>%
+    mutate(flowData = "flowByRiver")
+
+predBoth <- bind_rows(predFlowCohort, predFlowByRiverCohort)
+```
+
+#### Graph flow predictions
+```{r}
+ggplot(predFlowCohort, aes(flow, predPhi, group = (iter))) +
+  geom_line(alpha = 0.05) +
+  facet_grid(season~cohort)
+
+tS <- 10
+ggplot(predFlowCohort %>% filter(timeStep == tS), aes(flow, predPhi, group = (iter))) +
+  geom_line(alpha = 0.05) +
+  ggtitle(paste0("timeStep (AIS) = ", tS)) +
+  facet_grid(season~cohort)
+
+
+
+
+ggplot(predFlowByRiverCohort, aes(flow, predPhi, group = (iter))) +
+  geom_line(alpha = 0.05) +
+  facet_grid(season~cohort)
+```
+
+
+
+FlowTop predictions
+```{r}
+predFlowTop <- getPredictionsFlowTop(out_flow, everyNIters = 3) %>%
+    mutate(flowData = "flow") 
+
+predFlowByRiverTop <- getPredictionsFlowTop(out_flowByRiver, everyNIters = 3) %>%
+    mutate(flowData = "flowByRiver")
+
+predTopBoth <- bind_rows(predFlowTop, predFlowByRiverTop)
+```
+
+```{r}
+ggplot(predTopBoth, aes(flow, predPhi, group = iter)) +
+  geom_line() +
+  facet_wrap(~flowData)
+
+ggplot(predTopBoth %>% filter(iter < 100), aes(flow, predPhi, group = iter)) +
+  geom_line() +
+  facet_grid(flowData ~ iter)
 ```
 
 
@@ -170,8 +218,8 @@ getPredictionsFlowCohort <- function(toSave, everyNIters = 10, flowStep = 0.5){
   ## betaFlow
   predictorsBetaFlow <- expand.grid(
     iter = seq(1, dim(mcmc$chain1)[1], everyNIters),
-    season = 1:toSave$nSeasons,
-    cohort = 1:toSave$nCohorts
+    season = 1:toSave$myConstants$nSeasons,
+    cohort = 1:toSave$myConstants$nCohorts
   )
   
   for(i in 1:nrow(predictorsBetaFlow)){
@@ -190,21 +238,24 @@ getPredictionsFlowCohort <- function(toSave, everyNIters = 10, flowStep = 0.5){
   ## betaPhi
   predictorsBetaPhi <- expand.grid(
     iter = seq(1, dim(mcmc$chain1)[1], everyNIters),
-    cohort = 1:toSave$nCohorts
+    timeStep = 1:(toSave$myConstants$T - 1),
+    cohort = 1:toSave$myConstants$nCohorts
   )
   
   # this step is very slow for some reason......
   for(i in 1:nrow(predictorsBetaPhi)){
     predictorsBetaPhi$betaPhi[i] <- mcmc$chain1[[predictorsBetaPhi[i, "iter"], 
-                                                 paste0("betaPhiCohort[", predictorsBetaPhi[i, "cohort"],
+                                                 paste0("betaPhi[", predictorsBetaPhi[i, "timeStep"],
+                                                        ", ",       predictorsBetaPhi[i, "cohort"],
                                                         "]")
     ]]
   }
   
   predictorsAll <- expand.grid(
     iter = seq(1, dim(mcmc$chain1)[1], everyNIters),
-    cohort = 1:toSave$nCohorts,
-    season = 1:toSave$nSeasons,
+    cohort = 1:toSave$myConstants$nCohorts,
+    season = 1:toSave$myConstants$nSeasons,
+    timeStep = 1:(toSave$myConstants$T - 1),
     flow = seq(-1.5, 1.5, flowStep)
   )
   
@@ -217,6 +268,35 @@ getPredictionsFlowCohort <- function(toSave, everyNIters = 10, flowStep = 0.5){
   return(preds)
 }
 
+
+```
+
+```{r}
+getPredictionsFlowTop <- function(toSave, everyNIters = 10, flowStep = 0.5){
+
+  mcmc <- toSave$mcmc
+  
+  ## betaFlow
+  predictorsBetaFlowTop <- expand.grid(
+    iter = seq(1, dim(mcmc$chain1)[1], everyNIters),
+    var = 1:2,
+     flow = seq(-1.5, 1.5, flowStep)
+  )
+  
+  for(i in 1:nrow(predictorsBetaFlowTop)){
+    predictorsBetaFlowTop$betaFlowTop1[i] <- mcmc$chain1[[predictorsBetaFlowTop[i, "iter"], 
+                                                         1
+                                                        ]]
+    predictorsBetaFlowTop$betaFlowTop2[i] <- mcmc$chain1[[predictorsBetaFlowTop[i, "iter"], 
+                                                         2
+                                                        ]]
+  }
+
+  preds <- predictorsBetaFlowTop %>%
+    mutate(predPhi = plogis(betaFlowTop1 * flow + betaFlowTop2 * flow * flow))
+  
+  return(preds)
+}
 
 ```
 
