@@ -141,8 +141,8 @@ modelCMR_tt_OB_flow_target <-
     
     tt_runData_OB_flow = list(
       # Updateable model-specific variables 
-      nIter = 5000, 
-      nBurnin = 2000, 
+      nIter = 10000, 
+      nBurnin = 5000, 
       nChains = 2,
       thinRate = 5
     ),  
@@ -179,6 +179,7 @@ modelCMR_tt_OB_flow_target <-
     
     tt_modelCode_OB_flow = nimbleCode({
       # from https://bletcher.github.io/westBrook-book/models.html#model-phit_pt_cohort_flowcohorthierdhmm
+      
       delta[1] <- 1                    # Pr(alive t = 1) = 1
       delta[2] <- 0                    # Pr(dead t = 1) = 0
       
@@ -229,7 +230,8 @@ modelCMR_tt_OB_flow_target <-
           omega[2,2,t,i] <- 0              # Pr(dead t -> detected t)
         }
       }
-      ##    
+      ## 
+      dummy  ~ dnorm(0,1)
       betaInt ~ dnorm(0,1)
       betaFlowTop[1] ~ dnorm(0,1)
       betaFlowTop[2] ~ dnorm(0,1)
@@ -347,8 +349,8 @@ modelCMR_tt_OB_flowByRiver_target <-
     
     tt_runData_OB_flowByRiver = list(
       # Updateable model-specific variables 
-      nIter = 5000, 
-      nBurnin = 2000, 
+      nIter = 10000, 
+      nBurnin = 5000, 
       nChains = 2,
       thinRate = 5
     ),  
@@ -385,6 +387,7 @@ modelCMR_tt_OB_flowByRiver_target <-
     
     tt_modelCode_OB_flowByRiver = nimbleCode({
       # from https://bletcher.github.io/westBrook-book/models.html#model-phit_pt_cohort_flowcohorthierdhmm
+      
       delta[1] <- 1                    # Pr(alive t = 1) = 1
       delta[2] <- 0                    # Pr(dead t = 1) = 0
       
@@ -436,6 +439,7 @@ modelCMR_tt_OB_flowByRiver_target <-
         }
       }
       ##    
+      dummy  ~ dnorm(0,1)
       betaInt ~ dnorm(0,1)
       betaFlowTop[1] ~ dnorm(0,1)
       betaFlowTop[2] ~ dnorm(0,1)

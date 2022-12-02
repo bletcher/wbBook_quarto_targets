@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.38">
+<meta name="generator" content="quarto-1.2.269">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,10 +11,15 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -53,7 +58,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -66,7 +71,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -274,12 +279,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#get-electrofishing-data-target-wb" id="toc-get-electrofishing-data-target-wb" class="nav-link active" data-scroll-target="#get-electrofishing-data-target-wb"> <span class="header-section-number">5.1</span> Get electrofishing data target WB</a></li>
-  <li><a href="#get-electrofishing-data-target-ob" id="toc-get-electrofishing-data-target-ob" class="nav-link" data-scroll-target="#get-electrofishing-data-target-ob"> <span class="header-section-number">5.2</span> Get electrofishing data target OB</a></li>
+  <li><a href="#get-electrofishing-data-target-wb" id="toc-get-electrofishing-data-target-wb" class="nav-link active" data-scroll-target="#get-electrofishing-data-target-wb"><span class="toc-section-number">5.1</span>  Get electrofishing data target WB</a></li>
+  <li><a href="#get-electrofishing-data-target-ob" id="toc-get-electrofishing-data-target-ob" class="nav-link" data-scroll-target="#get-electrofishing-data-target-ob"><span class="toc-section-number">5.2</span>  Get electrofishing data target OB</a></li>
   </ul>
 </nav>
     </div>
@@ -296,6 +301,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="quarto-title-meta">
 
     
+  
     
   </div>
   
@@ -316,12 +322,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cdWB_CMR0_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>List of 15
+<pre><code>List of 16
  $ eh         : num [1:19981, 1:12] 1 1 1 1 1 1 1 1 1 1 ...
   ..- attr(*, "dimnames")=List of 2
   .. ..$ : NULL
   .. ..$ : chr [1:12] "ais_1" "ais_2" "ais_3" "ais_4" ...
  $ flow       : num [1:19981, 1:12] -0.707 -0.679 -0.556 -0.767 -0.531 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : NULL
+  .. ..$ : chr [1:12] "ais_1" "ais_2" "ais_3" "ais_4" ...
+ $ flowByRiver: num [1:19981, 1:12] -0.949 0.323 0.615 -0.951 0.652 ...
   ..- attr(*, "dimnames")=List of 2
   .. ..$ : NULL
   .. ..$ : chr [1:12] "ais_1" "ais_2" "ais_3" "ais_4" ...
@@ -359,7 +369,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   ..$ species: chr [1:19981] "bkt" "bnt" "bkt" "bkt" ...
  $ first      : int [1:19981] 1 1 1 1 1 1 1 1 1 1 ...
  $ last       : num [1:19981] 4 12 4 12 4 12 12 4 12 4 ...
- $ data       : tibble [199,614 × 43] (S3: tbl_df/tbl/data.frame)
+ $ data       : tibble [199,614 × 47] (S3: tbl_df/tbl/data.frame)
   ..$ cohort               : num [1:199614] 2012 2012 2012 2012 2012 ...
   ..$ tag                  : chr [1:199614] "00088cbed0" "00088cbed0" "00088cbed0" "00088cbed0" ...
   ..$ detectionDate        : POSIXct[1:199614], format: "2013-03-25 04:00:00" "2013-06-05 04:00:00" ...
@@ -385,6 +395,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   ..$ lagDetectionDate     : POSIXct[1:199614], format: "2013-06-05 04:00:00" "2013-09-18 04:00:00" ...
   ..$ meanTemperature      : num [1:199614] 8.62 16.51 9.44 0.94 10.52 ...
   ..$ meanFlow             : num [1:199614] 0.38874 0.30331 0.00882 0.31319 0.58363 ...
+  ..$ meanFlowByRiver      : num [1:199614] 0.0217 0.1632 0.0432 0.0732 0.2446 ...
   ..$ knownZ               : num [1:199614] 1 NA NA NA NA NA NA NA NA NA ...
   ..$ firstObserved        : num [1:199614] 73 73 73 73 73 73 73 73 73 73 ...
   ..$ lastObserved         : num [1:199614] 73 73 73 73 73 73 73 73 73 73 ...
@@ -393,9 +404,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   ..$ riverTagged          : chr [1:199614] "wb obear" "wb obear" "wb obear" "wb obear" ...
   ..$ meanMeanFlow         : num [1:199614] 0.409 0.137 0.307 0.464 0.409 ...
   ..$ sdMeanFlow           : num [1:199614] 0.155 0.126 0.246 0.113 0.155 ...
+  ..$ meanMeanFlowByRiver  : num [1:199614] 0.1368 0.0612 0.0891 0.1094 0.1368 ...
+  ..$ sdMeanFlowByRiver    : num [1:199614] 0.0837 0.0468 0.0819 0.0639 0.0837 ...
   ..$ meanMeanTemperature  : num [1:199614] 10.39 16.23 8.42 1.65 10.39 ...
   ..$ sdMeanTemperature    : num [1:199614] 1.202 0.711 1.455 0.616 1.202 ...
   ..$ meanFlowScaled       : num [1:199614] -0.129 1.313 -1.215 -1.33 1.124 ...
+  ..$ meanFlowByRiverScaled: num [1:199614] -1.375 2.182 -0.56 -0.566 1.287 ...
   ..$ meanTemperatureScaled: num [1:199614] -1.472 0.402 0.7 -1.149 0.105 ...
   ..$ isYOY                : num [1:199614] 1 2 2 2 2 2 2 2 2 2 ...
   ..$ riverN               : num [1:199614] 4 4 4 4 4 4 4 4 4 4 ...
@@ -418,7 +432,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell-output-display">
 <div id="tbl-cmrWBAll" class="anchored">
 
-<table class="table" style="margin-left: auto; margin-right: auto;"><caption>Table 5.1:  Count of CMR data (including 0’s) by river </caption>
+<table class="table" style="margin-left: auto; margin-right: auto;"><caption>Table&nbsp;5.1:  Count of CMR data (including 0’s) by river </caption>
  <thead>
   <tr>
    <th style="text-align:right;"> cohort </th>
@@ -540,7 +554,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell-output-display">
 <div id="tbl-cmrWBEnc1" class="anchored">
 
-<table class="table" style="margin-left: auto; margin-right: auto;"><caption>Table 5.2:  Count of CMR data (encounters only) by river </caption>
+<table class="table" style="margin-left: auto; margin-right: auto;"><caption>Table&nbsp;5.2:  Count of CMR data (encounters only) by river </caption>
  <thead>
   <tr>
    <th style="text-align:right;"> cohort </th>
@@ -671,107 +685,93 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell-output-display">
 <div id="tbl-cmrOBAll" class="anchored">
 
-<table class="table" style="margin-left: auto; margin-right: auto;"><caption>Table 5.3:  Count of CMR data (including 0’s) by river </caption>
+<table class="table" style="margin-left: auto; margin-right: auto;"><caption>Table&nbsp;5.3:  Count of CMR data (including 0’s) by river </caption>
  <thead>
   <tr>
    <th style="text-align:right;"> cohort </th>
    <th style="text-align:right;"> West Brook </th>
    <th style="text-align:right;"> WB Jimmy </th>
-   <th style="text-align:right;"> WB Mitchell </th>
    <th style="text-align:right;"> WB OBear </th>
   </tr>
  </thead>
 <tbody>
   <tr>
    <td style="text-align:right;"> 2002 </td>
-   <td style="text-align:right;"> 13023 </td>
-   <td style="text-align:right;"> 1440 </td>
-   <td style="text-align:right;"> 626 </td>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> 2139 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 2003 </td>
-   <td style="text-align:right;"> 24489 </td>
-   <td style="text-align:right;"> 2396 </td>
-   <td style="text-align:right;"> 444 </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> 2747 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 2004 </td>
-   <td style="text-align:right;"> 24963 </td>
-   <td style="text-align:right;"> 3637 </td>
-   <td style="text-align:right;"> 2707 </td>
+   <td style="text-align:right;"> 61 </td>
+   <td style="text-align:right;"> 9 </td>
    <td style="text-align:right;"> 1666 </td>
   </tr>
   <tr>
-   <td style="text-align:right;"> 2005 </td>
-   <td style="text-align:right;"> 5471 </td>
-   <td style="text-align:right;"> 943 </td>
-   <td style="text-align:right;"> 1003 </td>
-   <td style="text-align:right;"> 723 </td>
-  </tr>
-  <tr>
    <td style="text-align:right;"> 2006 </td>
-   <td style="text-align:right;"> 6797 </td>
-   <td style="text-align:right;"> 1973 </td>
-   <td style="text-align:right;"> 533 </td>
+   <td style="text-align:right;"> 34 </td>
+   <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> 1322 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 2007 </td>
-   <td style="text-align:right;"> 3958 </td>
-   <td style="text-align:right;"> 1530 </td>
-   <td style="text-align:right;"> 1068 </td>
+   <td style="text-align:right;"> 35 </td>
+   <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> 968 </td>
   </tr>
   <tr>
-   <td style="text-align:right;"> 2008 </td>
-   <td style="text-align:right;"> 8668 </td>
-   <td style="text-align:right;"> 1424 </td>
-   <td style="text-align:right;"> 131 </td>
-   <td style="text-align:right;"> 886 </td>
-  </tr>
-  <tr>
    <td style="text-align:right;"> 2009 </td>
-   <td style="text-align:right;"> 18696 </td>
-   <td style="text-align:right;"> 3497 </td>
-   <td style="text-align:right;"> 1889 </td>
+   <td style="text-align:right;"> 170 </td>
+   <td style="text-align:right;"> 8 </td>
    <td style="text-align:right;"> 5081 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 2010 </td>
-   <td style="text-align:right;"> 7693 </td>
-   <td style="text-align:right;"> 689 </td>
-   <td style="text-align:right;"> 281 </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 8 </td>
    <td style="text-align:right;"> 453 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 2011 </td>
-   <td style="text-align:right;"> 2202 </td>
-   <td style="text-align:right;"> 1792 </td>
-   <td style="text-align:right;"> 395 </td>
+   <td style="text-align:right;"> 17 </td>
+   <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> 394 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 2012 </td>
-   <td style="text-align:right;"> 16663 </td>
-   <td style="text-align:right;"> 2377 </td>
-   <td style="text-align:right;"> 1721 </td>
+   <td style="text-align:right;"> 116 </td>
+   <td style="text-align:right;"> 8 </td>
    <td style="text-align:right;"> 5305 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 2013 </td>
-   <td style="text-align:right;"> 4999 </td>
-   <td style="text-align:right;"> 1246 </td>
-   <td style="text-align:right;"> 304 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> 729 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 2014 </td>
-   <td style="text-align:right;"> 3853 </td>
-   <td style="text-align:right;"> 528 </td>
-   <td style="text-align:right;"> 427 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> 725 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2005 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 723 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2008 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 886 </td>
   </tr>
 </tbody>
 </table>
@@ -793,107 +793,93 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell-output-display">
 <div id="tbl-cmrOBEnc1" class="anchored">
 
-<table class="table" style="margin-left: auto; margin-right: auto;"><caption>Table 5.4:  Count of CMR data (encounters only) by river </caption>
+<table class="table" style="margin-left: auto; margin-right: auto;"><caption>Table&nbsp;5.4:  Count of CMR data (encounters only) by river </caption>
  <thead>
   <tr>
    <th style="text-align:right;"> cohort </th>
    <th style="text-align:right;"> West Brook </th>
    <th style="text-align:right;"> WB Jimmy </th>
-   <th style="text-align:right;"> WB Mitchell </th>
    <th style="text-align:right;"> WB OBear </th>
   </tr>
  </thead>
 <tbody>
   <tr>
    <td style="text-align:right;"> 2002 </td>
-   <td style="text-align:right;"> 2974 </td>
-   <td style="text-align:right;"> 379 </td>
-   <td style="text-align:right;"> 209 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> 564 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 2003 </td>
-   <td style="text-align:right;"> 4932 </td>
-   <td style="text-align:right;"> 491 </td>
-   <td style="text-align:right;"> 142 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> 709 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 2004 </td>
-   <td style="text-align:right;"> 5140 </td>
-   <td style="text-align:right;"> 734 </td>
-   <td style="text-align:right;"> 638 </td>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 2 </td>
    <td style="text-align:right;"> 426 </td>
   </tr>
   <tr>
-   <td style="text-align:right;"> 2005 </td>
-   <td style="text-align:right;"> 939 </td>
-   <td style="text-align:right;"> 216 </td>
-   <td style="text-align:right;"> 204 </td>
-   <td style="text-align:right;"> 163 </td>
-  </tr>
-  <tr>
    <td style="text-align:right;"> 2006 </td>
-   <td style="text-align:right;"> 1350 </td>
-   <td style="text-align:right;"> 379 </td>
-   <td style="text-align:right;"> 77 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> 278 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 2007 </td>
-   <td style="text-align:right;"> 882 </td>
-   <td style="text-align:right;"> 318 </td>
-   <td style="text-align:right;"> 273 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> 228 </td>
   </tr>
   <tr>
-   <td style="text-align:right;"> 2008 </td>
-   <td style="text-align:right;"> 1606 </td>
-   <td style="text-align:right;"> 273 </td>
-   <td style="text-align:right;"> 33 </td>
-   <td style="text-align:right;"> 193 </td>
-  </tr>
-  <tr>
    <td style="text-align:right;"> 2009 </td>
-   <td style="text-align:right;"> 3375 </td>
-   <td style="text-align:right;"> 569 </td>
-   <td style="text-align:right;"> 403 </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 1075 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 2010 </td>
-   <td style="text-align:right;"> 1294 </td>
-   <td style="text-align:right;"> 164 </td>
-   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 99 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 2011 </td>
-   <td style="text-align:right;"> 470 </td>
-   <td style="text-align:right;"> 426 </td>
-   <td style="text-align:right;"> 71 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> 104 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 2012 </td>
-   <td style="text-align:right;"> 2731 </td>
-   <td style="text-align:right;"> 490 </td>
-   <td style="text-align:right;"> 282 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 1196 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 2013 </td>
-   <td style="text-align:right;"> 1184 </td>
-   <td style="text-align:right;"> 433 </td>
-   <td style="text-align:right;"> 99 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> 216 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 2014 </td>
-   <td style="text-align:right;"> 1431 </td>
-   <td style="text-align:right;"> 248 </td>
-   <td style="text-align:right;"> 236 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> 395 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2005 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 163 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2008 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 193 </td>
   </tr>
 </tbody>
 </table>
@@ -979,6 +965,16 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         }
       }
     }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
   }
   const isFileUrl = () => { 
     return window.location.protocol === 'file:';
@@ -1030,7 +1026,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   // Switch to dark mode if need be
   if (hasAlternateSentinel()) {
     toggleColorMode(true);
-  } 
+  } else {
+    toggleColorMode(false);
+  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -1052,7 +1050,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -1131,31 +1146,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>

@@ -59,7 +59,9 @@ Model is run using targets in R/modelCMR_tt_OB.R
   out_flow <- tar_read(tt_modelOut_OB_flow)
 
   MCMCplot(object = out_flow$mcmc)
-  MCMCsummary(object = out_flow$mcmc, round = 3)
+  summary_flow <- MCMCsummary(object = out_flow$mcmc, round = 3) %>%
+    mutate(flowData = "flow") %>%
+    rownames_to_column(var = "var")
   
   priors <- runif(out_flow$runData$nIter * out_flow$runData$nChains, 0, 1)
   MCMCtrace(object = out_flow$mcmc,
@@ -67,9 +69,10 @@ Model is run using targets in R/modelCMR_tt_OB.R
             #exact = TRUE, 
             #params = c("betaInt", "betaPhi", "betaP"),
             params = c("betaPhiCohort", "betaPCohort",
-                                    "betaPhiOut", "betaPOut", "betaPhiCohortOut", "betaPCohortOut", 
-                                    "betaFlow",
-                                    "betaFlowCohort", "betaFlowTop"),
+                       # "betaPhiOut", "betaPOut", 
+                       "betaPhiCohortOut", "betaPCohortOut", 
+                        # "betaFlow",
+                       "betaFlowCohort", "betaFlowTop"),
             pdf = FALSE, 
             priors = priors)
 
@@ -87,22 +90,66 @@ Model is run using targets in R/modelCMR_tt_OB.R
   out_flowByRiver <- tar_read(tt_modelOut_OB_flowByRiver)
 
   MCMCplot(object = out_flowByRiver$mcmc)
-  MCMCsummary(object = out_flowByRiver$mcmc, round = 3)
+  summary_flowByRiver <- MCMCsummary(object = out_flowByRiver$mcmc, round = 3) %>%
+    mutate(flowData = "flowByRiver") %>%
+    rownames_to_column(var = "var")
   
   priors <- runif(out_flowByRiver$runData$nIter * out_flowByRiver$runData$nChains, 0, 1)
   MCMCtrace(object = out_flowByRiver$mcmc,
             #ISB = FALSE,
             #exact = TRUE, 
-            params = c("phi", "p"),
+            params = c("betaPhiCohort", "betaPCohort",
+                     #  "betaPhiOut", "betaPOut", 
+                       "betaPhiCohortOut", "betaPCohortOut", 
+                   #   "betaFlow",
+                       "betaFlowCohort", "betaFlowTop"),
             pdf = FALSE, 
             priors = priors)
 
 
 ```
 
+#### Compare models with flow and flowByRiver
+```{r}
+both <- bind_rows(summary_flow, summary_flowByRiver) %>%
+  rename(lo = '2.5%', hi = '97.5%')
+
+ggplot(both %>% filter(grepl("betaFlowTop", var)), aes(color = flowData)) +
+  geom_point(aes(var, mean), size = 2, position = position_dodge(width = 0.5)) +
+  geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) 
+
+ggplot(both %>% filter(grepl("betaFlowCohort", var)), aes(color = flowData)) +
+  geom_point(aes(var, mean), size = 2, position = position_dodge(width = 0.5)) +
+  geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1))
+
+ggplot(both %>% filter(grepl("betaPhiCohortOut", var)), aes(color = flowData)) +
+  geom_point(aes(var, mean), size = 2, position = position_dodge(width = 0.5)) +
+  geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1))
+
+ggplot(both %>% filter(grepl("betaPhiOut", var)), aes(color = flowData)) +
+  geom_point(aes(var, mean), size = 2, position = position_dodge(width = 0.5)) +
+  geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1))
+
+ggplot(both %>% filter(grepl("betaPCohortOut", var)), aes(color = flowData)) +
+  geom_point(aes(var, mean), size = 2, position = position_dodge(width = 0.5)) +
+  geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1))
+
+ggplot(both %>% filter(grepl("betaPOut", var)), aes(color = flowData)) +
+  geom_point(aes(var, mean), size = 2, position = position_dodge(width = 0.5)) +
+  geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1))
+```
+
+
+
+
 Flow predictions
 ```{r}
-predFlowByRiverCohort <- getPredictionsFlowCohort(out_flowByRiver, everyNIters = 2)
+#predFlowByRiverCohort <- getPredictionsFlowCohort(out_flowByRiver, everyNIters = 2)
 ```
 
 

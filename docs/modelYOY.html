@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.38">
+<meta name="generator" content="quarto-1.2.269">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,10 +11,15 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -53,7 +58,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -66,7 +71,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -274,33 +279,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#raw-data-for-yoy-model" id="toc-raw-data-for-yoy-model" class="nav-link active" data-scroll-target="#raw-data-for-yoy-model"> <span class="header-section-number">9.1</span> Raw data for YOY model</a></li>
-  <li><a href="#get-data-from-targets" id="toc-get-data-from-targets" class="nav-link" data-scroll-target="#get-data-from-targets"> <span class="header-section-number">9.2</span> Get data from targets</a></li>
-  <li><a href="#get-first-observations" id="toc-get-first-observations" class="nav-link" data-scroll-target="#get-first-observations"> <span class="header-section-number">9.3</span> Get first observations</a>
+  <li><a href="#raw-data-for-yoy-model" id="toc-raw-data-for-yoy-model" class="nav-link active" data-scroll-target="#raw-data-for-yoy-model"><span class="toc-section-number">9.1</span>  Raw data for YOY model</a></li>
+  <li><a href="#get-data-from-targets" id="toc-get-data-from-targets" class="nav-link" data-scroll-target="#get-data-from-targets"><span class="toc-section-number">9.2</span>  Get data from targets</a></li>
+  <li><a href="#get-first-observations" id="toc-get-first-observations" class="nav-link" data-scroll-target="#get-first-observations"><span class="toc-section-number">9.3</span>  Get first observations</a>
   <ul class="collapse">
-  <li><a href="#counts-of-captured-fish" id="toc-counts-of-captured-fish" class="nav-link" data-scroll-target="#counts-of-captured-fish"> <span class="header-section-number">9.3.1</span> Counts of captured fish</a></li>
+  <li><a href="#counts-of-captured-fish" id="toc-counts-of-captured-fish" class="nav-link" data-scroll-target="#counts-of-captured-fish"><span class="toc-section-number">9.3.1</span>  Counts of captured fish</a></li>
   </ul></li>
-  <li><a href="#raw-data-plots" id="toc-raw-data-plots" class="nav-link" data-scroll-target="#raw-data-plots"> <span class="header-section-number">9.4</span> Raw data plots</a>
+  <li><a href="#raw-data-plots" id="toc-raw-data-plots" class="nav-link" data-scroll-target="#raw-data-plots"><span class="toc-section-number">9.4</span>  Raw data plots</a>
   <ul class="collapse">
-  <li><a href="#frequency-plots-by-species-and-river" id="toc-frequency-plots-by-species-and-river" class="nav-link" data-scroll-target="#frequency-plots-by-species-and-river"> <span class="header-section-number">9.4.1</span> Frequency plots by species and river</a></li>
-  <li><a href="#brook-trout-west-brook" id="toc-brook-trout-west-brook" class="nav-link" data-scroll-target="#brook-trout-west-brook"> <span class="header-section-number">9.4.2</span> Brook Trout, West brook</a></li>
-  <li><a href="#brook-trout-wb-jimmy" id="toc-brook-trout-wb-jimmy" class="nav-link" data-scroll-target="#brook-trout-wb-jimmy"> <span class="header-section-number">9.4.3</span> Brook Trout, wb jimmy</a></li>
-  <li><a href="#brook-trout-wb-mitchell" id="toc-brook-trout-wb-mitchell" class="nav-link" data-scroll-target="#brook-trout-wb-mitchell"> <span class="header-section-number">9.4.4</span> Brook Trout, wb mitchell</a></li>
-  <li><a href="#brook-trout-wb-obear" id="toc-brook-trout-wb-obear" class="nav-link" data-scroll-target="#brook-trout-wb-obear"> <span class="header-section-number">9.4.5</span> Brook Trout, wb obear</a></li>
-  <li><a href="#brown-trout-west-brook" id="toc-brown-trout-west-brook" class="nav-link" data-scroll-target="#brown-trout-west-brook"> <span class="header-section-number">9.4.6</span> Brown Trout, West brook</a></li>
-  <li><a href="#brown-trout-wb-jimmy" id="toc-brown-trout-wb-jimmy" class="nav-link" data-scroll-target="#brown-trout-wb-jimmy"> <span class="header-section-number">9.4.7</span> Brown Trout, wb jimmy</a></li>
-  <li><a href="#brown-trout-wb-mitchell" id="toc-brown-trout-wb-mitchell" class="nav-link" data-scroll-target="#brown-trout-wb-mitchell"> <span class="header-section-number">9.4.8</span> Brown Trout, wb mitchell</a></li>
-  <li><a href="#brown-trout-wb-obear---there-are-no-brown-trout-in-obear" id="toc-brown-trout-wb-obear---there-are-no-brown-trout-in-obear" class="nav-link" data-scroll-target="#brown-trout-wb-obear---there-are-no-brown-trout-in-obear"> <span class="header-section-number">9.4.9</span> Brown Trout, wb obear - there are no Brown trout in O’Bear</a></li>
-  <li><a href="#trout-in-the-wb-mainstem-only" id="toc-trout-in-the-wb-mainstem-only" class="nav-link" data-scroll-target="#trout-in-the-wb-mainstem-only"> <span class="header-section-number">9.4.10</span> Trout, in the WB mainstem only</a></li>
-  <li><a href="#why-are-there-untagged-fish-bigger-than-60mm" id="toc-why-are-there-untagged-fish-bigger-than-60mm" class="nav-link" data-scroll-target="#why-are-there-untagged-fish-bigger-than-60mm"> <span class="header-section-number">9.4.11</span> Why are there untagged fish bigger than 60mm?</a></li>
+  <li><a href="#frequency-plots-by-species-and-river" id="toc-frequency-plots-by-species-and-river" class="nav-link" data-scroll-target="#frequency-plots-by-species-and-river"><span class="toc-section-number">9.4.1</span>  Frequency plots by species and river</a></li>
+  <li><a href="#brook-trout-west-brook" id="toc-brook-trout-west-brook" class="nav-link" data-scroll-target="#brook-trout-west-brook"><span class="toc-section-number">9.4.2</span>  Brook Trout, West brook</a></li>
+  <li><a href="#brook-trout-wb-jimmy" id="toc-brook-trout-wb-jimmy" class="nav-link" data-scroll-target="#brook-trout-wb-jimmy"><span class="toc-section-number">9.4.3</span>  Brook Trout, wb jimmy</a></li>
+  <li><a href="#brook-trout-wb-mitchell" id="toc-brook-trout-wb-mitchell" class="nav-link" data-scroll-target="#brook-trout-wb-mitchell"><span class="toc-section-number">9.4.4</span>  Brook Trout, wb mitchell</a></li>
+  <li><a href="#brook-trout-wb-obear" id="toc-brook-trout-wb-obear" class="nav-link" data-scroll-target="#brook-trout-wb-obear"><span class="toc-section-number">9.4.5</span>  Brook Trout, wb obear</a></li>
+  <li><a href="#brown-trout-west-brook" id="toc-brown-trout-west-brook" class="nav-link" data-scroll-target="#brown-trout-west-brook"><span class="toc-section-number">9.4.6</span>  Brown Trout, West brook</a></li>
+  <li><a href="#brown-trout-wb-jimmy" id="toc-brown-trout-wb-jimmy" class="nav-link" data-scroll-target="#brown-trout-wb-jimmy"><span class="toc-section-number">9.4.7</span>  Brown Trout, wb jimmy</a></li>
+  <li><a href="#brown-trout-wb-mitchell" id="toc-brown-trout-wb-mitchell" class="nav-link" data-scroll-target="#brown-trout-wb-mitchell"><span class="toc-section-number">9.4.8</span>  Brown Trout, wb mitchell</a></li>
+  <li><a href="#brown-trout-wb-obear---there-are-no-brown-trout-in-obear" id="toc-brown-trout-wb-obear---there-are-no-brown-trout-in-obear" class="nav-link" data-scroll-target="#brown-trout-wb-obear---there-are-no-brown-trout-in-obear"><span class="toc-section-number">9.4.9</span>  Brown Trout, wb obear - there are no Brown trout in O’Bear</a></li>
+  <li><a href="#trout-in-the-wb-mainstem-only" id="toc-trout-in-the-wb-mainstem-only" class="nav-link" data-scroll-target="#trout-in-the-wb-mainstem-only"><span class="toc-section-number">9.4.10</span>  Trout, in the WB mainstem only</a></li>
+  <li><a href="#why-are-there-untagged-fish-bigger-than-60mm" id="toc-why-are-there-untagged-fish-bigger-than-60mm" class="nav-link" data-scroll-target="#why-are-there-untagged-fish-bigger-than-60mm"><span class="toc-section-number">9.4.11</span>  Why are there untagged fish bigger than 60mm?</a></li>
   </ul></li>
-  <li><a href="#models-based-on-yearly-means" id="toc-models-based-on-yearly-means" class="nav-link" data-scroll-target="#models-based-on-yearly-means"> <span class="header-section-number">9.5</span> Models based on yearly means</a>
+  <li><a href="#models-based-on-yearly-means" id="toc-models-based-on-yearly-means" class="nav-link" data-scroll-target="#models-based-on-yearly-means"><span class="toc-section-number">9.5</span>  Models based on yearly means</a>
   <ul class="collapse">
-  <li><a href="#models-with-extreme-flow-events-droughts" id="toc-models-with-extreme-flow-events-droughts" class="nav-link" data-scroll-target="#models-with-extreme-flow-events-droughts"> <span class="header-section-number">9.5.1</span> Models with extreme flow events (droughts)</a></li>
+  <li><a href="#models-with-extreme-flow-events-droughts" id="toc-models-with-extreme-flow-events-droughts" class="nav-link" data-scroll-target="#models-with-extreme-flow-events-droughts"><span class="toc-section-number">9.5.1</span>  Models with extreme flow events (droughts)</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -318,6 +323,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="quarto-title-meta">
 
     
+  
     
   </div>
   
@@ -490,7 +496,7 @@ Use these for modelling.</p>
 <span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plotSppRiv</span>(species, riverOrdered)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/raw%20data%20plots1-1.png" class="img-fluid" width="672"></p>
+<p><img src="modelYOY_files/figure-html/raw data plots1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -498,7 +504,7 @@ Use these for modelling.</p>
 <h3 data-number="9.4.3" class="anchored" data-anchor-id="brook-trout-wb-jimmy"><span class="header-section-number">9.4.3</span> Brook Trout, wb jimmy</h3>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/raw%20data%20plots2-1.png" class="img-fluid" width="672"></p>
+<p><img src="modelYOY_files/figure-html/raw data plots2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -506,7 +512,7 @@ Use these for modelling.</p>
 <h3 data-number="9.4.4" class="anchored" data-anchor-id="brook-trout-wb-mitchell"><span class="header-section-number">9.4.4</span> Brook Trout, wb mitchell</h3>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/raw%20data%20plots3-1.png" class="img-fluid" width="672"></p>
+<p><img src="modelYOY_files/figure-html/raw data plots3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -514,7 +520,7 @@ Use these for modelling.</p>
 <h3 data-number="9.4.5" class="anchored" data-anchor-id="brook-trout-wb-obear"><span class="header-section-number">9.4.5</span> Brook Trout, wb obear</h3>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/raw%20data%20plots4-1.png" class="img-fluid" width="672"></p>
+<p><img src="modelYOY_files/figure-html/raw data plots4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -522,7 +528,7 @@ Use these for modelling.</p>
 <h3 data-number="9.4.6" class="anchored" data-anchor-id="brown-trout-west-brook"><span class="header-section-number">9.4.6</span> Brown Trout, West brook</h3>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/raw%20data%20plots5-1.png" class="img-fluid" width="672"></p>
+<p><img src="modelYOY_files/figure-html/raw data plots5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -530,7 +536,7 @@ Use these for modelling.</p>
 <h3 data-number="9.4.7" class="anchored" data-anchor-id="brown-trout-wb-jimmy"><span class="header-section-number">9.4.7</span> Brown Trout, wb jimmy</h3>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/raw%20data%20plots6-1.png" class="img-fluid" width="672"></p>
+<p><img src="modelYOY_files/figure-html/raw data plots6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -538,7 +544,7 @@ Use these for modelling.</p>
 <h3 data-number="9.4.8" class="anchored" data-anchor-id="brown-trout-wb-mitchell"><span class="header-section-number">9.4.8</span> Brown Trout, wb mitchell</h3>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/raw%20data%20plots7-1.png" class="img-fluid" width="672"></p>
+<p><img src="modelYOY_files/figure-html/raw data plots7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -591,7 +597,7 @@ FALSE  TRUE
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">60</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/2002%20untagged-1.png" class="img-fluid" width="672"></p>
+<p><img src="modelYOY_files/figure-html/2002 untagged-1.png" class="img-fluid" width="672"></p>
 </div>
 <details>
 <summary>Code</summary>
@@ -602,7 +608,7 @@ FALSE  TRUE
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(<span class="sc">~</span>area)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/2002%20untagged-2.png" class="img-fluid" width="672"></p>
+<p><img src="modelYOY_files/figure-html/2002 untagged-2.png" class="img-fluid" width="672"></p>
 </div>
 <details>
 <summary>Code</summary>
@@ -613,7 +619,7 @@ FALSE  TRUE
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(<span class="sc">~</span>area)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/2002%20untagged-3.png" class="img-fluid" width="672"></p>
+<p><img src="modelYOY_files/figure-html/2002 untagged-3.png" class="img-fluid" width="672"></p>
 </div>
 <details>
 <summary>Code</summary>
@@ -634,7 +640,7 @@ FALSE  TRUE
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(d_WB_BKT_BNT<span class="sc">$</span>detectionDate, <span class="at">breaks =</span> <span class="dv">250</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/filter%20firstObsUnnestedWB-1.png" class="img-fluid" width="672"></p>
+<p><img src="modelYOY_files/figure-html/filter firstObsUnnestedWB-1.png" class="img-fluid" width="672"></p>
 </div>
 <details>
 <summary>Code</summary>
@@ -1397,6 +1403,16 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         }
       }
     }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
   }
   const isFileUrl = () => { 
     return window.location.protocol === 'file:';
@@ -1448,7 +1464,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   // Switch to dark mode if need be
   if (hasAlternateSentinel()) {
     toggleColorMode(true);
-  } 
+  } else {
+    toggleColorMode(false);
+  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -1470,7 +1488,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -1549,31 +1584,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>
