@@ -56,7 +56,7 @@ Model is run using targets in R/modelCMR_tt_OB.R
 ```{r OB_tt_flow}
 # Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
 # 
-  out_flow <- tar_read(tt_modelOut_OB_flow)
+  out_flow <- tar_read(tt_modelOut_ft_OB_flow )
 
   MCMCplot(object = out_flow$mcmc)
   summary_flow <- MCMCsummary(object = out_flow$mcmc, round = 3) %>%
@@ -155,7 +155,7 @@ ggplot(both %>% filter(grepl("betaPOut", var)), aes(color = flowData)) +
 
 Flow_YOYSeasonCohort predictions
 ```{r}
-predFlowCohort <- getPredictions_FlowYOYSeasonCohort(out_flow, everyNIters = 3) %>%
+predFlowCohort <- getPredictions_FlowYOYSeasonCohort(out_flow, everyNIters = 10) %>%
     mutate(flowData = "flow") 
 
 predFlowByRiverCohort <- getPredictions_FlowYOYSeasonCohort(out_flowByRiver, everyNIters = 3) %>%
@@ -166,8 +166,8 @@ predBoth <- bind_rows(predFlowCohort, predFlowByRiverCohort)
 
 #### Graph flow predictions
 ```{r}
-ggplot(predFlowCohort, aes(flow, predPhi, group = (iter))) +
-  geom_line(alpha = 0.05) +
+ggplot(predFlowCohort %>% filter(temp %in% c(-1,0,1)), aes(flow, predPhi, group = ((paste0(iter,temp, sep = "_"))))) +
+  geom_line(aes(color = factor(temp)), alpha = 0.05) +
   facet_grid(season + isYOY~cohort)
 
 
@@ -178,7 +178,7 @@ ggplot(predFlowByRiverCohort, aes(flow, predPhi, group = (iter))) +
 
 Flow_YOYSeason predictions
 ```{r}
-predFlowYOYSeason <- getPredictions_FlowYOYSeason(out_flow, everyNIters = 3) %>%
+predFlowYOYSeason <- getPredictions_FlowYOYSeason(out_flow, everyNIters = 5) %>%
     mutate(flowData = "flow") 
 
 predFlowByRiverYOYSeason <- getPredictions_FlowYOYSeason(out_flowByRiver, everyNIters = 3) %>%
@@ -189,8 +189,8 @@ predBoth <- bind_rows(predFlowYOYSeason, predFlowByRiverYOYSeason)
 
 #### Graph flow predictions
 ```{r}
-ggplot(predFlowYOYSeason, aes(flow, predPhi, group = (iter))) +
-  geom_line(alpha = 0.05) +
+ggplot(predFlowYOYSeason %>% filter(temp %in% c(-1,0,1)), aes(flow, predPhi, group = (paste0(iter,temp, sep = "_")))) +
+  geom_line(aes(color = factor(temp)), alpha = 0.075) +
   facet_grid(season ~ isYOY)
 
 
@@ -240,8 +240,6 @@ getPredictions_FlowYOYSeasonCohort <- function(toSave, everyNIters = 10, flowSte
     ]]
   }
   
-  
-  
   ## betaFlow
   predictorsBetaFlow <- expand.grid(
     iter = seq(1, dim(mcmc$chain1)[1], everyNIters),
@@ -263,6 +261,13 @@ getPredictions_FlowYOYSeasonCohort <- function(toSave, everyNIters = 10, flowSte
                                                            ", ",           predictorsBetaFlow[i, "cohort"],
                                                            "]")
     ]]
+    
+    predictorsBetaFlow$betaFlow3[i] <- mcmc$chain1[[predictorsBetaFlow[i, "iter"], 
+                                                    paste0("betaFlow[3, ", predictorsBetaFlow[i, "isYOY"],
+                                                           ", ",           predictorsBetaFlow[i, "season"],
+                                                           ", ",           predictorsBetaFlow[i, "cohort"],
+                                                           "]")
+    ]]
   }
   
 
@@ -271,14 +276,15 @@ getPredictions_FlowYOYSeasonCohort <- function(toSave, everyNIters = 10, flowSte
     isYOY = 1:2,
     cohort = 1:toSave$myConstants$nCohorts,
     season = 1:toSave$myConstants$nSeasons,
-    flow = seq(-1.5, 1.5, flowStep)
+    flow = seq(-1.5, 1.5, flowStep),
+    temp = seq(-1.5, 1.5, flowStep)
   )
   
   preds <- predictorsAll %>%
     left_join(predictorsBetaInt) %>%
     left_join(predictorsBetaFlow) %>%
     left_join(predictorsBetaPhi) %>%
-    mutate(predPhi = plogis(betaInt + betaPhi + betaFlow1 * flow + betaFlow2 * flow^2))
+    mutate(predPhi = plogis(betaInt + betaPhi + betaFlow1 * flow + betaFlow2 * temp + betaFlow3 * flow * temp))
   
   return(preds)
 }
@@ -322,8 +328,6 @@ getPredictions_FlowYOYSeason <- function(toSave, everyNIters = 10, flowStep = 0.
     ]]
   }
   
-  
-  
   ## betaFlow
   predictorsBetaFlow <- expand.grid(
     iter = seq(1, dim(mcmc$chain1)[1], everyNIters),
@@ -342,6 +346,11 @@ getPredictions_FlowYOYSeason <- function(toSave, everyNIters = 10, flowStep = 0.
                                                            ", ",                    predictorsBetaFlow[i, "season"],
                                                            "]")
     ]]
+    predictorsBetaFlow$betaFlow3[i] <- mcmc$chain1[[predictorsBetaFlow[i, "iter"], 
+                                                    paste0("betaFlowYOYSeason[3, ", predictorsBetaFlow[i, "isYOY"],
+                                                           ", ",                    predictorsBetaFlow[i, "season"],
+                                                           "]")
+    ]]
   }
   
 
@@ -349,14 +358,15 @@ getPredictions_FlowYOYSeason <- function(toSave, everyNIters = 10, flowStep = 0.
     iter = seq(1, dim(mcmc$chain1)[1], everyNIters),
     isYOY = 1:2,
     season = 1:toSave$myConstants$nSeasons,
-    flow = seq(-1.5, 1.5, flowStep)
+    flow = seq(-1.5, 1.5, flowStep),
+    temp = seq(-1.5, 1.5, flowStep)
   )
   
   preds <- predictorsAll %>%
     left_join(predictorsBetaInt) %>%
     left_join(predictorsBetaFlow) %>%
     left_join(predictorsBetaPhi) %>%
-    mutate(predPhi = plogis(betaInt + betaPhi + betaFlow1 * flow + betaFlow2 * flow^2))
+    mutate(predPhi = plogis(betaInt + betaPhi + betaFlow1 * flow + betaFlow2 * temp + betaFlow3 * flow * temp))
   
   return(preds)
 }

@@ -188,6 +188,11 @@ modelCMR_tt_OB_flow_target <-
       delta[1] <- 1                    # Pr(alive t = 1) = 1
       delta[2] <- 0                    # Pr(dead t = 1) = 0
       
+      
+      #log flow data?
+      # t and f
+      #break models into files
+      
       for (i in 1:N){
         for (t in 1:(T-1)){ # loop over time
           logit(phi[t,i]) <- 
@@ -254,12 +259,13 @@ modelCMR_tt_OB_flow_target <-
         for (s in 1:nSeasons){ 
           for (c in 1:nCohorts){
             
-            betaInt[y,s,c] ~ dnorm(betaIntYOYSeason[y,s],1)
-            betaPhi[y,s,c] ~ dnorm(betaPhiYOYSeason[y,s],1)
-            betaFlow[1,y,s,c] ~ dnorm(betaFlowYOYSeason[1,y,s],1)
-            betaFlow[2,y,s,c] ~ dnorm(betaFlowYOYSeason[2,y,s],1)
+           # betaInt[y,s,c] ~ dnorm(betaIntYOYSeason[y,s],(1/1.5)) T(-3.5,3.5)
+            betaInt[y,s,c] ~ T(dnorm(betaIntYOYSeason[y,s],(1/1.5)),-3.5, 3.5)
+            betaPhi[y,s,c] ~ dnorm(betaPhiYOYSeason[y,s],1/0.667)
+            betaFlow[1,y,s,c] ~ dnorm(betaFlowYOYSeason[1,y,s],1/0.667)
+            betaFlow[2,y,s,c] ~ dnorm(betaFlowYOYSeason[2,y,s],1/0.667)
             
-            betaP[y,s,c] ~ dnorm(betaPYOYSeason[y,s],1)
+            betaP[y,s,c] ~ dnorm(betaPYOYSeason[y,s],1/0.667)
           }
         }
       }
