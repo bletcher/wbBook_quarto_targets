@@ -697,12 +697,12 @@ phi[11] 0.684 0.146 0.442 0.668 0.945 1.93    15</code></pre>
 <p><img src="modelsCMR_ft_Flow_OB_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Similar format to to the 2015 paper</p>
+<p>Predictions based on flow from flowByRiver</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(predFlowCohort <span class="sc">%&gt;%</span> <span class="fu">filter</span>(flow <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>)), <span class="fu">aes</span>(temp, predPhi, <span class="at">group =</span> ((<span class="fu">paste0</span>(iter,flow, <span class="at">sep =</span> <span class="st">"_"</span>))))) <span class="sc">+</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(flow)), <span class="at">alpha =</span> <span class="fl">0.05</span>) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(predFlowByRiverCohort <span class="sc">%&gt;%</span> <span class="fu">filter</span>(temp <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>)), <span class="fu">aes</span>(flow, predPhi, <span class="at">group =</span> ((<span class="fu">paste0</span>(iter,temp, <span class="at">sep =</span> <span class="st">"_"</span>))))) <span class="sc">+</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(temp)), <span class="at">alpha =</span> <span class="fl">0.05</span>) <span class="sc">+</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> colors) <span class="sc">+</span></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(season <span class="sc">~</span> isYOY)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -710,12 +710,12 @@ phi[11] 0.684 0.146 0.442 0.668 0.945 1.93    15</code></pre>
 <p><img src="modelsCMR_ft_Flow_OB_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Predictions based on flow from flowByRiver</p>
+<p>Similar format to to the 2015 paper</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(predFlowByRiverCohort <span class="sc">%&gt;%</span> <span class="fu">filter</span>(temp <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>)), <span class="fu">aes</span>(flow, predPhi, <span class="at">group =</span> ((<span class="fu">paste0</span>(iter,temp, <span class="at">sep =</span> <span class="st">"_"</span>))))) <span class="sc">+</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(temp)), <span class="at">alpha =</span> <span class="fl">0.05</span>) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(predFlowCohort <span class="sc">%&gt;%</span> <span class="fu">filter</span>(flow <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>)), <span class="fu">aes</span>(temp, predPhi, <span class="at">group =</span> ((<span class="fu">paste0</span>(iter,flow, <span class="at">sep =</span> <span class="st">"_"</span>))))) <span class="sc">+</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(flow)), <span class="at">alpha =</span> <span class="fl">0.05</span>) <span class="sc">+</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> colors) <span class="sc">+</span></span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(season <span class="sc">~</span> isYOY)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1369,18 +1369,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb24-274"><a href="#cb24-274" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(season <span class="sc">~</span> isYOY)</span>
 <span id="cb24-275"><a href="#cb24-275" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb24-276"><a href="#cb24-276" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-277"><a href="#cb24-277" aria-hidden="true" tabindex="-1"></a>Similar format to to the 2015 paper</span>
+<span id="cb24-277"><a href="#cb24-277" aria-hidden="true" tabindex="-1"></a>Predictions based on flow from flowByRiver</span>
 <span id="cb24-280"><a href="#cb24-280" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-281"><a href="#cb24-281" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(predFlowCohort <span class="sc">%&gt;%</span> <span class="fu">filter</span>(flow <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>)), <span class="fu">aes</span>(temp, predPhi, <span class="at">group =</span> ((<span class="fu">paste0</span>(iter,flow, <span class="at">sep =</span> <span class="st">"_"</span>))))) <span class="sc">+</span></span>
-<span id="cb24-282"><a href="#cb24-282" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(flow)), <span class="at">alpha =</span> <span class="fl">0.05</span>) <span class="sc">+</span></span>
+<span id="cb24-281"><a href="#cb24-281" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(predFlowByRiverCohort <span class="sc">%&gt;%</span> <span class="fu">filter</span>(temp <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>)), <span class="fu">aes</span>(flow, predPhi, <span class="at">group =</span> ((<span class="fu">paste0</span>(iter,temp, <span class="at">sep =</span> <span class="st">"_"</span>))))) <span class="sc">+</span></span>
+<span id="cb24-282"><a href="#cb24-282" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(temp)), <span class="at">alpha =</span> <span class="fl">0.05</span>) <span class="sc">+</span></span>
 <span id="cb24-283"><a href="#cb24-283" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> colors) <span class="sc">+</span></span>
 <span id="cb24-284"><a href="#cb24-284" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(season <span class="sc">~</span> isYOY)</span>
 <span id="cb24-285"><a href="#cb24-285" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb24-286"><a href="#cb24-286" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-287"><a href="#cb24-287" aria-hidden="true" tabindex="-1"></a>Predictions based on flow from flowByRiver</span>
+<span id="cb24-287"><a href="#cb24-287" aria-hidden="true" tabindex="-1"></a>Similar format to to the 2015 paper</span>
 <span id="cb24-290"><a href="#cb24-290" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-291"><a href="#cb24-291" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(predFlowByRiverCohort <span class="sc">%&gt;%</span> <span class="fu">filter</span>(temp <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>)), <span class="fu">aes</span>(flow, predPhi, <span class="at">group =</span> ((<span class="fu">paste0</span>(iter,temp, <span class="at">sep =</span> <span class="st">"_"</span>))))) <span class="sc">+</span></span>
-<span id="cb24-292"><a href="#cb24-292" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(temp)), <span class="at">alpha =</span> <span class="fl">0.05</span>) <span class="sc">+</span></span>
+<span id="cb24-291"><a href="#cb24-291" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(predFlowCohort <span class="sc">%&gt;%</span> <span class="fu">filter</span>(flow <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>)), <span class="fu">aes</span>(temp, predPhi, <span class="at">group =</span> ((<span class="fu">paste0</span>(iter,flow, <span class="at">sep =</span> <span class="st">"_"</span>))))) <span class="sc">+</span></span>
+<span id="cb24-292"><a href="#cb24-292" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(flow)), <span class="at">alpha =</span> <span class="fl">0.05</span>) <span class="sc">+</span></span>
 <span id="cb24-293"><a href="#cb24-293" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> colors) <span class="sc">+</span></span>
 <span id="cb24-294"><a href="#cb24-294" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(season <span class="sc">~</span> isYOY)</span>
 <span id="cb24-295"><a href="#cb24-295" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
@@ -1388,61 +1388,60 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb24-297"><a href="#cb24-297" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-298"><a href="#cb24-298" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-299"><a href="#cb24-299" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-300"><a href="#cb24-300" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-301"><a href="#cb24-301" aria-hidden="true" tabindex="-1"></a>FlowTop predictions</span>
-<span id="cb24-304"><a href="#cb24-304" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-305"><a href="#cb24-305" aria-hidden="true" tabindex="-1"></a><span class="co"># predFlowTop &lt;- getPredictionsFlowTop(out_flow, everyNIters = 5) %&gt;%</span></span>
-<span id="cb24-306"><a href="#cb24-306" aria-hidden="true" tabindex="-1"></a><span class="co">#     mutate(flowData = "flow") </span></span>
-<span id="cb24-307"><a href="#cb24-307" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb24-308"><a href="#cb24-308" aria-hidden="true" tabindex="-1"></a><span class="co"># predFlowByRiverTop &lt;- getPredictionsFlowTop(out_flowByRiver, everyNIters = 5) %&gt;%</span></span>
-<span id="cb24-309"><a href="#cb24-309" aria-hidden="true" tabindex="-1"></a><span class="co">#     mutate(flowData = "flowByRiver")</span></span>
-<span id="cb24-310"><a href="#cb24-310" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb24-311"><a href="#cb24-311" aria-hidden="true" tabindex="-1"></a><span class="co"># predTopBoth &lt;- bind_rows(predFlowTop, predFlowByRiverTop)</span></span>
-<span id="cb24-312"><a href="#cb24-312" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-313"><a href="#cb24-313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-316"><a href="#cb24-316" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-317"><a href="#cb24-317" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot(predTopBoth, aes(flow, predPhi, group = iter)) +</span></span>
-<span id="cb24-318"><a href="#cb24-318" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_line() +</span></span>
-<span id="cb24-319"><a href="#cb24-319" aria-hidden="true" tabindex="-1"></a><span class="co">#   facet_wrap(~flowData)</span></span>
-<span id="cb24-320"><a href="#cb24-320" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb24-321"><a href="#cb24-321" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot(predTopBoth %&gt;% filter(iter &lt; 100), aes(flow, predPhi, group = iter)) +</span></span>
-<span id="cb24-322"><a href="#cb24-322" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_line() +</span></span>
-<span id="cb24-323"><a href="#cb24-323" aria-hidden="true" tabindex="-1"></a><span class="co">#   facet_grid(flowData ~ iter)</span></span>
-<span id="cb24-324"><a href="#cb24-324" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-300"><a href="#cb24-300" aria-hidden="true" tabindex="-1"></a>FlowTop predictions</span>
+<span id="cb24-303"><a href="#cb24-303" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb24-304"><a href="#cb24-304" aria-hidden="true" tabindex="-1"></a><span class="co"># predFlowTop &lt;- getPredictionsFlowTop(out_flow, everyNIters = 5) %&gt;%</span></span>
+<span id="cb24-305"><a href="#cb24-305" aria-hidden="true" tabindex="-1"></a><span class="co">#     mutate(flowData = "flow") </span></span>
+<span id="cb24-306"><a href="#cb24-306" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb24-307"><a href="#cb24-307" aria-hidden="true" tabindex="-1"></a><span class="co"># predFlowByRiverTop &lt;- getPredictionsFlowTop(out_flowByRiver, everyNIters = 5) %&gt;%</span></span>
+<span id="cb24-308"><a href="#cb24-308" aria-hidden="true" tabindex="-1"></a><span class="co">#     mutate(flowData = "flowByRiver")</span></span>
+<span id="cb24-309"><a href="#cb24-309" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb24-310"><a href="#cb24-310" aria-hidden="true" tabindex="-1"></a><span class="co"># predTopBoth &lt;- bind_rows(predFlowTop, predFlowByRiverTop)</span></span>
+<span id="cb24-311"><a href="#cb24-311" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-312"><a href="#cb24-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-315"><a href="#cb24-315" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb24-316"><a href="#cb24-316" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot(predTopBoth, aes(flow, predPhi, group = iter)) +</span></span>
+<span id="cb24-317"><a href="#cb24-317" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_line() +</span></span>
+<span id="cb24-318"><a href="#cb24-318" aria-hidden="true" tabindex="-1"></a><span class="co">#   facet_wrap(~flowData)</span></span>
+<span id="cb24-319"><a href="#cb24-319" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb24-320"><a href="#cb24-320" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot(predTopBoth %&gt;% filter(iter &lt; 100), aes(flow, predPhi, group = iter)) +</span></span>
+<span id="cb24-321"><a href="#cb24-321" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_line() +</span></span>
+<span id="cb24-322"><a href="#cb24-322" aria-hidden="true" tabindex="-1"></a><span class="co">#   facet_grid(flowData ~ iter)</span></span>
+<span id="cb24-323"><a href="#cb24-323" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-324"><a href="#cb24-324" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-325"><a href="#cb24-325" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-326"><a href="#cb24-326" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-329"><a href="#cb24-329" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-330"><a href="#cb24-330" aria-hidden="true" tabindex="-1"></a>getPredictionsFlowTop <span class="ot">&lt;-</span> <span class="cf">function</span>(toSave, <span class="at">everyNIters =</span> <span class="dv">10</span>, <span class="at">flowStep =</span> <span class="fl">0.5</span>){</span>
-<span id="cb24-331"><a href="#cb24-331" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-332"><a href="#cb24-332" aria-hidden="true" tabindex="-1"></a>  mcmc <span class="ot">&lt;-</span> toSave<span class="sc">$</span>mcmc</span>
-<span id="cb24-333"><a href="#cb24-333" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-334"><a href="#cb24-334" aria-hidden="true" tabindex="-1"></a>  <span class="do">## betaFlow</span></span>
-<span id="cb24-335"><a href="#cb24-335" aria-hidden="true" tabindex="-1"></a>  predictorsBetaFlowTop <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
-<span id="cb24-336"><a href="#cb24-336" aria-hidden="true" tabindex="-1"></a>    <span class="at">iter =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">dim</span>(mcmc<span class="sc">$</span>chain1)[<span class="dv">1</span>], everyNIters),</span>
-<span id="cb24-337"><a href="#cb24-337" aria-hidden="true" tabindex="-1"></a>    <span class="at">var =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,</span>
-<span id="cb24-338"><a href="#cb24-338" aria-hidden="true" tabindex="-1"></a>    <span class="at">flow =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="fl">1.5</span>, flowStep),</span>
-<span id="cb24-339"><a href="#cb24-339" aria-hidden="true" tabindex="-1"></a>    <span class="at">temp =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="fl">1.5</span>, flowStep)</span>
-<span id="cb24-340"><a href="#cb24-340" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb24-341"><a href="#cb24-341" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-342"><a href="#cb24-342" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(predictorsBetaFlowTop)){</span>
-<span id="cb24-343"><a href="#cb24-343" aria-hidden="true" tabindex="-1"></a>    predictorsBetaFlowTop<span class="sc">$</span>betaFlowTop1[i] <span class="ot">&lt;-</span> mcmc<span class="sc">$</span>chain1[[predictorsBetaFlowTop[i, <span class="st">"iter"</span>], </span>
-<span id="cb24-344"><a href="#cb24-344" aria-hidden="true" tabindex="-1"></a>                                                         <span class="dv">1</span></span>
-<span id="cb24-345"><a href="#cb24-345" aria-hidden="true" tabindex="-1"></a>                                                        ]]</span>
-<span id="cb24-346"><a href="#cb24-346" aria-hidden="true" tabindex="-1"></a>    predictorsBetaFlowTop<span class="sc">$</span>betaFlowTop2[i] <span class="ot">&lt;-</span> mcmc<span class="sc">$</span>chain1[[predictorsBetaFlowTop[i, <span class="st">"iter"</span>], </span>
-<span id="cb24-347"><a href="#cb24-347" aria-hidden="true" tabindex="-1"></a>                                                         <span class="dv">2</span></span>
-<span id="cb24-348"><a href="#cb24-348" aria-hidden="true" tabindex="-1"></a>                                                        ]]</span>
-<span id="cb24-349"><a href="#cb24-349" aria-hidden="true" tabindex="-1"></a>    predictorsBetaFlowTop<span class="sc">$</span>betaFlowTop3[i] <span class="ot">&lt;-</span> mcmc<span class="sc">$</span>chain1[[predictorsBetaFlowTop[i, <span class="st">"iter"</span>], </span>
-<span id="cb24-350"><a href="#cb24-350" aria-hidden="true" tabindex="-1"></a>                                                         <span class="dv">3</span></span>
-<span id="cb24-351"><a href="#cb24-351" aria-hidden="true" tabindex="-1"></a>                                                        ]]</span>
-<span id="cb24-352"><a href="#cb24-352" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb24-353"><a href="#cb24-353" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-354"><a href="#cb24-354" aria-hidden="true" tabindex="-1"></a>  preds <span class="ot">&lt;-</span> predictorsBetaFlowTop <span class="sc">%&gt;%</span></span>
-<span id="cb24-355"><a href="#cb24-355" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">predPhi =</span> <span class="fu">plogis</span>(betaFlow1 <span class="sc">*</span> flow <span class="sc">+</span> betaFlow2 <span class="sc">*</span> temp <span class="sc">+</span> betaFlow3 <span class="sc">*</span> flow <span class="sc">*</span> temp))</span>
-<span id="cb24-356"><a href="#cb24-356" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-357"><a href="#cb24-357" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(preds)</span>
-<span id="cb24-358"><a href="#cb24-358" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb24-359"><a href="#cb24-359" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-360"><a href="#cb24-360" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-328"><a href="#cb24-328" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb24-329"><a href="#cb24-329" aria-hidden="true" tabindex="-1"></a>getPredictionsFlowTop <span class="ot">&lt;-</span> <span class="cf">function</span>(toSave, <span class="at">everyNIters =</span> <span class="dv">10</span>, <span class="at">flowStep =</span> <span class="fl">0.5</span>){</span>
+<span id="cb24-330"><a href="#cb24-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-331"><a href="#cb24-331" aria-hidden="true" tabindex="-1"></a>  mcmc <span class="ot">&lt;-</span> toSave<span class="sc">$</span>mcmc</span>
+<span id="cb24-332"><a href="#cb24-332" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-333"><a href="#cb24-333" aria-hidden="true" tabindex="-1"></a>  <span class="do">## betaFlow</span></span>
+<span id="cb24-334"><a href="#cb24-334" aria-hidden="true" tabindex="-1"></a>  predictorsBetaFlowTop <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb24-335"><a href="#cb24-335" aria-hidden="true" tabindex="-1"></a>    <span class="at">iter =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">dim</span>(mcmc<span class="sc">$</span>chain1)[<span class="dv">1</span>], everyNIters),</span>
+<span id="cb24-336"><a href="#cb24-336" aria-hidden="true" tabindex="-1"></a>    <span class="at">var =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,</span>
+<span id="cb24-337"><a href="#cb24-337" aria-hidden="true" tabindex="-1"></a>    <span class="at">flow =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="fl">1.5</span>, flowStep),</span>
+<span id="cb24-338"><a href="#cb24-338" aria-hidden="true" tabindex="-1"></a>    <span class="at">temp =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="fl">1.5</span>, flowStep)</span>
+<span id="cb24-339"><a href="#cb24-339" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb24-340"><a href="#cb24-340" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-341"><a href="#cb24-341" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(predictorsBetaFlowTop)){</span>
+<span id="cb24-342"><a href="#cb24-342" aria-hidden="true" tabindex="-1"></a>    predictorsBetaFlowTop<span class="sc">$</span>betaFlowTop1[i] <span class="ot">&lt;-</span> mcmc<span class="sc">$</span>chain1[[predictorsBetaFlowTop[i, <span class="st">"iter"</span>], </span>
+<span id="cb24-343"><a href="#cb24-343" aria-hidden="true" tabindex="-1"></a>                                                         <span class="dv">1</span></span>
+<span id="cb24-344"><a href="#cb24-344" aria-hidden="true" tabindex="-1"></a>                                                        ]]</span>
+<span id="cb24-345"><a href="#cb24-345" aria-hidden="true" tabindex="-1"></a>    predictorsBetaFlowTop<span class="sc">$</span>betaFlowTop2[i] <span class="ot">&lt;-</span> mcmc<span class="sc">$</span>chain1[[predictorsBetaFlowTop[i, <span class="st">"iter"</span>], </span>
+<span id="cb24-346"><a href="#cb24-346" aria-hidden="true" tabindex="-1"></a>                                                         <span class="dv">2</span></span>
+<span id="cb24-347"><a href="#cb24-347" aria-hidden="true" tabindex="-1"></a>                                                        ]]</span>
+<span id="cb24-348"><a href="#cb24-348" aria-hidden="true" tabindex="-1"></a>    predictorsBetaFlowTop<span class="sc">$</span>betaFlowTop3[i] <span class="ot">&lt;-</span> mcmc<span class="sc">$</span>chain1[[predictorsBetaFlowTop[i, <span class="st">"iter"</span>], </span>
+<span id="cb24-349"><a href="#cb24-349" aria-hidden="true" tabindex="-1"></a>                                                         <span class="dv">3</span></span>
+<span id="cb24-350"><a href="#cb24-350" aria-hidden="true" tabindex="-1"></a>                                                        ]]</span>
+<span id="cb24-351"><a href="#cb24-351" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb24-352"><a href="#cb24-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-353"><a href="#cb24-353" aria-hidden="true" tabindex="-1"></a>  preds <span class="ot">&lt;-</span> predictorsBetaFlowTop <span class="sc">%&gt;%</span></span>
+<span id="cb24-354"><a href="#cb24-354" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">predPhi =</span> <span class="fu">plogis</span>(betaFlow1 <span class="sc">*</span> flow <span class="sc">+</span> betaFlow2 <span class="sc">*</span> temp <span class="sc">+</span> betaFlow3 <span class="sc">*</span> flow <span class="sc">*</span> temp))</span>
+<span id="cb24-355"><a href="#cb24-355" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-356"><a href="#cb24-356" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(preds)</span>
+<span id="cb24-357"><a href="#cb24-357" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb24-358"><a href="#cb24-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-359"><a href="#cb24-359" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
