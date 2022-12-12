@@ -2,7 +2,7 @@ tar_option_set(packages = c("tidyverse", "nimble", "nimbleEcology", "MCMCvis", "
 
 #load('./models/cmrFlowOB/dataOut/eh_2002200320042005200620072008200920102011201220132014_wb obear.RData')
 
-#eh_OB_target = tar_read(eh_OB_2002_2014_target)
+# Run this to load data for testing
 #eh_OB_2002_2014_target=tar_read(eh_OB_2002_2014_target)
 
 
@@ -75,7 +75,7 @@ modelCMR_tt_ft_cohort_OB_flow_target <-
     ),
     
     tt_modelCode_ft_cohort_OB_flow = nimbleCode({
-      #dummy  ~ dnorm(0,1)
+      dummy  ~ dnorm(0,1)
       
       # from https://bletcher.github.io/westBrook-book/models.html#model-phit_pt_cohort_flowcohorthierdhmm
       
@@ -124,12 +124,12 @@ modelCMR_tt_ft_cohort_OB_flow_target <-
         for (s in 1:nSeasons){
           for (c in 1:nCohorts){
             betaInt[y,s,c] ~ dnorm(betaIntYOYSeason[y,s],1)
-            betaPhi[y,s,c] ~ dnorm(betaPhiYOYSeason[y,s],1)
+            #betaPhi[y,s,c] ~ dnorm(betaPhiYOYSeason[y,s],1)
             betaP[y,s,c] ~ dnorm(betaPYOYSeason[y,s],1)
           }
           
           betaIntYOYSeason[y,s] ~ dnorm(betaIntYOY[y],1)
-          betaPhiYOYSeason[y,s] ~ dnorm(betaPhiYOY[y],1)
+          #betaPhiYOYSeason[y,s] ~ dnorm(betaPhiYOY[y],1)
           betaPYOYSeason[y,s] ~ dnorm(betaPYOY[y],1)
           
           betaFlow[1,y,s] ~ dnorm(betaFlowYOY[1,y],1)
@@ -142,7 +142,7 @@ modelCMR_tt_ft_cohort_OB_flow_target <-
       for (y in 1:2) {
         
         betaIntYOY[y] ~ dnorm(betaIntTop,1)
-        betaPhiYOY[y] ~ dnorm(betaPhiTop,1)
+        #betaPhiYOY[y] ~ dnorm(betaPhiTop,1)
         betaFlowYOY[1,y] ~ dnorm(betaFlowTop[1],1)
         betaFlowYOY[2,y] ~ dnorm(betaFlowTop[2],1)
         betaFlowYOY[3,y] ~ dnorm(betaFlowTop[3],1)
@@ -151,7 +151,7 @@ modelCMR_tt_ft_cohort_OB_flow_target <-
       }
       
       betaIntTop ~ dnorm(0,1)
-      betaPhiTop ~ dnorm(0,1)
+      #betaPhiTop ~ dnorm(0,1)
       betaFlowTop[1] ~ dnorm(0,1)
       betaFlowTop[2] ~ dnorm(0,1)
       betaFlowTop[3] ~ dnorm(0,1)
@@ -162,16 +162,17 @@ modelCMR_tt_ft_cohort_OB_flow_target <-
       # back-transform for examining output
       ##
       for (y in 1:2) {
-        for (s in 1:nSeasons){
-         # for (c in 1:nCohorts){
+        betaIntYOYOut[y] <- 1/(1 + exp(-betaIntYOY[y]))
+        betaPYOYOut[y] <- 1/(1 + exp(-betaPYOY[y]))
+        
+        for (s in 1:nSeasons) {
             betaIntYOYSeasonOut[y,s] <- 1/(1 + exp(-betaIntYOYSeason[y,s]))
-            betaPhiYOYSeasonOut[y,s] <- 1/(1 + exp(-betaPhiYOYSeason[y,s]))
-          #  betaFlowOut[1,y,s,c] <- 1/(1 + exp(-betaFlow[1,y,s,c]))
-          #  betaFlowOut[2,y,s,c] <- 1/(1 + exp(-betaFlow[2,y,s,c]))
-          #  betaFlowOut[3,y,s,c] <- 1/(1 + exp(-betaFlow[3,y,s,c]))
-
             betaPYOYSeasonOut[y,s] <- 1/(1 + exp(-betaPYOYSeason[y,s]))
-        #  }
+            
+            for (c in 1:nCohorts) {
+              betaIntOut[y,s,c] <- 1/(1 + exp(-betaInt[y,s,c]))
+              betaPOut[y,s,c] <- 1/(1 + exp(-betaP[y,s,c]))
+          }
         }
       }
       ##    
@@ -194,13 +195,16 @@ modelCMR_tt_ft_cohort_OB_flow_target <-
       calculate = FALSE
     ),
     
-    tt_parametersToSave_ft_cohort_OB_flow = c("betaIntTop", "betaPhiTop","betaFlowTop","betaPTop",  
-                                    "betaIntYOY", "betaPhiYOY","betaFlowYOY","betaPYOY",
-                                    "betaIntYOYSeason", "betaPhiYOYSeason","betaPYOYSeason",
-                                    "betaIntYOYSeasonOut", "betaPhiYOYSeasonOut","betaPYOYSeasonOut",
-                                    "betaInt", "betaPhi","betaFlow","betaP"
-                                   # "betaIntOut", "betaPhiOut","betaFlowOut","betaPOut"
-                                    ),
+    tt_parametersToSave_ft_cohort_OB_flow = c(
+      "betaIntTop", "betaFlowTop","betaPTop",  
+      "betaIntYOY", "betaFlowYOY","betaPYOY",
+      "betaIntYOYSeason", "betaPYOYSeason",
+      "betaInt", "betaFlow", "betaP",
+                                    
+      "betaIntYOYOut", "betaPYOYOut",
+      "betaIntYOYSeasonOut", "betaPYOYSeasonOut",
+      "betaIntOut", "betaPOut"
+    ),
     
     tt_conf_ft_cohort_OB_flow = configureMCMC(
       tt_Rmodel_ft_cohort_OB_flow,
@@ -303,7 +307,7 @@ modelCMR_tt_ft_cohort_OB_flowByRiver_target <-
     ),
     
     tt_modelCode_ft_cohort_OB_flowByRiver = nimbleCode({
-      #dummy  ~ dnorm(0,1)
+      dummy  ~ dnorm(0,1)
       
       # from https://bletcher.github.io/westBrook-book/models.html#model-phit_pt_cohort_flowcohorthierdhmm
       
@@ -366,12 +370,12 @@ modelCMR_tt_ft_cohort_OB_flowByRiver_target <-
         for (s in 1:nSeasons){
           for (c in 1:nCohorts){
             betaInt[y,s,c] ~ dnorm(betaIntYOYSeason[y,s],1)
-            betaPhi[y,s,c] ~ dnorm(betaPhiYOYSeason[y,s],1)
+            #betaPhi[y,s,c] ~ dnorm(betaPhiYOYSeason[y,s],1)
             betaP[y,s,c] ~ dnorm(betaPYOYSeason[y,s],1)
           }
           
           betaIntYOYSeason[y,s] ~ dnorm(betaIntYOY[y],1)
-          betaPhiYOYSeason[y,s] ~ dnorm(betaPhiYOY[y],1)
+          #betaPhiYOYSeason[y,s] ~ dnorm(betaPhiYOY[y],1)
           betaPYOYSeason[y,s] ~ dnorm(betaPYOY[y],1)
           
           betaFlow[1,y,s] ~ dnorm(betaFlowYOY[1,y],1)
@@ -384,7 +388,7 @@ modelCMR_tt_ft_cohort_OB_flowByRiver_target <-
       for (y in 1:2) {
         
         betaIntYOY[y] ~ dnorm(betaIntTop,1)
-        betaPhiYOY[y] ~ dnorm(betaPhiTop,1)
+        #betaPhiYOY[y] ~ dnorm(betaPhiTop,1)
         betaFlowYOY[1,y] ~ dnorm(betaFlowTop[1],1)
         betaFlowYOY[2,y] ~ dnorm(betaFlowTop[2],1)
         betaFlowYOY[3,y] ~ dnorm(betaFlowTop[3],1)
@@ -393,7 +397,7 @@ modelCMR_tt_ft_cohort_OB_flowByRiver_target <-
       }
       
       betaIntTop ~ dnorm(0,1)
-      betaPhiTop ~ dnorm(0,1)
+      #betaPhiTop ~ dnorm(0,1)
       betaFlowTop[1] ~ dnorm(0,1)
       betaFlowTop[2] ~ dnorm(0,1)
       betaFlowTop[3] ~ dnorm(0,1)
@@ -404,16 +408,17 @@ modelCMR_tt_ft_cohort_OB_flowByRiver_target <-
       # back-transform for examining output
       ##
       for (y in 1:2) {
-        for (s in 1:nSeasons){
-          # for (c in 1:nCohorts){
+        betaIntYOYOut[y] <- 1/(1 + exp(-betaIntYOY[y]))
+        betaPYOYOut[y] <- 1/(1 + exp(-betaPYOY[y]))
+        
+        for (s in 1:nSeasons) {
           betaIntYOYSeasonOut[y,s] <- 1/(1 + exp(-betaIntYOYSeason[y,s]))
-          betaPhiYOYSeasonOut[y,s] <- 1/(1 + exp(-betaPhiYOYSeason[y,s]))
-          #  betaFlowOut[1,y,s,c] <- 1/(1 + exp(-betaFlow[1,y,s,c]))
-          #  betaFlowOut[2,y,s,c] <- 1/(1 + exp(-betaFlow[2,y,s,c]))
-          #  betaFlowOut[3,y,s,c] <- 1/(1 + exp(-betaFlow[3,y,s,c]))
-          
           betaPYOYSeasonOut[y,s] <- 1/(1 + exp(-betaPYOYSeason[y,s]))
-          #  }
+          
+          for (c in 1:nCohorts) {
+            betaIntOut[y,s,c] <- 1/(1 + exp(-betaInt[y,s,c]))
+            betaPOut[y,s,c] <- 1/(1 + exp(-betaP[y,s,c]))
+          }
         }
       }
       ##    
@@ -436,12 +441,15 @@ modelCMR_tt_ft_cohort_OB_flowByRiver_target <-
       calculate = FALSE
     ),
     
-    tt_parametersToSave_ft_cohort_OB_flowByRiver = c("betaIntTop", "betaPhiTop","betaFlowTop","betaPTop",  
-                                       "betaIntYOY", "betaPhiYOY","betaFlowYOY","betaPYOY",
-                                       "betaIntYOYSeason", "betaPhiYOYSeason","betaPYOYSeason",
-                                       "betaIntYOYSeasonOut", "betaPhiYOYSeasonOut","betaPYOYSeasonOut",
-                                       "betaInt", "betaPhi","betaFlow","betaP"
-                                       #"betaIntOut", "betaPhiOut","betaFlowOut","betaPOut"
+    tt_parametersToSave_ft_cohort_OB_flowByRiver = c(
+      "betaIntTop", "betaFlowTop","betaPTop",  
+      "betaIntYOY", "betaFlowYOY","betaPYOY",
+      "betaIntYOYSeason", "betaPYOYSeason",
+      "betaInt", "betaFlow", "betaP",
+      
+      "betaIntYOYOut", "betaPYOYOut",
+      "betaIntYOYSeasonOut", "betaPYOYSeasonOut",
+      "betaIntOut", "betaPOut"
     ),
     
     tt_conf_ft_cohort_OB_flowByRiver = configureMCMC(
@@ -488,12 +496,12 @@ tt_initialValues_OB = function(t, y) {
 
 tt_initialValues_ft_cohort_OB_flow <- function(t, c, y, z) list(
   betaIntTop = array(rnorm(1, 0, 1), 1),
-  betaPhiTop = array(rnorm(1, 0, 1), 1),
+  #betaPhiTop = array(rnorm(1, 0, 1), 1),
   betaFlowTop = array(rnorm(3, 0, 1), 3),
   betaPTop = array(rnorm(1, 0, 1), 1),
   
   betaIntYOY = array(rnorm(2, 0, 1), 2),
-  betaPhiYOY = array(rnorm(2, 0, 1), 2),
+  #betaPhiYOY = array(rnorm(2, 0, 1), 2),
   betaFlowYOY = array(rnorm(3, 0, 1), c(3,2)),
   betaPYOY = array(rnorm(2, 0, 1), 2),
   
@@ -503,12 +511,12 @@ tt_initialValues_ft_cohort_OB_flow <- function(t, c, y, z) list(
   # betaPYOYCohort = array(rnorm(2*c, 0, 1), c(2,c)),
   
   betaIntYOYSeason = array(rnorm(2*4, 0, 1), c(2,4)),
-  betaPhiYOYSeason = array(rnorm(2*4, 0, 1), c(2,4)),
+  #betaPhiYOYSeason = array(rnorm(2*4, 0, 1), c(2,4)),
   # betaFlowYOYSeason = array(rnorm(3*2*4, 0, 1), c(3,2,4)),
   betaPYOYSeason = array(rnorm(2*4, 0, 1), c(2,4)),
   
   betaInt = array(rnorm(2*4*c, 0, 1), c(2,4,c)),
-  betaPhi = array(rnorm(2*4*c, 0, 1), c(2,4,c)),
+  #betaPhi = array(rnorm(2*4*c, 0, 1), c(2,4,c)),
   betaFlow = array(rnorm(3*2*4, 0, 1), c(3,2,4)),
   betaP = array(rnorm(2*4*c, 0, 1), c(2,4,c))
 )
