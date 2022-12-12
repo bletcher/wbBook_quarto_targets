@@ -92,7 +92,7 @@ modelCMR_tt_ft_OB_flow_target <-
         for (t in 1:(T-1)){ # loop over time
           logit(phi[t,i]) <- 
             betaInt[   isYOY[i,t],season[t]] +
-            betaPhi[   isYOY[i,t],season[t]] + 
+         #  betaPhi[   isYOY[i,t],season[t]] + 
             betaFlow[1,isYOY[i,t],season[t]] * flow[i,t] +
             betaFlow[2,isYOY[i,t],season[t]] * temp[i,t] +
             betaFlow[3,isYOY[i,t],season[t]] * temp[i,t] * flow[i,t]
@@ -171,7 +171,7 @@ modelCMR_tt_ft_OB_flow_target <-
         for (s in 1:nSeasons){
           
           betaInt[y,s] ~ dnorm(betaIntYOY[y],1)
-          betaPhi[y,s] ~ dnorm(betaPhiYOY[y],1)
+         # betaPhi[y,s] ~ dnorm(betaPhiYOY[y],1)
           betaFlow[1,y,s] ~ dnorm(betaFlowYOY[1,y],1)
           betaFlow[2,y,s] ~ dnorm(betaFlowYOY[2,y],1)
           betaFlow[3,y,s] ~ dnorm(betaFlowYOY[3,y],1)
@@ -183,7 +183,7 @@ modelCMR_tt_ft_OB_flow_target <-
       for (y in 1:2) {
         
         betaIntYOY[y] ~ dnorm(betaIntTop,1)
-        betaPhiYOY[y] ~ dnorm(betaPhiTop,1)
+      #  betaPhiYOY[y] ~ dnorm(betaPhiTop,1)
         betaFlowYOY[1,y] ~ dnorm(betaFlowTop[1],1)
         betaFlowYOY[2,y] ~ dnorm(betaFlowTop[2],1)
         betaFlowYOY[3,y] ~ dnorm(betaFlowTop[3],1)
@@ -192,7 +192,7 @@ modelCMR_tt_ft_OB_flow_target <-
       }
       
       betaIntTop ~ dnorm(0,1)
-      betaPhiTop ~ dnorm(0,1)
+     # betaPhiTop ~ dnorm(0,1)
       betaFlowTop[1] ~ dnorm(0,1)
       betaFlowTop[2] ~ dnorm(0,1)
       betaFlowTop[3] ~ dnorm(0,1)
@@ -235,10 +235,10 @@ modelCMR_tt_ft_OB_flow_target <-
       calculate = FALSE
     ),
     
-    tt_parametersToSave_ft_OB_flow = c("betaIntTop", "betaPhiTop","betaFlowTop","betaPTop",  
-                                    "betaIntYOY", "betaPhiYOY","betaFlowYOY","betaPYOY",
+    tt_parametersToSave_ft_OB_flow = c("betaIntTop","betaFlowTop","betaPTop",  
+                                    "betaIntYOY","betaFlowYOY","betaPYOY",
                                    # "betaIntYOYSeason", "betaPhiYOYSeason","betaFlowYOYSeason","betaPYOYSeason",
-                                    "betaInt", "betaPhi","betaFlow","betaP"
+                                    "betaInt", "betaFlow","betaP"
                                    # "betaIntOut", "betaPhiOut","betaFlowOut","betaPOut"
                                     ),
     
@@ -360,7 +360,7 @@ modelCMR_tt_ft_OB_flowByRiver_target <-
         for (t in 1:(T-1)){ # loop over time
           logit(phi[t,i]) <- 
             betaInt[   isYOY[i,t],season[t]] +
-            betaPhi[   isYOY[i,t],season[t]] + 
+          #  betaPhi[   isYOY[i,t],season[t]] + 
             betaFlow[1,isYOY[i,t],season[t]] * flow[i,t] +
             betaFlow[2,isYOY[i,t],season[t]] * temp[i,t] +
             betaFlow[3,isYOY[i,t],season[t]] * temp[i,t] * flow[i,t]
@@ -439,7 +439,7 @@ modelCMR_tt_ft_OB_flowByRiver_target <-
         for (s in 1:nSeasons){
           
           betaInt[y,s] ~ dnorm(betaIntYOY[y],1)
-          betaPhi[y,s] ~ dnorm(betaPhiYOY[y],1)
+          
           betaFlow[1,y,s] ~ dnorm(betaFlowYOY[1,y],1)
           betaFlow[2,y,s] ~ dnorm(betaFlowYOY[2,y],1)
           betaFlow[3,y,s] ~ dnorm(betaFlowYOY[3,y],1)
@@ -451,7 +451,7 @@ modelCMR_tt_ft_OB_flowByRiver_target <-
       for (y in 1:2) {
         
         betaIntYOY[y] ~ dnorm(betaIntTop,1)
-        betaPhiYOY[y] ~ dnorm(betaPhiTop,1)
+
         betaFlowYOY[1,y] ~ dnorm(betaFlowTop[1],1)
         betaFlowYOY[2,y] ~ dnorm(betaFlowTop[2],1)
         betaFlowYOY[3,y] ~ dnorm(betaFlowTop[3],1)
@@ -460,7 +460,7 @@ modelCMR_tt_ft_OB_flowByRiver_target <-
       }
       
       betaIntTop ~ dnorm(0,1)
-      betaPhiTop ~ dnorm(0,1)
+
       betaFlowTop[1] ~ dnorm(0,1)
       betaFlowTop[2] ~ dnorm(0,1)
       betaFlowTop[3] ~ dnorm(0,1)
@@ -503,10 +503,10 @@ modelCMR_tt_ft_OB_flowByRiver_target <-
       calculate = FALSE
     ),
     
-    tt_parametersToSave_ft_OB_flowByRiver = c("betaIntTop", "betaPhiTop","betaFlowTop","betaPTop",  
-                                       "betaIntYOY", "betaPhiYOY","betaFlowYOY","betaPYOY",
+    tt_parametersToSave_ft_OB_flowByRiver = c("betaIntTop","betaFlowTop","betaPTop",  
+                                       "betaIntYOY","betaFlowYOY","betaPYOY",
                                        #"betaIntYOYSeason", "betaPhiYOYSeason","betaFlowYOYSeason","betaPYOYSeason",
-                                       "betaInt", "betaPhi","betaFlow","betaP"
+                                       "betaInt","betaFlow","betaP"
                                        #"betaIntOut", "betaPhiOut","betaFlowOut","betaPOut"
     ),
     
@@ -554,12 +554,12 @@ tt_initialValues_OB = function(t, y) {
 
 tt_initialValues_ft_OB_flow <- function(t, c, y, z) list(
   betaIntTop = array(rnorm(1, 0, 1), 1),
-  betaPhiTop = array(rnorm(1, 0, 1), 1),
+#  betaPhiTop = array(rnorm(1, 0, 1), 1),
   betaFlowTop = array(rnorm(3, 0, 1), 3),
   betaPTop = array(rnorm(1, 0, 1), 1),
   
   betaIntYOY = array(rnorm(2, 0, 1), 2),
-  betaPhiYOY = array(rnorm(2, 0, 1), 2),
+#  betaPhiYOY = array(rnorm(2, 0, 1), 2),
   betaFlowYOY = array(rnorm(3, 0, 1), c(3,2)),
   betaPYOY = array(rnorm(2, 0, 1), 2),
   
@@ -574,7 +574,7 @@ tt_initialValues_ft_OB_flow <- function(t, c, y, z) list(
   # betaPYOYSeason = array(rnorm(2*4, 0, 1), c(2,4)),
   
   betaInt = array(rnorm(2*4, 0, 1), c(2,4)),
-  betaPhi = array(rnorm(2*4, 0, 1), c(2,4)),
+#  betaPhi = array(rnorm(2*4, 0, 1), c(2,4)),
   betaFlow = array(rnorm(3*2*4, 0, 1), c(3,2,4)),
   betaP = array(rnorm(2*4, 0, 1), c(2,4))
 )

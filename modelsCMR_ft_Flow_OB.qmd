@@ -1,5 +1,11 @@
 # Flow effects on survival (phi) models - O'Bear only
 
+logit(phi[t,i]) <- 
+  betaInt[   isYOY[i,t],season[t]] +
+  betaFlow[1,isYOY[i,t],season[t]] * flow[i,t] +
+  betaFlow[2,isYOY[i,t],season[t]] * temp[i,t] +
+  betaFlow[3,isYOY[i,t],season[t]] * temp[i,t] * flow[i,t]
+
 The goal of this modelling exercise is to evaluate the effect of new tributary-specific stream flow estimates on survival of brook trout and brown trout. We will compare survival across the WB and tributaries with flow input data as 1) single flow estimate for all locations (historical approach) and 2) hindcasted flows for each tributary based on new tributary-specific flows which are available since 2000.
 
 The goal is to find the best structure for the survival model, then compare survival estimates with tributary-specific flow to estimates with common flow across locations.
