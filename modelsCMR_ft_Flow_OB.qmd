@@ -74,7 +74,7 @@ Model is run using targets in R/modelCMR_tt_OB.R
             #ISB = FALSE,
             #exact = TRUE, 
             params = c(
-              "betaIntTop", "betaPhiTop","betaFlowTop","betaPTop"  
+              "betaIntTop","betaFlowTop","betaPTop"  
             #  "betaInt", "betaPhi","betaFlow","betaP",
             #  "betaIntOut", "betaPhiOut","betaFlowOut","betaPOut"
             ),
@@ -85,7 +85,7 @@ Model is run using targets in R/modelCMR_tt_OB.R
             #ISB = FALSE,
             #exact = TRUE, 
             params = c(
-              "betaIntYOY", "betaPhiYOY","betaFlowYOY","betaPYOY"  
+              "betaIntYOY","betaFlowYOY","betaPYOY"  
             #  "betaInt", "betaPhi","betaFlow","betaP",
             #  "betaIntOut", "betaPhiOut","betaFlowOut","betaPOut"
             ),
@@ -114,7 +114,7 @@ Model is run using targets in R/modelCMR_tt_OB.R
   MCMCtrace(object = out_flowByRiver$mcmc,
             #ISB = FALSE,
             #exact = TRUE, 
-            params = c(  "betaIntYOY", "betaPhiYOY","betaFlowYOY","betaPYOY"    ),
+            params = c(  "betaIntYOY", "betaFlowYOY","betaPYOY"    ),
             pdf = FALSE, 
             priors = priors)
 
@@ -130,7 +130,7 @@ ggplot(both %>% filter(grepl("betaFlowTop", var)), aes(color = flowData)) +
   geom_point(aes(var, mean), size = 2, position = position_dodge(width = 0.5)) +
   geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) 
 
-ggplot(both %>% filter(grepl("betaPhiTop", var)), aes(color = flowData)) +
+ggplot(both %>% filter(grepl("betaIntTop", var)), aes(color = flowData)) +
   geom_point(aes(var, mean), size = 2, position = position_dodge(width = 0.5)) +
   geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1))
@@ -140,7 +140,7 @@ ggplot(both %>% filter(grepl("betaFlowYOY", var)), aes(color = flowData)) +
   geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1))
 
-ggplot(both %>% filter(grepl("betaPhiYOY", var)), aes(color = flowData)) +
+ggplot(both %>% filter(grepl("betaIntYOY", var)), aes(color = flowData)) +
   geom_point(aes(var, mean), size = 2, position = position_dodge(width = 0.5)) +
   geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1))
@@ -178,23 +178,23 @@ getPredictions_FlowYOYSeason <- function(toSave, everyNIters = 10, flowStep = 0.
     ]]
   }
   
-  # betaPhi
-    ## betaPhi
-  predictorsBetaPhi <- expand.grid(
-    iter = seq(1, dim(mcmc$chain1)[1], everyNIters),
-    isYOY = 1:2,
-    season = 1:toSave$myConstants$nSeasons
-  #  cohort = 1:toSave$myConstants$nCohorts
-  )
+  # # betaPhi
+  #   ## betaPhi
+  # predictorsBetaPhi <- expand.grid(
+  #   iter = seq(1, dim(mcmc$chain1)[1], everyNIters),
+  #   isYOY = 1:2,
+  #   season = 1:toSave$myConstants$nSeasons
+  # #  cohort = 1:toSave$myConstants$nCohorts
+  # )
   
-  for(i in 1:nrow(predictorsBetaPhi)){
-    predictorsBetaPhi$betaPhi[i] <- mcmc$chain1[[predictorsBetaPhi[i, "iter"], 
-                                                 paste0("betaPhi[", predictorsBetaPhi[i, "isYOY"],
-                                                        ", ",       predictorsBetaPhi[i, "season"],
-                                                     #   ", ",       predictorsBetaPhi[i, "cohort"],
-                                                        "]")
-    ]]
-  }
+  # for(i in 1:nrow(predictorsBetaPhi)){
+  #   predictorsBetaPhi$betaPhi[i] <- mcmc$chain1[[predictorsBetaPhi[i, "iter"], 
+  #                                                paste0("betaPhi[", predictorsBetaPhi[i, "isYOY"],
+  #                                                       ", ",       predictorsBetaPhi[i, "season"],
+  #                                                    #   ", ",       predictorsBetaPhi[i, "cohort"],
+  #                                                       "]")
+  #   ]]
+  # }
   
   ## betaFlow
   predictorsBetaFlow <- expand.grid(
@@ -239,8 +239,8 @@ getPredictions_FlowYOYSeason <- function(toSave, everyNIters = 10, flowStep = 0.
   preds <- predictorsAll %>%
     left_join(predictorsBetaInt) %>%
     left_join(predictorsBetaFlow) %>%
-    left_join(predictorsBetaPhi) %>%
-    mutate(predPhi = plogis(betaInt + betaPhi + betaFlow1 * flow + betaFlow2 * temp + betaFlow3 * flow * temp))
+   # left_join(predictorsBetaPhi) %>%
+    mutate(predPhi = plogis(betaInt + betaFlow1 * flow + betaFlow2 * temp + betaFlow3 * flow * temp))
   
   return(preds)
 }
