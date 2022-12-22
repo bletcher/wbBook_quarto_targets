@@ -12,11 +12,15 @@ Note: need to do a full book render to get OJS functionality.
 
 ## Merge All data
 
-```{r dataAllOptions, include=FALSE}
+```{r}
+#| label: dataAllOptions
+#| include: false
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ```
 
-```{r librariesdataAll, echo = FALSE}
+```{r}
+#| label: librariesdataAll
+#| echo: false
 #library(devtools)
 #options(download.file.method = "wininet") or turn off VPN
 #devtools::install_github('Conte-Ecology/westBrookData/getWBData')
@@ -33,7 +37,8 @@ library(targets)
 
 ### Read merged data target
 
-```{r dataAll}
+```{r}
+#| label: dataAll
 
 all <- tar_read(cdWB_all)
   
