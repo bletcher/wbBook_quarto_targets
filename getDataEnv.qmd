@@ -1,10 +1,14 @@
 ## Get environmental data
 
-```{r getEnvDataOptions, include=FALSE}
+```{r}
+#| label: getEnvDataOptions
+#| include: false
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ```
 
-```{r librariesGetData, echo = FALSE}
+```{r}
+#| label: librariesGetData
+#| echo: false
 #library(devtools)
 #options(download.file.method = "wininet") or turn off VPN
 #devtools::install_github('Conte-Ecology/westBrookData/getWBData')
@@ -19,7 +23,8 @@ Data are generated in `R/getDataEnv-targets.R` [file](https://github.com/bletche
 
 ## Get environmental data target and show data frame structure
 
-```{r getEnvData}
+```{r}
+#| label: getEnvData
 envDataWB <- tar_read(envDataWB_Target)
 str(envDataWB)
 ojs_define(envDataWB_OJS = transpose(envDataWB))
@@ -27,7 +32,7 @@ ojs_define(envDataWB_OJS = transpose(envDataWB))
 
 ## Plot flow over time for the West Brook by year
 
-```{r envDataFlowGraph}
+```{r}
 #| label: fig-envFlow
 #| fig-cap: "Stream flow (m3/s) for the West Brook"
 
@@ -41,8 +46,7 @@ ggplot(envDataWB %>% filter(riverOrdered == "West Brook"), aes(yday, flow)) +
 
 ```
 
-```{r envDataFlowGraphByRiver}
-
+```{r}
 #| label: fig-envFlowByRiver
 #| fig-cap: "Stream flow (m3/s) for the West Brook with Jenn's model predictions"
 ggplot(envDataWB %>% filter(riverOrdered == "West Brook", year %in% (1998:2021)), aes(flow, flowByRiverm3s, color = yday)) +
@@ -128,7 +132,7 @@ Test: referring to @fig-envFlow.
 
 ## Plot temperature over time for each tributary
 
-```{r envDataTemperatureGraph}
+```{r}
 #| label: fig-envTemp
 #| fig-cap: "Stream temperature (C) by river"
 
@@ -142,7 +146,7 @@ ggplot(envDataWB, aes(date, temperature)) +
 
 ## Plot air and water temperature over time for each tributary
 
-```{r envDataAirWaterTemperatureGraph}
+```{r}
 #| label: fig-envAirTemp
 #| fig-cap: "Stream and air temperature (C) by river"
 

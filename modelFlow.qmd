@@ -1,10 +1,14 @@
 # Flow model
 
-```{r dataModelFlowOptions, include=FALSE}
+```{r}
+#| label: dataModelFlowOptions
+#| include: false
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ```
 
-```{r librariesModelsFlow, echo = FALSE}
+```{r}
+#| label: librariesModelsFlow
+#| echo: false
 library(getWBData)
 library(tidyverse)
 library(lubridate)
@@ -14,13 +18,15 @@ library(lme4)
 library(targets)
 ```
 
-```{r readInFlowData}
+```{r}
+#| label: readInFlowData
 dataFlow <- tar_read(dataFlow_target)
 dFlow <- tar_read(dFlow_target)
 dFlowWide <- tar_read(dFlowWide_target)
 ```
 
-```{r filterDataFlow}
+```{r}
+#| label: filterDataFlow
 tibble(dataFlow)
 table(dataFlow$Site_Name)
 
@@ -29,7 +35,9 @@ dFlow %>% filter(is.infinite(dischargeLog))
 
 ```
 
-```{r flowPlots, cache=TRUE}
+```{r}
+#| label: flowPlots
+#| cache: true
 
 ggplot(dFlow, aes(date, dischargeLog, color = Site_Name)) +
   geom_point(size = 0.02) +

@@ -14,12 +14,16 @@ Structure options include
 [species, cohort, season, isYOY, flow, flow^2]
 
 
-```{r globalModelsNimbleRiver, include=FALSE}
+```{r}
+#| label: globalModelsNimbleRiver
+#| include: false
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
 
-```{r librariesModelsNimbleRiver, echo = FALSE}
+```{r}
+#| label: librariesModelsNimbleRiver
+#| echo: false
 library(getWBData)
 library(lubridate)
 library(kableExtra)
@@ -36,7 +40,8 @@ Single estimates of phi and p (across, cohorts, flow)
 
 #### Retrieve model results
 Model is run using targets in R/modelCMR_tt_OB.R
-```{r OB_tt}
+```{r}
+#| label: OB_tt
 # Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
 # 
   out <- tar_read(tt_modelOut_OB)
@@ -59,7 +64,8 @@ Cohort-dependent estimates of phi and p with flow and temperature hierarchical e
 
 #### Retrieve model results
 Model is run using targets in R/modelCMR_tt_OB.R
-```{r OB_tt_flow}
+```{r}
+#| label: OB_tt_flow
 # Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
 # 
   out_flow <- tar_read(tt_modelOut_ft_OB_flow )
@@ -100,7 +106,8 @@ Cohort-dependent estimates of phi and p with flowByRiver and flowByRiver^2 hiera
 
 #### Retrieve model results
 Model is run using targets in R/modelCMR_tt_OB.R
-```{r OB_tt_flowByRiver}
+```{r}
+#| label: OB_tt_flowByRiver
 # Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
 # 
   out_flowByRiver <- tar_read(tt_modelOut_ft_OB_flowByRiver)

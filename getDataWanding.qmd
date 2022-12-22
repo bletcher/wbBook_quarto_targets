@@ -1,10 +1,14 @@
 ## Get wanding data
 
-```{r dataWandingOptions, include=FALSE}
+```{r}
+#| label: dataWandingOptions
+#| include: false
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ```
 
-```{r librariesdataWanding, echo = FALSE}
+```{r}
+#| label: librariesdataWanding
+#| echo: false
 library(tidyverse)
 library(lubridate)
 library(getWBData)
@@ -23,7 +27,8 @@ Also, just interesting to see movement patterns from the wanding data.
 
 ## Get wanding data targets
 
-```{r dataWanding}
+```{r}
+#| label: dataWanding
 
 cdWB_wanding0 <- tar_read(cdWB_wanding0_target)
 str(cdWB_wanding0)
@@ -55,7 +60,9 @@ cdWB_wanding0 %>%
 ```
 ## All wanding data  
 Based on the following, looks like best data for analysis are trout in the tribs in 2009 2010. Need to decide what to do for salmon
-```{r rawWandingDataGraphs, cache=TRUE}
+```{r}
+#| label: rawWandingDataGraphs
+#| cache: true
 
 #everything
 ggplot(cdWB_wanding0, aes(j, sectionWQuarter, color = tag) )+
@@ -79,7 +86,8 @@ ggplot(filter(cdWB_wanding0, aliveOrDead != 'dead'), aes(j, sectionWQuarter, col
 
 
 ## Tributaries
-```{r, cache=TRUE}
+```{r}
+#| cache: true
 # Tribs
 # Loop over species
 for (s in c("bkt","bnt") ) {
@@ -99,7 +107,9 @@ for (s in c("bkt","bnt") ) {
 
 ### Which species_year_tributary?  
 Raw data graphs for the 4 sets of data to focus on
-```{r wanding_yearByYear, cache=TRUE}
+```{r}
+#| label: wanding_yearByYear
+#| cache: true
 
 # Tribs - focus on a year
 for (s in c("bkt", "bnt") ) {
@@ -216,7 +226,8 @@ Did not filter by moveTime > 1 because there were within-day samples in the WB (
 
 ### West brook wanding data  
 Calculate and plot movement
-```{r, cache=TRUE}
+```{r}
+#| cache: true
 # Loop over species
 for (s in unique(cdWB_wanding0$species)) {
   tmp <-
@@ -233,7 +244,9 @@ for (s in unique(cdWB_wanding0$species)) {
 ```
 
 ### Movement
-```{r wb, cache=TRUE}
+```{r}
+#| label: wb
+#| cache: true
 
 table(cdWB_wandingWB3$species, cdWB_wandingWB3$month, cdWB_wandingWB3$river, cdWB_wandingWB3$year)
 # 
@@ -265,7 +278,8 @@ table(cdWB_wandingWB3$species, cdWB_wandingWB3$month, cdWB_wandingWB3$river, cdW
 ```
 
 ### Random effects models
-```{r RE model for individual movement variation WB}
+```{r}
+#| label: RE model for individual movement variation WB
  
   mod0WB <- lmer( abs(moveRate) ~ (1|tag), data=cdWB_wandingWB3 )
   ####

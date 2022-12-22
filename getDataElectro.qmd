@@ -1,10 +1,14 @@
 ## Get electrofishing data
 
-```{r getEnvDataOptions, include=FALSE}
+```{r}
+#| label: getEnvDataOptions
+#| include: false
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ```
 
-```{r librariesGetElectroData, echo = FALSE}
+```{r}
+#| label: librariesGetElectroData
+#| echo: false
 #library(devtools)
 #options(download.file.method = "wininet") or turn off VPN
 #devtools::install_github('Conte-Ecology/westBrookData/getWBData')
@@ -23,7 +27,8 @@ Data are generated in `R/getDataElectro-targets.R` [file](https://github.com/ble
 
 ## Get electrofishing data target
 
-```{r getEnvData}
+```{r}
+#| label: getEnvData
 cdWB_electro <- tar_read(cdWB_electro_target)
 str(cdWB_electro)
 ```
@@ -64,7 +69,7 @@ cdWB_electro %>%
 
 ## Length-weight graph
 
-```{r electroDataFlowGraph}
+```{r}
 #| label: fig-electroLM
 #| fig-cap: "Length - mass graph"
 
@@ -80,7 +85,8 @@ ggplot(cdWB_electro, aes(observedLength, observedWeight, color = species)) +
 
 ## Length-weight regression
 
-```{r lwReg}
+```{r}
+#| label: lwReg
 lwReg <- cdWB_electro %>%
   nest_by(species) %>%
   mutate(reg = list(lm(log(observedWeight) ~ log(observedLength), data = data)))

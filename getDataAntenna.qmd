@@ -1,10 +1,14 @@
 ## Get antenna data
 
-```{r dataAntennaOptions, include=FALSE}
+```{r}
+#| label: dataAntennaOptions
+#| include: false
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ```
 
-```{r librariesdataAntenna, echo = FALSE}
+```{r}
+#| label: librariesdataAntenna
+#| echo: false
 #library(devtools)
 #options(download.file.method = "wininet") or turn off VPN
 #devtools::install_github('Conte-Ecology/westBrookData/getWBData')
@@ -24,7 +28,8 @@ Data are generated in `R/getDataAntenna-targets.R` [file](https://github.com/ble
 
 ## Get antenna data target
 
-```{r dataAntenna}
+```{r}
+#| label: dataAntenna
 
 cdWB_antenna0 <- tar_read(cdWB_antenna0_target)
 str(cdWB_antenna0)

@@ -6,11 +6,15 @@ The goal is to find the best structure for the survival model, then compare surv
 
 Structure options include \[species, cohort, season, isYOY, flow, flow\^2\]
 
-```{r globalModelsNimbleRiver, include=FALSE}
+```{r}
+#| label: globalModelsNimbleRiver
+#| include: false
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
-```{r librariesModelsNimbleRiver, echo = FALSE}
+```{r}
+#| label: librariesModelsNimbleRiver
+#| echo: false
 library(getWBData)
 library(lubridate)
 library(kableExtra)
@@ -27,7 +31,8 @@ library(targets)
 This model is too big (88 Gb) and needs to be run on workbench\
 Output files are here: "C:\Users\bletcher\OneDrive - DOI\projects\westBrook-book\models\cmrFlow4rivers\runsOut\fromWorkbench"
 
-```{r WB_ttt_dirch}
+```{r}
+#| label: WB_ttt_dirch
 # Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
 
   toSave <-  tar_read(toSave_ttt_WB_target)
@@ -71,7 +76,9 @@ Output files are here: "C:\Users\bletcher\OneDrive - DOI\projects\westBrook-book
 
 Code from westBrook-book Needs to be run on workBench
 
-```{r phiT_pT_psiT_River2_dirch_infPriors, eval=FALSE}
+```{r}
+#| label: phiT_pT_psiT_River2_dirch_infPriors
+#| eval: false
 # copy code below into workbench for model runs
 # Put zipped output into ./models/cmrFlow4rivers/runsOut/fromWorkbench/rstudio-export.zip and then unzip
 

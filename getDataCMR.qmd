@@ -1,10 +1,14 @@
 ## Create Capture-Recapture data
 
-```{r dataCMROptions, include=FALSE}
+```{r}
+#| label: dataCMROptions
+#| include: false
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ```
 
-```{r librariesdataCMR, echo = FALSE}
+```{r}
+#| label: librariesdataCMR
+#| echo: false
 library(tidyverse)
 library(targets)
 library(kableExtra)
@@ -15,7 +19,8 @@ Data are generated in `R/getDataCMR-targets.R` [file](https://github.com/bletche
 ## Get electrofishing data target WB 
 West brook and 3 tributaries
 
-```{r dataCMR_WB}
+```{r}
+#| label: dataCMR_WB
 
 cdWB_CMR0_WB <- tar_read(eh_WB_2002_2014_target)
 str(cdWB_CMR0_WB)
@@ -51,7 +56,8 @@ cdWB_CMR0_WB$data %>%
 ## Get electrofishing data target OB  
 O'Bear also known as Isolated Large
 
-```{r dataCMR_OB}
+```{r}
+#| label: dataCMR_OB
 
 cdWB_CMR0_OB <- tar_read(eh_OB_2002_2014_target)
 ```

@@ -1,28 +1,27 @@
 # Flow effects on survival (phi) models with cohort structure - O'Bear only
 
-Phi model structure:  
-          logit(phi[t,i]) <-   
-            betaInt[   isYOY[i,t],season[t],cohort[i]] +  
-            betaFlow[1,isYOY[i,t],season[t]] * flow[i,t] +  
-            betaFlow[2,isYOY[i,t],season[t]] * temp[i,t] +  
-            betaFlow[3,isYOY[i,t],season[t]] * temp[i,t] * flow[i,t]  
-            
-logit(p[t,i]) <- betaP[isYOY[i,t],season[t-1],cohort[i]]  
+Probability of survival (phi) model structure:  
 
-The goal of this modelling exercise is to evaluate the effect of new tributary-specific stream flow estimates on survival of brook trout and brown trout. We will compare survival across the WB and tributaries with flow input data as 1) single flow estimate for all locations (historical approach) and 2) hindcasted flows for each tributary based on new tributary-specific flows which are available since 2000.
+  logit(phi[t,i]) <-   
+    betaInt[   isYOY[i,t],season[t],cohort[i]] +  
+    betaFlow[1,isYOY[i,t],season[t]] * *flow*[i,t] +  
+    betaFlow[2,isYOY[i,t],season[t]] * temp[i,t] +  
+    betaFlow[3,isYOY[i,t],season[t]] * temp[i,t] * *flow*[i,t]  
 
-The goal is to find the best structure for the survival model, then compare survival estimates with tributary-specific flow to estimates with common flow across locations.
+Probability of capture (p) model structure:  
+  
+  logit(p[t,i]) <- betaP[isYOY[i,t],season[t-1],cohort[i]]  
+
+The goal of this modelling exercise is to evaluate the effect of new tributary-specific stream flow estimates on survival of brook trout. Here, we compare survival within one tributary (O'Bear Brook) with flow input data as 1) single flow estimate for all locations (historical approach) and 2) hindcasted flows for each tributary based on new tributary-specific flows which are available since 2000.
+
+The goal is to compare survival estimates with tributary-specific flow to estimates with common flow across locations.
 
 Structure options include
 [species, cohort, season, isYOY, flow, flow^2]
 
-
-```{r globalModelsNimbleRiver, include=FALSE}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE)
-```
-
-
-```{r librariesModelsNimbleRiver, echo = FALSE}
+```{r}
+#| label: librariesModelsNimbleRiver
+#| echo: false
 library(getWBData)
 library(lubridate)
 library(kableExtra)
@@ -35,12 +34,13 @@ library(targets)
 ```
 
 
-### Model phiT_pT flow (tt_OB_flow)
+### Model with original flow data
 Cohort-dependent estimates of phi and p with flow and temperature hierarchical effects  
 
 #### Retrieve model results
 Model is run using targets in R/modelCMR_tt_ft_cohort_OB.R
-```{r OB_tt_flow}
+```{r}
+#| label: OB_tt_flow
 # Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
 # 
   out_flow <- tar_read(tt_modelOut_ft_cohort_OB_flow )
@@ -50,10 +50,10 @@ Model is run using targets in R/modelCMR_tt_ft_cohort_OB.R
     mutate(flowData = "flow") %>%
     rownames_to_column(var = "var")
   
-  summary_flow %>% filter(grepl("betaIntYOYSeason", var))
-  summary_flow %>% filter(grepl("betaPhiYOYSeason", var))
-  summary_flow %>% filter(grepl("betaFlow", var))
-  summary_flow %>% filter(grepl("betaInt", var))
+  #summary_flow %>% filter(grepl("betaIntYOYSeason", var))
+  #summary_flow %>% filter(grepl("betaPhiYOYSeason", var))
+  #summary_flow %>% filter(grepl("betaFlow", var))
+  #summary_flow %>% filter(grepl("betaInt", var))
   
   
   priors <- runif(out_flow$runData$nIter * out_flow$runData$nChains, 0, 1)
@@ -83,12 +83,13 @@ Model is run using targets in R/modelCMR_tt_ft_cohort_OB.R
 ```
 
 
-### Model phiT_pT flow ByRiver (tt_OB_flowByRiver)
-Cohort-dependent estimates of phi and p with flowByRiver and flowByRiver^2 hierarchical effects  
+### Model with flow data hindcast for each rvier
+Cohort-dependent estimates of phi and p with flowByRiver hierarchical effects  
 
 #### Retrieve model results
-Model is run using targets in R/modelCMR_tt_OB.R
-```{r OB_tt_flowByRiver}
+Model is run using targets in R/modelCMR_tt_ft_cohort_OB
+```{r}
+#| label: OB_tt_flowByRiver
 # Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
 # 
   out_flowByRiver <- tar_read(tt_modelOut_ft_cohort_OB_flowByRiver)
@@ -98,9 +99,9 @@ Model is run using targets in R/modelCMR_tt_OB.R
     mutate(flowData = "flowByRiver") %>%
     rownames_to_column(var = "var")
   
-  summary_flowByRiver %>% filter(grepl("betaIntYOYSeason", var))
-  summary_flowByRiver %>% filter(grepl("betaPhiYOYSeason", var))
-  summary_flowByRiver %>% filter(grepl("betaFlow", var))
+  #summary_flowByRiver %>% filter(grepl("betaIntYOYSeason", var))
+  #summary_flowByRiver %>% filter(grepl("betaPhiYOYSeason", var))
+  #summary_flowByRiver %>% filter(grepl("betaFlow", var))
   
   
   priors <- runif(out_flowByRiver$runData$nIter * out_flowByRiver$runData$nChains, 0, 1)
@@ -118,9 +119,11 @@ Model is run using targets in R/modelCMR_tt_OB.R
   #           priors = priors)
 
 
+  
+  
 ```
 
-#### Compare parameter estimates of models with flow and flowByRiver
+### Compare parameter estimates of models with flow and flowByRiver
 ```{r}
 both <- bind_rows(summary_flow, summary_flowByRiver) %>%
   rename(lo = '2.5%', hi = '97.5%')
@@ -129,7 +132,7 @@ ggplot(both %>% filter(grepl("betaFlowTop", var)), aes(color = flowData)) +
   geom_point(aes(var, mean), size = 2, position = position_dodge(width = 0.5)) +
   geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) 
 
-ggplot(both %>% filter(grepl("betaPhiTop", var)), aes(color = flowData)) +
+ggplot(both %>% filter(grepl("betaFlowTop", var)), aes(color = flowData)) +
   geom_point(aes(var, mean), size = 2, position = position_dodge(width = 0.5)) +
   geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1))
@@ -139,7 +142,7 @@ ggplot(both %>% filter(grepl("betaFlowYOY", var)), aes(color = flowData)) +
   geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1))
 
-ggplot(both %>% filter(grepl("betaPhiYOY", var)), aes(color = flowData)) +
+ggplot(both %>% filter(grepl("betaIntYOY", var)), aes(color = flowData)) +
   geom_point(aes(var, mean), size = 2, position = position_dodge(width = 0.5)) +
   geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1))
@@ -149,13 +152,7 @@ ggplot(both %>% filter(grepl("betaIntYOYSeason", var)), aes(color = flowData)) +
   geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1))
 
-ggplot(both %>% filter(grepl("betaPhiYOYSeason", var)), aes(color = flowData)) +
-  geom_point(aes(var, mean), size = 2, position = position_dodge(width = 0.5)) +
-  geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) +
-  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1))
-
-
-ggplot(both %>% filter(grepl("betaInt", var)), aes(color = flowData)) +
+ggplot(both %>% filter(grepl("betaInt\\[", var)), aes(color = flowData)) +
   geom_point(aes(var, mean), size = 2, position = position_dodge(width = 0.5)) +
   geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1))
@@ -316,7 +313,7 @@ ggplot(betaInts %>% filter(varName == "betaIntYOY"), aes(isYOY, mean, color = fl
 
 
 ################################
-### Flow_YOYSeason predictions
+### Flow effect predictions
 
 ```{r}
 getPredictions_FlowYOYSeasonCohort <- function(toSave, everyNIters = 10, flowStep = 0.5){
@@ -539,7 +536,7 @@ ggplot(predFlowYOYSeason %>% filter(flow %in% c(-1,0,1)), aes(temp, predPhi, gro
 ```
 
 ####################################
-### Flow_YOYSeasonCohort predictions
+### Flow effect predictions by cohort
 ```{r}
 predFlowYOYSeasonCohort <- getPredictions_FlowYOYSeasonCohort(out_flow, everyNIters = 5) %>%
     mutate(flowData = "flow") 
@@ -577,60 +574,4 @@ ggplot(predFlowYOYSeasonCohort %>% filter(flow %in% c(-1,0,1)), aes(temp, predPh
   facet_grid(season ~ isYOY)
 ```
 
-
-#####################################
-#### FlowTop predictions
-```{r}
-# predFlowTop <- getPredictionsFlowTop(out_flow, everyNIters = 5) %>%
-#     mutate(flowData = "flow") 
-# 
-# predFlowByRiverTop <- getPredictionsFlowTop(out_flowByRiver, everyNIters = 5) %>%
-#     mutate(flowData = "flowByRiver")
-# 
-# predTopBoth <- bind_rows(predFlowTop, predFlowByRiverTop)
-```
-
-```{r}
-# ggplot(predTopBoth, aes(flow, predPhi, group = iter)) +
-#   geom_line() +
-#   facet_wrap(~flowData)
-# 
-# ggplot(predTopBoth %>% filter(iter < 100), aes(flow, predPhi, group = iter)) +
-#   geom_line() +
-#   facet_grid(flowData ~ iter)
-```
-
-
-```{r}
-getPredictionsFlowTop <- function(toSave, everyNIters = 10, flowStep = 0.5){
-
-  mcmc <- toSave$mcmc
-  
-  ## betaFlow
-  predictorsBetaFlowTop <- expand.grid(
-    iter = seq(1, dim(mcmc$chain1)[1], everyNIters),
-    var = 1:2,
-    flow = seq(-1.5, 1.5, flowStep),
-    temp = seq(-1.5, 1.5, flowStep)
-  )
-  
-  for(i in 1:nrow(predictorsBetaFlowTop)){
-    predictorsBetaFlowTop$betaFlowTop1[i] <- mcmc$chain1[[predictorsBetaFlowTop[i, "iter"], 
-                                                         1
-                                                        ]]
-    predictorsBetaFlowTop$betaFlowTop2[i] <- mcmc$chain1[[predictorsBetaFlowTop[i, "iter"], 
-                                                         2
-                                                        ]]
-    predictorsBetaFlowTop$betaFlowTop3[i] <- mcmc$chain1[[predictorsBetaFlowTop[i, "iter"], 
-                                                         3
-                                                        ]]
-  }
-
-  preds <- predictorsBetaFlowTop %>%
-    mutate(predPhi = plogis(betaFlow1 * flow + betaFlow2 * temp + betaFlow3 * flow * temp))
-  
-  return(preds)
-}
-
-```
 
