@@ -4,9 +4,9 @@ Probability of survival (phi) model structure:
 
   logit(phi[t,i]) <-   
     betaInt[   isYOY[i,t],season[t],cohort[i]] +  
-    betaFlow[1,isYOY[i,t],season[t]] * *flow*[i,t] +  
+    betaFlow[1,isYOY[i,t],season[t]] * **flow**[i,t] +  
     betaFlow[2,isYOY[i,t],season[t]] * temp[i,t] +  
-    betaFlow[3,isYOY[i,t],season[t]] * temp[i,t] * *flow*[i,t]  
+    betaFlow[3,isYOY[i,t],season[t]] * temp[i,t] * **flow**[i,t]  
 
 Probability of capture (p) model structure:  
   
@@ -15,6 +15,8 @@ Probability of capture (p) model structure:
 The goal of this modelling exercise is to evaluate the effect of new tributary-specific stream flow estimates on survival of brook trout. Here, we compare survival within one tributary (O'Bear Brook) with flow input data as 1) single flow estimate for all locations (historical approach) and 2) hindcasted flows for each tributary based on new tributary-specific flows which are available since 2000.
 
 The goal is to compare survival estimates with tributary-specific flow to estimates with common flow across locations.
+
+Note: a model without cohort structure is here modelsCMR_ft_Flow_OB.qmd but is not included because results are similar but without the cohort estimates.
 
 Structure options include
 [species, cohort, season, isYOY, flow, flow^2]
@@ -31,6 +33,12 @@ library(nimbleEcology)
 library(MCMCvis)
 library(tidyverse)
 library(targets)
+```
+
+```{r}
+#| label: globalModelsNimbleRiverCohort
+#| include: false
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
 

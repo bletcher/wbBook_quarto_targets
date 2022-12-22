@@ -26,7 +26,6 @@ book:
         - modelFlow.qmd
     - part: "Capture-recpature models"
       chapters: 
-        - modelsCMR_ft_Flow_OB.qmd
         - modelsCMR_ft_cohort_Flow_OB.qmd
         - modelsCMR_Flow_4Rivers.qmd
     - references.qmd
