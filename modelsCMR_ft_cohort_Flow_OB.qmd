@@ -584,7 +584,7 @@ Get flow average flow and temp data for each occasion (cohort/season)
 
 Flow data pathway -  
 | Raw data in `envDataWB_target` from getDataEnv_targets.R  
-|  Data added to `cdWB_CMR0_targe`t` using addEnvironmental() in getDataCMR_targets.R  
+|  Data added to `cdWB_CMR0_target` using addEnvironmental() in getDataCMR_targets.R  
 |  Data scaled using scaleEnvData() in getDataCMR_targets.R  
 |    meanFlowScaled   
 |    meanFlowByRiverScaled   
