@@ -140,11 +140,6 @@ ggplot(both %>% filter(grepl("betaFlowTop", var)), aes(color = flowData)) +
   geom_point(aes(var, mean), size = 2, position = position_dodge(width = 0.5)) +
   geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) 
 
-ggplot(both %>% filter(grepl("betaFlowTop", var)), aes(color = flowData)) +
-  geom_point(aes(var, mean), size = 2, position = position_dodge(width = 0.5)) +
-  geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) +
-  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1))
-
 ggplot(both %>% filter(grepl("betaFlowYOY", var)), aes(color = flowData)) +
   geom_point(aes(var, mean), size = 2, position = position_dodge(width = 0.5)) +
   geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) +
@@ -177,7 +172,7 @@ ggplot(both %>% filter(grepl("betaPYOY", var)), aes(color = flowData)) +
 ```
 
 ################################
-### Survival comparison
+### Survival comparisons
 ```{r}
 getBetas <- function(d) {
   #betaFlow
@@ -265,7 +260,7 @@ betaIntFlow <- getBetaIntOuts(summary_flow, "flow")
 betaIntFlowByRiver <- getBetaIntOuts(summary_flowByRiver, "flowByRiver")
 
 betaInts <- bind_rows(betaIntFlow, betaIntFlowByRiver) %>%
-  rename(lo = '2.5%', hi = '97.5%')
+  rename(lo = '2.5%', hi = '97.5%', median = '50%')
 ```
 
 ```{r}
@@ -511,7 +506,7 @@ predFlowByRiverYOYSeason <- getPredictions_FlowYOYSeason(out_flowByRiver, everyN
 predBoth <- bind_rows(predFlowYOYSeason, predFlowByRiverYOYSeason)
 ```
 
-#### Graph flow predictions  
+#### Graph effect flow predictions  
 Predictions based on flow from the flow extension curve - original approach
 ```{r}
 colors <- c("blue", "green", "red")
@@ -552,7 +547,7 @@ predFlowYOYSeasonCohort <- getPredictions_FlowYOYSeasonCohort(out_flow, everyNIt
 predFlowByRiverYOYSeasonCohort <- getPredictions_FlowYOYSeasonCohort(out_flowByRiver, everyNIters = 5) %>%
     mutate(flowData = "flowByRiver")
 
-predBoth <- bind_rows(predFlowYOYSeasonCohort, predFlowByRiverYOYSeasonCohort)
+predBothCohort <- bind_rows(predFlowYOYSeasonCohort, predFlowByRiverYOYSeasonCohort)
 ```
 
 #### Graph flow predictions  
@@ -582,4 +577,94 @@ ggplot(predFlowYOYSeasonCohort %>% filter(flow %in% c(-1,0,1)), aes(temp, predPh
   facet_grid(season ~ isYOY)
 ```
 
+###########
+### Relate flow/temp to survival  
+
+Get flow average flow and temp data for each occasion (cohort/season)  
+
+Flow data pathway -  
+| Raw data in `envDataWB_target` from getDataEnv_targets.R  
+|  Data added to `cdWB_CMR0_targe`t` using addEnvironmental() in getDataCMR_targets.R  
+|  Data scaled using scaleEnvData() in getDataCMR_targets.R  
+|    meanFlowScaled   
+|    meanFlowByRiverScaled   
+|    meanTemperatureScaled  
+| `cdWB_CMR0_target` feeds into getEH_AIS() to create `eh_WB_2002_2014_target`  
+| `eh_WB_2002_2014_target`$data contains filtered data that created the components of eh_WB_2002_2014_target that are used for CMR analysis. We can use `eh_WB_2002_2014_target`$data to get summary flow and temp data  
+    
+
+```{r}
+#| label: combine betaInts and eh_OB_2002_2014_target
+eh_OB_2002_2014_target = tar_read(eh_OB_2002_2014_target)
+
+mFlowTemp <- eh_OB_2002_2014_target$data %>%
+  group_by(cohort, season) %>%
+  summarize(mFlow = mean(meanFlowScaled),
+            mFlowByRiver = mean(meanFlowByRiverScaled),
+            mTemp = mean(meanTemperatureScaled),
+            n = n()) %>%
+  mutate(season = as.character(season))
+
+betaIntsFT <- betaInts %>% 
+  left_join(mFlowTemp)
+
+```
+
+How do the flow metrics (river, byRiver) compare to each other?
+```{r}
+
+ggplot(betaIntsFT %>% filter(varName == "betaInt"), aes(mFlow, mFlowByRiver, color = as.factor(cohort))) +
+  geom_point() +
+  geom_abline(intercept = 0, slope = 1) +
+  facet_wrap(~ season)
+
+```
+
+How do flow/flowByRiver compare to temperature?
+```{r}
+
+ggplot(betaIntsFT %>% filter(varName == "betaInt"), aes(mFlow, mTemp, color = as.factor(cohort))) +
+  geom_point() +
+  geom_abline(intercept = 0, slope = 1) +
+  facet_wrap(~ season)
+
+ggplot(betaIntsFT %>% filter(varName == "betaInt"), aes(mFlowByRiver, mTemp, color = as.factor(cohort))) +
+  geom_point() +
+  geom_abline(intercept = 0, slope = 1) +
+  facet_wrap(~ season)
+
+```
+
+
+How do the flow metrics (river, byRiver) compare to survival estimates?
+```{r}
+
+ggplot(betaIntsFT %>% filter(varName == "betaInt"), aes(mFlow, mean)) +
+  geom_smooth(se = FALSE, color = "darkgrey") +
+  geom_point(aes(color = as.factor(cohort))) +
+  facet_grid(season ~ isYOY)
+
+ggplot(betaIntsFT %>% filter(varName == "betaInt"), aes(mFlowByRiver, mean)) +
+  geom_smooth(se = FALSE, color = "darkgrey") +
+  geom_point(aes(color = as.factor(cohort))) +
+  facet_grid(season ~ isYOY)
+
+ggplot(betaIntsFT %>% filter(varName == "betaInt"), aes(mTemp, mean)) +
+  geom_smooth(se = FALSE, color = "darkgrey") +
+  geom_point(aes(color = as.factor(cohort))) +
+  facet_grid(season ~ isYOY)
+
+```
+
+How do mean survival estimates compare to flow and flowByriver on the same graph?
+```{r}
+
+ggplot(betaIntsFT %>% filter(varName == "betaInt"), aes(mFlowByRiver, mean)) +
+  geom_smooth(se = FALSE, color = "#303140") +
+  geom_point(color = "#303140") +
+  geom_smooth(aes(mFlow, mean), se = FALSE, color = "#d46313") +
+  geom_point(aes(mFlow, mean), color = "#d46313") +
+  scale_x_continuous("Flow (orange) or flow by river (black)") +
+  facet_grid(season ~ isYOY)
+```
 
