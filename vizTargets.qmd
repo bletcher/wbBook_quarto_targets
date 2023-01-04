@@ -9,10 +9,11 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ```
 
 
-Data processing and model running is controlled by `targets`. Targets are only re-run if the upstream data source changes
+Data processing and model running is controlled by [targets](https://books.ropensci.org/targets/). Targets are only re-run if the upstream data source changes
 
 ```{r}
-#| warning: false
+#| label: librariesvizTargets
+#| echo: false
 library(targets)
 library(tarchetypes)
 library(visNetwork)

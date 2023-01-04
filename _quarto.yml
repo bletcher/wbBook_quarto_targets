@@ -12,7 +12,9 @@ book:
   date: today
   chapters:
     - index.qmd
-    - vizTargets.qmd
+    - part: "Targets"
+      chapters:
+        - vizTargets.qmd
     - part: "Get data"
       chapters: 
         - getData.qmd

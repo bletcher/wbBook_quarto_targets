@@ -25,15 +25,16 @@ library(targets)
 Data are generated in `R/getDataElectro-targets.R` [file](https://github.com/bletcher/wbBook_quarto_targets/blob/main/R/getDataElectro_targets.R)  
 
 
-## Get electrofishing data target
-
+## Get electrofishing data target  
+Show variables in the dataframe
 ```{r}
 #| label: getEnvData
 cdWB_electro <- tar_read(cdWB_electro_target)
 str(cdWB_electro)
 ```
 
-## Counts by species
+## Counts by species  
+What are the counts by species for *tagged* fish?
 ```{r}
 # # off tagged individuals/species
 tagged <- cdWB_electro %>%
@@ -43,7 +44,10 @@ tagged %>%
   summarize(n = n()) %>%
   group_by(species) %>%
   summarize(n = n())
+```
 
+What are the counts by species for *untagged* fish?
+```{r}
 #####
 untagged <- cdWB_electro %>%
   filter(is.na(tag))
@@ -51,13 +55,18 @@ untagged <- cdWB_electro %>%
 untagged %>%
   group_by(species) %>%
   summarize(n = n())
+```
 
+Plot length distributions of tagged and untagged fish
+```{r}
 ######
 cdWB_electro %>%
   ggplot(aes(observedLength, color = is.na(tag))) +
   geom_freqpoly() 
-
-
+```
+## Mortality comments
+Show comments related to mortalities
+```{r}
 cdWB_electro %>%
   group_by(comments) %>%
   summarize(n = n()) %>%
@@ -84,7 +93,7 @@ ggplot(cdWB_electro, aes(observedLength, observedWeight, color = species)) +
 ```
 
 ## Length-weight regression
-
+Simple linear regression statistics
 ```{r}
 #| label: lwReg
 lwReg <- cdWB_electro %>%
@@ -96,7 +105,7 @@ lwReg %>% summarise(broom::glance(reg))
 ```
 
 
-## CMR metadata
+## Capture-Mark-Recapture metadata
 ### adapted from https://github.com/Conte-Ecology/westBrookData/blob/master/getWBData/vignettes/westBrookDataIntro.Rmd
 
 #### Column explanations

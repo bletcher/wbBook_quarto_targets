@@ -36,45 +36,54 @@ library(targets)
 ```
 
 ### Read merged data target
-
+Variables in the `all data` dataset
 ```{r}
 #| label: dataAll
 
 all <- tar_read(cdWB_all)
   
 str(all)
+#ojs_define(allOJS0 = all) can't use whole dataset, html file gets too big
 ```
 
 ```{r}
 tags <- all %>%
   group_by(tag) %>%
   summarize(n = n()) %>%
-  arrange(desc(n)) %>%
+  #arrange(desc(n)) %>%
   filter(!is.na(tag))
 
-  tags10 <- tags %>%
-    filter(n > 450, n < 500)
-    
+all <- all %>% 
+  left_join(tags)
 
-ojs_define(tagsOJS = tags$tag)
+allGT1500 <- all %>%
+  filter(n > 1500, n < 15000)
+
+
+ojs_define(allOJS0 = allGT1500)
 ```
 
 ```{r}
 
-allTop10 <- all %>%
-  filter(tag %in% tags10$tag) %>%
-  select(tag, detectionDate, river, section, observedLength)
-  
-  
-ojs_define(allOJS = allTop10)
+# allTop10 <- all %>%
+#   filter(tag %in% tags10$tag) %>%
+#   select(tag, detectionDate, river, section, observedLength)
+#   
+#   
+# ojs_define(allOJS = allTop10)
 ```
 
+```{ojs}
+allOJS = transpose(allOJS0)
+
+tags = tidy(allOJS, groupBy("tag", [summarize({ n: n() })]), arrange([desc("n")]))
+```
 
 ```{ojs}
 //| panel: input
 
 viewof selectTag = Inputs.select(
-  tagsOJS,
+  tags.map((d) => d.tag),
   {
     //value: "1bf20ebcae",
     label: "Tags:",
@@ -84,6 +93,53 @@ viewof selectTag = Inputs.select(
 
 ```
 
+Facet by river, symbol identifies survey type
+```{ojs}
+
+tagsToPlot = allOJS.filter((d) => selectTag.includes(d.tag))
+
+
+tagsOverTime = Plot.plot({
+  marks: [
+    Plot.dot(tagsToPlot, { x: "detectionDate", y: "section", stroke: "tag", symbol: "survey" }),
+    Plot.line(tagsToPlot, { x: "detectionDate", y: "section", stroke: "tag" })
+  ],
+  facet: {
+    data: tagsToPlot, x: "river"
+  },
+  // Include a legend for the color channel 
+  color: {
+    legend: true,
+  },
+  symbol: {
+    legend: true
+  }
+})
+```
+
+One panel, symbol identifies river
+```{ojs}
+tagsOverTimeRiver = Plot.plot({
+  marks: [
+    Plot.dot(tagsToPlot, {
+      x: "detectionDate",
+      y: "section",
+      stroke: "tag",
+      symbol: "river"
+    }),
+    Plot.line(tagsToPlot, { x: "detectionDate", y: "section", stroke: "tag" })
+  ],
+  // Include a legend for the color channel
+  color: {
+    legend: true
+  },
+    symbol: {
+    legend: true
+  }
+})
+```
+
+
 ```{ojs}
 selectTag
 tagsToPlot
@@ -92,16 +148,7 @@ transpose(allOJS)
 
 
 ```{ojs}
-allOJS_T = transpose(allOJS)
+import {tidy, max, nDistinct, groupBy, mutate, filter, summarize, first, last, distinct, count, n, arrange, mutateWithSummary, desc, debug, sum, slice, mean, deviation, variance, meanRate, median, min, total, sliceMax, innerJoin, leftJoin, pivotLonger, pivotWider, select, rename, complete, contains, when} from "@pbeshai/tidyjs"
 
-tagsToPlot = allOJS_T.filter((d) => selectTag.includes(d.tag))
-
-tagsOverTime = Plot.plot({
-  marks: [
-    Plot.dot(tagsToPlot, { x: "detectionDate", y: "section", stroke: "tag" }),
-    Plot.line(tagsToPlot, { x: "detectionDate", y: "section", stroke: "tag" })
-  ]
-})
 ```
-
 

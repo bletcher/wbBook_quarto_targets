@@ -623,13 +623,15 @@ ggplot(betaIntsFT %>% filter(varName == "betaInt"), aes(mFlow, mFlowByRiver, col
 How do flow/flowByRiver compare to temperature?
 ```{r}
 
-ggplot(betaIntsFT %>% filter(varName == "betaInt"), aes(mFlow, mTemp, color = as.factor(cohort))) +
-  geom_point() +
+ggplot(betaIntsFT %>% filter(varName == "betaInt"), aes(mFlow, mTemp)) +
+  geom_smooth(se = FALSE, color = "#303140", method = lm) +
+  geom_point(aes(color = as.factor(cohort))) +
   geom_abline(intercept = 0, slope = 1) +
   facet_wrap(~ season)
 
-ggplot(betaIntsFT %>% filter(varName == "betaInt"), aes(mFlowByRiver, mTemp, color = as.factor(cohort))) +
-  geom_point() +
+ggplot(betaIntsFT %>% filter(varName == "betaInt"), aes(mFlowByRiver, mTemp)) +
+  geom_smooth(se = FALSE, color = "#303140", method = lm) +
+  geom_point(aes(color = as.factor(cohort))) +
   geom_abline(intercept = 0, slope = 1) +
   facet_wrap(~ season)
 
@@ -640,16 +642,19 @@ How do the flow metrics (river, byRiver) compare to survival estimates?
 ```{r}
 
 ggplot(betaIntsFT %>% filter(varName == "betaInt"), aes(mFlow, mean)) +
+  geom_smooth(se = FALSE, color = "#303140", method = lm) +
   geom_smooth(se = FALSE, color = "darkgrey") +
   geom_point(aes(color = as.factor(cohort))) +
   facet_grid(season ~ isYOY)
 
 ggplot(betaIntsFT %>% filter(varName == "betaInt"), aes(mFlowByRiver, mean)) +
+  geom_smooth(se = FALSE, color = "#303140", method = lm) +
   geom_smooth(se = FALSE, color = "darkgrey") +
   geom_point(aes(color = as.factor(cohort))) +
   facet_grid(season ~ isYOY)
 
 ggplot(betaIntsFT %>% filter(varName == "betaInt"), aes(mTemp, mean)) +
+  geom_smooth(se = FALSE, color = "#303140", method = lm) +
   geom_smooth(se = FALSE, color = "darkgrey") +
   geom_point(aes(color = as.factor(cohort))) +
   facet_grid(season ~ isYOY)
@@ -658,6 +663,14 @@ ggplot(betaIntsFT %>% filter(varName == "betaInt"), aes(mTemp, mean)) +
 
 How do mean survival estimates compare to flow and flowByriver on the same graph?
 ```{r}
+
+ggplot(betaIntsFT %>% filter(varName == "betaInt"), aes(mFlowByRiver, mean)) +
+  geom_smooth(se = FALSE, color = "#303140", method = lm) +
+  geom_point(color = "#303140") +
+  geom_smooth(aes(mFlow, mean), se = FALSE, color = "#d46313", method = lm) +
+  geom_point(aes(mFlow, mean), color = "#d46313") +
+  scale_x_continuous("Flow (orange) or flow by river (black)") +
+  facet_grid(season ~ isYOY)
 
 ggplot(betaIntsFT %>% filter(varName == "betaInt"), aes(mFlowByRiver, mean)) +
   geom_smooth(se = FALSE, color = "#303140") +

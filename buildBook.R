@@ -7,7 +7,7 @@ library(knitr)
 #tar_invalidate(c("envDataWB_Target", "cdWB_electro0_target", ...)
 
 # to convert markdown headers to quarto in-body chunk options
-convert_chunk_header("dataAll.qmd", output = identity)
+#convert_chunk_header("dataAll.qmd", output = identity)
 
 tar_make()
 quarto::quarto_render(output_format = "html")

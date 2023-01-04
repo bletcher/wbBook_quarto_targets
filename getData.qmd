@@ -1,13 +1,13 @@
 # Get data info
 
-The database is now (as of 6/14/2022) on AWS. It can be accessed using functions in the 'getWBData' R package. Use `devtools::install_github('Conte-Ecology/westBrookData/getWBData')` (with VPN off) to install. Most of the functions will run reconnect() to connect to the server with your username and password (which you won't need if you have set up a .Rprofile file).\
+The database is now (as of 6/14/2022) on AWS. It can be accessed using functions in the 'getWBData' R package. Use `devtools::install_github('Conte-Ecology/westBrookData/getWBData')` (with VPN **off**) to install. Most of the functions will run reconnect() to connect to the server with your username and password (which you won't need if you have set up a .Rprofile file).\
 Run `reconnect()` from the console to connect if necessary. Use `DBI::dbListTables(con)` to see the list of available tables on the server. Details about the 'getWBData' package are [here](https://github.com/Conte-Ecology/westBrookData/blob/master/getWBData/vignettes/getWBDataTutorial.pdf).
 
 ## Databases
 
-We have two types of databases: *Environmental* and *fish*
+We have two types of databases: *Environmental* and *Fish*
 
-The *environmental* database contains daily mean temperature and flow data. Flow data are from a flow extension model and are not tributary-specific. Temperature data are from tributary-specific loggers.
+The *environmental* database contains daily mean temperature and flow data. Flow data are of 2 types 1) from a flow extension model - not tributary-specific and 2) hindcasted based on tributarty-specific flows from 2021 on (these flow variables are labelled '...byRiver'). Temperature data are from tributary-specific loggers.
 
 There are four main *fish* databases we want to create:\
 1. **cdWB_electro** West Brook electrofishing data, 3 species (brook trout, brown trout and Atlantic salmon), tagged and untagged fish\
