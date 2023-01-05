@@ -21,6 +21,8 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ```{r}
 #| label: librariesdataAll
 #| echo: false
+#| cache: false
+
 #library(devtools)
 #options(download.file.method = "wininet") or turn off VPN
 #devtools::install_github('Conte-Ecology/westBrookData/getWBData')
@@ -146,7 +148,7 @@ tagsOverTimeRiver = Plot.plot({
 ```{ojs}
 selectTag
 tagsToPlot
-transpose(allOJS)
+allOJS
 ```
 
 
