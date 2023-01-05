@@ -39,6 +39,7 @@ library(targets)
 Variables in the `all data` dataset
 ```{r}
 #| label: dataAll
+#| cache: false
 
 all <- tar_read(cdWB_all)
   
@@ -47,6 +48,8 @@ str(all)
 ```
 
 ```{r}
+#| cache: false
+
 tags <- all %>%
   group_by(tag) %>%
   summarize(n = n()) %>%

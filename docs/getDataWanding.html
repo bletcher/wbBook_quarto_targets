@@ -332,7 +332,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<div class="cell">
+<div class="cell" data-hash="getDataWanding_cache/html/librariesdataWanding_b97c9197ad5b9680465e7ffce1d16e1e">
 
 </div>
 <p>Data are generated in <code>R/getDataWanding-targets.R</code> <a href="https://github.com/bletcher/wbBook_quarto_targets/blob/main/R/getDataWanding_targets.R">file</a></p>
@@ -340,7 +340,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Also, just interesting to see movement patterns from the wanding data.</p>
 <section id="get-wanding-data-targets" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="get-wanding-data-targets"><span class="header-section-number">6.1</span> Get wanding data targets</h2>
-<div class="cell">
+<div class="cell" data-hash="getDataWanding_cache/html/dataWanding_a3a62c442a9acbaf5f92a625b8ffc381">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>cdWB_wanding0 <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cdWB_wanding0_target)</span>
@@ -382,7 +382,7 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>cdWB_wandingWB3 <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cdWB_wandingWB3_target)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell">
+<div class="cell" data-hash="getDataWanding_cache/html/tbl-wandAll_6a36a27d8d5eee75cee83ab6884e4f2d">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cdWB_wanding0 <span class="sc">%&gt;%</span> </span>
@@ -525,7 +525,7 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 </div>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="getDataWanding_cache/html/fig-wanding_d3d87acc72116a198f13eead73ea123f">
 
 </div>
 </section>
@@ -657,7 +657,7 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 <section id="movement" class="level3" data-number="6.3.2">
 <h3 data-number="6.3.2" class="anchored" data-anchor-id="movement"><span class="header-section-number">6.3.2</span> Movement</h3>
 <p>Counts of observations by month, river, year</p>
-<div class="cell">
+<div class="cell" data-hash="getDataWanding_cache/html/unnamed-chunk-9_27a4cd5e2666db2fabca23d1a8ee8c6e">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdWB_wandingTribs3<span class="sc">$</span>month, cdWB_wandingTribs3<span class="sc">$</span>river, cdWB_wandingTribs3<span class="sc">$</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -690,7 +690,7 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 </div>
 </div>
 <p>Frequency distribution of movement rates</p>
-<div class="cell">
+<div class="cell" data-hash="getDataWanding_cache/html/unnamed-chunk-10_a721a886a5f262def881698e44ec8c9b">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cdWB_wandingTribs3, <span class="fu">aes</span>(moveRate, <span class="at">linetype =</span> species)) <span class="sc">+</span></span>
@@ -711,7 +711,7 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 </section>
 <section id="intervals" class="level3" data-number="6.3.3">
 <h3 data-number="6.3.3" class="anchored" data-anchor-id="intervals"><span class="header-section-number">6.3.3</span> Intervals</h3>
-<div class="cell">
+<div class="cell" data-hash="getDataWanding_cache/html/unnamed-chunk-11_9be28a73375ef313f4797c44157f544a">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># #Cut moveTime into intervals to make sure patterns look same for recaptures of different intervals</span></span>
@@ -733,7 +733,7 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 </section>
 <section id="random-effect-models" class="level3" data-number="6.3.4">
 <h3 data-number="6.3.4" class="anchored" data-anchor-id="random-effect-models"><span class="header-section-number">6.3.4</span> Random effect models</h3>
-<div class="cell">
+<div class="cell" data-hash="getDataWanding_cache/html/unnamed-chunk-12_73379c6a87d7bdb82c274a81ddedd1ed">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># RE model for individual movement variation</span></span>
@@ -860,7 +860,7 @@ f():()11:() -0.134 -0.231  0.789   </code></pre>
 </section>
 <section id="young-of-year-fish" class="level3" data-number="6.3.5">
 <h3 data-number="6.3.5" class="anchored" data-anchor-id="young-of-year-fish"><span class="header-section-number">6.3.5</span> Young-of-year fish</h3>
-<div class="cell">
+<div class="cell" data-hash="getDataWanding_cache/html/unnamed-chunk-13_4ade70e7a4bdad08f6084050782fcb18">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cdWB_wandingTribs3, <span class="fu">aes</span>(moveRate, <span class="at">linetype =</span> species)) <span class="sc">+</span></span>
@@ -981,7 +981,7 @@ f():()11:() -0.134 -0.231  0.789   </code></pre>
 </section>
 <section id="random-effects-models" class="level3" data-number="6.4.3">
 <h3 data-number="6.4.3" class="anchored" data-anchor-id="random-effects-models"><span class="header-section-number">6.4.3</span> Random effects models</h3>
-<div class="cell">
+<div class="cell" data-hash="getDataWanding_cache/html/RE model for individual movement variation WB_49160ff3a63f01e5d1bb0283663fe69b">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>  mod0WB <span class="ot">&lt;-</span> <span class="fu">lmer</span>( <span class="fu">abs</span>(moveRate) <span class="sc">~</span> (<span class="dv">1</span><span class="sc">|</span>tag), <span class="at">data=</span>cdWB_wandingWB3 )</span>

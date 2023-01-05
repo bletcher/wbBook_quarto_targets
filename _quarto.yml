@@ -5,6 +5,7 @@ project:
 execute: 
   warning: FALSE
   message: FALSE
+  cache: true
 
 book:
   title: "The West Brook story"

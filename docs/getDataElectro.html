@@ -322,14 +322,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<div class="cell">
+<div class="cell" data-hash="getDataElectro_cache/html/librariesGetElectroData_375a48fc7b2d9356b172dea8d9bfd681">
 
 </div>
 <p>Data are generated in <code>R/getDataElectro-targets.R</code> <a href="https://github.com/bletcher/wbBook_quarto_targets/blob/main/R/getDataElectro_targets.R">file</a></p>
 <section id="get-electrofishing-data-target" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="get-electrofishing-data-target"><span class="header-section-number">4.1</span> Get electrofishing data target</h2>
 <p>Show variables in the dataframe</p>
-<div class="cell">
+<div class="cell" data-hash="getDataElectro_cache/html/getEnvData_5fb2c9df213fe140a04113ab8b59e94b">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>cdWB_electro <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cdWB_electro_target)</span>
@@ -400,7 +400,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="counts-by-species" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="counts-by-species"><span class="header-section-number">4.2</span> Counts by species</h2>
 <p>What are the counts by species for <em>tagged</em> fish?</p>
-<div class="cell">
+<div class="cell" data-hash="getDataElectro_cache/html/unnamed-chunk-4_b9b1ebcbc24526b9c3d4463149f7753d">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # off tagged individuals/species</span></span>
@@ -422,7 +422,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>What are the counts by species for <em>untagged</em> fish?</p>
-<div class="cell">
+<div class="cell" data-hash="getDataElectro_cache/html/unnamed-chunk-5_9be00437713572b763d1f8716738b255">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">#####</span></span>
@@ -443,7 +443,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>Plot length distributions of tagged and untagged fish</p>
-<div class="cell">
+<div class="cell" data-hash="getDataElectro_cache/html/unnamed-chunk-6_ef8dc23d27e8528cde918655695a4601">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">######</span></span>
@@ -459,7 +459,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="mortality-comments" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="mortality-comments"><span class="header-section-number">4.3</span> Mortality comments</h2>
 <p>Show comments related to mortalities</p>
-<div class="cell">
+<div class="cell" data-hash="getDataElectro_cache/html/unnamed-chunk-7_4a790a5176fcf9bd7edb3f703f1ae477">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>cdWB_electro <span class="sc">%&gt;%</span></span>
@@ -529,7 +529,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="length-weight-graph" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="length-weight-graph"><span class="header-section-number">4.4</span> Length-weight graph</h2>
-<div class="cell">
+<div class="cell" data-hash="getDataElectro_cache/html/fig-electroLM_ba2d862f6d07519dfc5065fd3b637683">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cdWB_electro, <span class="fu">aes</span>(observedLength, observedWeight, <span class="at">color =</span> species)) <span class="sc">+</span></span>
@@ -552,7 +552,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="length-weight-regression" class="level2" data-number="4.5">
 <h2 data-number="4.5" class="anchored" data-anchor-id="length-weight-regression"><span class="header-section-number">4.5</span> Length-weight regression</h2>
 <p>Simple linear regression statistics</p>
-<div class="cell">
+<div class="cell" data-hash="getDataElectro_cache/html/lwReg_1ba1b11c3c8497f53f7e29abb0031cc0">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>lwReg <span class="ot">&lt;-</span> cdWB_electro <span class="sc">%&gt;%</span></span>

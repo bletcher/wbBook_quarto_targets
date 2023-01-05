@@ -340,7 +340,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/librariesModelYOY_926f6e0cb2b9710e6053715960e8229f">
 
 </div>
 <p>The question here is what is driving <em>body size variation</em> across years in brook trout and brown trout in the WB?</p>
@@ -362,7 +362,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="get-data-from-targets" class="level2" data-number="9.2">
 <h2 data-number="9.2" class="anchored" data-anchor-id="get-data-from-targets"><span class="header-section-number">9.2</span> Get data from targets</h2>
 <p>West Brook environmental data (flow and temperature) and electrofishing data</p>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/dataWB_9f1f02d09a7b3d83ab02ff768bd8c9f1">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>envDataWB <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(envDataWB_target)</span>
@@ -375,7 +375,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol type="1">
 <li>Filter cdWB_electro for first observations in the autumn for age-0 fish (ageInsamples == 1). Including both tagged and untagged fish.</li>
 </ol>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/unnamed-chunk-4_1238218e32253bbafab28170514fb6dd">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>firstObs_noTag <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(firstObs_noTag_target)</span>
@@ -391,7 +391,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 5. Three months preceding capture<br>
 5. Five months preceding capture</p>
 <p>Then merge results with firstObs0 to create firstObs.</p>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/firstObs_7013d22aab10009f3475fbab99fc0cdf">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>firstObsDates <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(firstObsDates_target) </span>
@@ -402,7 +402,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </details>
 </div>
 <p>Unnest firstObs so environmental summary stats are available as data frame with the name of the time interval as the prefix to the statisticVariable name</p>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/firstObsUnnested_e978ae04e4f5c0f192a2110698efdc90">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>firstObsUnnested <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(firstObsUnnested_target)</span>
@@ -418,7 +418,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="counts-of-captured-fish" class="level3" data-number="9.3.1">
 <h3 data-number="9.3.1" class="anchored" data-anchor-id="counts-of-captured-fish"><span class="header-section-number">9.3.1</span> Counts of captured fish</h3>
 <p>Min and max years (inclusive) for standardizing counts This is in targets, not sure if needed here</p>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/minMaxYear_78faabbd333d6810081aabd7c3d34097">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>minYear <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
@@ -426,7 +426,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </details>
 </div>
 <p>Counts by river and species</p>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/rawCounts_d81b043a9b293084580e4894c5772424">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>countsRSY <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(countsRSY_target)</span>
@@ -441,7 +441,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>Counts by river</p>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/countsRY_d347cf7e346d1fbdbf6cf9b184206306">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>countsRY <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(countsRY_target)</span>
@@ -456,7 +456,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>Counts for the metaPopulation (WB, Jimmy, Mitchell)<br>
 Use these for modelling.</p>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/countsMeta_d20c32f0eade0ac66f7c39ec7cccbde6">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>countsMetaY <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(countsMetaY_target)</span>
@@ -470,7 +470,7 @@ Use these for modelling.</p>
 </div>
 </div>
 <p>Merge metapopulation scaled counts into firstObsUnnested</p>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/mergeMeta_9be610654c7663dfce3b883ba33d3624">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>firstObsUnnested <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(firstObsUnnested_target)</span>
@@ -486,7 +486,7 @@ Use these for modelling.</p>
 </section>
 <section id="brook-trout-west-brook" class="level3" data-number="9.4.2">
 <h3 data-number="9.4.2" class="anchored" data-anchor-id="brook-trout-west-brook"><span class="header-section-number">9.4.2</span> Brook Trout, West brook</h3>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/raw data plots1_65ef568276e8a6cf7ad42fc46fee59b7">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">#cd1 &lt;- cdWB_electro %&gt;% filter(ageInSamples == 1, species != 'ats')</span></span>
@@ -512,7 +512,7 @@ Use these for modelling.</p>
 </section>
 <section id="brook-trout-wb-jimmy" class="level3" data-number="9.4.3">
 <h3 data-number="9.4.3" class="anchored" data-anchor-id="brook-trout-wb-jimmy"><span class="header-section-number">9.4.3</span> Brook Trout, wb jimmy</h3>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/raw data plots2_bab9ba58537feaedca69e22041801a4c">
 <div class="cell-output-display">
 <p><img src="modelYOY_files/figure-html/raw data plots2-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -520,7 +520,7 @@ Use these for modelling.</p>
 </section>
 <section id="brook-trout-wb-mitchell" class="level3" data-number="9.4.4">
 <h3 data-number="9.4.4" class="anchored" data-anchor-id="brook-trout-wb-mitchell"><span class="header-section-number">9.4.4</span> Brook Trout, wb mitchell</h3>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/raw data plots3_6f0e54896530b5226da74cf06cf23779">
 <div class="cell-output-display">
 <p><img src="modelYOY_files/figure-html/raw data plots3-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -528,7 +528,7 @@ Use these for modelling.</p>
 </section>
 <section id="brook-trout-wb-obear" class="level3" data-number="9.4.5">
 <h3 data-number="9.4.5" class="anchored" data-anchor-id="brook-trout-wb-obear"><span class="header-section-number">9.4.5</span> Brook Trout, wb obear</h3>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/raw data plots4_006e0e573a2c25cf8e2a029ee2ff9999">
 <div class="cell-output-display">
 <p><img src="modelYOY_files/figure-html/raw data plots4-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -536,7 +536,7 @@ Use these for modelling.</p>
 </section>
 <section id="brown-trout-west-brook" class="level3" data-number="9.4.6">
 <h3 data-number="9.4.6" class="anchored" data-anchor-id="brown-trout-west-brook"><span class="header-section-number">9.4.6</span> Brown Trout, West brook</h3>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/raw data plots5_4696e9075f44d14a01dff63f9db6fefa">
 <div class="cell-output-display">
 <p><img src="modelYOY_files/figure-html/raw data plots5-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -544,7 +544,7 @@ Use these for modelling.</p>
 </section>
 <section id="brown-trout-wb-jimmy" class="level3" data-number="9.4.7">
 <h3 data-number="9.4.7" class="anchored" data-anchor-id="brown-trout-wb-jimmy"><span class="header-section-number">9.4.7</span> Brown Trout, wb jimmy</h3>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/raw data plots6_f8b7efa9787d13fe18a1f78258a85b29">
 <div class="cell-output-display">
 <p><img src="modelYOY_files/figure-html/raw data plots6-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -552,7 +552,7 @@ Use these for modelling.</p>
 </section>
 <section id="brown-trout-wb-mitchell" class="level3" data-number="9.4.8">
 <h3 data-number="9.4.8" class="anchored" data-anchor-id="brown-trout-wb-mitchell"><span class="header-section-number">9.4.8</span> Brown Trout, wb mitchell</h3>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/raw data plots7_a3ab3f533c248aa828a1a0e34743a222">
 <div class="cell-output-display">
 <p><img src="modelYOY_files/figure-html/raw data plots7-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -563,7 +563,7 @@ Use these for modelling.</p>
 </section>
 <section id="trout-in-the-wb-mainstem-only" class="level3" data-number="9.4.10">
 <h3 data-number="9.4.10" class="anchored" data-anchor-id="trout-in-the-wb-mainstem-only"><span class="header-section-number">9.4.10</span> Trout, in the WB mainstem only</h3>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/troutWB_f64db4f596356a19d8782a8b56dbc67d">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(firstObs <span class="sc">%&gt;%</span> <span class="fu">filter</span>(species <span class="sc">!=</span> <span class="st">"ats"</span>), <span class="fu">aes</span>(observedLength)) <span class="sc">+</span></span>
@@ -589,7 +589,7 @@ Use these for modelling.</p>
 <section id="why-are-there-untagged-fish-bigger-than-60mm" class="level3" data-number="9.4.11">
 <h3 data-number="9.4.11" class="anchored" data-anchor-id="why-are-there-untagged-fish-bigger-than-60mm"><span class="header-section-number">9.4.11</span> Why are there untagged fish bigger than 60mm?</h3>
 <p>Check 2002/bkt/WB, as an example Answer: because they are outside the study area (area = ‘above’ or ‘below’) or were tagging mortalities</p>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/2002 untagged_d7857c5c2ba2ed1778763b5632d9de50">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>  firstObs2002BKT <span class="ot">&lt;-</span> firstObs <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2002</span>, species <span class="sc">==</span> <span class="st">"bkt"</span>)</span>
@@ -641,7 +641,7 @@ FALSE  TRUE
 <section id="models-based-on-yearly-means" class="level2" data-number="9.5">
 <h2 data-number="9.5" class="anchored" data-anchor-id="models-based-on-yearly-means"><span class="header-section-number">9.5</span> Models based on yearly means</h2>
 <p>Filter firstObsUnnestedWB for bkt, bnt and min/maxYear</p>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/filter firstObsUnnestedWB_12b1ae3d99d258738b2ad2e6aa5a3da9">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>d_WB_BKT_BNT <span class="ot">&lt;-</span> firstObsUnnestedWB <span class="sc">%&gt;%</span> <span class="fu">filter</span>(species <span class="sc">!=</span> <span class="st">"ats"</span>, year <span class="sc">%in%</span> minYear<span class="sc">:</span>maxYear) <span class="sc">%&gt;%</span></span>
@@ -659,7 +659,7 @@ FALSE  TRUE
 </details>
 </div>
 <p>Mean model functions</p>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/meanModelFunctions_2f3e99732186a61eeaa4b49f5d2456ca">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>getMeansData <span class="ot">&lt;-</span> <span class="cf">function</span>(d, t, f) {</span>
@@ -715,19 +715,19 @@ FALSE  TRUE
 </details>
 </div>
 <p>Mean lengths by river. This is information only. Using the WB data only shown here and in the next graph for the models.</p>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/meanLengthsR_84e6ad4e52b51a9005d4f846e7f41ca1">
 <div class="cell-output-display">
 <p><img src="modelYOY_files/figure-html/meanLengthsR-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Mean lengths for the mean length model.</p>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/meanLengths_c2bdb27cac9ffdc1f6137db4f0537873">
 <div class="cell-output-display">
 <p><img src="modelYOY_files/figure-html/meanLengths-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Graphs for variables that do not depend on number of months</p>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/staticGraphs_4d1e602338bf660c55b12083f2a1098b">
 <div class="cell-output-display">
 <p><img src="modelYOY_files/figure-html/staticGraphs-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -737,7 +737,7 @@ FALSE  TRUE
 </div>
 <section id="models-with-flow-and-temperature-from-previous-one-month" class="level4" data-number="9.5.0.1">
 <h4 data-number="9.5.0.1" class="anchored" data-anchor-id="models-with-flow-and-temperature-from-previous-one-month"><span class="header-section-number">9.5.0.1</span> Models with flow and temperature from previous <em>one</em> month</h4>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/means1Month_aa0213634bc5a2fb1338624dcedb336e">
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]</code></pre>
 </div>
@@ -792,7 +792,7 @@ F-statistic: 11.94 on 5 and 26 DF,  p-value: 4.544e-06</code></pre>
 </div>
 </div>
 <p>Relative importance for main effects model</p>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/rI1_c19c7f9d2adc19c7bdca3f36e8a87900">
 <div class="cell-output cell-output-stdout">
 <pre><code>     factor(species) meanFTime_sumFScaled meanTTime_sumTScaled 
           0.00395522           0.24940595           0.19990058 
@@ -803,7 +803,7 @@ F-statistic: 11.94 on 5 and 26 DF,  p-value: 4.544e-06</code></pre>
 </section>
 <section id="models-with-flow-and-temperature-from-previous-three-months" class="level4" data-number="9.5.0.2">
 <h4 data-number="9.5.0.2" class="anchored" data-anchor-id="models-with-flow-and-temperature-from-previous-three-months"><span class="header-section-number">9.5.0.2</span> Models with flow and temperature from previous <em>three</em> months</h4>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/means3Month_98d67d35a4dbcdad2bf301fa83412597">
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]</code></pre>
 </div>
@@ -858,7 +858,7 @@ F-statistic: 9.197 on 5 and 26 DF,  p-value: 3.902e-05</code></pre>
 </div>
 </div>
 <p>Relative importance for main effects model</p>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/rI3_db604156a10ebcdc01ed48a9a07b98c3">
 <div class="cell-output cell-output-stdout">
 <pre><code>     factor(species) meanFTime_sumFScaled meanTTime_sumTScaled 
          0.004325792          0.281631981          0.060776249 
@@ -869,7 +869,7 @@ F-statistic: 9.197 on 5 and 26 DF,  p-value: 3.902e-05</code></pre>
 </section>
 <section id="models-with-flow-and-temperature-from-previous-five-months" class="level4" data-number="9.5.0.3">
 <h4 data-number="9.5.0.3" class="anchored" data-anchor-id="models-with-flow-and-temperature-from-previous-five-months"><span class="header-section-number">9.5.0.3</span> Models with flow and temperature from previous <em>five</em> months</h4>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/means5Month_9e93d3e0fc12ffc1f52e185ef9907d56">
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]</code></pre>
 </div>
@@ -924,7 +924,7 @@ F-statistic: 6.805 on 5 and 26 DF,  p-value: 0.0003537</code></pre>
 </div>
 </div>
 <p>Relative importance for main effects model</p>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/rI5_12d88ca4487e306a48b9bcc0487cb269">
 <div class="cell-output cell-output-stdout">
 <pre><code>     factor(species) meanFTime_sumFScaled meanTTime_sumTScaled 
          0.004330339          0.226812955          0.017322018 
@@ -933,7 +933,7 @@ F-statistic: 6.805 on 5 and 26 DF,  p-value: 0.0003537</code></pre>
 </div>
 </div>
 <p>r-squared values and AICs for 1st, 2nd (2-way interactions) and 3rd (3-way interactions) order models</p>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/r2_adba0535738e0fd61daf734dc1be942b">
 <div class="cell-output-display">
 
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
@@ -1128,7 +1128,7 @@ F-statistic: 6.805 on 5 and 26 DF,  p-value: 0.0003537</code></pre>
 </div>
 </div>
 <p>Relative importance of main effects models (repeat of above, but all in one place here)</p>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/rIKable_f8d177a919645aceb0baf07757b70b60">
 <div class="cell-output-display">
 
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
@@ -1254,7 +1254,7 @@ F-statistic: 6.805 on 5 and 26 DF,  p-value: 0.0003537</code></pre>
 <section id="models-with-extreme-flow-events-droughts" class="level3" data-number="9.5.1">
 <h3 data-number="9.5.1" class="anchored" data-anchor-id="models-with-extreme-flow-events-droughts"><span class="header-section-number">9.5.1</span> Models with extreme flow events (droughts)</h3>
 <p>We get negative cumulFlows because we have some negative flows from the flow extension model</p>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/drought_c56a15e690c8f05a7e30b2acdfbbd046">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># put some of these calculations into envDataWB</span></span>
@@ -1309,7 +1309,7 @@ F-statistic: 6.805 on 5 and 26 DF,  p-value: 0.0003537</code></pre>
 </div>
 <p>Is there a sampling section effect?</p>
 <p>Note: there are fish in sections &gt; 50 for years 2002 and 2003, need to filter out early</p>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/unnamed-chunk-35_d7a3cd21ea44cda4b1dea22db92761ab">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d_WB_BKT_BNT <span class="sc">%&gt;%</span> <span class="fu">filter</span>( section <span class="sc">&lt;=</span> <span class="dv">47</span>), <span class="fu">aes</span>(<span class="fu">factor</span>(section), observedLength)) <span class="sc">+</span></span>
@@ -1331,7 +1331,7 @@ F-statistic: 6.805 on 5 and 26 DF,  p-value: 0.0003537</code></pre>
 <p><img src="modelYOY_files/figure-html/unnamed-chunk-35-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="modelYOY_cache/html/unnamed-chunk-36_f20f6cf89dc6982f9558327b5dac6b95">
 
 </div>
 

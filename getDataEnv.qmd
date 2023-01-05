@@ -9,6 +9,8 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ```{r}
 #| label: librariesGetData
 #| echo: false
+#| cache: false
+
 #library(devtools)
 #options(download.file.method = "wininet") or turn off VPN
 #devtools::install_github('Conte-Ecology/westBrookData/getWBData')
@@ -25,8 +27,11 @@ Data are generated in `R/getDataEnv-targets.R` [file](https://github.com/bletche
 
 ```{r}
 #| label: getEnvData
+#| cache: false
+
 envDataWB <- tar_read(envDataWB_Target)
 str(envDataWB)
+
 ojs_define(envDataWB_OJS = transpose(envDataWB))
 ```
 
@@ -147,6 +152,7 @@ ggplot(envDataWB, aes(date, temperature)) +
 ## Plot air and water temperature over time for each tributary
 
 ```{r}
+#| cache: false
 #| label: fig-envAirTemp
 #| fig-cap: "Stream and air temperature (C) by river"
 
