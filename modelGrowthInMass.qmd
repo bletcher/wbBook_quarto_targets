@@ -1,0 +1,165 @@
+# Growth in mass
+
+```{r}
+#| label: dataModelFlowOptions
+#| include: false
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
+```{r}
+#| label: librariesModelsFlow
+#| echo: false
+library(getWBData)
+library(tidyverse)
+library(lubridate)
+library(kableExtra)
+library(GGally)
+library(lme4)
+library(targets)
+```
+
+Get electrofishing data
+```{r}
+#| label: readInAllData
+cd <- tar_read(cdWB_electro_target)
+
+```
+
+Limit to consecutive sample captures (cd1)
+```{r}
+table(as.numeric(cd$sampleNumber), as.numeric(cd$lagSampleNumber), cd$season, cd$year) |> 
+  data.frame() |> 
+  filter(Freq > 0) |> 
+  arrange(Var1, Var2) |> 
+  tail(40)
+
+`%notin%` <- Negate(`%in%`)
+
+cd1 <- cd |> 
+  filter(sampleNumberDiff == 1,
+         tag %notin% c('1bf20ff490', '1bf20ebe4e') )
+```
+
+Raw length, weight data graphs
+```{r}
+ggplot(cd1, aes(grWeight, color = factor(season))) +
+  geom_freqpoly(bins = 100) +
+  facet_wrap(~season)
+
+ggplot(cd1, aes(observedLength, observedWeight)) +
+  geom_point(alpha = 0.05) +
+  facet_grid(species~river)
+
+```
+
+Get l-w relationships for growth model  
+We need to get separate stats for each river and season and species  
+Size-independent growth (grWeightS) is calculated in getDataElectro_targets.R file using addSizeIndGrowthWeight()  
+grWeightS uses the slope of log(observedWeight) ~ log(grWeight) for each river and season and species to adjust growth  
+see `Sigourney, D. B., B H Letcher, M. Obedzinski, and R. A. Cunjak. “Size-Independent Growth in Fishes: Patterns, Models and Metrics.” Journal of Fish Biology 72, no. 10 (2008): 2435–55. https://doi.org/10.1111/j.1095-8649.2008.01830.x.`
+
+```{r}
+
+ggplot(cd1 |> filter(grWeight > 0), 
+       aes(log(observedWeight), log(grWeight), color = river)) +
+  geom_point(alpha = 0.05)  +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_grid(season~species)
+
+mod0 <- lm(log(observedWeight) ~ log(grWeight), data = cd1 |> filter(grWeight > 0))
+mod1 <- lm(log(observedWeight) ~ log(grWeight) * river, data = cd1 |> filter(grWeight > 0))
+mod2 <- lm(log(observedWeight) ~ log(grWeight) * river * factor(season), data = cd1 |> filter(grWeight > 0))
+mod3 <- lm(log(observedWeight) ~ log(grWeight) * factor(season), data = cd1 |> filter(grWeight > 0))
+mod4 <- lm(log(observedWeight) ~ log(grWeight) * river * factor(season) * species, data = cd1 |> filter(grWeight > 0))
+
+AIC(mod0,mod1,mod2,mod3,mod4) |> arrange(AIC)
+```
+
+Size-adjusted growth works quite well except in the spring.
+```{r}
+
+ggplot(cd1, aes(log(observedWeight), grWeightS, color = river)) +
+  geom_point(alpha = 0.05)  +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_grid(season~species)
+```
+
+1bf20ff490  1bf20ebe4e have incorrect weights leading to very negative growth rates  
+Exclude these tags above
+```{r}
+cd1 |> 
+  arrange(grWeightS) |> 
+  select(tag, species, detectionDate, season, sampleNumber, lagSampleNumber, observedWeight, lagObservedWeight, grWeightS)
+```
+
+Lost of very fast growth mostly in the spring. No clear way to exlue fish.
+```{r}
+cd1 |> 
+  arrange(desc(grWeightS)) |> 
+  select(tag, species, detectionDate, season, sampleNumber, lagSampleNumber, observedWeight, lagObservedWeight, grWeightS) |> 
+  print(n = 50)
+```
+
+Mean flow effect on size-independent growth?  
+Maybe in Jimmy for bnt, or for ats
+```{r}
+
+ggplot(cd1, aes(meanFlow, grWeightS, color = river)) +
+  geom_point(alpha = 0.05)  +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_grid(season~species)
+
+ggplot(cd1 |> filter(season == 3), aes(meanFlow, grWeightS, color = river)) +
+  geom_point(alpha = 0.1)  +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_grid(season~species)
+
+```
+
+Mean temperature effect on size-independent growth?  
+Maybe in Jimmy for bnt, or for ats
+```{r}
+
+ggplot(cd1, aes(meanTemperature, grWeightS, color = river)) +
+  geom_point(alpha = 0.05)  +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_grid(season~species)
+
+ggplot(cd1 |> filter(species == 'bkt'), aes(meanTemperature, grWeightS, color = river)) +
+  geom_point(alpha = 0.1)  +
+  geom_smooth(method = "lm", se = FALSE) +
+  ggtitle('Species = brook trout') +
+  facet_wrap(~season, scales = 'free')
+
+ggplot(cd1 |> filter(species == 'bnt'), aes(meanTemperature, grWeightS, color = river)) +
+  geom_point(alpha = 0.1)  +
+  geom_smooth(method = "lm", se = FALSE) +
+  ggtitle('Species = brown trout') +
+  facet_wrap(~season, scales = 'free')
+
+ggplot(cd1 |> filter(species == 'ats'), aes(meanTemperature, grWeightS, color = river)) +
+  geom_point(alpha = 0.1)  +
+  geom_smooth(method = "lm", se = FALSE) +
+  ggtitle('Species = salmon') +
+  facet_wrap(~season, scales = 'free')
+
+
+```
+
+
+Growth rate in length vs size-independent growth rate in mass
+```{r}
+
+ggplot(cd1, aes(grLength, grWeightS)) +
+  geom_point(aes(size = observedWeight), alpha = 0.02) +
+  facet_grid(season~species)
+```
+
+Growth rate in length vs 'instantaneous' growth rate in mass
+```{r}
+
+ggplot(cd1, aes(grLength, grWeight)) +
+  geom_point(aes(size = observedWeight), alpha = 0.02) +
+  facet_grid(season~species)
+```
+

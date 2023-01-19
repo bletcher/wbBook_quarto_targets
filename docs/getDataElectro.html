@@ -258,7 +258,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">Capture-recpature models</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">Capture-recapture models</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -272,6 +272,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./modelsCMR_Flow_4Rivers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Flow effects on survival (phi) models - 4 rivers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">Miscallaneous/playground</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelGrowthInMass.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Growth in mass</span></a>
   </div>
 </li>
       </ul>
@@ -295,7 +310,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#mortality-comments" id="toc-mortality-comments" class="nav-link" data-scroll-target="#mortality-comments"><span class="toc-section-number">4.3</span>  Mortality comments</a></li>
   <li><a href="#length-weight-graph" id="toc-length-weight-graph" class="nav-link" data-scroll-target="#length-weight-graph"><span class="toc-section-number">4.4</span>  Length-weight graph</a></li>
   <li><a href="#length-weight-regression" id="toc-length-weight-regression" class="nav-link" data-scroll-target="#length-weight-regression"><span class="toc-section-number">4.5</span>  Length-weight regression</a></li>
-  <li><a href="#capture-mark-recapture-metadata" id="toc-capture-mark-recapture-metadata" class="nav-link" data-scroll-target="#capture-mark-recapture-metadata"><span class="toc-section-number">4.6</span>  Capture-Mark-Recapture metadata</a>
+  <li><a href="#electrofishing-data-metadata" id="toc-electrofishing-data-metadata" class="nav-link" data-scroll-target="#electrofishing-data-metadata"><span class="toc-section-number">4.6</span>  Electrofishing data metadata</a>
   <ul class="collapse">
   <li><a href="#adapted-from-httpsgithub.comconte-ecologywestbrookdatablobmastergetwbdatavignetteswestbrookdataintro.rmd" id="toc-adapted-from-httpsgithub.comconte-ecologywestbrookdatablobmastergetwbdatavignetteswestbrookdataintro.rmd" class="nav-link" data-scroll-target="#adapted-from-httpsgithub.comconte-ecologywestbrookdatablobmastergetwbdatavignetteswestbrookdataintro.rmd"><span class="toc-section-number">4.6.1</span>  adapted from https://github.com/Conte-Ecology/westBrookData/blob/master/getWBData/vignettes/westBrookDataIntro.Rmd</a></li>
   </ul></li>
@@ -590,8 +605,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="capture-mark-recapture-metadata" class="level2" data-number="4.6">
-<h2 data-number="4.6" class="anchored" data-anchor-id="capture-mark-recapture-metadata"><span class="header-section-number">4.6</span> Capture-Mark-Recapture metadata</h2>
+<section id="electrofishing-data-metadata" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="electrofishing-data-metadata"><span class="header-section-number">4.6</span> Electrofishing data metadata</h2>
 <section id="adapted-from-httpsgithub.comconte-ecologywestbrookdatablobmastergetwbdatavignetteswestbrookdataintro.rmd" class="level3" data-number="4.6.1">
 <h3 data-number="4.6.1" class="anchored" data-anchor-id="adapted-from-httpsgithub.comconte-ecologywestbrookdatablobmastergetwbdatavignetteswestbrookdataintro.rmd"><span class="header-section-number">4.6.1</span> adapted from https://github.com/Conte-Ecology/westBrookData/blob/master/getWBData/vignettes/westBrookDataIntro.Rmd</h3>
 <section id="column-explanations" class="level4" data-number="4.6.1.1">
@@ -1057,7 +1072,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb15-123"><a href="#cb15-123" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb15-124"><a href="#cb15-124" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-125"><a href="#cb15-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-126"><a href="#cb15-126" aria-hidden="true" tabindex="-1"></a><span class="fu">## Capture-Mark-Recapture metadata</span></span>
+<span id="cb15-126"><a href="#cb15-126" aria-hidden="true" tabindex="-1"></a><span class="fu">## Electrofishing data metadata</span></span>
 <span id="cb15-127"><a href="#cb15-127" aria-hidden="true" tabindex="-1"></a><span class="fu">### adapted from https://github.com/Conte-Ecology/westBrookData/blob/master/getWBData/vignettes/westBrookDataIntro.Rmd</span></span>
 <span id="cb15-128"><a href="#cb15-128" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-129"><a href="#cb15-129" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Column explanations</span></span>

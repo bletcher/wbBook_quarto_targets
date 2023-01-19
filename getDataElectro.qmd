@@ -105,7 +105,7 @@ lwReg %>% summarise(broom::glance(reg))
 ```
 
 
-## Capture-Mark-Recapture metadata
+## Electrofishing data metadata
 ### adapted from https://github.com/Conte-Ecology/westBrookData/blob/master/getWBData/vignettes/westBrookDataIntro.Rmd
 
 #### Column explanations

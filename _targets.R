@@ -46,17 +46,21 @@ list(
   dataAntenna_target,
   dataAll_target,
   modelYOY_target,
-  modelFlow_target,
- # modelCMR_tt_OB_target
+  modelFlow_target
 
- # modelCMR_tt_OB_flow_target,
-#  modelCMR_tt_OB_flowByRiver_target,
-  modelCMR_tt_ft_OB_flow_target,
-  modelCMR_tt_ft_OB_flowByRiver_target,
+  # turn off for now
+  # modelCMR_tt_ft_OB_flow_target,
+  # modelCMR_tt_ft_OB_flowByRiver_target,
+  # 
+  # modelCMR_tt_ft_cohort_OB_flow_target,
+  # modelCMR_tt_ft_cohort_OB_flowByRiver_target
 
-  modelCMR_tt_ft_cohort_OB_flow_target,
-  modelCMR_tt_ft_cohort_OB_flowByRiver_target
-
-  # modelCMR_ttt_WB_target, 
+    # old models
+    # modelCMR_tt_OB_target
+    
+    # modelCMR_tt_OB_flow_target,
+    # modelCMR_tt_OB_flowByRiver_target,
+    # modelCMR_ttt_WB_target, 
+  
   #tar_quarto(book) # not exactly sure what this does, except create correct tar_visualize() result
 )
