@@ -1,5 +1,6 @@
 # Growth in mass
 
+
 ```{r}
 #| label: dataModelFlowOptions
 #| include: false
@@ -18,45 +19,70 @@ library(lme4)
 library(targets)
 ```
 
-Get electrofishing data
+### Get electrofishing data
 ```{r}
 #| label: readInAllData
 cd <- tar_read(cdWB_electro_target)
 
 ```
 
-Limit to consecutive sample captures (cd1)
+### Limit to consecutive sample captures (cd1)  
+Previous growth models with length used all possible observations for a fish and interpolated missing observations. Here, we are just looking at consecutive captures to estimate growth over just that interval.
 ```{r}
-table(as.numeric(cd$sampleNumber), as.numeric(cd$lagSampleNumber), cd$season, cd$year) |> 
-  data.frame() |> 
-  filter(Freq > 0) |> 
-  arrange(Var1, Var2) |> 
-  tail(40)
+# table(as.numeric(cd$sampleNumber), as.numeric(cd$lagSampleNumber), cd$season, cd$year) |> 
+#   data.frame() |> 
+#   filter(Freq > 0) |> 
+#   arrange(Var1, Var2) |> 
+#   rename(firstCapt = Var1, secondCapt = Var2, season = Var3, year = Var4) |> 
+#   filter(year == 2010)
 
 `%notin%` <- Negate(`%in%`)
 
 cd1 <- cd |> 
   filter(sampleNumberDiff == 1,
-         tag %notin% c('1bf20ff490', '1bf20ebe4e') )
+         tag %notin% c('1bf20ff490', '1bf20ebe4e')) |> 
+  mutate(negGrowth = grWeight < 0)
 ```
 
-Raw length, weight data graphs
+
+### Find outlier growth rates (negative)  
+`1bf20ebe4e` and `1bf20ff490` have incorrect weights leading to very negative growth rates.  
+Exclude these tags above. The rest of the quite negative growth fish seem plausible (remember we can't account for stomach contents).
 ```{r}
-ggplot(cd1, aes(grWeight, color = factor(season))) +
+cd |> 
+  arrange(grWeightS) |> 
+  select(tag, species, season, sampleNumber, lagSampleNumber, observedWeight, lagObservedWeight, grWeightS)
+```
+
+### Find outlier growth rates (positive) 
+Lots of very fast growth mostly in the spring. No clear way to exclude fish.
+```{r}
+cd1 |> 
+  arrange(desc(grWeightS)) |> 
+  select(tag, species, season, sampleNumber, lagSampleNumber, observedWeight, lagObservedWeight, grWeightS) |> 
+  print(n = 20)
+```
+
+### Raw length, weight data graphs
+```{r}
+ggplot(cd1, aes(grWeightS, color = factor(season))) +
   geom_freqpoly(bins = 100) +
   facet_wrap(~season)
 
 ggplot(cd1, aes(observedLength, observedWeight)) +
   geom_point(alpha = 0.05) +
-  facet_grid(species~river)
+  facet_grid(species~river, scales = 'free')
 
+ggplot(cd1, aes(observedWeight, lagObservedWeight, color = factor(season))) +
+  geom_point(alpha = 0.05) +
+  facet_grid(species~river, scales = 'free')
 ```
 
-Get l-w relationships for growth model  
-We need to get separate stats for each river and season and species  
-Size-independent growth (grWeightS) is calculated in getDataElectro_targets.R file using addSizeIndGrowthWeight()  
-grWeightS uses the slope of log(observedWeight) ~ log(grWeight) for each river and season and species to adjust growth  
-see `Sigourney, D. B., B H Letcher, M. Obedzinski, and R. A. Cunjak. “Size-Independent Growth in Fishes: Patterns, Models and Metrics.” Journal of Fish Biology 72, no. 10 (2008): 2435–55. https://doi.org/10.1111/j.1095-8649.2008.01830.x.`
+### Get l-w relationships for size-adjusted growth model  
+Here, we will explore size-independent growth in mass, see `Sigourney, D. B., B H Letcher, M. Obedzinski, and R. A. Cunjak. “Size-Independent Growth in Fishes: Patterns, Models and Metrics.” Journal of Fish Biology 72, no. 10 (2008): 2435–55. https://doi.org/10.1111/j.1095-8649.2008.01830.x.`
+Size-independent growth (`grWeightS`) is calculated in getDataElectro_targets.R file using addSizeIndGrowthWeight().  
+`grWeightS` uses the slope of `log(observedWeight)` ~ `log(grWeight)` for each river and season and species to adjust growth.  
+A simple linear models shows we need to get separate slopes for each river and season and species.  
 
 ```{r}
 
@@ -66,92 +92,43 @@ ggplot(cd1 |> filter(grWeight > 0),
   geom_smooth(method = "lm", se = FALSE) +
   facet_grid(season~species)
 
-mod0 <- lm(log(observedWeight) ~ log(grWeight), data = cd1 |> filter(grWeight > 0))
-mod1 <- lm(log(observedWeight) ~ log(grWeight) * river, data = cd1 |> filter(grWeight > 0))
-mod2 <- lm(log(observedWeight) ~ log(grWeight) * river * factor(season), data = cd1 |> filter(grWeight > 0))
-mod3 <- lm(log(observedWeight) ~ log(grWeight) * factor(season), data = cd1 |> filter(grWeight > 0))
-mod4 <- lm(log(observedWeight) ~ log(grWeight) * river * factor(season) * species, data = cd1 |> filter(grWeight > 0))
+mod0 <- lm(log(grWeight) ~ log(observedWeight), data = cd1 |> filter(grWeight > 0))
+mod1 <- lm(log(grWeight) ~ log(observedWeight) * river, data = cd1 |> filter(grWeight > 0))
+mod2 <- lm(log(grWeight) ~ log(observedWeight) * river * factor(season), data = cd1 |> filter(grWeight > 0))
+mod3 <- lm(log(grWeight) ~ log(observedWeight) * factor(season), data = cd1 |> filter(grWeight > 0))
+mod4 <- lm(log(grWeight) ~ log(observedWeight) * river * factor(season) * species, data = cd1 |> filter(grWeight > 0))
 
 AIC(mod0,mod1,mod2,mod3,mod4) |> arrange(AIC)
 ```
 
-Size-adjusted growth works quite well except in the spring.
+### Compare size-adjusted and instantaneous growth  
+Differences don't seem big enough to warrant the extra complexity from the s-adjusted growth metric 
 ```{r}
-
-ggplot(cd1, aes(log(observedWeight), grWeightS, color = river)) +
+ggplot(cd1, aes(grWeight, grWeightS, color = river)) +
   geom_point(alpha = 0.05)  +
   geom_smooth(method = "lm", se = FALSE) +
+  geom_abline(intercept = 0, slope = 1) +
+  facet_grid(season~species)
+
+ggplot(cd1 |> 
+         select(observedWeight, grWeight, grWeightS, season, species) |> 
+         pivot_longer(cols = c(grWeight, grWeightS)),
+       
+       aes(log(observedWeight), value, color = name)) +
+  geom_point(alpha = 0.05 )  +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_y_continuous("Growth rate") +
   facet_grid(season~species)
 ```
 
-1bf20ff490  1bf20ebe4e have incorrect weights leading to very negative growth rates  
-Exclude these tags above
-```{r}
-cd1 |> 
-  arrange(grWeightS) |> 
-  select(tag, species, detectionDate, season, sampleNumber, lagSampleNumber, observedWeight, lagObservedWeight, grWeightS)
-```
 
-Lost of very fast growth mostly in the spring. No clear way to exlue fish.
-```{r}
-cd1 |> 
-  arrange(desc(grWeightS)) |> 
-  select(tag, species, detectionDate, season, sampleNumber, lagSampleNumber, observedWeight, lagObservedWeight, grWeightS) |> 
-  print(n = 50)
-```
-
-Mean flow effect on size-independent growth?  
-Maybe in Jimmy for bnt, or for ats
-```{r}
-
-ggplot(cd1, aes(meanFlow, grWeightS, color = river)) +
-  geom_point(alpha = 0.05)  +
-  geom_smooth(method = "lm", se = FALSE) +
-  facet_grid(season~species)
-
-ggplot(cd1 |> filter(season == 3), aes(meanFlow, grWeightS, color = river)) +
-  geom_point(alpha = 0.1)  +
-  geom_smooth(method = "lm", se = FALSE) +
-  facet_grid(season~species)
-
-```
-
-Mean temperature effect on size-independent growth?  
-Maybe in Jimmy for bnt, or for ats
-```{r}
-
-ggplot(cd1, aes(meanTemperature, grWeightS, color = river)) +
-  geom_point(alpha = 0.05)  +
-  geom_smooth(method = "lm", se = FALSE) +
-  facet_grid(season~species)
-
-ggplot(cd1 |> filter(species == 'bkt'), aes(meanTemperature, grWeightS, color = river)) +
-  geom_point(alpha = 0.1)  +
-  geom_smooth(method = "lm", se = FALSE) +
-  ggtitle('Species = brook trout') +
-  facet_wrap(~season, scales = 'free')
-
-ggplot(cd1 |> filter(species == 'bnt'), aes(meanTemperature, grWeightS, color = river)) +
-  geom_point(alpha = 0.1)  +
-  geom_smooth(method = "lm", se = FALSE) +
-  ggtitle('Species = brown trout') +
-  facet_wrap(~season, scales = 'free')
-
-ggplot(cd1 |> filter(species == 'ats'), aes(meanTemperature, grWeightS, color = river)) +
-  geom_point(alpha = 0.1)  +
-  geom_smooth(method = "lm", se = FALSE) +
-  ggtitle('Species = salmon') +
-  facet_wrap(~season, scales = 'free')
-
-
-```
-
-
+### Compare gorwth in length and mass  
 Growth rate in length vs size-independent growth rate in mass
 ```{r}
 
 ggplot(cd1, aes(grLength, grWeightS)) +
   geom_point(aes(size = observedWeight), alpha = 0.02) +
+  guides(size = guide_legend(override.aes = list(alpha = 1))) +
   facet_grid(season~species)
 ```
 
@@ -160,6 +137,126 @@ Growth rate in length vs 'instantaneous' growth rate in mass
 
 ggplot(cd1, aes(grLength, grWeight)) +
   geom_point(aes(size = observedWeight), alpha = 0.02) +
+  guides(size = guide_legend(override.aes = list(alpha = 1))) +
   facet_grid(season~species)
 ```
 
+
+
+### Mean flow effect on growth?  
+Maybe in Jimmy for bnt, or for ats
+```{r}
+
+ggplot(cd1, aes(meanFlow, grWeight, color = river)) +
+  geom_point(alpha = 0.05)  +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_grid(season~species, scales = 'free')
+
+ggplot(cd1 |> filter(season == 3), aes(meanFlow, grWeight, color = river)) +
+  geom_point(alpha = 0.1)  +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_grid(season~species, scales = 'free')
+
+```
+
+### Mean temperature effect on growth?  
+Maybe in Jimmy for bnt, or for ats
+```{r}
+
+ggplot(cd1, aes(meanTemperature, grWeight, color = river)) +
+  geom_point(alpha = 0.05)  +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_grid(season~species, scales = 'free')
+
+ggplot(cd1 |> filter(species == 'bkt'), aes(meanTemperature, grWeight, color = river)) +
+  geom_point(alpha = 0.1)  +
+  geom_smooth(method = "lm", se = FALSE) +
+  ggtitle('Species = brook trout') +
+  facet_wrap(~season, scales = 'free')
+
+ggplot(cd1 |> filter(species == 'bnt'), aes(meanTemperature, grWeight, color = river)) +
+  geom_point(alpha = 0.1)  +
+  geom_smooth(method = "lm", se = FALSE) +
+  ggtitle('Species = brown trout') +
+  facet_wrap(~season, scales = 'free')
+
+ggplot(cd1 |> filter(species == 'ats'), aes(meanTemperature, grWeight, color = river)) +
+  geom_point(alpha = 0.1)  +
+  geom_smooth(method = "lm", se = FALSE) +
+  ggtitle('Species = Atlantic salmon') +
+  facet_wrap(~season, scales = 'free')
+
+
+```
+
+### Proportion of fish with negative growth by species/river/season
+```{r}
+ggplot(cd1, aes(negGrowth)) +
+  geom_bar() +
+  facet_grid(season~species+river, scales = "free")
+
+propNegSRS <- cd1 |> 
+  group_by(species, river, season) |> 
+  summarize(numNeg = sum(negGrowth, na.rm = TRUE),
+            n = n()
+            ) |> 
+  mutate(numPos = n - numNeg,
+         propPos = numPos/n,
+         propNeg = numNeg/n)
+
+ggplot(propNegSRS |> filter(n > 10), aes(season, propNeg, color = river)) +
+  geom_point(aes(size = n)) +
+  geom_line() +
+  scale_y_continuous("Proportion of fish with negative growth in mass") +
+  facet_wrap(~species)
+
+```
+
+### Proportion of fish with negative growth by species/river/sampleNumber
+```{r}
+propNegSRsN <- cd1 |> 
+  group_by(species, river, sampleNumber, season, year) |> 
+  summarize(numNeg = sum(negGrowth, na.rm = TRUE),
+            n = n(),
+            mT = mean(meanTemperature, na.rm = TRUE),
+            mF = mean(meanFlow, na.rm = TRUE)
+            ) |> 
+  mutate(numPos = n - numNeg,
+         propPos = numPos/n,
+         propNeg = numNeg/n)
+
+ggplot(propNegSRsN |> filter(n > 10), aes(year, propNeg, color = river)) +
+  geom_point(aes(size = n)) +
+  geom_line() +
+  scale_y_continuous("Proportion of fish with negative growth in mass") +
+  facet_grid(season~species)
+```
+
+### Proportion of fish with negative growth by Flow
+```{r}
+
+ggplot(propNegSRsN |> filter(n > 10), aes(mF, propNeg, color = river)) +
+  geom_point(aes(size = n)) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_y_continuous("Proportion of fish with negative growth in mass") +
+  scale_x_continuous("Mean Flow") +
+  facet_grid(season~species)
+```
+
+### Proportion of fish with negative growth by temperature
+```{r}
+
+ggplot(propNegSRsN |> filter(n > 10), aes(mT, propNeg, color = river)) +
+  geom_point(aes(size = n)) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_y_continuous("Proportion of fish with negative growth in mass") +
+  scale_x_continuous("Mean Temperature") +
+  facet_grid(season~species, scales = "free")
+
+ggplot(propNegSRsN |> filter(n > 10), aes(mT, propNeg, color = river)) +
+  geom_point(aes(size = n)) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_y_continuous("Proportion of fish with negative growth in mass") +
+  scale_x_continuous("Mean Temperature") +
+  facet_grid(species~season, scales = "free")
+```
