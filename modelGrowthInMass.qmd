@@ -17,6 +17,9 @@ library(kableExtra)
 library(GGally)
 library(lme4)
 library(targets)
+library(relaimpo)
+library(caret)
+library(pscl)
 ```
 
 ## Get electrofishing data
@@ -261,7 +264,7 @@ ggplot(propNegSRsN |> filter(n > 10), aes(mF, propNeg, color = river)) +
   facet_grid(season~species)
 ```
 
-## Proportion of fish with negative growth by **temperature**
+### Proportion of fish with negative growth by **temperature**
 ```{r}
 
 ggplot(propNegSRsN |> filter(n > 10), aes(mT, propNeg, color = river)) +
@@ -281,4 +284,96 @@ ggplot(propNegSRsN |> filter(n > 10), aes(mT, propNeg, color = river)) +
   facet_grid(species~season, scales = "free")
 ```
 
+## Models for environmental effects on propNeg
+### Standardize flow and temperature
+```{r}
+# getZ <- function(d){
+#   list(
+#     mean = mean(d, na.rm = TRUE),
+#     sd = sd(d, na.rm = TRUE)
+#   )
+# }
+# fZ <- getZ(cd1$meanFlow)
+# fT <- getZ(cd1$meanTemperature)
+
+z <- cd1 |> 
+  group_by(season) |> 
+  summarize(fZMean = mean(meanFlow, na.rm = TRUE),
+            fZSd = sd(meanFlow, na.rm = TRUE),
+            fTMean = mean(meanTemperature, na.rm = TRUE),
+            fTSd = sd(meanTemperature, na.rm = TRUE)
+            )
+
+cd1 <- cd1 |> 
+  left_join(z) |> 
+  mutate(meanFlowZ = (meanFlow - fZMean)/fZSd,
+         meanTempZ = (meanTemperature - fTMean)/fTSd)
+```
+
+### Raw data with logistic fit for flow effect 
+```{r}
+ggplot(cd1 |> filter(!is.na(negGrowth)), aes(meanFlowZ, negGrowth * 1)) +
+  geom_point(alpha = 0.1) +
+  geom_smooth(method = "glm", 
+              method.args = list(family = "binomial"),
+              se = FALSE) +
+  labs(y = "Probability of negative growth in mass", x = "Mean flow") +
+  facet_grid(season~species)
+```
+
+### Raw data with logistic fit for temperature effect 
+```{r}
+ggplot(cd1 |> filter(!is.na(negGrowth), meanTempZ > -4), aes(meanTempZ, negGrowth * 1, color = river)) +
+  geom_point(alpha = 0.1) +
+  geom_smooth(method = "glm", 
+              method.args = list(family = "binomial"),
+              se = FALSE) +
+  labs(y = "Probability of negative growth in mass", x = "Mean flow") +
+  facet_grid(season~species)
+```
+
+## Logistic model for flow and temperature
+### Model selection
+```{r}
+modFT0 <- glm(negGrowth ~ meanFlowZ * meanTempZ * river * species, family = "binomial", data = cd1)
+modFT1 <- glm(negGrowth ~ meanFlowZ * meanTempZ * river + species, family = "binomial", data = cd1)
+modFT2 <- glm(negGrowth ~ meanFlowZ * meanTempZ + river + species, family = "binomial", data = cd1)
+modFT3 <- glm(negGrowth ~ meanFlowZ + meanTempZ + river + species, family = "binomial", data = cd1)
+modFT4 <- glm(negGrowth ~ meanFlowZ * meanTempZ + river , family = "binomial", data = cd1)
+modFT5 <- glm(negGrowth ~ meanFlowZ * meanTempZ + river , family = "binomial", data = cd1)
+modFT6 <- glm(negGrowth ~ meanFlowZ * meanTempZ + species , family = "binomial", data = cd1)
+modFT7 <- glm(negGrowth ~ meanFlowZ * meanTempZ, family = "binomial", data = cd1)
+
+
+modFT8 <- glm(negGrowth ~ meanFlowZ * meanTempZ * river * season + species, family = "binomial", data = cd1)
+modFT9 <- glm(negGrowth ~ meanFlowZ * meanTempZ * river * season * species, family = "binomial", data = cd1)
+modFT10 <- glm(negGrowth ~ meanFlowZ + meanTempZ * river * season * species, family = "binomial", data = cd1)
+AIC(modFT0, modFT1,modFT2, modFT3,modFT4,modFT5, modFT6,modFT7,modFT8,modFT9,modFT10) |> arrange(AIC)
+```
+
+### Model results for additive model (not very good)
+```{r}
+
+# https://www.statology.org/logistic-regression-in-r/
+summary(modFT3)
+anova(modFT3)
+
+
+pscl::pR2(modFT3)["McFadden"]
+caret::varImp(modFT3) |> arrange(desc(Overall))
+
+
+```
+
+### Model results for full interactive model (best model)
+```{r}
+
+# https://www.statology.org/logistic-regression-in-r/
+summary(modFT9)
+anova(modFT9)
+
+# full interaction
+pscl::pR2(modFT9)["McFadden"]
+caret::varImp(modFT9) |> arrange(desc(Overall))
+```
 
