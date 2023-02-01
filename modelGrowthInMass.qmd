@@ -1,6 +1,5 @@
 # Growth in mass
 
-
 ```{r}
 #| label: dataModelFlowOptions
 #| include: false
@@ -22,6 +21,26 @@ library(caret)
 library(pscl)
 ```
 
+Distribution of growth, negative growth
+Causes of neg growth  
+  - Extrinsic
+    - river, season, flow, temp
+  - intrinsic  
+    - Sex (fall), life history, section, size, age, previous growth (CF?), movement (section/river) 
+consequences of neg growth
+   - survival  
+   - future growth (length and mass)
+   - movement (section/river)
+   - reprod success?  
+   - local density (con and hetero)
+
+Probs with growth in mass  
+spawning loss mass in the fall, esp in OB
+
+interaction between flow:temp, diff btw WB (groundwater dominated at low flow so cold) and tribs (combo of surface and gw?)
+
+Compare growth with t/f cycle diagrams for each river
+
 ## Get electrofishing data
 ```{r}
 #| label: readInAllData
@@ -29,7 +48,7 @@ cd <- tar_read(cdWB_electro_target)
 
 ```
 
-## Limit to consecutive sample captures (cd1)  
+## Limit data to consecutive sample captures (cd1)  
 Previous growth models with length used all possible observations for a fish and interpolated missing observations. Here, we are just looking at consecutive captures to estimate growth over just that interval.
 ```{r}
 # table(as.numeric(cd$sampleNumber), as.numeric(cd$lagSampleNumber), cd$season, cd$year) |> 
@@ -51,7 +70,7 @@ cd1 <- cd |>
 ## Find outlier growth rates  
 ### Negative outlier growth  
 `1bf20ebe4e` and `1bf20ff490` have incorrect weights leading to very negative growth rates.  
-Exclude these tags above. The rest of the quite negative growth fish seem plausible (remember we can't account for stomach contents).
+Exclude these tags above. The rest of the quite negative growth fish seem plausible (remember we can't account for stomach contents or egg loss).
 ```{r}
 cd |> 
   arrange(grWeightS) |> 
@@ -312,7 +331,7 @@ cd1 <- cd1 |>
 
 ### Raw data with logistic fit for flow effect 
 ```{r}
-ggplot(cd1 |> filter(!is.na(negGrowth)), aes(meanFlowZ, negGrowth * 1)) +
+ggplot(cd1 |> filter(!is.na(negGrowth)), aes(meanFlowZ, negGrowth * 1, color = river)) +
   geom_point(alpha = 0.1) +
   geom_smooth(method = "glm", 
               method.args = list(family = "binomial"),
@@ -375,5 +394,32 @@ anova(modFT9)
 # full interaction
 pscl::pR2(modFT9)["McFadden"]
 caret::varImp(modFT9) |> arrange(desc(Overall))
+```
+
+
+### Precict p(neg growth in mass)
+```{r}
+predD <- expand.grid(
+  meanFlowZ = seq(-1.5,1.5,0.25), 
+  meanTempZ = seq(-1.5,1.5,0.25), 
+  river = unique(cd1$river), 
+  species = unique(cd1$species), 
+  season = unique(cd1$season)
+  )
+
+pred <- add_column(predD, 
+                   pred = predict.glm(modFT9, predD, type = "response")) |> 
+        mutate(group = paste0(river, species, season, sep = "_"))
+                   
+```
+
+### Plot predictions
+```{r}
+
+
+ggplot(pred |> filter(meanTempZ %in% c(-1.5,0,1.5)), aes(meanFlowZ, pred, group= group)) +
+  geom_line(aes(color = river)) +
+  labs(y = "Probability of negative growth in mass", x = "Mean flow") +
+  facet_grid(season~species)
 ```
 
