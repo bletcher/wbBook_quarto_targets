@@ -37,7 +37,7 @@ consequences of neg growth
 Probs with growth in mass  
 spawning loss mass in the fall, esp in OB
 
-interaction between flow:temp, diff btw WB (groundwater dominated at low flow so cold) and tribs (combo of surface and gw?)
+Interaction between flow:temp, diff btw WB (groundwater dominated at low flow so cold) and tribs (combo of surface and gw?)
 
 Compare growth with t/f cycle diagrams for each river
 
@@ -51,6 +51,7 @@ cd <- tar_read(cdWB_electro_target)
 ## Limit data to consecutive sample captures (cd1)  
 Previous growth models with length used all possible observations for a fish and interpolated missing observations. Here, we are just looking at consecutive captures to estimate growth over just that interval.
 ```{r}
+#| label: consecSamples
 # table(as.numeric(cd$sampleNumber), as.numeric(cd$lagSampleNumber), cd$season, cd$year) |> 
 #   data.frame() |> 
 #   filter(Freq > 0) |> 
@@ -74,7 +75,7 @@ Exclude these tags above. The rest of the quite negative growth fish seem plausi
 ```{r}
 cd |> 
   arrange(grWeightS) |> 
-  select(tag, species, season, sampleNumber, lagSampleNumber, observedWeight, lagObservedWeight, grWeightS)
+  dplyr::select(tag, species, season, sampleNumber, lagSampleNumber, observedWeight, lagObservedWeight, grWeightS)
 ```
 
 ### Positive outlier growth 
@@ -82,14 +83,14 @@ Lots of very fast growth mostly in the spring. No clear way to exclude fish.
 ```{r}
 cd1 |> 
   arrange(desc(grWeightS)) |> 
-  select(tag, species, season, sampleNumber, lagSampleNumber, observedWeight, lagObservedWeight, grWeightS) |> 
+  dplyr::select(tag, species, season, sampleNumber, lagSampleNumber, observedWeight, lagObservedWeight, grWeightS) |> 
   print(n = 20)
 ```
 
 ## Raw length, weight data graphs
 ### Distribution of growth rates
 ```{r}
-ggplot(cd1, aes(grWeight, color = factor(season))) +
+ggplot(cd1, aes(grWeight, color = factor(species))) +
   geom_freqpoly(bins = 100) +
   facet_wrap(~season)
 ```
@@ -145,7 +146,7 @@ ggplot(cd1, aes(grWeight, grWeightS, color = river)) +
   facet_grid(season~species)
 
 ggplot(cd1 |> 
-         select(observedWeight, grWeight, grWeightS, season, species) |> 
+         dplyr::select(observedWeight, grWeight, grWeightS, season, species) |> 
          pivot_longer(cols = c(grWeight, grWeightS)),
        
        aes(log(observedWeight), value, color = name)) +
@@ -338,6 +339,14 @@ ggplot(cd1 |> filter(!is.na(negGrowth)), aes(meanFlowZ, negGrowth * 1, color = r
               se = FALSE) +
   labs(y = "Probability of negative growth in mass", x = "Mean flow") +
   facet_grid(season~species)
+
+ggplot(cd1 |> filter(!is.na(negGrowth)), aes(meanFlowZ, negGrowth * 1, color = river)) +
+  geom_point(alpha = 0.1) +
+  geom_smooth(method = "glm", 
+              method.args = list(family = "binomial"),
+              se = FALSE) +
+  labs(y = "Probability of negative growth in mass", x = "Mean flow") +
+  facet_grid(season~species+river)
 ```
 
 ### Raw data with logistic fit for temperature effect 
@@ -347,27 +356,35 @@ ggplot(cd1 |> filter(!is.na(negGrowth), meanTempZ > -4), aes(meanTempZ, negGrowt
   geom_smooth(method = "glm", 
               method.args = list(family = "binomial"),
               se = FALSE) +
-  labs(y = "Probability of negative growth in mass", x = "Mean flow") +
+  labs(y = "Probability of negative growth in mass", x = "Mean temperature") +
   facet_grid(season~species)
 ```
 
-## Logistic model for flow and temperature
+## Logistic model for flow and temperature, all species
 ### Model selection
 ```{r}
-modFT0 <- glm(negGrowth ~ meanFlowZ * meanTempZ * river * species, family = "binomial", data = cd1)
-modFT1 <- glm(negGrowth ~ meanFlowZ * meanTempZ * river + species, family = "binomial", data = cd1)
-modFT2 <- glm(negGrowth ~ meanFlowZ * meanTempZ + river + species, family = "binomial", data = cd1)
-modFT3 <- glm(negGrowth ~ meanFlowZ + meanTempZ + river + species, family = "binomial", data = cd1)
-modFT4 <- glm(negGrowth ~ meanFlowZ * meanTempZ + river , family = "binomial", data = cd1)
-modFT5 <- glm(negGrowth ~ meanFlowZ * meanTempZ + river , family = "binomial", data = cd1)
-modFT6 <- glm(negGrowth ~ meanFlowZ * meanTempZ + species , family = "binomial", data = cd1)
-modFT7 <- glm(negGrowth ~ meanFlowZ * meanTempZ, family = "binomial", data = cd1)
+#| label: logistic models all species
+modSpecies <- c("bkt", "ats", "bnt")
+cd1Mod <- cd1 |> filter(species == modSpecies)
+
+modFT0 <- glm(negGrowth ~ meanFlowZ * meanTempZ * river * species, family = "binomial", data = cd1Mod)
+modFT1 <- glm(negGrowth ~ meanFlowZ * meanTempZ * river + species, family = "binomial", data = cd1Mod)
+modFT2 <- glm(negGrowth ~ meanFlowZ * meanTempZ + river + species, family = "binomial", data = cd1Mod)
+modFT3 <- glm(negGrowth ~ meanFlowZ + meanTempZ + river + species, family = "binomial", data = cd1Mod)
+modFT4 <- glm(negGrowth ~ meanFlowZ * meanTempZ + river , family = "binomial", data = cd1Mod)
+modFT5 <- glm(negGrowth ~ meanFlowZ * meanTempZ + river , family = "binomial", data = cd1Mod)
+modFT6 <- glm(negGrowth ~ meanFlowZ * meanTempZ + species , family = "binomial", data = cd1Mod)
+modFT7 <- glm(negGrowth ~ meanFlowZ * meanTempZ, family = "binomial", data = cd1Mod)
 
 
-modFT8 <- glm(negGrowth ~ meanFlowZ * meanTempZ * river * season + species, family = "binomial", data = cd1)
-modFT9 <- glm(negGrowth ~ meanFlowZ * meanTempZ * river * season * species, family = "binomial", data = cd1)
-modFT10 <- glm(negGrowth ~ meanFlowZ + meanTempZ * river * season * species, family = "binomial", data = cd1)
-AIC(modFT0, modFT1,modFT2, modFT3,modFT4,modFT5, modFT6,modFT7,modFT8,modFT9,modFT10) |> arrange(AIC)
+modFT8 <- glm(negGrowth ~ meanFlowZ * meanTempZ * river * factor(season) + species, family = "binomial", data = cd1Mod)
+modFT9 <- glm(negGrowth ~ meanFlowZ * meanTempZ * river * factor(season) * species, family = "binomial", data = cd1Mod)
+modFT10 <- glm(negGrowth ~ meanFlowZ + meanTempZ * river * factor(season) * species, family = "binomial", data = cd1Mod)
+
+modFT11 <- glm(negGrowth ~ meanFlowZ * meanTempZ * river * factor(season) * observedWeight + species, family = "binomial", data = cd1Mod)
+modFT12 <- glm(negGrowth ~ meanFlowZ * meanTempZ * river * factor(season) * species * observedWeight, family = "binomial", data = cd1Mod)
+
+AIC(modFT0, modFT1,modFT2, modFT3,modFT4,modFT5, modFT6,modFT7,modFT8,modFT9,modFT10, modFT11, modFT12) |> arrange(AIC)
 ```
 
 ### Model results for additive model (not very good)
@@ -376,7 +393,6 @@ AIC(modFT0, modFT1,modFT2, modFT3,modFT4,modFT5, modFT6,modFT7,modFT8,modFT9,mod
 # https://www.statology.org/logistic-regression-in-r/
 summary(modFT3)
 anova(modFT3)
-
 
 pscl::pR2(modFT3)["McFadden"]
 caret::varImp(modFT3) |> arrange(desc(Overall))
@@ -388,12 +404,12 @@ caret::varImp(modFT3) |> arrange(desc(Overall))
 ```{r}
 
 # https://www.statology.org/logistic-regression-in-r/
-summary(modFT9)
-anova(modFT9)
+summary(modFT11)
+anova(modFT11)
 
 # full interaction
-pscl::pR2(modFT9)["McFadden"]
-caret::varImp(modFT9) |> arrange(desc(Overall))
+pscl::pR2(modFT11)["McFadden"]
+caret::varImp(modFT11) |> arrange(desc(Overall))
 ```
 
 
@@ -404,12 +420,15 @@ predD <- expand.grid(
   meanTempZ = seq(-1.5,1.5,0.25), 
   river = unique(cd1$river), 
   species = unique(cd1$species), 
-  season = unique(cd1$season)
+  season = unique(cd1$season),
+  observedWeight = seq(min(cd1$observedWeight, na.rm = TRUE), max(cd1$observedWeight, na.rm = TRUE), 40)
   )
 
+
 pred <- add_column(predD, 
-                   pred = predict.glm(modFT9, predD, type = "response")) |> 
-        mutate(group = paste0(river, species, season, sep = "_"))
+                   pred = predict.glm(modFT11, predD, type = "response")) |> 
+        mutate(groupT = paste(river, species, season, meanTempZ, sep = "_"),
+               groupF = paste(river, species, season, meanFlowZ, sep = "_"))
                    
 ```
 
@@ -417,9 +436,122 @@ pred <- add_column(predD,
 ```{r}
 
 
-ggplot(pred |> filter(meanTempZ %in% c(-1.5,0,1.5)), aes(meanFlowZ, pred, group= group)) +
-  geom_line(aes(color = river)) +
+ggplot(pred |> filter(meanTempZ %in% c(-1.5,0,1.5), observedWeight == 161.3), aes(meanFlowZ, pred, group= groupT)) +
+  geom_line(aes(color = factor(meanTempZ))) +
   labs(y = "Probability of negative growth in mass", x = "Mean flow") +
-  facet_grid(season~species)
+  facet_grid(season~species+river)
 ```
 
+
+## Logistic model for flow and temperature, one species at a time  
+Species occupy different rivers, so an all-species model will have unequal river representation across species and don't need to predict where species are not. 
+
+```{r}
+
+runSppModels <- function(d, speciesIn) {
+  models =
+    tibble(model = 
+      c(
+          'negGrowth ~ meanFlowZ * meanTempZ * river',
+          'negGrowth ~ meanFlowZ * meanTempZ + river',
+          'negGrowth ~ meanFlowZ + meanTempZ + river', 
+          
+          'negGrowth ~ meanFlowZ * meanTempZ' , 
+          
+          'negGrowth ~ meanFlowZ * meanTempZ * river * factor(season)',
+          
+          'negGrowth ~ meanFlowZ + meanTempZ * river * factor(season)', 
+          
+          'negGrowth ~ meanFlowZ * meanTempZ * river * factor(season) * observedWeight' 
+        )
+    ) |>
+    mutate(
+      fit = map(model, ~glm(.x, family = "binomial", data = d |> filter(species == speciesIn))),
+      glanced = map(fit, broom::glance),
+      tidied = map(fit, broom::tidy)
+    )
+  return(models)
+}
+
+```
+
+### Predict p(neg growth in mass)
+```{r}
+predictSpp <- function(dIn, modIn, speciesIn){
+  d <- dIn |> filter(species == speciesIn)
+  
+  byAIC = modIn |> 
+    unnest(glanced) |>
+    arrange(AIC) |>
+    dplyr::select(model, AIC, df.residual, fit, tidied)
+  
+  predDSpp <- expand.grid(
+    meanFlowZ = seq(-1.5,1.5,0.25), 
+    meanTempZ = seq(-1.5,1.5,0.25), 
+    river = unique(d$river), 
+    season = unique(d$season),
+    observedWeight = seq(min(d$observedWeight, na.rm = TRUE), max(d$observedWeight, na.rm = TRUE), 40)
+    )
+  
+  
+  pred <- add_column(predDSpp, 
+                        pred = predict.glm(byAIC[1,]$fit[[1]], predDSpp, type = "response")) |> 
+             mutate(groupT = paste(river, season, meanTempZ, sep = "_"),
+                    groupF = paste(river, season, meanFlowZ, sep = "_"))
+  return(
+    list(
+      pred = pred,
+      byAIC = byAIC
+      )
+  )
+}   
+
+
+```
+
+
+### Brook trout
+```{r}
+speciesIn <- "bkt"
+modBKT <- runSppModels(cd1, speciesIn)
+predBKT <- predictSpp(cd1, modBKT, speciesIn)
+
+
+ggplot(predBKT$pred |> filter(meanTempZ %in% c(-1.5,0,1.5), meanFlowZ %in% c(-1.5,0,1.5)), aes(observedWeight, pred, group = groupF)) +
+  geom_line(aes(color = factor(meanFlowZ))) +
+  labs(y = "Probability of negative growth in mass", x = "Body mass (mg)") +
+  facet_grid(season~river+meanTempZ)
+
+```
+
+### Brown trout
+```{r}
+speciesIn <- "bnt"
+
+modBNT <- runSppModels(cd1, speciesIn)
+predBNT <- predictSpp(cd1, modBNT, speciesIn)
+
+
+ggplot(predBNT$pred |> filter(meanTempZ %in% c(-1.5,0,1.5), meanFlowZ %in% c(-1.5,0,1.5)), aes(observedWeight, pred, group = groupF)) +
+  geom_line(aes(color = factor(meanFlowZ))) +
+  labs(y = "Probability of negative growth in mass", x = "Body mass (mg)") +
+  facet_grid(season~river+meanTempZ)
+```
+
+### Atlantic salmon
+```{r}
+
+speciesIn <- "ats"
+
+modATS <- runSppModels(cd1, speciesIn)
+predATS <- predictSpp(cd1, modATS, speciesIn)
+
+
+ggplot(predATS$pred |> filter(meanTempZ %in% c(-1.5,0,1.5), meanFlowZ %in% c(-1.5,0,1.5)), aes(observedWeight, pred, group = groupF)) +
+  geom_line(aes(color = factor(meanFlowZ))) +
+  labs(y = "Probability of negative growth in mass", x = "Body mass (mg)") +
+  facet_grid(season~river+meanTempZ)
+```
+
+
+### Pairs plots
