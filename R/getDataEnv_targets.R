@@ -1,4 +1,4 @@
-tar_option_set(packages = c("tidyverse", "lubridate", "getWBData", "daymetr"))
+tar_option_set(packages = c("tidyverse", "lubridate", "getWBData", "daymetr", "fuzzyjoin"))
 
 library(daymetr) # not sure why this is needed here, but without it get can't find download_daymet error
 
@@ -55,9 +55,29 @@ getEnvData_target <-
                                    labels = c("West Brook","WB Jimmy","WB Mitchell","WB OBear"), ordered = T)
       ) %>%
       left_join(WB_daymet_target, by = c('year', 'yday')) %>%
-      left_join(flowByRiver_target)
+      left_join(flowByRiver_target) |> 
+      addSeason(tar_read(medianDates_target))
   )  
 
+
+#### Functions
+
+addSeason <- function(d = d, medDate = tar_read(medianDates_target)){
+
+  medDateSeason <- fuzzy_left_join(
+    d |> dplyr::select(river, date), medDate,
+    by = c(
+      "river" = "river",
+      #"year" = "year",
+      "date" = "start",
+      "date" = "end"
+    ),
+    match_fun = list(`==`, `>=`, `<`)
+  ) %>%
+    dplyr::select(river=river.x, date, season, start, end)
+  
+  return(d |> left_join(medDateSeason))
+}
 ######################################################
 # tmp = envDataWB
 # flowByRiver = getFlowByRiver()

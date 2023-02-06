@@ -79,7 +79,16 @@ getElectroData_target <-
       addNPasses(drainage) %>%
       mutate(drainage = drainage) %>%
       
-      addSizeIndGrowthWeight()
+      addSizeIndGrowthWeight(),
+    
+    medianDates_target = 
+      medDate <- cdWB_electro_target |> 
+        group_by(river, year, season) |> 
+        summarize(start = median(date)) |> 
+        ungroup() |> 
+        group_by(river) |> 
+        mutate(end = lead(start)) |> 
+        filter(!is.na(end))
     
   )  
 

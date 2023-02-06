@@ -60,7 +60,6 @@ envIn <- tar_read(envDataWB_Target)
 
 ```
 
-
 ## Examine raw data
 ### Limit data to consecutive sample captures (cd1)  
 Previous growth models with length used all possible observations for a fish and interpolated missing observations. Here, we are just looking at consecutive captures to estimate growth over just that interval.
@@ -78,7 +77,8 @@ Previous growth models with length used all possible observations for a fish and
 cd1 <- cd |> 
   filter(sampleNumberDiff == 1,
          tag %notin% c('1bf20ff490', '1bf20ebe4e')) |> 
-  mutate(negGrowth = grWeight < 0)
+  mutate(negGrowth = grWeight < 0,
+         month = month(date))
 ```
 
 
@@ -365,33 +365,44 @@ ggplot(propNegSRsN |> filter(n > 10), aes(mT, propNeg, color = river)) +
 ggplot(propNegSRsN |> filter(n > 10), aes(mT, mF, color = factor(season))) +
   geom_point() +
   facet_wrap(~river)
+```
 
+```{r}
 ggplot(propNegSRsN |> filter(n > 10, river == 'west brook') |> arrange(river, species, year, season), aes(mT, mF)) +
   geom_line() +
   geom_point(aes(color = factor(season))) +
   facet_wrap(~year)
+```
 
 
-
-ggplot(envIn |> filter(river == "west brook", year %in% c(2000:2017)), aes(log10(flowByRiverm3s), temperature, color = (yday))) +
-  geom_point() +
+```{r}
+ggplot(envIn |> filter(river == "west brook", year %in% c(2000:2017)), 
+       aes(temperature, log10(flowByRiverm3s))) +
+  geom_point(aes(color = season)) +
   #geom_line() +
   ggtitle("West Brook") +
   facet_wrap(~year, scales = 'free')
 
-ggplot(propNegSRsN |> filter(n > 10, river=="west brook", species == "bkt"), aes(year, propNeg, color = factor(season))) +
+```
+
+
+```{r}
+ggplot(propNegSRsN |> filter(n > 10, river=="west brook", species == "bkt"), 
+       aes(year, propNeg, color = factor(season))) +
   geom_point(aes(size = n)) +
   geom_line() +
-  ggtitle("West brook")
+  ggtitle("West brook") +
   scale_y_continuous("Proportion of fish with negative growth in mass") 
   #facet_wrap(~season)
 ```
+
+
 
 ```{r}
 ggplot(propNegSRsN |> filter(n > 10, river=="west brook", species == "bkt"), aes(year, propNeg, color = factor(season))) +
   geom_point(aes(size = n)) +
   geom_line() +
-  ggtitle("West brook")
+  ggtitle("West brook") +
   scale_y_continuous("Proportion of fish with negative growth in mass") 
 
 ggplot(propNegSRsN |> filter(n > 10, river=="wb obear", species == "bkt"), aes(year, propNeg, color = factor(season))) +
