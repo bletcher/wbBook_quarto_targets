@@ -45,7 +45,7 @@ compare condition factor among species - looks like bkt growing faster in weight
 
 flow/temp circles with gr on top
 
-## Examine raw data
+## Get data
 ### Get electrofishing data
 ```{r}
 #| label: readInAllData
@@ -53,6 +53,15 @@ cd <- tar_read(cdWB_electro_target)
 
 ```
 
+### Get environmental data
+```{r}
+#| label: readInAllDataEnv
+envIn <- tar_read(envDataWB_Target)
+
+```
+
+
+## Examine raw data
 ### Limit data to consecutive sample captures (cd1)  
 Previous growth models with length used all possible observations for a fish and interpolated missing observations. Here, we are just looking at consecutive captures to estimate growth over just that interval.
 ```{r}
@@ -221,7 +230,7 @@ ggplot(cd1 |> filter(species=="bnt", season ==2), aes(grLength, grWeight, color 
 ```
 
 
-## Flow and temperature gorwth models
+## Flow and temperature growth models
 ### Mean flow effect on growth?  
 Maybe in Jimmy for bnt, or for ats
 ```{r}
@@ -316,6 +325,7 @@ ggplot(propNegSRsN |> filter(n > 10), aes(year, propNeg, color = river)) +
   geom_line() +
   scale_y_continuous("Proportion of fish with negative growth in mass") +
   facet_grid(season~species)
+
 ```
 
 ## Environmental effects on proportion of fish with negative growth
@@ -349,6 +359,48 @@ ggplot(propNegSRsN |> filter(n > 10), aes(mT, propNeg, color = river)) +
   scale_x_continuous("Mean Temperature") +
   facet_grid(species~season, scales = "free")
 ```
+
+### F/T cycle graphs
+```{r}
+ggplot(propNegSRsN |> filter(n > 10), aes(mT, mF, color = factor(season))) +
+  geom_point() +
+  facet_wrap(~river)
+
+ggplot(propNegSRsN |> filter(n > 10, river == 'west brook') |> arrange(river, species, year, season), aes(mT, mF)) +
+  geom_line() +
+  geom_point(aes(color = factor(season))) +
+  facet_wrap(~year)
+
+
+
+ggplot(envIn |> filter(river == "west brook", year %in% c(2000:2017)), aes(log10(flowByRiverm3s), temperature, color = (yday))) +
+  geom_point() +
+  #geom_line() +
+  ggtitle("West Brook") +
+  facet_wrap(~year, scales = 'free')
+
+ggplot(propNegSRsN |> filter(n > 10, river=="west brook", species == "bkt"), aes(year, propNeg, color = factor(season))) +
+  geom_point(aes(size = n)) +
+  geom_line() +
+  ggtitle("West brook")
+  scale_y_continuous("Proportion of fish with negative growth in mass") 
+  #facet_wrap(~season)
+```
+
+```{r}
+ggplot(propNegSRsN |> filter(n > 10, river=="west brook", species == "bkt"), aes(year, propNeg, color = factor(season))) +
+  geom_point(aes(size = n)) +
+  geom_line() +
+  ggtitle("West brook")
+  scale_y_continuous("Proportion of fish with negative growth in mass") 
+
+ggplot(propNegSRsN |> filter(n > 10, river=="wb obear", species == "bkt"), aes(year, propNeg, color = factor(season))) +
+  geom_point(aes(size = n)) +
+  geom_line() +
+  ggtitle("O'Bear") +
+  scale_y_continuous("Proportion of fish with negative growth in mass") 
+```
+
 
 ## Logistic models for environmental effects on propNeg
 ### Standardize flow and temperature
