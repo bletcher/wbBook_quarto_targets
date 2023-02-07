@@ -10,7 +10,6 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 #| label: librariesModelsFlow
 #| echo: false
 library(getWBData)
-library(tidyverse)
 library(lubridate)
 library(kableExtra)
 library(GGally)
@@ -19,6 +18,7 @@ library(targets)
 library(relaimpo)
 library(caret)
 library(pscl)
+library(tidyverse)
 ```
 
 Distribution of growth, negative growth
@@ -318,7 +318,8 @@ propNegSRsN <- cd1 |>
             ) |> 
   mutate(numPos = n - numNeg,
          propPos = numPos/n,
-         propNeg = numNeg/n)
+         propNeg = numNeg/n) |> 
+  ungroup()
 
 ggplot(propNegSRsN |> filter(n > 10), aes(year, propNeg, color = river)) +
   geom_point(aes(size = n)) +
@@ -374,14 +375,47 @@ ggplot(propNegSRsN |> filter(n > 10, river == 'west brook') |> arrange(river, sp
   facet_wrap(~year)
 ```
 
+```{r}
+#| label: mergePropNeg
+
+envIn_propNeg <- envIn |> 
+  left_join(propNegSRsN |> dplyr::select(river, year, season, propNeg)) |> 
+  mutate(yearSeason = paste(year, season, sep = "_"))
+```
+
 
 ```{r}
+#| label: mergePropNegPlot
+
+
 ggplot(envIn |> filter(river == "west brook", year %in% c(2000:2017)), 
-       aes(temperature, log10(flowByRiverm3s))) +
-  geom_point(aes(color = season)) +
+       aes(temperature, log10(flowByRiverm3s), color = season, group = season)) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
   #geom_line() +
   ggtitle("West Brook") +
   facet_wrap(~year, scales = 'free')
+
+ggplot(envIn_propNeg |> filter(river == "west brook", year %in% c(2000:2017), !is.na(season)), 
+       aes(temperature, log10(flowByRiverm3s), 
+           color = factor(year), group = year
+           )
+       ) +
+  #geom_point() +
+  geom_smooth(se = FALSE) +
+  ggtitle("West Brook") +
+  facet_wrap(~season, scales = 'free')
+
+ggplot(envIn_propNeg |> filter(river == "west brook", year %in% c(2000:2017), !is.na(season)), 
+       aes(temperature, log10(flowByRiverm3s) 
+         #  color = factor(year), group = year
+           )
+       ) +
+  #geom_point() +
+  geom_smooth(aes(linewidth = (propNeg + 0.1), group = propNeg), se = FALSE) +
+  #geom_line() +
+  ggtitle("West Brook") +
+  facet_wrap(~season, scales = 'free')
 
 ```
 
