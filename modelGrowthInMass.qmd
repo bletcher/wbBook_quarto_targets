@@ -52,7 +52,7 @@ flow/temp circles with gr on top
 ### Get electrofishing data
 ```{r}
 #| label: readInAllData
-dummy=1 # change to force cache update??
+dummy=0 # change to force cache update??
 cd <- tar_read(cdWB_electro_target)
 
 ```
@@ -60,7 +60,7 @@ cd <- tar_read(cdWB_electro_target)
 ### Get environmental data
 ```{r}
 #| label: readInAllDataEnv
-dummy=1 # change to force cache update??
+dummy=0 # change to force cache update??
 envIn <- tar_read(envDataWB_Target)
 
 ```
@@ -82,7 +82,7 @@ cd1 <- cd |>
          tag %notin% c('1bf20ff490', '1bf20ebe4e')) |> 
   mutate(negGrowth = grWeight < 0,
          month = month(date),
-         dummy = 0) # change to force cache update
+         dummy = 1) # change to force cache update
 ```
 
 Labels for plotting
@@ -491,7 +491,7 @@ plotMerged(envIn_propNeg, "Open Small", 2002, 2017)
 plotMerged(envIn_propNeg, "Isolated Small", 2002, 2017)
 ```
 
-Smooths of temperature/flow cycles of daily data  by season
+Smooths of temperature/flow cycles of daily data by season
 ```{r}
 #| label: plotMergedBySeason
 #| 

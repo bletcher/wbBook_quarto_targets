@@ -407,20 +407,20 @@ spawning loss mass in the fall, esp in OB</p>
 <h2 data-number="13.1" class="anchored" data-anchor-id="get-data"><span class="header-section-number">13.1</span> Get data</h2>
 <section id="get-electrofishing-data" class="level3" data-number="13.1.1">
 <h3 data-number="13.1.1" class="anchored" data-anchor-id="get-electrofishing-data"><span class="header-section-number">13.1.1</span> Get electrofishing data</h3>
-<div class="cell" data-hash="modelGrowthInMass_cache/html/readInAllData_ad0bc486106dd8392eadeeb8d0a279df">
+<div class="cell" data-hash="modelGrowthInMass_cache/html/readInAllData_2d0897473e5140a66ebfd133b579a1eb">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>dummy<span class="ot">=</span><span class="dv">1</span> <span class="co"># change to force cache update??</span></span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>dummy<span class="ot">=</span><span class="dv">0</span> <span class="co"># change to force cache update??</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>cd <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cdWB_electro_target)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
 <section id="get-environmental-data" class="level3" data-number="13.1.2">
 <h3 data-number="13.1.2" class="anchored" data-anchor-id="get-environmental-data"><span class="header-section-number">13.1.2</span> Get environmental data</h3>
-<div class="cell" data-hash="modelGrowthInMass_cache/html/readInAllDataEnv_e505e859582596e302118c2e8181285c">
+<div class="cell" data-hash="modelGrowthInMass_cache/html/readInAllDataEnv_c7ad14786ffc8070be391871d56c42c1">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dummy<span class="ot">=</span><span class="dv">1</span> <span class="co"># change to force cache update??</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dummy<span class="ot">=</span><span class="dv">0</span> <span class="co"># change to force cache update??</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>envIn <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(envDataWB_Target)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
@@ -431,7 +431,7 @@ spawning loss mass in the fall, esp in OB</p>
 <section id="limit-data-to-consecutive-sample-captures-cd1" class="level3" data-number="13.2.1">
 <h3 data-number="13.2.1" class="anchored" data-anchor-id="limit-data-to-consecutive-sample-captures-cd1"><span class="header-section-number">13.2.1</span> Limit data to consecutive sample captures (cd1)</h3>
 <p>Previous growth models with length used all possible observations for a fish and interpolated missing observations. Here, we are just looking at consecutive captures to estimate growth over just that interval.</p>
-<div class="cell" data-hash="modelGrowthInMass_cache/html/consecSamples_4f22e5c2efd8f2a0ac9c799b927e81f9">
+<div class="cell" data-hash="modelGrowthInMass_cache/html/consecSamples_ac19b36030f2a9d2ad6b3c7ec9906e62">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># table(as.numeric(cd$sampleNumber), as.numeric(cd$lagSampleNumber), cd$season, cd$year) |&gt; </span></span>
@@ -446,7 +446,7 @@ spawning loss mass in the fall, esp in OB</p>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>         tag <span class="sc">%notin%</span> <span class="fu">c</span>(<span class="st">'1bf20ff490'</span>, <span class="st">'1bf20ebe4e'</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">negGrowth =</span> grWeight <span class="sc">&lt;</span> <span class="dv">0</span>,</span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">month =</span> <span class="fu">month</span>(date),</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">dummy =</span> <span class="dv">0</span>) <span class="co"># change to force cache update</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">dummy =</span> <span class="dv">1</span>) <span class="co"># change to force cache update</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Labels for plotting</p>
@@ -1527,7 +1527,7 @@ modFT10  71 122906.683</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  McFadden 
-0.06214128 </code></pre>
+0.06199948 </code></pre>
 </div>
 <details>
 <summary>Code</summary>
@@ -1535,13 +1535,13 @@ modFT10  71 122906.683</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                   Overall
-speciesbnt       12.871111
-meanFlowZ        11.836474
-speciesbkt        5.218343
-riverwb mitchell  3.040767
-meanTempZ         2.465196
-riverwb obear     2.368152
-riverwest brook   1.643614</code></pre>
+speciesbnt       12.320525
+meanFlowByRiverZ 11.658760
+riverwest brook   4.533210
+speciesbkt        4.525811
+riverwb mitchell  3.541149
+riverwb obear     2.704749
+meanTempZ         1.012669</code></pre>
 </div>
 </div>
 </section>
@@ -1561,144 +1561,144 @@ riverwest brook   1.643614</code></pre>
 <pre><code>fitting null model for pseudo-r2</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>McFadden 
-0.329471 </code></pre>
+<pre><code> McFadden 
+0.3333216 </code></pre>
 </div>
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>caret<span class="sc">::</span><span class="fu">varImp</span>(modFT11) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(Overall))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>                                                                         Overall
-speciesbnt                                                          1.724156e+01
-speciesbkt                                                          9.578247e+00
-riverwest brook                                                     6.258752e-03
-riverwest brook:factor(season)2                                     6.250339e-03
-riverwest brook:factor(season)3                                     6.239932e-03
-riverwest brook:factor(season)4                                     6.208515e-03
-riverwest brook:factor(season)4:observedWeight                      3.786506e-03
-riverwest brook:observedWeight                                      3.756629e-03
-riverwest brook:factor(season)2:observedWeight                      3.751758e-03
-riverwest brook:factor(season)3:observedWeight                      3.750670e-03
-meanFlowZ:meanTempZ:riverwest brook:factor(season)3                 2.435455e-03
-meanFlowZ:meanTempZ:riverwest brook                                 2.427086e-03
-meanFlowZ:meanTempZ:riverwest brook:factor(season)2                 2.379320e-03
-meanFlowZ:meanTempZ:riverwest brook:factor(season)4                 2.315902e-03
-meanFlowZ:meanTempZ:riverwest brook:factor(season)2:observedWeight  1.731148e-03
-meanFlowZ:meanTempZ:riverwest brook:factor(season)3:observedWeight  1.693015e-03
-meanFlowZ:meanTempZ:riverwest brook:observedWeight                  1.677688e-03
-meanFlowZ:meanTempZ:riverwest brook:factor(season)4:observedWeight  1.659787e-03
-meanFlowZ:riverwest brook                                           1.594505e-03
-meanFlowZ:riverwest brook:factor(season)4                           1.588976e-03
-meanFlowZ:riverwest brook:factor(season)3                           1.579828e-03
-meanFlowZ:riverwest brook:factor(season)2                           1.566087e-03
-meanFlowZ:riverwest brook:factor(season)2:observedWeight            1.297681e-03
-meanFlowZ:riverwest brook:factor(season)4:observedWeight            1.286764e-03
-meanFlowZ:riverwest brook:factor(season)3:observedWeight            1.259321e-03
-meanFlowZ:riverwest brook:observedWeight                            1.255746e-03
-meanTempZ:riverwest brook:factor(season)2                           1.092213e-03
-meanTempZ:riverwest brook                                           1.074680e-03
-meanTempZ:riverwest brook:factor(season)3                           1.056160e-03
-meanTempZ:riverwest brook:factor(season)4                           9.942500e-04
-meanTempZ:riverwest brook:factor(season)3:observedWeight            9.746357e-04
-meanTempZ:riverwest brook:factor(season)4:observedWeight            9.686650e-04
-meanTempZ:riverwest brook:observedWeight                            9.667011e-04
-meanTempZ:riverwest brook:factor(season)2:observedWeight            9.561087e-04
-factor(season)2                                                     8.863375e-04
-factor(season)3                                                     8.681221e-04
-factor(season)4                                                     8.597991e-04
-meanFlowZ:meanTempZ:riverwb mitchell:factor(season)2                1.512107e-04
-meanFlowZ:meanTempZ:riverwb obear:factor(season)4:observedWeight    1.342146e-04
-riverwb mitchell:factor(season)4                                    1.267654e-04
-meanFlowZ:meanTempZ:riverwb obear:factor(season)4                   1.060398e-04
-riverwb mitchell:factor(season)4:observedWeight                     1.010907e-04
-meanFlowZ:meanTempZ:riverwb mitchell:factor(season)4                1.000620e-04
-meanFlowZ:meanTempZ:riverwb mitchell:factor(season)4:observedWeight 8.075502e-05
-meanFlowZ:meanTempZ:riverwb obear:factor(season)2                   7.516081e-05
-meanFlowZ:meanTempZ:riverwb obear:factor(season)2:observedWeight    7.470611e-05
-meanFlowZ:meanTempZ:riverwb mitchell:factor(season)2:observedWeight 7.148640e-05
-riverwb mitchell:factor(season)3                                    6.153447e-05
-meanFlowZ:riverwb obear:factor(season)2                             5.222059e-05
-meanFlowZ:riverwb mitchell:factor(season)2:observedWeight           4.923587e-05
-meanFlowZ:meanTempZ:factor(season)2:observedWeight                  4.784910e-05
-meanTempZ:riverwb obear:factor(season)4                             4.511330e-05
-meanTempZ:riverwb obear:factor(season)4:observedWeight              4.348570e-05
-meanTempZ:riverwb mitchell:factor(season)2                          4.110689e-05
-riverwb mitchell:factor(season)3:observedWeight                     3.942864e-05
-meanFlowZ:meanTempZ:factor(season)2                                 3.928556e-05
-meanFlowZ:factor(season)4:observedWeight                            3.891697e-05
-meanFlowZ:factor(season)2:observedWeight                            3.832563e-05
-riverwb obear:factor(season)2                                       3.771589e-05
-meanTempZ:riverwb mitchell:factor(season)4                          3.683344e-05
-riverwb obear:factor(season)3:observedWeight                        3.478327e-05
-meanFlowZ:riverwb obear:factor(season)4                             3.306020e-05
-meanFlowZ:meanTempZ:riverwb mitchell:factor(season)3:observedWeight 3.276077e-05
-meanFlowZ:riverwb obear:factor(season)2:observedWeight              3.221078e-05
-meanFlowZ:riverwb mitchell:factor(season)2                          2.907830e-05
-factor(season)3:observedWeight                                      2.836871e-05
-meanFlowZ:meanTempZ:riverwb mitchell:factor(season)3                2.643093e-05
-riverwb mitchell:factor(season)2                                    2.571385e-05
-meanFlowZ:riverwb mitchell:factor(season)4                          2.465836e-05
-meanFlowZ:meanTempZ:factor(season)4                                 2.409151e-05
-meanFlowZ:riverwb mitchell:factor(season)4:observedWeight           2.101191e-05
-factor(season)2:observedWeight                                      2.077892e-05
-meanFlowZ:meanTempZ:factor(season)4:observedWeight                  2.054229e-05
-meanTempZ:riverwb obear:factor(season)2                             1.671369e-05
-meanFlowZ:factor(season)4                                           1.584970e-05
-riverwb obear:factor(season)3                                       1.478057e-05
-meanTempZ:factor(season)4:observedWeight                            1.457490e-05
-meanFlowZ:riverwb mitchell:factor(season)3                          1.356946e-05
-meanFlowZ:meanTempZ:riverwb obear:factor(season)3:observedWeight    1.352772e-05
-meanTempZ:factor(season)2:observedWeight                            1.311915e-05
-meanTempZ:factor(season)4                                           1.253780e-05
-meanTempZ:factor(season)3                                           1.199747e-05
-meanFlowZ:meanTempZ:factor(season)3                                 1.186717e-05
-riverwb obear:factor(season)4                                       1.119500e-05
-meanFlowZ:meanTempZ:riverwb obear:factor(season)3                   1.115532e-05
-meanFlowZ:riverwb obear:factor(season)3                             1.081428e-05
-riverwb obear:factor(season)4:observedWeight                        8.747563e-06
-meanFlowZ:riverwb mitchell:factor(season)3:observedWeight           8.276959e-06
-meanFlowZ:meanTempZ:riverwb mitchell                                7.808426e-06
-meanTempZ:riverwb mitchell:observedWeight                           7.729219e-06
-meanFlowZ:riverwb obear:factor(season)4:observedWeight              7.654778e-06
-meanFlowZ:meanTempZ:riverwb mitchell:observedWeight                 7.156913e-06
-meanTempZ:riverwb mitchell:factor(season)2:observedWeight           6.958585e-06
-meanTempZ:riverwb obear:factor(season)3                             6.760363e-06
-riverwb obear:factor(season)2:observedWeight                        6.514177e-06
-meanTempZ:factor(season)3:observedWeight                            6.437914e-06
-meanTempZ:riverwb obear:factor(season)3:observedWeight              6.122778e-06
-meanTempZ:observedWeight                                            6.043743e-06
-riverwb mitchell:observedWeight                                     5.211127e-06
-riverwb mitchell:factor(season)2:observedWeight                     5.166369e-06
-meanFlowZ:factor(season)3:observedWeight                            4.781577e-06
-meanTempZ:factor(season)2                                           4.727616e-06
-meanFlowZ:riverwb mitchell                                          4.094466e-06
-observedWeight                                                      3.893763e-06
-meanFlowZ:observedWeight                                            3.825481e-06
-meanTempZ                                                           3.629231e-06
-meanTempZ:riverwb obear:observedWeight                              3.401550e-06
-meanTempZ:riverwb mitchell:factor(season)3:observedWeight           3.055419e-06
-meanFlowZ:riverwb obear:factor(season)3:observedWeight              2.933116e-06
-meanFlowZ:riverwb mitchell:observedWeight                           2.871728e-06
-meanTempZ:riverwb obear:factor(season)2:observedWeight              2.519733e-06
-riverwb obear:observedWeight                                        2.458162e-06
-meanTempZ:riverwb obear                                             2.409944e-06
-meanTempZ:riverwb mitchell:factor(season)3                          2.201399e-06
-factor(season)4:observedWeight                                      2.063375e-06
-meanTempZ:riverwb mitchell:factor(season)4:observedWeight           2.028577e-06
-riverwb obear                                                       1.818350e-06
-meanTempZ:riverwb mitchell                                          1.760005e-06
-meanFlowZ:meanTempZ:observedWeight                                  1.698072e-06
-meanFlowZ:riverwb obear:observedWeight                              1.645443e-06
-meanFlowZ:meanTempZ                                                 1.212975e-06
-meanFlowZ:factor(season)3                                           1.000376e-06
-riverwb mitchell                                                    9.267063e-07
-meanFlowZ:meanTempZ:riverwb obear:observedWeight                    8.379480e-07
-meanFlowZ:meanTempZ:factor(season)3:observedWeight                  8.238561e-07
-meanFlowZ:meanTempZ:riverwb obear                                   7.049926e-07
-meanFlowZ                                                           6.697925e-07
-meanFlowZ:riverwb obear                                             3.745791e-07
-meanFlowZ:factor(season)2                                           2.217086e-07</code></pre>
+<pre><code>                                                                                Overall
+speciesbnt                                                                 1.673957e+01
+speciesbkt                                                                 8.650975e+00
+meanFlowByRiverZ:riverwest brook:factor(season)2                           4.750209e-04
+meanFlowByRiverZ:riverwest brook                                           4.706313e-04
+meanFlowByRiverZ:riverwest brook:factor(season)3                           4.676677e-04
+meanFlowByRiverZ:meanTempZ:riverwest brook:factor(season)3                 4.516393e-04
+meanFlowByRiverZ:riverwest brook:factor(season)4                           4.509459e-04
+meanFlowByRiverZ:meanTempZ:riverwest brook                                 4.439340e-04
+meanFlowByRiverZ:meanTempZ:riverwest brook:factor(season)2                 4.273879e-04
+meanFlowByRiverZ:meanTempZ:riverwest brook:factor(season)4                 4.142384e-04
+riverwest brook:factor(season)2                                            3.861528e-04
+riverwest brook                                                            3.811834e-04
+riverwest brook:factor(season)3                                            3.801010e-04
+riverwest brook:factor(season)4                                            3.622467e-04
+meanFlowByRiverZ:riverwest brook:factor(season)4:observedWeight            3.275304e-04
+meanFlowByRiverZ:riverwest brook:factor(season)2:observedWeight            3.083556e-04
+meanFlowByRiverZ:riverwest brook:observedWeight                            2.981952e-04
+meanFlowByRiverZ:riverwest brook:factor(season)3:observedWeight            2.975035e-04
+riverwest brook:factor(season)4:observedWeight                             2.585127e-04
+meanFlowByRiverZ:meanTempZ:riverwest brook:factor(season)2:observedWeight  2.542765e-04
+meanFlowByRiverZ:meanTempZ:riverwest brook:factor(season)3:observedWeight  2.449268e-04
+meanFlowByRiverZ:meanTempZ:riverwest brook:observedWeight                  2.444246e-04
+riverwest brook:factor(season)2:observedWeight                             2.424675e-04
+meanFlowByRiverZ:meanTempZ:riverwest brook:factor(season)4:observedWeight  2.414528e-04
+riverwest brook:observedWeight                                             2.348804e-04
+riverwest brook:factor(season)3:observedWeight                             2.334828e-04
+meanTempZ:riverwest brook:factor(season)3                                  1.509604e-04
+meanTempZ:riverwest brook                                                  1.485534e-04
+meanTempZ:riverwest brook:factor(season)2                                  1.374863e-04
+meanFlowByRiverZ:riverwb obear:factor(season)4:observedWeight              1.347300e-04
+meanTempZ:riverwest brook:factor(season)4                                  1.293147e-04
+riverwb obear:factor(season)4:observedWeight                               1.127629e-04
+meanTempZ:riverwest brook:factor(season)2:observedWeight                   1.022263e-04
+meanTempZ:riverwest brook:factor(season)3:observedWeight                   9.664372e-05
+meanTempZ:riverwest brook:observedWeight                                   9.583989e-05
+meanTempZ:riverwest brook:factor(season)4:observedWeight                   9.294538e-05
+factor(season)4                                                            5.811218e-05
+meanFlowByRiverZ:meanTempZ:riverwb mitchell:factor(season)2                4.942564e-05
+factor(season)3                                                            4.411080e-05
+factor(season)2                                                            3.966873e-05
+meanTempZ:riverwb mitchell:factor(season)2                                 3.846244e-05
+meanFlowByRiverZ:meanTempZ:riverwb obear:factor(season)2                   3.534602e-05
+meanFlowByRiverZ:riverwb obear:factor(season)2                             3.069680e-05
+meanTempZ:riverwb obear:factor(season)2                                    2.904493e-05
+meanFlowByRiverZ:riverwb mitchell:factor(season)2                          2.712741e-05
+meanFlowByRiverZ:meanTempZ:riverwb obear:factor(season)2:observedWeight    2.688942e-05
+riverwb obear:factor(season)2                                              2.598764e-05
+meanFlowByRiverZ:factor(season)4:observedWeight                            2.560344e-05
+meanFlowByRiverZ:meanTempZ:riverwb obear:factor(season)4                   2.450004e-05
+meanTempZ:riverwb obear:factor(season)2:observedWeight                     2.185656e-05
+riverwb mitchell:factor(season)2                                           2.025643e-05
+meanFlowByRiverZ:factor(season)4                                           2.016113e-05
+meanTempZ:riverwb obear:factor(season)4                                    1.931245e-05
+meanFlowByRiverZ:meanTempZ:riverwb mitchell:factor(season)4                1.842168e-05
+meanFlowByRiverZ:meanTempZ:factor(season)4                                 1.815922e-05
+meanFlowByRiverZ:riverwb mitchell:factor(season)2:observedWeight           1.701214e-05
+factor(season)4:observedWeight                                             1.614829e-05
+meanTempZ:riverwb mitchell:factor(season)4                                 1.528836e-05
+meanFlowByRiverZ:riverwb obear:factor(season)4                             1.308437e-05
+meanFlowByRiverZ:meanTempZ:riverwb mitchell:factor(season)2:observedWeight 1.277844e-05
+riverwb mitchell:factor(season)2:observedWeight                            1.263924e-05
+meanFlowByRiverZ:meanTempZ:factor(season)2                                 1.239016e-05
+riverwb obear:factor(season)4                                              1.193553e-05
+meanFlowByRiverZ:riverwb obear:factor(season)2:observedWeight              1.166995e-05
+meanFlowByRiverZ:meanTempZ:riverwb mitchell:factor(season)3:observedWeight 1.076012e-05
+meanTempZ:factor(season)4                                                  1.030240e-05
+meanTempZ:riverwb mitchell:factor(season)3:observedWeight                  9.603197e-06
+meanFlowByRiverZ:meanTempZ:riverwb mitchell:factor(season)3                9.276399e-06
+riverwb obear:factor(season)2:observedWeight                               9.214154e-06
+meanFlowByRiverZ:meanTempZ:factor(season)3                                 9.149945e-06
+meanFlowByRiverZ:riverwb mitchell:factor(season)4                          8.923302e-06
+meanTempZ:factor(season)2                                                  8.855183e-06
+meanTempZ:riverwb mitchell:factor(season)2:observedWeight                  8.781201e-06
+meanTempZ:riverwb mitchell:factor(season)3                                 8.677518e-06
+meanFlowByRiverZ:factor(season)2                                           8.267091e-06
+meanFlowByRiverZ:meanTempZ:riverwb obear:factor(season)4:observedWeight    8.179262e-06
+meanFlowByRiverZ:riverwb obear:factor(season)3                             7.965424e-06
+factor(season)3:observedWeight                                             7.264917e-06
+meanFlowByRiverZ:meanTempZ:riverwb mitchell                                7.169858e-06
+meanTempZ:riverwb mitchell                                                 7.098904e-06
+meanTempZ:factor(season)4:observedWeight                                   7.042696e-06
+meanFlowByRiverZ:meanTempZ:riverwb obear:factor(season)3:observedWeight    6.899535e-06
+meanTempZ:factor(season)3                                                  6.858889e-06
+meanFlowByRiverZ:meanTempZ:factor(season)2:observedWeight                  6.840304e-06
+meanTempZ:riverwb mitchell:factor(season)4:observedWeight                  6.452451e-06
+meanTempZ:riverwb mitchell:observedWeight                                  6.446486e-06
+meanFlowByRiverZ:meanTempZ:riverwb mitchell:observedWeight                 6.403117e-06
+meanFlowByRiverZ:factor(season)3:observedWeight                            6.366233e-06
+riverwb obear:factor(season)3                                              6.303099e-06
+meanFlowByRiverZ:meanTempZ:riverwb obear:factor(season)3                   6.170406e-06
+meanFlowByRiverZ:meanTempZ:riverwb mitchell:factor(season)4:observedWeight 6.164839e-06
+meanFlowByRiverZ:meanTempZ:factor(season)4:observedWeight                  5.536261e-06
+meanTempZ:riverwb obear:factor(season)3:observedWeight                     5.475057e-06
+meanFlowByRiverZ:factor(season)2:observedWeight                            5.184155e-06
+meanFlowByRiverZ:observedWeight                                            5.153746e-06
+riverwb mitchell:observedWeight                                            5.029894e-06
+meanFlowByRiverZ:riverwb mitchell:observedWeight                           4.904199e-06
+meanTempZ:riverwb obear:factor(season)3                                    4.836748e-06
+observedWeight                                                             4.742662e-06
+riverwb mitchell                                                           4.734585e-06
+meanFlowByRiverZ:riverwb mitchell                                          4.662791e-06
+riverwb mitchell:factor(season)4:observedWeight                            4.479157e-06
+riverwb mitchell:factor(season)4                                           3.855573e-06
+meanFlowByRiverZ:meanTempZ                                                 3.853198e-06
+meanTempZ:factor(season)2:observedWeight                                   3.825444e-06
+meanTempZ                                                                  3.527527e-06
+meanFlowByRiverZ:riverwb mitchell:factor(season)4:observedWeight           3.457951e-06
+riverwb mitchell:factor(season)3:observedWeight                            3.415030e-06
+meanTempZ:riverwb obear:factor(season)4:observedWeight                     3.244786e-06
+meanFlowByRiverZ:riverwb mitchell:factor(season)3                          3.236770e-06
+meanTempZ:observedWeight                                                   3.065670e-06
+meanTempZ:factor(season)3:observedWeight                                   2.850841e-06
+meanFlowByRiverZ:meanTempZ:observedWeight                                  2.466296e-06
+meanFlowByRiverZ:meanTempZ:factor(season)3:observedWeight                  2.217918e-06
+meanFlowByRiverZ                                                           1.953296e-06
+meanFlowByRiverZ:riverwb mitchell:factor(season)3:observedWeight           1.948282e-06
+factor(season)2:observedWeight                                             1.812569e-06
+meanFlowByRiverZ:riverwb obear:observedWeight                              1.420795e-06
+riverwb obear:observedWeight                                               1.274026e-06
+meanFlowByRiverZ:factor(season)3                                           1.163685e-06
+meanFlowByRiverZ:meanTempZ:riverwb obear                                   1.150821e-06
+meanTempZ:riverwb obear                                                    9.753423e-07
+meanTempZ:riverwb obear:observedWeight                                     6.401919e-07
+riverwb obear                                                              6.289383e-07
+meanFlowByRiverZ:riverwb obear                                             5.791225e-07
+meanFlowByRiverZ:meanTempZ:riverwb obear:observedWeight                    5.562427e-07
+riverwb obear:factor(season)3:observedWeight                               4.946289e-07
+riverwb mitchell:factor(season)3                                           2.349372e-07
+meanFlowByRiverZ:riverwb obear:factor(season)3:observedWeight              1.471642e-07</code></pre>
 </div>
 </div>
 </section>
@@ -2111,7 +2111,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb84-56"><a href="#cb84-56" aria-hidden="true" tabindex="-1"></a><span class="fu">### Get electrofishing data</span></span>
 <span id="cb84-59"><a href="#cb84-59" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb84-60"><a href="#cb84-60" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: readInAllData</span></span>
-<span id="cb84-61"><a href="#cb84-61" aria-hidden="true" tabindex="-1"></a>dummy<span class="ot">=</span><span class="dv">1</span> <span class="co"># change to force cache update??</span></span>
+<span id="cb84-61"><a href="#cb84-61" aria-hidden="true" tabindex="-1"></a>dummy<span class="ot">=</span><span class="dv">0</span> <span class="co"># change to force cache update??</span></span>
 <span id="cb84-62"><a href="#cb84-62" aria-hidden="true" tabindex="-1"></a>cd <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cdWB_electro_target)</span>
 <span id="cb84-63"><a href="#cb84-63" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb84-64"><a href="#cb84-64" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
@@ -2119,7 +2119,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb84-66"><a href="#cb84-66" aria-hidden="true" tabindex="-1"></a><span class="fu">### Get environmental data</span></span>
 <span id="cb84-69"><a href="#cb84-69" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb84-70"><a href="#cb84-70" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: readInAllDataEnv</span></span>
-<span id="cb84-71"><a href="#cb84-71" aria-hidden="true" tabindex="-1"></a>dummy<span class="ot">=</span><span class="dv">1</span> <span class="co"># change to force cache update??</span></span>
+<span id="cb84-71"><a href="#cb84-71" aria-hidden="true" tabindex="-1"></a>dummy<span class="ot">=</span><span class="dv">0</span> <span class="co"># change to force cache update??</span></span>
 <span id="cb84-72"><a href="#cb84-72" aria-hidden="true" tabindex="-1"></a>envIn <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(envDataWB_Target)</span>
 <span id="cb84-73"><a href="#cb84-73" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb84-74"><a href="#cb84-74" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
@@ -2141,7 +2141,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb84-92"><a href="#cb84-92" aria-hidden="true" tabindex="-1"></a>         tag <span class="sc">%notin%</span> <span class="fu">c</span>(<span class="st">'1bf20ff490'</span>, <span class="st">'1bf20ebe4e'</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb84-93"><a href="#cb84-93" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">negGrowth =</span> grWeight <span class="sc">&lt;</span> <span class="dv">0</span>,</span>
 <span id="cb84-94"><a href="#cb84-94" aria-hidden="true" tabindex="-1"></a>         <span class="at">month =</span> <span class="fu">month</span>(date),</span>
-<span id="cb84-95"><a href="#cb84-95" aria-hidden="true" tabindex="-1"></a>         <span class="at">dummy =</span> <span class="dv">0</span>) <span class="co"># change to force cache update</span></span>
+<span id="cb84-95"><a href="#cb84-95" aria-hidden="true" tabindex="-1"></a>         <span class="at">dummy =</span> <span class="dv">1</span>) <span class="co"># change to force cache update</span></span>
 <span id="cb84-96"><a href="#cb84-96" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb84-97"><a href="#cb84-97" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb84-98"><a href="#cb84-98" aria-hidden="true" tabindex="-1"></a>Labels for plotting</span>
@@ -2550,7 +2550,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb84-541"><a href="#cb84-541" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMerged</span>(envIn_propNeg, <span class="st">"Isolated Small"</span>, <span class="dv">2002</span>, <span class="dv">2017</span>)</span>
 <span id="cb84-542"><a href="#cb84-542" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb84-543"><a href="#cb84-543" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-544"><a href="#cb84-544" aria-hidden="true" tabindex="-1"></a>Smooths of temperature/flow cycles of daily data  by season</span>
+<span id="cb84-544"><a href="#cb84-544" aria-hidden="true" tabindex="-1"></a>Smooths of temperature/flow cycles of daily data by season</span>
 <span id="cb84-547"><a href="#cb84-547" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb84-548"><a href="#cb84-548" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: plotMergedBySeason</span></span>
 <span id="cb84-549"><a href="#cb84-549" aria-hidden="true" tabindex="-1"></a><span class="co">#| </span></span>
