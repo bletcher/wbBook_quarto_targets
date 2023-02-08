@@ -120,6 +120,7 @@ cd1$speciesGG <- factor(
     labels = c("Brook trout", "Brown trout", "Atlantic salmon"), 
     ordered = T
   )
+
 ```
 
 ### Find outlier growth rates  
@@ -464,7 +465,7 @@ So we can style the graph by propNeg growth for each year/season
 #| label: mergePropNeg
 
 envIn_propNeg <- envIn |> 
-  left_join(propNegSRsN |> dplyr::select(riverGG, year, seasonGG, propNeg)) |> 
+  left_join(propNegSRsN |> dplyr::select(riverGG, year, seasonGG, speciesGG, propNeg)) |> 
   mutate(yearSeason = paste(year, seasonGG, sep = "_"),
          dummy = 1)
 ```
@@ -484,7 +485,7 @@ plotMerged <- function(d, r, minYear = 2000, maxYear = 2017){
     ggtitle(r) +
     facet_wrap(~year, scales = 'free')
 }
-
+# this plots f/t for all three species - good for filling in gaps
 plotMerged(envIn_propNeg, "West Brook", 2000, 2017)
 plotMerged(envIn_propNeg, "Open Large", 2002, 2017)
 plotMerged(envIn_propNeg, "Open Small", 2002, 2017)
@@ -519,18 +520,100 @@ plotMergedBySeason(envIn_propNeg, "Isolated Small", 2002, 2017)
 Smooths of temperature/flow cycles of daily data by season with line width = proportion of negative growth
 ```{r} 
 #| label: plotMergedBySeason_LineWidth
-ggplot(envIn_propNeg |> filter(river == "west brook", year %in% c(2000:2017), !is.na(seasonGG)), 
-       aes(temperature, log10(flowByRiverm3s) 
-         #  color = factor(year), group = year
-           )
-       ) +
-  #geom_point() +
-  geom_smooth(aes(linewidth = (propNeg + 0.1), group = propNeg), se = FALSE) +
-  #geom_line() +
-  ggtitle("West Brook") +
-  facet_wrap(~seasonGG, scales = 'free')
+
+plotMergedBySeason_LineWidth <- function(d, r, minYear = 2000, maxYear = 2017) {
+  ggplot(d |> filter(riverGG == r, year %in% c(minYear:maxYear), !is.na(seasonGG)), 
+         aes(temperature, log10(flowByRiverm3s),
+             color = factor(year)#, group = year
+             )
+         ) +
+    geom_point() +
+    geom_smooth(aes(linewidth = propNeg + 0.1, group = propNeg), se = FALSE) +
+    #geom_line() +
+    ggtitle(r) +
+    #facet_wrap(~seasonGG, scales = 'free')
+  facet_grid(year~seasonGG, scales = 'free')
+}
+
+plotMergedBySeason_LineWidth(envIn_propNeg, "West Brook", 2000, 2017)
+plotMergedBySeason_LineWidth(envIn_propNeg, "Open Large", 2002, 2017)
+plotMergedBySeason_LineWidth(envIn_propNeg, "Open Small", 2002, 2017)
+plotMergedBySeason_LineWidth(envIn_propNeg, "Isolated Small", 2002, 2017)
+```
+
+Plot F/T cycles by river, season, species with label for propNeg and conspecific and all-species abundances
+```{r}
+#| label: plotMergedBySeasonByEverything
+
+indCountsBySpp <- cd1 |> 
+  group_by(riverGG, seasonGG, speciesGG, year) |> 
+  summarize(nIndBySpp = n())
+
+indCounts <- cd1 |> 
+  group_by(riverGG, seasonGG, year) |> 
+  summarize(nInd = n())
+
+propNegLabels <- envIn_propNeg |> 
+  group_by(riverGG, seasonGG, speciesGG, year) |> 
+  summarize(propNeg = mean(propNeg),
+            minTemp = min(temperature),
+            minFlow = min(flowByRiverm3s),
+            maxTemp = max(temperature),
+            maxFlow = max(flowByRiverm3s)) |> 
+  left_join(indCountsBySpp) |> 
+  left_join(indCounts)
 
 
+plotMergedBySeasonByEverything <- function(d, d2, r, s, spp, minYear = 2000, maxYear = 2017){
+  ggplot(d |> 
+           filter(riverGG == r,
+                  year %in% c(minYear:maxYear), 
+                  !is.na(seasonGG), 
+                  seasonGG == s, 
+                  speciesGG == spp), 
+         aes(temperature, log10(flowByRiverm3s))
+         ) +
+    geom_smooth(se = FALSE, color = "darkgrey") +
+    geom_point(aes(color = yday)) +
+    geom_text(aes(
+      x = minTemp - 0.5, 
+      y = log10(minFlow) - 0.1, 
+      label = round(propNeg, 2), 
+      size = propNeg + 1), 
+        data = d2|> 
+          filter(riverGG == r, 
+                 seasonGG == s, 
+                 speciesGG == spp)
+        ) +
+    geom_text(aes(
+      x = maxTemp - minTemp + 0.0,
+      y = log10(maxFlow) - 0.1,
+      label = paste(paste("nInd=", nInd), paste("nIndBySpp=", nIndBySpp), sep = "\n")
+      ),
+        data = d2|>
+          filter(riverGG == r,
+                 seasonGG == s,
+                 speciesGG == spp)
+        ) +
+    labs(x = "Temperature (c)", y = "log10 Flow") +
+    ggtitle(paste(r, s, spp, sep = ", ")) +
+  facet_wrap(~year)
+}
+
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Spring", "Brook trout", 2000, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Summer", "Brook trout", 2000, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Autumn", "Brook trout", 2000, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Winter", "Brook trout", 2000, 2017)
+
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Spring", "Brown trout", 2002, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Summer", "Brown trout", 2002, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Autumn", "Brown trout", 2002, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Winter", "Brown trout", 2002, 2017)
+
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Spring", "Atlantic salmon", 2002, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Summer", "Atlantic salmon", 2002, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Autumn", "Atlantic salmon", 2002, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Winter", "Atlantic salmon", 2002, 2017)
 
 ```
 
