@@ -19,20 +19,23 @@ library(relaimpo)
 library(caret)
 library(pscl)
 library(tidyverse)
+
+`%notin%` <- Negate(`%in%`)
 ```
 
-Distribution of growth, negative growth
+
+Distribution of growth, negative growth  
 Causes of neg growth  
-  - Extrinsic
-    - river, season, flow, temp
-  - intrinsic  
-    - Sex (fall), life history, section, size, age, previous growth (CF?), movement (section/river) 
+  - Extrinsic  
+    - river, season, flow, temp  
+  - intrinsic    
+    - Sex (fall), life history, section, size, age, previous growth (CF?), movement (section/river)  
 consequences of neg growth
    - survival  
-   - future growth (length and mass)
-   - movement (section/river)
+   - future growth (length and mass)  
+   - movement (section/river)  
    - reprod success?  
-   - local density (con and hetero)
+   - local density (con and hetero)  
 
 Probs with growth in mass  
 spawning loss mass in the fall, esp in OB
@@ -74,8 +77,6 @@ Previous growth models with length used all possible observations for a fish and
 #   rename(firstCapt = Var1, secondCapt = Var2, season = Var3, year = Var4) |> 
 #   filter(year == 2010)
 
-`%notin%` <- Negate(`%in%`)
-
 cd1 <- cd |> 
   filter(sampleNumberDiff == 1,
          tag %notin% c('1bf20ff490', '1bf20ebe4e')) |> 
@@ -84,6 +85,42 @@ cd1 <- cd |>
          dummy = 0) # change to force cache update
 ```
 
+Labels for plotting
+```{r}
+## River ####################
+cd1$riverGG <- factor(
+    cd1$river,
+    levels=c('west brook', 'wb jimmy', 'wb mitchell',"wb obear"),
+    labels = c("West Brook","Open Large","Open Small","Isolated Small"),
+    ordered = T
+  )
+
+envIn$riverGG <- factor(
+    envIn$river,
+    levels=c('west brook', 'wb jimmy', 'wb mitchell',"wb obear"),
+    labels = c("West Brook","Open Large","Open Small","Isolated Small"),
+    ordered = T
+  )
+##  Season ###################
+cd1$seasonGG <- factor(
+    cd1$season, 
+    labels = c("Spring","Summer","Autumn","Winter"), 
+    ordered = T
+  )
+
+envIn$seasonGG <- factor(
+    envIn$season, 
+    labels = c("Spring","Summer","Autumn","Winter"), 
+    ordered = T
+  )
+## Species ######################
+cd1$speciesGG <- factor(
+    cd1$species, 
+    levels = c('bkt','bnt','ats'), 
+    labels = c("Brook trout", "Brown trout", "Atlantic salmon"), 
+    ordered = T
+  )
+```
 
 ### Find outlier growth rates  
 #### Negative outlier growth  
@@ -110,8 +147,10 @@ cd1 |>
 #### Distribution of growth rates
 ```{r}
 #| label: rawlengthWeight
-ggplot(cd1, aes(grWeight, color = factor(species))) +
-  geom_freqpoly(bins = 100) +
+ggplot(cd1, aes(grWeight, color = speciesGG)) +
+  geom_freqpoly(bins = 50) +
+  labs(x = "Growth in mass (/d)", y = "Frequency") +
+  scale_color_discrete() +
   facet_wrap(~season)
 ```
 
@@ -119,48 +158,38 @@ ggplot(cd1, aes(grWeight, color = factor(species))) +
 Very few outliers
 ```{r}
 #| label: len_v_weight
-ggplot(cd1 |> filter(species == "bkt"), aes(observedLength, observedWeight)) +
-  geom_point(alpha = 0.5, size = 1) +
-  scale_x_log10() +
-  scale_y_log10() +
-  ggtitle("Brook trout") +
-  facet_grid(river~year, scales = 'free')
+plotLenW <- function(d, s){
+  ggplot(d |> filter(species == s), aes(observedLength, observedWeight)) +
+    geom_point(alpha = 0.5, size = 1) +
+    scale_x_log10() +
+    scale_y_log10() +
+    ggtitle(s) +
+    labs(x = "Length (mm)", y = "Mass (mg)") +
+    scale_color_discrete() +
+    facet_grid(riverGG~year, scales = 'free')
+}
 
-ggplot(cd1 |> filter(species == "bnt"), aes(observedLength, observedWeight)) +
-  geom_point(alpha = 0.5, size = 1) +
-  scale_x_log10() +
-  scale_y_log10() +
-  ggtitle("Brown trout") +
-  facet_grid(river~year, scales = 'free')
-
-ggplot(cd1 |> filter(species == "ats"), aes(observedLength, observedWeight)) +
-  geom_point(alpha = 0.5, size = 1) +
-  scale_x_log10() +
-  scale_y_log10() +
-  ggtitle("Atlantic salmon") +
-  facet_grid(river~year, scales = 'free')
+plotLenW(cd1, "bkt")
+plotLenW(cd1, "bnt")
+plotLenW(cd1, "ats")
 ```
 
 ### Weight vs weight at next sample
 ```{r}
 #| label: weight_v_weight
-ggplot(cd1 |> filter(species == "bkt"), aes(observedWeight, lagObservedWeight, color = factor(season))) +
-  geom_point(alpha = 0.15) +
-  guides(color = guide_legend(override.aes = list(alpha = 1))) +
-  ggtitle("Brook trout") +
-  facet_wrap(~river, scales = 'free')
+plotWW <- function(d, s){
+  ggplot(d |> filter(species == s), aes(observedWeight, lagObservedWeight, color = seasonGG)) +
+    geom_point(alpha = 0.15) +
+    guides(color = guide_legend(override.aes = list(alpha = 1))) +
+    ggtitle(s) +
+    labs(y = "mass (mg)", y = "Mass (mg) at next sample") +
+    scale_color_discrete() +
+    facet_wrap(~riverGG, scales = 'free')
+}
 
-ggplot(cd1 |> filter(species == "bnt", river != "wb mitchell"), aes(observedWeight, lagObservedWeight, color = factor(season))) +
-  geom_point(alpha = 0.15) +
-  guides(color = guide_legend(override.aes = list(alpha = 1))) +
-  ggtitle("Brown trout") +
-  facet_wrap(~river, scales = 'free')
-
-ggplot(cd1 |> filter(species == "ats", river =="west brook"), aes(observedWeight, lagObservedWeight, color = factor(season))) +
-  geom_point(alpha = 0.15) +
-  guides(color = guide_legend(override.aes = list(alpha = 1))) +
-  ggtitle("Atlantic salmon") +
-  facet_wrap(~river, scales = 'free')
+plotWW(cd1, "bkt")
+plotWW(cd1, "bnt")
+plotWW(cd1, "ats")
 ```
 
 
@@ -175,10 +204,12 @@ A simple linear models shows we need to get separate slopes for each river and s
 ```{r}
 #| label: grW_models
 ggplot(cd1 |> filter(grWeight > 0), 
-       aes(log(observedWeight), log(grWeight), color = river)) +
+       aes(log(observedWeight), log(grWeight), color = riverGG)) +
   geom_point(alpha = 0.05)  +
   geom_smooth(method = "lm", se = FALSE) +
-  facet_grid(season~species)
+  labs(y = "Log of mass (mg)", x = "Log of growth in mass") +
+  scale_color_discrete() +
+  facet_grid(seasonGG~speciesGG)
 
 mod0 <- lm(log(grWeight) ~ log(observedWeight), data = cd1 |> filter(grWeight > 0))
 mod1 <- lm(log(grWeight) ~ log(observedWeight) * river, data = cd1 |> filter(grWeight > 0))
@@ -193,21 +224,24 @@ AIC(mod0,mod1,mod2,mod3,mod4) |> arrange(AIC)
 Differences don't seem big enough to warrant the extra complexity from the s-adjusted growth metric 
 ```{r}
 #| label: grWeight_v_grWeightS
-ggplot(cd1, aes(grWeight, grWeightS, color = river)) +
+ggplot(cd1, aes(grWeight, grWeightS, color = riverGG)) +
   geom_point(alpha = 0.05)  +
   geom_smooth(method = "lm", se = FALSE) +
   geom_abline(intercept = 0, slope = 1) +
-  facet_grid(season~species)
+  labs(y = "Gowth in mass", x = "Size-adjusted growth in mass") +
+  scale_color_discrete() +
+  facet_grid(seasonGG~speciesGG)
 
 ggplot(cd1 |> 
-         dplyr::select(observedWeight, grWeight, grWeightS, season, species) |> 
+         dplyr::select(observedWeight, grWeight, grWeightS, seasonGG, speciesGG) |> 
          pivot_longer(cols = c(grWeight, grWeightS)),
        
        aes(log(observedWeight), value, color = name)) +
   geom_point(alpha = 0.05 )  +
   geom_smooth(method = "lm", se = FALSE) +
-  scale_y_continuous("Growth rate") +
-  facet_grid(season~species)
+  labs(y = "Log of mass (mg)", x = "Growth in mass") +
+  scale_color_discrete() +
+  facet_grid(seasonGG~speciesGG)
 ```
 
 
@@ -218,7 +252,9 @@ ggplot(cd1 |>
 ggplot(cd1, aes(grLength, grWeightS)) +
   geom_point(aes(size = observedWeight), alpha = 0.02) +
   guides(size = guide_legend(override.aes = list(alpha = 1))) +
-  facet_grid(season~species)
+  labs(x = "Growth in length", y = "Size-adjusted growth in mass") +
+  scale_color_discrete() +
+  facet_grid(seasonGG~speciesGG)
 ```
 
 ### Growth rate in length vs 'instantaneous' growth rate in mass
@@ -227,13 +263,16 @@ ggplot(cd1, aes(grLength, grWeightS)) +
 ggplot(cd1, aes(grLength, grWeight)) +
   geom_point(aes(size = observedWeight), alpha = 0.02) +
   guides(size = guide_legend(override.aes = list(alpha = 1))) +
-  facet_grid(season~species)
+  labs(x = "Growth in length", y = "Growth in mass") +
+  scale_color_discrete() +
+  facet_grid(seasonGG~speciesGG)
 
 ggplot(cd1 |> filter(species=="bnt", season ==2), aes(grLength, grWeight, color = factor(year))) +
   geom_point( alpha = 1) +
   geom_smooth(method="lm", se=FALSE) +
-  guides(size = guide_legend(override.aes = list(alpha = 1))) 
-
+  guides(size = guide_legend(override.aes = list(alpha = 1))) +
+  labs(x = "Growth in length", y = "Growth in mass") +
+  scale_color_discrete() 
 
 #  facet_wrap(~year)
 ```
@@ -243,50 +282,47 @@ ggplot(cd1 |> filter(species=="bnt", season ==2), aes(grLength, grWeight, color 
 ### Mean flow effect on growth?  
 Maybe in Jimmy for bnt, or for ats
 ```{r}
+#| label: flow_weight
 
-ggplot(cd1, aes(meanFlowByRiver, grWeight, color = river)) +
+plotFlowGR <- function(d, r){
+ggplot(d |> filter(river == r), aes(meanFlowByRiver, grWeight, color = speciesGG)) +
   geom_point(alpha = 0.05)  +
   geom_smooth(method = "lm", se = FALSE) +
-  facet_grid(season~species, scales = 'free')
+  geom_smooth(se = FALSE) +
+  geom_smooth(method = "lm", se =FALSE, formula = y~poly(x,2)) +
+  labs(x = "Mean flow", y = "Growth in mass") +
+  scale_color_discrete() +
+  ggtitle(r) +
+  facet_grid(seasonGG~speciesGG)#, scales = 'free')
+}
+
+plotFlowGR(cd1, "west brook")
+plotFlowGR(cd1, "wb jimmy")
+plotFlowGR(cd1, "wb mitchell")
+plotFlowGR(cd1, "wb obear")
 ```
-
-Fall season only
-```{r}
-ggplot(cd1 |> filter(season == 3), aes(meanFlowByRiver, grWeight, color = river)) +
-  geom_point(alpha = 0.1)  +
-  geom_smooth(method = "lm", se = FALSE) +
-  facet_grid(season~species, scales = 'free')
-
-```
-
 
 ### Mean temperature effect on growth?  
 Maybe in Jimmy for bnt, or for ats
 ```{r}
+#| label: temp_grWeight
 
-ggplot(cd1, aes(meanTemperature, grWeight, color = river)) +
-  geom_point(alpha = 0.05)  +
-  geom_smooth(method = "lm", se = FALSE) +
-  facet_grid(season~species, scales = 'free')
+plotTempGR <- function(d, s){
+  ggplot(d |> filter(seasonGG == s), aes(meanTemperature, grWeight, color = speciesGG)) +
+    geom_point(alpha = 0.5)  +
+    geom_smooth(method = "lm", se = FALSE) +
+    geom_smooth(se = FALSE) +
+    geom_smooth(method = "lm", se =FALSE, formula = y~poly(x,2)) +
+    labs(x = "Mean temperature (c)", y = "Growth in mass") +
+    scale_color_discrete() +
+    ggtitle(s) +
+    facet_grid(speciesGG~riverGG)#, scales = 'free')
+}
 
-ggplot(cd1 |> filter(species == 'bkt'), aes(meanTemperature, grWeight, color = river)) +
-  geom_point(alpha = 0.1)  +
-  geom_smooth(method = "lm", se = FALSE) +
-  ggtitle('Species = brook trout') +
-  facet_wrap(~season, scales = 'free')
-
-ggplot(cd1 |> filter(species == 'bnt'), aes(meanTemperature, grWeight, color = river)) +
-  geom_point(alpha = 0.1)  +
-  geom_smooth(method = "lm", se = FALSE) +
-  ggtitle('Species = brown trout') +
-  facet_wrap(~season, scales = 'free')
-
-ggplot(cd1 |> filter(species == 'ats'), aes(meanTemperature, grWeight, color = river)) +
-  geom_point(alpha = 0.1)  +
-  geom_smooth(method = "lm", se = FALSE) +
-  ggtitle('Species = Atlantic salmon') +
-  facet_wrap(~season, scales = 'free')
-
+plotTempGR(cd1, "Spring")
+plotTempGR(cd1, "Summer")
+plotTempGR(cd1, "Autumn")
+plotTempGR(cd1, "Winter")
 
 ```
 
@@ -294,12 +330,13 @@ ggplot(cd1 |> filter(species == 'ats'), aes(meanTemperature, grWeight, color = r
 ## Negative vs positive growth
 ### Proportion of fish with negative growth by species/river/season
 ```{r}
-ggplot(cd1, aes(negGrowth)) +
+#| label: neg_pos
+ggplot(cd1 |> filter(!is.na(negGrowth)), aes(negGrowth)) +
   geom_bar() +
-  facet_grid(season~species+river, scales = "free")
+  facet_grid(seasonGG~speciesGG+riverGG, scales = "free")
 
 propNegSRS <- cd1 |> 
-  group_by(species, river, season) |> 
+  group_by(speciesGG, riverGG, seasonGG) |> 
   summarize(numNeg = sum(negGrowth, na.rm = TRUE),
             n = n()
             ) |> 
@@ -307,129 +344,181 @@ propNegSRS <- cd1 |>
          propPos = numPos/n,
          propNeg = numNeg/n)
 
-ggplot(propNegSRS |> filter(n > 50), aes(season, propNeg, color = river)) +
+ggplot(propNegSRS |> filter(n > 50), aes(seasonGG, propNeg, color = riverGG, group = riverGG)) +
   geom_point(aes(size = n)) +
   geom_line() +
-  scale_y_continuous("Proportion of fish with negative growth in mass") +
-  facet_wrap(~species)
+  labs(x = "Season", y = "Proportion of fish with negative growth in mass") +
+  scale_color_discrete() +
+  facet_wrap(~speciesGG)
 
 ```
 
 ### Proportion of fish with negative growth by species/river/sampleNumber  
 Break down season by year
 ```{r}
+#| label: neg_posN
 propNegSRsN <- cd1 |> 
-  group_by(species, river, sampleNumber, season, year) |> 
+  group_by(speciesGG, riverGG, sampleNumber, seasonGG, year) |> 
   summarize(numNeg = sum(negGrowth, na.rm = TRUE),
             n = n(),
             mT = mean(meanTemperature, na.rm = TRUE),
             mF = mean(meanFlowByRiver, na.rm = TRUE),
-            mF_log = mean(log10(meanFlowByRiver), na.rm = TRUE)
+            mF_log10 = mean(log10(meanFlowByRiver), na.rm = TRUE)
             ) |> 
   mutate(numPos = n - numNeg,
          propPos = numPos/n,
          propNeg = numNeg/n) |> 
   ungroup()
 
-ggplot(propNegSRsN |> filter(n > 10), aes(year, propNeg, color = river)) +
+ggplot(propNegSRsN |> filter(n > 10), aes(year, propNeg, color = riverGG)) +
   geom_point(aes(size = n)) +
   geom_line() +
-  scale_y_continuous("Proportion of fish with negative growth in mass") +
-  facet_grid(season~species)
+  labs(x = "Year", y = "Proportion of fish with negative growth in mass") +
+  scale_color_discrete() +
+  facet_grid(seasonGG~speciesGG)
 
 ```
 
 ## Environmental effects on proportion of fish with negative growth
 ### Proportion of fish with negative growth by **flow**
 ```{r}
+#| label: negGrowth_flow
 
-ggplot(propNegSRsN |> filter(n > 10), aes(mF, propNeg, color = river)) +
+ggplot(propNegSRsN |> filter(n > 10, riverGG == "West Brook"), aes(mF, propNeg, color = riverGG)) +
   geom_point(aes(size = n)) +
   geom_smooth(method = "lm", se = FALSE) +
   scale_y_continuous("Proportion of fish with negative growth in mass") +
-  scale_x_continuous("Mean Flow") +
-  facet_grid(season~species)
+  scale_x_log10("Mean flow") +
+  scale_color_discrete() +
+  ggtitle("West Brook") +
+  facet_grid(seasonGG~speciesGG)
+
+ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(mF, propNeg, color = riverGG)) +
+  geom_point(aes(size = n)) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_y_continuous("Proportion of fish with negative growth in mass") +
+  scale_x_log10("Mean flow") +
+  scale_color_discrete() +
+  ggtitle("Tributaries") +
+  facet_grid(seasonGG~speciesGG)
 ```
 
 ### Proportion of fish with negative growth by **temperature**
 ```{r}
+#| label: negGrowth_temp
 
-ggplot(propNegSRsN |> filter(n > 10), aes(mT, propNeg, color = river)) +
-  geom_point(aes(size = n)) +
-  geom_smooth(method = "lm", se = FALSE) +
-  scale_y_continuous("Proportion of fish with negative growth in mass") +
-  scale_x_continuous("Mean Temperature") +
-  facet_grid(season~species, scales = "free")
-```
-Rotate graph so we can have free scales for each season
-```{r}
-ggplot(propNegSRsN |> filter(n > 10), aes(mT, propNeg, color = river)) +
-  geom_point(aes(size = n)) +
-  geom_smooth(method = "lm", se = FALSE) +
-  scale_y_continuous("Proportion of fish with negative growth in mass") +
-  scale_x_continuous("Mean Temperature") +
-  facet_grid(species~season, scales = "free")
+plotNegGrowth_temp <- function(d, s){
+  ggplot(d |> filter(n > 10, seasonGG == s), aes(mT, propNeg, color = riverGG)) +
+    geom_point(aes(size = n)) +
+    geom_smooth(method = "lm", se = FALSE) +
+    scale_y_continuous("Proportion of fish with negative growth in mass") +
+    scale_x_continuous("Mean temperature (C)") +
+    scale_color_discrete() +
+    ggtitle(s) +
+    facet_grid(riverGG~speciesGG)
+}
+plotNegGrowth_temp(propNegSRsN, "Spring")
+plotNegGrowth_temp(propNegSRsN, "Summer")
+plotNegGrowth_temp(propNegSRsN, "Autumn")
+plotNegGrowth_temp(propNegSRsN, "Winter")
+
 ```
 
 ### F/T cycle graphs  
 #### Mean flow and temperature
 ```{r}
-
-plot_mT_mF <- function(s){
-  ggplot(propNegSRsN |> filter(n > 25, species == s), aes(mT, mF, color = factor(season))) +
+#| label: flow_temp_cycle_bySpecies
+plot_mT_mF <- function(s, plotText){
+  ggplot(propNegSRsN |> filter(n > 25, speciesGG == s), aes(mT, mF_log10, color = factor(seasonGG))) +
     geom_point(aes(size = propNeg)) +
-    geom_text(aes(label = year), vjust = 0, nudge_y = -0.075, check_overlap = FALSE) +
+    {if(plotText) geom_text(aes(label = year), vjust = 0, nudge_y = -0.075, check_overlap = FALSE, size = 3)} +
     ggtitle(s) +
-    labs(x = "Mean temperature (C)", y = "Mean Flow") +
-    facet_wrap(~river)
+    labs(x = "Mean temperature (C)", y = "log10 of mean Flow") +
+    scale_color_discrete() +
+    facet_wrap(~riverGG, scales = "free")
 }
 
-plot_mT_mF("bkt")
-plot_mT_mF("bnt")
-plot_mT_mF("ats")
+plot_mT_mF("Brook trout", FALSE)
+plot_mT_mF("Brown trout", FALSE)
+plot_mT_mF("Atlantic salmon", FALSE)
+
+plot_mT_mF("Brook trout", TRUE)
+plot_mT_mF("Brown trout", TRUE)
+plot_mT_mF("Atlantic salmon", TRUE)
 ```
 
+Mean flow and temperature values for each season and year for the West Brook  
+Not very informative
 ```{r}
-ggplot(propNegSRsN |> filter(n > 10, river == 'west brook') |> arrange(river, species, year, season), aes(mT, mF)) +
+#| label: flow_temp_cycle_bySpeciesYear
+#| 
+ggplot(propNegSRsN |> filter(n > 10, riverGG == 'West Brook') |> arrange(riverGG, speciesGG, year, seasonGG), aes(mT, mF_log10)) +
   geom_line() +
-  geom_point(aes(color = factor(season))) +
+  geom_point(aes(color = factor(seasonGG))) +
   facet_wrap(~year)
 ```
 
-#### Merge in propNeg   
+#### Merge propNeg into daily environmental data   
 So we can style the graph by propNeg growth for each year/season
 ```{r}
 #| label: mergePropNeg
 
 envIn_propNeg <- envIn |> 
-  left_join(propNegSRsN |> dplyr::select(river, year, season, propNeg)) |> 
-  mutate(yearSeason = paste(year, season, sep = "_"))
+  left_join(propNegSRsN |> dplyr::select(riverGG, year, seasonGG, propNeg)) |> 
+  mutate(yearSeason = paste(year, seasonGG, sep = "_"))
 ```
 
-
+Yearly temperature/flow cycles of daily data 
 ```{r}
 #| label: mergePropNegPlot
 
+plotMerged <- function(d, r, minYear = 2000, maxYear = 2017){
+  ggplot(d |> filter(riverGG == r, year %in% c(minYear:maxYear)), 
+         aes(temperature, log10(flowByRiverm3s), color = seasonGG, group = seasonGG)) +
+    geom_point() +
+    geom_smooth(se = FALSE) +
+    #geom_line() +
+    labs(x = "Temperature (C)", y = "log10 of Flow") +
+    scale_color_discrete() +
+    ggtitle(r) +
+    facet_wrap(~year, scales = 'free')
+}
 
-ggplot(envIn |> filter(river == "west brook", year %in% c(2000:2017)), 
-       aes(temperature, log10(flowByRiverm3s), color = season, group = season)) +
-  geom_point() +
-  geom_smooth(se = FALSE) +
-  #geom_line() +
-  ggtitle("West Brook") +
-  facet_wrap(~year, scales = 'free')
+plotMerged(envIn_propNeg, "West Brook", 2000, 2017)
+plotMerged(envIn_propNeg, "Open Large", 2002, 2017)
+plotMerged(envIn_propNeg, "Open Small", 2002, 2017)
+plotMerged(envIn_propNeg, "Isolated Small", 2002, 2017)
+```
 
-ggplot(envIn_propNeg |> filter(river == "west brook", year %in% c(2000:2017), !is.na(season)), 
-       aes(temperature, log10(flowByRiverm3s), 
-           color = factor(year), group = year
-           )
-       ) +
-  #geom_point() +
-  geom_smooth(se = FALSE) +
-  ggtitle("West Brook") +
-  facet_wrap(~season, scales = 'free')
+Smooths of temperature/flow cycles of daily data  by season
+```{r}
+#| label: plotMergedBySeason
+#| 
+plotMergedBySeason <- function(d, r, minYear = 2000, maxYear = 2017) {
+  ggplot(d |> filter(riverGG == r, year %in% c(minYear:maxYear), !is.na(seasonGG)), 
+         aes(temperature, log10(flowByRiverm3s), 
+             color = factor(year), group = year
+             )
+         ) +
+    #geom_point() +
+    geom_smooth(se = FALSE) +
+    labs(x = "Temperature (C)", y = "log10 of Flow") +
+    scale_color_discrete() +
+    ggtitle(r) +
+    facet_wrap(~seasonGG, scales = 'free')
+}
 
-ggplot(envIn_propNeg |> filter(river == "west brook", year %in% c(2000:2017), !is.na(season)), 
+plotMergedBySeason(envIn_propNeg, "West Brook", 2000, 2017)
+plotMergedBySeason(envIn_propNeg, "Open Large", 2002, 2017)
+plotMergedBySeason(envIn_propNeg, "Open Small", 2002, 2017)
+plotMergedBySeason(envIn_propNeg, "Isolated Small", 2002, 2017)
+  
+```
+
+Smooths of temperature/flow cycles of daily data by season with line width = proportion of negative growth
+```{r} 
+#| label: plotMergedBySeason_LineWidth
+ggplot(envIn_propNeg |> filter(river == "west brook", year %in% c(2000:2017), !is.na(seasonGG)), 
        aes(temperature, log10(flowByRiverm3s) 
          #  color = factor(year), group = year
            )
@@ -438,36 +527,25 @@ ggplot(envIn_propNeg |> filter(river == "west brook", year %in% c(2000:2017), !i
   geom_smooth(aes(linewidth = (propNeg + 0.1), group = propNeg), se = FALSE) +
   #geom_line() +
   ggtitle("West Brook") +
-  facet_wrap(~season, scales = 'free')
+  facet_wrap(~seasonGG, scales = 'free')
+
+
 
 ```
 
 
 ```{r}
-ggplot(propNegSRsN |> filter(n > 10, river=="west brook", species == "bkt"), 
-       aes(year, propNeg, color = factor(season))) +
+ggplot(propNegSRsN |> filter(n > 10, riverGG=="West Brook", speciesGG == "Brook trout"), 
+       aes(year, propNeg, color = factor(seasonGG))) +
   geom_point(aes(size = n)) +
   geom_line() +
   ggtitle("West brook") +
-  scale_y_continuous("Proportion of fish with negative growth in mass") 
+  labs(x = "Year", y = "Proportion of fish with negative growth in mass") +
+  scale_color_discrete() 
   #facet_wrap(~season)
 ```
 
 
-
-```{r}
-ggplot(propNegSRsN |> filter(n > 10, river=="west brook", species == "bkt"), aes(year, propNeg, color = factor(season))) +
-  geom_point(aes(size = n)) +
-  geom_line() +
-  ggtitle("West brook") +
-  scale_y_continuous("Proportion of fish with negative growth in mass") 
-
-ggplot(propNegSRsN |> filter(n > 10, river=="wb obear", species == "bkt"), aes(year, propNeg, color = factor(season))) +
-  geom_point(aes(size = n)) +
-  geom_line() +
-  ggtitle("O'Bear") +
-  scale_y_continuous("Proportion of fish with negative growth in mass") 
-```
 
 
 ## Logistic models for environmental effects on propNeg
