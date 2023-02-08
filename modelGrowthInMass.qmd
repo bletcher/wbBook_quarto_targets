@@ -465,7 +465,8 @@ So we can style the graph by propNeg growth for each year/season
 
 envIn_propNeg <- envIn |> 
   left_join(propNegSRsN |> dplyr::select(riverGG, year, seasonGG, propNeg)) |> 
-  mutate(yearSeason = paste(year, seasonGG, sep = "_"))
+  mutate(yearSeason = paste(year, seasonGG, sep = "_"),
+         dummy = 1)
 ```
 
 Yearly temperature/flow cycles of daily data 

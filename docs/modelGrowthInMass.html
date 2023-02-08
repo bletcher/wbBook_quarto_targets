@@ -1107,12 +1107,13 @@ Not very informative</p>
 <section id="merge-propneg-into-daily-environmental-data" class="level4" data-number="13.7.3.2">
 <h4 data-number="13.7.3.2" class="anchored" data-anchor-id="merge-propneg-into-daily-environmental-data"><span class="header-section-number">13.7.3.2</span> Merge propNeg into daily environmental data</h4>
 <p>So we can style the graph by propNeg growth for each year/season</p>
-<div class="cell" data-hash="modelGrowthInMass_cache/html/mergePropNeg_ec38612c758ee8446974e2d12a5f7e0e">
+<div class="cell" data-hash="modelGrowthInMass_cache/html/mergePropNeg_0060e2df7e31506971c34c93398be623">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>envIn_propNeg <span class="ot">&lt;-</span> envIn <span class="sc">|&gt;</span> </span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(propNegSRsN <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(riverGG, year, seasonGG, propNeg)) <span class="sc">|&gt;</span> </span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">yearSeason =</span> <span class="fu">paste</span>(year, seasonGG, <span class="at">sep =</span> <span class="st">"_"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">yearSeason =</span> <span class="fu">paste</span>(year, seasonGG, <span class="at">sep =</span> <span class="st">"_"</span>),</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">dummy =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Yearly temperature/flow cycles of daily data</p>
@@ -2523,342 +2524,343 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb84-513"><a href="#cb84-513" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb84-514"><a href="#cb84-514" aria-hidden="true" tabindex="-1"></a>envIn_propNeg <span class="ot">&lt;-</span> envIn <span class="sc">|&gt;</span> </span>
 <span id="cb84-515"><a href="#cb84-515" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(propNegSRsN <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(riverGG, year, seasonGG, propNeg)) <span class="sc">|&gt;</span> </span>
-<span id="cb84-516"><a href="#cb84-516" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">yearSeason =</span> <span class="fu">paste</span>(year, seasonGG, <span class="at">sep =</span> <span class="st">"_"</span>))</span>
-<span id="cb84-517"><a href="#cb84-517" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb84-518"><a href="#cb84-518" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-519"><a href="#cb84-519" aria-hidden="true" tabindex="-1"></a>Yearly temperature/flow cycles of daily data </span>
-<span id="cb84-522"><a href="#cb84-522" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb84-523"><a href="#cb84-523" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: mergePropNegPlot</span></span>
-<span id="cb84-524"><a href="#cb84-524" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-525"><a href="#cb84-525" aria-hidden="true" tabindex="-1"></a>plotMerged <span class="ot">&lt;-</span> <span class="cf">function</span>(d, r, <span class="at">minYear =</span> <span class="dv">2000</span>, <span class="at">maxYear =</span> <span class="dv">2017</span>){</span>
-<span id="cb84-526"><a href="#cb84-526" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(d <span class="sc">|&gt;</span> <span class="fu">filter</span>(riverGG <span class="sc">==</span> r, year <span class="sc">%in%</span> <span class="fu">c</span>(minYear<span class="sc">:</span>maxYear)), </span>
-<span id="cb84-527"><a href="#cb84-527" aria-hidden="true" tabindex="-1"></a>         <span class="fu">aes</span>(temperature, <span class="fu">log10</span>(flowByRiverm3s), <span class="at">color =</span> seasonGG, <span class="at">group =</span> seasonGG)) <span class="sc">+</span></span>
-<span id="cb84-528"><a href="#cb84-528" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb84-529"><a href="#cb84-529" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb84-530"><a href="#cb84-530" aria-hidden="true" tabindex="-1"></a>    <span class="co">#geom_line() +</span></span>
-<span id="cb84-531"><a href="#cb84-531" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Temperature (C)"</span>, <span class="at">y =</span> <span class="st">"log10 of Flow"</span>) <span class="sc">+</span></span>
-<span id="cb84-532"><a href="#cb84-532" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_discrete</span>() <span class="sc">+</span></span>
-<span id="cb84-533"><a href="#cb84-533" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(r) <span class="sc">+</span></span>
-<span id="cb84-534"><a href="#cb84-534" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>year, <span class="at">scales =</span> <span class="st">'free'</span>)</span>
-<span id="cb84-535"><a href="#cb84-535" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb84-536"><a href="#cb84-536" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-537"><a href="#cb84-537" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMerged</span>(envIn_propNeg, <span class="st">"West Brook"</span>, <span class="dv">2000</span>, <span class="dv">2017</span>)</span>
-<span id="cb84-538"><a href="#cb84-538" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMerged</span>(envIn_propNeg, <span class="st">"Open Large"</span>, <span class="dv">2002</span>, <span class="dv">2017</span>)</span>
-<span id="cb84-539"><a href="#cb84-539" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMerged</span>(envIn_propNeg, <span class="st">"Open Small"</span>, <span class="dv">2002</span>, <span class="dv">2017</span>)</span>
-<span id="cb84-540"><a href="#cb84-540" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMerged</span>(envIn_propNeg, <span class="st">"Isolated Small"</span>, <span class="dv">2002</span>, <span class="dv">2017</span>)</span>
-<span id="cb84-541"><a href="#cb84-541" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb84-542"><a href="#cb84-542" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-543"><a href="#cb84-543" aria-hidden="true" tabindex="-1"></a>Smooths of temperature/flow cycles of daily data  by season</span>
-<span id="cb84-546"><a href="#cb84-546" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb84-547"><a href="#cb84-547" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: plotMergedBySeason</span></span>
-<span id="cb84-548"><a href="#cb84-548" aria-hidden="true" tabindex="-1"></a><span class="co">#| </span></span>
-<span id="cb84-549"><a href="#cb84-549" aria-hidden="true" tabindex="-1"></a>plotMergedBySeason <span class="ot">&lt;-</span> <span class="cf">function</span>(d, r, <span class="at">minYear =</span> <span class="dv">2000</span>, <span class="at">maxYear =</span> <span class="dv">2017</span>) {</span>
-<span id="cb84-550"><a href="#cb84-550" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(d <span class="sc">|&gt;</span> <span class="fu">filter</span>(riverGG <span class="sc">==</span> r, year <span class="sc">%in%</span> <span class="fu">c</span>(minYear<span class="sc">:</span>maxYear), <span class="sc">!</span><span class="fu">is.na</span>(seasonGG)), </span>
-<span id="cb84-551"><a href="#cb84-551" aria-hidden="true" tabindex="-1"></a>         <span class="fu">aes</span>(temperature, <span class="fu">log10</span>(flowByRiverm3s), </span>
-<span id="cb84-552"><a href="#cb84-552" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="fu">factor</span>(year), <span class="at">group =</span> year</span>
-<span id="cb84-553"><a href="#cb84-553" aria-hidden="true" tabindex="-1"></a>             )</span>
-<span id="cb84-554"><a href="#cb84-554" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
-<span id="cb84-555"><a href="#cb84-555" aria-hidden="true" tabindex="-1"></a>    <span class="co">#geom_point() +</span></span>
-<span id="cb84-556"><a href="#cb84-556" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb84-557"><a href="#cb84-557" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Temperature (C)"</span>, <span class="at">y =</span> <span class="st">"log10 of Flow"</span>) <span class="sc">+</span></span>
-<span id="cb84-558"><a href="#cb84-558" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_discrete</span>() <span class="sc">+</span></span>
-<span id="cb84-559"><a href="#cb84-559" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(r) <span class="sc">+</span></span>
-<span id="cb84-560"><a href="#cb84-560" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>seasonGG, <span class="at">scales =</span> <span class="st">'free'</span>)</span>
-<span id="cb84-561"><a href="#cb84-561" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb84-562"><a href="#cb84-562" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-563"><a href="#cb84-563" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMergedBySeason</span>(envIn_propNeg, <span class="st">"West Brook"</span>, <span class="dv">2000</span>, <span class="dv">2017</span>)</span>
-<span id="cb84-564"><a href="#cb84-564" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMergedBySeason</span>(envIn_propNeg, <span class="st">"Open Large"</span>, <span class="dv">2002</span>, <span class="dv">2017</span>)</span>
-<span id="cb84-565"><a href="#cb84-565" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMergedBySeason</span>(envIn_propNeg, <span class="st">"Open Small"</span>, <span class="dv">2002</span>, <span class="dv">2017</span>)</span>
-<span id="cb84-566"><a href="#cb84-566" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMergedBySeason</span>(envIn_propNeg, <span class="st">"Isolated Small"</span>, <span class="dv">2002</span>, <span class="dv">2017</span>)</span>
-<span id="cb84-567"><a href="#cb84-567" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb84-568"><a href="#cb84-568" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb84-569"><a href="#cb84-569" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-570"><a href="#cb84-570" aria-hidden="true" tabindex="-1"></a>Smooths of temperature/flow cycles of daily data by season with line width = proportion of negative growth</span>
-<span id="cb84-573"><a href="#cb84-573" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb84-574"><a href="#cb84-574" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: plotMergedBySeason_LineWidth</span></span>
-<span id="cb84-575"><a href="#cb84-575" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envIn_propNeg <span class="sc">|&gt;</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"west brook"</span>, year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2000</span><span class="sc">:</span><span class="dv">2017</span>), <span class="sc">!</span><span class="fu">is.na</span>(seasonGG)), </span>
-<span id="cb84-576"><a href="#cb84-576" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(temperature, <span class="fu">log10</span>(flowByRiverm3s) </span>
-<span id="cb84-577"><a href="#cb84-577" aria-hidden="true" tabindex="-1"></a>         <span class="co">#  color = factor(year), group = year</span></span>
-<span id="cb84-578"><a href="#cb84-578" aria-hidden="true" tabindex="-1"></a>           )</span>
-<span id="cb84-579"><a href="#cb84-579" aria-hidden="true" tabindex="-1"></a>       ) <span class="sc">+</span></span>
-<span id="cb84-580"><a href="#cb84-580" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_point() +</span></span>
-<span id="cb84-581"><a href="#cb84-581" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">linewidth =</span> (propNeg <span class="sc">+</span> <span class="fl">0.1</span>), <span class="at">group =</span> propNeg), <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb84-582"><a href="#cb84-582" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_line() +</span></span>
-<span id="cb84-583"><a href="#cb84-583" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"West Brook"</span>) <span class="sc">+</span></span>
-<span id="cb84-584"><a href="#cb84-584" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>seasonGG, <span class="at">scales =</span> <span class="st">'free'</span>)</span>
-<span id="cb84-585"><a href="#cb84-585" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-516"><a href="#cb84-516" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">yearSeason =</span> <span class="fu">paste</span>(year, seasonGG, <span class="at">sep =</span> <span class="st">"_"</span>),</span>
+<span id="cb84-517"><a href="#cb84-517" aria-hidden="true" tabindex="-1"></a>         <span class="at">dummy =</span> <span class="dv">1</span>)</span>
+<span id="cb84-518"><a href="#cb84-518" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb84-519"><a href="#cb84-519" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-520"><a href="#cb84-520" aria-hidden="true" tabindex="-1"></a>Yearly temperature/flow cycles of daily data </span>
+<span id="cb84-523"><a href="#cb84-523" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb84-524"><a href="#cb84-524" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: mergePropNegPlot</span></span>
+<span id="cb84-525"><a href="#cb84-525" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-526"><a href="#cb84-526" aria-hidden="true" tabindex="-1"></a>plotMerged <span class="ot">&lt;-</span> <span class="cf">function</span>(d, r, <span class="at">minYear =</span> <span class="dv">2000</span>, <span class="at">maxYear =</span> <span class="dv">2017</span>){</span>
+<span id="cb84-527"><a href="#cb84-527" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(d <span class="sc">|&gt;</span> <span class="fu">filter</span>(riverGG <span class="sc">==</span> r, year <span class="sc">%in%</span> <span class="fu">c</span>(minYear<span class="sc">:</span>maxYear)), </span>
+<span id="cb84-528"><a href="#cb84-528" aria-hidden="true" tabindex="-1"></a>         <span class="fu">aes</span>(temperature, <span class="fu">log10</span>(flowByRiverm3s), <span class="at">color =</span> seasonGG, <span class="at">group =</span> seasonGG)) <span class="sc">+</span></span>
+<span id="cb84-529"><a href="#cb84-529" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb84-530"><a href="#cb84-530" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb84-531"><a href="#cb84-531" aria-hidden="true" tabindex="-1"></a>    <span class="co">#geom_line() +</span></span>
+<span id="cb84-532"><a href="#cb84-532" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Temperature (C)"</span>, <span class="at">y =</span> <span class="st">"log10 of Flow"</span>) <span class="sc">+</span></span>
+<span id="cb84-533"><a href="#cb84-533" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_discrete</span>() <span class="sc">+</span></span>
+<span id="cb84-534"><a href="#cb84-534" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(r) <span class="sc">+</span></span>
+<span id="cb84-535"><a href="#cb84-535" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>year, <span class="at">scales =</span> <span class="st">'free'</span>)</span>
+<span id="cb84-536"><a href="#cb84-536" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb84-537"><a href="#cb84-537" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-538"><a href="#cb84-538" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMerged</span>(envIn_propNeg, <span class="st">"West Brook"</span>, <span class="dv">2000</span>, <span class="dv">2017</span>)</span>
+<span id="cb84-539"><a href="#cb84-539" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMerged</span>(envIn_propNeg, <span class="st">"Open Large"</span>, <span class="dv">2002</span>, <span class="dv">2017</span>)</span>
+<span id="cb84-540"><a href="#cb84-540" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMerged</span>(envIn_propNeg, <span class="st">"Open Small"</span>, <span class="dv">2002</span>, <span class="dv">2017</span>)</span>
+<span id="cb84-541"><a href="#cb84-541" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMerged</span>(envIn_propNeg, <span class="st">"Isolated Small"</span>, <span class="dv">2002</span>, <span class="dv">2017</span>)</span>
+<span id="cb84-542"><a href="#cb84-542" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb84-543"><a href="#cb84-543" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-544"><a href="#cb84-544" aria-hidden="true" tabindex="-1"></a>Smooths of temperature/flow cycles of daily data  by season</span>
+<span id="cb84-547"><a href="#cb84-547" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb84-548"><a href="#cb84-548" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: plotMergedBySeason</span></span>
+<span id="cb84-549"><a href="#cb84-549" aria-hidden="true" tabindex="-1"></a><span class="co">#| </span></span>
+<span id="cb84-550"><a href="#cb84-550" aria-hidden="true" tabindex="-1"></a>plotMergedBySeason <span class="ot">&lt;-</span> <span class="cf">function</span>(d, r, <span class="at">minYear =</span> <span class="dv">2000</span>, <span class="at">maxYear =</span> <span class="dv">2017</span>) {</span>
+<span id="cb84-551"><a href="#cb84-551" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(d <span class="sc">|&gt;</span> <span class="fu">filter</span>(riverGG <span class="sc">==</span> r, year <span class="sc">%in%</span> <span class="fu">c</span>(minYear<span class="sc">:</span>maxYear), <span class="sc">!</span><span class="fu">is.na</span>(seasonGG)), </span>
+<span id="cb84-552"><a href="#cb84-552" aria-hidden="true" tabindex="-1"></a>         <span class="fu">aes</span>(temperature, <span class="fu">log10</span>(flowByRiverm3s), </span>
+<span id="cb84-553"><a href="#cb84-553" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="fu">factor</span>(year), <span class="at">group =</span> year</span>
+<span id="cb84-554"><a href="#cb84-554" aria-hidden="true" tabindex="-1"></a>             )</span>
+<span id="cb84-555"><a href="#cb84-555" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb84-556"><a href="#cb84-556" aria-hidden="true" tabindex="-1"></a>    <span class="co">#geom_point() +</span></span>
+<span id="cb84-557"><a href="#cb84-557" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb84-558"><a href="#cb84-558" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Temperature (C)"</span>, <span class="at">y =</span> <span class="st">"log10 of Flow"</span>) <span class="sc">+</span></span>
+<span id="cb84-559"><a href="#cb84-559" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_discrete</span>() <span class="sc">+</span></span>
+<span id="cb84-560"><a href="#cb84-560" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(r) <span class="sc">+</span></span>
+<span id="cb84-561"><a href="#cb84-561" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>seasonGG, <span class="at">scales =</span> <span class="st">'free'</span>)</span>
+<span id="cb84-562"><a href="#cb84-562" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb84-563"><a href="#cb84-563" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-564"><a href="#cb84-564" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMergedBySeason</span>(envIn_propNeg, <span class="st">"West Brook"</span>, <span class="dv">2000</span>, <span class="dv">2017</span>)</span>
+<span id="cb84-565"><a href="#cb84-565" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMergedBySeason</span>(envIn_propNeg, <span class="st">"Open Large"</span>, <span class="dv">2002</span>, <span class="dv">2017</span>)</span>
+<span id="cb84-566"><a href="#cb84-566" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMergedBySeason</span>(envIn_propNeg, <span class="st">"Open Small"</span>, <span class="dv">2002</span>, <span class="dv">2017</span>)</span>
+<span id="cb84-567"><a href="#cb84-567" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMergedBySeason</span>(envIn_propNeg, <span class="st">"Isolated Small"</span>, <span class="dv">2002</span>, <span class="dv">2017</span>)</span>
+<span id="cb84-568"><a href="#cb84-568" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb84-569"><a href="#cb84-569" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb84-570"><a href="#cb84-570" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-571"><a href="#cb84-571" aria-hidden="true" tabindex="-1"></a>Smooths of temperature/flow cycles of daily data by season with line width = proportion of negative growth</span>
+<span id="cb84-574"><a href="#cb84-574" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb84-575"><a href="#cb84-575" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: plotMergedBySeason_LineWidth</span></span>
+<span id="cb84-576"><a href="#cb84-576" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envIn_propNeg <span class="sc">|&gt;</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"west brook"</span>, year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2000</span><span class="sc">:</span><span class="dv">2017</span>), <span class="sc">!</span><span class="fu">is.na</span>(seasonGG)), </span>
+<span id="cb84-577"><a href="#cb84-577" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(temperature, <span class="fu">log10</span>(flowByRiverm3s) </span>
+<span id="cb84-578"><a href="#cb84-578" aria-hidden="true" tabindex="-1"></a>         <span class="co">#  color = factor(year), group = year</span></span>
+<span id="cb84-579"><a href="#cb84-579" aria-hidden="true" tabindex="-1"></a>           )</span>
+<span id="cb84-580"><a href="#cb84-580" aria-hidden="true" tabindex="-1"></a>       ) <span class="sc">+</span></span>
+<span id="cb84-581"><a href="#cb84-581" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_point() +</span></span>
+<span id="cb84-582"><a href="#cb84-582" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">linewidth =</span> (propNeg <span class="sc">+</span> <span class="fl">0.1</span>), <span class="at">group =</span> propNeg), <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb84-583"><a href="#cb84-583" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_line() +</span></span>
+<span id="cb84-584"><a href="#cb84-584" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"West Brook"</span>) <span class="sc">+</span></span>
+<span id="cb84-585"><a href="#cb84-585" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>seasonGG, <span class="at">scales =</span> <span class="st">'free'</span>)</span>
 <span id="cb84-586"><a href="#cb84-586" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb84-587"><a href="#cb84-587" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-588"><a href="#cb84-588" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb84-589"><a href="#cb84-589" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-588"><a href="#cb84-588" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-589"><a href="#cb84-589" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb84-590"><a href="#cb84-590" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-593"><a href="#cb84-593" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb84-594"><a href="#cb84-594" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(propNegSRsN <span class="sc">|&gt;</span> <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">10</span>, riverGG<span class="sc">==</span><span class="st">"West Brook"</span>, speciesGG <span class="sc">==</span> <span class="st">"Brook trout"</span>), </span>
-<span id="cb84-595"><a href="#cb84-595" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(year, propNeg, <span class="at">color =</span> <span class="fu">factor</span>(seasonGG))) <span class="sc">+</span></span>
-<span id="cb84-596"><a href="#cb84-596" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> n)) <span class="sc">+</span></span>
-<span id="cb84-597"><a href="#cb84-597" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb84-598"><a href="#cb84-598" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"West brook"</span>) <span class="sc">+</span></span>
-<span id="cb84-599"><a href="#cb84-599" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"Proportion of fish with negative growth in mass"</span>) <span class="sc">+</span></span>
-<span id="cb84-600"><a href="#cb84-600" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>() </span>
-<span id="cb84-601"><a href="#cb84-601" aria-hidden="true" tabindex="-1"></a>  <span class="co">#facet_wrap(~season)</span></span>
-<span id="cb84-602"><a href="#cb84-602" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb84-603"><a href="#cb84-603" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-591"><a href="#cb84-591" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-594"><a href="#cb84-594" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb84-595"><a href="#cb84-595" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(propNegSRsN <span class="sc">|&gt;</span> <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">10</span>, riverGG<span class="sc">==</span><span class="st">"West Brook"</span>, speciesGG <span class="sc">==</span> <span class="st">"Brook trout"</span>), </span>
+<span id="cb84-596"><a href="#cb84-596" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(year, propNeg, <span class="at">color =</span> <span class="fu">factor</span>(seasonGG))) <span class="sc">+</span></span>
+<span id="cb84-597"><a href="#cb84-597" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> n)) <span class="sc">+</span></span>
+<span id="cb84-598"><a href="#cb84-598" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb84-599"><a href="#cb84-599" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"West brook"</span>) <span class="sc">+</span></span>
+<span id="cb84-600"><a href="#cb84-600" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"Proportion of fish with negative growth in mass"</span>) <span class="sc">+</span></span>
+<span id="cb84-601"><a href="#cb84-601" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>() </span>
+<span id="cb84-602"><a href="#cb84-602" aria-hidden="true" tabindex="-1"></a>  <span class="co">#facet_wrap(~season)</span></span>
+<span id="cb84-603"><a href="#cb84-603" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb84-604"><a href="#cb84-604" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb84-605"><a href="#cb84-605" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb84-606"><a href="#cb84-606" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-607"><a href="#cb84-607" aria-hidden="true" tabindex="-1"></a><span class="fu">## Logistic models for environmental effects on propNeg</span></span>
-<span id="cb84-608"><a href="#cb84-608" aria-hidden="true" tabindex="-1"></a><span class="fu">### Standardize flow and temperature</span></span>
-<span id="cb84-611"><a href="#cb84-611" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb84-612"><a href="#cb84-612" aria-hidden="true" tabindex="-1"></a><span class="co"># getZ &lt;- function(d){</span></span>
-<span id="cb84-613"><a href="#cb84-613" aria-hidden="true" tabindex="-1"></a><span class="co">#   list(</span></span>
-<span id="cb84-614"><a href="#cb84-614" aria-hidden="true" tabindex="-1"></a><span class="co">#     mean = mean(d, na.rm = TRUE),</span></span>
-<span id="cb84-615"><a href="#cb84-615" aria-hidden="true" tabindex="-1"></a><span class="co">#     sd = sd(d, na.rm = TRUE)</span></span>
-<span id="cb84-616"><a href="#cb84-616" aria-hidden="true" tabindex="-1"></a><span class="co">#   )</span></span>
-<span id="cb84-617"><a href="#cb84-617" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
-<span id="cb84-618"><a href="#cb84-618" aria-hidden="true" tabindex="-1"></a><span class="co"># fZ &lt;- getZ(cd1$meanFlowByRiver)</span></span>
-<span id="cb84-619"><a href="#cb84-619" aria-hidden="true" tabindex="-1"></a><span class="co"># fT &lt;- getZ(cd1$meanTemperature)</span></span>
-<span id="cb84-620"><a href="#cb84-620" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-621"><a href="#cb84-621" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> cd1 <span class="sc">|&gt;</span> </span>
-<span id="cb84-622"><a href="#cb84-622" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(season) <span class="sc">|&gt;</span> </span>
-<span id="cb84-623"><a href="#cb84-623" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">fZMean =</span> <span class="fu">mean</span>(meanFlowByRiver, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb84-624"><a href="#cb84-624" aria-hidden="true" tabindex="-1"></a>            <span class="at">fZSd =</span> <span class="fu">sd</span>(meanFlowByRiver, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb84-625"><a href="#cb84-625" aria-hidden="true" tabindex="-1"></a>            <span class="at">fTMean =</span> <span class="fu">mean</span>(meanTemperature, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb84-626"><a href="#cb84-626" aria-hidden="true" tabindex="-1"></a>            <span class="at">fTSd =</span> <span class="fu">sd</span>(meanTemperature, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb84-627"><a href="#cb84-627" aria-hidden="true" tabindex="-1"></a>            )</span>
-<span id="cb84-628"><a href="#cb84-628" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-629"><a href="#cb84-629" aria-hidden="true" tabindex="-1"></a>cd1 <span class="ot">&lt;-</span> cd1 <span class="sc">|&gt;</span> </span>
-<span id="cb84-630"><a href="#cb84-630" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(z) <span class="sc">|&gt;</span> </span>
-<span id="cb84-631"><a href="#cb84-631" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">meanFlowByRiverZ =</span> (meanFlowByRiver <span class="sc">-</span> fZMean)<span class="sc">/</span>fZSd,</span>
-<span id="cb84-632"><a href="#cb84-632" aria-hidden="true" tabindex="-1"></a>         <span class="at">meanTempZ =</span> (meanTemperature <span class="sc">-</span> fTMean)<span class="sc">/</span>fTSd)</span>
-<span id="cb84-633"><a href="#cb84-633" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb84-634"><a href="#cb84-634" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-635"><a href="#cb84-635" aria-hidden="true" tabindex="-1"></a><span class="fu">### Raw data with logistic fit for flow effect </span></span>
-<span id="cb84-638"><a href="#cb84-638" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb84-639"><a href="#cb84-639" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1 <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(negGrowth)), <span class="fu">aes</span>(meanFlowByRiverZ, negGrowth <span class="sc">*</span> <span class="dv">1</span>, <span class="at">color =</span> river)) <span class="sc">+</span></span>
-<span id="cb84-640"><a href="#cb84-640" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb84-641"><a href="#cb84-641" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"glm"</span>, </span>
-<span id="cb84-642"><a href="#cb84-642" aria-hidden="true" tabindex="-1"></a>              <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> <span class="st">"binomial"</span>),</span>
-<span id="cb84-643"><a href="#cb84-643" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb84-644"><a href="#cb84-644" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Probability of negative growth in mass"</span>, <span class="at">x =</span> <span class="st">"Mean flow"</span>) <span class="sc">+</span></span>
-<span id="cb84-645"><a href="#cb84-645" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(season<span class="sc">~</span>species)</span>
-<span id="cb84-646"><a href="#cb84-646" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-647"><a href="#cb84-647" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1 <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(negGrowth)), <span class="fu">aes</span>(meanFlowByRiverZ, negGrowth <span class="sc">*</span> <span class="dv">1</span>, <span class="at">color =</span> river)) <span class="sc">+</span></span>
-<span id="cb84-648"><a href="#cb84-648" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb84-649"><a href="#cb84-649" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"glm"</span>, </span>
-<span id="cb84-650"><a href="#cb84-650" aria-hidden="true" tabindex="-1"></a>              <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> <span class="st">"binomial"</span>),</span>
-<span id="cb84-651"><a href="#cb84-651" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb84-652"><a href="#cb84-652" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Probability of negative growth in mass"</span>, <span class="at">x =</span> <span class="st">"Mean flow"</span>) <span class="sc">+</span></span>
-<span id="cb84-653"><a href="#cb84-653" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(season<span class="sc">~</span>species<span class="sc">+</span>river)</span>
-<span id="cb84-654"><a href="#cb84-654" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb84-655"><a href="#cb84-655" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-656"><a href="#cb84-656" aria-hidden="true" tabindex="-1"></a><span class="fu">### Raw data with logistic fit for temperature effect </span></span>
-<span id="cb84-659"><a href="#cb84-659" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb84-660"><a href="#cb84-660" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1 <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(negGrowth), meanTempZ <span class="sc">&gt;</span> <span class="sc">-</span><span class="dv">4</span>), <span class="fu">aes</span>(meanTempZ, negGrowth <span class="sc">*</span> <span class="dv">1</span>, <span class="at">color =</span> river)) <span class="sc">+</span></span>
-<span id="cb84-661"><a href="#cb84-661" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb84-662"><a href="#cb84-662" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"glm"</span>, </span>
-<span id="cb84-663"><a href="#cb84-663" aria-hidden="true" tabindex="-1"></a>              <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> <span class="st">"binomial"</span>),</span>
-<span id="cb84-664"><a href="#cb84-664" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb84-665"><a href="#cb84-665" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Probability of negative growth in mass"</span>, <span class="at">x =</span> <span class="st">"Mean temperature"</span>) <span class="sc">+</span></span>
-<span id="cb84-666"><a href="#cb84-666" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(season<span class="sc">~</span>species)</span>
-<span id="cb84-667"><a href="#cb84-667" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb84-668"><a href="#cb84-668" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-669"><a href="#cb84-669" aria-hidden="true" tabindex="-1"></a><span class="fu">## Logistic model for flow and temperature, one species at a time  </span></span>
-<span id="cb84-670"><a href="#cb84-670" aria-hidden="true" tabindex="-1"></a>Species occupy different rivers, so an all-species model will have unequal river representation across species and don't need to predict where species are not. </span>
-<span id="cb84-671"><a href="#cb84-671" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-672"><a href="#cb84-672" aria-hidden="true" tabindex="-1"></a>Need to think through whether these models make sense...</span>
-<span id="cb84-673"><a href="#cb84-673" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-676"><a href="#cb84-676" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb84-677"><a href="#cb84-677" aria-hidden="true" tabindex="-1"></a>runSppModels <span class="ot">&lt;-</span> <span class="cf">function</span>(d, speciesIn) {</span>
-<span id="cb84-678"><a href="#cb84-678" aria-hidden="true" tabindex="-1"></a>  models <span class="ot">=</span></span>
-<span id="cb84-679"><a href="#cb84-679" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">model =</span> </span>
-<span id="cb84-680"><a href="#cb84-680" aria-hidden="true" tabindex="-1"></a>      <span class="fu">c</span>(</span>
-<span id="cb84-681"><a href="#cb84-681" aria-hidden="true" tabindex="-1"></a>          <span class="st">'negGrowth ~ meanFlowByRiverZ * meanTempZ * river'</span>,</span>
-<span id="cb84-682"><a href="#cb84-682" aria-hidden="true" tabindex="-1"></a>          <span class="st">'negGrowth ~ meanFlowByRiverZ * meanTempZ + river'</span>,</span>
-<span id="cb84-683"><a href="#cb84-683" aria-hidden="true" tabindex="-1"></a>          <span class="st">'negGrowth ~ meanFlowByRiverZ + meanTempZ + river'</span>, </span>
-<span id="cb84-684"><a href="#cb84-684" aria-hidden="true" tabindex="-1"></a>          </span>
-<span id="cb84-685"><a href="#cb84-685" aria-hidden="true" tabindex="-1"></a>          <span class="st">'negGrowth ~ meanFlowByRiverZ * meanTempZ'</span> , </span>
-<span id="cb84-686"><a href="#cb84-686" aria-hidden="true" tabindex="-1"></a>          </span>
-<span id="cb84-687"><a href="#cb84-687" aria-hidden="true" tabindex="-1"></a>          <span class="st">'negGrowth ~ meanFlowByRiverZ * meanTempZ * river * factor(season)'</span>,</span>
-<span id="cb84-688"><a href="#cb84-688" aria-hidden="true" tabindex="-1"></a>          </span>
-<span id="cb84-689"><a href="#cb84-689" aria-hidden="true" tabindex="-1"></a>          <span class="st">'negGrowth ~ meanFlowByRiverZ + meanTempZ * river * factor(season)'</span>, </span>
-<span id="cb84-690"><a href="#cb84-690" aria-hidden="true" tabindex="-1"></a>          </span>
-<span id="cb84-691"><a href="#cb84-691" aria-hidden="true" tabindex="-1"></a>          <span class="st">'negGrowth ~ meanFlowByRiverZ * meanTempZ * river * factor(season) * observedWeight'</span> </span>
-<span id="cb84-692"><a href="#cb84-692" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb84-693"><a href="#cb84-693" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
-<span id="cb84-694"><a href="#cb84-694" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb84-695"><a href="#cb84-695" aria-hidden="true" tabindex="-1"></a>      <span class="at">fit =</span> <span class="fu">map</span>(model, <span class="sc">~</span><span class="fu">glm</span>(.x, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> d <span class="sc">|&gt;</span> <span class="fu">filter</span>(species <span class="sc">==</span> speciesIn))),</span>
-<span id="cb84-696"><a href="#cb84-696" aria-hidden="true" tabindex="-1"></a>      <span class="at">glanced =</span> <span class="fu">map</span>(fit, broom<span class="sc">::</span>glance),</span>
-<span id="cb84-697"><a href="#cb84-697" aria-hidden="true" tabindex="-1"></a>      <span class="at">tidied =</span> <span class="fu">map</span>(fit, broom<span class="sc">::</span>tidy)</span>
-<span id="cb84-698"><a href="#cb84-698" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb84-699"><a href="#cb84-699" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(models)</span>
-<span id="cb84-700"><a href="#cb84-700" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb84-701"><a href="#cb84-701" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-702"><a href="#cb84-702" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb84-703"><a href="#cb84-703" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-704"><a href="#cb84-704" aria-hidden="true" tabindex="-1"></a><span class="fu">### Predict p(neg growth in mass)</span></span>
-<span id="cb84-707"><a href="#cb84-707" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb84-708"><a href="#cb84-708" aria-hidden="true" tabindex="-1"></a>predictSpp <span class="ot">&lt;-</span> <span class="cf">function</span>(dIn, modIn, speciesIn){</span>
-<span id="cb84-709"><a href="#cb84-709" aria-hidden="true" tabindex="-1"></a>  d <span class="ot">&lt;-</span> dIn <span class="sc">|&gt;</span> <span class="fu">filter</span>(species <span class="sc">==</span> speciesIn)</span>
-<span id="cb84-710"><a href="#cb84-710" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb84-711"><a href="#cb84-711" aria-hidden="true" tabindex="-1"></a>  byAIC <span class="ot">=</span> modIn <span class="sc">|&gt;</span> </span>
-<span id="cb84-712"><a href="#cb84-712" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest</span>(glanced) <span class="sc">|&gt;</span></span>
-<span id="cb84-713"><a href="#cb84-713" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(AIC) <span class="sc">|&gt;</span></span>
-<span id="cb84-714"><a href="#cb84-714" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(model, AIC, df.residual, fit, tidied)</span>
-<span id="cb84-715"><a href="#cb84-715" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb84-716"><a href="#cb84-716" aria-hidden="true" tabindex="-1"></a>  predDSpp <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
-<span id="cb84-717"><a href="#cb84-717" aria-hidden="true" tabindex="-1"></a>    <span class="at">meanFlowByRiverZ =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="fl">0.25</span>), </span>
-<span id="cb84-718"><a href="#cb84-718" aria-hidden="true" tabindex="-1"></a>    <span class="at">meanTempZ =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="fl">0.25</span>), </span>
-<span id="cb84-719"><a href="#cb84-719" aria-hidden="true" tabindex="-1"></a>    <span class="at">river =</span> <span class="fu">unique</span>(d<span class="sc">$</span>river), </span>
-<span id="cb84-720"><a href="#cb84-720" aria-hidden="true" tabindex="-1"></a>    <span class="at">season =</span> <span class="fu">unique</span>(d<span class="sc">$</span>season),</span>
-<span id="cb84-721"><a href="#cb84-721" aria-hidden="true" tabindex="-1"></a>    <span class="at">observedWeight =</span> <span class="fu">seq</span>(<span class="fu">min</span>(d<span class="sc">$</span>observedWeight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="fu">max</span>(d<span class="sc">$</span>observedWeight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">40</span>)</span>
-<span id="cb84-722"><a href="#cb84-722" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb84-723"><a href="#cb84-723" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb84-607"><a href="#cb84-607" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-608"><a href="#cb84-608" aria-hidden="true" tabindex="-1"></a><span class="fu">## Logistic models for environmental effects on propNeg</span></span>
+<span id="cb84-609"><a href="#cb84-609" aria-hidden="true" tabindex="-1"></a><span class="fu">### Standardize flow and temperature</span></span>
+<span id="cb84-612"><a href="#cb84-612" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb84-613"><a href="#cb84-613" aria-hidden="true" tabindex="-1"></a><span class="co"># getZ &lt;- function(d){</span></span>
+<span id="cb84-614"><a href="#cb84-614" aria-hidden="true" tabindex="-1"></a><span class="co">#   list(</span></span>
+<span id="cb84-615"><a href="#cb84-615" aria-hidden="true" tabindex="-1"></a><span class="co">#     mean = mean(d, na.rm = TRUE),</span></span>
+<span id="cb84-616"><a href="#cb84-616" aria-hidden="true" tabindex="-1"></a><span class="co">#     sd = sd(d, na.rm = TRUE)</span></span>
+<span id="cb84-617"><a href="#cb84-617" aria-hidden="true" tabindex="-1"></a><span class="co">#   )</span></span>
+<span id="cb84-618"><a href="#cb84-618" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
+<span id="cb84-619"><a href="#cb84-619" aria-hidden="true" tabindex="-1"></a><span class="co"># fZ &lt;- getZ(cd1$meanFlowByRiver)</span></span>
+<span id="cb84-620"><a href="#cb84-620" aria-hidden="true" tabindex="-1"></a><span class="co"># fT &lt;- getZ(cd1$meanTemperature)</span></span>
+<span id="cb84-621"><a href="#cb84-621" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-622"><a href="#cb84-622" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> cd1 <span class="sc">|&gt;</span> </span>
+<span id="cb84-623"><a href="#cb84-623" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(season) <span class="sc">|&gt;</span> </span>
+<span id="cb84-624"><a href="#cb84-624" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">fZMean =</span> <span class="fu">mean</span>(meanFlowByRiver, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb84-625"><a href="#cb84-625" aria-hidden="true" tabindex="-1"></a>            <span class="at">fZSd =</span> <span class="fu">sd</span>(meanFlowByRiver, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb84-626"><a href="#cb84-626" aria-hidden="true" tabindex="-1"></a>            <span class="at">fTMean =</span> <span class="fu">mean</span>(meanTemperature, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb84-627"><a href="#cb84-627" aria-hidden="true" tabindex="-1"></a>            <span class="at">fTSd =</span> <span class="fu">sd</span>(meanTemperature, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb84-628"><a href="#cb84-628" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb84-629"><a href="#cb84-629" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-630"><a href="#cb84-630" aria-hidden="true" tabindex="-1"></a>cd1 <span class="ot">&lt;-</span> cd1 <span class="sc">|&gt;</span> </span>
+<span id="cb84-631"><a href="#cb84-631" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(z) <span class="sc">|&gt;</span> </span>
+<span id="cb84-632"><a href="#cb84-632" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">meanFlowByRiverZ =</span> (meanFlowByRiver <span class="sc">-</span> fZMean)<span class="sc">/</span>fZSd,</span>
+<span id="cb84-633"><a href="#cb84-633" aria-hidden="true" tabindex="-1"></a>         <span class="at">meanTempZ =</span> (meanTemperature <span class="sc">-</span> fTMean)<span class="sc">/</span>fTSd)</span>
+<span id="cb84-634"><a href="#cb84-634" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb84-635"><a href="#cb84-635" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-636"><a href="#cb84-636" aria-hidden="true" tabindex="-1"></a><span class="fu">### Raw data with logistic fit for flow effect </span></span>
+<span id="cb84-639"><a href="#cb84-639" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb84-640"><a href="#cb84-640" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1 <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(negGrowth)), <span class="fu">aes</span>(meanFlowByRiverZ, negGrowth <span class="sc">*</span> <span class="dv">1</span>, <span class="at">color =</span> river)) <span class="sc">+</span></span>
+<span id="cb84-641"><a href="#cb84-641" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb84-642"><a href="#cb84-642" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"glm"</span>, </span>
+<span id="cb84-643"><a href="#cb84-643" aria-hidden="true" tabindex="-1"></a>              <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> <span class="st">"binomial"</span>),</span>
+<span id="cb84-644"><a href="#cb84-644" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb84-645"><a href="#cb84-645" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Probability of negative growth in mass"</span>, <span class="at">x =</span> <span class="st">"Mean flow"</span>) <span class="sc">+</span></span>
+<span id="cb84-646"><a href="#cb84-646" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(season<span class="sc">~</span>species)</span>
+<span id="cb84-647"><a href="#cb84-647" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-648"><a href="#cb84-648" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1 <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(negGrowth)), <span class="fu">aes</span>(meanFlowByRiverZ, negGrowth <span class="sc">*</span> <span class="dv">1</span>, <span class="at">color =</span> river)) <span class="sc">+</span></span>
+<span id="cb84-649"><a href="#cb84-649" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb84-650"><a href="#cb84-650" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"glm"</span>, </span>
+<span id="cb84-651"><a href="#cb84-651" aria-hidden="true" tabindex="-1"></a>              <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> <span class="st">"binomial"</span>),</span>
+<span id="cb84-652"><a href="#cb84-652" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb84-653"><a href="#cb84-653" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Probability of negative growth in mass"</span>, <span class="at">x =</span> <span class="st">"Mean flow"</span>) <span class="sc">+</span></span>
+<span id="cb84-654"><a href="#cb84-654" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(season<span class="sc">~</span>species<span class="sc">+</span>river)</span>
+<span id="cb84-655"><a href="#cb84-655" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb84-656"><a href="#cb84-656" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-657"><a href="#cb84-657" aria-hidden="true" tabindex="-1"></a><span class="fu">### Raw data with logistic fit for temperature effect </span></span>
+<span id="cb84-660"><a href="#cb84-660" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb84-661"><a href="#cb84-661" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1 <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(negGrowth), meanTempZ <span class="sc">&gt;</span> <span class="sc">-</span><span class="dv">4</span>), <span class="fu">aes</span>(meanTempZ, negGrowth <span class="sc">*</span> <span class="dv">1</span>, <span class="at">color =</span> river)) <span class="sc">+</span></span>
+<span id="cb84-662"><a href="#cb84-662" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb84-663"><a href="#cb84-663" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"glm"</span>, </span>
+<span id="cb84-664"><a href="#cb84-664" aria-hidden="true" tabindex="-1"></a>              <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> <span class="st">"binomial"</span>),</span>
+<span id="cb84-665"><a href="#cb84-665" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb84-666"><a href="#cb84-666" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Probability of negative growth in mass"</span>, <span class="at">x =</span> <span class="st">"Mean temperature"</span>) <span class="sc">+</span></span>
+<span id="cb84-667"><a href="#cb84-667" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(season<span class="sc">~</span>species)</span>
+<span id="cb84-668"><a href="#cb84-668" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb84-669"><a href="#cb84-669" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-670"><a href="#cb84-670" aria-hidden="true" tabindex="-1"></a><span class="fu">## Logistic model for flow and temperature, one species at a time  </span></span>
+<span id="cb84-671"><a href="#cb84-671" aria-hidden="true" tabindex="-1"></a>Species occupy different rivers, so an all-species model will have unequal river representation across species and don't need to predict where species are not. </span>
+<span id="cb84-672"><a href="#cb84-672" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-673"><a href="#cb84-673" aria-hidden="true" tabindex="-1"></a>Need to think through whether these models make sense...</span>
+<span id="cb84-674"><a href="#cb84-674" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-677"><a href="#cb84-677" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb84-678"><a href="#cb84-678" aria-hidden="true" tabindex="-1"></a>runSppModels <span class="ot">&lt;-</span> <span class="cf">function</span>(d, speciesIn) {</span>
+<span id="cb84-679"><a href="#cb84-679" aria-hidden="true" tabindex="-1"></a>  models <span class="ot">=</span></span>
+<span id="cb84-680"><a href="#cb84-680" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">model =</span> </span>
+<span id="cb84-681"><a href="#cb84-681" aria-hidden="true" tabindex="-1"></a>      <span class="fu">c</span>(</span>
+<span id="cb84-682"><a href="#cb84-682" aria-hidden="true" tabindex="-1"></a>          <span class="st">'negGrowth ~ meanFlowByRiverZ * meanTempZ * river'</span>,</span>
+<span id="cb84-683"><a href="#cb84-683" aria-hidden="true" tabindex="-1"></a>          <span class="st">'negGrowth ~ meanFlowByRiverZ * meanTempZ + river'</span>,</span>
+<span id="cb84-684"><a href="#cb84-684" aria-hidden="true" tabindex="-1"></a>          <span class="st">'negGrowth ~ meanFlowByRiverZ + meanTempZ + river'</span>, </span>
+<span id="cb84-685"><a href="#cb84-685" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb84-686"><a href="#cb84-686" aria-hidden="true" tabindex="-1"></a>          <span class="st">'negGrowth ~ meanFlowByRiverZ * meanTempZ'</span> , </span>
+<span id="cb84-687"><a href="#cb84-687" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb84-688"><a href="#cb84-688" aria-hidden="true" tabindex="-1"></a>          <span class="st">'negGrowth ~ meanFlowByRiverZ * meanTempZ * river * factor(season)'</span>,</span>
+<span id="cb84-689"><a href="#cb84-689" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb84-690"><a href="#cb84-690" aria-hidden="true" tabindex="-1"></a>          <span class="st">'negGrowth ~ meanFlowByRiverZ + meanTempZ * river * factor(season)'</span>, </span>
+<span id="cb84-691"><a href="#cb84-691" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb84-692"><a href="#cb84-692" aria-hidden="true" tabindex="-1"></a>          <span class="st">'negGrowth ~ meanFlowByRiverZ * meanTempZ * river * factor(season) * observedWeight'</span> </span>
+<span id="cb84-693"><a href="#cb84-693" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb84-694"><a href="#cb84-694" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb84-695"><a href="#cb84-695" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb84-696"><a href="#cb84-696" aria-hidden="true" tabindex="-1"></a>      <span class="at">fit =</span> <span class="fu">map</span>(model, <span class="sc">~</span><span class="fu">glm</span>(.x, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> d <span class="sc">|&gt;</span> <span class="fu">filter</span>(species <span class="sc">==</span> speciesIn))),</span>
+<span id="cb84-697"><a href="#cb84-697" aria-hidden="true" tabindex="-1"></a>      <span class="at">glanced =</span> <span class="fu">map</span>(fit, broom<span class="sc">::</span>glance),</span>
+<span id="cb84-698"><a href="#cb84-698" aria-hidden="true" tabindex="-1"></a>      <span class="at">tidied =</span> <span class="fu">map</span>(fit, broom<span class="sc">::</span>tidy)</span>
+<span id="cb84-699"><a href="#cb84-699" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb84-700"><a href="#cb84-700" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(models)</span>
+<span id="cb84-701"><a href="#cb84-701" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb84-702"><a href="#cb84-702" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-703"><a href="#cb84-703" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb84-704"><a href="#cb84-704" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-705"><a href="#cb84-705" aria-hidden="true" tabindex="-1"></a><span class="fu">### Predict p(neg growth in mass)</span></span>
+<span id="cb84-708"><a href="#cb84-708" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb84-709"><a href="#cb84-709" aria-hidden="true" tabindex="-1"></a>predictSpp <span class="ot">&lt;-</span> <span class="cf">function</span>(dIn, modIn, speciesIn){</span>
+<span id="cb84-710"><a href="#cb84-710" aria-hidden="true" tabindex="-1"></a>  d <span class="ot">&lt;-</span> dIn <span class="sc">|&gt;</span> <span class="fu">filter</span>(species <span class="sc">==</span> speciesIn)</span>
+<span id="cb84-711"><a href="#cb84-711" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb84-712"><a href="#cb84-712" aria-hidden="true" tabindex="-1"></a>  byAIC <span class="ot">=</span> modIn <span class="sc">|&gt;</span> </span>
+<span id="cb84-713"><a href="#cb84-713" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest</span>(glanced) <span class="sc">|&gt;</span></span>
+<span id="cb84-714"><a href="#cb84-714" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(AIC) <span class="sc">|&gt;</span></span>
+<span id="cb84-715"><a href="#cb84-715" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(model, AIC, df.residual, fit, tidied)</span>
+<span id="cb84-716"><a href="#cb84-716" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb84-717"><a href="#cb84-717" aria-hidden="true" tabindex="-1"></a>  predDSpp <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb84-718"><a href="#cb84-718" aria-hidden="true" tabindex="-1"></a>    <span class="at">meanFlowByRiverZ =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="fl">0.25</span>), </span>
+<span id="cb84-719"><a href="#cb84-719" aria-hidden="true" tabindex="-1"></a>    <span class="at">meanTempZ =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="fl">0.25</span>), </span>
+<span id="cb84-720"><a href="#cb84-720" aria-hidden="true" tabindex="-1"></a>    <span class="at">river =</span> <span class="fu">unique</span>(d<span class="sc">$</span>river), </span>
+<span id="cb84-721"><a href="#cb84-721" aria-hidden="true" tabindex="-1"></a>    <span class="at">season =</span> <span class="fu">unique</span>(d<span class="sc">$</span>season),</span>
+<span id="cb84-722"><a href="#cb84-722" aria-hidden="true" tabindex="-1"></a>    <span class="at">observedWeight =</span> <span class="fu">seq</span>(<span class="fu">min</span>(d<span class="sc">$</span>observedWeight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="fu">max</span>(d<span class="sc">$</span>observedWeight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">40</span>)</span>
+<span id="cb84-723"><a href="#cb84-723" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb84-724"><a href="#cb84-724" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb84-725"><a href="#cb84-725" aria-hidden="true" tabindex="-1"></a>  pred <span class="ot">&lt;-</span> <span class="fu">add_column</span>(predDSpp, </span>
-<span id="cb84-726"><a href="#cb84-726" aria-hidden="true" tabindex="-1"></a>                        <span class="at">pred =</span> <span class="fu">predict.glm</span>(byAIC[<span class="dv">1</span>,]<span class="sc">$</span>fit[[<span class="dv">1</span>]], predDSpp, <span class="at">type =</span> <span class="st">"response"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb84-727"><a href="#cb84-727" aria-hidden="true" tabindex="-1"></a>             <span class="fu">mutate</span>(<span class="at">groupT =</span> <span class="fu">paste</span>(river, season, meanTempZ, <span class="at">sep =</span> <span class="st">"_"</span>),</span>
-<span id="cb84-728"><a href="#cb84-728" aria-hidden="true" tabindex="-1"></a>                    <span class="at">groupF =</span> <span class="fu">paste</span>(river, season, meanFlowByRiverZ, <span class="at">sep =</span> <span class="st">"_"</span>))</span>
-<span id="cb84-729"><a href="#cb84-729" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(</span>
-<span id="cb84-730"><a href="#cb84-730" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(</span>
-<span id="cb84-731"><a href="#cb84-731" aria-hidden="true" tabindex="-1"></a>      <span class="at">pred =</span> pred,</span>
-<span id="cb84-732"><a href="#cb84-732" aria-hidden="true" tabindex="-1"></a>      <span class="at">byAIC =</span> byAIC</span>
-<span id="cb84-733"><a href="#cb84-733" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb84-734"><a href="#cb84-734" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb84-735"><a href="#cb84-735" aria-hidden="true" tabindex="-1"></a>}   </span>
-<span id="cb84-736"><a href="#cb84-736" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-725"><a href="#cb84-725" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb84-726"><a href="#cb84-726" aria-hidden="true" tabindex="-1"></a>  pred <span class="ot">&lt;-</span> <span class="fu">add_column</span>(predDSpp, </span>
+<span id="cb84-727"><a href="#cb84-727" aria-hidden="true" tabindex="-1"></a>                        <span class="at">pred =</span> <span class="fu">predict.glm</span>(byAIC[<span class="dv">1</span>,]<span class="sc">$</span>fit[[<span class="dv">1</span>]], predDSpp, <span class="at">type =</span> <span class="st">"response"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb84-728"><a href="#cb84-728" aria-hidden="true" tabindex="-1"></a>             <span class="fu">mutate</span>(<span class="at">groupT =</span> <span class="fu">paste</span>(river, season, meanTempZ, <span class="at">sep =</span> <span class="st">"_"</span>),</span>
+<span id="cb84-729"><a href="#cb84-729" aria-hidden="true" tabindex="-1"></a>                    <span class="at">groupF =</span> <span class="fu">paste</span>(river, season, meanFlowByRiverZ, <span class="at">sep =</span> <span class="st">"_"</span>))</span>
+<span id="cb84-730"><a href="#cb84-730" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(</span>
+<span id="cb84-731"><a href="#cb84-731" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(</span>
+<span id="cb84-732"><a href="#cb84-732" aria-hidden="true" tabindex="-1"></a>      <span class="at">pred =</span> pred,</span>
+<span id="cb84-733"><a href="#cb84-733" aria-hidden="true" tabindex="-1"></a>      <span class="at">byAIC =</span> byAIC</span>
+<span id="cb84-734"><a href="#cb84-734" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb84-735"><a href="#cb84-735" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb84-736"><a href="#cb84-736" aria-hidden="true" tabindex="-1"></a>}   </span>
 <span id="cb84-737"><a href="#cb84-737" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-738"><a href="#cb84-738" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb84-739"><a href="#cb84-739" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-738"><a href="#cb84-738" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-739"><a href="#cb84-739" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb84-740"><a href="#cb84-740" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-741"><a href="#cb84-741" aria-hidden="true" tabindex="-1"></a><span class="fu">### Brook trout</span></span>
-<span id="cb84-744"><a href="#cb84-744" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb84-745"><a href="#cb84-745" aria-hidden="true" tabindex="-1"></a>speciesIn <span class="ot">&lt;-</span> <span class="st">"bkt"</span></span>
-<span id="cb84-746"><a href="#cb84-746" aria-hidden="true" tabindex="-1"></a>modBKT <span class="ot">&lt;-</span> <span class="fu">runSppModels</span>(cd1, speciesIn)</span>
-<span id="cb84-747"><a href="#cb84-747" aria-hidden="true" tabindex="-1"></a>predBKT <span class="ot">&lt;-</span> <span class="fu">predictSpp</span>(cd1, modBKT, speciesIn)</span>
-<span id="cb84-748"><a href="#cb84-748" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-741"><a href="#cb84-741" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-742"><a href="#cb84-742" aria-hidden="true" tabindex="-1"></a><span class="fu">### Brook trout</span></span>
+<span id="cb84-745"><a href="#cb84-745" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb84-746"><a href="#cb84-746" aria-hidden="true" tabindex="-1"></a>speciesIn <span class="ot">&lt;-</span> <span class="st">"bkt"</span></span>
+<span id="cb84-747"><a href="#cb84-747" aria-hidden="true" tabindex="-1"></a>modBKT <span class="ot">&lt;-</span> <span class="fu">runSppModels</span>(cd1, speciesIn)</span>
+<span id="cb84-748"><a href="#cb84-748" aria-hidden="true" tabindex="-1"></a>predBKT <span class="ot">&lt;-</span> <span class="fu">predictSpp</span>(cd1, modBKT, speciesIn)</span>
 <span id="cb84-749"><a href="#cb84-749" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-750"><a href="#cb84-750" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(predBKT<span class="sc">$</span>pred <span class="sc">|&gt;</span> <span class="fu">filter</span>(meanTempZ <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="dv">0</span>,<span class="fl">1.5</span>), meanFlowByRiverZ <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="dv">0</span>,<span class="fl">1.5</span>)), <span class="fu">aes</span>(observedWeight, pred, <span class="at">group =</span> groupF)) <span class="sc">+</span></span>
-<span id="cb84-751"><a href="#cb84-751" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(meanFlowByRiverZ))) <span class="sc">+</span></span>
-<span id="cb84-752"><a href="#cb84-752" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Probability of negative growth in mass"</span>, <span class="at">x =</span> <span class="st">"Body mass (mg)"</span>) <span class="sc">+</span></span>
-<span id="cb84-753"><a href="#cb84-753" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(season<span class="sc">~</span>river<span class="sc">+</span>meanTempZ)</span>
-<span id="cb84-754"><a href="#cb84-754" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-755"><a href="#cb84-755" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb84-756"><a href="#cb84-756" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-757"><a href="#cb84-757" aria-hidden="true" tabindex="-1"></a><span class="fu">### Brown trout</span></span>
-<span id="cb84-760"><a href="#cb84-760" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb84-761"><a href="#cb84-761" aria-hidden="true" tabindex="-1"></a>speciesIn <span class="ot">&lt;-</span> <span class="st">"bnt"</span></span>
-<span id="cb84-762"><a href="#cb84-762" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-763"><a href="#cb84-763" aria-hidden="true" tabindex="-1"></a>modBNT <span class="ot">&lt;-</span> <span class="fu">runSppModels</span>(cd1, speciesIn)</span>
-<span id="cb84-764"><a href="#cb84-764" aria-hidden="true" tabindex="-1"></a>predBNT <span class="ot">&lt;-</span> <span class="fu">predictSpp</span>(cd1, modBNT, speciesIn)</span>
-<span id="cb84-765"><a href="#cb84-765" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-750"><a href="#cb84-750" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-751"><a href="#cb84-751" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(predBKT<span class="sc">$</span>pred <span class="sc">|&gt;</span> <span class="fu">filter</span>(meanTempZ <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="dv">0</span>,<span class="fl">1.5</span>), meanFlowByRiverZ <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="dv">0</span>,<span class="fl">1.5</span>)), <span class="fu">aes</span>(observedWeight, pred, <span class="at">group =</span> groupF)) <span class="sc">+</span></span>
+<span id="cb84-752"><a href="#cb84-752" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(meanFlowByRiverZ))) <span class="sc">+</span></span>
+<span id="cb84-753"><a href="#cb84-753" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Probability of negative growth in mass"</span>, <span class="at">x =</span> <span class="st">"Body mass (mg)"</span>) <span class="sc">+</span></span>
+<span id="cb84-754"><a href="#cb84-754" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(season<span class="sc">~</span>river<span class="sc">+</span>meanTempZ)</span>
+<span id="cb84-755"><a href="#cb84-755" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-756"><a href="#cb84-756" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb84-757"><a href="#cb84-757" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-758"><a href="#cb84-758" aria-hidden="true" tabindex="-1"></a><span class="fu">### Brown trout</span></span>
+<span id="cb84-761"><a href="#cb84-761" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb84-762"><a href="#cb84-762" aria-hidden="true" tabindex="-1"></a>speciesIn <span class="ot">&lt;-</span> <span class="st">"bnt"</span></span>
+<span id="cb84-763"><a href="#cb84-763" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-764"><a href="#cb84-764" aria-hidden="true" tabindex="-1"></a>modBNT <span class="ot">&lt;-</span> <span class="fu">runSppModels</span>(cd1, speciesIn)</span>
+<span id="cb84-765"><a href="#cb84-765" aria-hidden="true" tabindex="-1"></a>predBNT <span class="ot">&lt;-</span> <span class="fu">predictSpp</span>(cd1, modBNT, speciesIn)</span>
 <span id="cb84-766"><a href="#cb84-766" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-767"><a href="#cb84-767" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(predBNT<span class="sc">$</span>pred <span class="sc">|&gt;</span> <span class="fu">filter</span>(meanTempZ <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="dv">0</span>,<span class="fl">1.5</span>), meanFlowByRiverZ <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="dv">0</span>,<span class="fl">1.5</span>)), <span class="fu">aes</span>(observedWeight, pred, <span class="at">group =</span> groupF)) <span class="sc">+</span></span>
-<span id="cb84-768"><a href="#cb84-768" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(meanFlowByRiverZ))) <span class="sc">+</span></span>
-<span id="cb84-769"><a href="#cb84-769" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Probability of negative growth in mass"</span>, <span class="at">x =</span> <span class="st">"Body mass (mg)"</span>) <span class="sc">+</span></span>
-<span id="cb84-770"><a href="#cb84-770" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(season<span class="sc">~</span>river<span class="sc">+</span>meanTempZ)</span>
-<span id="cb84-771"><a href="#cb84-771" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb84-772"><a href="#cb84-772" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-773"><a href="#cb84-773" aria-hidden="true" tabindex="-1"></a><span class="fu">### Atlantic salmon</span></span>
-<span id="cb84-776"><a href="#cb84-776" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb84-777"><a href="#cb84-777" aria-hidden="true" tabindex="-1"></a>speciesIn <span class="ot">&lt;-</span> <span class="st">"ats"</span></span>
-<span id="cb84-778"><a href="#cb84-778" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-779"><a href="#cb84-779" aria-hidden="true" tabindex="-1"></a>modATS <span class="ot">&lt;-</span> <span class="fu">runSppModels</span>(cd1, speciesIn)</span>
-<span id="cb84-780"><a href="#cb84-780" aria-hidden="true" tabindex="-1"></a>predATS <span class="ot">&lt;-</span> <span class="fu">predictSpp</span>(cd1, modATS, speciesIn)</span>
-<span id="cb84-781"><a href="#cb84-781" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-767"><a href="#cb84-767" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-768"><a href="#cb84-768" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(predBNT<span class="sc">$</span>pred <span class="sc">|&gt;</span> <span class="fu">filter</span>(meanTempZ <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="dv">0</span>,<span class="fl">1.5</span>), meanFlowByRiverZ <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="dv">0</span>,<span class="fl">1.5</span>)), <span class="fu">aes</span>(observedWeight, pred, <span class="at">group =</span> groupF)) <span class="sc">+</span></span>
+<span id="cb84-769"><a href="#cb84-769" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(meanFlowByRiverZ))) <span class="sc">+</span></span>
+<span id="cb84-770"><a href="#cb84-770" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Probability of negative growth in mass"</span>, <span class="at">x =</span> <span class="st">"Body mass (mg)"</span>) <span class="sc">+</span></span>
+<span id="cb84-771"><a href="#cb84-771" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(season<span class="sc">~</span>river<span class="sc">+</span>meanTempZ)</span>
+<span id="cb84-772"><a href="#cb84-772" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb84-773"><a href="#cb84-773" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-774"><a href="#cb84-774" aria-hidden="true" tabindex="-1"></a><span class="fu">### Atlantic salmon</span></span>
+<span id="cb84-777"><a href="#cb84-777" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb84-778"><a href="#cb84-778" aria-hidden="true" tabindex="-1"></a>speciesIn <span class="ot">&lt;-</span> <span class="st">"ats"</span></span>
+<span id="cb84-779"><a href="#cb84-779" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-780"><a href="#cb84-780" aria-hidden="true" tabindex="-1"></a>modATS <span class="ot">&lt;-</span> <span class="fu">runSppModels</span>(cd1, speciesIn)</span>
+<span id="cb84-781"><a href="#cb84-781" aria-hidden="true" tabindex="-1"></a>predATS <span class="ot">&lt;-</span> <span class="fu">predictSpp</span>(cd1, modATS, speciesIn)</span>
 <span id="cb84-782"><a href="#cb84-782" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-783"><a href="#cb84-783" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(predATS<span class="sc">$</span>pred <span class="sc">|&gt;</span> <span class="fu">filter</span>(meanTempZ <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="dv">0</span>,<span class="fl">1.5</span>), meanFlowByRiverZ <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="dv">0</span>,<span class="fl">1.5</span>)), <span class="fu">aes</span>(observedWeight, pred, <span class="at">group =</span> groupF)) <span class="sc">+</span></span>
-<span id="cb84-784"><a href="#cb84-784" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(meanFlowByRiverZ))) <span class="sc">+</span></span>
-<span id="cb84-785"><a href="#cb84-785" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Probability of negative growth in mass"</span>, <span class="at">x =</span> <span class="st">"Body mass (mg)"</span>) <span class="sc">+</span></span>
-<span id="cb84-786"><a href="#cb84-786" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(season<span class="sc">~</span>river<span class="sc">+</span>meanTempZ)</span>
-<span id="cb84-787"><a href="#cb84-787" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb84-788"><a href="#cb84-788" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-783"><a href="#cb84-783" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-784"><a href="#cb84-784" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(predATS<span class="sc">$</span>pred <span class="sc">|&gt;</span> <span class="fu">filter</span>(meanTempZ <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="dv">0</span>,<span class="fl">1.5</span>), meanFlowByRiverZ <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="dv">0</span>,<span class="fl">1.5</span>)), <span class="fu">aes</span>(observedWeight, pred, <span class="at">group =</span> groupF)) <span class="sc">+</span></span>
+<span id="cb84-785"><a href="#cb84-785" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(meanFlowByRiverZ))) <span class="sc">+</span></span>
+<span id="cb84-786"><a href="#cb84-786" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Probability of negative growth in mass"</span>, <span class="at">x =</span> <span class="st">"Body mass (mg)"</span>) <span class="sc">+</span></span>
+<span id="cb84-787"><a href="#cb84-787" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(season<span class="sc">~</span>river<span class="sc">+</span>meanTempZ)</span>
+<span id="cb84-788"><a href="#cb84-788" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb84-789"><a href="#cb84-789" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-790"><a href="#cb84-790" aria-hidden="true" tabindex="-1"></a><span class="fu">### Pairs plots</span></span>
-<span id="cb84-791"><a href="#cb84-791" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-790"><a href="#cb84-790" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-791"><a href="#cb84-791" aria-hidden="true" tabindex="-1"></a><span class="fu">### Pairs plots</span></span>
 <span id="cb84-792"><a href="#cb84-792" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb84-793"><a href="#cb84-793" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb84-794"><a href="#cb84-794" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-795"><a href="#cb84-795" aria-hidden="true" tabindex="-1"></a><span class="fu">## Deprecated logistic models below</span></span>
-<span id="cb84-796"><a href="#cb84-796" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-797"><a href="#cb84-797" aria-hidden="true" tabindex="-1"></a><span class="fu">## Logistic model for flow and temperature, all species</span></span>
-<span id="cb84-798"><a href="#cb84-798" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model selection</span></span>
-<span id="cb84-801"><a href="#cb84-801" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb84-802"><a href="#cb84-802" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: logistic models all species</span></span>
-<span id="cb84-803"><a href="#cb84-803" aria-hidden="true" tabindex="-1"></a>modSpecies <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"bkt"</span>, <span class="st">"ats"</span>, <span class="st">"bnt"</span>)</span>
-<span id="cb84-804"><a href="#cb84-804" aria-hidden="true" tabindex="-1"></a>cd1Mod <span class="ot">&lt;-</span> cd1 <span class="sc">|&gt;</span> <span class="fu">filter</span>(species <span class="sc">==</span> modSpecies)</span>
-<span id="cb84-805"><a href="#cb84-805" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-806"><a href="#cb84-806" aria-hidden="true" tabindex="-1"></a>modFT0 <span class="ot">&lt;-</span> <span class="fu">glm</span>(negGrowth <span class="sc">~</span> meanFlowByRiverZ <span class="sc">*</span> meanTempZ <span class="sc">*</span> river <span class="sc">*</span> species, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> cd1Mod)</span>
-<span id="cb84-807"><a href="#cb84-807" aria-hidden="true" tabindex="-1"></a>modFT1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(negGrowth <span class="sc">~</span> meanFlowByRiverZ <span class="sc">*</span> meanTempZ <span class="sc">*</span> river <span class="sc">+</span> species, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> cd1Mod)</span>
-<span id="cb84-808"><a href="#cb84-808" aria-hidden="true" tabindex="-1"></a>modFT2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(negGrowth <span class="sc">~</span> meanFlowByRiverZ <span class="sc">*</span> meanTempZ <span class="sc">+</span> river <span class="sc">+</span> species, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> cd1Mod)</span>
-<span id="cb84-809"><a href="#cb84-809" aria-hidden="true" tabindex="-1"></a>modFT3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(negGrowth <span class="sc">~</span> meanFlowByRiverZ <span class="sc">+</span> meanTempZ <span class="sc">+</span> river <span class="sc">+</span> species, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> cd1Mod)</span>
-<span id="cb84-810"><a href="#cb84-810" aria-hidden="true" tabindex="-1"></a>modFT4 <span class="ot">&lt;-</span> <span class="fu">glm</span>(negGrowth <span class="sc">~</span> meanFlowByRiverZ <span class="sc">*</span> meanTempZ <span class="sc">+</span> river , <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> cd1Mod)</span>
-<span id="cb84-811"><a href="#cb84-811" aria-hidden="true" tabindex="-1"></a>modFT5 <span class="ot">&lt;-</span> <span class="fu">glm</span>(negGrowth <span class="sc">~</span> meanFlowByRiverZ <span class="sc">*</span> meanTempZ <span class="sc">+</span> river , <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> cd1Mod)</span>
-<span id="cb84-812"><a href="#cb84-812" aria-hidden="true" tabindex="-1"></a>modFT6 <span class="ot">&lt;-</span> <span class="fu">glm</span>(negGrowth <span class="sc">~</span> meanFlowByRiverZ <span class="sc">*</span> meanTempZ <span class="sc">+</span> species , <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> cd1Mod)</span>
-<span id="cb84-813"><a href="#cb84-813" aria-hidden="true" tabindex="-1"></a>modFT7 <span class="ot">&lt;-</span> <span class="fu">glm</span>(negGrowth <span class="sc">~</span> meanFlowByRiverZ <span class="sc">*</span> meanTempZ, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> cd1Mod)</span>
-<span id="cb84-814"><a href="#cb84-814" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-795"><a href="#cb84-795" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-796"><a href="#cb84-796" aria-hidden="true" tabindex="-1"></a><span class="fu">## Deprecated logistic models below</span></span>
+<span id="cb84-797"><a href="#cb84-797" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-798"><a href="#cb84-798" aria-hidden="true" tabindex="-1"></a><span class="fu">## Logistic model for flow and temperature, all species</span></span>
+<span id="cb84-799"><a href="#cb84-799" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model selection</span></span>
+<span id="cb84-802"><a href="#cb84-802" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb84-803"><a href="#cb84-803" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: logistic models all species</span></span>
+<span id="cb84-804"><a href="#cb84-804" aria-hidden="true" tabindex="-1"></a>modSpecies <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"bkt"</span>, <span class="st">"ats"</span>, <span class="st">"bnt"</span>)</span>
+<span id="cb84-805"><a href="#cb84-805" aria-hidden="true" tabindex="-1"></a>cd1Mod <span class="ot">&lt;-</span> cd1 <span class="sc">|&gt;</span> <span class="fu">filter</span>(species <span class="sc">==</span> modSpecies)</span>
+<span id="cb84-806"><a href="#cb84-806" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-807"><a href="#cb84-807" aria-hidden="true" tabindex="-1"></a>modFT0 <span class="ot">&lt;-</span> <span class="fu">glm</span>(negGrowth <span class="sc">~</span> meanFlowByRiverZ <span class="sc">*</span> meanTempZ <span class="sc">*</span> river <span class="sc">*</span> species, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> cd1Mod)</span>
+<span id="cb84-808"><a href="#cb84-808" aria-hidden="true" tabindex="-1"></a>modFT1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(negGrowth <span class="sc">~</span> meanFlowByRiverZ <span class="sc">*</span> meanTempZ <span class="sc">*</span> river <span class="sc">+</span> species, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> cd1Mod)</span>
+<span id="cb84-809"><a href="#cb84-809" aria-hidden="true" tabindex="-1"></a>modFT2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(negGrowth <span class="sc">~</span> meanFlowByRiverZ <span class="sc">*</span> meanTempZ <span class="sc">+</span> river <span class="sc">+</span> species, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> cd1Mod)</span>
+<span id="cb84-810"><a href="#cb84-810" aria-hidden="true" tabindex="-1"></a>modFT3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(negGrowth <span class="sc">~</span> meanFlowByRiverZ <span class="sc">+</span> meanTempZ <span class="sc">+</span> river <span class="sc">+</span> species, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> cd1Mod)</span>
+<span id="cb84-811"><a href="#cb84-811" aria-hidden="true" tabindex="-1"></a>modFT4 <span class="ot">&lt;-</span> <span class="fu">glm</span>(negGrowth <span class="sc">~</span> meanFlowByRiverZ <span class="sc">*</span> meanTempZ <span class="sc">+</span> river , <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> cd1Mod)</span>
+<span id="cb84-812"><a href="#cb84-812" aria-hidden="true" tabindex="-1"></a>modFT5 <span class="ot">&lt;-</span> <span class="fu">glm</span>(negGrowth <span class="sc">~</span> meanFlowByRiverZ <span class="sc">*</span> meanTempZ <span class="sc">+</span> river , <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> cd1Mod)</span>
+<span id="cb84-813"><a href="#cb84-813" aria-hidden="true" tabindex="-1"></a>modFT6 <span class="ot">&lt;-</span> <span class="fu">glm</span>(negGrowth <span class="sc">~</span> meanFlowByRiverZ <span class="sc">*</span> meanTempZ <span class="sc">+</span> species , <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> cd1Mod)</span>
+<span id="cb84-814"><a href="#cb84-814" aria-hidden="true" tabindex="-1"></a>modFT7 <span class="ot">&lt;-</span> <span class="fu">glm</span>(negGrowth <span class="sc">~</span> meanFlowByRiverZ <span class="sc">*</span> meanTempZ, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> cd1Mod)</span>
 <span id="cb84-815"><a href="#cb84-815" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-816"><a href="#cb84-816" aria-hidden="true" tabindex="-1"></a>modFT8 <span class="ot">&lt;-</span> <span class="fu">glm</span>(negGrowth <span class="sc">~</span> meanFlowByRiverZ <span class="sc">*</span> meanTempZ <span class="sc">*</span> river <span class="sc">*</span> <span class="fu">factor</span>(season) <span class="sc">+</span> species, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> cd1Mod)</span>
-<span id="cb84-817"><a href="#cb84-817" aria-hidden="true" tabindex="-1"></a>modFT9 <span class="ot">&lt;-</span> <span class="fu">glm</span>(negGrowth <span class="sc">~</span> meanFlowByRiverZ <span class="sc">*</span> meanTempZ <span class="sc">*</span> river <span class="sc">*</span> <span class="fu">factor</span>(season) <span class="sc">*</span> species, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> cd1Mod)</span>
-<span id="cb84-818"><a href="#cb84-818" aria-hidden="true" tabindex="-1"></a>modFT10 <span class="ot">&lt;-</span> <span class="fu">glm</span>(negGrowth <span class="sc">~</span> meanFlowByRiverZ <span class="sc">+</span> meanTempZ <span class="sc">*</span> river <span class="sc">*</span> <span class="fu">factor</span>(season) <span class="sc">*</span> species, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> cd1Mod)</span>
-<span id="cb84-819"><a href="#cb84-819" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-820"><a href="#cb84-820" aria-hidden="true" tabindex="-1"></a>modFT11 <span class="ot">&lt;-</span> <span class="fu">glm</span>(negGrowth <span class="sc">~</span> meanFlowByRiverZ <span class="sc">*</span> meanTempZ <span class="sc">*</span> river <span class="sc">*</span> <span class="fu">factor</span>(season) <span class="sc">*</span> observedWeight <span class="sc">+</span> species, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> cd1Mod)</span>
-<span id="cb84-821"><a href="#cb84-821" aria-hidden="true" tabindex="-1"></a>modFT12 <span class="ot">&lt;-</span> <span class="fu">glm</span>(negGrowth <span class="sc">~</span> meanFlowByRiverZ <span class="sc">*</span> meanTempZ <span class="sc">*</span> river <span class="sc">*</span> <span class="fu">factor</span>(season) <span class="sc">*</span> species <span class="sc">*</span> observedWeight, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> cd1Mod)</span>
-<span id="cb84-822"><a href="#cb84-822" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-823"><a href="#cb84-823" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(modFT0, modFT1,modFT2, modFT3,modFT4,modFT5, modFT6,modFT7,modFT8,modFT9,modFT10, modFT11, modFT12) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(AIC)</span>
-<span id="cb84-824"><a href="#cb84-824" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb84-825"><a href="#cb84-825" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-826"><a href="#cb84-826" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model results for additive model (not very good)</span></span>
-<span id="cb84-829"><a href="#cb84-829" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb84-830"><a href="#cb84-830" aria-hidden="true" tabindex="-1"></a><span class="co"># https://www.statology.org/logistic-regression-in-r/</span></span>
-<span id="cb84-831"><a href="#cb84-831" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(modFT3)</span></span>
-<span id="cb84-832"><a href="#cb84-832" aria-hidden="true" tabindex="-1"></a><span class="co">#anova(modFT3)</span></span>
-<span id="cb84-833"><a href="#cb84-833" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-834"><a href="#cb84-834" aria-hidden="true" tabindex="-1"></a>pscl<span class="sc">::</span><span class="fu">pR2</span>(modFT3)[<span class="st">"McFadden"</span>]</span>
-<span id="cb84-835"><a href="#cb84-835" aria-hidden="true" tabindex="-1"></a>caret<span class="sc">::</span><span class="fu">varImp</span>(modFT3) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(Overall))</span>
-<span id="cb84-836"><a href="#cb84-836" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-816"><a href="#cb84-816" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-817"><a href="#cb84-817" aria-hidden="true" tabindex="-1"></a>modFT8 <span class="ot">&lt;-</span> <span class="fu">glm</span>(negGrowth <span class="sc">~</span> meanFlowByRiverZ <span class="sc">*</span> meanTempZ <span class="sc">*</span> river <span class="sc">*</span> <span class="fu">factor</span>(season) <span class="sc">+</span> species, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> cd1Mod)</span>
+<span id="cb84-818"><a href="#cb84-818" aria-hidden="true" tabindex="-1"></a>modFT9 <span class="ot">&lt;-</span> <span class="fu">glm</span>(negGrowth <span class="sc">~</span> meanFlowByRiverZ <span class="sc">*</span> meanTempZ <span class="sc">*</span> river <span class="sc">*</span> <span class="fu">factor</span>(season) <span class="sc">*</span> species, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> cd1Mod)</span>
+<span id="cb84-819"><a href="#cb84-819" aria-hidden="true" tabindex="-1"></a>modFT10 <span class="ot">&lt;-</span> <span class="fu">glm</span>(negGrowth <span class="sc">~</span> meanFlowByRiverZ <span class="sc">+</span> meanTempZ <span class="sc">*</span> river <span class="sc">*</span> <span class="fu">factor</span>(season) <span class="sc">*</span> species, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> cd1Mod)</span>
+<span id="cb84-820"><a href="#cb84-820" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-821"><a href="#cb84-821" aria-hidden="true" tabindex="-1"></a>modFT11 <span class="ot">&lt;-</span> <span class="fu">glm</span>(negGrowth <span class="sc">~</span> meanFlowByRiverZ <span class="sc">*</span> meanTempZ <span class="sc">*</span> river <span class="sc">*</span> <span class="fu">factor</span>(season) <span class="sc">*</span> observedWeight <span class="sc">+</span> species, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> cd1Mod)</span>
+<span id="cb84-822"><a href="#cb84-822" aria-hidden="true" tabindex="-1"></a>modFT12 <span class="ot">&lt;-</span> <span class="fu">glm</span>(negGrowth <span class="sc">~</span> meanFlowByRiverZ <span class="sc">*</span> meanTempZ <span class="sc">*</span> river <span class="sc">*</span> <span class="fu">factor</span>(season) <span class="sc">*</span> species <span class="sc">*</span> observedWeight, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> cd1Mod)</span>
+<span id="cb84-823"><a href="#cb84-823" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-824"><a href="#cb84-824" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(modFT0, modFT1,modFT2, modFT3,modFT4,modFT5, modFT6,modFT7,modFT8,modFT9,modFT10, modFT11, modFT12) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(AIC)</span>
+<span id="cb84-825"><a href="#cb84-825" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb84-826"><a href="#cb84-826" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-827"><a href="#cb84-827" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model results for additive model (not very good)</span></span>
+<span id="cb84-830"><a href="#cb84-830" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb84-831"><a href="#cb84-831" aria-hidden="true" tabindex="-1"></a><span class="co"># https://www.statology.org/logistic-regression-in-r/</span></span>
+<span id="cb84-832"><a href="#cb84-832" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(modFT3)</span></span>
+<span id="cb84-833"><a href="#cb84-833" aria-hidden="true" tabindex="-1"></a><span class="co">#anova(modFT3)</span></span>
+<span id="cb84-834"><a href="#cb84-834" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-835"><a href="#cb84-835" aria-hidden="true" tabindex="-1"></a>pscl<span class="sc">::</span><span class="fu">pR2</span>(modFT3)[<span class="st">"McFadden"</span>]</span>
+<span id="cb84-836"><a href="#cb84-836" aria-hidden="true" tabindex="-1"></a>caret<span class="sc">::</span><span class="fu">varImp</span>(modFT3) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(Overall))</span>
 <span id="cb84-837"><a href="#cb84-837" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-838"><a href="#cb84-838" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb84-839"><a href="#cb84-839" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-840"><a href="#cb84-840" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model results for full interactive model (best model)</span></span>
-<span id="cb84-843"><a href="#cb84-843" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb84-844"><a href="#cb84-844" aria-hidden="true" tabindex="-1"></a><span class="co"># https://www.statology.org/logistic-regression-in-r/</span></span>
-<span id="cb84-845"><a href="#cb84-845" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(modFT11)</span></span>
-<span id="cb84-846"><a href="#cb84-846" aria-hidden="true" tabindex="-1"></a><span class="co">#anova(modFT11)</span></span>
-<span id="cb84-847"><a href="#cb84-847" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-848"><a href="#cb84-848" aria-hidden="true" tabindex="-1"></a><span class="co"># full interaction</span></span>
-<span id="cb84-849"><a href="#cb84-849" aria-hidden="true" tabindex="-1"></a>pscl<span class="sc">::</span><span class="fu">pR2</span>(modFT11)[<span class="st">"McFadden"</span>]</span>
-<span id="cb84-850"><a href="#cb84-850" aria-hidden="true" tabindex="-1"></a>caret<span class="sc">::</span><span class="fu">varImp</span>(modFT11) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(Overall))</span>
-<span id="cb84-851"><a href="#cb84-851" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb84-852"><a href="#cb84-852" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-838"><a href="#cb84-838" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-839"><a href="#cb84-839" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb84-840"><a href="#cb84-840" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-841"><a href="#cb84-841" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model results for full interactive model (best model)</span></span>
+<span id="cb84-844"><a href="#cb84-844" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb84-845"><a href="#cb84-845" aria-hidden="true" tabindex="-1"></a><span class="co"># https://www.statology.org/logistic-regression-in-r/</span></span>
+<span id="cb84-846"><a href="#cb84-846" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(modFT11)</span></span>
+<span id="cb84-847"><a href="#cb84-847" aria-hidden="true" tabindex="-1"></a><span class="co">#anova(modFT11)</span></span>
+<span id="cb84-848"><a href="#cb84-848" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-849"><a href="#cb84-849" aria-hidden="true" tabindex="-1"></a><span class="co"># full interaction</span></span>
+<span id="cb84-850"><a href="#cb84-850" aria-hidden="true" tabindex="-1"></a>pscl<span class="sc">::</span><span class="fu">pR2</span>(modFT11)[<span class="st">"McFadden"</span>]</span>
+<span id="cb84-851"><a href="#cb84-851" aria-hidden="true" tabindex="-1"></a>caret<span class="sc">::</span><span class="fu">varImp</span>(modFT11) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(Overall))</span>
+<span id="cb84-852"><a href="#cb84-852" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb84-853"><a href="#cb84-853" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-854"><a href="#cb84-854" aria-hidden="true" tabindex="-1"></a><span class="fu">### Precict p(neg growth in mass)</span></span>
-<span id="cb84-857"><a href="#cb84-857" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb84-858"><a href="#cb84-858" aria-hidden="true" tabindex="-1"></a>predD <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
-<span id="cb84-859"><a href="#cb84-859" aria-hidden="true" tabindex="-1"></a>  <span class="at">meanFlowByRiverZ =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="fl">0.25</span>), </span>
-<span id="cb84-860"><a href="#cb84-860" aria-hidden="true" tabindex="-1"></a>  <span class="at">meanTempZ =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="fl">0.25</span>), </span>
-<span id="cb84-861"><a href="#cb84-861" aria-hidden="true" tabindex="-1"></a>  <span class="at">river =</span> <span class="fu">unique</span>(cd1<span class="sc">$</span>river), </span>
-<span id="cb84-862"><a href="#cb84-862" aria-hidden="true" tabindex="-1"></a>  <span class="at">species =</span> <span class="fu">unique</span>(cd1<span class="sc">$</span>species), </span>
-<span id="cb84-863"><a href="#cb84-863" aria-hidden="true" tabindex="-1"></a>  <span class="at">season =</span> <span class="fu">unique</span>(cd1<span class="sc">$</span>season),</span>
-<span id="cb84-864"><a href="#cb84-864" aria-hidden="true" tabindex="-1"></a>  <span class="at">observedWeight =</span> <span class="fu">seq</span>(<span class="fu">min</span>(cd1<span class="sc">$</span>observedWeight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="fu">max</span>(cd1<span class="sc">$</span>observedWeight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">40</span>)</span>
-<span id="cb84-865"><a href="#cb84-865" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb84-866"><a href="#cb84-866" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-854"><a href="#cb84-854" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-855"><a href="#cb84-855" aria-hidden="true" tabindex="-1"></a><span class="fu">### Precict p(neg growth in mass)</span></span>
+<span id="cb84-858"><a href="#cb84-858" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb84-859"><a href="#cb84-859" aria-hidden="true" tabindex="-1"></a>predD <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb84-860"><a href="#cb84-860" aria-hidden="true" tabindex="-1"></a>  <span class="at">meanFlowByRiverZ =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="fl">0.25</span>), </span>
+<span id="cb84-861"><a href="#cb84-861" aria-hidden="true" tabindex="-1"></a>  <span class="at">meanTempZ =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="fl">0.25</span>), </span>
+<span id="cb84-862"><a href="#cb84-862" aria-hidden="true" tabindex="-1"></a>  <span class="at">river =</span> <span class="fu">unique</span>(cd1<span class="sc">$</span>river), </span>
+<span id="cb84-863"><a href="#cb84-863" aria-hidden="true" tabindex="-1"></a>  <span class="at">species =</span> <span class="fu">unique</span>(cd1<span class="sc">$</span>species), </span>
+<span id="cb84-864"><a href="#cb84-864" aria-hidden="true" tabindex="-1"></a>  <span class="at">season =</span> <span class="fu">unique</span>(cd1<span class="sc">$</span>season),</span>
+<span id="cb84-865"><a href="#cb84-865" aria-hidden="true" tabindex="-1"></a>  <span class="at">observedWeight =</span> <span class="fu">seq</span>(<span class="fu">min</span>(cd1<span class="sc">$</span>observedWeight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="fu">max</span>(cd1<span class="sc">$</span>observedWeight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="dv">40</span>)</span>
+<span id="cb84-866"><a href="#cb84-866" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb84-867"><a href="#cb84-867" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-868"><a href="#cb84-868" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">add_column</span>(predD, </span>
-<span id="cb84-869"><a href="#cb84-869" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pred =</span> <span class="fu">predict.glm</span>(modFT11, predD, <span class="at">type =</span> <span class="st">"response"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb84-870"><a href="#cb84-870" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">groupT =</span> <span class="fu">paste</span>(river, species, season, meanTempZ, <span class="at">sep =</span> <span class="st">"_"</span>),</span>
-<span id="cb84-871"><a href="#cb84-871" aria-hidden="true" tabindex="-1"></a>               <span class="at">groupF =</span> <span class="fu">paste</span>(river, species, season, meanFlowByRiverZ, <span class="at">sep =</span> <span class="st">"_"</span>))</span>
-<span id="cb84-872"><a href="#cb84-872" aria-hidden="true" tabindex="-1"></a>                   </span>
-<span id="cb84-873"><a href="#cb84-873" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb84-874"><a href="#cb84-874" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb84-875"><a href="#cb84-875" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plot predictions</span></span>
-<span id="cb84-878"><a href="#cb84-878" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb84-879"><a href="#cb84-879" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pred <span class="sc">|&gt;</span> <span class="fu">filter</span>(meanTempZ <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="dv">0</span>,<span class="fl">1.5</span>), observedWeight <span class="sc">==</span> <span class="fl">161.3</span>), <span class="fu">aes</span>(meanFlowByRiverZ, pred, <span class="at">group=</span> groupT)) <span class="sc">+</span></span>
-<span id="cb84-880"><a href="#cb84-880" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(meanTempZ))) <span class="sc">+</span></span>
-<span id="cb84-881"><a href="#cb84-881" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Probability of negative growth in mass"</span>, <span class="at">x =</span> <span class="st">"Mean flow"</span>) <span class="sc">+</span></span>
-<span id="cb84-882"><a href="#cb84-882" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(season<span class="sc">~</span>species<span class="sc">+</span>river)</span>
-<span id="cb84-883"><a href="#cb84-883" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb84-884"><a href="#cb84-884" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-868"><a href="#cb84-868" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-869"><a href="#cb84-869" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">add_column</span>(predD, </span>
+<span id="cb84-870"><a href="#cb84-870" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pred =</span> <span class="fu">predict.glm</span>(modFT11, predD, <span class="at">type =</span> <span class="st">"response"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb84-871"><a href="#cb84-871" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">groupT =</span> <span class="fu">paste</span>(river, species, season, meanTempZ, <span class="at">sep =</span> <span class="st">"_"</span>),</span>
+<span id="cb84-872"><a href="#cb84-872" aria-hidden="true" tabindex="-1"></a>               <span class="at">groupF =</span> <span class="fu">paste</span>(river, species, season, meanFlowByRiverZ, <span class="at">sep =</span> <span class="st">"_"</span>))</span>
+<span id="cb84-873"><a href="#cb84-873" aria-hidden="true" tabindex="-1"></a>                   </span>
+<span id="cb84-874"><a href="#cb84-874" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb84-875"><a href="#cb84-875" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-876"><a href="#cb84-876" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plot predictions</span></span>
+<span id="cb84-879"><a href="#cb84-879" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb84-880"><a href="#cb84-880" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pred <span class="sc">|&gt;</span> <span class="fu">filter</span>(meanTempZ <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="dv">0</span>,<span class="fl">1.5</span>), observedWeight <span class="sc">==</span> <span class="fl">161.3</span>), <span class="fu">aes</span>(meanFlowByRiverZ, pred, <span class="at">group=</span> groupT)) <span class="sc">+</span></span>
+<span id="cb84-881"><a href="#cb84-881" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(meanTempZ))) <span class="sc">+</span></span>
+<span id="cb84-882"><a href="#cb84-882" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Probability of negative growth in mass"</span>, <span class="at">x =</span> <span class="st">"Mean flow"</span>) <span class="sc">+</span></span>
+<span id="cb84-883"><a href="#cb84-883" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(season<span class="sc">~</span>species<span class="sc">+</span>river)</span>
+<span id="cb84-884"><a href="#cb84-884" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb84-885"><a href="#cb84-885" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-886"><a href="#cb84-886" aria-hidden="true" tabindex="-1"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
