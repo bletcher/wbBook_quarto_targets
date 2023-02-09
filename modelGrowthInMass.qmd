@@ -366,11 +366,80 @@ plotNegGrowth_temp <- function(d, s){
     ggtitle(s) +
     facet_grid(riverGG~speciesGG)
 }
-plotNegGrowth_temp(propNegSRsN, "Spring")
-plotNegGrowth_temp(propNegSRsN, "Summer")
-plotNegGrowth_temp(propNegSRsN, "Autumn")
-plotNegGrowth_temp(propNegSRsN, "Winter")
 
+```
+
+::: {.panel-tabset}
+### Spring
+```{r}
+#| label: negGrowth_tempSPring
+plotNegGrowth_temp(propNegSRsN, "Spring")
+```
+
+### Summer
+```{r}
+#| label: negGrowth_tempSummer
+plotNegGrowth_temp(propNegSRsN, "Summer")
+```
+
+### Autumn
+```{r}
+#| label: negGrowth_tempAutumn
+plotNegGrowth_temp(propNegSRsN, "Autumn")
+```
+
+### Winter
+```{r}
+#| label: negGrowth_tempWinter
+plotNegGrowth_temp(propNegSRsN, "Winter")
+```
+
+:::
+
+### Proportion of fish with negative growth by **3 species fish counts**
+```{r}
+#| label: negGrowth_counts3Spp
+
+ggplot(propNegSRsN |> filter(n > 10, riverGG == "West Brook"), aes(nInd, propNeg, color = riverGG)) +
+  geom_point(aes(size = n)) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_y_continuous("Proportion of fish with negative growth in mass") +
+  scale_x_log10("3 species count") +
+  scale_color_discrete() +
+  ggtitle("West Brook") +
+  facet_grid(seasonGG~speciesGG)
+
+ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(nInd, propNeg, color = riverGG)) +
+  geom_point(aes(size = n)) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_y_continuous("Proportion of fish with negative growth in mass") +
+  scale_x_log10("3 species count") +
+  scale_color_discrete() +
+  ggtitle("Tributaries") +
+  facet_grid(seasonGG~speciesGG)
+```
+
+### Proportion of fish with negative growth by **conspecific fish counts**
+```{r}
+#| label: negGrowth_counts1Spp
+
+ggplot(propNegSRsN |> filter(n > 10, riverGG == "West Brook"), aes(nIndBySpp, propNeg, color = riverGG)) +
+  geom_point(aes(size = n)) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_y_continuous("Proportion of fish with negative growth in mass") +
+  scale_x_log10("conspecific count") +
+  scale_color_discrete() +
+  ggtitle("West Brook") +
+  facet_grid(seasonGG~speciesGG)
+
+ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(nIndBySpp, propNeg, color = riverGG)) +
+  geom_point(aes(size = n)) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_y_continuous("Proportion of fish with negative growth in mass") +
+  scale_x_log10("conspecific count") +
+  scale_color_discrete() +
+  ggtitle("Tributaries") +
+  facet_grid(seasonGG~speciesGG)
 ```
 
 ### F/T cycle graphs  
