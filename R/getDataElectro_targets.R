@@ -78,18 +78,37 @@ getElectroData_target <-
       mergeSites(drainage) %>%
       addNPasses(drainage) %>%
       mutate(drainage = drainage) %>%
-      
       addSizeIndGrowthWeight(),
+    
+    medianWinterSampleDate_target = cdWB_electro_target |> 
+      filter(season == 4) |>
+      group_by(year) |> 
+      summarize(start0 = median(date)) |> 
+      mutate(start = setYday(start0, medianWinterYday_target$medianYday)) |> 
+      ungroup() ,
+    
+    medianWinterYday_target = cdWB_electro_target |> 
+      filter(season == 4) |> 
+      summarize(medianYday = median(yday(date))),
+    
+    missingWinterYears_target = 
+      tibble(
+        river = rep(c('west brook', 'wb jimmy', 'wb mitchell', 'wb obear'), each = 4),
+        year = rep(c(2005, 2007, 2012, 2014), 4),
+        season = 4
+      ) |> 
+      left_join(medianWinterSampleDate_target),
     
     medianDates_target = 
       medDate <- cdWB_electro_target |> 
         group_by(river, year, season) |> 
         summarize(start = median(date)) |> 
         ungroup() |> 
+        add_row(missingWinterYears_target |> select(-start0)) |> 
+        arrange(river, start) |> 
         group_by(river) |> 
         mutate(end = lead(start)) |> 
         filter(!is.na(end))
-    
   )  
 
 
@@ -218,6 +237,12 @@ addEnvironmental3 <- function(coreData, sampleFlow = F, funName = "mean") {
   return(coreData)
 }
 
+
+# needed to set yday in mutate()
+setYday <- function(d, dateYday){
+  yday(d) = dateYday
+  return(d)
+}
 
 
 # This function does not include flowByRiver (addEnvironmental3 does)

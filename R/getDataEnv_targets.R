@@ -46,7 +46,7 @@ getEnvData_target <-
       collect(n = Inf) %>% 
       full_join(tbl(conDplyr, "data_flow_extension") %>% 
                   collect(n = Inf), by = c("river", "date")) %>% 
-      select(-source) %>% 
+      dplyr::select(-source) %>% 
       rename(temperature = daily_mean_temp, flow = qPredicted) %>%
       mutate(dateDate = as_date(date),
              yday = yday(dateDate),

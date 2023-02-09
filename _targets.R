@@ -46,7 +46,8 @@ list(
   dataAntenna_target,
   dataAll_target,
   modelYOY_target,
-  modelFlow_target
+  modelFlow_target,
+  modelGrowthInMass_target
 
   # turn off for now
   # modelCMR_tt_ft_OB_flow_target,

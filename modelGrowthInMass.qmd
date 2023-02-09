@@ -52,17 +52,22 @@ flow/temp circles with gr on top
 ### Get electrofishing data
 ```{r}
 #| label: readInAllData
-dummy=0 # change to force cache update??
-cd <- tar_read(cdWB_electro_target)
+cd <- tar_read(cdWB_electro_target) # raw data
+cd1 <- tar_read(cd1_target)
+propNegSRS <- tar_read(propNegSRS_target)
+propNegSRsN <- tar_read(propNegSRsN_target)
 
+indCountsBySpp <- tar_read(indCountsBySpp_target) 
+indCounts <- tar_read(indCounts_target) 
+propNegLabels <- tar_read(propNegLabels_target)
 ```
 
 ### Get environmental data
 ```{r}
 #| label: readInAllDataEnv
 dummy=0 # change to force cache update??
-envIn <- tar_read(envDataWB_Target)
-
+envIn <- tar_read(envIn_target)
+envIn_propNeg <- tar_read(envIn_propNeg_target)
 ```
 
 ## Examine raw data
@@ -77,50 +82,14 @@ Previous growth models with length used all possible observations for a fish and
 #   rename(firstCapt = Var1, secondCapt = Var2, season = Var3, year = Var4) |> 
 #   filter(year == 2010)
 
-cd1 <- cd |> 
-  filter(sampleNumberDiff == 1,
-         tag %notin% c('1bf20ff490', '1bf20ebe4e')) |> 
-  mutate(negGrowth = grWeight < 0,
-         month = month(date),
-         dummy = 1) # change to force cache update
-```
 
-Labels for plotting
-```{r}
-## River ####################
-cd1$riverGG <- factor(
-    cd1$river,
-    levels=c('west brook', 'wb jimmy', 'wb mitchell',"wb obear"),
-    labels = c("West Brook","Open Large","Open Small","Isolated Small"),
-    ordered = T
-  )
-
-envIn$riverGG <- factor(
-    envIn$river,
-    levels=c('west brook', 'wb jimmy', 'wb mitchell',"wb obear"),
-    labels = c("West Brook","Open Large","Open Small","Isolated Small"),
-    ordered = T
-  )
-##  Season ###################
-cd1$seasonGG <- factor(
-    cd1$season, 
-    labels = c("Spring","Summer","Autumn","Winter"), 
-    ordered = T
-  )
-
-envIn$seasonGG <- factor(
-    envIn$season, 
-    labels = c("Spring","Summer","Autumn","Winter"), 
-    ordered = T
-  )
-## Species ######################
-cd1$speciesGG <- factor(
-    cd1$species, 
-    levels = c('bkt','bnt','ats'), 
-    labels = c("Brook trout", "Brown trout", "Atlantic salmon"), 
-    ordered = T
-  )
-
+##### in targets
+# cd1 <- cd |> 
+#   filter(sampleNumberDiff == 1,
+#          tag %notin% c('1bf20ff490', '1bf20ebe4e')) |> 
+#   mutate(negGrowth = grWeight < 0,
+#          month = month(date),
+#          dummy = 1) # change to force cache update
 ```
 
 ### Find outlier growth rates  
@@ -336,15 +305,6 @@ ggplot(cd1 |> filter(!is.na(negGrowth)), aes(negGrowth)) +
   geom_bar() +
   facet_grid(seasonGG~speciesGG+riverGG, scales = "free")
 
-propNegSRS <- cd1 |> 
-  group_by(speciesGG, riverGG, seasonGG) |> 
-  summarize(numNeg = sum(negGrowth, na.rm = TRUE),
-            n = n()
-            ) |> 
-  mutate(numPos = n - numNeg,
-         propPos = numPos/n,
-         propNeg = numNeg/n)
-
 ggplot(propNegSRS |> filter(n > 50), aes(seasonGG, propNeg, color = riverGG, group = riverGG)) +
   geom_point(aes(size = n)) +
   geom_line() +
@@ -358,18 +318,6 @@ ggplot(propNegSRS |> filter(n > 50), aes(seasonGG, propNeg, color = riverGG, gro
 Break down season by year
 ```{r}
 #| label: neg_posN
-propNegSRsN <- cd1 |> 
-  group_by(speciesGG, riverGG, sampleNumber, seasonGG, year) |> 
-  summarize(numNeg = sum(negGrowth, na.rm = TRUE),
-            n = n(),
-            mT = mean(meanTemperature, na.rm = TRUE),
-            mF = mean(meanFlowByRiver, na.rm = TRUE),
-            mF_log10 = mean(log10(meanFlowByRiver), na.rm = TRUE)
-            ) |> 
-  mutate(numPos = n - numNeg,
-         propPos = numPos/n,
-         propNeg = numNeg/n) |> 
-  ungroup()
 
 ggplot(propNegSRsN |> filter(n > 10), aes(year, propNeg, color = riverGG)) +
   geom_point(aes(size = n)) +
@@ -442,7 +390,10 @@ plot_mT_mF <- function(s, plotText){
 plot_mT_mF("Brook trout", FALSE)
 plot_mT_mF("Brown trout", FALSE)
 plot_mT_mF("Atlantic salmon", FALSE)
-
+```
+#### Mean flow and temperature with year labels
+```{r}
+#| label: flow_temp_cycle_bySpeciesYear
 plot_mT_mF("Brook trout", TRUE)
 plot_mT_mF("Brown trout", TRUE)
 plot_mT_mF("Atlantic salmon", TRUE)
@@ -451,7 +402,7 @@ plot_mT_mF("Atlantic salmon", TRUE)
 Mean flow and temperature values for each season and year for the West Brook  
 Not very informative
 ```{r}
-#| label: flow_temp_cycle_bySpeciesYear
+#| label: flow_temp_cycle_bySpeciesYear2
 #| 
 ggplot(propNegSRsN |> filter(n > 10, riverGG == 'West Brook') |> arrange(riverGG, speciesGG, year, seasonGG), aes(mT, mF_log10)) +
   geom_line() +
@@ -459,16 +410,6 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG == 'West Brook') |> arrange(riverGG
   facet_wrap(~year)
 ```
 
-#### Merge propNeg into daily environmental data   
-So we can style the graph by propNeg growth for each year/season
-```{r}
-#| label: mergePropNeg
-
-envIn_propNeg <- envIn |> 
-  left_join(propNegSRsN |> dplyr::select(riverGG, year, seasonGG, speciesGG, propNeg)) |> 
-  mutate(yearSeason = paste(year, seasonGG, sep = "_"),
-         dummy = 1)
-```
 
 Yearly temperature/flow cycles of daily data 
 ```{r}
@@ -491,11 +432,11 @@ plotMerged(envIn_propNeg, "Open Large", 2002, 2017)
 plotMerged(envIn_propNeg, "Open Small", 2002, 2017)
 plotMerged(envIn_propNeg, "Isolated Small", 2002, 2017)
 ```
-
 Smooths of temperature/flow cycles of daily data by season
 ```{r}
 #| label: plotMergedBySeason
-#| 
+#| echo: true
+
 plotMergedBySeason <- function(d, r, minYear = 2000, maxYear = 2017) {
   ggplot(d |> filter(riverGG == r, year %in% c(minYear:maxYear), !is.na(seasonGG)), 
          aes(temperature, log10(flowByRiverm3s), 
@@ -520,7 +461,8 @@ plotMergedBySeason(envIn_propNeg, "Isolated Small", 2002, 2017)
 Smooths of temperature/flow cycles of daily data by season with line width = proportion of negative growth
 ```{r} 
 #| label: plotMergedBySeason_LineWidth
-
+#| echo: false
+#| 
 plotMergedBySeason_LineWidth <- function(d, r, minYear = 2000, maxYear = 2017) {
   ggplot(d |> filter(riverGG == r, year %in% c(minYear:maxYear), !is.na(seasonGG)), 
          aes(temperature, log10(flowByRiverm3s),
@@ -544,25 +486,9 @@ plotMergedBySeason_LineWidth(envIn_propNeg, "Isolated Small", 2002, 2017)
 Plot F/T cycles by river, season, species with label for propNeg and conspecific and all-species abundances
 ```{r}
 #| label: plotMergedBySeasonByEverything
-
-indCountsBySpp <- cd1 |> 
-  group_by(riverGG, seasonGG, speciesGG, year) |> 
-  summarize(nIndBySpp = n())
-
-indCounts <- cd1 |> 
-  group_by(riverGG, seasonGG, year) |> 
-  summarize(nInd = n())
-
-propNegLabels <- envIn_propNeg |> 
-  group_by(riverGG, seasonGG, speciesGG, year) |> 
-  summarize(propNeg = mean(propNeg),
-            minTemp = min(temperature),
-            minFlow = min(flowByRiverm3s),
-            maxTemp = max(temperature),
-            maxFlow = max(flowByRiverm3s)) |> 
-  left_join(indCountsBySpp) |> 
-  left_join(indCounts)
-
+#| fig-width: 13
+#| fig-height: 10
+#| 
 
 plotMergedBySeasonByEverything <- function(d, d2, r, s, spp, minYear = 2000, maxYear = 2017){
   ggplot(d |> 
@@ -576,22 +502,25 @@ plotMergedBySeasonByEverything <- function(d, d2, r, s, spp, minYear = 2000, max
     geom_smooth(se = FALSE, color = "darkgrey") +
     geom_point(aes(color = yday)) +
     geom_text(aes(
-      x = minTemp - 0.5, 
-      y = log10(minFlow) - 0.1, 
-      label = round(propNeg, 2), 
-      size = propNeg + 1), 
+      x = minTemp + 3.0, 
+      y = log10(minFlow) - 1, 
+      label = paste("propNeg=",round(propNeg, 2)) 
+      #size = propNeg
+      ), 
         data = d2|> 
           filter(riverGG == r, 
+                 year %in% c(minYear:maxYear),
                  seasonGG == s, 
                  speciesGG == spp)
         ) +
     geom_text(aes(
-      x = maxTemp - minTemp + 0.0,
-      y = log10(maxFlow) - 0.1,
-      label = paste(paste("nInd=", nInd), paste("nIndBySpp=", nIndBySpp), sep = "\n")
+      x = minTemp + 3.0,
+      y = log10(minFlow) - 0.3,
+      label = paste(paste("nIndAllSpp=", nInd), paste("nIndBySpp=", nIndBySpp), sep = "\n")
       ),
         data = d2|>
           filter(riverGG == r,
+                 year %in% c(minYear:maxYear),
                  seasonGG == s,
                  speciesGG == spp)
         ) +
@@ -614,6 +543,35 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Spri
 plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Summer", "Atlantic salmon", 2002, 2017)
 plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Autumn", "Atlantic salmon", 2002, 2017)
 plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Winter", "Atlantic salmon", 2002, 2017)
+
+# Open large
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Large", "Spring", "Brook trout", 2000, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Large", "Summer", "Brook trout", 2000, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Large", "Autumn", "Brook trout", 2000, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Large", "Winter", "Brook trout", 2000, 2017)
+
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Large", "Spring", "Brown trout", 2002, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Large", "Summer", "Brown trout", 2002, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Large", "Autumn", "Brown trout", 2002, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Large", "Winter", "Brown trout", 2002, 2017)
+
+# Open small
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Small", "Spring", "Brook trout", 2000, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Small", "Summer", "Brook trout", 2000, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Small", "Autumn", "Brook trout", 2000, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Small", "Winter", "Brook trout", 2000, 2017)
+
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Small", "Spring", "Brown trout", 2002, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Small", "Summer", "Brown trout", 2002, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Small", "Autumn", "Brown trout", 2002, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Small", "Winter", "Brown trout", 2002, 2017)
+
+# Isolated small
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Isolated Small", "Spring", "Brook trout", 2000, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Isolated Small", "Summer", "Brook trout", 2000, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Isolated Small", "Autumn", "Brook trout", 2000, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Isolated Small", "Winter", "Brook trout", 2000, 2017)
+
 
 ```
 
