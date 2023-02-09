@@ -457,32 +457,7 @@ plotMergedBySeason(envIn_propNeg, "Open Small", 2002, 2017)
 plotMergedBySeason(envIn_propNeg, "Isolated Small", 2002, 2017)
   
 ```
-
-Smooths of temperature/flow cycles of daily data by season with line width = proportion of negative growth
-```{r} 
-#| label: plotMergedBySeason_LineWidth
-#| echo: false
-#| 
-plotMergedBySeason_LineWidth <- function(d, r, minYear = 2000, maxYear = 2017) {
-  ggplot(d |> filter(riverGG == r, year %in% c(minYear:maxYear), !is.na(seasonGG)), 
-         aes(temperature, log10(flowByRiverm3s),
-             color = factor(year)#, group = year
-             )
-         ) +
-    geom_point() +
-    geom_smooth(aes(linewidth = propNeg + 0.1, group = propNeg), se = FALSE) +
-    #geom_line() +
-    ggtitle(r) +
-    #facet_wrap(~seasonGG, scales = 'free')
-  facet_grid(year~seasonGG, scales = 'free')
-}
-
-plotMergedBySeason_LineWidth(envIn_propNeg, "West Brook", 2000, 2017)
-plotMergedBySeason_LineWidth(envIn_propNeg, "Open Large", 2002, 2017)
-plotMergedBySeason_LineWidth(envIn_propNeg, "Open Small", 2002, 2017)
-plotMergedBySeason_LineWidth(envIn_propNeg, "Isolated Small", 2002, 2017)
-```
-
+#### F/T cycles with labels
 Plot F/T cycles by river, season, species with label for propNeg and conspecific and all-species abundances
 ```{r}
 #| label: plotMergedBySeasonByEverything
@@ -576,7 +551,29 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Isolated Small", "
 ```
 
 
+::: {.panel-tabset}
+### Spring
 ```{r}
+#| label: panelSpring
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Spring", "Brook trout", 2000, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Spring", "Brown trout", 2000, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Spring", "Atlantic salmon", 2000, 2017)
+
+
+```
+
+### Summer
+```{r}
+#| label: panelSummer
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Summer", "Brook trout", 2000, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Summer", "Brown trout", 2000, 2017)
+plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Summer", "Atlantic salmon", 2000, 2017)
+```
+
+:::
+
+```{r}
+#| label: propNegWB_BKT
 ggplot(propNegSRsN |> filter(n > 10, riverGG=="West Brook", speciesGG == "Brook trout"), 
        aes(year, propNeg, color = factor(seasonGG))) +
   geom_point(aes(size = n)) +

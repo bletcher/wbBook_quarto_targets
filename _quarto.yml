@@ -31,11 +31,11 @@ book:
       chapters: 
         - modelYOY.qmd
         - modelFlow.qmd
+        - modelGrowthInMass.qmd
     - part: "Capture-recapture models"
       chapters: 
         - modelsCMR_ft_cohort_Flow_OB.qmd
         - modelsCMR_Flow_4Rivers.qmd
-        - modelGrowthInMass.qmd
     - part: "Miscallaneous/playground"
     - references.qmd
 
@@ -49,6 +49,7 @@ format:
     code-fold: true
     code-tools: true
     code-overflow: wrap
+    number-depth: 4
       
   pdf:
     documentclass: scrreprt
