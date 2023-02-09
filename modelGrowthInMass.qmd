@@ -110,7 +110,7 @@ Lots of very fast growth mostly in the spring. No clear way to exclude fish. `1c
 cd1 |> 
   arrange(desc(grWeightS)) |> 
   dplyr::select(tag, species, season, sampleNumber, lagSampleNumber, observedWeight, lagObservedWeight, grWeightS) |> 
-  print(n = 20)
+  print(n = 10)
 ```
 
 ### Raw length, weight data graphs
@@ -120,6 +120,12 @@ cd1 |>
 ggplot(cd1, aes(grWeight, color = speciesGG)) +
   geom_freqpoly(bins = 50) +
   labs(x = "Growth in mass (/d)", y = "Frequency") +
+  scale_color_discrete() +
+  facet_wrap(~season)
+
+ggplot(cd1, aes(grLength, color = speciesGG)) +
+  geom_freqpoly(bins = 50) +
+  labs(x = "Growth in Length (mm/d)", y = "Frequency") +
   scale_color_discrete() +
   facet_wrap(~season)
 ```
@@ -138,7 +144,6 @@ plotLenW <- function(d, s){
     scale_color_discrete() +
     facet_grid(riverGG~year, scales = 'free')
 }
-
 ```
 
 ::: {.panel-tabset}
@@ -165,19 +170,14 @@ plotLenW(cd1, "ats")
 ### Weight vs weight at next sample
 ```{r}
 #| label: weight_v_weight
-plotWW <- function(d, s){
-  ggplot(d |> filter(species == s), aes(observedWeight, lagObservedWeight, color = seasonGG)) +
+plotWW <- function(d, spp){
+  ggplot(d |> filter(species == spp), aes(observedWeight, lagObservedWeight, color = seasonGG)) +
     geom_point(alpha = 0.15) +
     guides(color = guide_legend(override.aes = list(alpha = 1))) +
-    ggtitle(s) +
-    labs(y = "mass (mg)", y = "Mass (mg) at next sample") +
+    labs(x = "Mass (mg)", y = "Mass (mg) at next sample") +
     scale_color_discrete() +
     facet_wrap(~riverGG, scales = 'free')
 }
-
-plotWW(cd1, "bkt")
-plotWW(cd1, "bnt")
-plotWW(cd1, "ats")
 ```
 
 ::: {.panel-tabset}
@@ -201,8 +201,7 @@ plotWW(cd1, "ats")
 ```
 :::
 
-## Growth rate in length vs growth rate in mass  
-
+### Growth rate in length vs growth rate in mass  
 ```{r}
 #| label: grLen_v_grWeight
 ggplot(cd1, aes(grLength, grWeight)) +
@@ -247,9 +246,36 @@ plotGrLenMass(cd1, "ats")
 ```
 :::
 
-## Flow and temperature growth models
+No relationship between means of neg and pos growth
+```{r}
+
+meanNegSRsN <- cd1 |> 
+  group_by(speciesGG, riverGG, seasonGG, sampleNumber, year, negGrowth) |> 
+  summarize(meanNegPos = mean(grWeight, na.rm = TRUE),
+            n = n()) |> 
+  ungroup()
+
+ggplot(meanNegSRsN |> filter(speciesGG == "Brook trout"), aes(year, meanNegPos, color = negGrowth, group = negGrowth)) +
+  geom_point() +
+  geom_line() +
+  geom_hline(yintercept = 0) +
+  facet_grid(seasonGG~riverGG)
+
+meanNegSRsNWide <- meanNegSRsN |> 
+  filter(speciesGG == "Brook trout", !is.na(negGrowth)) |> 
+  dplyr::select(-n) |> 
+  pivot_wider(names_from = negGrowth, values_from = meanNegPos)
+
+ggplot(meanNegSRsNWide, aes(`FALSE`, `TRUE`)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_grid(seasonGG~riverGG)
+```
+
+
+## Flow and temperature growth relationships
 ### Mean flow effect on growth?  
-Maybe in Jimmy for bnt, or for ats
+
 ```{r}
 #| label: flow_weight
 
@@ -346,14 +372,17 @@ plotTempGR(cd1, "Winter")
 ```
 :::
 
-## Negative vs positive growth
+## Proportion of fish with negative growth
 ### Proportion of fish with negative growth by species/river/season
 ```{r}
 #| label: neg_pos
 ggplot(cd1 |> filter(!is.na(negGrowth)), aes(negGrowth)) +
   geom_bar() +
   facet_grid(seasonGG~speciesGG+riverGG, scales = "free")
+```
 
+### Proportion of fish with negative growth by species/season
+```{r}
 ggplot(propNegSRS |> filter(n > 50), aes(seasonGG, propNeg, color = riverGG, group = riverGG)) +
   geom_point(aes(size = n)) +
   geom_line() +
@@ -362,6 +391,7 @@ ggplot(propNegSRS |> filter(n > 50), aes(seasonGG, propNeg, color = riverGG, gro
   facet_wrap(~speciesGG)
 ```
 
+### Proportion of fish with negative growth by species/river/year
 ```{r}
 #| label: propNegWB_BKT
 
@@ -398,8 +428,8 @@ plotPropNegByRiver(propNegSRsN, "Atlantic salmon")
 :::
 
 
-### Proportion of fish with negative growth by species/river/sampleNumber  
-Break down season by year
+### Proportion of fish with negative growth by species/river/year  
+Break down season by year, compare across rivers
 ```{r}
 #| label: neg_posN
 
@@ -530,27 +560,63 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(nIndBySpp, pr
 ### Mean flow and temperature
 ```{r}
 #| label: flow_temp_cycle_bySpecies
-plot_mT_mF <- function(s, plotText){
-  ggplot(propNegSRsN |> filter(n > 25, speciesGG == s), aes(mT, mF_log10, color = factor(seasonGG))) +
+plot_mT_mF <- function(d, s, plotText){
+  ggplot(d |> filter(n > 25, speciesGG == s), aes(mT, mF_log10, color = factor(seasonGG))) +
     geom_point(aes(size = propNeg)) +
     {if(plotText) geom_text(aes(label = year), vjust = 0, nudge_y = -0.075, check_overlap = FALSE, size = 3)} +
-    ggtitle(s) +
     labs(x = "Mean temperature (C)", y = "log10 of mean Flow") +
     scale_color_discrete() +
     facet_wrap(~riverGG, scales = "free")
 }
 
-plot_mT_mF("Brook trout", FALSE)
-plot_mT_mF("Brown trout", FALSE)
-plot_mT_mF("Atlantic salmon", FALSE)
 ```
-### Mean flow and temperature with year labels
+
+::: {.panel-tabset}
+### Brook trout
 ```{r}
-#| label: flow_temp_cycle_bySpeciesYear
-plot_mT_mF("Brook trout", TRUE)
-plot_mT_mF("Brown trout", TRUE)
-plot_mT_mF("Atlantic salmon", TRUE)
+#| label: flow_temp_cycle_bySpecies_bkt
+
+plot_mT_mF(propNegSRsN, "Brook trout", FALSE)
 ```
+### Brown trout
+```{r}
+#| label: flow_temp_cycle_bySpecies_bnt
+
+plot_mT_mF(propNegSRsN, "Brown trout", FALSE)
+```
+### Atlantic salmon
+```{r}
+#| label: flow_temp_cycle_bySpecies_ats
+
+plot_mT_mF(propNegSRsN, "Atlantic salmon", FALSE)
+```
+:::
+
+
+### Mean flow and temperature with year labels
+
+::: {.panel-tabset}
+### Brook trout
+```{r}
+#| label: flow_temp_cycle_bySpeciesYear_bkt
+
+plot_mT_mF(propNegSRsN, "Brook trout", TRUE)
+```
+### Brown trout
+```{r}
+#| label: flow_temp_cycle_bySpeciesYear_bnt
+
+plot_mT_mF(propNegSRsN, "Brown trout", TRUE)
+```
+### Atlantic salmon
+```{r}
+#| label: flow_temp_cycle_bySpeciesYear_ats
+
+plot_mT_mF(propNegSRsN, "Atlantic salmon", TRUE)
+```
+:::
+
+
 
 Mean flow and temperature values for each season and year for the West Brook  
 Not very informative
@@ -1139,9 +1205,6 @@ ggplot(cd1, aes(grLength, grWeightS)) +
 ```
 
 
-
-
-### Pairs plots
 
 
 
