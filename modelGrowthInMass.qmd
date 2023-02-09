@@ -95,7 +95,7 @@ Previous growth models with length used all possible observations for a fish and
 ### Find outlier growth rates  
 #### Negative outlier growth  
 `1bf20ebe4e` and `1bf20ff490` have incorrect weights leading to very negative growth rates.  
-Exclude these tags above. The rest of the quite negative growth fish seem plausible (remember we can't account for stomach contents or egg loss).
+Exclude these tags in `cd1_target`. The rest of the quite negative growth fish seem plausible (remember we can't account for stomach contents or egg loss).
 ```{r}
 #| label: negOutlier
 cd |> 
@@ -104,7 +104,7 @@ cd |>
 ```
 
 #### Positive outlier growth 
-Lots of very fast growth mostly in the spring. No clear way to exclude fish.
+Lots of very fast growth mostly in the spring. No clear way to exclude fish. `1c2c582218` is excluded in `cd1_target` because of very high growth in length.
 ```{r}
 #| label: posOutlier
 cd1 |> 
@@ -133,16 +133,34 @@ plotLenW <- function(d, s){
     geom_point(alpha = 0.5, size = 1) +
     scale_x_log10() +
     scale_y_log10() +
-    ggtitle(s) +
+    #ggtitle(s) +
     labs(x = "Length (mm)", y = "Mass (mg)") +
     scale_color_discrete() +
     facet_grid(riverGG~year, scales = 'free')
 }
 
+```
+
+::: {.panel-tabset}
+### Brook trout
+```{r}
+#| label: len_v_weight_bkt
+
 plotLenW(cd1, "bkt")
+```
+### Brown trout
+```{r}
+#| label: len_v_weight_bnt
+
 plotLenW(cd1, "bnt")
+```
+### Atlantic salmon
+```{r}
+#| label: len_v_weight_ats
+
 plotLenW(cd1, "ats")
 ```
+:::
 
 ### Weight vs weight at next sample
 ```{r}
@@ -162,72 +180,29 @@ plotWW(cd1, "bnt")
 plotWW(cd1, "ats")
 ```
 
-
-## Two growth models
-### Size-adjusted growth model
-#### Get l-w relationships for size-adjusted growth model  
-Here, we will explore size-independent growth in mass, see `Sigourney, D. B., B H Letcher, M. Obedzinski, and R. A. Cunjak. “Size-Independent Growth in Fishes: Patterns, Models and Metrics.” Journal of Fish Biology 72, no. 10 (2008): 2435–55. https://doi.org/10.1111/j.1095-8649.2008.01830.x.`
-Size-independent growth (`grWeightS`) is calculated in getDataElectro_targets.R file using addSizeIndGrowthWeight().  
-`grWeightS` uses the slope of `log(observedWeight)` ~ `log(grWeight)` for each river and season and species to adjust growth.  
-A simple linear models shows we need to get separate slopes for each river and season and species.  
-
+::: {.panel-tabset}
+### Brook trout
 ```{r}
-#| label: grW_models
-ggplot(cd1 |> filter(grWeight > 0), 
-       aes(log(observedWeight), log(grWeight), color = riverGG)) +
-  geom_point(alpha = 0.05)  +
-  geom_smooth(method = "lm", se = FALSE) +
-  labs(y = "Log of mass (mg)", x = "Log of growth in mass") +
-  scale_color_discrete() +
-  facet_grid(seasonGG~speciesGG)
+#| label: weight_v_weight_bkt
 
-mod0 <- lm(log(grWeight) ~ log(observedWeight), data = cd1 |> filter(grWeight > 0))
-mod1 <- lm(log(grWeight) ~ log(observedWeight) * river, data = cd1 |> filter(grWeight > 0))
-mod2 <- lm(log(grWeight) ~ log(observedWeight) * river * factor(season), data = cd1 |> filter(grWeight > 0))
-mod3 <- lm(log(grWeight) ~ log(observedWeight) * factor(season), data = cd1 |> filter(grWeight > 0))
-mod4 <- lm(log(grWeight) ~ log(observedWeight) * river * factor(season) * species, data = cd1 |> filter(grWeight > 0))
-
-AIC(mod0,mod1,mod2,mod3,mod4) |> arrange(AIC)
+plotWW(cd1, "bkt")
 ```
-
-### Compare size-adjusted and instantaneous growth  
-Differences don't seem big enough to warrant the extra complexity from the s-adjusted growth metric 
+### Brown trout
 ```{r}
-#| label: grWeight_v_grWeightS
-ggplot(cd1, aes(grWeight, grWeightS, color = riverGG)) +
-  geom_point(alpha = 0.05)  +
-  geom_smooth(method = "lm", se = FALSE) +
-  geom_abline(intercept = 0, slope = 1) +
-  labs(y = "Gowth in mass", x = "Size-adjusted growth in mass") +
-  scale_color_discrete() +
-  facet_grid(seasonGG~speciesGG)
+#| label: weight_v_weight_bnt
 
-ggplot(cd1 |> 
-         dplyr::select(observedWeight, grWeight, grWeightS, seasonGG, speciesGG) |> 
-         pivot_longer(cols = c(grWeight, grWeightS)),
-       
-       aes(log(observedWeight), value, color = name)) +
-  geom_point(alpha = 0.05 )  +
-  geom_smooth(method = "lm", se = FALSE) +
-  labs(y = "Log of mass (mg)", x = "Growth in mass") +
-  scale_color_discrete() +
-  facet_grid(seasonGG~speciesGG)
+plotWW(cd1, "bkt")
 ```
-
-
-## Compare growth in length and mass  
-### Growth rate in length vs size-independent growth rate in mass
+### Atlantic salmon
 ```{r}
-#| label: grLen_v_grWeightS
-ggplot(cd1, aes(grLength, grWeightS)) +
-  geom_point(aes(size = observedWeight), alpha = 0.02) +
-  guides(size = guide_legend(override.aes = list(alpha = 1))) +
-  labs(x = "Growth in length", y = "Size-adjusted growth in mass") +
-  scale_color_discrete() +
-  facet_grid(seasonGG~speciesGG)
-```
+#| label: weight_v_weight_ats
 
-### Growth rate in length vs 'instantaneous' growth rate in mass
+plotWW(cd1, "ats")
+```
+:::
+
+## Growth rate in length vs growth rate in mass  
+
 ```{r}
 #| label: grLen_v_grWeight
 ggplot(cd1, aes(grLength, grWeight)) +
@@ -237,16 +212,40 @@ ggplot(cd1, aes(grLength, grWeight)) +
   scale_color_discrete() +
   facet_grid(seasonGG~speciesGG)
 
-ggplot(cd1 |> filter(species=="bnt", season ==2), aes(grLength, grWeight, color = factor(year))) +
-  geom_point( alpha = 1) +
-  geom_smooth(method="lm", se=FALSE) +
-  guides(size = guide_legend(override.aes = list(alpha = 1))) +
-  labs(x = "Growth in length", y = "Growth in mass") +
-  scale_color_discrete() 
-
+plotGrLenMass <- function(d, s){
+  ggplot(cd1 |> filter(species==s), aes(grLength, grWeight, color = factor(year))) +
+    geom_point(alpha = 0.5) +
+    geom_smooth(method="lm", se=FALSE) +
+    guides(size = guide_legend(override.aes = list(alpha = 1))) +
+    labs(x = "Growth in length", y = "Growth in mass") +
+    scale_color_discrete() +
+    facet_wrap(~seasonGG, scales = 'free')  
+}
 #  facet_wrap(~year)
 ```
 
+::: {.panel-tabset}
+### Brook trout
+```{r}
+#| label: grLen_v_grWeight_bkt
+
+plotGrLenMass(cd1, "bkt")
+```
+
+### Brown trout
+```{r}
+#| label: grLen_v_grWeight_bnt
+
+plotGrLenMass(cd1, "bnt")
+```
+
+### Atlantic salmon
+```{r}
+#| label: grLen_v_grWeight_ats
+
+plotGrLenMass(cd1, "ats")
+```
+:::
 
 ## Flow and temperature growth models
 ### Mean flow effect on growth?  
@@ -262,15 +261,41 @@ ggplot(d |> filter(river == r), aes(meanFlowByRiver, grWeight, color = speciesGG
   geom_smooth(method = "lm", se =FALSE, formula = y~poly(x,2)) +
   labs(x = "Mean flow", y = "Growth in mass") +
   scale_color_discrete() +
-  ggtitle(r) +
+  #ggtitle(r) +
   facet_grid(seasonGG~speciesGG)#, scales = 'free')
 }
 
+```
+
+::: {.panel-tabset}
+### West Brook
+```{r}
+#| label: flow_weight_wb
+
 plotFlowGR(cd1, "west brook")
+```
+
+### Open Large
+```{r}
+#| label: flow_weight_ol
+
 plotFlowGR(cd1, "wb jimmy")
+```
+
+### Open Small
+```{r}
+#| label: flow_weight_os
+
 plotFlowGR(cd1, "wb mitchell")
+```
+
+### Isolated small
+```{r}
+#| label: flow_weight_is
+
 plotFlowGR(cd1, "wb obear")
 ```
+:::
 
 ### Mean temperature effect on growth?  
 Maybe in Jimmy for bnt, or for ats
@@ -280,22 +305,46 @@ Maybe in Jimmy for bnt, or for ats
 plotTempGR <- function(d, s){
   ggplot(d |> filter(seasonGG == s), aes(meanTemperature, grWeight, color = speciesGG)) +
     geom_point(alpha = 0.5)  +
-    geom_smooth(method = "lm", se = FALSE) +
-    geom_smooth(se = FALSE) +
-    geom_smooth(method = "lm", se =FALSE, formula = y~poly(x,2)) +
+    geom_smooth(method = "lm", se = FALSE, color = 'darkgrey') +
+    geom_smooth(se = FALSE, color = 'darkgrey') +
+    geom_smooth(method = "lm", se =FALSE, formula = y~poly(x,2), color = 'darkgrey') +
     labs(x = "Mean temperature (c)", y = "Growth in mass") +
     scale_color_discrete() +
-    ggtitle(s) +
+   # ggtitle(s) +
     facet_grid(speciesGG~riverGG)#, scales = 'free')
 }
 
-plotTempGR(cd1, "Spring")
-plotTempGR(cd1, "Summer")
-plotTempGR(cd1, "Autumn")
-plotTempGR(cd1, "Winter")
-
 ```
 
+::: {.panel-tabset}
+### Spring
+```{r}
+#| label: temp_grWeight_spring
+
+plotTempGR(cd1, "Spring")
+```
+
+### Summer
+```{r}
+#| label: temp_grWeight_summer
+
+plotTempGR(cd1, "Summer")
+```
+
+### Autumn
+```{r}
+#| label: temp_grWeight_autumn
+
+plotTempGR(cd1, "Autumn")
+```
+
+### Winter
+```{r}
+#| label: temp_grWeight_winter
+
+plotTempGR(cd1, "Winter")
+```
+:::
 
 ## Negative vs positive growth
 ### Proportion of fish with negative growth by species/river/season
@@ -311,8 +360,43 @@ ggplot(propNegSRS |> filter(n > 50), aes(seasonGG, propNeg, color = riverGG, gro
   labs(x = "Season", y = "Proportion of fish with negative growth in mass") +
   scale_color_discrete() +
   facet_wrap(~speciesGG)
-
 ```
+
+```{r}
+#| label: propNegWB_BKT
+
+plotPropNegByRiver <- function(d, spp){
+  ggplot(d |> filter(n > 10,  speciesGG == spp), 
+         aes(year, propNeg, color = factor(seasonGG))) +
+    geom_point(aes(size = n)) +
+    geom_line() +
+    labs(x = "Year", y = "Proportion of fish with negative growth in mass") +
+    scale_color_discrete() +
+    facet_wrap(~riverGG)
+}
+```
+
+::: {.panel-tabset}
+### Brook trout
+```{r}
+#| label: propNegWB_BKT_bkt
+
+plotPropNegByRiver(propNegSRsN, "Brook trout")
+```
+### Brown trout
+```{r}
+#| label: propNegWB_BKT_bnt
+
+plotPropNegByRiver(propNegSRsN, "Brown trout")
+```
+### Atlantic salmon
+```{r}
+#| label: propNegWB_BKT_ats
+
+plotPropNegByRiver(propNegSRsN, "Atlantic salmon")
+```
+:::
+
 
 ### Proportion of fish with negative growth by species/river/sampleNumber  
 Break down season by year
@@ -442,8 +526,8 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(nIndBySpp, pr
   facet_grid(seasonGG~speciesGG)
 ```
 
-### F/T cycle graphs  
-#### Mean flow and temperature
+## F/T cycle graphs  
+### Mean flow and temperature
 ```{r}
 #| label: flow_temp_cycle_bySpecies
 plot_mT_mF <- function(s, plotText){
@@ -460,7 +544,7 @@ plot_mT_mF("Brook trout", FALSE)
 plot_mT_mF("Brown trout", FALSE)
 plot_mT_mF("Atlantic salmon", FALSE)
 ```
-#### Mean flow and temperature with year labels
+### Mean flow and temperature with year labels
 ```{r}
 #| label: flow_temp_cycle_bySpeciesYear
 plot_mT_mF("Brook trout", TRUE)
@@ -480,7 +564,7 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG == 'West Brook') |> arrange(riverGG
 ```
 
 
-Yearly temperature/flow cycles of daily data 
+### Yearly temperature/flow cycles of daily data 
 ```{r}
 #| label: mergePropNegPlot
 
@@ -496,12 +580,41 @@ plotMerged <- function(d, r, minYear = 2000, maxYear = 2017){
     facet_wrap(~year, scales = 'free')
 }
 # this plots f/t for all three species - good for filling in gaps
+
+```
+
+::: {.panel-tabset}
+### West Brook
+```{r}
+#| label: mergePropNegPlot_wb
+
 plotMerged(envIn_propNeg, "West Brook", 2000, 2017)
+```
+
+### Open Large
+```{r}
+#| label: mergePropNegPlot_ol
+
 plotMerged(envIn_propNeg, "Open Large", 2002, 2017)
+```
+
+### Open Small
+```{r}
+#| label: mergePropNegPlot_os
+
 plotMerged(envIn_propNeg, "Open Small", 2002, 2017)
+```
+
+### Isolated small
+```{r}
+#| label: fmergePropNegPlot_is
+
 plotMerged(envIn_propNeg, "Isolated Small", 2002, 2017)
 ```
-Smooths of temperature/flow cycles of daily data by season
+:::
+
+
+### Smooths of temperature/flow cycles of daily data by season
 ```{r}
 #| label: plotMergedBySeason
 #| echo: true
@@ -520,13 +633,41 @@ plotMergedBySeason <- function(d, r, minYear = 2000, maxYear = 2017) {
     facet_wrap(~seasonGG, scales = 'free')
 }
 
-plotMergedBySeason(envIn_propNeg, "West Brook", 2000, 2017)
-plotMergedBySeason(envIn_propNeg, "Open Large", 2002, 2017)
-plotMergedBySeason(envIn_propNeg, "Open Small", 2002, 2017)
-plotMergedBySeason(envIn_propNeg, "Isolated Small", 2002, 2017)
-  
 ```
-#### F/T cycles with labels
+
+::: {.panel-tabset}
+### West Brook
+```{r}
+#| label: plotMergedBySeason_wb
+
+plotMergedBySeason(envIn_propNeg, "West Brook", 2000, 2017)
+```
+
+### Open Large
+```{r}
+#| label: plotMergedBySeason_ol
+
+plotMergedBySeason(envIn_propNeg, "Open Large", 2002, 2017)
+```
+
+### Open Small
+```{r}
+#| label: plotMergedBySeason_os
+
+plotMergedBySeason(envIn_propNeg, "Open Small", 2002, 2017)
+```
+
+### Isolated small
+```{r}
+#| label: plotMergedBySeason_is
+
+plotMergedBySeason(envIn_propNeg, "Isolated Small", 2002, 2017)
+```
+:::
+
+
+
+### F/T cycles with labels
 Plot F/T cycles by river, season, species with label for propNeg and conspecific and all-species abundances
 ```{r}
 #| label: plotMergedBySeasonByEverything
@@ -761,19 +902,6 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Isolated Small", "
 
 
 
-```{r}
-#| label: propNegWB_BKT
-ggplot(propNegSRsN |> filter(n > 10, riverGG=="West Brook", speciesGG == "Brook trout"), 
-       aes(year, propNeg, color = factor(seasonGG))) +
-  geom_point(aes(size = n)) +
-  geom_line() +
-  ggtitle("West brook") +
-  labs(x = "Year", y = "Proportion of fish with negative growth in mass") +
-  scale_color_discrete() 
-  #facet_wrap(~season)
-```
-
-
 
 
 ## Logistic models for environmental effects on propNeg
@@ -945,14 +1073,82 @@ ggplot(predATS$pred |> filter(meanTempZ %in% c(-1.5,0,1.5), meanFlowByRiverZ %in
 ```
 
 
+
+## Two growth models
+### Size-adjusted growth model
+#### Get l-w relationships for size-adjusted growth model  
+Here, we will explore size-independent growth in mass, see `Sigourney, D. B., B H Letcher, M. Obedzinski, and R. A. Cunjak. “Size-Independent Growth in Fishes: Patterns, Models and Metrics.” Journal of Fish Biology 72, no. 10 (2008): 2435–55. https://doi.org/10.1111/j.1095-8649.2008.01830.x.`
+Size-independent growth (`grWeightS`) is calculated in getDataElectro_targets.R file using addSizeIndGrowthWeight().  
+`grWeightS` uses the slope of `log(observedWeight)` ~ `log(grWeight)` for each river and season and species to adjust growth.  
+A simple linear models shows we need to get separate slopes for each river and season and species.  
+
+```{r}
+#| label: grW_models
+ggplot(cd1 |> filter(grWeight > 0), 
+       aes(log(observedWeight), log(grWeight), color = riverGG)) +
+  geom_point(alpha = 0.05)  +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(y = "Log of mass (mg)", x = "Log of growth in mass") +
+  scale_color_discrete() +
+  facet_grid(seasonGG~speciesGG)
+
+mod0 <- lm(log(grWeight) ~ log(observedWeight), data = cd1 |> filter(grWeight > 0))
+mod1 <- lm(log(grWeight) ~ log(observedWeight) * river, data = cd1 |> filter(grWeight > 0))
+mod2 <- lm(log(grWeight) ~ log(observedWeight) * river * factor(season), data = cd1 |> filter(grWeight > 0))
+mod3 <- lm(log(grWeight) ~ log(observedWeight) * factor(season), data = cd1 |> filter(grWeight > 0))
+mod4 <- lm(log(grWeight) ~ log(observedWeight) * river * factor(season) * species, data = cd1 |> filter(grWeight > 0))
+
+AIC(mod0,mod1,mod2,mod3,mod4) |> arrange(AIC)
+```
+
+### Compare size-adjusted and instantaneous growth  
+Differences don't seem big enough to warrant the extra complexity from the s-adjusted growth metric 
+```{r}
+#| label: grWeight_v_grWeightS
+ggplot(cd1, aes(grWeight, grWeightS, color = riverGG)) +
+  geom_point(alpha = 0.05)  +
+  geom_smooth(method = "lm", se = FALSE) +
+  geom_abline(intercept = 0, slope = 1) +
+  labs(y = "Gowth in mass", x = "Size-adjusted growth in mass") +
+  scale_color_discrete() +
+  facet_grid(seasonGG~speciesGG)
+
+ggplot(cd1 |> 
+         dplyr::select(observedWeight, grWeight, grWeightS, seasonGG, speciesGG) |> 
+         pivot_longer(cols = c(grWeight, grWeightS)),
+       
+       aes(log(observedWeight), value, color = name)) +
+  geom_point(alpha = 0.05 )  +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(y = "Log of mass (mg)", x = "Growth in mass") +
+  scale_color_discrete() +
+  facet_grid(seasonGG~speciesGG)
+```
+
+
+## Compare growth in length and mass  
+### Growth rate in length vs size-independent growth rate in mass
+```{r}
+#| label: grLen_v_grWeightS
+ggplot(cd1, aes(grLength, grWeightS)) +
+  geom_point(aes(size = observedWeight), alpha = 0.02) +
+  guides(size = guide_legend(override.aes = list(alpha = 1))) +
+  labs(x = "Growth in length", y = "Size-adjusted growth in mass") +
+  scale_color_discrete() +
+  facet_grid(seasonGG~speciesGG)
+```
+
+
+
+
 ### Pairs plots
 
 
 
 
-## Deprecated logistic models below
+## **Deprecated** logistic models below
 
-## Logistic model for flow and temperature, all species
+### Logistic model for flow and temperature, all species
 ### Model selection
 ```{r}
 #| label: logistic models all species
