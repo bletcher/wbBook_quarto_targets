@@ -7,7 +7,11 @@ modelConditionFactor_target <-
       group_by(speciesGG, riverGG, sampleNumber, seasonGG, year) |> 
       summarize(
         mRCF = mean(relCF, na.rm = TRUE),
-        sdRCFF = sd(meanFlowByRiver, na.rm = TRUE),
+        sdRCF = sd(meanFlowByRiver, na.rm = TRUE),
         n = n()
-      )
+      ),
+    
+    relCF_byYearWide_target = relCF_byYear_target |>
+      dplyr::select(-n, -sdRCF) |> 
+      pivot_wider(names_from = speciesGG, values_from = mRCF)
   )

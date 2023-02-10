@@ -31,6 +31,7 @@ book:
       chapters: 
         - modelYOY.qmd
         - modelFlow.qmd
+        - modelConditionFactor.qmd
         - modelGrowthInMass.qmd
     - part: "Capture-recapture models"
       chapters: 
