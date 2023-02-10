@@ -23,21 +23,19 @@ library(tidyverse)
 `%notin%` <- Negate(`%in%`)
 ```
 
+Distribution of growth, negative growth\
+Causes of neg growth\
+- Extrinsic\
+- river, season, flow, temp\
+- intrinsic\
+- Sex (fall), life history, section, size, age, previous growth (CF?), movement (section/river)\
+consequences of neg growth - survival\
+- future growth (length and mass)\
+- movement (section/river)\
+- reprod success?\
+- local density (con and hetero)
 
-Distribution of growth, negative growth  
-Causes of neg growth  
-  - Extrinsic  
-    - river, season, flow, temp  
-  - intrinsic    
-    - Sex (fall), life history, section, size, age, previous growth (CF?), movement (section/river)  
-consequences of neg growth
-   - survival  
-   - future growth (length and mass)  
-   - movement (section/river)  
-   - reprod success?  
-   - local density (con and hetero)  
-
-Probs with growth in mass  
+Probs with growth in mass\
 spawning loss mass in the fall, esp in OB
 
 Interaction between flow:temp, diff btw WB (groundwater dominated at low flow so cold) and tribs (combo of surface and gw?)
@@ -49,7 +47,9 @@ compare condition factor among species - looks like bkt growing faster in weight
 flow/temp circles with gr on top
 
 ## Get data
+
 ### Get electrofishing data
+
 ```{r}
 #| label: readInAllData
 cd <- tar_read(cdWB_electro_target) # raw data
@@ -63,6 +63,7 @@ propNegLabels <- tar_read(propNegLabels_target)
 ```
 
 ### Get environmental data
+
 ```{r}
 #| label: readInAllDataEnv
 dummy=0 # change to force cache update??
@@ -71,8 +72,11 @@ envIn_propNeg <- tar_read(envIn_propNeg_target)
 ```
 
 ## Examine raw data
-### Limit data to consecutive sample captures (cd1)  
+
+### Limit data to consecutive sample captures (cd1)
+
 Previous growth models with length used all possible observations for a fish and interpolated missing observations. Here, we are just looking at consecutive captures to estimate growth over just that interval.
+
 ```{r}
 #| label: consecSamples
 # table(as.numeric(cd$sampleNumber), as.numeric(cd$lagSampleNumber), cd$season, cd$year) |> 
@@ -92,10 +96,13 @@ Previous growth models with length used all possible observations for a fish and
 #          dummy = 1) # change to force cache update
 ```
 
-### Find outlier growth rates  
-#### Negative outlier growth  
-`1bf20ebe4e` and `1bf20ff490` have incorrect weights leading to very negative growth rates.  
+### Find outlier growth rates
+
+#### Negative outlier growth
+
+`1bf20ebe4e` and `1bf20ff490` have incorrect weights leading to very negative growth rates.\
 Exclude these tags in `cd1_target`. The rest of the quite negative growth fish seem plausible (remember we can't account for stomach contents or egg loss).
+
 ```{r}
 #| label: negOutlier
 cd |> 
@@ -103,8 +110,10 @@ cd |>
   dplyr::select(tag, species, season, sampleNumber, lagSampleNumber, observedWeight, lagObservedWeight, grWeightS)
 ```
 
-#### Positive outlier growth 
+#### Positive outlier growth
+
 Lots of very fast growth mostly in the spring. No clear way to exclude fish. `1c2c582218` is excluded in `cd1_target` because of very high growth in length.
+
 ```{r}
 #| label: posOutlier
 cd1 |> 
@@ -114,7 +123,9 @@ cd1 |>
 ```
 
 ### Raw length, weight data graphs
+
 #### Distribution of growth rates
+
 ```{r}
 #| label: rawlengthWeight
 ggplot(cd1, aes(grWeight, color = speciesGG)) +
@@ -131,7 +142,9 @@ ggplot(cd1, aes(grLength, color = speciesGG)) +
 ```
 
 ### Length vs weight by species
+
 Very few outliers
+
 ```{r}
 #| label: len_v_weight
 plotLenW <- function(d, s){
@@ -146,20 +159,25 @@ plotLenW <- function(d, s){
 }
 ```
 
-::: {.panel-tabset}
+::: panel-tabset
 ### Brook trout
+
 ```{r}
 #| label: len_v_weight_bkt
 
 plotLenW(cd1, "bkt")
 ```
+
 ### Brown trout
+
 ```{r}
 #| label: len_v_weight_bnt
 
 plotLenW(cd1, "bnt")
 ```
+
 ### Atlantic salmon
+
 ```{r}
 #| label: len_v_weight_ats
 
@@ -168,6 +186,7 @@ plotLenW(cd1, "ats")
 :::
 
 ### Weight vs weight at next sample
+
 ```{r}
 #| label: weight_v_weight
 plotWW <- function(d, spp){
@@ -180,20 +199,25 @@ plotWW <- function(d, spp){
 }
 ```
 
-::: {.panel-tabset}
+::: panel-tabset
 ### Brook trout
+
 ```{r}
 #| label: weight_v_weight_bkt
 
 plotWW(cd1, "bkt")
 ```
+
 ### Brown trout
+
 ```{r}
 #| label: weight_v_weight_bnt
 
 plotWW(cd1, "bkt")
 ```
+
 ### Atlantic salmon
+
 ```{r}
 #| label: weight_v_weight_ats
 
@@ -201,7 +225,8 @@ plotWW(cd1, "ats")
 ```
 :::
 
-### Growth rate in length vs growth rate in mass  
+### Growth rate in length vs growth rate in mass
+
 ```{r}
 #| label: grLen_v_grWeight
 ggplot(cd1, aes(grLength, grWeight)) +
@@ -223,8 +248,9 @@ plotGrLenMass <- function(d, s){
 #  facet_wrap(~year)
 ```
 
-::: {.panel-tabset}
+::: panel-tabset
 ### Brook trout
+
 ```{r}
 #| label: grLen_v_grWeight_bkt
 
@@ -232,6 +258,7 @@ plotGrLenMass(cd1, "bkt")
 ```
 
 ### Brown trout
+
 ```{r}
 #| label: grLen_v_grWeight_bnt
 
@@ -239,6 +266,7 @@ plotGrLenMass(cd1, "bnt")
 ```
 
 ### Atlantic salmon
+
 ```{r}
 #| label: grLen_v_grWeight_ats
 
@@ -247,6 +275,7 @@ plotGrLenMass(cd1, "ats")
 :::
 
 No relationship between means of neg and pos growth
+
 ```{r}
 
 meanNegSRsN <- cd1 |> 
@@ -272,9 +301,9 @@ ggplot(meanNegSRsNWide, aes(`FALSE`, `TRUE`)) +
   facet_grid(seasonGG~riverGG)
 ```
 
-
 ## Flow and temperature growth relationships
-### Mean flow effect on growth?  
+
+### Mean flow effect on growth?
 
 ```{r}
 #| label: flow_weight
@@ -293,8 +322,9 @@ ggplot(d |> filter(river == r), aes(meanFlowByRiver, grWeight, color = speciesGG
 
 ```
 
-::: {.panel-tabset}
+::: panel-tabset
 ### West Brook
+
 ```{r}
 #| label: flow_weight_wb
 
@@ -302,6 +332,7 @@ plotFlowGR(cd1, "west brook")
 ```
 
 ### Open Large
+
 ```{r}
 #| label: flow_weight_ol
 
@@ -309,6 +340,7 @@ plotFlowGR(cd1, "wb jimmy")
 ```
 
 ### Open Small
+
 ```{r}
 #| label: flow_weight_os
 
@@ -316,6 +348,7 @@ plotFlowGR(cd1, "wb mitchell")
 ```
 
 ### Isolated small
+
 ```{r}
 #| label: flow_weight_is
 
@@ -323,8 +356,10 @@ plotFlowGR(cd1, "wb obear")
 ```
 :::
 
-### Mean temperature effect on growth?  
+### Mean temperature effect on growth?
+
 Maybe in Jimmy for bnt, or for ats
+
 ```{r}
 #| label: temp_grWeight
 
@@ -342,29 +377,33 @@ plotTempGR <- function(d, s){
 
 ```
 
-::: {.panel-tabset}
-### Spring
+::: panel-tabset
+#### Spring
+
 ```{r}
 #| label: temp_grWeight_spring
 
 plotTempGR(cd1, "Spring")
 ```
 
-### Summer
+#### Summer
+
 ```{r}
 #| label: temp_grWeight_summer
 
 plotTempGR(cd1, "Summer")
 ```
 
-### Autumn
+#### Autumn
+
 ```{r}
 #| label: temp_grWeight_autumn
 
 plotTempGR(cd1, "Autumn")
 ```
 
-### Winter
+#### Winter
+
 ```{r}
 #| label: temp_grWeight_winter
 
@@ -372,8 +411,10 @@ plotTempGR(cd1, "Winter")
 ```
 :::
 
-## Proportion of fish with negative growth
+## Proportion of fish with **negative growth**
+
 ### Proportion of fish with negative growth by species/river/season
+
 ```{r}
 #| label: neg_pos
 ggplot(cd1 |> filter(!is.na(negGrowth)), aes(negGrowth)) +
@@ -382,6 +423,7 @@ ggplot(cd1 |> filter(!is.na(negGrowth)), aes(negGrowth)) +
 ```
 
 ### Proportion of fish with negative growth by species/season
+
 ```{r}
 ggplot(propNegSRS |> filter(n > 50), aes(seasonGG, propNeg, color = riverGG, group = riverGG)) +
   geom_point(aes(size = n)) +
@@ -392,6 +434,7 @@ ggplot(propNegSRS |> filter(n > 50), aes(seasonGG, propNeg, color = riverGG, gro
 ```
 
 ### Proportion of fish with negative growth by species/river/year
+
 ```{r}
 #| label: propNegWB_BKT
 
@@ -406,20 +449,25 @@ plotPropNegByRiver <- function(d, spp){
 }
 ```
 
-::: {.panel-tabset}
-### Brook trout
+::: panel-tabset
+#### Brook trout
+
 ```{r}
 #| label: propNegWB_BKT_bkt
 
 plotPropNegByRiver(propNegSRsN, "Brook trout")
 ```
-### Brown trout
+
+#### Brown trout
+
 ```{r}
 #| label: propNegWB_BKT_bnt
 
-plotPropNegByRiver(propNegSRsN, "Brown trout")
+plotPropNegByRiver(propNegSRsN |> filter(riverGG != "Open Small"), "Brown trout")
 ```
-### Atlantic salmon
+
+#### Atlantic salmon
+
 ```{r}
 #| label: propNegWB_BKT_ats
 
@@ -427,9 +475,10 @@ plotPropNegByRiver(propNegSRsN, "Atlantic salmon")
 ```
 :::
 
+### Proportion of fish with negative growth by species/river/year
 
-### Proportion of fish with negative growth by species/river/year  
 Break down season by year, compare across rivers
+
 ```{r}
 #| label: neg_posN
 
@@ -443,7 +492,9 @@ ggplot(propNegSRsN |> filter(n > 10), aes(year, propNeg, color = riverGG)) +
 ```
 
 ## Environmental effects on proportion of fish with negative growth
+
 ### Proportion of fish with negative growth by **flow**
+
 ```{r}
 #| label: negGrowth_flow
 
@@ -467,6 +518,7 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(mF, propNeg, 
 ```
 
 ### Proportion of fish with negative growth by **temperature**
+
 ```{r}
 #| label: negGrowth_temp
 
@@ -483,34 +535,38 @@ plotNegGrowth_temp <- function(d, s){
 
 ```
 
-::: {.panel-tabset}
-### Spring
+::: panel-tabset
+#### Spring
+
 ```{r}
 #| label: negGrowth_tempSPring
 plotNegGrowth_temp(propNegSRsN, "Spring")
 ```
 
-### Summer
+#### Summer
+
 ```{r}
 #| label: negGrowth_tempSummer
 plotNegGrowth_temp(propNegSRsN, "Summer")
 ```
 
-### Autumn
+#### Autumn
+
 ```{r}
 #| label: negGrowth_tempAutumn
 plotNegGrowth_temp(propNegSRsN, "Autumn")
 ```
 
-### Winter
+#### Winter
+
 ```{r}
 #| label: negGrowth_tempWinter
 plotNegGrowth_temp(propNegSRsN, "Winter")
 ```
-
 :::
 
 ### Proportion of fish with negative growth by **3 species fish counts**
+
 ```{r}
 #| label: negGrowth_counts3Spp
 
@@ -534,6 +590,7 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(nInd, propNeg
 ```
 
 ### Proportion of fish with negative growth by **conspecific fish counts**
+
 ```{r}
 #| label: negGrowth_counts1Spp
 
@@ -556,8 +613,10 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(nIndBySpp, pr
   facet_grid(seasonGG~speciesGG)
 ```
 
-## F/T cycle graphs  
+## F/T cycle graphs
+
 ### Mean flow and temperature
+
 ```{r}
 #| label: flow_temp_cycle_bySpecies
 plot_mT_mF <- function(d, s, plotText){
@@ -571,20 +630,25 @@ plot_mT_mF <- function(d, s, plotText){
 
 ```
 
-::: {.panel-tabset}
+::: panel-tabset
 ### Brook trout
+
 ```{r}
 #| label: flow_temp_cycle_bySpecies_bkt
 
 plot_mT_mF(propNegSRsN, "Brook trout", FALSE)
 ```
+
 ### Brown trout
+
 ```{r}
 #| label: flow_temp_cycle_bySpecies_bnt
 
 plot_mT_mF(propNegSRsN, "Brown trout", FALSE)
 ```
+
 ### Atlantic salmon
+
 ```{r}
 #| label: flow_temp_cycle_bySpecies_ats
 
@@ -592,23 +656,27 @@ plot_mT_mF(propNegSRsN, "Atlantic salmon", FALSE)
 ```
 :::
 
-
 ### Mean flow and temperature with year labels
 
-::: {.panel-tabset}
+::: panel-tabset
 ### Brook trout
+
 ```{r}
 #| label: flow_temp_cycle_bySpeciesYear_bkt
 
 plot_mT_mF(propNegSRsN, "Brook trout", TRUE)
 ```
+
 ### Brown trout
+
 ```{r}
 #| label: flow_temp_cycle_bySpeciesYear_bnt
 
 plot_mT_mF(propNegSRsN, "Brown trout", TRUE)
 ```
+
 ### Atlantic salmon
+
 ```{r}
 #| label: flow_temp_cycle_bySpeciesYear_ats
 
@@ -616,10 +684,9 @@ plot_mT_mF(propNegSRsN, "Atlantic salmon", TRUE)
 ```
 :::
 
-
-
-Mean flow and temperature values for each season and year for the West Brook  
+Mean flow and temperature values for each season and year for the West Brook\
 Not very informative
+
 ```{r}
 #| label: flow_temp_cycle_bySpeciesYear2
 #| 
@@ -629,8 +696,8 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG == 'West Brook') |> arrange(riverGG
   facet_wrap(~year)
 ```
 
+### Yearly temperature/flow cycles of daily data
 
-### Yearly temperature/flow cycles of daily data 
 ```{r}
 #| label: mergePropNegPlot
 
@@ -649,8 +716,9 @@ plotMerged <- function(d, r, minYear = 2000, maxYear = 2017){
 
 ```
 
-::: {.panel-tabset}
+::: panel-tabset
 ### West Brook
+
 ```{r}
 #| label: mergePropNegPlot_wb
 
@@ -658,6 +726,7 @@ plotMerged(envIn_propNeg, "West Brook", 2000, 2017)
 ```
 
 ### Open Large
+
 ```{r}
 #| label: mergePropNegPlot_ol
 
@@ -665,6 +734,7 @@ plotMerged(envIn_propNeg, "Open Large", 2002, 2017)
 ```
 
 ### Open Small
+
 ```{r}
 #| label: mergePropNegPlot_os
 
@@ -672,6 +742,7 @@ plotMerged(envIn_propNeg, "Open Small", 2002, 2017)
 ```
 
 ### Isolated small
+
 ```{r}
 #| label: fmergePropNegPlot_is
 
@@ -679,8 +750,8 @@ plotMerged(envIn_propNeg, "Isolated Small", 2002, 2017)
 ```
 :::
 
-
 ### Smooths of temperature/flow cycles of daily data by season
+
 ```{r}
 #| label: plotMergedBySeason
 #| echo: true
@@ -701,8 +772,9 @@ plotMergedBySeason <- function(d, r, minYear = 2000, maxYear = 2017) {
 
 ```
 
-::: {.panel-tabset}
+::: panel-tabset
 ### West Brook
+
 ```{r}
 #| label: plotMergedBySeason_wb
 
@@ -710,6 +782,7 @@ plotMergedBySeason(envIn_propNeg, "West Brook", 2000, 2017)
 ```
 
 ### Open Large
+
 ```{r}
 #| label: plotMergedBySeason_ol
 
@@ -717,6 +790,7 @@ plotMergedBySeason(envIn_propNeg, "Open Large", 2002, 2017)
 ```
 
 ### Open Small
+
 ```{r}
 #| label: plotMergedBySeason_os
 
@@ -724,6 +798,7 @@ plotMergedBySeason(envIn_propNeg, "Open Small", 2002, 2017)
 ```
 
 ### Isolated small
+
 ```{r}
 #| label: plotMergedBySeason_is
 
@@ -731,10 +806,10 @@ plotMergedBySeason(envIn_propNeg, "Isolated Small", 2002, 2017)
 ```
 :::
 
-
-
 ### F/T cycles with labels
+
 Plot F/T cycles by river, season, species with label for propNeg and conspecific and all-species abundances
+
 ```{r}
 #| label: plotMergedBySeasonByEverything
 
@@ -780,8 +855,10 @@ plotMergedBySeasonByEverything <- function(d, d2, r, s, spp, minYear = 2000, max
 ```
 
 #### West Brook
-::: {.panel-tabset}
+
+::: panel-tabset
 ### Spring
+
 ```{r}
 #| label: WBPanelSpring
 #| fig-width: 13
@@ -795,6 +872,7 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Spri
 ```
 
 ### Summer
+
 ```{r}
 #| label: WBPanelSummer
 #| fig-width: 13
@@ -805,6 +883,7 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Summ
 ```
 
 ### Autumn
+
 ```{r}
 #| label: WBPanelAutumn
 #| fig-width: 13
@@ -818,6 +897,7 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Autu
 ```
 
 ### Winter
+
 ```{r}
 #| label: WBPanelWinter
 #| fig-width: 13
@@ -826,12 +906,13 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Wint
 plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Winter", "Brown trout", 2000, 2017)
 plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Winter", "Atlantic salmon", 2000, 2017)
 ```
-
 :::
 
 #### Open Large
-::: {.panel-tabset}
+
+::: panel-tabset
 ### Spring
+
 ```{r}
 #| label: OLpanelSpring
 #| fig-width: 13
@@ -845,6 +926,7 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Large", "Spri
 ```
 
 ### Summer
+
 ```{r}
 #| label: OLPanelSummer
 #| fig-width: 13
@@ -855,6 +937,7 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Large", "Summ
 ```
 
 ### Autumn
+
 ```{r}
 #| label: OLPanelAutumn
 #| fig-width: 13
@@ -868,6 +951,7 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Large", "Autu
 ```
 
 ### Winter
+
 ```{r}
 #| label: OLPanelWinter
 #| fig-width: 13
@@ -876,13 +960,13 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Large", "Wint
 plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Large", "Winter", "Brown trout", 2000, 2017)
 plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Large", "Winter", "Atlantic salmon", 2000, 2017)
 ```
-
 :::
 
-
 #### Open Small
-::: {.panel-tabset}
+
+::: panel-tabset
 ### Spring
+
 ```{r}
 #| label: OSPanelSpring
 #| fig-width: 13
@@ -893,6 +977,7 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Small", "Spri
 ```
 
 ### Summer
+
 ```{r}
 #| label: OSPanelSummer
 #| fig-width: 13
@@ -903,6 +988,7 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Small", "Summ
 ```
 
 ### Autumn
+
 ```{r}
 #| label: OSPanelAutumn
 #| fig-width: 13
@@ -914,6 +1000,7 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Small", "Autu
 ```
 
 ### Winter
+
 ```{r}
 #| label: OSPanelWinter
 #| fig-width: 13
@@ -922,12 +1009,13 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Small", "Wint
 plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Small", "Winter", "Brown trout", 2000, 2017)
 
 ```
-
 :::
 
 #### Isolated Small
-::: {.panel-tabset}
+
+::: panel-tabset
 ### Spring
+
 ```{r}
 #| label: ISPanelSpring
 #| fig-width: 13
@@ -937,6 +1025,7 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Isolated Small", "
 ```
 
 ### Summer
+
 ```{r}
 #| label: ISPanelSummer
 #| fig-width: 13
@@ -946,6 +1035,7 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Isolated Small", "
 ```
 
 ### Autumn
+
 ```{r}
 #| label: ISPanelAutumn
 #| fig-width: 13
@@ -956,6 +1046,7 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Isolated Small", "
 ```
 
 ### Winter
+
 ```{r}
 #| label: ISPanelWinter
 #| fig-width: 13
@@ -963,15 +1054,12 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Isolated Small", "
 plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Isolated Small", "Winter", "Brook trout", 2000, 2017)
 
 ```
-
 :::
 
-
-
-
-
 ## Logistic models for environmental effects on propNeg
+
 ### Standardize flow and temperature
+
 ```{r}
 # getZ <- function(d){
 #   list(
@@ -996,7 +1084,8 @@ cd1 <- cd1 |>
          meanTempZ = (meanTemperature - fTMean)/fTSd)
 ```
 
-### Raw data with logistic fit for flow effect 
+### Raw data with logistic fit for flow effect
+
 ```{r}
 ggplot(cd1 |> filter(!is.na(negGrowth)), aes(meanFlowByRiverZ, negGrowth * 1, color = river)) +
   geom_point(alpha = 0.1) +
@@ -1015,7 +1104,8 @@ ggplot(cd1 |> filter(!is.na(negGrowth)), aes(meanFlowByRiverZ, negGrowth * 1, co
   facet_grid(season~species+river)
 ```
 
-### Raw data with logistic fit for temperature effect 
+### Raw data with logistic fit for temperature effect
+
 ```{r}
 ggplot(cd1 |> filter(!is.na(negGrowth), meanTempZ > -4), aes(meanTempZ, negGrowth * 1, color = river)) +
   geom_point(alpha = 0.1) +
@@ -1026,8 +1116,9 @@ ggplot(cd1 |> filter(!is.na(negGrowth), meanTempZ > -4), aes(meanTempZ, negGrowt
   facet_grid(season~species)
 ```
 
-## Logistic model for flow and temperature, one species at a time  
-Species occupy different rivers, so an all-species model will have unequal river representation across species and don't need to predict where species are not. 
+## Logistic model for flow and temperature, one species at a time
+
+Species occupy different rivers, so an all-species model will have unequal river representation across species and don't need to predict where species are not.
 
 Need to think through whether these models make sense...
 
@@ -1061,6 +1152,7 @@ runSppModels <- function(d, speciesIn) {
 ```
 
 ### Predict p(neg growth in mass)
+
 ```{r}
 predictSpp <- function(dIn, modIn, speciesIn){
   d <- dIn |> filter(species == speciesIn)
@@ -1094,8 +1186,8 @@ predictSpp <- function(dIn, modIn, speciesIn){
 
 ```
 
-
 ### Brook trout
+
 ```{r}
 speciesIn <- "bkt"
 modBKT <- runSppModels(cd1, speciesIn)
@@ -1110,6 +1202,7 @@ ggplot(predBKT$pred |> filter(meanTempZ %in% c(-1.5,0,1.5), meanFlowByRiverZ %in
 ```
 
 ### Brown trout
+
 ```{r}
 speciesIn <- "bnt"
 
@@ -1124,6 +1217,7 @@ ggplot(predBNT$pred |> filter(meanTempZ %in% c(-1.5,0,1.5), meanFlowByRiverZ %in
 ```
 
 ### Atlantic salmon
+
 ```{r}
 
 speciesIn <- "ats"
@@ -1138,15 +1232,15 @@ ggplot(predATS$pred |> filter(meanTempZ %in% c(-1.5,0,1.5), meanFlowByRiverZ %in
   facet_grid(season~river+meanTempZ)
 ```
 
-
-
 ## Two growth models
+
 ### Size-adjusted growth model
-#### Get l-w relationships for size-adjusted growth model  
-Here, we will explore size-independent growth in mass, see `Sigourney, D. B., B H Letcher, M. Obedzinski, and R. A. Cunjak. “Size-Independent Growth in Fishes: Patterns, Models and Metrics.” Journal of Fish Biology 72, no. 10 (2008): 2435–55. https://doi.org/10.1111/j.1095-8649.2008.01830.x.`
-Size-independent growth (`grWeightS`) is calculated in getDataElectro_targets.R file using addSizeIndGrowthWeight().  
-`grWeightS` uses the slope of `log(observedWeight)` ~ `log(grWeight)` for each river and season and species to adjust growth.  
-A simple linear models shows we need to get separate slopes for each river and season and species.  
+
+#### Get l-w relationships for size-adjusted growth model
+
+Here, we will explore size-independent growth in mass, see `Sigourney, D. B., B H Letcher, M. Obedzinski, and R. A. Cunjak. “Size-Independent Growth in Fishes: Patterns, Models and Metrics.” Journal of Fish Biology 72, no. 10 (2008): 2435–55. https://doi.org/10.1111/j.1095-8649.2008.01830.x.` Size-independent growth (`grWeightS`) is calculated in getDataElectro_targets.R file using addSizeIndGrowthWeight().\
+`grWeightS` uses the slope of `log(observedWeight)` \~ `log(grWeight)` for each river and season and species to adjust growth.\
+A simple linear models shows we need to get separate slopes for each river and season and species.
 
 ```{r}
 #| label: grW_models
@@ -1167,8 +1261,10 @@ mod4 <- lm(log(grWeight) ~ log(observedWeight) * river * factor(season) * specie
 AIC(mod0,mod1,mod2,mod3,mod4) |> arrange(AIC)
 ```
 
-### Compare size-adjusted and instantaneous growth  
-Differences don't seem big enough to warrant the extra complexity from the s-adjusted growth metric 
+### Compare size-adjusted and instantaneous growth
+
+Differences don't seem big enough to warrant the extra complexity from the s-adjusted growth metric
+
 ```{r}
 #| label: grWeight_v_grWeightS
 ggplot(cd1, aes(grWeight, grWeightS, color = riverGG)) +
@@ -1191,9 +1287,10 @@ ggplot(cd1 |>
   facet_grid(seasonGG~speciesGG)
 ```
 
+## Compare growth in length and mass
 
-## Compare growth in length and mass  
 ### Growth rate in length vs size-independent growth rate in mass
+
 ```{r}
 #| label: grLen_v_grWeightS
 ggplot(cd1, aes(grLength, grWeightS)) +
@@ -1204,15 +1301,12 @@ ggplot(cd1, aes(grLength, grWeightS)) +
   facet_grid(seasonGG~speciesGG)
 ```
 
-
-
-
-
-
 ## **Deprecated** logistic models below
 
 ### Logistic model for flow and temperature, all species
+
 ### Model selection
+
 ```{r}
 #| label: logistic models all species
 modSpecies <- c("bkt", "ats", "bnt")
@@ -1239,6 +1333,7 @@ AIC(modFT0, modFT1,modFT2, modFT3,modFT4,modFT5, modFT6,modFT7,modFT8,modFT9,mod
 ```
 
 ### Model results for additive model (not very good)
+
 ```{r}
 
 # https://www.statology.org/logistic-regression-in-r/
@@ -1252,6 +1347,7 @@ caret::varImp(modFT3) |> arrange(desc(Overall))
 ```
 
 ### Model results for full interactive model (best model)
+
 ```{r}
 
 # https://www.statology.org/logistic-regression-in-r/
@@ -1263,8 +1359,8 @@ pscl::pR2(modFT11)["McFadden"]
 caret::varImp(modFT11) |> arrange(desc(Overall))
 ```
 
-
 ### Precict p(neg growth in mass)
+
 ```{r}
 predD <- expand.grid(
   meanFlowByRiverZ = seq(-1.5,1.5,0.25), 
@@ -1284,6 +1380,7 @@ pred <- add_column(predD,
 ```
 
 ### Plot predictions
+
 ```{r}
 
 
@@ -1292,6 +1389,3 @@ ggplot(pred |> filter(meanTempZ %in% c(-1.5,0,1.5), observedWeight == 161.3), ae
   labs(y = "Probability of negative growth in mass", x = "Mean flow") +
   facet_grid(season~species+river)
 ```
-
-
-
