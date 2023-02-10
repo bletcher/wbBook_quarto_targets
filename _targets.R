@@ -47,6 +47,7 @@ list(
   dataAll_target,
   modelYOY_target,
   modelFlow_target,
+  modelConditionFactor_target,
   modelGrowthInMass_target
 
   # turn off for now

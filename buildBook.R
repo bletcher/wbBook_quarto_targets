@@ -21,3 +21,9 @@ quarto::quarto_render("modelGrowthInMass.qmd",
                       #cache_refresh = TRUE, # default is FALSE
                       output_format = "html")
 
+
+quarto::quarto_render("modelConditionFactor.qmd", 
+                      #cache_refresh = TRUE, # default is FALSE
+                      output_format = "html")
+
+

@@ -78,7 +78,9 @@ getElectroData_target <-
       mergeSites(drainage) %>%
       addNPasses(drainage) %>%
       mutate(drainage = drainage) %>%
-      addSizeIndGrowthWeight(),
+      addSizeIndGrowthWeight() %>%
+      addCF(),
+    
     
     medianWinterSampleDate_target = cdWB_electro_target |> 
       filter(season == 4) |>
@@ -242,6 +244,33 @@ addEnvironmental3 <- function(coreData, sampleFlow = F, funName = "mean") {
 setYday <- function(d, dateYday){
   yday(d) = dateYday
   return(d)
+}
+
+addCF <- function(d){
+  cfModel = lm(log10(observedWeight) ~ log10(observedLength) * factor(species), data = d)
+  
+  cf_coefs = tibble(
+    species = c("ats", "bkt", "bnt"),
+    lw_intercept = c(
+      coef(cfModel)[["(Intercept)"]],
+      coef(cfModel)[["(Intercept)"]] + coef(cfModel)[["factor(species)bkt"]],
+      coef(cfModel)[["(Intercept)"]] + coef(cfModel)[["factor(species)bnt"]]
+    ),
+    lw_slope = c(
+      coef(cfModel)[["log10(observedLength)"]],
+      coef(cfModel)[["log10(observedLength)"]] + coef(cfModel)[["log10(observedLength):factor(species)bkt"]],
+      coef(cfModel)[["log10(observedLength)"]] + coef(cfModel)[["log10(observedLength):factor(species)bnt"]]
+    )
+  )
+
+ dOut <- d |> 
+   left_join(cf_coefs) |> 
+   mutate(
+     cf = (10000 * observedWeight) / observedLength ^ 3,
+     relCF = (10000 * observedWeight) / observedLength ^ lw_slope
+   )
+ 
+ return(dOut)
 }
 
 

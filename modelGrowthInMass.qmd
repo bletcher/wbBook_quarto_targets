@@ -121,13 +121,13 @@ ggplot(cd1, aes(grWeight, color = speciesGG)) +
   geom_freqpoly(bins = 50) +
   labs(x = "Growth in mass (/d)", y = "Frequency") +
   scale_color_discrete() +
-  facet_wrap(~season)
+  facet_wrap(~seasonGG)
 
 ggplot(cd1, aes(grLength, color = speciesGG)) +
   geom_freqpoly(bins = 50) +
   labs(x = "Growth in Length (mm/d)", y = "Frequency") +
   scale_color_discrete() +
-  facet_wrap(~season)
+  facet_wrap(~seasonGG)
 ```
 
 ### Length vs weight by species
