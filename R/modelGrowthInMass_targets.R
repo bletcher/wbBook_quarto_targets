@@ -24,9 +24,26 @@ modelGrowthInMass_target <-
           levels = c('bkt','bnt','ats'), 
           labels = c("Brook trout", "Brown trout", "Atlantic salmon"), 
           ordered = T
-        )
+        ) 
+      )|> 
+      left_join(
+        firstLast_target
+      ) |> 
+      mutate(
+        samplesBeforeLast = lastObserved - sampleNumber
       ),
     
+    firstLast_target = cdWB_CMR0_target |> 
+      dplyr::select(tag, firstObserved, lastObserved) |> 
+      distinct(),
+    
+    negGr_beforeLast_target = cd1_target |> 
+      group_by(speciesGG, riverGG, seasonGG, samplesBeforeLast, negGrowth) |> 
+      summarize(
+        meanGR = mean(grWeight, na.rm = TRUE),
+        n = n()
+      ),
+    ###############################################
     envIn_target = envDataWB_target |> 
       mutate(
         riverGG = factor(

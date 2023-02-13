@@ -60,6 +60,8 @@ propNegSRsN <- tar_read(propNegSRsN_target)
 indCountsBySpp <- tar_read(indCountsBySpp_target) 
 indCounts <- tar_read(indCounts_target) 
 propNegLabels <- tar_read(propNegLabels_target)
+
+negGr_beforeLast <- tar_read(negGr_beforeLast_target)
 ```
 
 ### Get environmental data
@@ -160,7 +162,7 @@ plotLenW <- function(d, s){
 ```
 
 ::: panel-tabset
-### Brook trout
+#### Brook trout
 
 ```{r}
 #| label: len_v_weight_bkt
@@ -168,7 +170,7 @@ plotLenW <- function(d, s){
 plotLenW(cd1, "bkt")
 ```
 
-### Brown trout
+#### Brown trout
 
 ```{r}
 #| label: len_v_weight_bnt
@@ -176,7 +178,7 @@ plotLenW(cd1, "bkt")
 plotLenW(cd1, "bnt")
 ```
 
-### Atlantic salmon
+#### Atlantic salmon
 
 ```{r}
 #| label: len_v_weight_ats
@@ -200,7 +202,7 @@ plotWW <- function(d, spp){
 ```
 
 ::: panel-tabset
-### Brook trout
+#### Brook trout
 
 ```{r}
 #| label: weight_v_weight_bkt
@@ -208,7 +210,7 @@ plotWW <- function(d, spp){
 plotWW(cd1, "bkt")
 ```
 
-### Brown trout
+#### Brown trout
 
 ```{r}
 #| label: weight_v_weight_bnt
@@ -216,7 +218,7 @@ plotWW(cd1, "bkt")
 plotWW(cd1, "bkt")
 ```
 
-### Atlantic salmon
+#### Atlantic salmon
 
 ```{r}
 #| label: weight_v_weight_ats
@@ -249,7 +251,7 @@ plotGrLenMass <- function(d, s){
 ```
 
 ::: panel-tabset
-### Brook trout
+#### Brook trout
 
 ```{r}
 #| label: grLen_v_grWeight_bkt
@@ -257,7 +259,7 @@ plotGrLenMass <- function(d, s){
 plotGrLenMass(cd1, "bkt")
 ```
 
-### Brown trout
+#### Brown trout
 
 ```{r}
 #| label: grLen_v_grWeight_bnt
@@ -265,7 +267,7 @@ plotGrLenMass(cd1, "bkt")
 plotGrLenMass(cd1, "bnt")
 ```
 
-### Atlantic salmon
+#### Atlantic salmon
 
 ```{r}
 #| label: grLen_v_grWeight_ats
@@ -323,7 +325,7 @@ ggplot(d |> filter(river == r), aes(meanFlowByRiver, grWeight, color = speciesGG
 ```
 
 ::: panel-tabset
-### West Brook
+#### West Brook
 
 ```{r}
 #| label: flow_weight_wb
@@ -331,7 +333,7 @@ ggplot(d |> filter(river == r), aes(meanFlowByRiver, grWeight, color = speciesGG
 plotFlowGR(cd1, "west brook")
 ```
 
-### Open Large
+#### Open Large
 
 ```{r}
 #| label: flow_weight_ol
@@ -339,7 +341,7 @@ plotFlowGR(cd1, "west brook")
 plotFlowGR(cd1, "wb jimmy")
 ```
 
-### Open Small
+#### Open Small
 
 ```{r}
 #| label: flow_weight_os
@@ -347,7 +349,7 @@ plotFlowGR(cd1, "wb jimmy")
 plotFlowGR(cd1, "wb mitchell")
 ```
 
-### Isolated small
+#### Isolated small
 
 ```{r}
 #| label: flow_weight_is
@@ -631,7 +633,7 @@ plot_mT_mF <- function(d, s, plotText){
 ```
 
 ::: panel-tabset
-### Brook trout
+#### Brook trout
 
 ```{r}
 #| label: flow_temp_cycle_bySpecies_bkt
@@ -639,7 +641,7 @@ plot_mT_mF <- function(d, s, plotText){
 plot_mT_mF(propNegSRsN, "Brook trout", FALSE)
 ```
 
-### Brown trout
+#### Brown trout
 
 ```{r}
 #| label: flow_temp_cycle_bySpecies_bnt
@@ -647,7 +649,7 @@ plot_mT_mF(propNegSRsN, "Brook trout", FALSE)
 plot_mT_mF(propNegSRsN, "Brown trout", FALSE)
 ```
 
-### Atlantic salmon
+#### Atlantic salmon
 
 ```{r}
 #| label: flow_temp_cycle_bySpecies_ats
@@ -658,7 +660,7 @@ plot_mT_mF(propNegSRsN, "Atlantic salmon", FALSE)
 
 ### Mean flow and temperature with year labels
 
-::: panel-tabset
+#### panel-tabset
 ### Brook trout
 
 ```{r}
@@ -667,7 +669,7 @@ plot_mT_mF(propNegSRsN, "Atlantic salmon", FALSE)
 plot_mT_mF(propNegSRsN, "Brook trout", TRUE)
 ```
 
-### Brown trout
+#### Brown trout
 
 ```{r}
 #| label: flow_temp_cycle_bySpeciesYear_bnt
@@ -675,7 +677,7 @@ plot_mT_mF(propNegSRsN, "Brook trout", TRUE)
 plot_mT_mF(propNegSRsN, "Brown trout", TRUE)
 ```
 
-### Atlantic salmon
+#### Atlantic salmon
 
 ```{r}
 #| label: flow_temp_cycle_bySpeciesYear_ats
@@ -717,7 +719,7 @@ plotMerged <- function(d, r, minYear = 2000, maxYear = 2017){
 ```
 
 ::: panel-tabset
-### West Brook
+#### West Brook
 
 ```{r}
 #| label: mergePropNegPlot_wb
@@ -725,7 +727,7 @@ plotMerged <- function(d, r, minYear = 2000, maxYear = 2017){
 plotMerged(envIn_propNeg, "West Brook", 2000, 2017)
 ```
 
-### Open Large
+#### Open Large
 
 ```{r}
 #| label: mergePropNegPlot_ol
@@ -733,7 +735,7 @@ plotMerged(envIn_propNeg, "West Brook", 2000, 2017)
 plotMerged(envIn_propNeg, "Open Large", 2002, 2017)
 ```
 
-### Open Small
+#### Open Small
 
 ```{r}
 #| label: mergePropNegPlot_os
@@ -741,7 +743,7 @@ plotMerged(envIn_propNeg, "Open Large", 2002, 2017)
 plotMerged(envIn_propNeg, "Open Small", 2002, 2017)
 ```
 
-### Isolated small
+#### Isolated small
 
 ```{r}
 #| label: fmergePropNegPlot_is
@@ -773,7 +775,7 @@ plotMergedBySeason <- function(d, r, minYear = 2000, maxYear = 2017) {
 ```
 
 ::: panel-tabset
-### West Brook
+#### West Brook
 
 ```{r}
 #| label: plotMergedBySeason_wb
@@ -781,7 +783,7 @@ plotMergedBySeason <- function(d, r, minYear = 2000, maxYear = 2017) {
 plotMergedBySeason(envIn_propNeg, "West Brook", 2000, 2017)
 ```
 
-### Open Large
+#### Open Large
 
 ```{r}
 #| label: plotMergedBySeason_ol
@@ -789,7 +791,7 @@ plotMergedBySeason(envIn_propNeg, "West Brook", 2000, 2017)
 plotMergedBySeason(envIn_propNeg, "Open Large", 2002, 2017)
 ```
 
-### Open Small
+#### Open Small
 
 ```{r}
 #| label: plotMergedBySeason_os
@@ -797,7 +799,7 @@ plotMergedBySeason(envIn_propNeg, "Open Large", 2002, 2017)
 plotMergedBySeason(envIn_propNeg, "Open Small", 2002, 2017)
 ```
 
-### Isolated small
+#### Isolated small
 
 ```{r}
 #| label: plotMergedBySeason_is
@@ -857,7 +859,7 @@ plotMergedBySeasonByEverything <- function(d, d2, r, s, spp, minYear = 2000, max
 #### West Brook
 
 ::: panel-tabset
-### Spring
+#### Spring
 
 ```{r}
 #| label: WBPanelSpring
@@ -871,7 +873,7 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Spri
 
 ```
 
-### Summer
+#### Summer
 
 ```{r}
 #| label: WBPanelSummer
@@ -882,7 +884,7 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Summ
 plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Summer", "Atlantic salmon", 2000, 2017)
 ```
 
-### Autumn
+#### Autumn
 
 ```{r}
 #| label: WBPanelAutumn
@@ -896,7 +898,7 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Autu
 
 ```
 
-### Winter
+#### Winter
 
 ```{r}
 #| label: WBPanelWinter
@@ -911,7 +913,7 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "West Brook", "Wint
 #### Open Large
 
 ::: panel-tabset
-### Spring
+#### Spring
 
 ```{r}
 #| label: OLpanelSpring
@@ -925,7 +927,7 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Large", "Spri
 
 ```
 
-### Summer
+#### Summer
 
 ```{r}
 #| label: OLPanelSummer
@@ -936,7 +938,7 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Large", "Summ
 plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Large", "Summer", "Atlantic salmon", 2000, 2017)
 ```
 
-### Autumn
+#### Autumn
 
 ```{r}
 #| label: OLPanelAutumn
@@ -950,7 +952,7 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Large", "Autu
 
 ```
 
-### Winter
+#### Winter
 
 ```{r}
 #| label: OLPanelWinter
@@ -965,7 +967,7 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Large", "Wint
 #### Open Small
 
 ::: panel-tabset
-### Spring
+#### Spring
 
 ```{r}
 #| label: OSPanelSpring
@@ -976,7 +978,7 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Small", "Spri
 plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Small", "Spring", "Brown trout", 2000, 2017)
 ```
 
-### Summer
+#### Summer
 
 ```{r}
 #| label: OSPanelSummer
@@ -987,7 +989,7 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Small", "Summ
 
 ```
 
-### Autumn
+#### Autumn
 
 ```{r}
 #| label: OSPanelAutumn
@@ -999,7 +1001,7 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Small", "Autu
 
 ```
 
-### Winter
+#### Winter
 
 ```{r}
 #| label: OSPanelWinter
@@ -1014,7 +1016,7 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Small", "Wint
 #### Isolated Small
 
 ::: panel-tabset
-### Spring
+#### Spring
 
 ```{r}
 #| label: ISPanelSpring
@@ -1024,7 +1026,7 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Open Small", "Wint
 plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Isolated Small", "Spring", "Brook trout", 2000, 2017)
 ```
 
-### Summer
+#### Summer
 
 ```{r}
 #| label: ISPanelSummer
@@ -1034,7 +1036,7 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Isolated Small", "
 
 ```
 
-### Autumn
+#### Autumn
 
 ```{r}
 #| label: ISPanelAutumn
@@ -1045,7 +1047,7 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Isolated Small", "
 
 ```
 
-### Winter
+#### Winter
 
 ```{r}
 #| label: ISPanelWinter
@@ -1055,6 +1057,48 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Isolated Small", "
 
 ```
 :::
+
+## Consequences of negative growth
+
+```{r}
+#| label: negGrowth_samplesLeft
+plotGrowthSamplesLeft <- function(d, spp, r){
+  ggplot(d |> filter(speciesGG == spp, riverGG == r), aes(grWeight, samplesBeforeLast)) +
+    geom_point() +
+    geom_smooth(method = "lm", se = FALSE) +
+    geom_vline(xintercept = 0) +
+    facet_grid(season~year)
+}
+
+plotGrowthSamplesLeft(cd1, "Brook trout", "West Brook")
+```
+
+```{r}
+#| label: negGrowth_means
+
+
+
+plotGR_sampsBL <- function(d, spp, r) {
+  ggplot(d |> filter(n > 5, speciesGG %in% spp, riverGG %in% r), aes(meanGR, samplesBeforeLast, color = negGrowth)) + 
+    geom_point() +
+    geom_smooth(method = "lm", se = FALSE) +
+    facet_grid(speciesGG~seasonGG+riverGG, scales = "free")
+}
+
+plotGR_sampsBL(negGr_beforeLast, c("Brook trout","Brown trout", "Atlantic salmon"), c("West Brook", "Open Large"))
+
+
+plotGR_sampsBL2 <- function(d, spp, r) {
+  ggplot(d |> filter(n > 5, speciesGG %in% spp, riverGG %in% r), aes(meanGR, samplesBeforeLast, color = speciesGG)) + 
+    geom_point() +
+    geom_smooth(method = "lm", se = FALSE) +
+    scale_color_discrete() +
+    facet_grid(riverGG~negGrowth+seasonGG, scales = "free")
+}
+
+plotGR_sampsBL2(negGr_beforeLast, c("Brook trout","Brown trout", "Atlantic salmon"), c("West Brook", "Open Large"))
+```
+
 
 ## Logistic models for environmental effects on propNeg
 
