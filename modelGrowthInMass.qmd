@@ -67,6 +67,13 @@ indCounts <- tar_read(indCounts_target)
 propNegLabels <- tar_read(propNegLabels_target)
 
 negGr_beforeLast <- tar_read(negGr_beforeLast_target)
+
+meanNegSRsN <- tar_read(meanNegSRsN_target)
+meanNegSRsNWide <- tar_read(meanNegSRsNWide_target)
+
+# df for pairs plots
+cd1Wide_grWeight <- tar_read(cd1Wide_grWeight_target)
+cd1Wide_observedWeight <- tar_read(cd1Wide_observedWeight_target)
 ```
 
 ### Get environmental data
@@ -233,7 +240,68 @@ plotWW(cd1, "ats")
 :::
 
 ### Pairs plot
-TO ADD
+
+```{r}
+#| label: pairs
+
+plotPairs <- function(d0, sppIn, cohortIn, firstSamp = 1, lastSamp = 9){
+  d <- d0 |> 
+    filter(speciesGG == sppIn, cohort %in% cohortIn) |> 
+    select_if(~any(!is.na(.))) |>  # remove all-NA columns
+    filter(firstObserved != lastObserved - 1) # remove single obs fish
+  
+  lowerFn <- function(data, mapping, method = "lm", ...) {
+    ggplot(data = data, mapping = mapping) +
+      geom_vline(xintercept = 0, color = 'darkgrey') +
+      geom_hline(yintercept = 0, color = 'darkgrey') +
+      geom_abline(intercept = 0, slope = 1) +
+      geom_point(aes(color = factor(cohort))) +
+      geom_smooth(aes(color = factor(cohort)), method = method, se = FALSE, ...) +
+      geom_smooth(color = 'black', size = 1.5, method = method, se = FALSE, ...) 
+  }
+
+  ggpairs(
+    d |> 
+      dplyr::select(-c(speciesGG, tag, firstObserved, lastObserved)),
+    columns = (firstSamp+1):(lastSamp+1),
+    lower = list(continuous = wrap(lowerFn, method = "lm")),
+    #ggplot2::ggtitle(paste(sppIn, cohortIn)),
+    #ggplot2::aes(colour = factor(cohort)),
+    upper = "blank"
+  )
+}
+
+```
+
+::: panel-tabset
+#### Brook trout
+
+```{r}
+#| label: pairs_bkt
+
+plotPairs(cd1Wide_grWeight, "Brook trout", 2000:2015)
+#plotPairs(cd1Wide_observedWeight, "Brook trout", 2000:2015)
+```
+
+#### Brown trout
+
+```{r}
+#| label: pairs_bnt
+
+plotPairs(cd1Wide_grWeight, "Brook trout", 2000:2015)
+#plotPairs(cd1Wide_observedWeight, "Brook trout", 2000:2015)
+```
+
+#### Atlantic salmon
+
+```{r}
+#| label: pairs_ats
+
+plotPairs(cd1Wide_grWeight, "Atlantic salmon", 2000:2015)
+#plotPairs(cd1Wide_observedWeight, "Atlantic salmon", 2000:2015)
+```
+:::
+
 
 
 ### Growth rate in length vs growth rate in mass
@@ -290,22 +358,12 @@ No relationship between means of neg and pos growth
 ```{r}
 #| label: posNegGR
 #| 
-meanNegSRsN <- cd1 |> 
-  group_by(speciesGG, riverGG, seasonGG, sampleNumber, year, negGrowth) |> 
-  summarize(meanNegPos = mean(grWeight, na.rm = TRUE),
-            n = n()) |> 
-  ungroup()
 
 ggplot(meanNegSRsN |> filter(speciesGG == "Brook trout"), aes(year, meanNegPos, color = negGrowth, group = negGrowth)) +
   geom_point() +
   geom_line() +
   geom_hline(yintercept = 0) +
   facet_grid(seasonGG~riverGG)
-
-meanNegSRsNWide <- meanNegSRsN |> 
-  filter(speciesGG == "Brook trout", !is.na(negGrowth)) |> 
-  dplyr::select(-n) |> 
-  pivot_wider(names_from = negGrowth, values_from = meanNegPos)
 
 ggplot(meanNegSRsNWide, aes(`FALSE`, `TRUE`)) +
   geom_point() +

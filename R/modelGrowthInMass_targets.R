@@ -3,7 +3,7 @@ tar_option_set(packages = c("tidyverse", "lubridate"))
 modelGrowthInMass_target <-
   tar_plan(
     cd1_target = cdWB_electro_target |> 
-      filter(sampleNumberDiff == 1,
+      filter(sampleNumberDiff == 1, # consecutive captures only
              tag %notin% c('1bf20ff490', '1bf20ebe4e', '1c2c582218')) |> 
       mutate(
         negGrowth = grWeight < 0,
@@ -32,6 +32,46 @@ modelGrowthInMass_target <-
       mutate(
         samplesBeforeLast = lastObserved - sampleNumber
       ),
+    
+    # cd1Wide_observedWeight_target = cd1_target |> 
+    #   filter(
+    #     #!(tag=="1bf18c1e3e" & sampleNumber == 40),
+    #     ageInSamples > 0
+    #   ) |> 
+    #   dplyr::select(speciesGG, tag, cohort, firstObserved, lastObserved, ageInSamples, observedWeight) |> 
+    #   pivot_wider(
+    #     names_from = ageInSamples, 
+    #     values_from = observedWeight, 
+    #     names_sort = TRUE, 
+    #     names_prefix = "AIS_"
+    #   ), 
+    
+    cd1Wide_observedWeight_target = cd1_target |> 
+      filter(
+        #!(tag=="1bf18c1e3e" & sampleNumber == 40),# bad AIS because caught in Jan
+          ageInSamples > 0
+        ) |> 
+      mutate(age = year - cohort,
+             ageSeason = paste(age, season, sep = "_")) |> 
+      dplyr::select(speciesGG, tag, cohort, firstObserved, lastObserved, ageSeason, observedWeight) |> 
+      pivot_wider(
+        names_from = ageSeason, 
+        values_from = observedWeight, 
+        names_sort = TRUE 
+      ),
+    
+    cd1Wide_grWeight_target = cd1_target |> 
+      filter(!(tag=="1bf18c1e3e" & sampleNumber == 40),# bad AIS because caught in Jan
+             ageInSamples > 0) |> 
+      mutate(age = year - cohort,
+             ageSeason = paste(age, season, sep = "_")) |> 
+      dplyr::select(speciesGG, tag, cohort, firstObserved, lastObserved, ageSeason, grWeight) |> 
+      pivot_wider(
+        names_from = ageSeason, 
+        values_from = grWeight, 
+        names_sort = TRUE 
+      ),
+    
     
     firstLast_target = cdWB_CMR0_target |> 
       dplyr::select(tag, firstObserved, lastObserved) |> 
@@ -84,6 +124,21 @@ modelGrowthInMass_target <-
       ungroup() |> 
       left_join(indCountsBySpp_target) |> 
       left_join(indCounts_target),
+    
+   #### 
+   meanNegSRsN_target = cd1_target |> 
+      group_by(speciesGG, riverGG, seasonGG, sampleNumber, year, negGrowth) |> 
+      summarize(meanNegPos = mean(grWeight, na.rm = TRUE),
+                n = n()) |> 
+      ungroup(),  
+   
+   meanNegSRsNWide_target = meanNegSRsN_target |> 
+      filter(speciesGG == "Brook trout", !is.na(negGrowth)) |> 
+      dplyr::select(-n) |> 
+      pivot_wider(names_from = negGrowth, values_from = meanNegPos),
+   ### 
+ 
+    
     
     envIn_propNeg_target = envIn_target |> 
       left_join(

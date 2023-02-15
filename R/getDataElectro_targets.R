@@ -79,7 +79,8 @@ getElectroData_target <-
       addNPasses(drainage) %>%
       mutate(drainage = drainage) %>%
       addSizeIndGrowthWeight() %>%
-      addCF(),
+      addCF() %>%
+      addCountPerIndividual(),
     
     
     medianWinterSampleDate_target = cdWB_electro_target |> 
@@ -457,4 +458,13 @@ addSizeIndGrowthWeight <- function(dIn) {
   
   return(dOut)
   
+}
+
+addCountPerIndividual <- function(dIn){
+  d <- dIn |> 
+    ungroup() |> 
+    group_by(tag) |> 
+    summarize(nPerInd = n())
+  
+  left_join(dIn, d)
 }
