@@ -239,7 +239,7 @@ plotWW(cd1, "ats")
 ```
 :::
 
-### Pairs plot
+### Growth rate pairs plots
 
 ```{r}
 #| label: pairs
