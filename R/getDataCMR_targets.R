@@ -86,6 +86,8 @@ dataCMR_OB_2002_2014_target <-
 ## dataCMR functions 
 #####################################
 
+# This function is a copy of addEnvironmetal3() in getDataElectro_targets
+# Add any updates there
 addEnvironmental <- function(coreData, sampleFlow = F, funName = "mean") {
   reconnect()
   

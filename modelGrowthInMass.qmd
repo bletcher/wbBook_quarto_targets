@@ -24,6 +24,11 @@ library(tidyverse)
 ```
 
 Distribution of growth, negative growth\
+- Seasonal differences  
+- Species differences in size/growth/CF
+- Patterns of negative growth
+
+
 Causes of neg growth\
 - Extrinsic\
 - river, season, flow, temp\
@@ -227,6 +232,10 @@ plotWW(cd1, "ats")
 ```
 :::
 
+### Pairs plot
+TO ADD
+
+
 ### Growth rate in length vs growth rate in mass
 
 ```{r}
@@ -279,7 +288,8 @@ plotGrLenMass(cd1, "ats")
 No relationship between means of neg and pos growth
 
 ```{r}
-
+#| label: posNegGR
+#| 
 meanNegSRsN <- cd1 |> 
   group_by(speciesGG, riverGG, seasonGG, sampleNumber, year, negGrowth) |> 
   summarize(meanNegPos = mean(grWeight, na.rm = TRUE),
@@ -413,6 +423,8 @@ plotTempGR(cd1, "Winter")
 ```
 :::
 
+TO ADD pairwise charts for comparisons btw species, bkt:bnt, etc
+
 ## Proportion of fish with **negative growth**
 
 ### Proportion of fish with negative growth by species/river/season
@@ -427,6 +439,8 @@ ggplot(cd1 |> filter(!is.na(negGrowth)), aes(negGrowth)) +
 ### Proportion of fish with negative growth by species/season
 
 ```{r}
+#| label: propNegBySeason
+
 ggplot(propNegSRS |> filter(n > 50), aes(seasonGG, propNeg, color = riverGG, group = riverGG)) +
   geom_point(aes(size = n)) +
   geom_line() +
@@ -808,6 +822,8 @@ plotMergedBySeason(envIn_propNeg, "Isolated Small", 2002, 2017)
 ```
 :::
 
+TO ADD: low flow high density important? Look at interaction btw flow:density
+
 ### F/T cycles with labels
 
 Plot F/T cycles by river, season, species with label for propNeg and conspecific and all-species abundances
@@ -1073,7 +1089,10 @@ plotGrowthSamplesLeft <- function(d, spp, r){
 }
 
 plotGrowthSamplesLeft(cd1, "Brook trout", "West Brook")
+plotGrowthSamplesLeft(cd1, "Brook trout", "Open Large")
+plotGrowthSamplesLeft(cd1, "Brook trout", "Open Small")
 plotGrowthSamplesLeft(cd1, "Brook trout", "Isolated Small")
+
 plotGrowthSamplesLeft(cd1, "Brown trout", "West Brook")
 ```
 
@@ -1140,8 +1159,19 @@ plotGR_sampsBL3(negGr_beforeLast, c("Brook trout","Brown trout", "Atlantic salmo
 plotGR_sampsBL3(negGr_beforeLast, c("Brook trout","Brown trout", "Atlantic salmon"), c("West Brook"), TRUE)
 ```
 
-### Growth and movement distance
+TO ADD: mean samplesBeforeLast by negGR
+TO ADD: knownZ=0 vs knownZ==1, growth in previous interval
+```{r}
 
+# cd1_target |> 
+#       group_by(speciesGG, riverGG, seasonGG, samplesBeforeLast, negGrowth) |> 
+
+```
+
+
+
+### Growth and movement distance
+TO add: break avg move into negGR/not negGR
 ```{r}
 #| label: growthMovement
 
