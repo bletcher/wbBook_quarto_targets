@@ -256,8 +256,9 @@ plotPairs <- function(d0, sppIn, cohortIn, firstSamp = 1, lastSamp = 9, upperBla
       geom_hline(yintercept = 0, color = 'darkgrey') +
       geom_abline(intercept = 0, slope = 1) +
       geom_smooth(aes(color = factor(cohort)), method = method, se = FALSE, ...) +
-      geom_smooth(color = 'black', size = 1.5, method = method, se = FALSE, ...) +
-      geom_point(aes(color = factor(cohort))) 
+      geom_point(aes(color = factor(cohort))) +
+      geom_smooth(color = 'black', size = 1.1, method = method, se = FALSE, ...) 
+     
       #labs(x = "Growth in mass", y= "Growth in mass")
   }
 
@@ -312,6 +313,7 @@ plotPairs(cd1Wide_grWeight, "Atlantic salmon", 2000:2015, 1, 8) # missing data i
 :::
 
 #### Brook trout by cohort
+Row and column labels are 'age'_'season'
 ::: panel-tabset
 #### 2000
 ```{r}
@@ -387,14 +389,35 @@ plotPairs(cd1Wide_grWeight, "Brook trout", 2009, upperBlank = TRUE)
 ```{r}
 #| label: pairs_bkt2010
 
-plotPairs(cd1Wide_grWeight, "Brook trout", 2010, upperBlank = TRUE)
+plotPairs(cd1Wide_grWeight, "Brook trout", 2010, 1, 8, upperBlank = TRUE)
 ```
 
 #### 2011
 ```{r}
 #| label: pairs_bkt2011
 
-plotPairs(cd1Wide_grWeight, "Brook trout", 2011, upperBlank = TRUE)
+plotPairs(cd1Wide_grWeight, "Brook trout", 2011, 1, 7, upperBlank = TRUE)
+```
+
+#### 2012
+```{r}
+#| label: pairs_bkt2012
+
+plotPairs(cd1Wide_grWeight, "Brook trout", 2012, upperBlank = TRUE)
+```
+
+#### 2013
+```{r}
+#| label: pairs_bkt2013
+
+plotPairs(cd1Wide_grWeight, "Brook trout", 2013, upperBlank = TRUE)
+```
+
+#### 2014
+```{r}
+#| label: pairs_bkt2014
+
+plotPairs(cd1Wide_grWeight, "Brook trout", 2014, 1, 5, upperBlank = TRUE)
 ```
 
 :::
