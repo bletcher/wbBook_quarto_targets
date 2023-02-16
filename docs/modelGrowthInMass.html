@@ -698,7 +698,9 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </section>
 <section id="growth-rate-pairs-plots" class="level3" data-number="12.2.6">
 <h3 data-number="12.2.6" class="anchored" data-anchor-id="growth-rate-pairs-plots"><span class="header-section-number">12.2.6</span> Growth rate pairs plots</h3>
-<div class="cell" data-hash="modelGrowthInMass_cache/html/pairs_1ba811f74f9bb3c1e5bb8576f4664f92">
+<p>By species, all cohorts<br>
+Row and column labels in the pairs plots are ‘age’_‘season’</p>
+<div class="cell" data-hash="modelGrowthInMass_cache/html/pairs_fc75c18eae1dbe3d5fad21f97a3dccf6">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>plotPairs <span class="ot">&lt;-</span> <span class="cf">function</span>(d0, sppIn, cohortIn, <span class="at">firstSamp =</span> <span class="dv">1</span>, <span class="at">lastSamp =</span> <span class="dv">9</span>, <span class="at">upperBlank =</span> <span class="cn">FALSE</span>){</span>
@@ -715,38 +717,36 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 <span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cohort)), <span class="at">method =</span> method, <span class="at">se =</span> <span class="cn">FALSE</span>, ...) <span class="sc">+</span></span>
 <span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cohort))) <span class="sc">+</span></span>
 <span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_smooth</span>(<span class="at">color =</span> <span class="st">'black'</span>, <span class="at">size =</span> <span class="fl">1.1</span>, <span class="at">method =</span> method, <span class="at">se =</span> <span class="cn">FALSE</span>, ...) </span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>     </span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>      <span class="co">#labs(x = "Growth in mass", y= "Growth in mass")</span></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(upperBlank) {</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    out <span class="ot">&lt;-</span> <span class="fu">ggpairs</span>(</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>      d <span class="sc">|&gt;</span> </span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>        dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(speciesGG, tag, firstObserved, lastObserved)),</span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>      <span class="at">columns =</span> (firstSamp<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(lastSamp<span class="sc">+</span><span class="dv">1</span>), <span class="co"># +1 to skip cohort column</span></span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>      <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(lowerFn, <span class="at">method =</span> <span class="st">"lm"</span>)),</span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>      <span class="at">upper =</span> <span class="st">"blank"</span></span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>    ) </span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>    out <span class="ot">&lt;-</span> <span class="fu">ggpairs</span>(</span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>      d <span class="sc">|&gt;</span> </span>
-<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>        dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(speciesGG, tag, firstObserved, lastObserved)),</span>
-<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>      <span class="at">columns =</span> (firstSamp<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(lastSamp<span class="sc">+</span><span class="dv">1</span>), <span class="co"># +1 to skip cohort column</span></span>
-<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>      <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(lowerFn, <span class="at">method =</span> <span class="st">"lm"</span>))</span>
-<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(out)</span>
-<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(upperBlank) {</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>    out <span class="ot">&lt;-</span> <span class="fu">ggpairs</span>(</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>      d <span class="sc">|&gt;</span> </span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>        dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(speciesGG, tag, firstObserved, lastObserved)),</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">columns =</span> (firstSamp<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(lastSamp<span class="sc">+</span><span class="dv">1</span>), <span class="co"># +1 to skip cohort column</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>      <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(lowerFn, <span class="at">method =</span> <span class="st">"lm"</span>)),</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>      <span class="at">upper =</span> <span class="st">"blank"</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>    ) </span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>    out <span class="ot">&lt;-</span> <span class="fu">ggpairs</span>(</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>      d <span class="sc">|&gt;</span> </span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>        dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(speciesGG, tag, firstObserved, lastObserved)),</span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>      <span class="at">columns =</span> (firstSamp<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(lastSamp<span class="sc">+</span><span class="dv">1</span>), <span class="co"># +1 to skip cohort column</span></span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>      <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(lowerFn, <span class="at">method =</span> <span class="st">"lm"</span>))</span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(out)</span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Brook trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Brown trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">Atlantic salmon</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
-<div class="cell" data-hash="modelGrowthInMass_cache/html/pairs_bkt_bbb8fa80130b9ecdf6a42145b2381d1a">
+<div class="cell" data-hash="modelGrowthInMass_cache/html/pairs_bkt_a787a4e7b8515d8ecc061dd2a0c32dd9">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotPairs</span>(cd1Wide_grWeight, <span class="st">"Brook trout"</span>, <span class="dv">2000</span><span class="sc">:</span><span class="dv">2015</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotPairs</span>(cd1Wide_grWeight, <span class="st">"Brook trout"</span>, <span class="dv">2000</span><span class="sc">:</span><span class="dv">2015</span>, <span class="dv">1</span>, <span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="modelGrowthInMass_files/figure-html/pairs_bkt-1.png" class="img-fluid" width="672"></p>
@@ -758,10 +758,10 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </div>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<div class="cell" data-hash="modelGrowthInMass_cache/html/pairs_bnt_b0602e1f2a479a9863d347fda0ffdebb">
+<div class="cell" data-hash="modelGrowthInMass_cache/html/pairs_bnt_59d8ae02f060e913aa075f67ef81568f">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotPairs</span>(cd1Wide_grWeight, <span class="st">"Brown trout"</span>, <span class="dv">2000</span><span class="sc">:</span><span class="dv">2015</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotPairs</span>(cd1Wide_grWeight, <span class="st">"Brown trout"</span>, <span class="dv">2000</span><span class="sc">:</span><span class="dv">2015</span>, <span class="dv">1</span>, <span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="modelGrowthInMass_files/figure-html/pairs_bnt-1.png" class="img-fluid" width="672"></p>
@@ -791,7 +791,11 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </div>
 <section id="brook-trout-by-cohort" class="level4" data-number="12.2.6.1">
 <h4 data-number="12.2.6.1" class="anchored" data-anchor-id="brook-trout-by-cohort"><span class="header-section-number">12.2.6.1</span> Brook trout by cohort</h4>
-<p>Row and column labels are ‘age’_‘season’ ::: panel-tabset #### 2000</p>
+<p>Row and column labels are ‘age’_‘season’</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">2000</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">2001</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false">2002</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-4" role="tab" aria-controls="tabset-4-4" aria-selected="false">2003</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-5" role="tab" aria-controls="tabset-4-5" aria-selected="false">2004</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-6" role="tab" aria-controls="tabset-4-6" aria-selected="false">2005</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-7-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-7" role="tab" aria-controls="tabset-4-7" aria-selected="false">2006</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-8-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-8" role="tab" aria-controls="tabset-4-8" aria-selected="false">2007</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-9-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-9" role="tab" aria-controls="tabset-4-9" aria-selected="false">2008</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-10-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-10" role="tab" aria-controls="tabset-4-10" aria-selected="false">2009</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-11-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-11" role="tab" aria-controls="tabset-4-11" aria-selected="false">2010</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-12-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-12" role="tab" aria-controls="tabset-4-12" aria-selected="false">2011</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-13-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-13" role="tab" aria-controls="tabset-4-13" aria-selected="false">2012</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-14-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-14" role="tab" aria-controls="tabset-4-14" aria-selected="false">2013</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-15-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-15" role="tab" aria-controls="tabset-4-15" aria-selected="false">2014</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/pairs_bkt2000_095a5f81ba80dd928d1ee8ea617227a5">
 <details>
 <summary>Code</summary>
@@ -801,9 +805,8 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 <p><img src="modelGrowthInMass_files/figure-html/pairs_bkt2000-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-<section id="section" class="level4" data-number="12.2.6.2">
-<h4 data-number="12.2.6.2" class="anchored" data-anchor-id="section"><span class="header-section-number">12.2.6.2</span> 2001</h4>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/pairs_bkt2001_a6a108d18c771d1a61396b1bad8ec7ee">
 <details>
 <summary>Code</summary>
@@ -813,9 +816,8 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 <p><img src="modelGrowthInMass_files/figure-html/pairs_bkt2001-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-<section id="section-1" class="level4" data-number="12.2.6.3">
-<h4 data-number="12.2.6.3" class="anchored" data-anchor-id="section-1"><span class="header-section-number">12.2.6.3</span> 2002</h4>
+</div>
+<div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/pairs_bkt2002_1c8aa09293991232cae12560ca71edd8">
 <details>
 <summary>Code</summary>
@@ -825,9 +827,8 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 <p><img src="modelGrowthInMass_files/figure-html/pairs_bkt2002-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-<section id="section-2" class="level4" data-number="12.2.6.4">
-<h4 data-number="12.2.6.4" class="anchored" data-anchor-id="section-2"><span class="header-section-number">12.2.6.4</span> 2003</h4>
+</div>
+<div id="tabset-4-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-4-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/pairs_bkt2003_5b2af236291b564a72103bb1031e5658">
 <details>
 <summary>Code</summary>
@@ -837,9 +838,8 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 <p><img src="modelGrowthInMass_files/figure-html/pairs_bkt2003-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-<section id="section-3" class="level4" data-number="12.2.6.5">
-<h4 data-number="12.2.6.5" class="anchored" data-anchor-id="section-3"><span class="header-section-number">12.2.6.5</span> 2004</h4>
+</div>
+<div id="tabset-4-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-5-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/pairs_bkt2004_34ae12705607bed54b3298fddbc92e1e">
 <details>
 <summary>Code</summary>
@@ -849,9 +849,8 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 <p><img src="modelGrowthInMass_files/figure-html/pairs_bkt2004-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-<section id="section-4" class="level4" data-number="12.2.6.6">
-<h4 data-number="12.2.6.6" class="anchored" data-anchor-id="section-4"><span class="header-section-number">12.2.6.6</span> 2005</h4>
+</div>
+<div id="tabset-4-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-6-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/pairs_bkt2005_fd96c4c204e9920be58fdd3a048b76c8">
 <details>
 <summary>Code</summary>
@@ -861,9 +860,8 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 <p><img src="modelGrowthInMass_files/figure-html/pairs_bkt2005-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-<section id="section-5" class="level4" data-number="12.2.6.7">
-<h4 data-number="12.2.6.7" class="anchored" data-anchor-id="section-5"><span class="header-section-number">12.2.6.7</span> 2006</h4>
+</div>
+<div id="tabset-4-7" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-7-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/pairs_bkt2006_60fe1306b0638670881fa955135cf5cf">
 <details>
 <summary>Code</summary>
@@ -873,9 +871,8 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 <p><img src="modelGrowthInMass_files/figure-html/pairs_bkt2006-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-<section id="section-6" class="level4" data-number="12.2.6.8">
-<h4 data-number="12.2.6.8" class="anchored" data-anchor-id="section-6"><span class="header-section-number">12.2.6.8</span> 2007</h4>
+</div>
+<div id="tabset-4-8" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-8-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/pairs_bkt2007_5a5111be652bd9c25fb66336a4e6287a">
 <details>
 <summary>Code</summary>
@@ -885,9 +882,8 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 <p><img src="modelGrowthInMass_files/figure-html/pairs_bkt2007-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-<section id="section-7" class="level4" data-number="12.2.6.9">
-<h4 data-number="12.2.6.9" class="anchored" data-anchor-id="section-7"><span class="header-section-number">12.2.6.9</span> 2008</h4>
+</div>
+<div id="tabset-4-9" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-9-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/pairs_bkt2008_68cf604b67f9d651ab56d70472477c22">
 <details>
 <summary>Code</summary>
@@ -897,9 +893,8 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 <p><img src="modelGrowthInMass_files/figure-html/pairs_bkt2008-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-<section id="section-8" class="level4" data-number="12.2.6.10">
-<h4 data-number="12.2.6.10" class="anchored" data-anchor-id="section-8"><span class="header-section-number">12.2.6.10</span> 2009</h4>
+</div>
+<div id="tabset-4-10" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-10-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/pairs_bkt2009_a5fe6f76855b402c20831a8b68976042">
 <details>
 <summary>Code</summary>
@@ -909,9 +904,8 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 <p><img src="modelGrowthInMass_files/figure-html/pairs_bkt2009-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-<section id="section-9" class="level4" data-number="12.2.6.11">
-<h4 data-number="12.2.6.11" class="anchored" data-anchor-id="section-9"><span class="header-section-number">12.2.6.11</span> 2010</h4>
+</div>
+<div id="tabset-4-11" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-11-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/pairs_bkt2010_86ffab47b3456332027a2dcd0a2031db">
 <details>
 <summary>Code</summary>
@@ -921,9 +915,8 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 <p><img src="modelGrowthInMass_files/figure-html/pairs_bkt2010-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-<section id="section-10" class="level4" data-number="12.2.6.12">
-<h4 data-number="12.2.6.12" class="anchored" data-anchor-id="section-10"><span class="header-section-number">12.2.6.12</span> 2011</h4>
+</div>
+<div id="tabset-4-12" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-12-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/pairs_bkt2011_8454d5242996463218a29598a72b0f53">
 <details>
 <summary>Code</summary>
@@ -933,9 +926,8 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 <p><img src="modelGrowthInMass_files/figure-html/pairs_bkt2011-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-<section id="section-11" class="level4" data-number="12.2.6.13">
-<h4 data-number="12.2.6.13" class="anchored" data-anchor-id="section-11"><span class="header-section-number">12.2.6.13</span> 2012</h4>
+</div>
+<div id="tabset-4-13" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-13-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/pairs_bkt2012_c1165fca1477b4a2b637b225bee5a133">
 <details>
 <summary>Code</summary>
@@ -945,9 +937,8 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 <p><img src="modelGrowthInMass_files/figure-html/pairs_bkt2012-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-<section id="section-12" class="level4" data-number="12.2.6.14">
-<h4 data-number="12.2.6.14" class="anchored" data-anchor-id="section-12"><span class="header-section-number">12.2.6.14</span> 2013</h4>
+</div>
+<div id="tabset-4-14" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-14-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/pairs_bkt2013_f2e290bdd9557b657b7d3f233aa6accb">
 <details>
 <summary>Code</summary>
@@ -957,9 +948,8 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 <p><img src="modelGrowthInMass_files/figure-html/pairs_bkt2013-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-<section id="section-13" class="level4" data-number="12.2.6.15">
-<h4 data-number="12.2.6.15" class="anchored" data-anchor-id="section-13"><span class="header-section-number">12.2.6.15</span> 2014</h4>
+</div>
+<div id="tabset-4-15" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-15-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/pairs_bkt2014_8b673204ee5b983b77deb5c67d4a52ff">
 <details>
 <summary>Code</summary>
@@ -969,7 +959,9 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 <p><img src="modelGrowthInMass_files/figure-html/pairs_bkt2014-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>:::</p>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="growth-rate-in-length-vs-growth-rate-in-mass" class="level3" data-number="12.2.7">
@@ -1002,9 +994,9 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </details>
 </div>
 <div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Brook trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Brown trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false">Atlantic salmon</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Brook trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Brown trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-3" role="tab" aria-controls="tabset-5-3" aria-selected="false">Atlantic salmon</a></li></ul>
 <div class="tab-content">
-<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/grLen_v_grWeight_bkt_079c2defb824619ed9ec79ad0eb884d1">
 <details>
 <summary>Code</summary>
@@ -1015,7 +1007,7 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </div>
 </div>
 </div>
-<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/grLen_v_grWeight_bnt_25322c831701742ff33916fbaecfcbca">
 <details>
 <summary>Code</summary>
@@ -1026,7 +1018,7 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </div>
 </div>
 </div>
-<div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
+<div id="tabset-5-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-3-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/grLen_v_grWeight_ats_49744e70a7314bbb79738a00ba89f81e">
 <details>
 <summary>Code</summary>
@@ -1086,9 +1078,9 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </details>
 </div>
 <div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">West Brook</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Open Large</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-3" role="tab" aria-controls="tabset-5-3" aria-selected="false">Open Small</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-4" role="tab" aria-controls="tabset-5-4" aria-selected="false">Isolated small</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">West Brook</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Open Large</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-3" role="tab" aria-controls="tabset-6-3" aria-selected="false">Open Small</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-4" role="tab" aria-controls="tabset-6-4" aria-selected="false">Isolated small</a></li></ul>
 <div class="tab-content">
-<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/flow_weight_wb_aaf8fe7738465a7ef4a57f9da492036c">
 <details>
 <summary>Code</summary>
@@ -1099,7 +1091,7 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </div>
 </div>
 </div>
-<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/flow_weight_ol_ec5b11e5e70a3ec4c3c69183772caf29">
 <details>
 <summary>Code</summary>
@@ -1110,7 +1102,7 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </div>
 </div>
 </div>
-<div id="tabset-5-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-3-tab">
+<div id="tabset-6-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-3-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/flow_weight_os_04b69af986df6f561d6db55cd55c21f4">
 <details>
 <summary>Code</summary>
@@ -1121,7 +1113,7 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </div>
 </div>
 </div>
-<div id="tabset-5-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-4-tab">
+<div id="tabset-6-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-4-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/flow_weight_is_9e352759d16aa6a809087efc6771aaca">
 <details>
 <summary>Code</summary>
@@ -1155,9 +1147,9 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </details>
 </div>
 <div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">Spring</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Summer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-3" role="tab" aria-controls="tabset-6-3" aria-selected="false">Autumn</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-4" role="tab" aria-controls="tabset-6-4" aria-selected="false">Winter</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">Spring</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Summer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-3" role="tab" aria-controls="tabset-7-3" aria-selected="false">Autumn</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-4" role="tab" aria-controls="tabset-7-4" aria-selected="false">Winter</a></li></ul>
 <div class="tab-content">
-<div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
+<div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/temp_grWeight_spring_088ed64509737e4baf75874c47c0d0f5">
 <details>
 <summary>Code</summary>
@@ -1168,7 +1160,7 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </div>
 </div>
 </div>
-<div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
+<div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/temp_grWeight_summer_30cc3c07f5de9d84cccd137681a0f999">
 <details>
 <summary>Code</summary>
@@ -1179,7 +1171,7 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </div>
 </div>
 </div>
-<div id="tabset-6-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-3-tab">
+<div id="tabset-7-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-3-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/temp_grWeight_autumn_e281e958fe5f3cb8218e13dd6d129cab">
 <details>
 <summary>Code</summary>
@@ -1190,7 +1182,7 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </div>
 </div>
 </div>
-<div id="tabset-6-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-4-tab">
+<div id="tabset-7-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-4-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/temp_grWeight_winter_13b56c7a92b3266704f5c021bd4dd7fd">
 <details>
 <summary>Code</summary>
@@ -1255,9 +1247,9 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </details>
 </div>
 <div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">Brook trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Brown trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-3" role="tab" aria-controls="tabset-7-3" aria-selected="false">Atlantic salmon</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">Brook trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">Brown trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-3" role="tab" aria-controls="tabset-8-3" aria-selected="false">Atlantic salmon</a></li></ul>
 <div class="tab-content">
-<div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
+<div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/propNegWB_BKT_bkt_5869aaedf4c5ee61981165f7a6f55d90">
 <details>
 <summary>Code</summary>
@@ -1268,7 +1260,7 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </div>
 </div>
 </div>
-<div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
+<div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/propNegWB_BKT_bnt_09336f49c46a97eaa11c69c716057805">
 <details>
 <summary>Code</summary>
@@ -1279,7 +1271,7 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </div>
 </div>
 </div>
-<div id="tabset-7-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-3-tab">
+<div id="tabset-8-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-3-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/propNegWB_BKT_ats_2d4c69e327eb6e40ef9c84d459e56082">
 <details>
 <summary>Code</summary>
@@ -1365,9 +1357,9 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </details>
 </div>
 <div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">Spring</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">Summer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-3" role="tab" aria-controls="tabset-8-3" aria-selected="false">Autumn</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-4" role="tab" aria-controls="tabset-8-4" aria-selected="false">Winter</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">Spring</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false">Summer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-3" role="tab" aria-controls="tabset-9-3" aria-selected="false">Autumn</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-4" role="tab" aria-controls="tabset-9-4" aria-selected="false">Winter</a></li></ul>
 <div class="tab-content">
-<div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
+<div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/negGrowth_tempSPring_661419f801bf00c1023d614dd58f7d75">
 <details>
 <summary>Code</summary>
@@ -1378,7 +1370,7 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </div>
 </div>
 </div>
-<div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
+<div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/negGrowth_tempSummer_9c29c74d2f170a524309d96c1e677263">
 <details>
 <summary>Code</summary>
@@ -1389,7 +1381,7 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </div>
 </div>
 </div>
-<div id="tabset-8-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-3-tab">
+<div id="tabset-9-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-3-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/negGrowth_tempAutumn_fca462a890ec25ae03eb71685ed1a48c">
 <details>
 <summary>Code</summary>
@@ -1400,7 +1392,7 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </div>
 </div>
 </div>
-<div id="tabset-8-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-4-tab">
+<div id="tabset-9-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-4-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/negGrowth_tempWinter_d841cd4920882abc43da310828c5c105">
 <details>
 <summary>Code</summary>
@@ -1499,9 +1491,9 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </details>
 </div>
 <div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">Brook trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false">Brown trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-3" role="tab" aria-controls="tabset-9-3" aria-selected="false">Atlantic salmon</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true">Brook trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false">Brown trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-3" role="tab" aria-controls="tabset-10-3" aria-selected="false">Atlantic salmon</a></li></ul>
 <div class="tab-content">
-<div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
+<div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/flow_temp_cycle_bySpecies_bkt_05b001c656a3950f2c2b7668631cd016">
 <details>
 <summary>Code</summary>
@@ -1512,7 +1504,7 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </div>
 </div>
 </div>
-<div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
+<div id="tabset-10-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-2-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/flow_temp_cycle_bySpecies_bnt_a0ffce40cda507da867ea0162aa334c7">
 <details>
 <summary>Code</summary>
@@ -1523,7 +1515,7 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </div>
 </div>
 </div>
-<div id="tabset-9-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-3-tab">
+<div id="tabset-10-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-3-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/flow_temp_cycle_bySpecies_ats_e10ca128b64ab2ea24a2ba3b506c0248">
 <details>
 <summary>Code</summary>
@@ -1614,9 +1606,9 @@ Not very informative</p>
 </details>
 </div>
 <div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true">West Brook</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false">Open Large</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-3" role="tab" aria-controls="tabset-10-3" aria-selected="false">Open Small</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-4" role="tab" aria-controls="tabset-10-4" aria-selected="false">Isolated small</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true">West Brook</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false">Open Large</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-3" role="tab" aria-controls="tabset-11-3" aria-selected="false">Open Small</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-4" role="tab" aria-controls="tabset-11-4" aria-selected="false">Isolated small</a></li></ul>
 <div class="tab-content">
-<div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
+<div id="tabset-11-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-11-1-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/mergePropNegPlot_wb_40236cf324f323f1a92f0128df54b6f7">
 <details>
 <summary>Code</summary>
@@ -1627,7 +1619,7 @@ Not very informative</p>
 </div>
 </div>
 </div>
-<div id="tabset-10-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-2-tab">
+<div id="tabset-11-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-2-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/mergePropNegPlot_ol_8a896fd71eb8ace93ba9ed86fa942bd7">
 <details>
 <summary>Code</summary>
@@ -1638,7 +1630,7 @@ Not very informative</p>
 </div>
 </div>
 </div>
-<div id="tabset-10-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-3-tab">
+<div id="tabset-11-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-3-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/mergePropNegPlot_os_002a80e84fc915172335c47d9892abbc">
 <details>
 <summary>Code</summary>
@@ -1649,7 +1641,7 @@ Not very informative</p>
 </div>
 </div>
 </div>
-<div id="tabset-10-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-4-tab">
+<div id="tabset-11-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-4-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/fmergePropNegPlot_is_441413d2d3199a4ee6d0d849e4ae96a8">
 <details>
 <summary>Code</summary>
@@ -1684,9 +1676,9 @@ Not very informative</p>
 </details>
 </div>
 <div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true">West Brook</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false">Open Large</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-3" role="tab" aria-controls="tabset-11-3" aria-selected="false">Open Small</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-4" role="tab" aria-controls="tabset-11-4" aria-selected="false">Isolated small</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true">West Brook</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-2" role="tab" aria-controls="tabset-12-2" aria-selected="false">Open Large</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-3" role="tab" aria-controls="tabset-12-3" aria-selected="false">Open Small</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-4" role="tab" aria-controls="tabset-12-4" aria-selected="false">Isolated small</a></li></ul>
 <div class="tab-content">
-<div id="tabset-11-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-11-1-tab">
+<div id="tabset-12-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-12-1-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/plotMergedBySeason_wb_a9b741dd47a9fc5b1ebdd749579c5da9">
 <details>
 <summary>Code</summary>
@@ -1697,7 +1689,7 @@ Not very informative</p>
 </div>
 </div>
 </div>
-<div id="tabset-11-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-2-tab">
+<div id="tabset-12-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-2-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/plotMergedBySeason_ol_900b4e6750737144d4efaf9e1c701301">
 <details>
 <summary>Code</summary>
@@ -1708,7 +1700,7 @@ Not very informative</p>
 </div>
 </div>
 </div>
-<div id="tabset-11-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-3-tab">
+<div id="tabset-12-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-3-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/plotMergedBySeason_os_79d0ee5da34779b9161d323b335e4d86">
 <details>
 <summary>Code</summary>
@@ -1719,7 +1711,7 @@ Not very informative</p>
 </div>
 </div>
 </div>
-<div id="tabset-11-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-4-tab">
+<div id="tabset-12-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-4-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/plotMergedBySeason_is_3218e4d6a6709641d9d170145818591d">
 <details>
 <summary>Code</summary>
@@ -1783,9 +1775,9 @@ Not very informative</p>
 <section id="west-brook-3" class="level4" data-number="12.6.6.1">
 <h4 data-number="12.6.6.1" class="anchored" data-anchor-id="west-brook-3"><span class="header-section-number">12.6.6.1</span> West Brook</h4>
 <div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true">Spring</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-2" role="tab" aria-controls="tabset-12-2" aria-selected="false">Summer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-3" role="tab" aria-controls="tabset-12-3" aria-selected="false">Autumn</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-4" role="tab" aria-controls="tabset-12-4" aria-selected="false">Winter</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-13-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-1" role="tab" aria-controls="tabset-13-1" aria-selected="true">Spring</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-2" role="tab" aria-controls="tabset-13-2" aria-selected="false">Summer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-3" role="tab" aria-controls="tabset-13-3" aria-selected="false">Autumn</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-4" role="tab" aria-controls="tabset-13-4" aria-selected="false">Winter</a></li></ul>
 <div class="tab-content">
-<div id="tabset-12-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-12-1-tab">
+<div id="tabset-13-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-13-1-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/WBPanelSpring_acd37635662cd41edab42122878e2da8">
 <details>
 <summary>Code</summary>
@@ -1810,7 +1802,7 @@ Not very informative</p>
 </div>
 </div>
 </div>
-<div id="tabset-12-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-2-tab">
+<div id="tabset-13-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-13-2-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/WBPanelSummer_657a843682e6a2a5f63c582edfbd8dda">
 <details>
 <summary>Code</summary>
@@ -1835,7 +1827,7 @@ Not very informative</p>
 </div>
 </div>
 </div>
-<div id="tabset-12-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-3-tab">
+<div id="tabset-13-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-13-3-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/WBPanelAutumn_4540d13f7c59c348a1152fa0a78b3a1c">
 <details>
 <summary>Code</summary>
@@ -1860,7 +1852,7 @@ Not very informative</p>
 </div>
 </div>
 </div>
-<div id="tabset-12-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-4-tab">
+<div id="tabset-13-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-13-4-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/WBPanelWinter_0e6f55f3b96e5caefd0cbdbe2daa0f8f">
 <details>
 <summary>Code</summary>
@@ -1891,9 +1883,9 @@ Not very informative</p>
 <section id="open-large-3" class="level4" data-number="12.6.6.2">
 <h4 data-number="12.6.6.2" class="anchored" data-anchor-id="open-large-3"><span class="header-section-number">12.6.6.2</span> Open Large</h4>
 <div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-13-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-1" role="tab" aria-controls="tabset-13-1" aria-selected="true">Spring</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-2" role="tab" aria-controls="tabset-13-2" aria-selected="false">Summer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-3" role="tab" aria-controls="tabset-13-3" aria-selected="false">Autumn</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-4" role="tab" aria-controls="tabset-13-4" aria-selected="false">Winter</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-14-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-1" role="tab" aria-controls="tabset-14-1" aria-selected="true">Spring</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-2" role="tab" aria-controls="tabset-14-2" aria-selected="false">Summer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-3" role="tab" aria-controls="tabset-14-3" aria-selected="false">Autumn</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-4" role="tab" aria-controls="tabset-14-4" aria-selected="false">Winter</a></li></ul>
 <div class="tab-content">
-<div id="tabset-13-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-13-1-tab">
+<div id="tabset-14-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-14-1-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/OLpanelSpring_033df6c72ce3fe072e8ee07c3d18c25f">
 <details>
 <summary>Code</summary>
@@ -1918,7 +1910,7 @@ Not very informative</p>
 </div>
 </div>
 </div>
-<div id="tabset-13-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-13-2-tab">
+<div id="tabset-14-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-14-2-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/OLPanelSummer_6817e5b0321d3304aa3214e4e3ab0d92">
 <details>
 <summary>Code</summary>
@@ -1943,7 +1935,7 @@ Not very informative</p>
 </div>
 </div>
 </div>
-<div id="tabset-13-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-13-3-tab">
+<div id="tabset-14-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-14-3-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/OLPanelAutumn_16ecd6366a0397865ab0409a2dcc6814">
 <details>
 <summary>Code</summary>
@@ -1968,7 +1960,7 @@ Not very informative</p>
 </div>
 </div>
 </div>
-<div id="tabset-13-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-13-4-tab">
+<div id="tabset-14-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-14-4-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/OLPanelWinter_6382a7c98f062c20c205bb8e49e4a147">
 <details>
 <summary>Code</summary>
@@ -1999,9 +1991,9 @@ Not very informative</p>
 <section id="open-small-3" class="level4" data-number="12.6.6.3">
 <h4 data-number="12.6.6.3" class="anchored" data-anchor-id="open-small-3"><span class="header-section-number">12.6.6.3</span> Open Small</h4>
 <div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-14-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-1" role="tab" aria-controls="tabset-14-1" aria-selected="true">Spring</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-2" role="tab" aria-controls="tabset-14-2" aria-selected="false">Summer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-3" role="tab" aria-controls="tabset-14-3" aria-selected="false">Autumn</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-4" role="tab" aria-controls="tabset-14-4" aria-selected="false">Winter</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-15-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-1" role="tab" aria-controls="tabset-15-1" aria-selected="true">Spring</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-2" role="tab" aria-controls="tabset-15-2" aria-selected="false">Summer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-3" role="tab" aria-controls="tabset-15-3" aria-selected="false">Autumn</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-4" role="tab" aria-controls="tabset-15-4" aria-selected="false">Winter</a></li></ul>
 <div class="tab-content">
-<div id="tabset-14-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-14-1-tab">
+<div id="tabset-15-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-15-1-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/OSPanelSpring_75a2fc91be4db7b9d9da3ab005e73a22">
 <details>
 <summary>Code</summary>
@@ -2019,7 +2011,7 @@ Not very informative</p>
 </div>
 </div>
 </div>
-<div id="tabset-14-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-14-2-tab">
+<div id="tabset-15-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-15-2-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/OSPanelSummer_88349cee75c07b98825504f38bea2669">
 <details>
 <summary>Code</summary>
@@ -2037,7 +2029,7 @@ Not very informative</p>
 </div>
 </div>
 </div>
-<div id="tabset-14-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-14-3-tab">
+<div id="tabset-15-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-15-3-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/OSPanelAutumn_d85d5effe3900d8a351a7e05b6256a82">
 <details>
 <summary>Code</summary>
@@ -2055,7 +2047,7 @@ Not very informative</p>
 </div>
 </div>
 </div>
-<div id="tabset-14-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-14-4-tab">
+<div id="tabset-15-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-15-4-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/OSPanelWinter_2313671ea0589ff127107852f8a1e62b">
 <details>
 <summary>Code</summary>
@@ -2079,9 +2071,9 @@ Not very informative</p>
 <section id="isolated-small-3" class="level4" data-number="12.6.6.4">
 <h4 data-number="12.6.6.4" class="anchored" data-anchor-id="isolated-small-3"><span class="header-section-number">12.6.6.4</span> Isolated Small</h4>
 <div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-15-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-1" role="tab" aria-controls="tabset-15-1" aria-selected="true">Spring</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-2" role="tab" aria-controls="tabset-15-2" aria-selected="false">Summer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-3" role="tab" aria-controls="tabset-15-3" aria-selected="false">Autumn</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-4" role="tab" aria-controls="tabset-15-4" aria-selected="false">Winter</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-16-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-1" role="tab" aria-controls="tabset-16-1" aria-selected="true">Spring</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-2" role="tab" aria-controls="tabset-16-2" aria-selected="false">Summer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-3" role="tab" aria-controls="tabset-16-3" aria-selected="false">Autumn</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-4" role="tab" aria-controls="tabset-16-4" aria-selected="false">Winter</a></li></ul>
 <div class="tab-content">
-<div id="tabset-15-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-15-1-tab">
+<div id="tabset-16-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-16-1-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/ISPanelSpring_9afbf507807406e91ff291a92eb5b1e7">
 <details>
 <summary>Code</summary>
@@ -2092,7 +2084,7 @@ Not very informative</p>
 </div>
 </div>
 </div>
-<div id="tabset-15-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-15-2-tab">
+<div id="tabset-16-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-16-2-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/ISPanelSummer_857cdaef622dbf63826512b59d3c813d">
 <details>
 <summary>Code</summary>
@@ -2103,7 +2095,7 @@ Not very informative</p>
 </div>
 </div>
 </div>
-<div id="tabset-15-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-15-3-tab">
+<div id="tabset-16-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-16-3-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/ISPanelAutumn_895726e2600fdd1504bc40e77ecc87e9">
 <details>
 <summary>Code</summary>
@@ -2114,7 +2106,7 @@ Not very informative</p>
 </div>
 </div>
 </div>
-<div id="tabset-15-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-15-4-tab">
+<div id="tabset-16-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-16-4-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/ISPanelWinter_dd4bad30f6e593109224f2a45c50a81a">
 <details>
 <summary>Code</summary>
@@ -3504,81 +3496,81 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb178-272"><a href="#cb178-272" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb178-273"><a href="#cb178-273" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb178-274"><a href="#cb178-274" aria-hidden="true" tabindex="-1"></a><span class="fu">### Growth rate pairs plots</span></span>
-<span id="cb178-275"><a href="#cb178-275" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb178-278"><a href="#cb178-278" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb178-279"><a href="#cb178-279" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: pairs</span></span>
-<span id="cb178-280"><a href="#cb178-280" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb178-281"><a href="#cb178-281" aria-hidden="true" tabindex="-1"></a>plotPairs <span class="ot">&lt;-</span> <span class="cf">function</span>(d0, sppIn, cohortIn, <span class="at">firstSamp =</span> <span class="dv">1</span>, <span class="at">lastSamp =</span> <span class="dv">9</span>, <span class="at">upperBlank =</span> <span class="cn">FALSE</span>){</span>
-<span id="cb178-282"><a href="#cb178-282" aria-hidden="true" tabindex="-1"></a>  d <span class="ot">&lt;-</span> d0 <span class="sc">|&gt;</span> </span>
-<span id="cb178-283"><a href="#cb178-283" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(speciesGG <span class="sc">==</span> sppIn, cohort <span class="sc">%in%</span> cohortIn) <span class="sc">|&gt;</span> </span>
-<span id="cb178-284"><a href="#cb178-284" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select_if</span>(<span class="sc">~</span><span class="fu">any</span>(<span class="sc">!</span><span class="fu">is.na</span>(.))) <span class="sc">|&gt;</span>  <span class="co"># remove all-NA columns</span></span>
-<span id="cb178-285"><a href="#cb178-285" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(firstObserved <span class="sc">!=</span> lastObserved <span class="sc">-</span> <span class="dv">1</span>) <span class="co"># remove single obs fish</span></span>
-<span id="cb178-286"><a href="#cb178-286" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb178-287"><a href="#cb178-287" aria-hidden="true" tabindex="-1"></a>  lowerFn <span class="ot">&lt;-</span> <span class="cf">function</span>(data, mapping, <span class="at">method =</span> <span class="st">"lm"</span>, ...) {</span>
-<span id="cb178-288"><a href="#cb178-288" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="at">data =</span> data, <span class="at">mapping =</span> mapping) <span class="sc">+</span></span>
-<span id="cb178-289"><a href="#cb178-289" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">'darkgrey'</span>) <span class="sc">+</span></span>
-<span id="cb178-290"><a href="#cb178-290" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">'darkgrey'</span>) <span class="sc">+</span></span>
-<span id="cb178-291"><a href="#cb178-291" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb178-292"><a href="#cb178-292" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cohort)), <span class="at">method =</span> method, <span class="at">se =</span> <span class="cn">FALSE</span>, ...) <span class="sc">+</span></span>
-<span id="cb178-293"><a href="#cb178-293" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cohort))) <span class="sc">+</span></span>
-<span id="cb178-294"><a href="#cb178-294" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_smooth</span>(<span class="at">color =</span> <span class="st">'black'</span>, <span class="at">size =</span> <span class="fl">1.1</span>, <span class="at">method =</span> method, <span class="at">se =</span> <span class="cn">FALSE</span>, ...) </span>
-<span id="cb178-295"><a href="#cb178-295" aria-hidden="true" tabindex="-1"></a>     </span>
-<span id="cb178-296"><a href="#cb178-296" aria-hidden="true" tabindex="-1"></a>      <span class="co">#labs(x = "Growth in mass", y= "Growth in mass")</span></span>
-<span id="cb178-297"><a href="#cb178-297" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb178-298"><a href="#cb178-298" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb178-299"><a href="#cb178-299" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(upperBlank) {</span>
-<span id="cb178-300"><a href="#cb178-300" aria-hidden="true" tabindex="-1"></a>    out <span class="ot">&lt;-</span> <span class="fu">ggpairs</span>(</span>
-<span id="cb178-301"><a href="#cb178-301" aria-hidden="true" tabindex="-1"></a>      d <span class="sc">|&gt;</span> </span>
-<span id="cb178-302"><a href="#cb178-302" aria-hidden="true" tabindex="-1"></a>        dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(speciesGG, tag, firstObserved, lastObserved)),</span>
-<span id="cb178-303"><a href="#cb178-303" aria-hidden="true" tabindex="-1"></a>      <span class="at">columns =</span> (firstSamp<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(lastSamp<span class="sc">+</span><span class="dv">1</span>), <span class="co"># +1 to skip cohort column</span></span>
-<span id="cb178-304"><a href="#cb178-304" aria-hidden="true" tabindex="-1"></a>      <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(lowerFn, <span class="at">method =</span> <span class="st">"lm"</span>)),</span>
-<span id="cb178-305"><a href="#cb178-305" aria-hidden="true" tabindex="-1"></a>      <span class="at">upper =</span> <span class="st">"blank"</span></span>
-<span id="cb178-306"><a href="#cb178-306" aria-hidden="true" tabindex="-1"></a>    ) </span>
-<span id="cb178-307"><a href="#cb178-307" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb178-308"><a href="#cb178-308" aria-hidden="true" tabindex="-1"></a>    out <span class="ot">&lt;-</span> <span class="fu">ggpairs</span>(</span>
-<span id="cb178-309"><a href="#cb178-309" aria-hidden="true" tabindex="-1"></a>      d <span class="sc">|&gt;</span> </span>
-<span id="cb178-310"><a href="#cb178-310" aria-hidden="true" tabindex="-1"></a>        dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(speciesGG, tag, firstObserved, lastObserved)),</span>
-<span id="cb178-311"><a href="#cb178-311" aria-hidden="true" tabindex="-1"></a>      <span class="at">columns =</span> (firstSamp<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(lastSamp<span class="sc">+</span><span class="dv">1</span>), <span class="co"># +1 to skip cohort column</span></span>
-<span id="cb178-312"><a href="#cb178-312" aria-hidden="true" tabindex="-1"></a>      <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(lowerFn, <span class="at">method =</span> <span class="st">"lm"</span>))</span>
-<span id="cb178-313"><a href="#cb178-313" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb178-314"><a href="#cb178-314" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb178-315"><a href="#cb178-315" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(out)</span>
-<span id="cb178-316"><a href="#cb178-316" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb178-317"><a href="#cb178-317" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb178-318"><a href="#cb178-318" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb178-319"><a href="#cb178-319" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb178-320"><a href="#cb178-320" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
-<span id="cb178-321"><a href="#cb178-321" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Brook trout</span></span>
-<span id="cb178-322"><a href="#cb178-322" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb178-325"><a href="#cb178-325" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb178-326"><a href="#cb178-326" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: pairs_bkt</span></span>
-<span id="cb178-327"><a href="#cb178-327" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb178-328"><a href="#cb178-328" aria-hidden="true" tabindex="-1"></a><span class="fu">plotPairs</span>(cd1Wide_grWeight, <span class="st">"Brook trout"</span>, <span class="dv">2000</span><span class="sc">:</span><span class="dv">2015</span>)</span>
-<span id="cb178-329"><a href="#cb178-329" aria-hidden="true" tabindex="-1"></a><span class="co">#plotPairs(cd1Wide_observedWeight, "Brook trout", 2000:2015)</span></span>
-<span id="cb178-330"><a href="#cb178-330" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb178-331"><a href="#cb178-331" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb178-332"><a href="#cb178-332" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Brown trout</span></span>
-<span id="cb178-333"><a href="#cb178-333" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb178-336"><a href="#cb178-336" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb178-337"><a href="#cb178-337" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: pairs_bnt</span></span>
-<span id="cb178-338"><a href="#cb178-338" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb178-339"><a href="#cb178-339" aria-hidden="true" tabindex="-1"></a><span class="fu">plotPairs</span>(cd1Wide_grWeight, <span class="st">"Brown trout"</span>, <span class="dv">2000</span><span class="sc">:</span><span class="dv">2015</span>)</span>
-<span id="cb178-340"><a href="#cb178-340" aria-hidden="true" tabindex="-1"></a><span class="co">#plotPairs(cd1Wide_observedWeight, "Brook trout", 2000:2015)</span></span>
-<span id="cb178-341"><a href="#cb178-341" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb178-342"><a href="#cb178-342" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb178-343"><a href="#cb178-343" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Atlantic salmon</span></span>
-<span id="cb178-344"><a href="#cb178-344" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb178-347"><a href="#cb178-347" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb178-348"><a href="#cb178-348" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: pairs_ats</span></span>
-<span id="cb178-349"><a href="#cb178-349" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb178-350"><a href="#cb178-350" aria-hidden="true" tabindex="-1"></a><span class="fu">plotPairs</span>(cd1Wide_grWeight, <span class="st">"Atlantic salmon"</span>, <span class="dv">2000</span><span class="sc">:</span><span class="dv">2015</span>, <span class="dv">1</span>, <span class="dv">8</span>) <span class="co"># missing data in column 9</span></span>
-<span id="cb178-351"><a href="#cb178-351" aria-hidden="true" tabindex="-1"></a><span class="co">#plotPairs(cd1Wide_observedWeight, "Atlantic salmon", 2000:2015)</span></span>
-<span id="cb178-352"><a href="#cb178-352" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb178-353"><a href="#cb178-353" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb178-354"><a href="#cb178-354" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb178-355"><a href="#cb178-355" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Brook trout by cohort</span></span>
-<span id="cb178-356"><a href="#cb178-356" aria-hidden="true" tabindex="-1"></a>Row and column labels are 'age'_'season'</span>
-<span id="cb178-357"><a href="#cb178-357" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
+<span id="cb178-275"><a href="#cb178-275" aria-hidden="true" tabindex="-1"></a>By species, all cohorts  </span>
+<span id="cb178-276"><a href="#cb178-276" aria-hidden="true" tabindex="-1"></a>Row and column labels in the pairs plots are 'age'_'season'</span>
+<span id="cb178-279"><a href="#cb178-279" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb178-280"><a href="#cb178-280" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: pairs</span></span>
+<span id="cb178-281"><a href="#cb178-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-282"><a href="#cb178-282" aria-hidden="true" tabindex="-1"></a>plotPairs <span class="ot">&lt;-</span> <span class="cf">function</span>(d0, sppIn, cohortIn, <span class="at">firstSamp =</span> <span class="dv">1</span>, <span class="at">lastSamp =</span> <span class="dv">9</span>, <span class="at">upperBlank =</span> <span class="cn">FALSE</span>){</span>
+<span id="cb178-283"><a href="#cb178-283" aria-hidden="true" tabindex="-1"></a>  d <span class="ot">&lt;-</span> d0 <span class="sc">|&gt;</span> </span>
+<span id="cb178-284"><a href="#cb178-284" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(speciesGG <span class="sc">==</span> sppIn, cohort <span class="sc">%in%</span> cohortIn) <span class="sc">|&gt;</span> </span>
+<span id="cb178-285"><a href="#cb178-285" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select_if</span>(<span class="sc">~</span><span class="fu">any</span>(<span class="sc">!</span><span class="fu">is.na</span>(.))) <span class="sc">|&gt;</span>  <span class="co"># remove all-NA columns</span></span>
+<span id="cb178-286"><a href="#cb178-286" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(firstObserved <span class="sc">!=</span> lastObserved <span class="sc">-</span> <span class="dv">1</span>) <span class="co"># remove single obs fish</span></span>
+<span id="cb178-287"><a href="#cb178-287" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb178-288"><a href="#cb178-288" aria-hidden="true" tabindex="-1"></a>  lowerFn <span class="ot">&lt;-</span> <span class="cf">function</span>(data, mapping, <span class="at">method =</span> <span class="st">"lm"</span>, ...) {</span>
+<span id="cb178-289"><a href="#cb178-289" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="at">data =</span> data, <span class="at">mapping =</span> mapping) <span class="sc">+</span></span>
+<span id="cb178-290"><a href="#cb178-290" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">'darkgrey'</span>) <span class="sc">+</span></span>
+<span id="cb178-291"><a href="#cb178-291" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">'darkgrey'</span>) <span class="sc">+</span></span>
+<span id="cb178-292"><a href="#cb178-292" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb178-293"><a href="#cb178-293" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cohort)), <span class="at">method =</span> method, <span class="at">se =</span> <span class="cn">FALSE</span>, ...) <span class="sc">+</span></span>
+<span id="cb178-294"><a href="#cb178-294" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cohort))) <span class="sc">+</span></span>
+<span id="cb178-295"><a href="#cb178-295" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_smooth</span>(<span class="at">color =</span> <span class="st">'black'</span>, <span class="at">size =</span> <span class="fl">1.1</span>, <span class="at">method =</span> method, <span class="at">se =</span> <span class="cn">FALSE</span>, ...) </span>
+<span id="cb178-296"><a href="#cb178-296" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb178-297"><a href="#cb178-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-298"><a href="#cb178-298" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(upperBlank) {</span>
+<span id="cb178-299"><a href="#cb178-299" aria-hidden="true" tabindex="-1"></a>    out <span class="ot">&lt;-</span> <span class="fu">ggpairs</span>(</span>
+<span id="cb178-300"><a href="#cb178-300" aria-hidden="true" tabindex="-1"></a>      d <span class="sc">|&gt;</span> </span>
+<span id="cb178-301"><a href="#cb178-301" aria-hidden="true" tabindex="-1"></a>        dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(speciesGG, tag, firstObserved, lastObserved)),</span>
+<span id="cb178-302"><a href="#cb178-302" aria-hidden="true" tabindex="-1"></a>      <span class="at">columns =</span> (firstSamp<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(lastSamp<span class="sc">+</span><span class="dv">1</span>), <span class="co"># +1 to skip cohort column</span></span>
+<span id="cb178-303"><a href="#cb178-303" aria-hidden="true" tabindex="-1"></a>      <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(lowerFn, <span class="at">method =</span> <span class="st">"lm"</span>)),</span>
+<span id="cb178-304"><a href="#cb178-304" aria-hidden="true" tabindex="-1"></a>      <span class="at">upper =</span> <span class="st">"blank"</span></span>
+<span id="cb178-305"><a href="#cb178-305" aria-hidden="true" tabindex="-1"></a>    ) </span>
+<span id="cb178-306"><a href="#cb178-306" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb178-307"><a href="#cb178-307" aria-hidden="true" tabindex="-1"></a>    out <span class="ot">&lt;-</span> <span class="fu">ggpairs</span>(</span>
+<span id="cb178-308"><a href="#cb178-308" aria-hidden="true" tabindex="-1"></a>      d <span class="sc">|&gt;</span> </span>
+<span id="cb178-309"><a href="#cb178-309" aria-hidden="true" tabindex="-1"></a>        dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(speciesGG, tag, firstObserved, lastObserved)),</span>
+<span id="cb178-310"><a href="#cb178-310" aria-hidden="true" tabindex="-1"></a>      <span class="at">columns =</span> (firstSamp<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(lastSamp<span class="sc">+</span><span class="dv">1</span>), <span class="co"># +1 to skip cohort column</span></span>
+<span id="cb178-311"><a href="#cb178-311" aria-hidden="true" tabindex="-1"></a>      <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(lowerFn, <span class="at">method =</span> <span class="st">"lm"</span>))</span>
+<span id="cb178-312"><a href="#cb178-312" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb178-313"><a href="#cb178-313" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb178-314"><a href="#cb178-314" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(out)</span>
+<span id="cb178-315"><a href="#cb178-315" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb178-316"><a href="#cb178-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-317"><a href="#cb178-317" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb178-318"><a href="#cb178-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-319"><a href="#cb178-319" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
+<span id="cb178-320"><a href="#cb178-320" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Brook trout</span></span>
+<span id="cb178-321"><a href="#cb178-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-324"><a href="#cb178-324" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb178-325"><a href="#cb178-325" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: pairs_bkt</span></span>
+<span id="cb178-326"><a href="#cb178-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-327"><a href="#cb178-327" aria-hidden="true" tabindex="-1"></a><span class="fu">plotPairs</span>(cd1Wide_grWeight, <span class="st">"Brook trout"</span>, <span class="dv">2000</span><span class="sc">:</span><span class="dv">2015</span>, <span class="dv">1</span>, <span class="dv">9</span>)</span>
+<span id="cb178-328"><a href="#cb178-328" aria-hidden="true" tabindex="-1"></a><span class="co">#plotPairs(cd1Wide_observedWeight, "Brook trout", 2000:2015)</span></span>
+<span id="cb178-329"><a href="#cb178-329" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb178-330"><a href="#cb178-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-331"><a href="#cb178-331" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Brown trout</span></span>
+<span id="cb178-332"><a href="#cb178-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-335"><a href="#cb178-335" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb178-336"><a href="#cb178-336" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: pairs_bnt</span></span>
+<span id="cb178-337"><a href="#cb178-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-338"><a href="#cb178-338" aria-hidden="true" tabindex="-1"></a><span class="fu">plotPairs</span>(cd1Wide_grWeight, <span class="st">"Brown trout"</span>, <span class="dv">2000</span><span class="sc">:</span><span class="dv">2015</span>, <span class="dv">1</span>, <span class="dv">9</span>)</span>
+<span id="cb178-339"><a href="#cb178-339" aria-hidden="true" tabindex="-1"></a><span class="co">#plotPairs(cd1Wide_observedWeight, "Brook trout", 2000:2015)</span></span>
+<span id="cb178-340"><a href="#cb178-340" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb178-341"><a href="#cb178-341" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-342"><a href="#cb178-342" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Atlantic salmon</span></span>
+<span id="cb178-343"><a href="#cb178-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-346"><a href="#cb178-346" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb178-347"><a href="#cb178-347" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: pairs_ats</span></span>
+<span id="cb178-348"><a href="#cb178-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-349"><a href="#cb178-349" aria-hidden="true" tabindex="-1"></a><span class="fu">plotPairs</span>(cd1Wide_grWeight, <span class="st">"Atlantic salmon"</span>, <span class="dv">2000</span><span class="sc">:</span><span class="dv">2015</span>, <span class="dv">1</span>, <span class="dv">8</span>) <span class="co"># missing data in column 9</span></span>
+<span id="cb178-350"><a href="#cb178-350" aria-hidden="true" tabindex="-1"></a><span class="co">#plotPairs(cd1Wide_observedWeight, "Atlantic salmon", 2000:2015)</span></span>
+<span id="cb178-351"><a href="#cb178-351" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb178-352"><a href="#cb178-352" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb178-353"><a href="#cb178-353" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-354"><a href="#cb178-354" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Brook trout by cohort</span></span>
+<span id="cb178-355"><a href="#cb178-355" aria-hidden="true" tabindex="-1"></a>Row and column labels are 'age'_'season'  </span>
+<span id="cb178-356"><a href="#cb178-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb178-357"><a href="#cb178-357" aria-hidden="true" tabindex="-1"></a>::: panel-tabset  </span>
 <span id="cb178-358"><a href="#cb178-358" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2000</span></span>
 <span id="cb178-361"><a href="#cb178-361" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb178-362"><a href="#cb178-362" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: pairs_bkt2000</span></span>

@@ -240,7 +240,8 @@ plotWW(cd1, "ats")
 :::
 
 ### Growth rate pairs plots
-
+By species, all cohorts  
+Row and column labels in the pairs plots are 'age'_'season'
 ```{r}
 #| label: pairs
 
@@ -258,8 +259,6 @@ plotPairs <- function(d0, sppIn, cohortIn, firstSamp = 1, lastSamp = 9, upperBla
       geom_smooth(aes(color = factor(cohort)), method = method, se = FALSE, ...) +
       geom_point(aes(color = factor(cohort))) +
       geom_smooth(color = 'black', size = 1.1, method = method, se = FALSE, ...) 
-     
-      #labs(x = "Growth in mass", y= "Growth in mass")
   }
 
   if(upperBlank) {
@@ -289,7 +288,7 @@ plotPairs <- function(d0, sppIn, cohortIn, firstSamp = 1, lastSamp = 9, upperBla
 ```{r}
 #| label: pairs_bkt
 
-plotPairs(cd1Wide_grWeight, "Brook trout", 2000:2015)
+plotPairs(cd1Wide_grWeight, "Brook trout", 2000:2015, 1, 9)
 #plotPairs(cd1Wide_observedWeight, "Brook trout", 2000:2015)
 ```
 
@@ -298,7 +297,7 @@ plotPairs(cd1Wide_grWeight, "Brook trout", 2000:2015)
 ```{r}
 #| label: pairs_bnt
 
-plotPairs(cd1Wide_grWeight, "Brown trout", 2000:2015)
+plotPairs(cd1Wide_grWeight, "Brown trout", 2000:2015, 1, 9)
 #plotPairs(cd1Wide_observedWeight, "Brook trout", 2000:2015)
 ```
 
@@ -313,8 +312,9 @@ plotPairs(cd1Wide_grWeight, "Atlantic salmon", 2000:2015, 1, 8) # missing data i
 :::
 
 #### Brook trout by cohort
-Row and column labels are 'age'_'season'
-::: panel-tabset
+Row and column labels are 'age'_'season'  
+
+::: panel-tabset  
 #### 2000
 ```{r}
 #| label: pairs_bkt2000
