@@ -244,7 +244,7 @@ plotWW(cd1, "ats")
 ```{r}
 #| label: pairs
 
-plotPairs <- function(d0, sppIn, cohortIn, firstSamp = 1, lastSamp = 9){
+plotPairs <- function(d0, sppIn, cohortIn, firstSamp = 1, lastSamp = 9, upperBlank = FALSE){
   d <- d0 |> 
     filter(speciesGG == sppIn, cohort %in% cohortIn) |> 
     select_if(~any(!is.na(.))) |>  # remove all-NA columns
@@ -255,20 +255,29 @@ plotPairs <- function(d0, sppIn, cohortIn, firstSamp = 1, lastSamp = 9){
       geom_vline(xintercept = 0, color = 'darkgrey') +
       geom_hline(yintercept = 0, color = 'darkgrey') +
       geom_abline(intercept = 0, slope = 1) +
-      geom_point(aes(color = factor(cohort))) +
       geom_smooth(aes(color = factor(cohort)), method = method, se = FALSE, ...) +
-      geom_smooth(color = 'black', size = 1.5, method = method, se = FALSE, ...) 
+      geom_smooth(color = 'black', size = 1.5, method = method, se = FALSE, ...) +
+      geom_point(aes(color = factor(cohort))) 
+      #labs(x = "Growth in mass", y= "Growth in mass")
   }
 
-  ggpairs(
-    d |> 
-      dplyr::select(-c(speciesGG, tag, firstObserved, lastObserved)),
-    columns = (firstSamp+1):(lastSamp+1),
-    lower = list(continuous = wrap(lowerFn, method = "lm")),
-    #ggplot2::ggtitle(paste(sppIn, cohortIn)),
-    #ggplot2::aes(colour = factor(cohort)),
-    upper = "blank"
-  )
+  if(upperBlank) {
+    out <- ggpairs(
+      d |> 
+        dplyr::select(-c(speciesGG, tag, firstObserved, lastObserved)),
+      columns = (firstSamp+1):(lastSamp+1), # +1 to skip cohort column
+      lower = list(continuous = wrap(lowerFn, method = "lm")),
+      upper = "blank"
+    ) 
+  } else {
+    out <- ggpairs(
+      d |> 
+        dplyr::select(-c(speciesGG, tag, firstObserved, lastObserved)),
+      columns = (firstSamp+1):(lastSamp+1), # +1 to skip cohort column
+      lower = list(continuous = wrap(lowerFn, method = "lm"))
+    )
+  }
+  return(out)
 }
 
 ```
@@ -288,7 +297,7 @@ plotPairs(cd1Wide_grWeight, "Brook trout", 2000:2015)
 ```{r}
 #| label: pairs_bnt
 
-plotPairs(cd1Wide_grWeight, "Brook trout", 2000:2015)
+plotPairs(cd1Wide_grWeight, "Brown trout", 2000:2015)
 #plotPairs(cd1Wide_observedWeight, "Brook trout", 2000:2015)
 ```
 
@@ -297,11 +306,98 @@ plotPairs(cd1Wide_grWeight, "Brook trout", 2000:2015)
 ```{r}
 #| label: pairs_ats
 
-plotPairs(cd1Wide_grWeight, "Atlantic salmon", 2000:2015)
+plotPairs(cd1Wide_grWeight, "Atlantic salmon", 2000:2015, 1, 8) # missing data in column 9
 #plotPairs(cd1Wide_observedWeight, "Atlantic salmon", 2000:2015)
 ```
 :::
 
+#### Brook trout by cohort
+::: panel-tabset
+#### 2000
+```{r}
+#| label: pairs_bkt2000
+
+plotPairs(cd1Wide_grWeight, "Brook trout", 2000, 1, 8, upperBlank = TRUE)
+```
+
+#### 2001
+```{r}
+#| label: pairs_bkt2001
+
+plotPairs(cd1Wide_grWeight, "Brook trout", 2001, upperBlank = TRUE)
+```
+
+#### 2002
+```{r}
+#| label: pairs_bkt2002
+
+plotPairs(cd1Wide_grWeight, "Brook trout", 2002, 1, 9, upperBlank = TRUE)
+```
+
+#### 2003
+```{r}
+#| label: pairs_bkt2003
+
+plotPairs(cd1Wide_grWeight, "Brook trout", 2003, upperBlank = TRUE)
+```
+
+#### 2004
+```{r}
+#| label: pairs_bkt2004
+
+plotPairs(cd1Wide_grWeight, "Brook trout", 2004, upperBlank = TRUE)
+```
+
+#### 2005
+```{r}
+#| label: pairs_bkt2005
+
+plotPairs(cd1Wide_grWeight, "Brook trout", 2005, upperBlank = TRUE)
+```
+
+#### 2006
+```{r}
+#| label: pairs_bkt2006
+
+plotPairs(cd1Wide_grWeight, "Brook trout", 2006, upperBlank = TRUE)
+```
+
+#### 2007
+```{r}
+#| label: pairs_bkt2007
+
+plotPairs(cd1Wide_grWeight, "Brook trout", 2007, upperBlank = TRUE)
+```
+
+#### 2008
+```{r}
+#| label: pairs_bkt2008
+
+plotPairs(cd1Wide_grWeight, "Brook trout", 2008, upperBlank = TRUE)
+```
+
+#### 2009
+```{r}
+#| label: pairs_bkt2009
+
+plotPairs(cd1Wide_grWeight, "Brook trout", 2009, upperBlank = TRUE)
+```
+
+#### 2010
+```{r}
+#| label: pairs_bkt2010
+
+plotPairs(cd1Wide_grWeight, "Brook trout", 2010, upperBlank = TRUE)
+```
+
+#### 2011
+```{r}
+#| label: pairs_bkt2011
+
+plotPairs(cd1Wide_grWeight, "Brook trout", 2011, upperBlank = TRUE)
+```
+
+:::
 
 
 ### Growth rate in length vs growth rate in mass
@@ -480,8 +576,6 @@ plotTempGR(cd1, "Autumn")
 plotTempGR(cd1, "Winter")
 ```
 :::
-
-TO ADD pairwise charts for comparisons btw species, bkt:bnt, etc
 
 ## Proportion of fish with **negative growth**
 
