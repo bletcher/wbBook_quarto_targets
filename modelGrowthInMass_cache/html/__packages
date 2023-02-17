@@ -26,3 +26,13 @@ readr
 purrr
 stringr
 forcats
+forester
+ggradar
+rsample
+gbm
+xgboost
+h2o
+pdp
+lime
+wrapr
+vtreat

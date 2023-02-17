@@ -7,6 +7,10 @@ execute:
   message: FALSE
   cache: true
 
+comments:
+  hypothesis: 
+    theme: clean
+
 book:
   title: "The West Brook story"
   author: "Ben Letcher"

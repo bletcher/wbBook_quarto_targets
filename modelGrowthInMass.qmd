@@ -9,6 +9,20 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ```{r}
 #| label: librariesModelsFlow
 #| echo: false
+
+######################################################
+# https://github.com/ModelOriented/forester
+#library("devtools")
+#devtools::install_github("ModelOriented/forester")
+library(forester)
+
+#devtools::install_url('https://github.com/catboost/catboost/releases/download/v1.1.1/catboost-R-Darwin-1.1.1.tgz', INSTALL_opts = c("--no-multiarch", "--no-test-load", "--no-staged-install"))
+#library(catboost)
+
+#devtools::install_github('ricardo-bion/ggradar', dependencies = TRUE)
+library(ggradar)
+#####################################################
+
 library(getWBData)
 library(lubridate)
 library(kableExtra)
@@ -18,6 +32,16 @@ library(targets)
 library(relaimpo)
 library(caret)
 library(pscl)
+
+# for xgboost models
+library(rsample)      # data splitting 
+library(gbm)          # basic implementation
+library(xgboost)      # a faster implementation of gbm
+library(h2o)          # a java-based platform
+library(pdp)          # model visualization
+library(lime)
+library(vtreat)
+
 library(tidyverse)
 
 `%notin%` <- Negate(`%in%`)
@@ -312,7 +336,8 @@ plotPairs(cd1Wide_grWeight, "Atlantic salmon", 2000:2015, 1, 8) # missing data i
 :::
 
 #### Brook trout by cohort
-Row and column labels are 'age'_'season'  
+Row and column labels are 'age'_'season'   
+Color by river - make new function
 
 ::: panel-tabset  
 #### 2000
@@ -421,6 +446,58 @@ plotPairs(cd1Wide_grWeight, "Brook trout", 2014, 1, 5, upperBlank = TRUE)
 ```
 
 :::
+
+#### Consecutive season growth comparisons by age_season  
+Brook trout
+```{r}
+#| label: pairsByAgeSeason
+
+ggplot(cd1Wide_grWeight |> filter(speciesGG == "Brook trout", cohort %in% 2000:2014, `0_4` < 0.01), aes(`0_3`, `0_4`, color = factor(cohort))) +
+  geom_point() +
+  geom_vline(xintercept = 0, color = 'darkgrey') +
+  geom_hline(yintercept = 0, color = 'darkgrey') +
+  #geom_abline(intercept = 0, slope = 1) +
+  geom_smooth(method = "lm", se = FALSE, color = '#45454d') +
+  guides(colour = FALSE) +
+  facet_wrap(~cohort)
+
+ggplot(cd1Wide_grWeight |> filter(speciesGG == "Brook trout", cohort %in% 2000:2014), aes(`0_4`, `1_1`, color = factor(cohort))) +
+  geom_point() +
+  geom_vline(xintercept = 0, color = 'darkgrey') +
+  geom_hline(yintercept = 0, color = 'darkgrey') +
+  #geom_abline(intercept = 0, slope = 1) +
+  geom_smooth(method = "lm", se = FALSE, color = '#45454d') +
+  guides(colour = FALSE) +
+  facet_wrap(~cohort)
+
+ggplot(cd1Wide_grWeight |> filter(speciesGG == "Brook trout", cohort %in% 2000:2014), aes(`1_1`, `1_2`, color = factor(cohort))) +
+  geom_point() +
+  geom_vline(xintercept = 0, color = 'darkgrey') +
+  geom_hline(yintercept = 0, color = 'darkgrey') +
+  #geom_abline(intercept = 0, slope = 1) +
+  geom_smooth(method = "lm", se = FALSE) +
+  guides(colour = FALSE) +
+  facet_wrap(~cohort)
+
+ggplot(cd1Wide_grWeight |> filter(speciesGG == "Brook trout", cohort %in% 2000:2014), aes(`1_2`, `1_3`, color = factor(cohort))) +
+  geom_point() +
+  geom_vline(xintercept = 0, color = 'darkgrey') +
+  geom_hline(yintercept = 0, color = 'darkgrey') +
+  #geom_abline(intercept = 0, slope = 1) +
+  geom_smooth(method = "lm", se = FALSE, color = '#45454d') +
+  guides(colour = FALSE) +
+  facet_wrap(~cohort)
+ 
+ggplot(cd1Wide_grWeight |> filter(speciesGG == "Brook trout", cohort %in% 2000:2012), aes(`1_1`, `2_1`, color = factor(cohort))) +
+  geom_point() +
+  geom_vline(xintercept = 0, color = 'darkgrey') +
+  geom_hline(yintercept = 0, color = 'darkgrey') +
+  geom_abline(intercept = 0, slope = 1) +
+  geom_smooth(method = "lm", se = FALSE, color = '#45454d') +
+  guides(colour = FALSE) +
+  facet_wrap(~cohort)
+ 
+```
 
 
 ### Growth rate in length vs growth rate in mass
@@ -803,6 +880,9 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(nIndBySpp, pr
   ggtitle("Tributaries") +
   facet_grid(seasonGG~speciesGG)
 ```
+
+
+
 
 ## F/T cycle graphs
 
