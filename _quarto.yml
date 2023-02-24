@@ -37,6 +37,7 @@ book:
         - modelFlow.qmd
         - modelConditionFactor.qmd
         - modelGrowthInMass.qmd
+        - modelsMachineLearning_temporary.qmd
     - part: "Capture-recapture models"
       chapters: 
         - modelsCMR_ft_cohort_Flow_OB.qmd

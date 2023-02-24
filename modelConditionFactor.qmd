@@ -1,0 +1,142 @@
+# Condition factor
+
+Explore relative condition factor which is the ratio between mass and length, where length is raised to the power of the exponent of the log10(mass):log10(length) relationship. Need to check whether the mass:length relationship varies among species and, if so, use species-specific exponents.
+
+```{r}
+#| label: dataModelCFptions
+#| include: false
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
+```{r}
+#| label: librariesModelsCF
+#| echo: false
+library(getWBData)
+library(lubridate)
+library(kableExtra)
+library(GGally)
+library(lme4)
+library(targets)
+library(relaimpo)
+library(caret)
+library(pscl)
+library(tidyverse)
+
+`%notin%` <- Negate(`%in%`)
+```
+
+## Get data
+
+### Get electrofishing data
+
+```{r}
+#| label: readInAllDataCF
+cd <- tar_read(cdWB_electro_target) # raw data
+cd1 <- tar_read(cd1_target)
+
+relCF_byYear <- tar_read(relCF_byYear_target)
+relCF_byYearWide <- tar_read(relCF_byYearWide_target)
+```
+
+### Plot raw lengths/mass
+
+```{r}
+#| label: lwAll
+
+ggplot(cd1, aes(observedLength, observedWeight, color = speciesGG)) +
+  geom_point(alpha = 0.1) +
+  guides(color = guide_legend(override.aes = list(alpha = 1))) +
+  scale_x_log10("Length (mm)") +
+  scale_y_log10("Mass (g)") +
+  scale_color_discrete() +
+  facet_wrap(~speciesGG) 
+  
+
+ggplot(cd1, aes(observedLength, observedWeight, color = speciesGG)) +
+  geom_point(alpha = 0.05) +
+  geom_smooth(method = "lm") +
+  scale_x_log10("Length (mm)") +
+  scale_y_log10("Mass (g)") +
+  scale_color_discrete()
+```
+
+### Length/mass regression
+
+Does species matter? **Yes** Differences appear very small on the graphs, but there are significant differences in slope between brook trout and the other two species (brown trout and Atlantic salmon).\
+Use slopes for each species in relative condition factor calculation. Model code below is repeated in `getDataElectro_targets.R` in `addCF()` to add `cf` and `relCF` to `cdWB_electro_target`
+
+```{r}
+mod1 <- lm(log10(observedWeight) ~ log10(observedLength) * factor(species), data = cd1)
+mod2 <- lm(log10(observedWeight) ~ log10(observedLength) + factor(species), data = cd1)
+mod3 <- lm(log10(observedWeight) ~ log10(observedLength), data = cd1)
+
+AIC(mod1,mod2,mod3) |> arrange(AIC)
+summary(mod1)
+
+(CF_coefs <- tibble(
+  species = c("ats", "bkt", "bnt"),
+  intercept = c(
+    coef(mod1)[["(Intercept)"]],
+    coef(mod1)[["(Intercept)"]] + coef(mod1)[["factor(species)bkt"]],
+    coef(mod1)[["(Intercept)"]] + coef(mod1)[["factor(species)bnt"]]
+  ),
+  slope = c(
+    coef(mod1)[["log10(observedLength)"]],
+    coef(mod1)[["log10(observedLength)"]] + coef(mod1)[["log10(observedLength):factor(species)bkt"]],
+    coef(mod1)[["log10(observedLength)"]] + coef(mod1)[["log10(observedLength):factor(species)bnt"]]
+  )
+))
+```
+
+### Relative condition factor by species
+
+```{r}
+#| label: relCF
+ggplot(cd1, aes(relCF, color = speciesGG)) +
+  geom_freqpoly(bins = 50) +
+  labs(x = "Relative condition factor", y = "Frequency") +
+  scale_color_discrete() +
+  facet_wrap(~seasonGG)
+```
+
+### Relative condition factor by species across years
+
+```{r}
+#| label: relCF_years
+ggplot(relCF_byYear, aes(year, mRCF, color = speciesGG)) +
+  geom_point() +
+  geom_line() +
+  scale_color_discrete() +
+  labs(x = "Year", y = "Relative condition factor") +
+  facet_grid(riverGG~seasonGG)
+```
+
+### Relative condition factor species comparison
+Do relative condition factors covary between species?
+```{r}
+#| label: relCF_yearsWide
+
+ggplot(relCF_byYearWide |> filter(riverGG != "Isolated Small"), aes(`Brook trout`, `Brown trout`)) +
+  geom_point(aes(color = factor(year))) +
+  geom_smooth(method = "lm", se = FALSE, color = 'darkgrey') +
+  scale_color_discrete() +
+  labs(x = "Brook trout relative condition factor", y = "Brown trout relative condition factor") +
+  facet_grid(riverGG~seasonGG)
+
+ggplot(relCF_byYearWide |> filter(riverGG == "West Brook"), aes(`Brook trout`, `Atlantic salmon`)) +
+  geom_point(aes(color = factor(year))) +
+  geom_smooth(method = "lm", se = FALSE, color = 'darkgrey') +
+  scale_color_discrete() +
+  labs(x = "Brook trout relative condition factor", y = "Atlantic salmon relative condition factor") +
+  facet_wrap(~seasonGG)
+
+ggplot(relCF_byYearWide |> filter(riverGG == "West Brook"), aes(`Brown trout`, `Atlantic salmon`)) +
+  geom_point(aes(color = factor(year))) +
+  geom_smooth(method = "lm", se = FALSE, color = 'darkgrey') +
+  scale_color_discrete() +
+  labs(x = "Brown trout relative condition factor", y = "Atlantic salmon relative condition factor") +
+  facet_wrap(~seasonGG)
+```
+
+### Seasonal comparison
+TO ADD

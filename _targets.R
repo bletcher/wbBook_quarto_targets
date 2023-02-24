@@ -48,7 +48,8 @@ list(
   modelYOY_target,
   modelFlow_target,
   modelConditionFactor_target,
-  modelGrowthInMass_target
+  modelGrowthInMass_target,
+  modelXGBoost_target
 
   # turn off for now
   # modelCMR_tt_ft_OB_flow_target,
