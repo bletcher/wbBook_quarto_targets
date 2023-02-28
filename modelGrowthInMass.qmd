@@ -1971,25 +1971,30 @@ plot_features(explanation_W)
 ```{r}
 #| label: predict_W
 
-#Using raw data inputs
-pred_W <- predict(finalModels_W$xgb[[modelToUse]], features_test_W)
-#residuals_W <- response_test_W - pred_W
-#RMSE_W = sqrt(mean(residuals_W^2))
-caret::RMSE(pred_W, response_test_W)
-caret::R2(pred_W, response_test_W)
+
+createPredictions <- function(d = finalModels_W, f = features_test_W, r = response_test_W, modelToUse = modelToUse) {
+  
+  pred_W <- predict(d$xgb[[modelToUse]], f)
+  rmse <- caret::RMSE(pred_W, r)
+  r2 <- caret::R2(pred_W, r)
+  
+  obsPred_W <- bind_cols(obs = r, pred = pred_W, f)
+}
+
 ```
 
 ```{r}
 #| label: obsPred_W
 #| 
-obsPred_W <- bind_cols(obs = response_test_W, pred = pred_W, features_test_W)
 
-ggplot(obsPred_W, aes(obs, pred)) +
+predsOP_W <- createPredictions(finalModels_W, features_test_W, response_test_W, modelToUse) 
+
+ggplot(predsOP_W, aes(obs, pred)) +
   geom_point(alpha = 0.2) +
   labs(x = "Observed growth rate", y = "Predicted growth rate") +
   geom_smooth(method = "lm", se = FALSE)
 
-ggplot(obsPred_W, aes(obs, pred)) +
+ggplot(predsOP_W, aes(obs, pred)) +
   geom_point(alpha = 0.2) +
   labs(x = "Observed growth rate", y = "Predicted growth rate") +
   geom_smooth(method = "lm", se = FALSE) +
@@ -1999,36 +2004,101 @@ ggplot(obsPred_W, aes(obs, pred)) +
 ```{r}
 #| label: UsingGridInputs
 #| 
+renameLev <- function(d) {
+  d |>  
+    str_split("_lev_x_") |> 
+    map(~.x[2]) |> 
+    unlist()
+}
+
+createPredictionsGrid <- function(d = finalModels_W, pg = gridPred, modelToUse = modelToUse){
+  #, f = features_test_W, r = response_test_W, nSeq = 5, modelToUse = modelToUse) {
+  
+  predGrid <- predict(d$xgb[[modelToUse]], pg)
+  gridPredOut <- bind_cols(pg, pred = predGrid) |> 
+    rename_with(
+      renameLev,  
+      contains("_lev_x_")
+    ) |> 
+    mutate(
+      across(c('Isolated_Small':'Winter'), ~.x == 1)
+    )
+
+  return(gridPredOut)
+}
+
+
+
 nSeq <- 5
-predInd_W <- expand.grid(
-  observedWeight = seq(min(features_test_W[,"observedWeight"]), max(features_test_W[,"observedWeight"]), length.out = nSeq),
-  cohort = seq(min(features_test_W[,"cohort"]), max(features_test_W[,"cohort"]), length.out = nSeq),
-  age = seq(min(features_test_W[,"age"]), max(features_test_W[,"age"]), length.out = nSeq),
-  meanTemperature = seq(min(features_test_W[,"meanTemperature"]), max(features_test_W[,"meanTemperature"]), length.out = nSeq * 3),
-  meanFlowByRiver = seq(min(features_test_W[,"meanFlowByRiver"]), max(features_test_W[,"meanFlowByRiver"]), length.out = nSeq * 3),
-  riverGG_lev_x_Isolated_Small = 0,
-  riverGG_lev_x_Open_Large = 0,
-  riverGG_lev_x_Open_Small = 0,
-  riverGG_lev_x_West_Brook = c(0, 1),
-  seasonGG_lev_x_Autumn = 0,
-  seasonGG_lev_x_Spring = c(0, 1),
-  seasonGG_lev_x_Summer = 0,
-  seasonGG_lev_x_Winter = 0
-) |> 
+xGrid <- expand_grid(
+    observedWeight = 40, #seq(min(f[,"observedWeight"]), max(f[,"observedWeight"]), length.out = nSeq),
+    cohort = 2010, #seq(min(f[,"cohort"]), max(f[,"cohort"]), length.out = nSeq),
+    age = 1, #seq(min(f[,"age"]), max(f[,"age"]), length.out = nSeq),
+    meanTemperature = seq(min(features_test_W[,"meanTemperature"]), max(features_test_W[,"meanTemperature"]), length.out = nSeq * 3),
+    meanFlowByRiver = seq(min(features_test_W[,"meanFlowByRiver"]), max(features_test_W[,"meanFlowByRiver"]), length.out = nSeq * 3),
+    riverGG_lev_x_Isolated_Small = c(0, 1),
+    riverGG_lev_x_Open_Large = c(0, 1),
+    riverGG_lev_x_Open_Small = c(0, 1),
+    riverGG_lev_x_West_Brook = c(0, 1),
+    seasonGG_lev_x_Autumn = c(0, 1),
+    seasonGG_lev_x_Spring = c(0, 1),
+    seasonGG_lev_x_Summer = c(0, 1),
+    seasonGG_lev_x_Winter = c(0, 1)
+  ) |> 
   as.matrix()
 
-pred_W_grid <- predict(finalModels_W$xgb[[modelToUse]], predInd_W)
 
-gridPred_W <- bind_cols(predInd_W, pred = pred_W_grid)
+preds_W <- createPredictionsGrid(
+  finalModels_W, 
+  xGrid,
+  modelToUse
+) 
 
-ggplot(gridPred_W |> 
-         filter(), aes(meanFlowByRiver, pred, color = factor(observedWeight))) +
+
+ggplot(preds_W |> 
+         filter(
+           #Isolated_Small, Open_Large, Open_Small, West_Brook, 
+           #Autumn, Spring, Summer, Winter
+           ), 
+       aes(meanFlowByRiver, pred, color = meanTemperature, group = meanTemperature)) +
   geom_point(alpha = 0.2) +
   labs(x = "Stream flow", y = "Predicted growth rate") +
   geom_smooth(se = FALSE) +
-  facet_grid(riverGG_lev_x_West_Brook~seasonGG_lev_x_Spring)
+  facet_grid(Isolated_Small+West_Brook ~ Spring+Summer)
 
+ggplot(preds_W |> 
+         filter(
+           !Isolated_Small, 
+           !Open_Large, 
+           !Open_Small, 
+           #West_Brook,
+           !Autumn, 
+           !Spring, 
+           !Summer
+           #Winter
+           ), 
+       aes(meanFlowByRiver, pred, color = meanTemperature, group = meanTemperature)) +
+  geom_point(alpha = 0.2) +
+  labs(x = "Stream flow", y = "Predicted growth rate") +
+  geom_smooth(se = FALSE) +
+  facet_grid(West_Brook ~ Winter)
 
+ggplot(preds_W |> 
+         filter(
+           !Isolated_Small, 
+           !Open_Large, 
+           !Open_Small, 
+           #West_Brook,
+           !Autumn, 
+           #!Spring, 
+           !Summer,
+           !Winter
+           ), 
+       aes(meanFlowByRiver, pred, color = meanTemperature, group = meanTemperature)) +
+  geom_point(alpha = 0.2) +
+  labs(x = "Stream flow", y = "Predicted growth rate") +
+  geom_smooth(se = FALSE) +
+  facet_grid(West_Brook ~ Spring)
 
 
 ```
