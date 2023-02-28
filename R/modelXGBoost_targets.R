@@ -5,6 +5,7 @@ tar_option_set(packages = c("rsample", "gbm", "xgboost", "h2o", "pdp", "lime",
 modelXGBoost_target <-
   tar_plan(
     # http://uc-r.github.io/gbm_regression
+    numModelsToSave_target = 15,
     
     ####################
     # xgboost model for growth in mass ('xxxx_W')
@@ -50,34 +51,17 @@ modelXGBoost_target <-
     
     topModel_W_target = hyper_grid_W_target %>%
         dplyr::arrange(min_RMSE) %>%
-        head(15),
+        head(15), #(numModelsToSave_target), UPDATE this when ready to rerun hyperGrid
     
-    
-    # Fit the top model
-    # parameter list
-    params_W_target = list(
-      eta = topModel_W_target$eta[1], #0.01,
-      max_depth = topModel_W_target$max_depth[1], #7,
-      min_child_weight = topModel_W_target$min_child_weight[1], #5,
-      subsample = topModel_W_target$subsample[1], #0.65,
-      colsample_bytree = topModel_W_target$colsample_bytree[1] #0.8
-    ),
-    
-    # train final model
-    xgb.fit.final_W_target = xgboost(
-      params = params_W_target,
-      data = features_train_W_target,
-      label = response_train_W_target,
-      nrounds = topModel_W_target$optimal_trees[1],
-      objective = "reg:squarederror",
-      verbose = 0
-    ),
-    
-    # create importance matrix
-    importance_matrix_W_target = xgb.importance(model = xgb.fit.final_W_target)
-    
-    
+    finalModels_W_target = runFinalModels(
+      topModel_W_target, 
+      numModelsToSave_target,
+      features_train_W_target,
+      response_train_W_target
+    )
+
   )
+
 
 # functions
 runHyperGrid <- function(d, features, response) {
@@ -109,4 +93,41 @@ runHyperGrid <- function(d, features, response) {
     d$min_RMSE[i] <- min(xgb.tune_W$evaluation_log$test_rmse_mean)
   }
   return(d)
+}
+
+runFinalModels <- function(t = topModel_W_target, 
+                           n = numModelsToSave_target, 
+                           f = features_train_W_target,
+                           r = response_train_W_target) {
+  
+  params <- xgb <- importanceMatrix <- list()
+  # Fit the top model
+  # parameter list
+  for(i in 1:n) {
+    print(i)
+    
+    params[[i]] <- list(
+      eta = t$eta[i], #0.01,
+      max_depth = t$max_depth[i], #7,
+      min_child_weight = t$min_child_weight[i], #5,
+      subsample = t$subsample[i], #0.65,
+      colsample_bytree = t$colsample_bytree[i] #0.8
+    )
+    
+    # train final model
+    xgb[[i]] <- xgboost(
+      params = params[[i]],
+      data = f,
+      label = r,
+      nrounds = t$optimal_trees[i],
+      objective = "reg:squarederror",
+      verbose = 0
+    )
+    
+    # create importance matrix
+    importanceMatrix[[i]] <- xgb.importance(model = xgb[[i]])
+  }
+  return(list(params = params, xgb = xgb, importanceMatrix = importanceMatrix
+              ))
+  
 }
