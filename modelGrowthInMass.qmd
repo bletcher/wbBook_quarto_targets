@@ -1910,31 +1910,30 @@ modelToUse <- 2
 ```{r}
 #| label: pdpContinuous_W
 
-create_xgb_plots <- function(d = finalModels_W, modelToUse = modelToUse) {
+create_xgb_plots <- function(d = finalModels_W, f = features_train_W, modelToUse = modelToUse) {
   
-  imp <- xgb.ggplot.importance(d$importanceMatrix[[modelToUse]], top_n = 10, measure = "Gain") + ggtitle(paste0("Model #", modelToUse))
+  imp <- xgb.ggplot.importance(d$importanceMatrix[[modelToUse]], top_n = 10, measure = "Gain") + 
+    ggtitle(paste0("Model #", modelToUse))
 
   pW_W <- d$xgb[[modelToUse]] %>%
-    pdp::partial(pred.var = "observedWeight", n.trees = 1082, grid.resolution = 100, train = features_train_W) %>%
-    autoplot(rug = TRUE, train = features_train_W) 
-    #scale_y_discrete() +
-    #ggtitle("PDP")
+    pdp::partial(pred.var = "observedWeight", n.trees = 1082, grid.resolution = 100, train = f) %>%
+    autoplot(rug = TRUE, train = f) 
   
   pFlow_W <- d$xgb[[modelToUse]] %>%
-    pdp::partial(pred.var = "meanFlowByRiver", n.trees = 1082, grid.resolution = 100, train = features_train_W) %>%
-    autoplot(rug = TRUE, train = features_train_W)
+    pdp::partial(pred.var = "meanFlowByRiver", n.trees = 1082, grid.resolution = 100, train = f) %>%
+    autoplot(rug = TRUE, train = f)
   
   pTemp_W <- d$xgb[[modelToUse]] %>%
-    pdp::partial(pred.var = "meanTemperature", n.trees = 1082, grid.resolution = 100, train = features_train_W) %>%
-    autoplot(rug = TRUE, train = features_train_W)
+    pdp::partial(pred.var = "meanTemperature", n.trees = 1082, grid.resolution = 100, train = f) %>%
+    autoplot(rug = TRUE, train = f)
   
   pAge_W <- d$xgb[[modelToUse]] %>%
-    pdp::partial(pred.var = "age", n.trees = 1082, grid.resolution = 100, train = features_train_W) %>%
-    autoplot(rug = TRUE, train = features_train_W)
+    pdp::partial(pred.var = "age", n.trees = 1082, grid.resolution = 100, train = f) %>%
+    autoplot(rug = TRUE, train = f)
   
   pCohort_W <- d$xgb[[modelToUse]] %>%
-    pdp::partial(pred.var = "cohort", n.trees = 1082, grid.resolution = 100, train = features_train_W) %>%
-    autoplot(rug = TRUE, train = features_train_W)
+    pdp::partial(pred.var = "cohort", n.trees = 1082, grid.resolution = 100, train = f) %>%
+    autoplot(rug = TRUE, train = f)
 
 
   partials <- gridExtra::grid.arrange(pW_W, pFlow_W, pTemp_W, pAge_W, pCohort_W, nrow = 3, top=textGrob(paste0("Model #", modelToUse)))
@@ -1942,11 +1941,12 @@ create_xgb_plots <- function(d = finalModels_W, modelToUse = modelToUse) {
  return(list(imp, partials)) 
 }
 
-create_xgb_plots(finalModels_W, modelToUse = 1)
-create_xgb_plots(finalModels_W, modelToUse = 2)
-create_xgb_plots(finalModels_W, modelToUse = 3)
-create_xgb_plots(finalModels_W, modelToUse = 4)
-create_xgb_plots(finalModels_W, modelToUse = 5)
+create_xgb_plots(finalModels_W, features_train_W, modelToUse = 1)
+create_xgb_plots(finalModels_W, features_train_W, modelToUse = 2)
+create_xgb_plots(finalModels_W, features_train_W, modelToUse = 3)
+create_xgb_plots(finalModels_W, features_train_W, modelToUse = 4)
+create_xgb_plots(finalModels_W, features_train_W, modelToUse = 5)
+create_xgb_plots(finalModels_W, features_train_W, modelToUse = 15)
 ```
 
 #### Lime
