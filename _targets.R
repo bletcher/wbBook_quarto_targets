@@ -11,7 +11,6 @@ library(getWBData)
 # Set target options:
 tar_option_set(
   packages = c("tibble",     
-               "tidyverse",
                "tidyr",
                "lubridate",
                "knitr",
@@ -19,7 +18,10 @@ tar_option_set(
                "tarchetypes",
                "getWBData",
                "getPrepareWBData",
-               "daymetr"
+               "daymetr",
+               "nimble",
+               "nimbleEcology",
+               "tidyverse"
                ), # packages that your targets need to run
   format = "rds" # default storage format
   # Set other options as needed.
@@ -49,7 +51,7 @@ list(
   modelFlow_target,
   modelConditionFactor_target,
   modelGrowthInMass_target,
-  modelXGBoost_target
+  modelXGBoost_target,
 
   # turn off for now
   # modelCMR_tt_ft_OB_flow_target,
@@ -63,7 +65,7 @@ list(
     
     # modelCMR_tt_OB_flow_target,
     # modelCMR_tt_OB_flowByRiver_target,
-    # modelCMR_ttt_WB_target, 
+  modelCMR_ttt_ft_cohort_WB_flow_target 
   
   #tar_quarto(book) # not exactly sure what this does, except create correct tar_visualize() result
 )

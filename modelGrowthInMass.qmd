@@ -17,16 +17,15 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 #| echo: false
 
 ######################################################
-# https://github.com/ModelOriented/forester
-#library("devtools")
-#devtools::install_github("ModelOriented/forester")
-library(forester)
 
-#devtools::install_url('https://github.com/catboost/catboost/releases/download/v1.1.1/catboost-R-Darwin-1.1.1.tgz', INSTALL_opts = c("--no-multiarch", "--no-test-load", "--no-staged-install"))
-#library(catboost)
-
-#devtools::install_github('ricardo-bion/ggradar', dependencies = TRUE)
-library(ggradar)
+# for gams
+library(gratia)
+library(arm)
+library(relaimpo)
+library(GGally)
+# library(linkedModels)
+library(arrayhelpers)
+library(mgcv)
 #####################################################
 
 library(getWBData)
@@ -90,7 +89,7 @@ flow/temp circles with gr on top
 ```{r}
 #| label: readInAllData
 cd <- tar_read(cdWB_electro_target) # raw data
-cd1 <- tar_read(cd1_target)
+cd1 <- tar_read(cd1_target) # from modelGrowthInMass_target
 propNegSRS <- tar_read(propNegSRS_target)
 propNegSRsN <- tar_read(propNegSRsN_target)
 
@@ -2091,6 +2090,198 @@ predNeg |>
   count(Isolated_Small, Open_Large, Open_Small, West_Brook) |> 
   arrange(desc(n))
 
+```
+
+## GAM for growth
+```{r}
+#| label: gamGrowthRaw
+
+#riverGG, seasonGG, observedWeight, cohort, age, meanTemperature, meanFlowByRiver, negGrowth
+
+# put this in target
+dGAM = cd1 |> 
+  filter(!is.na(grWeight)) |> 
+  mutate(age = year - cohort,
+         ageF = factor(age),
+         cohortF = factor(cohort)) |> 
+  dplyr::select(riverGG, seasonGG, speciesGG, observedWeight, cohort, age, cohortF, ageF, 
+                meanTemperatureScaledBySeason, meanFlowByRiverScaledBySeason, 
+                meanTemperatureScaledBySeasonRiver, meanFlowByRiverScaledBySeasonRiver,grWeight) |> 
+  rename(tempS = meanTemperatureScaledBySeason, flowS = meanFlowByRiverScaledBySeason,
+         tempSR = meanTemperatureScaledBySeasonRiver, flowSR = meanFlowByRiverScaledBySeasonRiver) |> 
+  filter(tempSR > -4)
+
+kValue <- 4 
+
+ggplot(dGAM |> filter(speciesGG != "Atlantic salmon"), aes(flowS, grWeight, group = speciesGG, color = speciesGG)) +
+  geom_point(alpha = 0.2) +
+  geom_smooth(method = "gam", 
+              formula = y ~ s(x, bs = "cs", fx = TRUE, k = kValue), 
+              se = FALSE) +
+  facet_grid(seasonGG~riverGG)
+
+ggplot(dGAM |> filter(speciesGG != "Atlantic salmon"), aes(flowSR, grWeight, group = speciesGG, color = speciesGG)) +
+  geom_point(alpha = 0.1) +
+  geom_hline(yintercept = 0) +
+  geom_smooth(method = "gam", 
+              formula = y ~ s(x, bs = "cs", fx = TRUE, k = kValue), 
+              se = FALSE) +
+  scale_color_discrete() +
+  facet_grid(seasonGG~riverGG, scales = "free")
+
+
+ggplot(dGAM |> filter(speciesGG != "Atlantic salmon"), aes(tempSR, grWeight, group = speciesGG, color = speciesGG)) +
+  geom_point(alpha = 0.1) +
+  geom_hline(yintercept = 0) +
+  geom_smooth(method = "gam", 
+              formula = y ~ s(x, bs = "cs", fx = TRUE, k = kValue), 
+              se = FALSE) +
+  scale_color_discrete() +
+  facet_grid(seasonGG~riverGG, scales = "free")
+```
+
+### Linear models for growth  
+Initial test of model structure for GAMs
+```{r}
+#| label: linearModelGrowth
+
+runLinearModels <- function(d, speciesIn) {
+  models =
+    tibble(model = 
+      c(
+          'grWeight ~ (riverGG * seasonGG * tempSR * flowSR * observedWeight + cohortF * ageF)',
+          'grWeight ~ (riverGG * seasonGG * tempSR * flowSR * observedWeight + cohortF)',
+          'grWeight ~ (riverGG * seasonGG * tempSR * flowSR + cohortF * ageF)',
+          'grWeight ~ (riverGG * seasonGG * tempSR * flowSR + cohortF)',
+          'grWeight ~ (riverGG * seasonGG + tempSR * flowSR + cohortF * ageF)',
+          'grWeight ~ (riverGG * seasonGG + tempSR + flowSR + cohortF * ageF)'
+       )
+    ) |>
+    mutate(
+      fit = map(model, ~lm(.x, data = d |> filter(speciesGG == speciesIn))),
+      glanced = map(fit, broom::glance),
+      tidied = map(fit, broom::tidy)
+    )
+  return(models)
+}
+
+
+```
+#### Brook trout  
+Most complex model has lowest AIC
+```{r}
+#| label: linBKT
+#| 
+speciesIn <- "Brook trout"
+modLinearBKT <- runLinearModels(dGAM, speciesIn)
+
+modLinearBKT |> 
+    unnest(glanced) |>
+    arrange(AIC) |>
+    dplyr::select(model, AIC, df.residual, fit, tidied)
+
+
+
+
+```
+#### Brown trout  
+Most complex model has lowest AIC
+```{r}
+#| label: linBNT
+#| 
+speciesIn <- "Brown trout"
+modLinearBNT <- runLinearModels(dGAM, speciesIn)
+
+modLinearBNT |> 
+    unnest(glanced) |>
+    arrange(AIC) |>
+    dplyr::select(model, AIC, df.residual, fit, tidied)
+
+
+
+
+```
+These linear models suggest that we need significant complexity in GAM models  
+
+### GAM models for growth  
+This modeling approach map() (which I would like to use), throws an error using bam(). Use gamX model approach below.
+```{r}
+#| label: gamModelsGrowth
+#| 
+runGAMModels <- function(d, speciesIn, kIn) {
+  models =
+    tibble(model = 
+      c(
+            'grWeight ~ riverGG * seasonGG * observedWeight + cohortF * ageF +             
+               s(flowSR, bs = "cr", k = kIn, by = riverGG) +
+               s(flowSR, bs = "cr", k = kIn, by = seasonGG) +
+               s(tempSR, bs = "cr", k = kIn, by = riverGG) +
+               s(tempSR, bs = "cr", k = kIn, by = seasonGG)',
+            
+            'grWeight ~ riverGG * seasonGG * observedWeight * tempSR * flowSR + cohortF * ageF +             
+               s(flowSR, bs = "cr", k = kIn, by = riverGG) +
+               s(flowSR, bs = "cr", k = kIn, by = seasonGG) +
+               s(tempSR, bs = "cr", k = kIn, by = riverGG) +
+               s(tempSR, bs = "cr", k = kIn, by = seasonGG)'
+       )
+    ) |>
+    mutate(
+      fit = map(model, ~ bam(.x, method = "REML", data = d |> filter(speciesGG == speciesIn, cohort %in% 2000:2013)))
+  #    glanced = map(fit, broom::glance),
+  #    tidied = map(fit, broom::tidy)
+    )
+  return(models)
+}
+
+kIn = kValue
+# 
+# speciesIn <- "Brook trout"
+# modLinearBKT <- runGAMModels(dGAM, speciesIn, kValue)
+# 
+# modLinearBKT |> 
+#     unnest(glanced) |>
+#     arrange(AIC) |>
+#     dplyr::select(model, AIC, df.residual, fit, tidied)
+
+
+```
+#### Brook trout
+```{r}
+#| label: gamModsBKT
+
+gam0 <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempSR + flowSR)^2 + cohortF * ageF +             
+               s(flowSR, bs = "cr", k = kIn, by = riverGG) +
+               s(flowSR, bs = "cr", k = kIn, by = seasonGG) +
+               s(tempSR, bs = "cr", k = kIn, by = riverGG) +
+               s(tempSR, bs = "cr", k = kIn, by = seasonGG),
+             data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
+
+gam1 <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempSR + flowSR)^2 + cohortF +             
+               s(flowSR, bs = "cr", k = kIn, by = riverGG) +
+               s(flowSR, bs = "cr", k = kIn, by = seasonGG) +
+               s(tempSR, bs = "cr", k = kIn, by = riverGG) +
+               s(tempSR, bs = "cr", k = kIn, by = seasonGG),
+             data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
+
+# age matters, what about taking out length?
+gam2 <- bam(grWeight ~ (riverGG + seasonGG  + tempSR + flowSR)^2 + cohortF * ageF +             
+               s(flowSR, bs = "cr", k = kIn, by = riverGG) +
+               s(flowSR, bs = "cr", k = kIn, by = seasonGG) +
+               s(tempSR, bs = "cr", k = kIn, by = riverGG) +
+               s(tempSR, bs = "cr", k = kIn, by = seasonGG),
+             data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
+
+#nope, need to keep length
+#How about without the interactions?
+gam3 <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempSR + flowSR) + cohortF * ageF +             
+               s(flowSR, bs = "cr", k = kIn, by = riverGG) +
+               s(flowSR, bs = "cr", k = kIn, by = seasonGG) +
+               s(tempSR, bs = "cr", k = kIn, by = riverGG) +
+               s(tempSR, bs = "cr", k = kIn, by = seasonGG),
+             data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
+#nope, need the interactions
+
+AIC(gam0, gam1, gam2, gam3) |> arrange(AIC)
 ```
 
 

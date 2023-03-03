@@ -1,5 +1,10 @@
 # Flow effects on survival (phi) models - 4 rivers
 
+
+This is the earlier version of the model exploration file before Daniel's March 2023 changes to the model to make it smaller and runable on laptop.
+New file is **modelsCMR_ft_cohort_Flow_4Rivers.qmd** which is a 'fork' of **modelsCMR_ft_cohort_Flow_OB.qmd**
+
+
 The goal of this modelling exercise is to evaluate the effect of new tributary-specific stream flow estimates on survival of brook trout and brown trout. We will compare survival across the WB and tributaries with flow input data as 1) single flow estimate for all locations (historical approach) and 2) hindcasted flows for each tributary based on new tributary-specific flows which are available since 2000.
 
 The goal is to find the best structure for the survival model, then compare survival estimates with tributary-specific flow to estimates with common flow across locations.

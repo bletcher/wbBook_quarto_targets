@@ -80,7 +80,9 @@ getElectroData_target <-
       mutate(drainage = drainage) %>%
       addSizeIndGrowthWeight() %>%
       addCF() %>%
-      addCountPerIndividual(),
+      addCountPerIndividual() |> 
+      addseasonFT_zScore() |> 
+      addseasonRiverFT_zScore(),
     
     
     medianWinterSampleDate_target = cdWB_electro_target |> 
@@ -468,3 +470,37 @@ addCountPerIndividual <- function(dIn){
   
   left_join(dIn, d)
 }
+
+addseasonFT_zScore <- function(d){
+  seasonTF <- d |> 
+    group_by(season) |> 
+    summarize(meanT = mean(meanTemperature, na.rm = TRUE),
+              sdT = sd(meanTemperature, na.rm = TRUE),
+              meanF = mean(meanFlowByRiver, na.rm = TRUE),
+              sdF = sd(meanFlowByRiver, na.rm = TRUE)) 
+  
+  d <- left_join(d, seasonTF) |> 
+    mutate(meanTemperatureScaledBySeason = (meanTemperature - meanT)/sdT, 
+           meanFlowByRiverScaledBySeason = (meanFlowByRiver - meanF)/sdF) |> 
+    select(-c(meanT, sdT, meanF, sdF))
+  
+  return(d)
+}
+
+addseasonRiverFT_zScore <- function(d){
+  seasonRiverTF <- d |> 
+    group_by(season, river) |> 
+    summarize(meanT = mean(meanTemperature, na.rm = TRUE),
+              sdT = sd(meanTemperature, na.rm = TRUE),
+              meanF = mean(meanFlowByRiver, na.rm = TRUE),
+              sdF = sd(meanFlowByRiver, na.rm = TRUE)) 
+  
+  d <- left_join(d, seasonRiverTF) |> 
+    mutate(meanTemperatureScaledBySeasonRiver = (meanTemperature - meanT)/sdT, 
+           meanFlowByRiverScaledBySeasonRiver = (meanFlowByRiver - meanF)/sdF) |> 
+    select(-c(meanT, sdT, meanF, sdF))
+  
+  return(d)
+}
+
+
