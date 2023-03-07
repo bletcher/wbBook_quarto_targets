@@ -10,6 +10,14 @@ library(knitr)
 #convert_chunk_header("dataAll.qmd", output = identity)
 
 tar_make()
+
+# for parallel runs
+# may need to change 'dummy  ~ dnorm(0,1)' in the model code to force targets to restart.
+#or tar_invalidate(c(  'modelCMR_ttt_ft_cohort_WB_flow_target',
+#                   'modelCMR_ttt_ft_cohort_WB_flowByRiver_target'))
+tar_make_future(workers = 2)
+
+
 quarto::quarto_render(output_format = "html")
 
 
@@ -22,7 +30,7 @@ quarto::quarto_render("modelGrowthInMass.qmd",
                       output_format = "html")
 
 
-+quarto::quarto_render("modelsMachineLearning_temporary.qmd", 
+quarto::quarto_render("modelsMachineLearning_temporary.qmd", 
                       #cache_refresh = TRUE, # default is FALSE
                       output_format = "html")
 

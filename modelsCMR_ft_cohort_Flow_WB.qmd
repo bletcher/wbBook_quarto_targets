@@ -49,14 +49,6 @@ library(targets)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
-Source Daniel Turek's dDHMMo2 function, specifically made for this model to reduce model size and allow running on a laptop
-```{r}
-#| label: sourceNimbleFunction
-#| include: false
-
-source('./r/dDHMMo2.R')
-```
-
 ### Model with original flow data
 Cohort-dependent estimates of phi and p with flow and temperature hierarchical effects  
 

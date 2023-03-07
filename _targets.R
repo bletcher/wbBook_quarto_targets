@@ -7,6 +7,11 @@
 library(targets)
 library(tarchetypes)
 library(getWBData)
+library(future)
+library(future.callr)
+
+# for parallel processing, https://books.ropensci.org/targets/hpc.html#future-locally
+plan(callr)
 
 # Set target options:
 tar_option_set(
@@ -28,7 +33,7 @@ tar_option_set(
 )
 
 # tar_make_clustermq() configuration (okay to leave alone):
-options(clustermq.scheduler = "multiprocess")
+#options(clustermq.scheduler = "multiprocess")
 
 # tar_make_future() configuration (okay to leave alone):
 # Install packages {{future}}, {{future.callr}}, and {{future.batchtools}} to allow use_targets() to configure tar_make_future() options.
@@ -43,6 +48,8 @@ list(
   getEnvData_target,
   getElectroData_target,
   dataCMR_WB_2002_2014_target,
+  dataCMR_WBbkt_2002_2014_target,
+  dataCMR_WBbnt_2002_2014_target,
   dataCMR_OB_2002_2014_target,
   dataWanding_target,
   dataAntenna_target,
@@ -65,7 +72,9 @@ list(
     
     # modelCMR_tt_OB_flow_target,
     # modelCMR_tt_OB_flowByRiver_target,
-  modelCMR_ttt_ft_cohort_WB_flow_target 
+  run_ttt_models_target
+  #modelCMR_ttt_ft_cohort_WB_flow_target,
+  #modelCMR_ttt_ft_cohort_WB_flowByRiver_target
   
   #tar_quarto(book) # not exactly sure what this does, except create correct tar_visualize() result
 )

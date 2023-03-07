@@ -1,0 +1,37 @@
+```{r}
+#| label: dataModelMLOptions
+#| include: false
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
+```{r}
+#| label: librariesModelsML
+#| echo: false
+
+library(lubridate)
+library(kableExtra)
+library(GGally)
+library(lme4)
+library(targets)
+library(relaimpo)
+library(caret)
+library(pscl)
+
+# for xgboost models
+library(rsample)      # data splitting 
+library(gbm)          # basic implementation
+library(xgboost)      # a faster implementation of gbm
+library(h2o)          # a java-based platform
+library(pdp)          # model visualization
+library(lime)
+library(vtreat)
+
+library(tidyverse)
+
+`%notin%` <- Negate(`%in%`)
+```
+
+
+
+
+

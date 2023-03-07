@@ -63,6 +63,33 @@ dataCMR_WB_2002_2014_target <-
 
    eh_WB_2002_2014_target = getEH_AIS(cdWB_CMR0_target, cols, ops, vals, maxAgeInSamples)#, maxIndexByCohort = 100)
   )  
+###############################################################
+## WB - BKT fish
+# read down through the cols, ops, vals variables for filter conditions
+cols_wBbkt <- list("cohort",  "species")
+ops_wBbkt <-  list("%in%",    "==")
+vals_wBbkt <- list(2002:2014, "bkt")
+######################################  
+
+dataCMR_WBbkt_2002_2014_target <-
+  tar_plan(
+    eh_WBbkt_2002_2014_target = getEH_AIS(tar_read(cdWB_CMR0_target), cols_wBbkt, ops_wBbkt, vals_wBbkt, maxAgeInSamples)#, maxIndexByCohort = 100)
+  )
+
+################################################################
+## WB - BNT fish
+# read down through the cols, ops, vals variables for filter conditions
+cols_wBbnt <- list("cohort",  "species")
+ops_wBbnt <-  list("%in%",    "==")
+vals_wBbnt <- list(2002:2014, "bnt")
+######################################  
+
+dataCMR_WBbnt_2002_2014_target <-
+  tar_plan(
+    eh_WBbnt_2002_2014_target = getEH_AIS(tar_read(cdWB_CMR0_target), cols_wBbnt, ops_wBbnt, vals_wBbnt, maxAgeInSamples)#, maxIndexByCohort = 100)
+  )
+
+
 
 ## OB fish
 
