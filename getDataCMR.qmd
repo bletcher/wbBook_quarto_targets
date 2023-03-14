@@ -27,6 +27,16 @@ str(cdWB_CMR0_WB)
 ```
 
 ```{r}
+#| label: dataCMR_WBXiaowei
+
+# for(i in 1:length(cdWB_CMR0_WB)){
+#   write.csv(cdWB_CMR0_WB[i], paste0("./data/outForXiaowei/", names(cdWB_CMR0_WB)[i], ".csv"))
+# }
+
+```
+
+
+```{r}
 #| label: tbl-cmrWBAll
 #| tbl-cap: "Count of CMR data (including 0's) by river"
 

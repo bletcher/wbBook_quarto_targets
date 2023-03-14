@@ -59,7 +59,10 @@ list(
   modelConditionFactor_target,
   modelGrowthInMass_target,
   modelXGBoost_target,
-
+  
+  # retrieves the mcmc files
+  modelCMR_ttt_WB_target 
+  
   # turn off for now
   # modelCMR_tt_ft_OB_flow_target,
   # modelCMR_tt_ft_OB_flowByRiver_target,
@@ -72,9 +75,11 @@ list(
     
     # modelCMR_tt_OB_flow_target,
     # modelCMR_tt_OB_flowByRiver_target,
-  run_ttt_models_target
+  #run_ttt_models_target
   #modelCMR_ttt_ft_cohort_WB_flow_target,
   #modelCMR_ttt_ft_cohort_WB_flowByRiver_target
+  
+  
   
   #tar_quarto(book) # not exactly sure what this does, except create correct tar_visualize() result
 )

@@ -1,6 +1,11 @@
 # Flow effects on survival (phi) models with cohort structure - 4 rivers (WB)
 
-THis is a 'fork' of **modelsCMR_ft_cohort_Flow_OB.qmd** where the models were originally worked out. following Daniel's march 2023 changes, Ben adapted the ..._OB file to this ..._4Rivers file. 
+THis is a 'fork' of **modelsCMR_ft_cohort_Flow_OB.qmd** where the models were originally worked out. following Daniel's march 2023 changes, Ben adapted the ..._OB file to this ..._WB file.  
+
+As of 3/13/23 - Following trouble getting the models to run on workbench (runs timed out) and on a laptop with targets (broken into targets `./R/hold/modelCMR_ttt_ft_cohort_WB.R` - get error following Rmodel step, run with a function `./R/hold/modelCMR_ttt_ft_cohort_WB_usingFunction.R` - did not finish [seems like targets is interrupting fitting somehow...]), now models are run using a function (`run_ttt_model()` in `./models/cmrFlowWB/modelCMR_ttt_ft_cohort_WB_functionsToSource.R`) and saved to a file in `./models/cmrFlowWB/runsOut/modx/.`  Targets will read in the files for analysis using `modelCMR_ttt_WB.R`.  
+File names are `ttt_WB_mcmc_modx.csv` and the targets are `mcmcOutModx`.  
+
+
 
 **will need to update this section of text**
 Probability of survival (phi) model structure:  
