@@ -61,7 +61,7 @@ list(
   modelXGBoost_target,
   
   # retrieves the mcmc files
-  modelCMR_ttt_WB_target 
+  modelCMR_ttt_WB_target
   
   # turn off for now
   # modelCMR_tt_ft_OB_flow_target,
