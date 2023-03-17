@@ -83,6 +83,22 @@ modelGrowthInMass_target <-
         meanGR = mean(grWeight, na.rm = TRUE),
         n = n()
       ),
+    
+    dGAM_target = cd1_target |> 
+      filter(!is.na(grWeight)) |> 
+      mutate(age = year - cohort,
+             ageF = factor(age),
+             cohortF = factor(cohort)) |> 
+      dplyr::select(riverGG, seasonGG, speciesGG, observedWeight, cohort, age, cohortF, ageF, 
+                    meanTemperatureScaledBySeason, meanFlowScaledBySeason,  meanFlowByRiverScaledBySeason,
+                    meanTemperatureScaledBySeasonRiver, meanFlowScaledBySeasonRiver, meanFlowByRiverScaledBySeasonRiver,
+                    grWeight) |> 
+      rename(tempS = meanTemperatureScaledBySeason, flowS = meanFlowScaledBySeason, 
+             flowByRiverS = meanFlowByRiverScaledBySeason,
+             tempSR = meanTemperatureScaledBySeasonRiver, flowSR = meanFlowScaledBySeasonRiver, 
+             flowByRiverSR = meanFlowByRiverScaledBySeasonRiver) |> 
+      filter(tempSR > -4),
+    
     ###############################################
     envIn_target = envDataWB_target |> 
       mutate(

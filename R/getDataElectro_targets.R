@@ -476,13 +476,18 @@ addseasonFT_zScore <- function(d){
     group_by(season) |> 
     summarize(meanT = mean(meanTemperature, na.rm = TRUE),
               sdT = sd(meanTemperature, na.rm = TRUE),
-              meanF = mean(meanFlowByRiver, na.rm = TRUE),
-              sdF = sd(meanFlowByRiver, na.rm = TRUE)) 
+              meanF = mean(meanFlow, na.rm = TRUE),
+              sdF = sd(meanFlow, na.rm = TRUE),
+              meanFByRiver = mean(meanFlowByRiver, na.rm = TRUE),
+              sdFByRiver = sd(meanFlowByRiver, na.rm = TRUE)) 
   
   d <- left_join(d, seasonTF) |> 
-    mutate(meanTemperatureScaledBySeason = (meanTemperature - meanT)/sdT, 
-           meanFlowByRiverScaledBySeason = (meanFlowByRiver - meanF)/sdF) |> 
-    select(-c(meanT, sdT, meanF, sdF))
+    mutate(
+      meanTemperatureScaledBySeason = (meanTemperature - meanT)/sdT, 
+      meanFlowScaledBySeason = (meanFlow - meanF)/sdF,
+      meanFlowByRiverScaledBySeason = (meanFlowByRiver - meanFByRiver)/sdFByRiver
+    ) |> 
+    select(-c(meanT, sdT, meanF, sdF, meanFByRiver, sdFByRiver))
   
   return(d)
 }
@@ -492,13 +497,18 @@ addseasonRiverFT_zScore <- function(d){
     group_by(season, river) |> 
     summarize(meanT = mean(meanTemperature, na.rm = TRUE),
               sdT = sd(meanTemperature, na.rm = TRUE),
-              meanF = mean(meanFlowByRiver, na.rm = TRUE),
-              sdF = sd(meanFlowByRiver, na.rm = TRUE)) 
+              meanF = mean(meanFlow, na.rm = TRUE),
+              sdF = sd(meanFlow, na.rm = TRUE),
+              meanFByRiver = mean(meanFlowByRiver, na.rm = TRUE),
+              sdFByRiver = sd(meanFlowByRiver, na.rm = TRUE)) 
   
   d <- left_join(d, seasonRiverTF) |> 
-    mutate(meanTemperatureScaledBySeasonRiver = (meanTemperature - meanT)/sdT, 
-           meanFlowByRiverScaledBySeasonRiver = (meanFlowByRiver - meanF)/sdF) |> 
-    select(-c(meanT, sdT, meanF, sdF))
+    mutate(
+      meanTemperatureScaledBySeasonRiver = (meanTemperature - meanT)/sdT, 
+      meanFlowScaledBySeasonRiver = (meanFlow - meanF)/sdF,
+      meanFlowByRiverScaledBySeasonRiver = (meanFlowByRiver - meanFByRiver)/sdFByRiver
+    ) |> 
+    select(-c(meanT, sdT, meanF, sdF, meanFByRiver, sdFByRiver))
   
   return(d)
 }

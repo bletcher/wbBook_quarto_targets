@@ -42,7 +42,7 @@ library(pscl)
 library(rsample)      # data splitting 
 library(gbm)          # basic implementation
 library(xgboost)      # a faster implementation of gbm
-library(h2o)          # a java-based platform
+#library(h2o)          # a java-based platform
 library(pdp)          # model visualization
 library(lime)
 library(vtreat)
@@ -105,6 +105,8 @@ meanNegSRsNWide <- tar_read(meanNegSRsNWide_target)
 # df for pairs plots
 cd1Wide_grWeight <- tar_read(cd1Wide_grWeight_target)
 cd1Wide_observedWeight <- tar_read(cd1Wide_observedWeight_target)
+
+dGAM <- tar_read(dGAM_target) # from modelGrowthInMass_target
 ```
 
 ### Get environmental data
@@ -2098,29 +2100,17 @@ predNeg |>
 
 #riverGG, seasonGG, observedWeight, cohort, age, meanTemperature, meanFlowByRiver, negGrowth
 
-# put this in target
-dGAM = cd1 |> 
-  filter(!is.na(grWeight)) |> 
-  mutate(age = year - cohort,
-         ageF = factor(age),
-         cohortF = factor(cohort)) |> 
-  dplyr::select(riverGG, seasonGG, speciesGG, observedWeight, cohort, age, cohortF, ageF, 
-                meanTemperatureScaledBySeason, meanFlowByRiverScaledBySeason, 
-                meanTemperatureScaledBySeasonRiver, meanFlowByRiverScaledBySeasonRiver,grWeight) |> 
-  rename(tempS = meanTemperatureScaledBySeason, flowS = meanFlowByRiverScaledBySeason,
-         tempSR = meanTemperatureScaledBySeasonRiver, flowSR = meanFlowByRiverScaledBySeasonRiver) |> 
-  filter(tempSR > -4)
 
 kValue <- 4 
 
-ggplot(dGAM |> filter(speciesGG != "Atlantic salmon"), aes(flowS, grWeight, group = speciesGG, color = speciesGG)) +
+ggplot(dGAM |> filter(speciesGG != "Atlantic salmon"), aes(flowByRiverS, grWeight, group = speciesGG, color = speciesGG)) +
   geom_point(alpha = 0.2) +
   geom_smooth(method = "gam", 
               formula = y ~ s(x, bs = "cs", fx = TRUE, k = kValue), 
               se = FALSE) +
   facet_grid(seasonGG~riverGG)
 
-ggplot(dGAM |> filter(speciesGG != "Atlantic salmon"), aes(flowSR, grWeight, group = speciesGG, color = speciesGG)) +
+ggplot(dGAM |> filter(speciesGG != "Atlantic salmon"), aes(flowByRiverSR, grWeight, group = speciesGG, color = speciesGG)) +
   geom_point(alpha = 0.1) +
   geom_hline(yintercept = 0) +
   geom_smooth(method = "gam", 
@@ -2149,12 +2139,12 @@ runLinearModels <- function(d, speciesIn) {
   models =
     tibble(model = 
       c(
-          'grWeight ~ (riverGG * seasonGG * tempSR * flowSR * observedWeight + cohortF * ageF)',
-          'grWeight ~ (riverGG * seasonGG * tempSR * flowSR * observedWeight + cohortF)',
-          'grWeight ~ (riverGG * seasonGG * tempSR * flowSR + cohortF * ageF)',
-          'grWeight ~ (riverGG * seasonGG * tempSR * flowSR + cohortF)',
-          'grWeight ~ (riverGG * seasonGG + tempSR * flowSR + cohortF * ageF)',
-          'grWeight ~ (riverGG * seasonGG + tempSR + flowSR + cohortF * ageF)'
+          'grWeight ~ (riverGG * seasonGG * tempSR * flowByRiverSR * observedWeight + cohortF * ageF)',
+          'grWeight ~ (riverGG * seasonGG * tempSR * flowByRiverSR * observedWeight + cohortF)',
+          'grWeight ~ (riverGG * seasonGG * tempSR * flowByRiverSR + cohortF * ageF)',
+          'grWeight ~ (riverGG * seasonGG * tempSR * flowByRiverSR + cohortF)',
+          'grWeight ~ (riverGG * seasonGG + tempSR * flowByRiverSR + cohortF * ageF)',
+          'grWeight ~ (riverGG * seasonGG + tempSR + flowByRiverSR + cohortF * ageF)'
        )
     ) |>
     mutate(
@@ -2213,14 +2203,14 @@ runGAMModels <- function(d, speciesIn, kIn) {
     tibble(model = 
       c(
             'grWeight ~ riverGG * seasonGG * observedWeight + cohortF * ageF +             
-               s(flowSR, bs = "cr", k = kIn, by = riverGG) +
-               s(flowSR, bs = "cr", k = kIn, by = seasonGG) +
+               s(flowByRiverSR, bs = "cr", k = kIn, by = riverGG) +
+               s(flowByRiverSR, bs = "cr", k = kIn, by = seasonGG) +
                s(tempSR, bs = "cr", k = kIn, by = riverGG) +
                s(tempSR, bs = "cr", k = kIn, by = seasonGG)',
             
-            'grWeight ~ riverGG * seasonGG * observedWeight * tempSR * flowSR + cohortF * ageF +             
-               s(flowSR, bs = "cr", k = kIn, by = riverGG) +
-               s(flowSR, bs = "cr", k = kIn, by = seasonGG) +
+            'grWeight ~ riverGG * seasonGG * observedWeight * tempSR * flowByRiverSR + cohortF * ageF +             
+               s(flowByRiverSR, bs = "cr", k = kIn, by = riverGG) +
+               s(flowByRiverSR, bs = "cr", k = kIn, by = seasonGG) +
                s(tempSR, bs = "cr", k = kIn, by = riverGG) +
                s(tempSR, bs = "cr", k = kIn, by = seasonGG)'
        )
@@ -2233,7 +2223,7 @@ runGAMModels <- function(d, speciesIn, kIn) {
   return(models)
 }
 
-kIn = kValue
+
 # 
 # speciesIn <- "Brook trout"
 # modLinearBKT <- runGAMModels(dGAM, speciesIn, kValue)
@@ -2245,9 +2235,13 @@ kIn = kValue
 
 
 ```
-#### Brook trout
+
+#### Brook trout - flow by river
 ```{r}
-#| label: gamModsBKT
+#| label: gamModsBKTFBR
+
+speciesIn <- "Brook trout"
+kIn <- 4
 
 gam0 <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempSR + flowSR)^2 + cohortF * ageF +             
                s(flowSR, bs = "cr", k = kIn, by = riverGG) +
@@ -2255,33 +2249,112 @@ gam0 <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempSR + flowSR)^2
                s(tempSR, bs = "cr", k = kIn, by = riverGG) +
                s(tempSR, bs = "cr", k = kIn, by = seasonGG),
              data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
+######
 
-gam1 <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempSR + flowSR)^2 + cohortF +             
-               s(flowSR, bs = "cr", k = kIn, by = riverGG) +
-               s(flowSR, bs = "cr", k = kIn, by = seasonGG) +
+gam0ByRiver <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempSR + flowByRiverSR)^2 + cohortF * ageF +             
+               s(flowByRiverSR, bs = "cr", k = kIn, by = riverGG) +
+               s(flowByRiverSR, bs = "cr", k = kIn, by = seasonGG) +
+               s(tempSR, bs = "cr", k = kIn, by = riverGG) +
+               s(tempSR, bs = "cr", k = kIn, by = seasonGG),
+             data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
+
+gam1ByRiver <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempSR + flowByRiverSR)^2 + cohortF +             
+               s(flowByRiverSR, bs = "cr", k = kIn, by = riverGG) +
+               s(flowByRiverSR, bs = "cr", k = kIn, by = seasonGG) +
                s(tempSR, bs = "cr", k = kIn, by = riverGG) +
                s(tempSR, bs = "cr", k = kIn, by = seasonGG),
              data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
 
 # age matters, what about taking out length?
-gam2 <- bam(grWeight ~ (riverGG + seasonGG  + tempSR + flowSR)^2 + cohortF * ageF +             
-               s(flowSR, bs = "cr", k = kIn, by = riverGG) +
-               s(flowSR, bs = "cr", k = kIn, by = seasonGG) +
+gam2ByRiver <- bam(grWeight ~ (riverGG + seasonGG  + tempSR + flowByRiverSR)^2 + cohortF * ageF +             
+               s(flowByRiverSR, bs = "cr", k = kIn, by = riverGG) +
+               s(flowByRiverSR, bs = "cr", k = kIn, by = seasonGG) +
                s(tempSR, bs = "cr", k = kIn, by = riverGG) +
                s(tempSR, bs = "cr", k = kIn, by = seasonGG),
              data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
 
 #nope, need to keep length
 #How about without the interactions?
-gam3 <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempSR + flowSR) + cohortF * ageF +             
-               s(flowSR, bs = "cr", k = kIn, by = riverGG) +
-               s(flowSR, bs = "cr", k = kIn, by = seasonGG) +
+gam3ByRiver <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempSR + flowByRiverSR) + cohortF * ageF +             
+               s(flowByRiverSR, bs = "cr", k = kIn, by = riverGG) +
+               s(flowByRiverSR, bs = "cr", k = kIn, by = seasonGG) +
                s(tempSR, bs = "cr", k = kIn, by = riverGG) +
                s(tempSR, bs = "cr", k = kIn, by = seasonGG),
              data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
 #nope, need the interactions
 
-AIC(gam0, gam1, gam2, gam3) |> arrange(AIC)
+AIC(gam0ByRiver, gam1ByRiver, gam2ByRiver, gam3ByRiver) |> arrange(AIC)
+```
+
+
+#### Brook trout - compare flow and flow by river gams
+```{r}
+#| label: gamModsCompare
+
+predictBKTgam <- function(dIn, modInFlowByRiver){
+
+  # predMat0 <- 
+  #   expand.grid(
+  #     flowSR = seq(-1.5,1.5,0.25), 
+  #     tempSR = seq(-1.5,1.5,0.25), 
+  #     riverGG = unique(dIn$riverGG), 
+  #     seasonGG= unique(dIn$seasonGG),
+  #     observedWeight = seq(2, max(dIn$observedWeight, na.rm = TRUE)/2, 20),
+  #     cohortF = 2000:2013,#uunique(dIn$cohortF),
+  #     ageF = 0:4,#unique(dIn$ageF),
+  #     byRiver = FALSE
+  # )
+  # predMat <- 
+  #   add_column(
+  #     pred = predict.bam(modInFlow, predMat0),
+  #     predMat0
+  #   ) |> 
+  #   rename(flow = flowSR, temp = tempSR)
+  
+  predMatByRiver0 <- 
+    expand.grid(
+      flowByRiverSR = seq(-1.5,1.5,0.25), 
+      tempSR = seq(-1.5,1.5,0.25), 
+      riverGG = unique(dIn$riverGG), 
+      seasonGG= unique(dIn$seasonGG),
+      observedWeight = seq(2, max(dIn$observedWeight, na.rm = TRUE)/2, 20),
+      cohortF = 2000:2013,#unique(dIn$cohortF),
+      ageF = 0:4,#unique(dIn$ageF),
+      byRiver = TRUE
+    ) 
+  predMatByRiver <- 
+    add_column(
+      pred = predict.bam(modInFlowByRiver, predMatByRiver0),
+      predMatByRiver0
+    ) |> 
+    rename(flow = flowByRiverSR, temp = tempSR)
+
+  return(predMatByRiver)
+}
+
+gamBKTPredictions <- predictBKTgam(dGAM, gam0ByRiver)
+
+```
+
+#### Graph predictions
+```{r}
+#| label: graphGAMPredictions
+unique(gamBKTPredictions$observedWeight)
+
+ggplot(
+  gamBKTPredictions |> 
+    filter(
+      observedWeight %in% c(22), 
+      cohortF == 2012, 
+      ageF == 0
+    ), 
+  aes(temp, pred, color = (flow), group = (flow))) +
+  geom_point(alpha = 0.2) +
+  labs(x = "Stream temperature", y = "Predicted growth rate") +
+  #geom_smooth(se = FALSE) +
+  geom_hline(yintercept = 0) +
+  facet_grid(seasonGG~riverGG+byRiver, scales = 'free')
+
 ```
 
 
