@@ -135,17 +135,24 @@ addEnvironmental3 <- function(coreData, sampleFlow = F, funName = "mean") {
     whichDrainage <- "stanley"
   }
   if (whichDrainage == "west") {
-    envData <- tbl(conDplyr, "data_daily_temperature") %>% 
-      collect(n = Inf) %>% 
-      full_join(tbl(conDplyr, "data_flow_extension") %>% 
-                  collect(n = Inf), by = c("river", "date")) %>% 
-      dplyr::select(-source) %>% 
-      dplyr::filter(date <= max(coreData$detectionDate), 
-                    date >= min(coreData$detectionDate)) %>% 
-      rename(temperature = daily_mean_temp, flow = qPredicted) %>% 
-      data.frame() %>%
-      mutate(dateDate = date(date)) %>%
-      left_join(tar_read(flowByRiver_target))
+    envData <- 
+      tar_read(envDataWB_target) |> 
+        dplyr::filter(date <= max(coreData$detectionDate), 
+                      date >= min(coreData$detectionDate)) |> 
+      data.frame()
+    
+      # 
+      # tbl(conDplyr, "data_daily_temperature") %>% 
+      # collect(n = Inf) %>% 
+      # full_join(tbl(conDplyr, "data_flow_extension") %>% 
+      #             collect(n = Inf), by = c("river", "date")) %>% 
+      # dplyr::select(-source) %>% 
+      # dplyr::filter(date <= max(coreData$detectionDate), 
+      #               date >= min(coreData$detectionDate)) %>% 
+      # rename(temperature = daily_mean_temp, flow = qPredicted) %>% 
+      # data.frame() %>%
+      # mutate(dateDate = date(date)) %>%
+      # left_join(tar_read(flowByRiver_target))
   }
   else {
     envData <- tbl(conDplyr, "stanley_environmental") %>% 
@@ -185,6 +192,13 @@ addEnvironmental3 <- function(coreData, sampleFlow = F, funName = "mean") {
         if (!is.na(r)) 
           meanVar <- fun(envData[d >= start & d <= end & envData$river == r, envCol], na.rm = T)
       }
+      if (e == "FlowByArea") {
+        envCol <- "flowByArea"
+        if (is.na(r)) 
+          meanVar <- fun(envData[d >= start & d <= end, envCol], na.rm = T)
+        if (!is.na(r)) 
+          meanVar <- fun(envData[d >= start & d <= end & envData$river == r, envCol], na.rm = T)
+      }
       return(meanVar)
     }
     
@@ -194,7 +208,8 @@ addEnvironmental3 <- function(coreData, sampleFlow = F, funName = "mean") {
       group_by(river, detectionDate, lagDetectionDate) %>% 
       mutate(meanTemperature = getIntervalMean(detectionDate, lagDetectionDate, river, "Temperature"), 
              meanFlow =        getIntervalMean(detectionDate, lagDetectionDate, river, "Flow"),
-             meanFlowByRiver = getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByRiver")) %>% 
+             meanFlowByRiver = getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByRiver"),
+             meanFlowByArea  = getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByArea")) %>% 
       ungroup()
     
     coreData <- left_join(coreData, coreDataUniqueDates, 
@@ -239,6 +254,7 @@ addEnvironmental3 <- function(coreData, sampleFlow = F, funName = "mean") {
   names(coreData)[which(names(coreData) == "meanTemperature")] <- paste0(funName, "Temperature")
   names(coreData)[which(names(coreData) == "meanFlow")] <- paste0(funName,  "Flow")
   names(coreData)[which(names(coreData) == "meanFlowByRiver")] <- paste0(funName,  "FlowByRiver")
+  names(coreData)[which(names(coreData) == "meanFlowByArea")] <- paste0(funName,  "FlowByArea")
   return(coreData)
 }
 
@@ -479,15 +495,18 @@ addseasonFT_zScore <- function(d){
               meanF = mean(meanFlow, na.rm = TRUE),
               sdF = sd(meanFlow, na.rm = TRUE),
               meanFByRiver = mean(meanFlowByRiver, na.rm = TRUE),
-              sdFByRiver = sd(meanFlowByRiver, na.rm = TRUE)) 
+              sdFByRiver = sd(meanFlowByRiver, na.rm = TRUE),
+              meanFByArea = mean(meanFlowByArea, na.rm = TRUE),
+              sdFByArea = sd(meanFlowByArea, na.rm = TRUE)) 
   
   d <- left_join(d, seasonTF) |> 
     mutate(
       meanTemperatureScaledBySeason = (meanTemperature - meanT)/sdT, 
       meanFlowScaledBySeason = (meanFlow - meanF)/sdF,
-      meanFlowByRiverScaledBySeason = (meanFlowByRiver - meanFByRiver)/sdFByRiver
+      meanFlowByRiverScaledBySeason = (meanFlowByRiver - meanFByRiver)/sdFByRiver,
+      meanFlowByAreaScaledBySeason = (meanFlowByArea - meanFByArea)/sdFByArea
     ) |> 
-    select(-c(meanT, sdT, meanF, sdF, meanFByRiver, sdFByRiver))
+    select(-c(meanT, sdT, meanF, sdF, meanFByRiver, sdFByRiver, meanFByArea, sdFByArea))
   
   return(d)
 }
@@ -500,15 +519,18 @@ addseasonRiverFT_zScore <- function(d){
               meanF = mean(meanFlow, na.rm = TRUE),
               sdF = sd(meanFlow, na.rm = TRUE),
               meanFByRiver = mean(meanFlowByRiver, na.rm = TRUE),
-              sdFByRiver = sd(meanFlowByRiver, na.rm = TRUE)) 
+              sdFByRiver = sd(meanFlowByRiver, na.rm = TRUE),
+              meanFByArea = mean(meanFlowByArea, na.rm = TRUE),
+              sdFByArea = sd(meanFlowByArea, na.rm = TRUE)) 
   
   d <- left_join(d, seasonRiverTF) |> 
     mutate(
       meanTemperatureScaledBySeasonRiver = (meanTemperature - meanT)/sdT, 
       meanFlowScaledBySeasonRiver = (meanFlow - meanF)/sdF,
-      meanFlowByRiverScaledBySeasonRiver = (meanFlowByRiver - meanFByRiver)/sdFByRiver
+      meanFlowByRiverScaledBySeasonRiver = (meanFlowByRiver - meanFByRiver)/sdFByRiver,
+      meanFlowByAreaScaledBySeasonRiver = (meanFlowByArea - meanFByArea)/sdFByArea
     ) |> 
-    select(-c(meanT, sdT, meanF, sdF, meanFByRiver, sdFByRiver))
+    select(-c(meanT, sdT, meanF, sdF, meanFByRiver, sdFByRiver, meanFByArea, sdFByArea))
   
   return(d)
 }

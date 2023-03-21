@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>The West Brook story - 13&nbsp; Untitled</title>
+<title>The West Brook story - 13&nbsp; Growth in mass by river/area</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -141,7 +141,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Untitled</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Growth in mass by river/area</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -272,7 +272,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./modelGrowthFlowByRiver.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Untitled</span></a>
+  <a href="./modelGrowthFlowByRiver.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">| label: dataModelByRiverFlowOptions</span></a>
   </div>
 </li>
       </ul>
@@ -314,14 +314,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#flow-by-river-and-growth" id="toc-flow-by-river-and-growth" class="nav-link active" data-scroll-target="#flow-by-river-and-growth"><span class="toc-section-number">14</span>  Flow by river and growth</a>
+  <li><a href="#gam-models-for-growth" id="toc-gam-models-for-growth" class="nav-link active" data-scroll-target="#gam-models-for-growth"><span class="toc-section-number">13.1</span>  GAM models for growth</a>
   <ul class="collapse">
-  <li><a href="#gam-models-for-growth" id="toc-gam-models-for-growth" class="nav-link" data-scroll-target="#gam-models-for-growth"><span class="toc-section-number">14.1</span>  GAM models for growth</a>
-  <ul class="collapse">
-  <li><a href="#flowflowbyriver-comparison" id="toc-flowflowbyriver-comparison" class="nav-link" data-scroll-target="#flowflowbyriver-comparison"><span class="toc-section-number">14.1.1</span>  Flow/flowByRiver comparison</a></li>
-  <li><a href="#flow-standardized-by-season" id="toc-flow-standardized-by-season" class="nav-link" data-scroll-target="#flow-standardized-by-season"><span class="toc-section-number">14.1.2</span>  Flow standardized by season</a></li>
-  <li><a href="#flow-std-by-seasonriver" id="toc-flow-std-by-seasonriver" class="nav-link" data-scroll-target="#flow-std-by-seasonriver"><span class="toc-section-number">14.1.3</span>  Flow std by season/river</a></li>
-  </ul></li>
+  <li><a href="#flowflowbyriver-comparison" id="toc-flowflowbyriver-comparison" class="nav-link" data-scroll-target="#flowflowbyriver-comparison"><span class="toc-section-number">13.1.1</span>  Flow/flowByRiver comparison</a></li>
+  <li><a href="#flow-standardized-by-season" id="toc-flow-standardized-by-season" class="nav-link" data-scroll-target="#flow-standardized-by-season"><span class="toc-section-number">13.1.2</span>  Flow standardized by season</a></li>
+  <li><a href="#flow-std-by-seasonriver" id="toc-flow-std-by-seasonriver" class="nav-link" data-scroll-target="#flow-std-by-seasonriver"><span class="toc-section-number">13.1.3</span>  Flow std by season/river</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -331,7 +328,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title d-none d-lg-block"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Untitled</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title d-none d-lg-block"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Growth in mass by river/area</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -349,8 +346,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/librariesModelsFlowByRiver_0d6145185fad1351d600b9ad017a873e">
 
 </div>
-<section id="flow-by-river-and-growth" class="level1" data-number="14">
-<h1 data-number="14"><span class="header-section-number">14</span> Flow by river and growth</h1>
 <div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/getDataGam_f84c2d38a4609bafd25fb781d6780648">
 <details>
 <summary>Code</summary>
@@ -361,10 +356,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>speciesIn <span class="ot">&lt;-</span> <span class="st">"Brook trout"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<section id="gam-models-for-growth" class="level2" data-number="14.1">
-<h2 data-number="14.1" class="anchored" data-anchor-id="gam-models-for-growth"><span class="header-section-number">14.1</span> GAM models for growth</h2>
-<section id="flowflowbyriver-comparison" class="level3" data-number="14.1.1">
-<h3 data-number="14.1.1" class="anchored" data-anchor-id="flowflowbyriver-comparison"><span class="header-section-number">14.1.1</span> Flow/flowByRiver comparison</h3>
+<section id="gam-models-for-growth" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="gam-models-for-growth"><span class="header-section-number">13.1</span> GAM models for growth</h2>
+<section id="flowflowbyriver-comparison" class="level3" data-number="13.1.1">
+<h3 data-number="13.1.1" class="anchored" data-anchor-id="flowflowbyriver-comparison"><span class="header-section-number">13.1.1</span> Flow/flowByRiver comparison</h3>
 <div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_flowByRiver2_bcde207c07b4b29eaab91f3cd79bdd39">
 <details>
 <summary>Code</summary>
@@ -448,10 +443,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="flow-standardized-by-season" class="level3" data-number="14.1.2">
-<h3 data-number="14.1.2" class="anchored" data-anchor-id="flow-standardized-by-season"><span class="header-section-number">14.1.2</span> Flow standardized by season</h3>
-<section id="brook-trout---flow" class="level4" data-number="14.1.2.1">
-<h4 data-number="14.1.2.1" class="anchored" data-anchor-id="brook-trout---flow"><span class="header-section-number">14.1.2.1</span> Brook trout - flow</h4>
+<section id="flow-standardized-by-season" class="level3" data-number="13.1.2">
+<h3 data-number="13.1.2" class="anchored" data-anchor-id="flow-standardized-by-season"><span class="header-section-number">13.1.2</span> Flow standardized by season</h3>
+<section id="brook-trout---flow" class="level4" data-number="13.1.2.1">
+<h4 data-number="13.1.2.1" class="anchored" data-anchor-id="brook-trout---flow"><span class="header-section-number">13.1.2.1</span> Brook trout - flow</h4>
 <div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/gamSModsBKT2_8cb20cb2ed2cb847f3b128db66e10064">
 <details>
 <summary>Code</summary>
@@ -498,8 +493,8 @@ gamS3  97.07810 -85624.22</code></pre>
 </div>
 </div>
 </section>
-<section id="brook-trout---flow-by-river" class="level4" data-number="14.1.2.2">
-<h4 data-number="14.1.2.2" class="anchored" data-anchor-id="brook-trout---flow-by-river"><span class="header-section-number">14.1.2.2</span> Brook trout - flow by river</h4>
+<section id="brook-trout---flow-by-river" class="level4" data-number="13.1.2.2">
+<h4 data-number="13.1.2.2" class="anchored" data-anchor-id="brook-trout---flow-by-river"><span class="header-section-number">13.1.2.2</span> Brook trout - flow by river</h4>
 <div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/gamSModsBKTFBR2_6ddfeb98027347e9b80ec1cf81e27982">
 <details>
 <summary>Code</summary>
@@ -547,10 +542,10 @@ gamS3ByRiver  97.54369 -85564.21</code></pre>
 </div>
 </section>
 </section>
-<section id="flow-std-by-seasonriver" class="level3" data-number="14.1.3">
-<h3 data-number="14.1.3" class="anchored" data-anchor-id="flow-std-by-seasonriver"><span class="header-section-number">14.1.3</span> Flow std by season/river</h3>
-<section id="brook-trout---flow-1" class="level4" data-number="14.1.3.1">
-<h4 data-number="14.1.3.1" class="anchored" data-anchor-id="brook-trout---flow-1"><span class="header-section-number">14.1.3.1</span> Brook trout - flow</h4>
+<section id="flow-std-by-seasonriver" class="level3" data-number="13.1.3">
+<h3 data-number="13.1.3" class="anchored" data-anchor-id="flow-std-by-seasonriver"><span class="header-section-number">13.1.3</span> Flow std by season/river</h3>
+<section id="brook-trout---flow-1" class="level4" data-number="13.1.3.1">
+<h4 data-number="13.1.3.1" class="anchored" data-anchor-id="brook-trout---flow-1"><span class="header-section-number">13.1.3.1</span> Brook trout - flow</h4>
 <div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/gamModsBKT2_20194ee357f12a7ea3725cb07f94dce2">
 <details>
 <summary>Code</summary>
@@ -600,8 +595,8 @@ gam3 102.43371 -85526.74</code></pre>
 </div>
 </div>
 </section>
-<section id="brook-trout---flow-by-river-1" class="level4" data-number="14.1.3.2">
-<h4 data-number="14.1.3.2" class="anchored" data-anchor-id="brook-trout---flow-by-river-1"><span class="header-section-number">14.1.3.2</span> Brook trout - flow by river</h4>
+<section id="brook-trout---flow-by-river-1" class="level4" data-number="13.1.3.2">
+<h4 data-number="13.1.3.2" class="anchored" data-anchor-id="brook-trout---flow-by-river-1"><span class="header-section-number">13.1.3.2</span> Brook trout - flow by river</h4>
 <div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/gamModsBKTFBR2_30fea39b21af012b30323c002ea5f6f1">
 <details>
 <summary>Code</summary>
@@ -648,8 +643,8 @@ gam3ByRiver 102.51579 -85461.99</code></pre>
 </div>
 </div>
 </section>
-<section id="brook-trout---compare-flow-and-flow-by-river-gams" class="level4" data-number="14.1.3.3">
-<h4 data-number="14.1.3.3" class="anchored" data-anchor-id="brook-trout---compare-flow-and-flow-by-river-gams"><span class="header-section-number">14.1.3.3</span> Brook trout - compare flow and flow by river gams</h4>
+<section id="brook-trout---compare-flow-and-flow-by-river-gams" class="level4" data-number="13.1.3.3">
+<h4 data-number="13.1.3.3" class="anchored" data-anchor-id="brook-trout---compare-flow-and-flow-by-river-gams"><span class="header-section-number">13.1.3.3</span> Brook trout - compare flow and flow by river gams</h4>
 <div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/gamModsCompare2_016ed7353d7be23e9f99d8cab7a3d947">
 <details>
 <summary>Code</summary>
@@ -740,8 +735,8 @@ gam3ByRiver 102.51579 -85461.99</code></pre>
 </details>
 </div>
 </section>
-<section id="graph-predictions" class="level4" data-number="14.1.3.4">
-<h4 data-number="14.1.3.4" class="anchored" data-anchor-id="graph-predictions"><span class="header-section-number">14.1.3.4</span> Graph predictions</h4>
+<section id="graph-predictions" class="level4" data-number="13.1.3.4">
+<h4 data-number="13.1.3.4" class="anchored" data-anchor-id="graph-predictions"><span class="header-section-number">13.1.3.4</span> Graph predictions</h4>
 <div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/graphGAMPredictions2_d09928292997579d45f05bfd323ecb34">
 <details>
 <summary>Code</summary>
@@ -794,7 +789,6 @@ gam3ByRiver 102.51579 -85461.99</code></pre>
 
 <!-- -->
 
-</section>
 </section>
 </section>
 </section>
@@ -1111,399 +1105,395 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb23" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Untitled"</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: dataModelByRiverFlowOptions</span></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">message =</span> <span class="cn">FALSE</span>, <span class="at">warning =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: librariesModelsFlowByRiver</span></span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="do">######################################################</span></span>
-<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="co"># for gams</span></span>
-<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gratia)</span>
-<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arm)</span>
-<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(relaimpo)</span>
-<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
-<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a><span class="co"># library(linkedModels)</span></span>
-<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arrayhelpers)</span>
-<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mgcv)</span>
-<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a><span class="do">#####################################################</span></span>
-<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(getWBData)</span>
-<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
-<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
-<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
-<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
-<span id="cb23-38"><a href="#cb23-38" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(relaimpo)</span>
-<span id="cb23-39"><a href="#cb23-39" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
-<span id="cb23-40"><a href="#cb23-40" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pscl)</span>
+<div class="sourceCode" id="cb23" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: dataModelByRiverFlowOptions</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">message =</span> <span class="cn">FALSE</span>, <span class="at">warning =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: librariesModelsFlowByRiver</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="do">######################################################</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="co"># for gams</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gratia)</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arm)</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(relaimpo)</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="co"># library(linkedModels)</span></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arrayhelpers)</span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mgcv)</span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="do">#####################################################</span></span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(getWBData)</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(relaimpo)</span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pscl)</span>
+<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">%notin%</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">Negate</span>(<span class="st">`</span><span class="at">%in%</span><span class="st">`</span>)</span>
+<span id="cb23-38"><a href="#cb23-38" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-39"><a href="#cb23-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-40"><a href="#cb23-40" aria-hidden="true" tabindex="-1"></a><span class="fu"># Growth in mass by river/area</span></span>
 <span id="cb23-41"><a href="#cb23-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-42"><a href="#cb23-42" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb23-43"><a href="#cb23-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-44"><a href="#cb23-44" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">%notin%</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">Negate</span>(<span class="st">`</span><span class="at">%in%</span><span class="st">`</span>)</span>
-<span id="cb23-45"><a href="#cb23-45" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb23-46"><a href="#cb23-46" aria-hidden="true" tabindex="-1"></a><span class="fu"># Flow by river and growth</span></span>
-<span id="cb23-47"><a href="#cb23-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-50"><a href="#cb23-50" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb23-51"><a href="#cb23-51" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: getDataGam</span></span>
-<span id="cb23-52"><a href="#cb23-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-53"><a href="#cb23-53" aria-hidden="true" tabindex="-1"></a>cd1 <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cd1_target) <span class="co"># from modelGrowthInMass_target</span></span>
-<span id="cb23-54"><a href="#cb23-54" aria-hidden="true" tabindex="-1"></a>dGAM <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(dGAM_target) <span class="co"># from modelGrowthInMass_target</span></span>
-<span id="cb23-55"><a href="#cb23-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-56"><a href="#cb23-56" aria-hidden="true" tabindex="-1"></a>kIn <span class="ot">=</span> <span class="dv">4</span></span>
-<span id="cb23-57"><a href="#cb23-57" aria-hidden="true" tabindex="-1"></a>speciesIn <span class="ot">&lt;-</span> <span class="st">"Brook trout"</span></span>
-<span id="cb23-58"><a href="#cb23-58" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb23-59"><a href="#cb23-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-60"><a href="#cb23-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-61"><a href="#cb23-61" aria-hidden="true" tabindex="-1"></a><span class="fu">## GAM models for growth  </span></span>
-<span id="cb23-62"><a href="#cb23-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-44"><a href="#cb23-44" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-45"><a href="#cb23-45" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: getDataGam</span></span>
+<span id="cb23-46"><a href="#cb23-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-47"><a href="#cb23-47" aria-hidden="true" tabindex="-1"></a>cd1 <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cd1_target) <span class="co"># from modelGrowthInMass_target</span></span>
+<span id="cb23-48"><a href="#cb23-48" aria-hidden="true" tabindex="-1"></a>dGAM <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(dGAM_target) <span class="co"># from modelGrowthInMass_target</span></span>
+<span id="cb23-49"><a href="#cb23-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-50"><a href="#cb23-50" aria-hidden="true" tabindex="-1"></a>kIn <span class="ot">=</span> <span class="dv">4</span></span>
+<span id="cb23-51"><a href="#cb23-51" aria-hidden="true" tabindex="-1"></a>speciesIn <span class="ot">&lt;-</span> <span class="st">"Brook trout"</span></span>
+<span id="cb23-52"><a href="#cb23-52" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-53"><a href="#cb23-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-54"><a href="#cb23-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-55"><a href="#cb23-55" aria-hidden="true" tabindex="-1"></a><span class="fu">## GAM models for growth  </span></span>
+<span id="cb23-56"><a href="#cb23-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-57"><a href="#cb23-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-58"><a href="#cb23-58" aria-hidden="true" tabindex="-1"></a><span class="fu">### Flow/flowByRiver comparison</span></span>
+<span id="cb23-61"><a href="#cb23-61" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-62"><a href="#cb23-62" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: flow_flowByRiver2</span></span>
 <span id="cb23-63"><a href="#cb23-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-64"><a href="#cb23-64" aria-hidden="true" tabindex="-1"></a><span class="fu">### Flow/flowByRiver comparison</span></span>
-<span id="cb23-67"><a href="#cb23-67" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb23-68"><a href="#cb23-68" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: flow_flowByRiver2</span></span>
-<span id="cb23-69"><a href="#cb23-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-70"><a href="#cb23-70" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(meanFlow, meanFlowByRiver)) <span class="sc">+</span></span>
-<span id="cb23-71"><a href="#cb23-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb23-72"><a href="#cb23-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb23-73"><a href="#cb23-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(river<span class="sc">~</span>season, <span class="at">scales =</span> <span class="st">'free'</span>)</span>
-<span id="cb23-74"><a href="#cb23-74" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb23-75"><a href="#cb23-75" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(meanFlowScaledBySeason, meanFlowByRiverScaledBySeason)) <span class="sc">+</span></span>
-<span id="cb23-76"><a href="#cb23-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb23-77"><a href="#cb23-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb23-78"><a href="#cb23-78" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(river<span class="sc">~</span>season, <span class="at">scales =</span> <span class="st">'free'</span>)</span>
+<span id="cb23-64"><a href="#cb23-64" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(meanFlow, meanFlowByRiver)) <span class="sc">+</span></span>
+<span id="cb23-65"><a href="#cb23-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb23-66"><a href="#cb23-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb23-67"><a href="#cb23-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(river<span class="sc">~</span>season, <span class="at">scales =</span> <span class="st">'free'</span>)</span>
+<span id="cb23-68"><a href="#cb23-68" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb23-69"><a href="#cb23-69" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(meanFlowScaledBySeason, meanFlowByRiverScaledBySeason)) <span class="sc">+</span></span>
+<span id="cb23-70"><a href="#cb23-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb23-71"><a href="#cb23-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb23-72"><a href="#cb23-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(river<span class="sc">~</span>season, <span class="at">scales =</span> <span class="st">'free'</span>)</span>
+<span id="cb23-73"><a href="#cb23-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-74"><a href="#cb23-74" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(meanFlowScaledBySeasonRiver, meanFlowByRiverScaledBySeasonRiver, <span class="at">color =</span> cohort)) <span class="sc">+</span></span>
+<span id="cb23-75"><a href="#cb23-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb23-76"><a href="#cb23-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb23-77"><a href="#cb23-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(river<span class="sc">~</span>season, <span class="at">scales =</span> <span class="st">'free'</span>)</span>
+<span id="cb23-78"><a href="#cb23-78" aria-hidden="true" tabindex="-1"></a> </span>
 <span id="cb23-79"><a href="#cb23-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-80"><a href="#cb23-80" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(meanFlowScaledBySeasonRiver, meanFlowByRiverScaledBySeasonRiver, <span class="at">color =</span> cohort)) <span class="sc">+</span></span>
-<span id="cb23-81"><a href="#cb23-81" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb23-82"><a href="#cb23-82" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb23-80"><a href="#cb23-80" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(meanFlowScaledBySeasonRiver)) <span class="sc">+</span></span>
+<span id="cb23-81"><a href="#cb23-81" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_freqpoly</span>(<span class="at">color =</span> <span class="st">"red"</span>, <span class="at">binwidth =</span> <span class="fl">0.75</span>) <span class="sc">+</span></span>
+<span id="cb23-82"><a href="#cb23-82" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_freqpoly</span>(<span class="fu">aes</span>(meanFlowByRiverScaledBySeasonRiver), <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">binwidth =</span> <span class="fl">0.75</span>) <span class="sc">+</span></span>
 <span id="cb23-83"><a href="#cb23-83" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(river<span class="sc">~</span>season, <span class="at">scales =</span> <span class="st">'free'</span>)</span>
-<span id="cb23-84"><a href="#cb23-84" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb23-85"><a href="#cb23-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-86"><a href="#cb23-86" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(meanFlowScaledBySeasonRiver)) <span class="sc">+</span></span>
-<span id="cb23-87"><a href="#cb23-87" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_freqpoly</span>(<span class="at">color =</span> <span class="st">"red"</span>, <span class="at">binwidth =</span> <span class="fl">0.75</span>) <span class="sc">+</span></span>
-<span id="cb23-88"><a href="#cb23-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_freqpoly</span>(<span class="fu">aes</span>(meanFlowByRiverScaledBySeasonRiver), <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">binwidth =</span> <span class="fl">0.75</span>) <span class="sc">+</span></span>
-<span id="cb23-89"><a href="#cb23-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(river<span class="sc">~</span>season, <span class="at">scales =</span> <span class="st">'free'</span>)</span>
-<span id="cb23-90"><a href="#cb23-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-91"><a href="#cb23-91" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(meanFlowScaledBySeasonRiver)) <span class="sc">+</span></span>
-<span id="cb23-92"><a href="#cb23-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"red"</span>, <span class="at">adjust =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
-<span id="cb23-93"><a href="#cb23-93" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(meanFlowByRiverScaledBySeasonRiver), <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">adjust =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
-<span id="cb23-94"><a href="#cb23-94" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(river<span class="sc">~</span>season)<span class="co">#, scales = 'free')</span></span>
-<span id="cb23-95"><a href="#cb23-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-96"><a href="#cb23-96" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(meanFlow)) <span class="sc">+</span></span>
-<span id="cb23-97"><a href="#cb23-97" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"red"</span>, <span class="at">adjust =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
-<span id="cb23-98"><a href="#cb23-98" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(meanFlowByRiver), <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">adjust =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
-<span id="cb23-99"><a href="#cb23-99" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(river<span class="sc">~</span>season, <span class="at">scales =</span> <span class="st">'free'</span>)</span>
-<span id="cb23-100"><a href="#cb23-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-101"><a href="#cb23-101" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(meanFlowScaledBySeason)) <span class="sc">+</span></span>
-<span id="cb23-102"><a href="#cb23-102" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"red"</span>, <span class="at">adjust =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
-<span id="cb23-103"><a href="#cb23-103" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(meanFlowByRiverScaledBySeason), <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">adjust =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
-<span id="cb23-104"><a href="#cb23-104" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(river<span class="sc">~</span>season, <span class="at">scales =</span> <span class="st">'free'</span>)</span>
+<span id="cb23-84"><a href="#cb23-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-85"><a href="#cb23-85" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(meanFlowScaledBySeasonRiver)) <span class="sc">+</span></span>
+<span id="cb23-86"><a href="#cb23-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"red"</span>, <span class="at">adjust =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb23-87"><a href="#cb23-87" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(meanFlowByRiverScaledBySeasonRiver), <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">adjust =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb23-88"><a href="#cb23-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(river<span class="sc">~</span>season)<span class="co">#, scales = 'free')</span></span>
+<span id="cb23-89"><a href="#cb23-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-90"><a href="#cb23-90" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(meanFlow)) <span class="sc">+</span></span>
+<span id="cb23-91"><a href="#cb23-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"red"</span>, <span class="at">adjust =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb23-92"><a href="#cb23-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(meanFlowByRiver), <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">adjust =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb23-93"><a href="#cb23-93" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(river<span class="sc">~</span>season, <span class="at">scales =</span> <span class="st">'free'</span>)</span>
+<span id="cb23-94"><a href="#cb23-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-95"><a href="#cb23-95" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(meanFlowScaledBySeason)) <span class="sc">+</span></span>
+<span id="cb23-96"><a href="#cb23-96" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"red"</span>, <span class="at">adjust =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb23-97"><a href="#cb23-97" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(meanFlowByRiverScaledBySeason), <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">adjust =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb23-98"><a href="#cb23-98" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(river<span class="sc">~</span>season, <span class="at">scales =</span> <span class="st">'free'</span>)</span>
+<span id="cb23-99"><a href="#cb23-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-100"><a href="#cb23-100" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(meanTemperatureScaledBySeason)) <span class="sc">+</span></span>
+<span id="cb23-101"><a href="#cb23-101" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"red"</span>, <span class="at">adjust =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb23-102"><a href="#cb23-102" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_density(aes(meanTemperatureByRiverScaledBySeason), color = "blue", adjust = 2.5) +</span></span>
+<span id="cb23-103"><a href="#cb23-103" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(river<span class="sc">~</span>season, <span class="at">scales =</span> <span class="st">'free'</span>)</span>
+<span id="cb23-104"><a href="#cb23-104" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb23-105"><a href="#cb23-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-106"><a href="#cb23-106" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(meanTemperatureScaledBySeason)) <span class="sc">+</span></span>
-<span id="cb23-107"><a href="#cb23-107" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"red"</span>, <span class="at">adjust =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
-<span id="cb23-108"><a href="#cb23-108" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_density(aes(meanTemperatureByRiverScaledBySeason), color = "blue", adjust = 2.5) +</span></span>
-<span id="cb23-109"><a href="#cb23-109" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(river<span class="sc">~</span>season, <span class="at">scales =</span> <span class="st">'free'</span>)</span>
-<span id="cb23-110"><a href="#cb23-110" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb23-111"><a href="#cb23-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-112"><a href="#cb23-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-113"><a href="#cb23-113" aria-hidden="true" tabindex="-1"></a><span class="fu">### Flow standardized by season</span></span>
-<span id="cb23-114"><a href="#cb23-114" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Brook trout - flow</span></span>
-<span id="cb23-117"><a href="#cb23-117" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb23-118"><a href="#cb23-118" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: gamSModsBKT2</span></span>
-<span id="cb23-119"><a href="#cb23-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-120"><a href="#cb23-120" aria-hidden="true" tabindex="-1"></a>gamS0 <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempS <span class="sc">+</span> flowS)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
-<span id="cb23-121"><a href="#cb23-121" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-122"><a href="#cb23-122" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
-<span id="cb23-123"><a href="#cb23-123" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-124"><a href="#cb23-124" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
-<span id="cb23-125"><a href="#cb23-125" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
-<span id="cb23-126"><a href="#cb23-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-127"><a href="#cb23-127" aria-hidden="true" tabindex="-1"></a>gamS1 <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempS <span class="sc">+</span> flowS)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">+</span>             </span>
-<span id="cb23-128"><a href="#cb23-128" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-129"><a href="#cb23-129" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
-<span id="cb23-130"><a href="#cb23-130" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-131"><a href="#cb23-131" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
-<span id="cb23-132"><a href="#cb23-132" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
-<span id="cb23-133"><a href="#cb23-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-134"><a href="#cb23-134" aria-hidden="true" tabindex="-1"></a><span class="co"># age matters, what about taking out length?</span></span>
-<span id="cb23-135"><a href="#cb23-135" aria-hidden="true" tabindex="-1"></a>gamS2 <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG  <span class="sc">+</span> tempS <span class="sc">+</span> flowS)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
-<span id="cb23-136"><a href="#cb23-136" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-137"><a href="#cb23-137" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
-<span id="cb23-138"><a href="#cb23-138" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-139"><a href="#cb23-139" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
-<span id="cb23-140"><a href="#cb23-140" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
-<span id="cb23-141"><a href="#cb23-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-142"><a href="#cb23-142" aria-hidden="true" tabindex="-1"></a><span class="co">#nope, need to keep length</span></span>
-<span id="cb23-143"><a href="#cb23-143" aria-hidden="true" tabindex="-1"></a><span class="co">#How about without the interactions?</span></span>
-<span id="cb23-144"><a href="#cb23-144" aria-hidden="true" tabindex="-1"></a>gamS3 <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempS <span class="sc">+</span> flowS) <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
-<span id="cb23-145"><a href="#cb23-145" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-146"><a href="#cb23-146" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
-<span id="cb23-147"><a href="#cb23-147" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-148"><a href="#cb23-148" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
-<span id="cb23-149"><a href="#cb23-149" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
-<span id="cb23-150"><a href="#cb23-150" aria-hidden="true" tabindex="-1"></a><span class="co">#nope, need the interactions</span></span>
-<span id="cb23-151"><a href="#cb23-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-152"><a href="#cb23-152" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(gamS0, gamS1, gamS2, gamS3) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(AIC)</span>
-<span id="cb23-153"><a href="#cb23-153" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-106"><a href="#cb23-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-107"><a href="#cb23-107" aria-hidden="true" tabindex="-1"></a><span class="fu">### Flow standardized by season</span></span>
+<span id="cb23-108"><a href="#cb23-108" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Brook trout - flow</span></span>
+<span id="cb23-111"><a href="#cb23-111" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-112"><a href="#cb23-112" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: gamSModsBKT2</span></span>
+<span id="cb23-113"><a href="#cb23-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-114"><a href="#cb23-114" aria-hidden="true" tabindex="-1"></a>gamS0 <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempS <span class="sc">+</span> flowS)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
+<span id="cb23-115"><a href="#cb23-115" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-116"><a href="#cb23-116" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
+<span id="cb23-117"><a href="#cb23-117" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-118"><a href="#cb23-118" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
+<span id="cb23-119"><a href="#cb23-119" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
+<span id="cb23-120"><a href="#cb23-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-121"><a href="#cb23-121" aria-hidden="true" tabindex="-1"></a>gamS1 <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempS <span class="sc">+</span> flowS)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">+</span>             </span>
+<span id="cb23-122"><a href="#cb23-122" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-123"><a href="#cb23-123" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
+<span id="cb23-124"><a href="#cb23-124" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-125"><a href="#cb23-125" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
+<span id="cb23-126"><a href="#cb23-126" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
+<span id="cb23-127"><a href="#cb23-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-128"><a href="#cb23-128" aria-hidden="true" tabindex="-1"></a><span class="co"># age matters, what about taking out length?</span></span>
+<span id="cb23-129"><a href="#cb23-129" aria-hidden="true" tabindex="-1"></a>gamS2 <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG  <span class="sc">+</span> tempS <span class="sc">+</span> flowS)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
+<span id="cb23-130"><a href="#cb23-130" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-131"><a href="#cb23-131" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
+<span id="cb23-132"><a href="#cb23-132" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-133"><a href="#cb23-133" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
+<span id="cb23-134"><a href="#cb23-134" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
+<span id="cb23-135"><a href="#cb23-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-136"><a href="#cb23-136" aria-hidden="true" tabindex="-1"></a><span class="co">#nope, need to keep length</span></span>
+<span id="cb23-137"><a href="#cb23-137" aria-hidden="true" tabindex="-1"></a><span class="co">#How about without the interactions?</span></span>
+<span id="cb23-138"><a href="#cb23-138" aria-hidden="true" tabindex="-1"></a>gamS3 <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempS <span class="sc">+</span> flowS) <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
+<span id="cb23-139"><a href="#cb23-139" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-140"><a href="#cb23-140" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
+<span id="cb23-141"><a href="#cb23-141" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-142"><a href="#cb23-142" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
+<span id="cb23-143"><a href="#cb23-143" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
+<span id="cb23-144"><a href="#cb23-144" aria-hidden="true" tabindex="-1"></a><span class="co">#nope, need the interactions</span></span>
+<span id="cb23-145"><a href="#cb23-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-146"><a href="#cb23-146" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(gamS0, gamS1, gamS2, gamS3) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(AIC)</span>
+<span id="cb23-147"><a href="#cb23-147" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-148"><a href="#cb23-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-149"><a href="#cb23-149" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Brook trout - flow by river</span></span>
+<span id="cb23-152"><a href="#cb23-152" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-153"><a href="#cb23-153" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: gamSModsBKTFBR2</span></span>
 <span id="cb23-154"><a href="#cb23-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-155"><a href="#cb23-155" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Brook trout - flow by river</span></span>
-<span id="cb23-158"><a href="#cb23-158" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb23-159"><a href="#cb23-159" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: gamSModsBKTFBR2</span></span>
-<span id="cb23-160"><a href="#cb23-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-161"><a href="#cb23-161" aria-hidden="true" tabindex="-1"></a>gamS0ByRiver <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempS <span class="sc">+</span> flowByRiverS)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
-<span id="cb23-162"><a href="#cb23-162" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-163"><a href="#cb23-163" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
-<span id="cb23-164"><a href="#cb23-164" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-165"><a href="#cb23-165" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
-<span id="cb23-166"><a href="#cb23-166" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
-<span id="cb23-167"><a href="#cb23-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-168"><a href="#cb23-168" aria-hidden="true" tabindex="-1"></a>gamS1ByRiver <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempS <span class="sc">+</span> flowByRiverS)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">+</span>             </span>
-<span id="cb23-169"><a href="#cb23-169" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-170"><a href="#cb23-170" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
-<span id="cb23-171"><a href="#cb23-171" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-172"><a href="#cb23-172" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
-<span id="cb23-173"><a href="#cb23-173" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
-<span id="cb23-174"><a href="#cb23-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-175"><a href="#cb23-175" aria-hidden="true" tabindex="-1"></a><span class="co"># age matters, what about taking out length?</span></span>
-<span id="cb23-176"><a href="#cb23-176" aria-hidden="true" tabindex="-1"></a>gamS2ByRiver <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG  <span class="sc">+</span> tempS <span class="sc">+</span> flowByRiverS)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
-<span id="cb23-177"><a href="#cb23-177" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-178"><a href="#cb23-178" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
-<span id="cb23-179"><a href="#cb23-179" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-180"><a href="#cb23-180" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
-<span id="cb23-181"><a href="#cb23-181" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
-<span id="cb23-182"><a href="#cb23-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-183"><a href="#cb23-183" aria-hidden="true" tabindex="-1"></a><span class="co">#nope, need to keep length</span></span>
-<span id="cb23-184"><a href="#cb23-184" aria-hidden="true" tabindex="-1"></a><span class="co">#How about without the interactions?</span></span>
-<span id="cb23-185"><a href="#cb23-185" aria-hidden="true" tabindex="-1"></a>gamS3ByRiver <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempS <span class="sc">+</span> flowByRiverS) <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
-<span id="cb23-186"><a href="#cb23-186" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-187"><a href="#cb23-187" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
-<span id="cb23-188"><a href="#cb23-188" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-189"><a href="#cb23-189" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
-<span id="cb23-190"><a href="#cb23-190" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
-<span id="cb23-191"><a href="#cb23-191" aria-hidden="true" tabindex="-1"></a><span class="co">#nope, need the interactions</span></span>
-<span id="cb23-192"><a href="#cb23-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-193"><a href="#cb23-193" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(gamS0ByRiver, gamS1ByRiver, gamS2ByRiver, gamS3ByRiver) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(AIC)</span>
-<span id="cb23-194"><a href="#cb23-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb23-195"><a href="#cb23-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-196"><a href="#cb23-196" aria-hidden="true" tabindex="-1"></a><span class="fu">### Flow std by season/river</span></span>
-<span id="cb23-197"><a href="#cb23-197" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Brook trout - flow</span></span>
-<span id="cb23-200"><a href="#cb23-200" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb23-201"><a href="#cb23-201" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: gamModsBKT2</span></span>
-<span id="cb23-202"><a href="#cb23-202" aria-hidden="true" tabindex="-1"></a>kIn <span class="ot">=</span> <span class="dv">4</span></span>
-<span id="cb23-203"><a href="#cb23-203" aria-hidden="true" tabindex="-1"></a>speciesIn <span class="ot">&lt;-</span> <span class="st">"Brook trout"</span></span>
-<span id="cb23-204"><a href="#cb23-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-205"><a href="#cb23-205" aria-hidden="true" tabindex="-1"></a>gam0 <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempSR <span class="sc">+</span> flowSR)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
-<span id="cb23-206"><a href="#cb23-206" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-207"><a href="#cb23-207" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
-<span id="cb23-208"><a href="#cb23-208" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-209"><a href="#cb23-209" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
-<span id="cb23-210"><a href="#cb23-210" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
-<span id="cb23-211"><a href="#cb23-211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-212"><a href="#cb23-212" aria-hidden="true" tabindex="-1"></a>gam1 <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempSR <span class="sc">+</span> flowSR)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">+</span>             </span>
-<span id="cb23-213"><a href="#cb23-213" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-214"><a href="#cb23-214" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
-<span id="cb23-215"><a href="#cb23-215" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-216"><a href="#cb23-216" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
-<span id="cb23-217"><a href="#cb23-217" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
-<span id="cb23-218"><a href="#cb23-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-219"><a href="#cb23-219" aria-hidden="true" tabindex="-1"></a><span class="co"># age matters, what about taking out length?</span></span>
-<span id="cb23-220"><a href="#cb23-220" aria-hidden="true" tabindex="-1"></a>gam2 <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG  <span class="sc">+</span> tempSR <span class="sc">+</span> flowSR)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
-<span id="cb23-221"><a href="#cb23-221" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-222"><a href="#cb23-222" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
-<span id="cb23-223"><a href="#cb23-223" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-224"><a href="#cb23-224" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
-<span id="cb23-225"><a href="#cb23-225" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
-<span id="cb23-226"><a href="#cb23-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-227"><a href="#cb23-227" aria-hidden="true" tabindex="-1"></a><span class="co">#nope, need to keep length</span></span>
-<span id="cb23-228"><a href="#cb23-228" aria-hidden="true" tabindex="-1"></a><span class="co">#How about without the interactions?</span></span>
-<span id="cb23-229"><a href="#cb23-229" aria-hidden="true" tabindex="-1"></a>gam3 <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempSR <span class="sc">+</span> flowSR) <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
-<span id="cb23-230"><a href="#cb23-230" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-231"><a href="#cb23-231" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
-<span id="cb23-232"><a href="#cb23-232" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-233"><a href="#cb23-233" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
-<span id="cb23-234"><a href="#cb23-234" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
-<span id="cb23-235"><a href="#cb23-235" aria-hidden="true" tabindex="-1"></a><span class="co">#nope, need the interactions</span></span>
-<span id="cb23-236"><a href="#cb23-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-237"><a href="#cb23-237" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(gam0, gam1, gam2, gam3) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(AIC)</span>
-<span id="cb23-238"><a href="#cb23-238" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-155"><a href="#cb23-155" aria-hidden="true" tabindex="-1"></a>gamS0ByRiver <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempS <span class="sc">+</span> flowByRiverS)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
+<span id="cb23-156"><a href="#cb23-156" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-157"><a href="#cb23-157" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
+<span id="cb23-158"><a href="#cb23-158" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-159"><a href="#cb23-159" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
+<span id="cb23-160"><a href="#cb23-160" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
+<span id="cb23-161"><a href="#cb23-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-162"><a href="#cb23-162" aria-hidden="true" tabindex="-1"></a>gamS1ByRiver <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempS <span class="sc">+</span> flowByRiverS)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">+</span>             </span>
+<span id="cb23-163"><a href="#cb23-163" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-164"><a href="#cb23-164" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
+<span id="cb23-165"><a href="#cb23-165" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-166"><a href="#cb23-166" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
+<span id="cb23-167"><a href="#cb23-167" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
+<span id="cb23-168"><a href="#cb23-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-169"><a href="#cb23-169" aria-hidden="true" tabindex="-1"></a><span class="co"># age matters, what about taking out length?</span></span>
+<span id="cb23-170"><a href="#cb23-170" aria-hidden="true" tabindex="-1"></a>gamS2ByRiver <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG  <span class="sc">+</span> tempS <span class="sc">+</span> flowByRiverS)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
+<span id="cb23-171"><a href="#cb23-171" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-172"><a href="#cb23-172" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
+<span id="cb23-173"><a href="#cb23-173" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-174"><a href="#cb23-174" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
+<span id="cb23-175"><a href="#cb23-175" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
+<span id="cb23-176"><a href="#cb23-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-177"><a href="#cb23-177" aria-hidden="true" tabindex="-1"></a><span class="co">#nope, need to keep length</span></span>
+<span id="cb23-178"><a href="#cb23-178" aria-hidden="true" tabindex="-1"></a><span class="co">#How about without the interactions?</span></span>
+<span id="cb23-179"><a href="#cb23-179" aria-hidden="true" tabindex="-1"></a>gamS3ByRiver <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempS <span class="sc">+</span> flowByRiverS) <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
+<span id="cb23-180"><a href="#cb23-180" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-181"><a href="#cb23-181" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
+<span id="cb23-182"><a href="#cb23-182" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-183"><a href="#cb23-183" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempS, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
+<span id="cb23-184"><a href="#cb23-184" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
+<span id="cb23-185"><a href="#cb23-185" aria-hidden="true" tabindex="-1"></a><span class="co">#nope, need the interactions</span></span>
+<span id="cb23-186"><a href="#cb23-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-187"><a href="#cb23-187" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(gamS0ByRiver, gamS1ByRiver, gamS2ByRiver, gamS3ByRiver) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(AIC)</span>
+<span id="cb23-188"><a href="#cb23-188" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-189"><a href="#cb23-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-190"><a href="#cb23-190" aria-hidden="true" tabindex="-1"></a><span class="fu">### Flow std by season/river</span></span>
+<span id="cb23-191"><a href="#cb23-191" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Brook trout - flow</span></span>
+<span id="cb23-194"><a href="#cb23-194" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-195"><a href="#cb23-195" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: gamModsBKT2</span></span>
+<span id="cb23-196"><a href="#cb23-196" aria-hidden="true" tabindex="-1"></a>kIn <span class="ot">=</span> <span class="dv">4</span></span>
+<span id="cb23-197"><a href="#cb23-197" aria-hidden="true" tabindex="-1"></a>speciesIn <span class="ot">&lt;-</span> <span class="st">"Brook trout"</span></span>
+<span id="cb23-198"><a href="#cb23-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-199"><a href="#cb23-199" aria-hidden="true" tabindex="-1"></a>gam0 <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempSR <span class="sc">+</span> flowSR)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
+<span id="cb23-200"><a href="#cb23-200" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-201"><a href="#cb23-201" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
+<span id="cb23-202"><a href="#cb23-202" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-203"><a href="#cb23-203" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
+<span id="cb23-204"><a href="#cb23-204" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
+<span id="cb23-205"><a href="#cb23-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-206"><a href="#cb23-206" aria-hidden="true" tabindex="-1"></a>gam1 <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempSR <span class="sc">+</span> flowSR)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">+</span>             </span>
+<span id="cb23-207"><a href="#cb23-207" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-208"><a href="#cb23-208" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
+<span id="cb23-209"><a href="#cb23-209" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-210"><a href="#cb23-210" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
+<span id="cb23-211"><a href="#cb23-211" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
+<span id="cb23-212"><a href="#cb23-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-213"><a href="#cb23-213" aria-hidden="true" tabindex="-1"></a><span class="co"># age matters, what about taking out length?</span></span>
+<span id="cb23-214"><a href="#cb23-214" aria-hidden="true" tabindex="-1"></a>gam2 <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG  <span class="sc">+</span> tempSR <span class="sc">+</span> flowSR)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
+<span id="cb23-215"><a href="#cb23-215" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-216"><a href="#cb23-216" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
+<span id="cb23-217"><a href="#cb23-217" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-218"><a href="#cb23-218" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
+<span id="cb23-219"><a href="#cb23-219" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
+<span id="cb23-220"><a href="#cb23-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-221"><a href="#cb23-221" aria-hidden="true" tabindex="-1"></a><span class="co">#nope, need to keep length</span></span>
+<span id="cb23-222"><a href="#cb23-222" aria-hidden="true" tabindex="-1"></a><span class="co">#How about without the interactions?</span></span>
+<span id="cb23-223"><a href="#cb23-223" aria-hidden="true" tabindex="-1"></a>gam3 <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempSR <span class="sc">+</span> flowSR) <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
+<span id="cb23-224"><a href="#cb23-224" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-225"><a href="#cb23-225" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
+<span id="cb23-226"><a href="#cb23-226" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-227"><a href="#cb23-227" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
+<span id="cb23-228"><a href="#cb23-228" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
+<span id="cb23-229"><a href="#cb23-229" aria-hidden="true" tabindex="-1"></a><span class="co">#nope, need the interactions</span></span>
+<span id="cb23-230"><a href="#cb23-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-231"><a href="#cb23-231" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(gam0, gam1, gam2, gam3) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(AIC)</span>
+<span id="cb23-232"><a href="#cb23-232" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-233"><a href="#cb23-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-234"><a href="#cb23-234" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Brook trout - flow by river</span></span>
+<span id="cb23-237"><a href="#cb23-237" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-238"><a href="#cb23-238" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: gamModsBKTFBR2</span></span>
 <span id="cb23-239"><a href="#cb23-239" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-240"><a href="#cb23-240" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Brook trout - flow by river</span></span>
-<span id="cb23-243"><a href="#cb23-243" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb23-244"><a href="#cb23-244" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: gamModsBKTFBR2</span></span>
-<span id="cb23-245"><a href="#cb23-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-246"><a href="#cb23-246" aria-hidden="true" tabindex="-1"></a>gam0ByRiver <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempSR <span class="sc">+</span> flowByRiverSR)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
-<span id="cb23-247"><a href="#cb23-247" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-248"><a href="#cb23-248" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
-<span id="cb23-249"><a href="#cb23-249" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-250"><a href="#cb23-250" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
-<span id="cb23-251"><a href="#cb23-251" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
-<span id="cb23-252"><a href="#cb23-252" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-253"><a href="#cb23-253" aria-hidden="true" tabindex="-1"></a>gam1ByRiver <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempSR <span class="sc">+</span> flowByRiverSR)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">+</span>             </span>
-<span id="cb23-254"><a href="#cb23-254" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-255"><a href="#cb23-255" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
-<span id="cb23-256"><a href="#cb23-256" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-257"><a href="#cb23-257" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
-<span id="cb23-258"><a href="#cb23-258" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
-<span id="cb23-259"><a href="#cb23-259" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-260"><a href="#cb23-260" aria-hidden="true" tabindex="-1"></a><span class="co"># age matters, what about taking out length?</span></span>
-<span id="cb23-261"><a href="#cb23-261" aria-hidden="true" tabindex="-1"></a>gam2ByRiver <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG  <span class="sc">+</span> tempSR <span class="sc">+</span> flowByRiverSR)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
-<span id="cb23-262"><a href="#cb23-262" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-263"><a href="#cb23-263" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
-<span id="cb23-264"><a href="#cb23-264" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-265"><a href="#cb23-265" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
-<span id="cb23-266"><a href="#cb23-266" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
-<span id="cb23-267"><a href="#cb23-267" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-268"><a href="#cb23-268" aria-hidden="true" tabindex="-1"></a><span class="co">#nope, need to keep length</span></span>
-<span id="cb23-269"><a href="#cb23-269" aria-hidden="true" tabindex="-1"></a><span class="co">#How about without the interactions?</span></span>
-<span id="cb23-270"><a href="#cb23-270" aria-hidden="true" tabindex="-1"></a>gam3ByRiver <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempSR <span class="sc">+</span> flowByRiverSR) <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
-<span id="cb23-271"><a href="#cb23-271" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-272"><a href="#cb23-272" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
-<span id="cb23-273"><a href="#cb23-273" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
-<span id="cb23-274"><a href="#cb23-274" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
-<span id="cb23-275"><a href="#cb23-275" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
-<span id="cb23-276"><a href="#cb23-276" aria-hidden="true" tabindex="-1"></a><span class="co">#nope, need the interactions</span></span>
-<span id="cb23-277"><a href="#cb23-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-278"><a href="#cb23-278" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(gam0ByRiver, gam1ByRiver, gam2ByRiver, gam3ByRiver) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(AIC)</span>
-<span id="cb23-279"><a href="#cb23-279" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb23-280"><a href="#cb23-280" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-281"><a href="#cb23-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-240"><a href="#cb23-240" aria-hidden="true" tabindex="-1"></a>gam0ByRiver <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempSR <span class="sc">+</span> flowByRiverSR)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
+<span id="cb23-241"><a href="#cb23-241" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-242"><a href="#cb23-242" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
+<span id="cb23-243"><a href="#cb23-243" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-244"><a href="#cb23-244" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
+<span id="cb23-245"><a href="#cb23-245" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
+<span id="cb23-246"><a href="#cb23-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-247"><a href="#cb23-247" aria-hidden="true" tabindex="-1"></a>gam1ByRiver <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempSR <span class="sc">+</span> flowByRiverSR)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">+</span>             </span>
+<span id="cb23-248"><a href="#cb23-248" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-249"><a href="#cb23-249" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
+<span id="cb23-250"><a href="#cb23-250" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-251"><a href="#cb23-251" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
+<span id="cb23-252"><a href="#cb23-252" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
+<span id="cb23-253"><a href="#cb23-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-254"><a href="#cb23-254" aria-hidden="true" tabindex="-1"></a><span class="co"># age matters, what about taking out length?</span></span>
+<span id="cb23-255"><a href="#cb23-255" aria-hidden="true" tabindex="-1"></a>gam2ByRiver <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG  <span class="sc">+</span> tempSR <span class="sc">+</span> flowByRiverSR)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
+<span id="cb23-256"><a href="#cb23-256" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-257"><a href="#cb23-257" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
+<span id="cb23-258"><a href="#cb23-258" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-259"><a href="#cb23-259" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
+<span id="cb23-260"><a href="#cb23-260" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
+<span id="cb23-261"><a href="#cb23-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-262"><a href="#cb23-262" aria-hidden="true" tabindex="-1"></a><span class="co">#nope, need to keep length</span></span>
+<span id="cb23-263"><a href="#cb23-263" aria-hidden="true" tabindex="-1"></a><span class="co">#How about without the interactions?</span></span>
+<span id="cb23-264"><a href="#cb23-264" aria-hidden="true" tabindex="-1"></a>gam3ByRiver <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempSR <span class="sc">+</span> flowByRiverSR) <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
+<span id="cb23-265"><a href="#cb23-265" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-266"><a href="#cb23-266" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG) <span class="sc">+</span></span>
+<span id="cb23-267"><a href="#cb23-267" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
+<span id="cb23-268"><a href="#cb23-268" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(tempSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> seasonGG),</span>
+<span id="cb23-269"><a href="#cb23-269" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dGAM <span class="sc">|&gt;</span> <span class="fu">filter</span>(speciesGG <span class="sc">==</span> speciesIn, cohort <span class="sc">%in%</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>), <span class="at">method =</span> <span class="st">"REML"</span>)</span>
+<span id="cb23-270"><a href="#cb23-270" aria-hidden="true" tabindex="-1"></a><span class="co">#nope, need the interactions</span></span>
+<span id="cb23-271"><a href="#cb23-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-272"><a href="#cb23-272" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(gam0ByRiver, gam1ByRiver, gam2ByRiver, gam3ByRiver) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(AIC)</span>
+<span id="cb23-273"><a href="#cb23-273" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-274"><a href="#cb23-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-275"><a href="#cb23-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-276"><a href="#cb23-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-277"><a href="#cb23-277" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Brook trout - compare flow and flow by river gams</span></span>
+<span id="cb23-280"><a href="#cb23-280" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-281"><a href="#cb23-281" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: gamModsCompare2</span></span>
 <span id="cb23-282"><a href="#cb23-282" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-283"><a href="#cb23-283" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Brook trout - compare flow and flow by river gams</span></span>
-<span id="cb23-286"><a href="#cb23-286" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb23-287"><a href="#cb23-287" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: gamModsCompare2</span></span>
-<span id="cb23-288"><a href="#cb23-288" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-289"><a href="#cb23-289" aria-hidden="true" tabindex="-1"></a>predictBKTgamS <span class="ot">&lt;-</span> <span class="cf">function</span>(dIn, modInFlow, modInFlowByRiver){</span>
-<span id="cb23-290"><a href="#cb23-290" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-291"><a href="#cb23-291" aria-hidden="true" tabindex="-1"></a>  predMat0 <span class="ot">&lt;-</span> </span>
-<span id="cb23-292"><a href="#cb23-292" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expand.grid</span>(</span>
-<span id="cb23-293"><a href="#cb23-293" aria-hidden="true" tabindex="-1"></a>      <span class="at">flowS =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="fl">0.25</span>), </span>
-<span id="cb23-294"><a href="#cb23-294" aria-hidden="true" tabindex="-1"></a>      <span class="at">tempS =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="fl">0.25</span>), </span>
-<span id="cb23-295"><a href="#cb23-295" aria-hidden="true" tabindex="-1"></a>      <span class="at">riverGG =</span> <span class="fu">unique</span>(dIn<span class="sc">$</span>riverGG), </span>
-<span id="cb23-296"><a href="#cb23-296" aria-hidden="true" tabindex="-1"></a>      <span class="at">seasonGG=</span> <span class="fu">unique</span>(dIn<span class="sc">$</span>seasonGG),</span>
-<span id="cb23-297"><a href="#cb23-297" aria-hidden="true" tabindex="-1"></a>      <span class="at">observedWeight =</span> <span class="fu">seq</span>(<span class="dv">2</span>, <span class="fu">max</span>(dIn<span class="sc">$</span>observedWeight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)<span class="sc">/</span><span class="dv">2</span>, <span class="dv">20</span>),</span>
-<span id="cb23-298"><a href="#cb23-298" aria-hidden="true" tabindex="-1"></a>      <span class="at">cohortF =</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>,<span class="co">#uunique(dIn$cohortF),</span></span>
-<span id="cb23-299"><a href="#cb23-299" aria-hidden="true" tabindex="-1"></a>      <span class="at">ageF =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>,<span class="co">#unique(dIn$ageF),</span></span>
-<span id="cb23-300"><a href="#cb23-300" aria-hidden="true" tabindex="-1"></a>      <span class="at">byRiver =</span> <span class="cn">FALSE</span></span>
-<span id="cb23-301"><a href="#cb23-301" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb23-302"><a href="#cb23-302" aria-hidden="true" tabindex="-1"></a>  predMat <span class="ot">&lt;-</span> </span>
-<span id="cb23-303"><a href="#cb23-303" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_column</span>(</span>
-<span id="cb23-304"><a href="#cb23-304" aria-hidden="true" tabindex="-1"></a>      <span class="at">pred =</span> <span class="fu">predict.bam</span>(modInFlow, predMat0),</span>
-<span id="cb23-305"><a href="#cb23-305" aria-hidden="true" tabindex="-1"></a>      predMat0</span>
-<span id="cb23-306"><a href="#cb23-306" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
-<span id="cb23-307"><a href="#cb23-307" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">flow =</span> flowS, <span class="at">temp =</span> tempS)</span>
-<span id="cb23-308"><a href="#cb23-308" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb23-309"><a href="#cb23-309" aria-hidden="true" tabindex="-1"></a>  predMatByRiver0 <span class="ot">&lt;-</span> </span>
-<span id="cb23-310"><a href="#cb23-310" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expand.grid</span>(</span>
-<span id="cb23-311"><a href="#cb23-311" aria-hidden="true" tabindex="-1"></a>      <span class="at">flowByRiverS =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="fl">0.25</span>), </span>
-<span id="cb23-312"><a href="#cb23-312" aria-hidden="true" tabindex="-1"></a>      <span class="at">tempS =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="fl">0.25</span>), </span>
-<span id="cb23-313"><a href="#cb23-313" aria-hidden="true" tabindex="-1"></a>      <span class="at">riverGG =</span> <span class="fu">unique</span>(dIn<span class="sc">$</span>riverGG), </span>
-<span id="cb23-314"><a href="#cb23-314" aria-hidden="true" tabindex="-1"></a>      <span class="at">seasonGG=</span> <span class="fu">unique</span>(dIn<span class="sc">$</span>seasonGG),</span>
-<span id="cb23-315"><a href="#cb23-315" aria-hidden="true" tabindex="-1"></a>      <span class="at">observedWeight =</span> <span class="fu">seq</span>(<span class="dv">2</span>, <span class="fu">max</span>(dIn<span class="sc">$</span>observedWeight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)<span class="sc">/</span><span class="dv">2</span>, <span class="dv">20</span>),</span>
-<span id="cb23-316"><a href="#cb23-316" aria-hidden="true" tabindex="-1"></a>      <span class="at">cohortF =</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>,<span class="co">#unique(dIn$cohortF),</span></span>
-<span id="cb23-317"><a href="#cb23-317" aria-hidden="true" tabindex="-1"></a>      <span class="at">ageF =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>,<span class="co">#unique(dIn$ageF),</span></span>
-<span id="cb23-318"><a href="#cb23-318" aria-hidden="true" tabindex="-1"></a>      <span class="at">byRiver =</span> <span class="cn">TRUE</span></span>
-<span id="cb23-319"><a href="#cb23-319" aria-hidden="true" tabindex="-1"></a>    ) </span>
-<span id="cb23-320"><a href="#cb23-320" aria-hidden="true" tabindex="-1"></a>  predMatByRiver <span class="ot">&lt;-</span> </span>
-<span id="cb23-321"><a href="#cb23-321" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_column</span>(</span>
-<span id="cb23-322"><a href="#cb23-322" aria-hidden="true" tabindex="-1"></a>      <span class="at">pred =</span> <span class="fu">predict.bam</span>(modInFlowByRiver, predMatByRiver0),</span>
-<span id="cb23-323"><a href="#cb23-323" aria-hidden="true" tabindex="-1"></a>      predMatByRiver0</span>
-<span id="cb23-324"><a href="#cb23-324" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
-<span id="cb23-325"><a href="#cb23-325" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">flow =</span> flowByRiverS, <span class="at">temp =</span> tempS)</span>
+<span id="cb23-283"><a href="#cb23-283" aria-hidden="true" tabindex="-1"></a>predictBKTgamS <span class="ot">&lt;-</span> <span class="cf">function</span>(dIn, modInFlow, modInFlowByRiver){</span>
+<span id="cb23-284"><a href="#cb23-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-285"><a href="#cb23-285" aria-hidden="true" tabindex="-1"></a>  predMat0 <span class="ot">&lt;-</span> </span>
+<span id="cb23-286"><a href="#cb23-286" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expand.grid</span>(</span>
+<span id="cb23-287"><a href="#cb23-287" aria-hidden="true" tabindex="-1"></a>      <span class="at">flowS =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="fl">0.25</span>), </span>
+<span id="cb23-288"><a href="#cb23-288" aria-hidden="true" tabindex="-1"></a>      <span class="at">tempS =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="fl">0.25</span>), </span>
+<span id="cb23-289"><a href="#cb23-289" aria-hidden="true" tabindex="-1"></a>      <span class="at">riverGG =</span> <span class="fu">unique</span>(dIn<span class="sc">$</span>riverGG), </span>
+<span id="cb23-290"><a href="#cb23-290" aria-hidden="true" tabindex="-1"></a>      <span class="at">seasonGG=</span> <span class="fu">unique</span>(dIn<span class="sc">$</span>seasonGG),</span>
+<span id="cb23-291"><a href="#cb23-291" aria-hidden="true" tabindex="-1"></a>      <span class="at">observedWeight =</span> <span class="fu">seq</span>(<span class="dv">2</span>, <span class="fu">max</span>(dIn<span class="sc">$</span>observedWeight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)<span class="sc">/</span><span class="dv">2</span>, <span class="dv">20</span>),</span>
+<span id="cb23-292"><a href="#cb23-292" aria-hidden="true" tabindex="-1"></a>      <span class="at">cohortF =</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>,<span class="co">#uunique(dIn$cohortF),</span></span>
+<span id="cb23-293"><a href="#cb23-293" aria-hidden="true" tabindex="-1"></a>      <span class="at">ageF =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>,<span class="co">#unique(dIn$ageF),</span></span>
+<span id="cb23-294"><a href="#cb23-294" aria-hidden="true" tabindex="-1"></a>      <span class="at">byRiver =</span> <span class="cn">FALSE</span></span>
+<span id="cb23-295"><a href="#cb23-295" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb23-296"><a href="#cb23-296" aria-hidden="true" tabindex="-1"></a>  predMat <span class="ot">&lt;-</span> </span>
+<span id="cb23-297"><a href="#cb23-297" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_column</span>(</span>
+<span id="cb23-298"><a href="#cb23-298" aria-hidden="true" tabindex="-1"></a>      <span class="at">pred =</span> <span class="fu">predict.bam</span>(modInFlow, predMat0),</span>
+<span id="cb23-299"><a href="#cb23-299" aria-hidden="true" tabindex="-1"></a>      predMat0</span>
+<span id="cb23-300"><a href="#cb23-300" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
+<span id="cb23-301"><a href="#cb23-301" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">flow =</span> flowS, <span class="at">temp =</span> tempS)</span>
+<span id="cb23-302"><a href="#cb23-302" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb23-303"><a href="#cb23-303" aria-hidden="true" tabindex="-1"></a>  predMatByRiver0 <span class="ot">&lt;-</span> </span>
+<span id="cb23-304"><a href="#cb23-304" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expand.grid</span>(</span>
+<span id="cb23-305"><a href="#cb23-305" aria-hidden="true" tabindex="-1"></a>      <span class="at">flowByRiverS =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="fl">0.25</span>), </span>
+<span id="cb23-306"><a href="#cb23-306" aria-hidden="true" tabindex="-1"></a>      <span class="at">tempS =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="fl">0.25</span>), </span>
+<span id="cb23-307"><a href="#cb23-307" aria-hidden="true" tabindex="-1"></a>      <span class="at">riverGG =</span> <span class="fu">unique</span>(dIn<span class="sc">$</span>riverGG), </span>
+<span id="cb23-308"><a href="#cb23-308" aria-hidden="true" tabindex="-1"></a>      <span class="at">seasonGG=</span> <span class="fu">unique</span>(dIn<span class="sc">$</span>seasonGG),</span>
+<span id="cb23-309"><a href="#cb23-309" aria-hidden="true" tabindex="-1"></a>      <span class="at">observedWeight =</span> <span class="fu">seq</span>(<span class="dv">2</span>, <span class="fu">max</span>(dIn<span class="sc">$</span>observedWeight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)<span class="sc">/</span><span class="dv">2</span>, <span class="dv">20</span>),</span>
+<span id="cb23-310"><a href="#cb23-310" aria-hidden="true" tabindex="-1"></a>      <span class="at">cohortF =</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>,<span class="co">#unique(dIn$cohortF),</span></span>
+<span id="cb23-311"><a href="#cb23-311" aria-hidden="true" tabindex="-1"></a>      <span class="at">ageF =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>,<span class="co">#unique(dIn$ageF),</span></span>
+<span id="cb23-312"><a href="#cb23-312" aria-hidden="true" tabindex="-1"></a>      <span class="at">byRiver =</span> <span class="cn">TRUE</span></span>
+<span id="cb23-313"><a href="#cb23-313" aria-hidden="true" tabindex="-1"></a>    ) </span>
+<span id="cb23-314"><a href="#cb23-314" aria-hidden="true" tabindex="-1"></a>  predMatByRiver <span class="ot">&lt;-</span> </span>
+<span id="cb23-315"><a href="#cb23-315" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_column</span>(</span>
+<span id="cb23-316"><a href="#cb23-316" aria-hidden="true" tabindex="-1"></a>      <span class="at">pred =</span> <span class="fu">predict.bam</span>(modInFlowByRiver, predMatByRiver0),</span>
+<span id="cb23-317"><a href="#cb23-317" aria-hidden="true" tabindex="-1"></a>      predMatByRiver0</span>
+<span id="cb23-318"><a href="#cb23-318" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
+<span id="cb23-319"><a href="#cb23-319" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">flow =</span> flowByRiverS, <span class="at">temp =</span> tempS)</span>
+<span id="cb23-320"><a href="#cb23-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-321"><a href="#cb23-321" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">add_row</span>(predMat, predMatByRiver))</span>
+<span id="cb23-322"><a href="#cb23-322" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb23-323"><a href="#cb23-323" aria-hidden="true" tabindex="-1"></a>gamSBKTPredictions <span class="ot">&lt;-</span> <span class="fu">predictBKTgamS</span>(dGAM, gamS0, gamS0ByRiver)</span>
+<span id="cb23-324"><a href="#cb23-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-325"><a href="#cb23-325" aria-hidden="true" tabindex="-1"></a>predictBKTgam <span class="ot">&lt;-</span> <span class="cf">function</span>(dIn, modInFlow, modInFlowByRiver){</span>
 <span id="cb23-326"><a href="#cb23-326" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-327"><a href="#cb23-327" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">add_row</span>(predMat, predMatByRiver))</span>
-<span id="cb23-328"><a href="#cb23-328" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb23-329"><a href="#cb23-329" aria-hidden="true" tabindex="-1"></a>gamSBKTPredictions <span class="ot">&lt;-</span> <span class="fu">predictBKTgamS</span>(dGAM, gamS0, gamS0ByRiver)</span>
-<span id="cb23-330"><a href="#cb23-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-331"><a href="#cb23-331" aria-hidden="true" tabindex="-1"></a>predictBKTgam <span class="ot">&lt;-</span> <span class="cf">function</span>(dIn, modInFlow, modInFlowByRiver){</span>
-<span id="cb23-332"><a href="#cb23-332" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-333"><a href="#cb23-333" aria-hidden="true" tabindex="-1"></a>  predMat0 <span class="ot">&lt;-</span> </span>
-<span id="cb23-334"><a href="#cb23-334" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expand.grid</span>(</span>
-<span id="cb23-335"><a href="#cb23-335" aria-hidden="true" tabindex="-1"></a>      <span class="at">flowSR =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="fl">0.25</span>), </span>
-<span id="cb23-336"><a href="#cb23-336" aria-hidden="true" tabindex="-1"></a>      <span class="at">tempSR =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="fl">0.25</span>), </span>
-<span id="cb23-337"><a href="#cb23-337" aria-hidden="true" tabindex="-1"></a>      <span class="at">riverGG =</span> <span class="fu">unique</span>(dIn<span class="sc">$</span>riverGG), </span>
-<span id="cb23-338"><a href="#cb23-338" aria-hidden="true" tabindex="-1"></a>      <span class="at">seasonGG=</span> <span class="fu">unique</span>(dIn<span class="sc">$</span>seasonGG),</span>
-<span id="cb23-339"><a href="#cb23-339" aria-hidden="true" tabindex="-1"></a>      <span class="at">observedWeight =</span> <span class="fu">seq</span>(<span class="dv">2</span>, <span class="fu">max</span>(dIn<span class="sc">$</span>observedWeight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)<span class="sc">/</span><span class="dv">2</span>, <span class="dv">20</span>),</span>
-<span id="cb23-340"><a href="#cb23-340" aria-hidden="true" tabindex="-1"></a>      <span class="at">cohortF =</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>,<span class="co">#uunique(dIn$cohortF),</span></span>
-<span id="cb23-341"><a href="#cb23-341" aria-hidden="true" tabindex="-1"></a>      <span class="at">ageF =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>,<span class="co">#unique(dIn$ageF),</span></span>
-<span id="cb23-342"><a href="#cb23-342" aria-hidden="true" tabindex="-1"></a>      <span class="at">byRiver =</span> <span class="cn">FALSE</span></span>
-<span id="cb23-343"><a href="#cb23-343" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb23-344"><a href="#cb23-344" aria-hidden="true" tabindex="-1"></a>  predMat <span class="ot">&lt;-</span> </span>
-<span id="cb23-345"><a href="#cb23-345" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_column</span>(</span>
-<span id="cb23-346"><a href="#cb23-346" aria-hidden="true" tabindex="-1"></a>      <span class="at">pred =</span> <span class="fu">predict.bam</span>(modInFlow, predMat0),</span>
-<span id="cb23-347"><a href="#cb23-347" aria-hidden="true" tabindex="-1"></a>      predMat0</span>
-<span id="cb23-348"><a href="#cb23-348" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
-<span id="cb23-349"><a href="#cb23-349" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">flow =</span> flowSR, <span class="at">temp =</span> tempSR)</span>
-<span id="cb23-350"><a href="#cb23-350" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb23-351"><a href="#cb23-351" aria-hidden="true" tabindex="-1"></a>  predMatByRiver0 <span class="ot">&lt;-</span> </span>
-<span id="cb23-352"><a href="#cb23-352" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expand.grid</span>(</span>
-<span id="cb23-353"><a href="#cb23-353" aria-hidden="true" tabindex="-1"></a>      <span class="at">flowByRiverSR =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="fl">0.25</span>), </span>
-<span id="cb23-354"><a href="#cb23-354" aria-hidden="true" tabindex="-1"></a>      <span class="at">tempSR =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="fl">0.25</span>), </span>
-<span id="cb23-355"><a href="#cb23-355" aria-hidden="true" tabindex="-1"></a>      <span class="at">riverGG =</span> <span class="fu">unique</span>(dIn<span class="sc">$</span>riverGG), </span>
-<span id="cb23-356"><a href="#cb23-356" aria-hidden="true" tabindex="-1"></a>      <span class="at">seasonGG=</span> <span class="fu">unique</span>(dIn<span class="sc">$</span>seasonGG),</span>
-<span id="cb23-357"><a href="#cb23-357" aria-hidden="true" tabindex="-1"></a>      <span class="at">observedWeight =</span> <span class="fu">seq</span>(<span class="dv">2</span>, <span class="fu">max</span>(dIn<span class="sc">$</span>observedWeight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)<span class="sc">/</span><span class="dv">2</span>, <span class="dv">20</span>),</span>
-<span id="cb23-358"><a href="#cb23-358" aria-hidden="true" tabindex="-1"></a>      <span class="at">cohortF =</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>,<span class="co">#unique(dIn$cohortF),</span></span>
-<span id="cb23-359"><a href="#cb23-359" aria-hidden="true" tabindex="-1"></a>      <span class="at">ageF =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>,<span class="co">#unique(dIn$ageF),</span></span>
-<span id="cb23-360"><a href="#cb23-360" aria-hidden="true" tabindex="-1"></a>      <span class="at">byRiver =</span> <span class="cn">TRUE</span></span>
-<span id="cb23-361"><a href="#cb23-361" aria-hidden="true" tabindex="-1"></a>    ) </span>
-<span id="cb23-362"><a href="#cb23-362" aria-hidden="true" tabindex="-1"></a>  predMatByRiver <span class="ot">&lt;-</span> </span>
-<span id="cb23-363"><a href="#cb23-363" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_column</span>(</span>
-<span id="cb23-364"><a href="#cb23-364" aria-hidden="true" tabindex="-1"></a>      <span class="at">pred =</span> <span class="fu">predict.bam</span>(modInFlowByRiver, predMatByRiver0),</span>
-<span id="cb23-365"><a href="#cb23-365" aria-hidden="true" tabindex="-1"></a>      predMatByRiver0</span>
-<span id="cb23-366"><a href="#cb23-366" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
-<span id="cb23-367"><a href="#cb23-367" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">flow =</span> flowByRiverSR, <span class="at">temp =</span> tempSR)</span>
-<span id="cb23-368"><a href="#cb23-368" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-369"><a href="#cb23-369" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">add_row</span>(predMat, predMatByRiver))</span>
-<span id="cb23-370"><a href="#cb23-370" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb23-371"><a href="#cb23-371" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-372"><a href="#cb23-372" aria-hidden="true" tabindex="-1"></a>gamBKTPredictions <span class="ot">&lt;-</span> <span class="fu">predictBKTgam</span>(dGAM, gam0, gam0ByRiver)</span>
-<span id="cb23-373"><a href="#cb23-373" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-374"><a href="#cb23-374" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb23-375"><a href="#cb23-375" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-376"><a href="#cb23-376" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Graph predictions</span></span>
-<span id="cb23-379"><a href="#cb23-379" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb23-380"><a href="#cb23-380" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: graphGAMPredictions2</span></span>
-<span id="cb23-381"><a href="#cb23-381" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(gamBKTPredictions<span class="sc">$</span>observedWeight)</span>
-<span id="cb23-382"><a href="#cb23-382" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-383"><a href="#cb23-383" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
-<span id="cb23-384"><a href="#cb23-384" aria-hidden="true" tabindex="-1"></a>  gamSBKTPredictions <span class="sc">|&gt;</span> </span>
-<span id="cb23-385"><a href="#cb23-385" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
-<span id="cb23-386"><a href="#cb23-386" aria-hidden="true" tabindex="-1"></a>      observedWeight <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">22</span>), </span>
-<span id="cb23-387"><a href="#cb23-387" aria-hidden="true" tabindex="-1"></a>      cohortF <span class="sc">==</span> <span class="dv">2012</span>, </span>
-<span id="cb23-388"><a href="#cb23-388" aria-hidden="true" tabindex="-1"></a>      ageF <span class="sc">==</span> <span class="dv">0</span></span>
-<span id="cb23-389"><a href="#cb23-389" aria-hidden="true" tabindex="-1"></a>    ), </span>
-<span id="cb23-390"><a href="#cb23-390" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(temp, pred, <span class="at">color =</span> (flow), <span class="at">group =</span> (flow))) <span class="sc">+</span></span>
-<span id="cb23-391"><a href="#cb23-391" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb23-392"><a href="#cb23-392" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Stream temperature"</span>, <span class="at">y =</span> <span class="st">"Predicted growth rate"</span>) <span class="sc">+</span></span>
-<span id="cb23-393"><a href="#cb23-393" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="sc">-</span><span class="fl">0.02</span>, <span class="fl">0.015</span>) <span class="sc">+</span></span>
-<span id="cb23-394"><a href="#cb23-394" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_smooth(se = FALSE) +</span></span>
-<span id="cb23-395"><a href="#cb23-395" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb23-396"><a href="#cb23-396" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(seasonGG<span class="sc">~</span>riverGG<span class="sc">+</span>byRiver, <span class="at">scales =</span> <span class="st">'free'</span>)</span>
-<span id="cb23-397"><a href="#cb23-397" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-398"><a href="#cb23-398" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-399"><a href="#cb23-399" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
-<span id="cb23-400"><a href="#cb23-400" aria-hidden="true" tabindex="-1"></a>  gamBKTPredictions <span class="sc">|&gt;</span> </span>
-<span id="cb23-401"><a href="#cb23-401" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
-<span id="cb23-402"><a href="#cb23-402" aria-hidden="true" tabindex="-1"></a>      observedWeight <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">22</span>), </span>
-<span id="cb23-403"><a href="#cb23-403" aria-hidden="true" tabindex="-1"></a>      cohortF <span class="sc">==</span> <span class="dv">2012</span>, </span>
-<span id="cb23-404"><a href="#cb23-404" aria-hidden="true" tabindex="-1"></a>      ageF <span class="sc">==</span> <span class="dv">0</span></span>
-<span id="cb23-405"><a href="#cb23-405" aria-hidden="true" tabindex="-1"></a>    ), </span>
-<span id="cb23-406"><a href="#cb23-406" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(temp, pred, <span class="at">color =</span> (flow), <span class="at">group =</span> (flow))) <span class="sc">+</span></span>
-<span id="cb23-407"><a href="#cb23-407" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb23-408"><a href="#cb23-408" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Stream temperature"</span>, <span class="at">y =</span> <span class="st">"Predicted growth rate"</span>) <span class="sc">+</span></span>
-<span id="cb23-409"><a href="#cb23-409" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_smooth(se = FALSE) +</span></span>
-<span id="cb23-410"><a href="#cb23-410" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb23-411"><a href="#cb23-411" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(seasonGG<span class="sc">~</span>riverGG<span class="sc">+</span>byRiver, <span class="at">scales =</span> <span class="st">'free'</span>)</span>
-<span id="cb23-412"><a href="#cb23-412" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-413"><a href="#cb23-413" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-327"><a href="#cb23-327" aria-hidden="true" tabindex="-1"></a>  predMat0 <span class="ot">&lt;-</span> </span>
+<span id="cb23-328"><a href="#cb23-328" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expand.grid</span>(</span>
+<span id="cb23-329"><a href="#cb23-329" aria-hidden="true" tabindex="-1"></a>      <span class="at">flowSR =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="fl">0.25</span>), </span>
+<span id="cb23-330"><a href="#cb23-330" aria-hidden="true" tabindex="-1"></a>      <span class="at">tempSR =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="fl">0.25</span>), </span>
+<span id="cb23-331"><a href="#cb23-331" aria-hidden="true" tabindex="-1"></a>      <span class="at">riverGG =</span> <span class="fu">unique</span>(dIn<span class="sc">$</span>riverGG), </span>
+<span id="cb23-332"><a href="#cb23-332" aria-hidden="true" tabindex="-1"></a>      <span class="at">seasonGG=</span> <span class="fu">unique</span>(dIn<span class="sc">$</span>seasonGG),</span>
+<span id="cb23-333"><a href="#cb23-333" aria-hidden="true" tabindex="-1"></a>      <span class="at">observedWeight =</span> <span class="fu">seq</span>(<span class="dv">2</span>, <span class="fu">max</span>(dIn<span class="sc">$</span>observedWeight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)<span class="sc">/</span><span class="dv">2</span>, <span class="dv">20</span>),</span>
+<span id="cb23-334"><a href="#cb23-334" aria-hidden="true" tabindex="-1"></a>      <span class="at">cohortF =</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>,<span class="co">#uunique(dIn$cohortF),</span></span>
+<span id="cb23-335"><a href="#cb23-335" aria-hidden="true" tabindex="-1"></a>      <span class="at">ageF =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>,<span class="co">#unique(dIn$ageF),</span></span>
+<span id="cb23-336"><a href="#cb23-336" aria-hidden="true" tabindex="-1"></a>      <span class="at">byRiver =</span> <span class="cn">FALSE</span></span>
+<span id="cb23-337"><a href="#cb23-337" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb23-338"><a href="#cb23-338" aria-hidden="true" tabindex="-1"></a>  predMat <span class="ot">&lt;-</span> </span>
+<span id="cb23-339"><a href="#cb23-339" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_column</span>(</span>
+<span id="cb23-340"><a href="#cb23-340" aria-hidden="true" tabindex="-1"></a>      <span class="at">pred =</span> <span class="fu">predict.bam</span>(modInFlow, predMat0),</span>
+<span id="cb23-341"><a href="#cb23-341" aria-hidden="true" tabindex="-1"></a>      predMat0</span>
+<span id="cb23-342"><a href="#cb23-342" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
+<span id="cb23-343"><a href="#cb23-343" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">flow =</span> flowSR, <span class="at">temp =</span> tempSR)</span>
+<span id="cb23-344"><a href="#cb23-344" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb23-345"><a href="#cb23-345" aria-hidden="true" tabindex="-1"></a>  predMatByRiver0 <span class="ot">&lt;-</span> </span>
+<span id="cb23-346"><a href="#cb23-346" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expand.grid</span>(</span>
+<span id="cb23-347"><a href="#cb23-347" aria-hidden="true" tabindex="-1"></a>      <span class="at">flowByRiverSR =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="fl">0.25</span>), </span>
+<span id="cb23-348"><a href="#cb23-348" aria-hidden="true" tabindex="-1"></a>      <span class="at">tempSR =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="fl">0.25</span>), </span>
+<span id="cb23-349"><a href="#cb23-349" aria-hidden="true" tabindex="-1"></a>      <span class="at">riverGG =</span> <span class="fu">unique</span>(dIn<span class="sc">$</span>riverGG), </span>
+<span id="cb23-350"><a href="#cb23-350" aria-hidden="true" tabindex="-1"></a>      <span class="at">seasonGG=</span> <span class="fu">unique</span>(dIn<span class="sc">$</span>seasonGG),</span>
+<span id="cb23-351"><a href="#cb23-351" aria-hidden="true" tabindex="-1"></a>      <span class="at">observedWeight =</span> <span class="fu">seq</span>(<span class="dv">2</span>, <span class="fu">max</span>(dIn<span class="sc">$</span>observedWeight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)<span class="sc">/</span><span class="dv">2</span>, <span class="dv">20</span>),</span>
+<span id="cb23-352"><a href="#cb23-352" aria-hidden="true" tabindex="-1"></a>      <span class="at">cohortF =</span> <span class="dv">2000</span><span class="sc">:</span><span class="dv">2013</span>,<span class="co">#unique(dIn$cohortF),</span></span>
+<span id="cb23-353"><a href="#cb23-353" aria-hidden="true" tabindex="-1"></a>      <span class="at">ageF =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>,<span class="co">#unique(dIn$ageF),</span></span>
+<span id="cb23-354"><a href="#cb23-354" aria-hidden="true" tabindex="-1"></a>      <span class="at">byRiver =</span> <span class="cn">TRUE</span></span>
+<span id="cb23-355"><a href="#cb23-355" aria-hidden="true" tabindex="-1"></a>    ) </span>
+<span id="cb23-356"><a href="#cb23-356" aria-hidden="true" tabindex="-1"></a>  predMatByRiver <span class="ot">&lt;-</span> </span>
+<span id="cb23-357"><a href="#cb23-357" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_column</span>(</span>
+<span id="cb23-358"><a href="#cb23-358" aria-hidden="true" tabindex="-1"></a>      <span class="at">pred =</span> <span class="fu">predict.bam</span>(modInFlowByRiver, predMatByRiver0),</span>
+<span id="cb23-359"><a href="#cb23-359" aria-hidden="true" tabindex="-1"></a>      predMatByRiver0</span>
+<span id="cb23-360"><a href="#cb23-360" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
+<span id="cb23-361"><a href="#cb23-361" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">flow =</span> flowByRiverSR, <span class="at">temp =</span> tempSR)</span>
+<span id="cb23-362"><a href="#cb23-362" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-363"><a href="#cb23-363" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">add_row</span>(predMat, predMatByRiver))</span>
+<span id="cb23-364"><a href="#cb23-364" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb23-365"><a href="#cb23-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-366"><a href="#cb23-366" aria-hidden="true" tabindex="-1"></a>gamBKTPredictions <span class="ot">&lt;-</span> <span class="fu">predictBKTgam</span>(dGAM, gam0, gam0ByRiver)</span>
+<span id="cb23-367"><a href="#cb23-367" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-368"><a href="#cb23-368" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb23-369"><a href="#cb23-369" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-370"><a href="#cb23-370" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Graph predictions</span></span>
+<span id="cb23-373"><a href="#cb23-373" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb23-374"><a href="#cb23-374" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: graphGAMPredictions2</span></span>
+<span id="cb23-375"><a href="#cb23-375" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(gamBKTPredictions<span class="sc">$</span>observedWeight)</span>
+<span id="cb23-376"><a href="#cb23-376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-377"><a href="#cb23-377" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb23-378"><a href="#cb23-378" aria-hidden="true" tabindex="-1"></a>  gamSBKTPredictions <span class="sc">|&gt;</span> </span>
+<span id="cb23-379"><a href="#cb23-379" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb23-380"><a href="#cb23-380" aria-hidden="true" tabindex="-1"></a>      observedWeight <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">22</span>), </span>
+<span id="cb23-381"><a href="#cb23-381" aria-hidden="true" tabindex="-1"></a>      cohortF <span class="sc">==</span> <span class="dv">2012</span>, </span>
+<span id="cb23-382"><a href="#cb23-382" aria-hidden="true" tabindex="-1"></a>      ageF <span class="sc">==</span> <span class="dv">0</span></span>
+<span id="cb23-383"><a href="#cb23-383" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb23-384"><a href="#cb23-384" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(temp, pred, <span class="at">color =</span> (flow), <span class="at">group =</span> (flow))) <span class="sc">+</span></span>
+<span id="cb23-385"><a href="#cb23-385" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb23-386"><a href="#cb23-386" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Stream temperature"</span>, <span class="at">y =</span> <span class="st">"Predicted growth rate"</span>) <span class="sc">+</span></span>
+<span id="cb23-387"><a href="#cb23-387" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="sc">-</span><span class="fl">0.02</span>, <span class="fl">0.015</span>) <span class="sc">+</span></span>
+<span id="cb23-388"><a href="#cb23-388" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_smooth(se = FALSE) +</span></span>
+<span id="cb23-389"><a href="#cb23-389" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb23-390"><a href="#cb23-390" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(seasonGG<span class="sc">~</span>riverGG<span class="sc">+</span>byRiver, <span class="at">scales =</span> <span class="st">'free'</span>)</span>
+<span id="cb23-391"><a href="#cb23-391" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-392"><a href="#cb23-392" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-393"><a href="#cb23-393" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb23-394"><a href="#cb23-394" aria-hidden="true" tabindex="-1"></a>  gamBKTPredictions <span class="sc">|&gt;</span> </span>
+<span id="cb23-395"><a href="#cb23-395" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb23-396"><a href="#cb23-396" aria-hidden="true" tabindex="-1"></a>      observedWeight <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">22</span>), </span>
+<span id="cb23-397"><a href="#cb23-397" aria-hidden="true" tabindex="-1"></a>      cohortF <span class="sc">==</span> <span class="dv">2012</span>, </span>
+<span id="cb23-398"><a href="#cb23-398" aria-hidden="true" tabindex="-1"></a>      ageF <span class="sc">==</span> <span class="dv">0</span></span>
+<span id="cb23-399"><a href="#cb23-399" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb23-400"><a href="#cb23-400" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(temp, pred, <span class="at">color =</span> (flow), <span class="at">group =</span> (flow))) <span class="sc">+</span></span>
+<span id="cb23-401"><a href="#cb23-401" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb23-402"><a href="#cb23-402" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Stream temperature"</span>, <span class="at">y =</span> <span class="st">"Predicted growth rate"</span>) <span class="sc">+</span></span>
+<span id="cb23-403"><a href="#cb23-403" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_smooth(se = FALSE) +</span></span>
+<span id="cb23-404"><a href="#cb23-404" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb23-405"><a href="#cb23-405" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(seasonGG<span class="sc">~</span>riverGG<span class="sc">+</span>byRiver, <span class="at">scales =</span> <span class="st">'free'</span>)</span>
+<span id="cb23-406"><a href="#cb23-406" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-407"><a href="#cb23-407" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

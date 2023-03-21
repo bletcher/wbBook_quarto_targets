@@ -90,13 +90,18 @@ modelGrowthInMass_target <-
              ageF = factor(age),
              cohortF = factor(cohort)) |> 
       dplyr::select(riverGG, seasonGG, speciesGG, observedWeight, cohort, age, cohortF, ageF, 
-                    meanTemperatureScaledBySeason, meanFlowScaledBySeason,  meanFlowByRiverScaledBySeason,
-                    meanTemperatureScaledBySeasonRiver, meanFlowScaledBySeasonRiver, meanFlowByRiverScaledBySeasonRiver,
+                    #meanTemperatureScaledBySeason, meanFlowScaledBySeason,  meanFlowByRiverScaledBySeason,
+                    #meanTemperatureScaledBySeasonRiver, meanFlowScaledBySeasonRiver, meanFlowByRiverScaledBySeasonRiver,
+                    starts_with("mean"),
                     grWeight) |> 
-      rename(tempS = meanTemperatureScaledBySeason, flowS = meanFlowScaledBySeason, 
+      rename(tempS = meanTemperatureScaledBySeason, 
+             flowS = meanFlowScaledBySeason, 
              flowByRiverS = meanFlowByRiverScaledBySeason,
+             flowByAreaS = meanFlowByAreaScaledBySeason,
              tempSR = meanTemperatureScaledBySeasonRiver, flowSR = meanFlowScaledBySeasonRiver, 
-             flowByRiverSR = meanFlowByRiverScaledBySeasonRiver) |> 
+             flowByRiverSR = meanFlowByRiverScaledBySeasonRiver,
+             flowByAreaSR = meanFlowByAreaScaledBySeasonRiver
+             ) |> 
       filter(tempSR > -4),
     
     ###############################################

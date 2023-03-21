@@ -36,10 +36,25 @@ getFlowByRiver <- function(){
   return(wbFlow2)
 }
 
+getFlowByArea <- function(d) {
+  d |> 
+    mutate(
+      riverArea = 
+        case_when(
+          river == "wb jimmy" ~ 2.460,
+          river == "wb mitchell" ~ 1.036,
+          river == "wb obear" ~ 1.295,
+          river == "west brook" ~ 21.756
+        ),
+      flowByArea = flow / riverArea
+    )
+}
+
 getEnvData_target <-
   tar_plan(
     WB_daymet_target = getDaymet(42.43896889699634, -72.67994313694251, 1997, 2021),
     flowByRiver_target = getFlowByRiver(), # data from Jenn's modeling
+    #flowByArea_target = getFlowByArea()
     
     envDataWB_target = 
       tbl(conDplyr, "data_daily_temperature") %>% 
@@ -56,7 +71,8 @@ getEnvData_target <-
       ) %>%
       left_join(WB_daymet_target, by = c('year', 'yday')) %>%
       left_join(flowByRiver_target) |> 
-      addSeason(tar_read(medianDates_target))
+      addSeason(tar_read(medianDates_target)) |> 
+      getFlowByArea()
   )  
 
 
