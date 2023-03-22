@@ -49,14 +49,14 @@ addFlowToTribs <- function(dIn) {
 getFlowByArea <- function(dIn) {
   dIn |> 
     mutate(
-      riverArea = 
+      propRiverArea = 
         case_when(
-          river == "wb jimmy" ~ 2.460,
-          river == "wb mitchell" ~ 1.036,
-          river == "wb obear" ~ 1.295,
-          river == "west brook" ~ 21.756
+          river == "wb jimmy" ~ 2.460 / 21.756,
+          river == "wb mitchell" ~ 1.036 / 21.756,
+          river == "wb obear" ~ 1.295 / 21.756,
+          river == "west brook" ~ 21.756 / 21.756
         ),
-      flowByArea = flowWithTribs / riverArea
+      flowByArea = flowWithTribs * propRiverArea
     )
 }
 

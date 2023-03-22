@@ -5,7 +5,7 @@ THis is a 'fork' of **modelsCMR_ft_cohort_Flow_OB.qmd** where the models were or
 As of 3/13/23 - Following trouble getting the models to run on workbench (runs timed out) and on a laptop with targets (broken into targets `./R/hold/modelCMR_ttt_ft_cohort_WB.R` - get error following Rmodel step, run with a function `./R/hold/modelCMR_ttt_ft_cohort_WB_usingFunction.R` - did not finish [seems like targets is interrupting fitting somehow...]), now models are run using a function (`run_ttt_model()` in `./models/cmrFlowWB/modelCMR_ttt_ft_cohort_WB_functionsToSource.R`) and saved to a file in `./models/cmrFlowWB/runsOut/modx/.`  Targets will read in the files for analysis using `modelCMR_ttt_WB.R`.  
 File names are `ttt_WB_mcmc_modx.csv` and the targets are `mcmcOutModx`.  
 
-**Summary**
+**Summary**  
 File to run models:
 `wbBook_quarto_targets/models/cmrFlowWB/modelCMR_ttt_ft_cohort_WB_makeFile.R` ->  
 Model running functions:  
@@ -52,6 +52,8 @@ library(nimbleEcology)
 library(MCMCvis)
 library(tidyverse)
 library(targets)
+
+library(reticulate)
 ```
 
 ```{r}
@@ -59,7 +61,7 @@ library(targets)
 #| include: false
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
-
+## Nimble models
 ### Model with original flow data
 Cohort-dependent estimates of phi and p with flow and temperature hierarchical effects  
 
@@ -814,5 +816,20 @@ ggplot(betaIntsFT %>% filter(varName == "betaInt"), aes(mFlowByRiver, mean)) +
   geom_point(aes(mFlow, mean), color = "#d46313") +
   scale_x_continuous("Flow (orange) or flow by river (black)") +
   facet_grid(season ~ isYOY+river, labeller = global_labellerInt)
+```
+
+## AI/ML models
+Model runs from Xiaowei
+```{r}
+#| label: AIMLmodelLoad
+
+
+np <- import("numpy")
+
+npyGrowth <- np$load('./models/cmrFlowWB/xiaowei/USGS_0320/USGS_0320/growth.npy')
+npyGrowthByRiver <- np$load('./models/cmrFlowWB/xiaowei/USGS_0320/USGS_0320/growth_byriver.npy')
+
+npySurvival <- np$load('./models/cmrFlowWB/xiaowei/USGS_0320/USGS_0320/survival.npy')
+npySurvivalByRiver <- np$load('./models/cmrFlowWB/xiaowei/USGS_0320/USGS_0320/survival_byriver.npy')
 ```
 
