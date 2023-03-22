@@ -176,7 +176,7 @@ addEnvironmental <- function(coreData, sampleFlow = F, funName = "mean") {
         meanVar <- fun(envData[d >= start & d <= end, envCol], na.rm = T)
       }
       if (e == "FlowByRiver") {
-        envCol <- "flowByRiverm3s"
+        envCol <- "flowByRiver"
         if (is.na(r)) 
           meanVar <- fun(envData[d >= start & d <= end, envCol], na.rm = T)
         if (!is.na(r)) 

@@ -184,9 +184,9 @@ modelGrowthInMass_target <-
       group_by(riverGG, seasonGG, speciesGG, year) |> 
       summarize(propNeg = mean(propNeg),
                 minTemp = min(temperature),
-                minFlow = min(flowByRiverm3s),
+                minFlow = min(flowByRiver),
                 maxTemp = max(temperature),
-                maxFlow = max(flowByRiverm3s)) |> 
+                maxFlow = max(flowByRiver)) |> 
       left_join(indCountsBySpp_target) |> 
       left_join(indCounts_target)
     

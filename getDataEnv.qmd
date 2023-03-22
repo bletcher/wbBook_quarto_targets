@@ -19,11 +19,18 @@ library(tidyverse)
 library(lubridate)
 library(validate)
 library(targets)
+
 ```
 
 Data are generated in `R/getDataEnv-targets.R` [file](https://github.com/bletcher/wbBook_quarto_targets/blob/main/R/getDataEnv_targets.R)  
 
 ## Get environmental data target and show data frame structure
+
+Flow data in envDataWB:  
+  flow = flow extension estimates (WB only)  
+  flowByArea = flow extension estimates scaled by watershed area  
+  flowByRiver = Jenn's hindcasted flow based on tributary-specific flow estimates
+
 
 ```{r}
 #| label: getEnvData
@@ -37,13 +44,24 @@ ojs_define(envDataWB_OJS = transpose(envDataWB))
 
 ## Plot flow over time for the West Brook by year
 
+Flow estimates from flow extension model for the West Brook
 ```{r}
 #| label: fig-envFlow
 #| fig-cap: "Stream flow (m3/s) for the West Brook"
 
-ggplot(envDataWB %>% filter(riverOrdered == "West Brook"), aes(yday, flow)) +
+# ggplot(envDataWB %>% filter(riverOrdered == "West Brook"), aes(yday, flow)) +
+#   geom_point(size = 0.1) +
+#   #geom_point(size = 0.1, color = "blue", aes(yday, flowByRiver)) +
+#   #geom_line() +
+#   scale_x_continuous("Day of year") +
+#   scale_y_continuous("Stream flow (m^3/s)") +
+#   facet_wrap(~year(date))
+
+table(envDataWB$river, is.na(envDataWB$flow))
+
+ggplot(envDataWB, aes(yday, flow)) +
   geom_point(size = 0.1) +
-  geom_point(size = 0.1, color = "blue", aes(yday, flowByRiverm3s)) +
+  #geom_point(size = 0.1, color = "blue", aes(yday, flowByRiver)) +
   #geom_line() +
   scale_x_continuous("Day of year") +
   scale_y_continuous("Stream flow (m^3/s)") +
@@ -52,15 +70,74 @@ ggplot(envDataWB %>% filter(riverOrdered == "West Brook"), aes(yday, flow)) +
 ```
 
 ```{r}
+#| label: fig-envFlowByArea
+#| fig-cap: "Stream flow (m3/s) scaled by watershed area"
+
+table(envDataWB$river, is.na(envDataWB$flowByArea))
+
+ggplot(envDataWB, aes(yday, flowByArea, color = river)) +
+  geom_point(size = 0.1) +
+  #geom_point(size = 0.1, color = "blue", aes(yday, flowByRiver)) +
+  #geom_line() +
+  scale_x_continuous("Day of year") +
+  scale_y_continuous("Stream flow (m^3/s) scaled by watershed area") +
+  facet_wrap(~year(date))
+
+```
+
+```{r}
 #| label: fig-envFlowByRiver
+#| fig-cap: "Hindcasted stream flow (m3/s) for the West Brook and tributaries"
+table(envDataWB$river, is.na(envDataWB$flowByRiver))
+
+ggplot(envDataWB, aes(yday, flowByRiver, color = river)) +
+  geom_point(size = 0.1) +
+  #geom_point(size = 0.1, color = "blue", aes(yday, flowByRiver)) +
+  #geom_line() +
+  scale_x_continuous("Day of year") +
+  scale_y_continuous("Stream flow (m^3/s) hindcasted by river-specific flows") +
+  facet_wrap(~year(date))
+
+```
+
+
+
+```{r}
+#| label: fig-envFlowByRiver_byRiver
 #| fig-cap: "Stream flow (m3/s) for the West Brook with Jenn's model predictions"
-ggplot(envDataWB %>% filter(riverOrdered == "West Brook", year %in% (1998:2021)), aes(flow, flowByRiverm3s, color = yday)) +
+ggplot(envDataWB %>% filter(riverOrdered == "West Brook", year %in% (1998:2021)), aes(flow, flowByRiver, color = yday)) +
   geom_point(size = 0.1) +
   geom_abline(slope = 1) +
-  scale_y_continuous("Stream flow (m^3/s) from Jenn's model") +
+  scale_y_continuous("Stream flow (m^3/s) by river") +
   scale_x_continuous("Stream flow (m^3/s) from flow extension") +
   facet_wrap(~year(date))
+
+ggplot(envDataWB %>% filter(year %in% (1998:2021)), aes(flow, flowByRiver, color = river)) +
+  geom_point(size = 0.1) +
+  geom_abline(slope = 1) +
+  scale_y_continuous("Stream flow (m^3/s) by river") +
+  scale_x_continuous("Stream flow (m^3/s) from flow extension") +
+  facet_wrap(~river)
 ```
+
+```{r}
+#| label: fig-envFlowByRiver_byArea
+#| fig-cap: "Stream flow (m3/s) for the West Brook with Jenn's model predictions"
+ggplot(envDataWB %>% filter(year %in% (1998:2021)), aes(flowByArea, flowByRiver, color = river)) +
+  geom_point(size = 0.1) +
+  geom_abline(slope = 1) +
+  scale_x_continuous("Stream flow (m^3/s) by area") +
+  scale_y_continuous("Stream flow (m^3/s) by river") +
+  facet_wrap(~year(date))
+
+ggplot(envDataWB %>% filter(year %in% (1998:2021)), aes(flowByArea, flowByRiver, color = river)) +
+  geom_point(size = 0.1) +
+  #geom_abline(slope = 1) +
+  scale_x_continuous("Stream flow (m^3/s) by area") +
+  scale_y_continuous("Stream flow (m^3/s) by river") +
+  facet_wrap(~river)
+```
+
 
 
 ```{ojs}
@@ -88,7 +165,7 @@ Plot.plot({
       Plot.frame(),
       Plot.dot(envDataWB_OJSplot, {
         x: "flow",
-        y: "flowByRiverm3s"
+        y: "flowByRiver"
       })
     ],
     facet: {
@@ -114,7 +191,7 @@ Plot.plot({
       Plot.frame(),
       Plot.dot(envDataWB_OJSplot, {
         x: "dateDate",
-        y: "flowByRiverm3s"
+        y: "flowByRiver"
       })
     ],
     marks: [

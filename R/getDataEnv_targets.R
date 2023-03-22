@@ -24,10 +24,10 @@ getFlowByRiver <- function(){
       cols = ends_with("_Flow_cfs"),
       names_to = c("river", "flow", "cfs"),
       names_sep = "_",
-      values_to = "flowByRiver") %>%
+      values_to = "flowByRiver_cfs") %>%
     mutate(river = recode(river, "WL" = 'west brook' ,"JB" = 'wb jimmy',"MB" = 'wb mitchell',"OB" = "wb obear"),
            dateDate = as_date(date),
-           flowByRiverm3s = flowByRiver * 0.028316847) %>%
+           flowByRiver = flowByRiver_cfs * 0.028316847) %>%
     mutate(
       riverOrdered = factor(river, levels = c('west brook','wb jimmy','wb mitchell',"wb obear"),
                                    labels = c("West Brook","WB Jimmy","WB Mitchell","WB OBear"), ordered = T)
@@ -36,8 +36,18 @@ getFlowByRiver <- function(){
   return(wbFlow2)
 }
 
-getFlowByArea <- function(d) {
-  d |> 
+addFlowToTribs <- function(dIn) {
+  flowByDate <- dIn |> 
+    filter(river == "west brook") |> 
+    rename(flowWithTribs = flow) |> 
+    dplyr::select(date, flowWithTribs)
+  
+  dOut <- left_join(dIn, flowByDate)
+  return(dOut)
+}
+
+getFlowByArea <- function(dIn) {
+  dIn |> 
     mutate(
       riverArea = 
         case_when(
@@ -46,7 +56,7 @@ getFlowByArea <- function(d) {
           river == "wb obear" ~ 1.295,
           river == "west brook" ~ 21.756
         ),
-      flowByArea = flow / riverArea
+      flowByArea = flowWithTribs / riverArea
     )
 }
 
@@ -72,6 +82,7 @@ getEnvData_target <-
       left_join(WB_daymet_target, by = c('year', 'yday')) %>%
       left_join(flowByRiver_target) |> 
       addSeason(tar_read(medianDates_target)) |> 
+      addFlowToTribs() |> 
       getFlowByArea()
   )  
 
