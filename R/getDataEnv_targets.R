@@ -2,6 +2,37 @@ tar_option_set(packages = c("tidyverse", "lubridate", "getWBData", "daymetr", "f
 
 library(daymetr) # not sure why this is needed here, but without it get can't find download_daymet error
 
+
+
+getEnvData_target <-
+  tar_plan(
+    WB_daymet_target = getDaymet(42.43896889699634, -72.67994313694251, 1997, 2021),
+    flowByRiver_target = getFlowByRiver(), # data from Jenn's modeling
+    #flowByArea_target = getFlowByArea()
+    
+    envDataWB_target = 
+      tbl(conDplyr, "data_daily_temperature") %>% 
+      collect(n = Inf) %>% 
+      full_join(tbl(conDplyr, "data_flow_extension") %>% 
+                  collect(n = Inf), by = c("river", "date")) %>% 
+      dplyr::select(-source) %>% 
+      rename(temperature = daily_mean_temp, flow = qPredicted) %>%
+      mutate(dateDate = as_date(date),
+             yday = yday(dateDate),
+             year = year(dateDate)) %>%
+      mutate(riverOrdered = factor(river, levels = c('west brook', 'wb jimmy', 'wb mitchell',"wb obear"),
+                                   labels = c("West Brook","WB Jimmy","WB Mitchell","WB OBear"), ordered = T)
+      ) %>%
+      left_join(WB_daymet_target, by = c('year', 'yday')) %>%
+      left_join(flowByRiver_target) |> 
+      addSeason(tar_read(medianDates_target)) |> 
+      addFlowToTribs() |> 
+      getFlowByArea()
+  ) 
+
+
+#### Functions
+
 getDaymet <- function(lat, lon, start_year, end_year) {
   WB_daymet_list <- download_daymet(site = "WestBrook", lat = lat, lon = lon, 
                                     start = start_year, end = end_year)
@@ -47,7 +78,7 @@ addFlowToTribs <- function(dIn) {
 }
 
 getFlowByArea <- function(dIn) {
-  dIn |> 
+  dOut <- dIn |> 
     mutate(
       propRiverArea = 
         case_when(
@@ -58,36 +89,16 @@ getFlowByArea <- function(dIn) {
         ),
       flowByArea = flowWithTribs * propRiverArea
     )
+  return(dOut)
 }
 
-getEnvData_target <-
-  tar_plan(
-    WB_daymet_target = getDaymet(42.43896889699634, -72.67994313694251, 1997, 2021),
-    flowByRiver_target = getFlowByRiver(), # data from Jenn's modeling
-    #flowByArea_target = getFlowByArea()
-    
-    envDataWB_target = 
-      tbl(conDplyr, "data_daily_temperature") %>% 
-      collect(n = Inf) %>% 
-      full_join(tbl(conDplyr, "data_flow_extension") %>% 
-                  collect(n = Inf), by = c("river", "date")) %>% 
-      dplyr::select(-source) %>% 
-      rename(temperature = daily_mean_temp, flow = qPredicted) %>%
-      mutate(dateDate = as_date(date),
-             yday = yday(dateDate),
-             year = year(dateDate)) %>%
-      mutate(riverOrdered = factor(river, levels = c('west brook', 'wb jimmy', 'wb mitchell',"wb obear"),
-                                   labels = c("West Brook","WB Jimmy","WB Mitchell","WB OBear"), ordered = T)
-      ) %>%
-      left_join(WB_daymet_target, by = c('year', 'yday')) %>%
-      left_join(flowByRiver_target) |> 
-      addSeason(tar_read(medianDates_target)) |> 
-      addFlowToTribs() |> 
-      getFlowByArea()
-  )  
-
-
-#### Functions
+getFlowByArea_hold <- function(dIn) {
+  dOut <- dIn |> 
+    mutate(
+      propRiverArea = 1,
+      flowByArea = flowWithTribs * propRiverArea
+    )
+}
 
 addSeason <- function(d = d, medDate = tar_read(medianDates_target)){
 
