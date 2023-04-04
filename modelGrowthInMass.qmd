@@ -88,6 +88,8 @@ flow/temp circles with gr on top
 
 ```{r}
 #| label: readInAllData
+#| cache: false
+library(targets)
 cd <- tar_read(cdWB_electro_target) # raw data
 cd1 <- tar_read(cd1_target) # from modelGrowthInMass_target
 propNegSRS <- tar_read(propNegSRS_target)
@@ -113,6 +115,8 @@ dGAM <- tar_read(dGAM_target) # from modelGrowthInMass_target
 
 ```{r}
 #| label: readInAllDataEnv
+#| cache: false
+library(targets)
 dummy=0 # change to force cache update??
 envIn <- tar_read(envIn_target)
 envIn_propNeg <- tar_read(envIn_propNeg_target)
@@ -1792,7 +1796,8 @@ can we add season, river interactions? or do separate analyses?
 
 ```{r}
 #| label: readInTargets_W
-#| 
+#| cache: false
+library(targets)
 dML_W <- tar_read(dML_W_target)
 treatplan_W <- tar_read(treatplan_W_target)
 features_train_W <- tar_read(features_train_W_target)
@@ -1889,6 +1894,7 @@ ggplot(xgb.fit1_W$evaluation_log) +
 
 ```{r}
 #| label: vipContinuous_W
+#| cache: false
 
 #importance_matrix_W <- tar_read(importance_matrix_W_target)
 

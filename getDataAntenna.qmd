@@ -30,7 +30,8 @@ Data are generated in `R/getDataAntenna-targets.R` [file](https://github.com/ble
 
 ```{r}
 #| label: dataAntenna
-
+#| cache: false
+library(targets)
 cdWB_antenna0 <- tar_read(cdWB_antenna0_target)
 str(cdWB_antenna0)
 

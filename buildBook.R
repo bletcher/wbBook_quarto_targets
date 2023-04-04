@@ -25,7 +25,7 @@ quarto::quarto_render("dataAll.qmd", output_format = "html")
 quarto::quarto_render("getDataEnv.qmd", output_format = "html")
 
 # working chapter
-quarto::quarto_render("modelGrowthInMass.qmd", 
+quarto::quarto_render("modelGrowthFlowByRiver.qmd", 
                       #cache_refresh = TRUE, # default is FALSE
                       output_format = "html")
 

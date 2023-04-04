@@ -29,6 +29,9 @@ Also, just interesting to see movement patterns from the wanding data.
 
 ```{r}
 #| label: dataWanding
+#| cache: false
+
+library(targets)
 
 cdWB_wanding0 <- tar_read(cdWB_wanding0_target)
 str(cdWB_wanding0)

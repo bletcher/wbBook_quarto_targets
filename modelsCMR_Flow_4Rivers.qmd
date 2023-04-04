@@ -38,6 +38,7 @@ Output files are here: "C:\Users\bletcher\OneDrive - DOI\projects\westBrook-book
 
 ```{r}
 #| label: WB_ttt_dirch
+#| cache: false
 # Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
 
   toSave <-  tar_read(toSave_ttt_WB_target)

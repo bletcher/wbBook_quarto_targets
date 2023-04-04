@@ -42,6 +42,7 @@ Single estimates of phi and p (across, cohorts, flow)
 Model is run using targets in R/modelCMR_tt_OB.R
 ```{r}
 #| label: OB_tt
+#| cache: false
 # Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
 # 
   out <- tar_read(tt_modelOut_OB)
@@ -66,6 +67,7 @@ Cohort-dependent estimates of phi and p with flow and temperature hierarchical e
 Model is run using targets in R/modelCMR_tt_OB.R
 ```{r}
 #| label: OB_tt_flow
+#| cache: false
 # Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
 # 
   out_flow <- tar_read(tt_modelOut_ft_OB_flow )

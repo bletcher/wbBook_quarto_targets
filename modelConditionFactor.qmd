@@ -31,6 +31,9 @@ library(tidyverse)
 
 ```{r}
 #| label: readInAllDataCF
+#| cache: false
+library(targets)
+
 cd <- tar_read(cdWB_electro_target) # raw data
 cd1 <- tar_read(cd1_target)
 
