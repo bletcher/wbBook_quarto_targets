@@ -39,6 +39,8 @@ West Brook environmental data (flow and temperature) and electrofishing data
 
 ```{r}
 #| label: dataWB
+#| cache: false
+library(targets)
 envDataWB <- tar_read(envDataWB_target)
 cdWB_electro <- tar_read(cdWB_electro_target)
 
@@ -49,6 +51,8 @@ cdWB_electro <- tar_read(cdWB_electro_target)
 1.  Filter cdWB_electro for first observations in the autumn for age-0 fish (ageInsamples == 1). Including both tagged and untagged fish.
 
 ```{r}
+#| label: dataWB1Obs
+#| cache: false
 firstObs_noTag <- tar_read(firstObs_noTag_target)
 firstObs_tag <- tar_read(firstObs_tag_target)
 firstObs0 <- tar_read(firstObs0_target)
@@ -67,6 +71,7 @@ Then merge results with firstObs0 to create firstObs.
 
 ```{r}
 #| label: firstObs
+#| cache: false
 firstObsDates <- tar_read(firstObsDates_target) 
     
 firstObs_Env <- tar_read(firstObs_Env_target)
@@ -79,8 +84,12 @@ Unnest firstObs so environmental summary stats are available as data frame with 
 
 ```{r}
 #| label: firstObsUnnested
+#| cache: false
 firstObsUnnested <- tar_read(firstObsUnnested_target)
+```
 
+```{r}
+#| label: plot1stobsUnnested
 ggplot(firstObsUnnested, aes(oneMonth_sumTScaled, fiveMonth_sumTScaled)) +
  geom_point() +
  facet_wrap(~river)
@@ -100,8 +109,12 @@ Counts by river and species
 
 ```{r}
 #| label: rawCounts
+#| cache: false
 countsRSY <- tar_read(countsRSY_target)
+```
 
+```{r}
+#| label: plotRawcounts
 ggplot(countsRSY, aes(year, countRS_Scaled, color = species)) +
   geom_point() +
   geom_line() +
@@ -112,8 +125,12 @@ Counts by river
 
 ```{r}
 #| label: countsRY
+#| cache: false
 countsRY <- tar_read(countsRY_target)
+```
 
+```{r}
+#| label: plotCountsRY
 ggplot(countsRY, aes(year, countR_Scaled, color = river)) +
   geom_point() +
   geom_line()
@@ -125,6 +142,10 @@ Use these for modelling.
 ```{r}
 #| label: countsMeta
 countsMetaY <- tar_read(countsMetaY_target)
+```
+
+```{r}
+#| label: plotCountsMeta
 
 ggplot(countsMetaY, aes(year, count_Scaled)) +
   geom_point() +
@@ -135,6 +156,7 @@ Merge metapopulation scaled counts into firstObsUnnested
 
 ```{r}
 #| label: mergeMeta
+#| cache: false
 
 firstObsUnnested <- tar_read(firstObsUnnested_target)
 firstObsUnnestedWB <- tar_read(firstObsUnnestedWB_target)
@@ -543,13 +565,21 @@ We get negative cumulFlows because we have some negative flows from the flow ext
 
 ```{r}
 #| label: drought
+#| cache: false
 # put some of these calculations into envDataWB
 envDataWBFlow = tar_read(envDataWBFlow_target)
 
+```
+
+```{r}
+#| label: firstObsYears
 firstObsYears <- firstObs %>%
     filter(year %in% minYear:maxYear, 
            yday > 100, yday < 300)
+```
 
+```{r}
+#| label: plotDrought
 ggplot(envDataWBFlow, aes(yday, flow)) +
   geom_point(aes(yday, observedLength/20), size = 0.75, alpha = 0.2, color = 'lightblue', data = firstObsYears) +
   geom_point(size = 0.5) +
