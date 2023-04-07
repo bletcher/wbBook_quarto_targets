@@ -19,7 +19,7 @@ getEnvData_target <-
       rename(temperature = daily_mean_temp, flow = qPredicted) %>%
       mutate(dateDate = as_date(date),
              yday = yday(dateDate),
-             year = year(dateDate)) %>%
+             year = year(as_date(dateDate))) %>%
       mutate(riverOrdered = factor(river, levels = c('west brook', 'wb jimmy', 'wb mitchell',"wb obear"),
                                    labels = c("West Brook","WB Jimmy","WB Mitchell","WB OBear"), ordered = T)
       ) %>%
@@ -87,7 +87,8 @@ getFlowByArea <- function(dIn) {
           river == "wb obear" ~ 1.295 / 21.756,
           river == "west brook" ~ 21.756 / 21.756
         ),
-      flowByArea = flowWithTribs * propRiverArea
+      flowByArea = flowWithTribs * propRiverArea,
+      dummy = 1
     )
   return(dOut)
 }

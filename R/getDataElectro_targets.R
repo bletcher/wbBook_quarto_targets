@@ -69,7 +69,8 @@ getElectroData_target <-
              sectionWQuarter = NA,
              j = NA, # not sure what this is,
              
-             date = date(detectionDate)
+             date = date(detectionDate),
+             dummy = 1
       ),
     
     # functions in getPrepareWBData library
@@ -124,7 +125,7 @@ getElectroData_target <-
 # use this until we add reconnect() to the addEnvironmental package
 
 # This function is a copy of addEnvironmetal() in getDataCMR_targets
-# Add any updates there
+# Add any updates there also
 addEnvironmental3 <- function(coreData, sampleFlow = F, funName = "mean") {
   reconnect()
   
@@ -136,7 +137,8 @@ addEnvironmental3 <- function(coreData, sampleFlow = F, funName = "mean") {
   }
   if (whichDrainage == "west") {
     envData <- 
-      tar_read(envDataWB_target) |> 
+      tar_read(envDataWB_target) |>
+      #envDataIn |> 
         dplyr::filter(date <= max(coreData$detectionDate), 
                       date >= min(coreData$detectionDate)) |> 
       data.frame()
