@@ -27,6 +27,7 @@ getEnvData_target <-
       left_join(flowByRiver_target) |> 
       addSeason(tar_read(medianDates_target)) |> 
       addFlowToTribs() |> 
+      addFlowByRiverToTribs() |> 
       getFlowByArea()
   ) 
 
@@ -77,6 +78,17 @@ addFlowToTribs <- function(dIn) {
   return(dOut)
 }
 
+# adds WB flow estimates to tribs for scaling in getFlowByARea()
+addFlowByRiverToTribs <- function(dIn) {
+  flowByDate <- dIn |>
+    filter(river == "west brook") |>
+    rename(flowByRiverWB_WithTribs = flowByRiver) |>
+    dplyr::select(date, flowByRiverWB_WithTribs)
+
+  dOut <- left_join(dIn, flowByDate)
+  return(dOut)
+}
+
 getFlowByArea <- function(dIn) {
   dOut <- dIn |> 
     mutate(
@@ -87,7 +99,8 @@ getFlowByArea <- function(dIn) {
           river == "wb obear" ~ 1.295 / 21.756,
           river == "west brook" ~ 21.756 / 21.756
         ),
-      flowByArea = flowWithTribs * propRiverArea,
+      flowByArea_flowExt = flowWithTribs * propRiverArea,
+      flowByArea_ByRiver = flowByRiverWB_WithTribs * propRiverArea,
       dummy = 1
     )
   return(dOut)
