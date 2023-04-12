@@ -97,10 +97,10 @@ modelGrowthInMass_target <-
       rename(tempS = meanTemperatureScaledBySeason, 
              flowS = meanFlowScaledBySeason, 
              flowByRiverS = meanFlowByRiverScaledBySeason,
-             flowByAreaS = meanFlowByAreaScaledBySeason,
+             flowByAreaS = meanFlowByArea_flowExtScaledBySeason, #using just ..._flowExt for now (not adding _ByRiver)
              tempSR = meanTemperatureScaledBySeasonRiver, flowSR = meanFlowScaledBySeasonRiver, 
              flowByRiverSR = meanFlowByRiverScaledBySeasonRiver,
-             flowByAreaSR = meanFlowByAreaScaledBySeasonRiver
+             flowByAreaSR = meanFlowByArea_flowExtScaledBySeasonRiver
              ) |> 
       filter(tempSR > -4),
     

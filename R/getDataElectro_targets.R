@@ -194,8 +194,15 @@ addEnvironmental3 <- function(coreData, sampleFlow = F, funName = "mean") {
         if (!is.na(r)) 
           meanVar <- fun(envData[d >= start & d <= end & envData$river == r, envCol], na.rm = T)
       }
-      if (e == "FlowByArea") {
-        envCol <- "flowByArea"
+      if (e == "FlowByArea_flowExt") {
+        envCol <- "flowByArea_flowExt"
+        if (is.na(r)) 
+          meanVar <- fun(envData[d >= start & d <= end, envCol], na.rm = T)
+        if (!is.na(r)) 
+          meanVar <- fun(envData[d >= start & d <= end & envData$river == r, envCol], na.rm = T)
+      }
+      if (e == "FlowByArea_ByRiver") {
+        envCol <- "flowByArea_ByRiver"
         if (is.na(r)) 
           meanVar <- fun(envData[d >= start & d <= end, envCol], na.rm = T)
         if (!is.na(r)) 
@@ -211,7 +218,13 @@ addEnvironmental3 <- function(coreData, sampleFlow = F, funName = "mean") {
       mutate(meanTemperature = getIntervalMean(detectionDate, lagDetectionDate, river, "Temperature"), 
              meanFlow =        getIntervalMean(detectionDate, lagDetectionDate, river, "Flow"),
              meanFlowByRiver = getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByRiver"),
-             meanFlowByArea  = getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByArea")) %>% 
+             meanFlowByArea_flowExt  = getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByArea_flowExt"),
+             meanFlowByArea_ByRiver  = getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByArea_ByRiver"),
+             sdFlow =        getIntervalMean(detectionDate, lagDetectionDate, river, "Flow", get("sd")),
+             sdFlowByRiver =   getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByRiver", get("sd")),
+             sdFlowByArea_flowExt  =   getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByArea_flowExt", get("sd")),
+             sdFlowByArea_ByRiver  =   getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByArea_ByRiver", get("sd"))
+             ) %>% 
       ungroup()
     
     coreData <- left_join(coreData, coreDataUniqueDates, 
@@ -256,7 +269,12 @@ addEnvironmental3 <- function(coreData, sampleFlow = F, funName = "mean") {
   names(coreData)[which(names(coreData) == "meanTemperature")] <- paste0(funName, "Temperature")
   names(coreData)[which(names(coreData) == "meanFlow")] <- paste0(funName,  "Flow")
   names(coreData)[which(names(coreData) == "meanFlowByRiver")] <- paste0(funName,  "FlowByRiver")
-  names(coreData)[which(names(coreData) == "meanFlowByArea")] <- paste0(funName,  "FlowByArea")
+  names(coreData)[which(names(coreData) == "meanFlowByArea_flowExt")] <- paste0(funName,  "FlowByArea_flowExt")
+  names(coreData)[which(names(coreData) == "meanFlowByArea_ByRiver")] <- paste0(funName,  "FlowByArea_ByRiver")
+  names(coreData)[which(names(coreData) == "sdFlow")] <- paste0("sd",  "Flow")
+  names(coreData)[which(names(coreData) == "sdFlowByRiver")] <- paste0("sd",  "FlowByRiver")
+  names(coreData)[which(names(coreData) == "sdFlowByArea_flowExt")] <- paste0("sd",  "FlowByArea_flowExt")
+  names(coreData)[which(names(coreData) == "sdFlowByArea_ByRiver")] <- paste0("sd",  "FlowByArea_ByRiver")
   return(coreData)
 }
 
@@ -498,17 +516,20 @@ addseasonFT_zScore <- function(d){
               sdF = sd(meanFlow, na.rm = TRUE),
               meanFByRiver = mean(meanFlowByRiver, na.rm = TRUE),
               sdFByRiver = sd(meanFlowByRiver, na.rm = TRUE),
-              meanFByArea = mean(meanFlowByArea, na.rm = TRUE),
-              sdFByArea = sd(meanFlowByArea, na.rm = TRUE)) 
+              meanFByArea_flowExt = mean(meanFlowByArea_flowExt, na.rm = TRUE),
+              sdFByArea_flowExt = sd(meanFlowByArea_flowExt, na.rm = TRUE),
+              meanFByArea_ByRiver = mean(meanFlowByArea_ByRiver, na.rm = TRUE),
+              sdFByArea_ByRiver = sd(meanFlowByArea_ByRiver, na.rm = TRUE)) 
   
   d <- left_join(d, seasonTF) |> 
     mutate(
       meanTemperatureScaledBySeason = (meanTemperature - meanT)/sdT, 
       meanFlowScaledBySeason = (meanFlow - meanF)/sdF,
       meanFlowByRiverScaledBySeason = (meanFlowByRiver - meanFByRiver)/sdFByRiver,
-      meanFlowByAreaScaledBySeason = (meanFlowByArea - meanFByArea)/sdFByArea
+      meanFlowByArea_flowExtScaledBySeason = (meanFlowByArea_flowExt - meanFByArea_flowExt)/sdFByArea_flowExt,
+      meanFlowByArea_ByRiverScaledBySeason = (meanFlowByArea_ByRiver - meanFByArea_ByRiver)/sdFByArea_ByRiver
     ) |> 
-    select(-c(meanT, sdT, meanF, sdF, meanFByRiver, sdFByRiver, meanFByArea, sdFByArea))
+    select(-c(meanT, sdT, meanF, sdF, meanFByRiver, sdFByRiver, meanFByArea_flowExt, meanFByArea_ByRiver, sdFByArea_flowExt, sdFByArea_ByRiver))
   
   return(d)
 }
@@ -522,17 +543,20 @@ addseasonRiverFT_zScore <- function(d){
               sdF = sd(meanFlow, na.rm = TRUE),
               meanFByRiver = mean(meanFlowByRiver, na.rm = TRUE),
               sdFByRiver = sd(meanFlowByRiver, na.rm = TRUE),
-              meanFByArea = mean(meanFlowByArea, na.rm = TRUE),
-              sdFByArea = sd(meanFlowByArea, na.rm = TRUE)) 
+              meanFByArea_flowExt = mean(meanFlowByArea_flowExt, na.rm = TRUE),
+              sdFByArea_flowExt = sd(meanFlowByArea_flowExt, na.rm = TRUE),
+              meanFByArea_ByRiver = mean(meanFlowByArea_ByRiver, na.rm = TRUE),
+              sdFByArea_ByRiver = sd(meanFlowByArea_ByRiver, na.rm = TRUE)) 
   
   d <- left_join(d, seasonRiverTF) |> 
     mutate(
       meanTemperatureScaledBySeasonRiver = (meanTemperature - meanT)/sdT, 
       meanFlowScaledBySeasonRiver = (meanFlow - meanF)/sdF,
       meanFlowByRiverScaledBySeasonRiver = (meanFlowByRiver - meanFByRiver)/sdFByRiver,
-      meanFlowByAreaScaledBySeasonRiver = (meanFlowByArea - meanFByArea)/sdFByArea
+      meanFlowByArea_flowExtScaledBySeasonRiver = (meanFlowByArea_flowExt - meanFByArea_flowExt)/sdFByArea_flowExt,
+      meanFlowByArea_ByRiverScaledBySeasonRiver = (meanFlowByArea_ByRiver - meanFByArea_ByRiver)/sdFByArea_ByRiver
     ) |> 
-    select(-c(meanT, sdT, meanF, sdF, meanFByRiver, sdFByRiver, meanFByArea, sdFByArea))
+    select(-c(meanT, sdT, meanF, sdF, meanFByRiver, sdFByRiver, meanFByArea_flowExt, meanFByArea_ByRiver, sdFByArea_flowExt, sdFByArea_ByRiver))
   
   return(d)
 }
