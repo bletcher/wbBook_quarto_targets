@@ -271,7 +271,7 @@ plotWW(cd1, "bkt")
 ```{r}
 #| label: weight_v_weight_bnt
 
-plotWW(cd1, "bkt")
+plotWW(cd1, "bnt")
 ```
 
 #### Atlantic salmon

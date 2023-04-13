@@ -8,24 +8,8 @@ modelGrowthInMass_target <-
       mutate(
         negGrowth = grWeight < 0,
         month = month(date),
-        riverGG = factor(
-          river,
-          levels=c('west brook', 'wb jimmy', 'wb mitchell',"wb obear"),
-          labels = c("West Brook","Open Large","Open Small","Isolated Small"),
-          ordered = T
-        ),
-        seasonGG = factor(
-          season, 
-          labels = c("Spring","Summer","Autumn","Winter"), 
-          ordered = T
-        ),
-        speciesGG = factor(
-          species, 
-          levels = c('bkt','bnt','ats'), 
-          labels = c("Brook trout", "Brown trout", "Atlantic salmon"), 
-          ordered = T
-        ) 
       )|> 
+      addGG() |> # in generalFunctions.R
       left_join(
         firstLast_target
       ) |> 

@@ -58,6 +58,7 @@ list(
   modelFlow_target,
   modelConditionFactor_target,
   modelGrowthInMass_target,
+  modelFDC_target,
   modelXGBoost_target,
   
   # retrieves the mcmc files
