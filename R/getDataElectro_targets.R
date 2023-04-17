@@ -4,7 +4,7 @@ tar_option_set(packages = c("tidyverse", "lubridate", "getWBData", "getPrepareWB
 # function (sampleType = "electrofishing", baseColumns = T, 
 #    columnsToAdd = NULL, includeUntagged = F, whichDrainage = "west") 
 
-drainage <- 'west'
+drainage <- 'west' # should move this to a target
 reconnect() 
 
 getElectroData_target <-
@@ -82,9 +82,9 @@ getElectroData_target <-
       addSizeIndGrowthWeight() %>%
       addCF() %>%
       addCountPerIndividual() |> 
-      addseasonFT_zScore() |> 
-      addseasonRiverFT_zScore(),
-    
+      addSeasonFT_zScore() |> 
+      addSeasonRiverFT_zScore(),
+      # 
     
     medianWinterSampleDate_target = cdWB_electro_target |> 
       filter(season == 4) |>
@@ -110,7 +110,7 @@ getElectroData_target <-
         group_by(river, year, season) |> 
         summarize(start = median(date)) |> 
         ungroup() |> 
-        add_row(missingWinterYears_target |> select(-start0)) |> 
+        add_row(missingWinterYears_target |> dplyr::select(-start0)) |> 
         arrange(river, start) |> 
         group_by(river) |> 
         mutate(end = lead(start)) |> 
@@ -143,6 +143,9 @@ addEnvironmental3 <- function(coreData, sampleFlow = F, funName = "mean") {
                       date >= min(coreData$detectionDate)) |> 
       data.frame()
     
+    # Flow duration curve env data
+    envDataWB_fdcThresh <- tar_read(envDataWB_fdcThresh_target)
+    
       # 
       # tbl(conDplyr, "data_daily_temperature") %>% 
       # collect(n = Inf) %>% 
@@ -173,6 +176,7 @@ addEnvironmental3 <- function(coreData, sampleFlow = F, funName = "mean") {
     ungroup()
   
   if (whichDrainage == "west") {
+    
     getIntervalMean <- function(start, end, r, e, fun = func) {
       d <- envData$date
       if (e == "Temperature") {
@@ -211,24 +215,79 @@ addEnvironmental3 <- function(coreData, sampleFlow = F, funName = "mean") {
       return(meanVar)
     }
     
-    coreDataUniqueDates <- coreData %>% 
-      dplyr::select(river, detectionDate, lagDetectionDate) %>% 
-      unique() %>% 
-      group_by(river, detectionDate, lagDetectionDate) %>% 
-      mutate(meanTemperature = getIntervalMean(detectionDate, lagDetectionDate, river, "Temperature"), 
-             meanFlow =        getIntervalMean(detectionDate, lagDetectionDate, river, "Flow"),
-             meanFlowByRiver = getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByRiver"),
-             meanFlowByArea_flowExt  = getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByArea_flowExt"),
-             meanFlowByArea_ByRiver  = getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByArea_ByRiver"),
-             sdFlow =        getIntervalMean(detectionDate, lagDetectionDate, river, "Flow", get("sd")),
-             sdFlowByRiver =   getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByRiver", get("sd")),
-             sdFlowByArea_flowExt  =   getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByArea_flowExt", get("sd")),
-             sdFlowByArea_ByRiver  =   getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByArea_ByRiver", get("sd"))
-             ) %>% 
+    #######Function for flow duration curve data
+    getIntervalMeanFDC <- function(start, end, r, e, fun = func) {
+      d <- envDataWB_fdcThresh$date
+      if(is.na(r)) {
+        dat <- envDataWB_fdcThresh[d >= start & d <= end, e]
+        prop <- sum(dat, na.rm = TRUE) / sum(!is.na(dat))
+      } else {
+        dat <- envDataWB_fdcThresh[d >= start & d <= end & envDataWB_fdcThresh$river == r, e]
+        prop <- sum(dat, na.rm = TRUE) / sum(!is.na(dat))
+      }
+      return(prop)
+    }
+
+    # 
+    # r=coreDataUniqueDates[3,1]$river
+    # test <- coreData |>
+    #   dplyr::select(river, detectionDate, lagDetectionDate)|>
+    #   unique()|>
+    #   group_by(river, detectionDate, lagDetectionDate)|>
+    #   mutate(
+    #     getIntervalMeanFDC(detectionDate, lagDetectionDate, river, "belowThreshFlowByRiver")
+    #   )
+    # 
+    
+    coreDataUniqueDates <- coreData |>
+      dplyr::select(river, detectionDate, lagDetectionDate)|>
+      unique()|>
+      group_by(river, detectionDate, lagDetectionDate)|>
+      mutate(
+        meanTemperature = getIntervalMean(detectionDate, lagDetectionDate, river, "Temperature") ,
+        meanFlow =        getIntervalMean(detectionDate, lagDetectionDate, river, "Flow"),
+        meanFlowByRiver = getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByRiver"),
+        meanFlowByArea_flowExt = getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByArea_flowExt"),
+        meanFlowByArea_ByRiver = getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByArea_ByRiver"),
+        
+        sdFlow =        getIntervalMean(detectionDate, lagDetectionDate, river, "Flow", get("sd")),
+        sdFlowByRiver = getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByRiver", get("sd")),
+        sdFlowByArea_flowExt = getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByArea_flowExt", get("sd")),
+        sdFlowByArea_ByRiver = getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByArea_ByRiver", get("sd")),
+        
+        meanBelowThreshFlowByRiver = getIntervalMeanFDC(detectionDate, lagDetectionDate, river, "belowThreshFlowByRiver"),
+        meanAboveThreshFlowByRiver = getIntervalMeanFDC(detectionDate, lagDetectionDate, river, "aboveThreshFlowByRiver"),
+        meanBelowThreshFlowByArea_flowExt = getIntervalMeanFDC(detectionDate, lagDetectionDate, river, "belowThreshFlowByArea_flowExt"),
+        meanAboveThreshFlowByArea_flowExt = getIntervalMeanFDC(detectionDate, lagDetectionDate, river, "aboveThreshFlowByArea_flowExt")
+      )|>
       ungroup()
     
     coreData <- left_join(coreData, coreDataUniqueDates, 
                           by = c("detectionDate", "river", "lagDetectionDate"))
+
+    
+    # 
+    # getIntervalData <- function(start, end, r) {
+    #   if(is.na(r)) {
+    #     out <- envData |> filter(date >= start, date <= end)
+    #   } else {
+    #     out <- envData |> filter(date >= start, date <= end, river == r)
+    #   }
+    #   return(out)
+    # }
+    # 
+    # getIntervalData2 <- function(start, end, r) {
+    #   d <- envData$date
+    #   if(is.na(r)) {
+    #     out <- envData[d >= start & d <= end, ]
+    #   } else {
+    #     out <- envData[d >= start & d <= end & envData$river == r, ]
+    #   }
+    #   return(out)
+    # }
+    # 
+    
+
   }
   else {
     getIntervalMean <- function(start, end, e, fun = func) {
@@ -266,15 +325,15 @@ addEnvironmental3 <- function(coreData, sampleFlow = F, funName = "mean") {
       ungroup() %>% 
       right_join(coreData, by = "sampleName")
   }
-  names(coreData)[which(names(coreData) == "meanTemperature")] <- paste0(funName, "Temperature")
-  names(coreData)[which(names(coreData) == "meanFlow")] <- paste0(funName,  "Flow")
-  names(coreData)[which(names(coreData) == "meanFlowByRiver")] <- paste0(funName,  "FlowByRiver")
-  names(coreData)[which(names(coreData) == "meanFlowByArea_flowExt")] <- paste0(funName,  "FlowByArea_flowExt")
-  names(coreData)[which(names(coreData) == "meanFlowByArea_ByRiver")] <- paste0(funName,  "FlowByArea_ByRiver")
-  names(coreData)[which(names(coreData) == "sdFlow")] <- paste0("sd",  "Flow")
-  names(coreData)[which(names(coreData) == "sdFlowByRiver")] <- paste0("sd",  "FlowByRiver")
-  names(coreData)[which(names(coreData) == "sdFlowByArea_flowExt")] <- paste0("sd",  "FlowByArea_flowExt")
-  names(coreData)[which(names(coreData) == "sdFlowByArea_ByRiver")] <- paste0("sd",  "FlowByArea_ByRiver")
+  # names(coreData)[which(names(coreData) == "meanTemperature")] <- paste0(funName, "Temperature")
+  # names(coreData)[which(names(coreData) == "meanFlow")] <- paste0(funName,  "Flow")
+  # names(coreData)[which(names(coreData) == "meanFlowByRiver")] <- paste0(funName,  "FlowByRiver")
+  # names(coreData)[which(names(coreData) == "meanFlowByArea_flowExt")] <- paste0(funName,  "FlowByArea_flowExt")
+  # names(coreData)[which(names(coreData) == "meanFlowByArea_ByRiver")] <- paste0(funName,  "FlowByArea_ByRiver")
+  # names(coreData)[which(names(coreData) == "sdFlow")] <- paste0("sd",  "Flow")
+  # names(coreData)[which(names(coreData) == "sdFlowByRiver")] <- paste0("sd",  "FlowByRiver")
+  # names(coreData)[which(names(coreData) == "sdFlowByArea_flowExt")] <- paste0("sd",  "FlowByArea_flowExt")
+  # names(coreData)[which(names(coreData) == "sdFlowByArea_ByRiver")] <- paste0("sd",  "FlowByArea_ByRiver")
   return(coreData)
 }
 
@@ -326,14 +385,14 @@ addEnvironmental2 <- function (coreData, sampleFlow = F, funName = "mean") {
   if (whichDrainage == "west") {
     envData <- tbl(conDplyr, "data_daily_temperature") %>% 
       collect(n = Inf) %>% full_join(tbl(conDplyr, "data_flow_extension") %>% 
-                                       collect(n = Inf), by = c("river", "date")) %>% select(-source) %>% 
+                                       collect(n = Inf), by = c("river", "date")) %>% dplyr::select(-source) %>% 
       dplyr::filter(date <= max(coreData$detectionDate), 
                     date >= min(coreData$detectionDate)) %>% rename(temperature = daily_mean_temp, 
                                                                     flow = qPredicted) %>% data.frame()
   }
   else {
     envData <- tbl(conDplyr, "stanley_environmental") %>% 
-      filter(section == 11) %>% select(datetime, temperature, 
+      filter(section == 11) %>% dplyr::select(datetime, temperature, 
                                        depth) %>% collect(n = Inf) %>% rename(flow = depth, 
                                                                               date = datetime) %>% data.frame()
     warning("Depth was inserted into flow column because that is what is available in Stanley")
@@ -359,7 +418,7 @@ addEnvironmental2 <- function (coreData, sampleFlow = F, funName = "mean") {
       }
       return(meanTemp)
     }
-    coreDataUniqueDates <- coreData %>% select(river, detectionDate, 
+    coreDataUniqueDates <- coreData %>% dplyr::select(river, detectionDate, 
                                                lagDetectionDate) %>% unique() %>% group_by(river, 
                                                                                            detectionDate, lagDetectionDate) %>% mutate(meanTemperature = getIntervalMean(detectionDate, 
                                                                                                                                                                          lagDetectionDate, river, "Temperature"), meanFlow = getIntervalMean(detectionDate, 
@@ -374,7 +433,7 @@ addEnvironmental2 <- function (coreData, sampleFlow = F, funName = "mean") {
                      na.rm = T)
       return(meanEnv)
     }
-    coreDataUniqueDates <- coreData %>% select(detectionDate, 
+    coreDataUniqueDates <- coreData %>% dplyr::select(detectionDate, 
                                                lagDetectionDate) %>% unique() %>% group_by(detectionDate, 
                                                                                            lagDetectionDate) %>% mutate(meanTemperature = getIntervalMean(detectionDate, 
                                                                                                                                                           lagDetectionDate, "Temperature"), meanFlow = getIntervalMean(detectionDate, 
@@ -384,10 +443,10 @@ addEnvironmental2 <- function (coreData, sampleFlow = F, funName = "mean") {
   }
   if (sampleFlow) {
     coreData <- coreData %>% mutate(date = as.Date(detectionDate)) %>% 
-      filter(enc == 1) %>% select(sampleName, date) %>% 
+      filter(enc == 1) %>% dplyr::select(sampleName, date) %>% 
       group_by(sampleName, date) %>% summarize(n = n()) %>% 
       ungroup() %>% left_join(envData %>% filter(!is.na(flow)) %>% 
-                                mutate(date = as.Date(date)) %>% select(date, flow) %>% 
+                                mutate(date = as.Date(date)) %>% dplyr::select(date, flow) %>% 
                                 rename(flowForP = flow) %>% unique(), by = c("date")) %>% 
       group_by(sampleName) %>% summarize(flowForP = sum(flowForP * 
                                                           n)/(sum(n))) %>% ungroup() %>% right_join(coreData, 
@@ -482,7 +541,7 @@ addSizeIndGrowthWeight <- function(dIn) {
   weight_grMod_GT_slope <- weight_grMod_GT  |>  
     unnest(tidied) |> 
     filter(term == "log(observedWeight)") |> 
-    select(species, river, season, estimate) |> 
+    dplyr::select(species, river, season, estimate) |> 
     rename(wGR_Slope = estimate) |> 
     mutate(wGR_Slope = ifelse(species == 'ats' & river == 'wb jimmy' & season == 2, -0.572, wGR_Slope), # set values = WB values - limited data
            wGR_Slope = ifelse(species == 'ats' & river == 'wb jimmy' & season == 4, -0.139, wGR_Slope))
@@ -507,7 +566,7 @@ addCountPerIndividual <- function(dIn){
   left_join(dIn, d)
 }
 
-addseasonFT_zScore <- function(d){
+addSeasonFT_zScore <- function(d){
   seasonTF <- d |> 
     group_by(season) |> 
     summarize(meanT = mean(meanTemperature, na.rm = TRUE),
@@ -529,12 +588,12 @@ addseasonFT_zScore <- function(d){
       meanFlowByArea_flowExtScaledBySeason = (meanFlowByArea_flowExt - meanFByArea_flowExt)/sdFByArea_flowExt,
       meanFlowByArea_ByRiverScaledBySeason = (meanFlowByArea_ByRiver - meanFByArea_ByRiver)/sdFByArea_ByRiver
     ) |> 
-    select(-c(meanT, sdT, meanF, sdF, meanFByRiver, sdFByRiver, meanFByArea_flowExt, meanFByArea_ByRiver, sdFByArea_flowExt, sdFByArea_ByRiver))
+    dplyr::select(-c(meanT, sdT, meanF, sdF, meanFByRiver, sdFByRiver, meanFByArea_flowExt, meanFByArea_ByRiver, sdFByArea_flowExt, sdFByArea_ByRiver))
   
   return(d)
 }
 
-addseasonRiverFT_zScore <- function(d){
+addSeasonRiverFT_zScore <- function(d){
   seasonRiverTF <- d |> 
     group_by(season, river) |> 
     summarize(meanT = mean(meanTemperature, na.rm = TRUE),
@@ -556,7 +615,7 @@ addseasonRiverFT_zScore <- function(d){
       meanFlowByArea_flowExtScaledBySeasonRiver = (meanFlowByArea_flowExt - meanFByArea_flowExt)/sdFByArea_flowExt,
       meanFlowByArea_ByRiverScaledBySeasonRiver = (meanFlowByArea_ByRiver - meanFByArea_ByRiver)/sdFByArea_ByRiver
     ) |> 
-    select(-c(meanT, sdT, meanF, sdF, meanFByRiver, sdFByRiver, meanFByArea_flowExt, meanFByArea_ByRiver, sdFByArea_flowExt, sdFByArea_ByRiver))
+    dplyr::select(-c(meanT, sdT, meanF, sdF, meanFByRiver, sdFByRiver, meanFByArea_flowExt, meanFByArea_ByRiver, sdFByArea_flowExt, sdFByArea_ByRiver))
   
   return(d)
 }

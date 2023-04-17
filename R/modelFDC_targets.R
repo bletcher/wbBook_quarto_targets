@@ -45,10 +45,14 @@ modelFDC_target <-
         ),
     
     fdcThresholds_target = c(0.1, 0.9),
+    
+    # do this in getEnvData so we don't need to redo in getDataElectro
+    # no, use envDataWB_fdcThresh_target  in getDataElectro
     envDataWB_fdcThresh_target =
       tar_read(envDataWB_target) |> 
         addFDC_stats(fdcStatsS_target, fdcThresholds_target),
     
+    # use this only for seasonal comparisons. Is not fish specific.
     propFDC_aboveBelow_target = 
       envDataWB_fdcThresh_target |> 
         filter(!is.na(season)) |> 
@@ -114,7 +118,7 @@ addFDC_stats <- function(d, fdcIn, fdcThresh) {
   dOut <- d |> 
     left_join(fdcThrshWide) |> 
     mutate(
-      belowThreshFlowByRiver = flowByRiver < flowByRiver_0.9,
+      belowThreshFlowByRiver = flowByRiver < flowByRiver_0.9, #will need to make these names not hardcoded
       aboveThreshFlowByRiver = flowByRiver > flowByRiver_0.1,
       belowThreshFlowByArea_flowExt = flowByArea_flowExt < flowByArea_flowExt_0.9,
       aboveThreshFlowByArea_flowExt = flowByArea_flowExt > flowByArea_flowExt_0.1,
