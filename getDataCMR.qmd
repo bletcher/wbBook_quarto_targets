@@ -30,7 +30,7 @@ str(cdWB_CMR0_WB)
 #| label: dataCMR_WBXiaowei
 
 # for(i in 1:length(cdWB_CMR0_WB)){
-#   write.csv(cdWB_CMR0_WB[i], paste0("./data/outForXiaowei/", names(cdWB_CMR0_WB)[i], ".csv"))
+#   write.csv(cdWB_CMR0_WB[i], paste0("./data/outForXiaowei/april_18_2023/", names(cdWB_CMR0_WB)[i], ".csv"))
 # }
 
 ```
