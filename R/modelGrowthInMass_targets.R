@@ -77,6 +77,8 @@ modelGrowthInMass_target <-
                     #meanTemperatureScaledBySeason, meanFlowScaledBySeason,  meanFlowByRiverScaledBySeason,
                     #meanTemperatureScaledBySeasonRiver, meanFlowScaledBySeasonRiver, meanFlowByRiverScaledBySeasonRiver,
                     starts_with("mean"),
+                    starts_with("propA"),
+                    starts_with("propB"),
                     grWeight) |> 
       rename(tempS = meanTemperatureScaledBySeason, 
              flowS = meanFlowScaledBySeason, 

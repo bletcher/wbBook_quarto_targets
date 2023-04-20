@@ -42,7 +42,8 @@ tar_option_set(
 #reconnect()
 
 # Run the R scripts in the /R folder with your custom functions:
-lapply(list.files("R", pattern = "*.R", full.names = TRUE, recursive = TRUE), source)
+# recursive = FALSE does not go into subfolders (e.g. `hold`)
+lapply(list.files("R", pattern = "*.R", full.names = TRUE, recursive = FALSE), source)
 
 list(
   getEnvData_target,

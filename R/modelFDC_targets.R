@@ -48,9 +48,27 @@ modelFDC_target <-
     
     # do this in getEnvData so we don't need to redo in getDataElectro
     # no, use envDataWB_fdcThresh_target  in getDataElectro
+    # envDataWB_fdcThresh_target =
+    #   tar_read(envDataWB_target) |> 
+    #     addFDC_stats(fdcStatsS_target, fdcThresholds_target),
+    
     envDataWB_fdcThresh_target =
       tar_read(envDataWB_target) |> 
-        addFDC_stats(fdcStatsS_target, fdcThresholds_target),
+      left_join(fdcThreshWide_target) |> 
+      mutate(
+        belowLoFlowThreshByRiver = flowByRiver < flowByRiver_0.9, #will need to make these names not hardcoded
+        aboveHiFlowThreshByRiver = flowByRiver > flowByRiver_0.1,
+        belowLoFlowThreshByArea_flowExt = flowByArea_flowExt < flowByArea_flowExt_0.9,
+        aboveHiFlowThreshByArea_flowExt = flowByArea_flowExt > flowByArea_flowExt_0.1
+      ),
+    
+    fdcThreshWide_target =   
+      fdcStatsS_target |>
+      filter(stat %in% c(fdcThresholds_target[1], fdcThresholds_target[2]), !is.na(season)) |> 
+      pivot_wider(
+        names_from = c(variable, stat),
+        values_from = perc
+      ), 
     
     # use this only for seasonal comparisons. Is not fish specific.
     propFDC_aboveBelow_target = 
@@ -58,10 +76,10 @@ modelFDC_target <-
         filter(!is.na(season)) |> 
         group_by(river, year, season) |> 
         summarize(
-          propBelowByRiver = sum(belowThreshFlowByRiver, na.rm = TRUE) / sum(!is.na(belowThreshFlowByRiver)),
-          propAboveByRiver = sum(aboveThreshFlowByRiver, na.rm = TRUE) / sum(!is.na(aboveThreshFlowByRiver)),
-          propBelowByArea_flowExt = sum(belowThreshFlowByArea_flowExt, na.rm = TRUE) / sum(!is.na(belowThreshFlowByArea_flowExt)),
-          propAboveByArea_flowExt = sum(aboveThreshFlowByArea_flowExt, na.rm = TRUE) / sum(!is.na(aboveThreshFlowByArea_flowExt))
+          propBelowLoFlowThreshByRiver = sum(belowLoFlowThreshByRiver, na.rm = TRUE) / sum(!is.na(belowLoFlowThreshByRiver)),
+          propAboveHiFlowThreshRiver = sum(aboveHiFlowThreshByRiver, na.rm = TRUE) / sum(!is.na(aboveHiFlowThreshByRiver)),
+          propBelowLoFlowThreshByArea_flowExt = sum(belowLoFlowThreshByArea_flowExt, na.rm = TRUE) / sum(!is.na(belowLoFlowThreshByArea_flowExt)),
+          propAboveHiFlowThreshByArea_flowExt = sum(aboveHiFlowThreshByArea_flowExt, na.rm = TRUE) / sum(!is.na(aboveHiFlowThreshByArea_flowExt))
         ) |> 
       ungroup() |> 
       addGG_noSpecies()  # in generalFunctions.R
@@ -118,10 +136,10 @@ addFDC_stats <- function(d, fdcIn, fdcThresh) {
   dOut <- d |> 
     left_join(fdcThrshWide) |> 
     mutate(
-      belowThreshFlowByRiver = flowByRiver < flowByRiver_0.9, #will need to make these names not hardcoded
-      aboveThreshFlowByRiver = flowByRiver > flowByRiver_0.1,
-      belowThreshFlowByArea_flowExt = flowByArea_flowExt < flowByArea_flowExt_0.9,
-      aboveThreshFlowByArea_flowExt = flowByArea_flowExt > flowByArea_flowExt_0.1,
+      belowLoFlowThreshByRiver = flowByRiver < flowByRiver_0.9, #will need to make these names not hardcoded
+      aboveHiFlowThreshByRiver = flowByRiver > flowByRiver_0.1,
+      belowLoFlowThreshByArea_flowExt = flowByArea_flowExt < flowByArea_flowExt_0.9,
+      aboveHiFlowThreshByArea_flowExt = flowByArea_flowExt > flowByArea_flowExt_0.1
     )
   
   return(dOut)

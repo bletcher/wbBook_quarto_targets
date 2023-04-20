@@ -13,6 +13,8 @@ vals <- list(2002:2014)
 
 dataCMR_WB_2002_2014_target <-
   tar_plan(
+    tmp_target = tar_read(envDataWB_fdcThresh_target), #to force this to run
+    
     cdWB_CMR0_target = 
       createCoreData(
         sampleType = "electrofishing", #"stationaryAntenna","portableAntenna"),
@@ -46,7 +48,7 @@ dataCMR_WB_2002_2014_target <-
 
       filter(sampleNumber <= 83) %>%
       addSampleProperties() %>%
-      addEnvironmental() %>%
+      addEnvironmental3() %>%
       # these commented functions below do not work for CMR data - they separate out shock and non-shock samples
       #addEnvironmentalDaily() %>%
       #addEnvironmentalInterval() %>%
@@ -113,176 +115,7 @@ dataCMR_OB_2002_2014_target <-
 ## dataCMR functions 
 #####################################
 
-# This function is a copy of addEnvironmetal3() in getDataElectro_targets
-# Add any updates there
-addEnvironmental <- function(coreData, sampleFlow = F, funName = "mean") {
-  reconnect()
-  
-  func <- get(funName)
-  whichDrainage <- "west"
-  if (all(!unique(coreData$river) %in% c("west brook", "wb jimmy", 
-                                         "wb mitchell", "wb obear"))) {
-    whichDrainage <- "stanley"
-  }
-  if (whichDrainage == "west") {
-    envData <- 
-      tar_read(envDataWB_target) |> 
-      dplyr::filter(date <= max(coreData$detectionDate), 
-                    date >= min(coreData$detectionDate)) |> 
-      data.frame()
-    
-    envDataWB_fdcThresh <- tar_read(envDataWB_fdcThresh_target)
-      
-      # tbl(conDplyr, "data_daily_temperature") %>% 
-      # collect(n = Inf) %>% 
-      # full_join(tbl(conDplyr, "data_flow_extension") %>% 
-      #             collect(n = Inf), by = c("river", "date")) %>% 
-      # dplyr::select(-source) %>% 
-      # dplyr::filter(date <= max(coreData$detectionDate), 
-      #               date >= min(coreData$detectionDate)) %>% 
-      # rename(temperature = daily_mean_temp, flow = qPredicted) %>% 
-      # data.frame() %>%
-      # mutate(dateDate = date(date)) %>%
-      # left_join(tar_read(flowByRiver_target))
-  }
-  else {
-    envData <- tbl(conDplyr, "stanley_environmental") %>% 
-      filter(section == 11) %>% 
-      dplyr::select(datetime, temperature, depth) %>% 
-      collect(n = Inf) %>% 
-      rename(flow = depth, date = datetime) %>% 
-      data.frame()
-    warning("Depth was inserted into flow column because that is what is available in Stanley")
-  }
-  
-  coreData <- coreData %>% 
-    group_by(tag) %>% 
-    arrange(ageInSamples) %>%
-    mutate(lagDetectionDate = lead(detectionDate)) %>% 
-    ungroup()
-  
-  if (whichDrainage == "west") {
-    getIntervalMean <- function(start, end, r, e, fun = func) {
-      d <- envData$date
-      if (e == "Temperature") {
-        envCol <- "temperature"
-        if (is.na(r)) 
-          meanVar <- fun(envData[d >= start & d <= end, envCol], na.rm = T)
-        if (!is.na(r)) 
-          meanVar <- fun(envData[d >= start & d <= end & envData$river == r, envCol], na.rm = T)
-      }
-      # will need to make this river-specific
-      if (e == "Flow") {
-        envCol <- "flow"
-        meanVar <- fun(envData[d >= start & d <= end, envCol], na.rm = T)
-      }
-      if (e == "FlowByRiver") {
-        envCol <- "flowByRiver"
-        if (is.na(r)) 
-          meanVar <- fun(envData[d >= start & d <= end, envCol], na.rm = T)
-        if (!is.na(r)) 
-          meanVar <- fun(envData[d >= start & d <= end & envData$river == r, envCol], na.rm = T)
-      }
-      if (e == "FlowByArea_flowExt") {
-        envCol <- "flowByArea_flowExt"
-        if (is.na(r)) 
-          meanVar <- fun(envData[d >= start & d <= end, envCol], na.rm = T)
-        if (!is.na(r)) 
-          meanVar <- fun(envData[d >= start & d <= end & envData$river == r, envCol], na.rm = T)
-      }
-      if (e == "FlowByArea_ByRiver") {
-        envCol <- "flowByArea_ByRiver"
-        if (is.na(r)) 
-          meanVar <- fun(envData[d >= start & d <= end, envCol], na.rm = T)
-        if (!is.na(r)) 
-          meanVar <- fun(envData[d >= start & d <= end & envData$river == r, envCol], na.rm = T)
-      }
-      return(meanVar)
-    }
-    #######Function for flow duration curve data
-    getIntervalMeanFDC <- function(start, end, r, e, fun = func) {
-      d <- envDataWB_fdcThresh$date
-      if(is.na(r)) {
-        dat <- envDataWB_fdcThresh[d >= start & d <= end, e]
-        prop <- sum(dat, na.rm = TRUE) / sum(!is.na(dat))
-      } else {
-        dat <- envDataWB_fdcThresh[d >= start & d <= end & envDataWB_fdcThresh$river == r, e]
-        prop <- sum(dat, na.rm = TRUE) / sum(!is.na(dat))
-      }
-      return(prop)
-    }
-    
-    coreDataUniqueDates <- coreData %>% 
-      dplyr::select(river, detectionDate, lagDetectionDate) %>% 
-      unique() %>% 
-      group_by(river, detectionDate, lagDetectionDate) %>% 
-      mutate(meanTemperature = getIntervalMean(detectionDate, lagDetectionDate, river, "Temperature"), 
-             meanFlow =        getIntervalMean(detectionDate, lagDetectionDate, river, "Flow"),
-             meanFlowByRiver = getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByRiver"),
-             meanFlowByArea_flowExt  = getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByArea_flowExt"),
-             meanFlowByArea_ByRiver  = getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByArea_ByRiver"),
-             sdFlow =          getIntervalMean(detectionDate, lagDetectionDate, river, "Flow", get("sd")),
-             sdFlowByRiver =   getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByRiver", get("sd")),
-             sdFlowByArea_flowExt  =   getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByArea_flowExt", get("sd")),
-             sdFlowByArea_ByRiver  =   getIntervalMean(detectionDate, lagDetectionDate, river, "FlowByArea_ByRiver", get("sd")),
-             
-             meanBelowThreshFlowByRiver = getIntervalMeanFDC(detectionDate, lagDetectionDate, river, "belowThreshFlowByRiver"),
-             meanAboveThreshFlowByRiver = getIntervalMeanFDC(detectionDate, lagDetectionDate, river, "aboveThreshFlowByRiver"),
-             meanBelowThreshFlowByArea_flowExt = getIntervalMeanFDC(detectionDate, lagDetectionDate, river, "belowThreshFlowByArea_flowExt"),
-             meanAboveThreshFlowByArea_flowExt = getIntervalMeanFDC(detectionDate, lagDetectionDate, river, "aboveThreshFlowByArea_flowExt")
-      ) %>% 
-      ungroup()
-    
-    coreData <- left_join(coreData, coreDataUniqueDates, 
-                          by = c("detectionDate", "river", "lagDetectionDate"))
-  }
-  else {
-    getIntervalMean <- function(start, end, e, fun = func) {
-      d <- envData$date
-      meanEnv <- fun(envData[d >= start & d <= end, tolower(e)], 
-                     na.rm = T)
-      return(meanEnv)
-    }
-    
-    coreDataUniqueDates <- coreData %>% 
-      dplyr::select(detectionDate, lagDetectionDate) %>% 
-      unique() %>% 
-      group_by(detectionDate, lagDetectionDate) %>% 
-      mutate(meanTemperature = getIntervalMean(detectionDate, lagDetectionDate, "Temperature"), 
-             meanFlow = getIntervalMean(detectionDate, lagDetectionDate, "Flow")) %>% 
-      ungroup()
-    
-    coreData <- left_join(coreData, coreDataUniqueDates, 
-                          by = c("detectionDate", "lagDetectionDate"))
-  }
-  
-  if (sampleFlow) {
-    coreData <- coreData %>% 
-      mutate(date = as.Date(detectionDate)) %>% 
-      filter(enc == 1) %>% dplyr::select(sampleName, date) %>% 
-      group_by(sampleName, date) %>% summarize(n = n()) %>% 
-      ungroup() %>% 
-      left_join(envData %>% 
-                  filter(!is.na(flow)) %>% 
-                  mutate(date = as.Date(date)) %>% 
-                  dplyr::select(date, flow) %>% 
-                  rename(flowForP = flow) %>% 
-                  unique(), by = c("date")) %>% 
-      group_by(sampleName) %>% summarize(flowForP = sum(flowForP * n)/(sum(n))) %>% 
-      ungroup() %>% 
-      right_join(coreData, by = "sampleName")
-  }
-  # names(coreData)[which(names(coreData) == "meanTemperature")] <- paste0(funName, "Temperature")
-  # names(coreData)[which(names(coreData) == "meanFlow")] <- paste0(funName,  "Flow")
-  # names(coreData)[which(names(coreData) == "meanFlowByRiver")] <- paste0(funName,  "FlowByRiver")
-  # names(coreData)[which(names(coreData) == "meanFlowByArea_flowExt")] <- paste0(funName,  "FlowByArea_flowExt")
-  # names(coreData)[which(names(coreData) == "meanFlowByArea_ByRiver")] <- paste0(funName,  "FlowByArea_ByRiver")
-  # names(coreData)[which(names(coreData) == "sdFlow")] <- paste0("sd",  "Flow")
-  # names(coreData)[which(names(coreData) == "sdFlowByRiver")] <- paste0("sd",  "FlowByRiver")
-  # names(coreData)[which(names(coreData) == "sdFlowByArea_flowExt")] <- paste0("sd",  "FlowByArea_flowExt")
-  # names(coreData)[which(names(coreData) == "sdFlowByArea_ByRiver")] <- paste0("sd",  "FlowByArea_ByRiver")
-  return(coreData)
-}
+#addEnvironmental3() is in 'generalFunctions.R'
 
 getKnown <- function(x) {
   firstObs <- min(which(x == 1))
@@ -524,25 +357,25 @@ getEH_AIS <- function(dIn, cols, ops, vals, maxOccasionValue, maxIndexByCohort =
   temperatureMatrix <- as.matrix(temperatureWide %>% dplyr::select(-tag), nrow = nrow(temperatureWide), ncol = ncol(temperatureWide) - 1)
   temperatureMatrix <- ifelse(is.finite(temperatureMatrix), temperatureMatrix, temperatureFill)
   
-  meanBelowThreshFlowByRiverFill <- 0
-  meanBelowThreshFlowByRiverWide <- getEHDataWide_AIS(d, cols, ops, vals, "meanBelowThreshFlowByRiver", maxOccasionValue, valuesFill = meanBelowThreshFlowByRiverFill)
-  meanBelowThreshFlowByRiverMatrix <- as.matrix(meanBelowThreshFlowByRiverWide %>% dplyr::select(-tag), nrow = nrow(meanBelowThreshFlowByRiverWide), ncol = ncol(meanBelowThreshFlowByRiverWide) - 1)
-  meanBelowThreshFlowByRiverMatrix <- ifelse(is.finite(meanBelowThreshFlowByRiverMatrix), meanBelowThreshFlowByRiverMatrix, meanBelowThreshFlowByRiverFill)
+  propBelowLoFlowThreshByRiverFill <- 0
+  propBelowLoFlowThreshByRiverWide <- getEHDataWide_AIS(d, cols, ops, vals, "propBelowLoFlowThreshByRiver", maxOccasionValue, valuesFill = propBelowLoFlowThreshByRiverFill)
+  propBelowLoFlowThreshByRiverMatrix <- as.matrix(propBelowLoFlowThreshByRiverWide %>% dplyr::select(-tag), nrow = nrow(propBelowLoFlowThreshByRiverWide), ncol = ncol(propBelowLoFlowThreshByRiverWide) - 1)
+  propBelowLoFlowThreshByRiverMatrix <- ifelse(is.finite(propBelowLoFlowThreshByRiverMatrix), propBelowLoFlowThreshByRiverMatrix, propBelowLoFlowThreshByRiverFill)
   
-  meanAboveThreshFlowByRiverFill <- 0
-  meanAboveThreshFlowByRiverWide <- getEHDataWide_AIS(d, cols, ops, vals, "meanAboveThreshFlowByRiver", maxOccasionValue, valuesFill = meanAboveThreshFlowByRiverFill)
-  meanAboveThreshFlowByRiverMatrix <- as.matrix(meanAboveThreshFlowByRiverWide %>% dplyr::select(-tag), nrow = nrow(meanAboveThreshFlowByRiverWide), ncol = ncol(meanAboveThreshFlowByRiverWide) - 1)
-  meanAboveThreshFlowByRiverMatrix <- ifelse(is.finite(meanAboveThreshFlowByRiverMatrix), meanAboveThreshFlowByRiverMatrix, meanAboveThreshFlowByRiverFill)
+  propAboveHiFlowThreshByRiverFill <- 0
+  propAboveHiFlowThreshByRiverWide <- getEHDataWide_AIS(d, cols, ops, vals, "propAboveHiFlowThreshByRiver", maxOccasionValue, valuesFill = propAboveHiFlowThreshByRiverFill)
+  propAboveHiFlowThreshByRiverMatrix <- as.matrix(propAboveHiFlowThreshByRiverWide %>% dplyr::select(-tag), nrow = nrow(propAboveHiFlowThreshByRiverWide), ncol = ncol(propAboveHiFlowThreshByRiverWide) - 1)
+  propAboveHiFlowThreshByRiverMatrix <- ifelse(is.finite(propAboveHiFlowThreshByRiverMatrix), propAboveHiFlowThreshByRiverMatrix, propAboveHiFlowThreshByRiverFill)
   
-  meanBelowThreshFlowByArea_flowExtFill <- 0
-  meanBelowThreshFlowByArea_flowExtWide <- getEHDataWide_AIS(d, cols, ops, vals, "meanBelowThreshFlowByArea_flowExt", maxOccasionValue, valuesFill = meanBelowThreshFlowByArea_flowExtFill)
-  meanBelowThreshFlowByArea_flowExtMatrix <- as.matrix(meanBelowThreshFlowByArea_flowExtWide %>% dplyr::select(-tag), nrow = nrow(meanBelowThreshFlowByArea_flowExtWide), ncol = ncol(meanBelowThreshFlowByArea_flowExtWide) - 1)
-  meanBelowThreshFlowByArea_flowExtMatrix <- ifelse(is.finite(meanBelowThreshFlowByArea_flowExtMatrix), meanBelowThreshFlowByArea_flowExtMatrix, meanBelowThreshFlowByArea_flowExtFill)
+  propBelowLoFlowThreshByArea_flowExtFill <- 0
+  propBelowLoFlowThreshByArea_flowExtWide <- getEHDataWide_AIS(d, cols, ops, vals, "propBelowLoFlowThreshByArea_flowExt", maxOccasionValue, valuesFill = propBelowLoFlowThreshByArea_flowExtFill)
+  propBelowLoFlowThreshByArea_flowExtMatrix <- as.matrix(propBelowLoFlowThreshByArea_flowExtWide %>% dplyr::select(-tag), nrow = nrow(propBelowLoFlowThreshByArea_flowExtWide), ncol = ncol(propBelowLoFlowThreshByArea_flowExtWide) - 1)
+  propBelowLoFlowThreshByArea_flowExtMatrix <- ifelse(is.finite(propBelowLoFlowThreshByArea_flowExtMatrix), propBelowLoFlowThreshByArea_flowExtMatrix, propBelowLoFlowThreshByArea_flowExtFill)
   
-  meanAboveThreshFlowByArea_flowExtFill <- 0
-  meanAboveThreshFlowByArea_flowExtWide <- getEHDataWide_AIS(d, cols, ops, vals, "meanAboveThreshFlowByArea_flowExt", maxOccasionValue, valuesFill = meanAboveThreshFlowByArea_flowExtFill)
-  meanAboveThreshFlowByArea_flowExtMatrix <- as.matrix(meanAboveThreshFlowByArea_flowExtWide %>% dplyr::select(-tag), nrow = nrow(meanAboveThreshFlowByArea_flowExtWide), ncol = ncol(meanAboveThreshFlowByArea_flowExtWide) - 1)
-  meanAboveThreshFlowByArea_flowExtMatrix <- ifelse(is.finite(meanAboveThreshFlowByArea_flowExtMatrix), meanAboveThreshFlowByArea_flowExtMatrix, meanAboveThreshFlowByArea_flowExtFill)
+  propAboveHiFlowThreshByArea_flowExtFill <- 0
+  propAboveHiFlowThreshByArea_flowExtWide <- getEHDataWide_AIS(d, cols, ops, vals, "propAboveHiFlowThreshByArea_flowExt", maxOccasionValue, valuesFill = propAboveHiFlowThreshByArea_flowExtFill)
+  propAboveHiFlowThreshByArea_flowExtMatrix <- as.matrix(propAboveHiFlowThreshByArea_flowExtWide %>% dplyr::select(-tag), nrow = nrow(propAboveHiFlowThreshByArea_flowExtWide), ncol = ncol(propAboveHiFlowThreshByArea_flowExtWide) - 1)
+  propAboveHiFlowThreshByArea_flowExtMatrix <- ifelse(is.finite(propAboveHiFlowThreshByArea_flowExtMatrix), propAboveHiFlowThreshByArea_flowExtMatrix, propAboveHiFlowThreshByArea_flowExtFill)
   
   riverWide <- getEHDataWide_AIS(d, cols, ops, vals, "river", maxOccasionValue, valuesFill = NA)
   riverMatrix <- as.matrix(riverWide %>% dplyr::select(-tag), nrow = nrow(riverWide), ncol = ncol(riverWide) - 1)
@@ -578,8 +411,8 @@ getEH_AIS <- function(dIn, cols, ops, vals, maxOccasionValue, maxIndexByCohort =
   
   return(list(eh = eh, flow = flowMatrix, flowByRiver = flowByRiverMatrix, flowByArea_flowExt = flowByArea_flowExtMatrix, 
               flowByArea_ByRiver = flowByArea_ByRiverMatrix, 
-              meanBelowThreshFlowByRiver = meanBelowThreshFlowByRiverMatrix, meanAboveThreshFlowByRiver = meanAboveThreshFlowByRiverMatrix,
-              meanBelowThreshFlowByArea_flowExt = meanBelowThreshFlowByArea_flowExtMatrix, meanAboveThreshFlowByArea_flowExt = meanAboveThreshFlowByArea_flowExtMatrix,
+              propBelowLoFlowThreshByRiver = propBelowLoFlowThreshByRiverMatrix, propAboveHiFlowThreshByRiver = propAboveHiFlowThreshByRiverMatrix,
+              propBelowLoFlowThreshByArea_flowExt = propBelowLoFlowThreshByArea_flowExtMatrix, propAboveHiFlowThreshByArea_flowExt = propAboveHiFlowThreshByArea_flowExtMatrix,
               temperature = temperatureMatrix, river = riverMatrix, section = sectionRiverNMatrix,
               riverN = riverNMatrix, isYOY = isYOYMatrix, length = lengthMatrix, tags = tags, cohorts = cohorts, seasons = seasons, species = species,
               first = first, last = last, data = data))
