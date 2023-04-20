@@ -1,5 +1,8 @@
 # Introduction {.unnumbered}
 
+**NOTE**: This is an internal document for model development. It is not intended for distribution and has not been approved by the USGS.
+
+
 ## The West Brook stream network
 
 The Ecology Section at the USGS Conte Laboratory has studied fish in the West Brook (MA, USA) since 1997. The goal is to understand the strength and direction of drivers on fish growth, movement, reproduction and survival in a small stream network. We hope to provide a comprehensive understanding of fish population dynamics and ultimately individual fitness (natural selection and evolution) in the study area.
