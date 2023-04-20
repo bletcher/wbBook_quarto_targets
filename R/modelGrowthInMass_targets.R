@@ -84,7 +84,8 @@ modelGrowthInMass_target <-
              flowS = meanFlowScaledBySeason, 
              flowByRiverS = meanFlowByRiverScaledBySeason,
              flowByAreaS = meanFlowByArea_flowExtScaledBySeason, #using just ..._flowExt for now (not adding _ByRiver)
-             tempSR = meanTemperatureScaledBySeasonRiver, flowSR = meanFlowScaledBySeasonRiver, 
+             tempSR = meanTemperatureScaledBySeasonRiver, 
+             flowSR = meanFlowScaledBySeasonRiver, 
              flowByRiverSR = meanFlowByRiverScaledBySeasonRiver,
              flowByAreaSR = meanFlowByArea_flowExtScaledBySeasonRiver
              ) |> 
