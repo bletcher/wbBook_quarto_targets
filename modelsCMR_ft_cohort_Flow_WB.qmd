@@ -1,30 +1,28 @@
-# Flow effects on survival (phi) models with cohort structure - 4 rivers (WB)
+# Flow/survival models - 4 rivers
 
-THis is a 'fork' of **modelsCMR_ft_cohort_Flow_OB.qmd** where the models were originally worked out. following Daniel's march 2023 changes, Ben adapted the ..._OB file to this ..._WB file.  
+This is a 'fork' of **modelsCMR_ft_cohort_Flow_OB.qmd** where the models were originally worked out. following Daniel's march 2023 changes, Ben adapted the ...\_OB file to this ...\_WB file.
 
-As of 3/13/23 - Following trouble getting the models to run on workbench (runs timed out) and on a laptop with targets (broken into targets `./R/hold/modelCMR_ttt_ft_cohort_WB.R` - get error following Rmodel step, run with a function `./R/hold/modelCMR_ttt_ft_cohort_WB_usingFunction.R` - did not finish [seems like targets is interrupting fitting somehow...]), now models are run using a function (`run_ttt_model()` in `./models/cmrFlowWB/modelCMR_ttt_ft_cohort_WB_functionsToSource.R`) and saved to a file in `./models/cmrFlowWB/runsOut/modx/.`  Targets will read in the files for analysis using `modelCMR_ttt_WB.R`.  
-File names are `ttt_WB_mcmc_modx.csv` and the targets are `mcmcOutModx`.  
+As of 3/13/23 - Following trouble getting the models to run on workbench (runs timed out) and on a laptop with targets (broken into targets `./R/hold/modelCMR_ttt_ft_cohort_WB.R` - get error following Rmodel step, run with a function `./R/hold/modelCMR_ttt_ft_cohort_WB_usingFunction.R` - did not finish \[seems like targets is interrupting fitting somehow...\]), now models are run using a function (`run_ttt_model()` in `./models/cmrFlowWB/modelCMR_ttt_ft_cohort_WB_functionsToSource.R`) and saved to a file in `./models/cmrFlowWB/runsOut/modx/.` Targets will read in the files for analysis using `modelCMR_ttt_WB.R`.\
+File names are `ttt_WB_mcmc_modx.csv` and the targets are `mcmcOutModx`.
 
-**Summary**  
-File to run models:
-`wbBook_quarto_targets/models/cmrFlowWB/modelCMR_ttt_ft_cohort_WB_makeFile.R` ->  
-Model running functions:  
-`wbBook_quarto_targets/models/cmrFlowWB/modelCMR_ttt_ft_cohort_WB_functionsToSource.R` ->  
-File to add model output to target:  
-`wbBook_quarto_targets/R/modelCMR_ttt_WB.R`  
+**Summary**\
+File to run models: `wbBook_quarto_targets/models/cmrFlowWB/modelCMR_ttt_ft_cohort_WB_makeFile.R` -\>\
+Model running functions:\
+`wbBook_quarto_targets/models/cmrFlowWB/modelCMR_ttt_ft_cohort_WB_functionsToSource.R` -\>\
+File to add model output to target:\
+`wbBook_quarto_targets/R/modelCMR_ttt_WB.R`
 
-**will need to update this section of text**
-Probability of survival (phi) model structure:  
+**will need to update this section of text** Probability of survival (phi) model structure:
 
-  logit(phi[t,i]) <-   
-    betaInt[   isYOY[i,t],season[t],cohort[i]] +  
-    betaFlow[1,isYOY[i,t],season[t]] * **flow**[i,t] +  
-    betaFlow[2,isYOY[i,t],season[t]] * temp[i,t] +  
-    betaFlow[3,isYOY[i,t],season[t]] * temp[i,t] * **flow**[i,t]  
+logit(phi\[t,i\]) \<-\
+betaInt\[ isYOY\[i,t\],season\[t\],cohort\[i\]\] +\
+betaFlow\[1,isYOY\[i,t\],season\[t\]\] \* **flow**\[i,t\] +\
+betaFlow\[2,isYOY\[i,t\],season\[t\]\] \* temp\[i,t\] +\
+betaFlow\[3,isYOY\[i,t\],season\[t\]\] \* temp\[i,t\] \* **flow**\[i,t\]
 
-Probability of capture (p) model structure:  
-  
-  logit(p[t,i]) <- betaP[isYOY[i,t],season[t-1],cohort[i]]  
+Probability of capture (p) model structure:
+
+logit(p\[t,i\]) \<- betaP\[isYOY\[i,t\],season\[t-1\],cohort\[i\]\]
 
 The goal of this modelling exercise is to evaluate the effect of new tributary-specific stream flow estimates on survival of brook trout. Here, we compare survival within one tributary (O'Bear Brook) with flow input data as 1) single flow estimate for all locations (historical approach) and 2) hindcasted flows for each tributary based on new tributary-specific flows which are available since 2000.
 
@@ -32,13 +30,9 @@ The goal is to compare survival estimates with tributary-specific flow to estima
 
 Note: a model without cohort structure is here modelsCMR_ft_Flow_OB.qmd but is not included because results are similar but without the cohort estimates.
 
-Structure options include
-[species, cohort, season, isYOY, flow, flow^2]
+Structure options include \[species, cohort, season, isYOY, flow, flow\^2\]
 
-**Model naming**
- mod1 = ttt_fByAreaT_cohort_WB
- mod2 = ttt_fByRiverT_cohort_WB
-
+**Model naming** mod1 = ttt_fByAreaT_cohort_WB mod2 = ttt_fByRiverT_cohort_WB
 
 ```{r}
 #| label: librariesModelsNimble4River
@@ -63,12 +57,17 @@ source('./R/generalFunctions.R') #to get global_labeller_WB
 #| include: false
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
+
 ## Nimble models
+
 ### Model with original flow data
-Cohort-dependent estimates of phi and p with flow and temperature hierarchical effects  
+
+Cohort-dependent estimates of phi and p with flow and temperature hierarchical effects
 
 #### Retrieve model results
-Model is run  using this file `wbBook_quarto_targets/models/cmrFlowWB/modelCMR_ttt_ft_cohort_WB_makeFile.R`
+
+Model is run using this file `wbBook_quarto_targets/models/cmrFlowWB/modelCMR_ttt_ft_cohort_WB_makeFile.R`
+
 ```{r}
 #| label: wb_ttt_flow
 # Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
@@ -127,12 +126,14 @@ Model is run  using this file `wbBook_quarto_targets/models/cmrFlowWB/modelCMR_t
 
 ```
 
+### Model with flow data hindcast for each river
 
-### Model with flow data hindcast for each rvier
-Cohort-dependent estimates of phi and p with flowByRiver hierarchical effects  
+Cohort-dependent estimates of phi and p with flowByRiver hierarchical effects
 
 #### Retrieve model results
-Model is run  using this file `wbBook_quarto_targets/models/cmrFlowWB/modelCMR_ttt_ft_cohort_WB_makeFile.R`
+
+Model is run using this file `wbBook_quarto_targets/models/cmrFlowWB/modelCMR_ttt_ft_cohort_WB_makeFile.R`
+
 ```{r}
 #| label: OB_tt_flowByRiver
 # Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
@@ -174,7 +175,8 @@ Model is run  using this file `wbBook_quarto_targets/models/cmrFlowWB/modelCMR_t
   
 ```
 
-### Compare parameter estimates of models with flow and flowByRiver
+### Compare parameter estimates of models with flowByArea and flowByRiver
+
 ```{r}
 #| label: ggBoth
 
@@ -185,39 +187,67 @@ both <- bind_rows(summary_flowByArea, summary_flowByRiver) %>%
   #        hiIlogit = ilogit(hi))
   
 
+ggplot(both %>% filter(grepl("betaIntTop", var)), aes(color = flowData)) +
+  geom_point(aes(var, median), size = 2, position = position_dodge(width = 0.5)) +
+  geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1)) +
+  #labs(x = "Variable", y = "Survival") +
+  guides(color = guide_legend(
+    title = "Data source"
+  ))
+
 ggplot(both %>% filter(grepl("betaFlowTop", var)), aes(color = flowData)) +
   geom_point(aes(var, median), size = 2, position = position_dodge(width = 0.5)) +
-  geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) 
+  geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) +
+  #labs(x = "Variable", y = "Survival") +
+  guides(color = guide_legend(
+    title = "Data source"
+  )) 
 
 ggplot(both %>% filter(grepl("betaFlowRiver", var)), aes(color = flowData)) +
   geom_point(aes(var, median), size = 2, position = position_dodge(width = 0.5)) +
   geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) +
-  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1))
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1)) +
+  #labs(x = "Variable", y = "Survival") +
+  guides(color = guide_legend(
+    title = "Data source"
+  ))
 
 ggplot(both %>% filter(grepl("betaFlow", var)), aes(color = flowData)) +
   geom_point(aes(var, median), size = 2, position = position_dodge(width = 0.5)) +
   geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) +
-  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1))
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1)) +
+  #labs(x = "Variable", y = "Survival") +
+  guides(color = guide_legend(
+    title = "Data source"
+  ))
 
-ggplot(both %>% filter(grepl("betaIntTop", var)), aes(color = flowData)) +
+ggplot(both %>% filter(grepl("betaIntRiverOut\\[", var)), aes(color = flowData)) +
   geom_point(aes(var, median), size = 2, position = position_dodge(width = 0.5)) +
   geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) +
-  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1))
-
-ggplot(both %>% filter(grepl("betaIntRiver\\[", var)), aes(color = flowData)) +
-  geom_point(aes(var, median), size = 2, position = position_dodge(width = 0.5)) +
-  geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) +
-  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1))
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1)) +
+  labs(x = "Variable", y = "Survival") +
+  guides(color = guide_legend(
+    title = "Data source"
+  ))
 
 ggplot(both %>% filter(grepl("betaIntRiverSeason", var)), aes(color = flowData)) +
   geom_point(aes(var, median), size = 2, position = position_dodge(width = 0.5)) +
   geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) +
-  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1))
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1)) +
+  #labs(x = "Variable", y = "Survival") +
+  guides(color = guide_legend(
+    title = "Data source"
+  ))
 
 ggplot(both %>% filter(grepl("betaIntRiverYOYSeason", var)), aes(color = flowData)) +
   geom_point(aes(var, median), size = 2, position = position_dodge(width = 0.5)) +
   geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) +
-  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1))
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1)) +
+  #labs(x = "Variable", y = "Survival") +
+  guides(color = guide_legend(
+    title = "Data source"
+  ))
 
 # ggplot(both %>% filter(grepl("betaInt\\[", var)), aes(color = flowData)) +
 #   geom_point(aes(var, median), size = 2, position = position_dodge(width = 0.5)) +
@@ -248,11 +278,10 @@ ggplot(both %>% filter(grepl("betaIntRiverYOYSeason", var)), aes(color = flowDat
 #     select(-tmp)
 ```
 
+################################ 
 
-
-
-################################
 ### Survival comparisons
+
 ```{r}
 #| label: getBetas
 
@@ -352,6 +381,7 @@ getBetaIntOuts <- function(d, dataType = "flow") {
 ```
 
 #### Get betaIntOut estimates
+
 ```{r}
 #| label: getBetaInts
 betaIntFlowByArea <- getBetaIntOuts(summary_flowByArea, "flowByArea")
@@ -388,14 +418,14 @@ ggplot(betaInts %>% filter(varName == "betaIntRiverSeasonOut"), aes(season, mean
 ggplot(betaInts %>% filter(varName == "betaIntRiverYOYSeasonOut"), aes(isYOY, mean, color = flowData)) +
   geom_point(size = 2, position = position_dodge(width = 0.5)) +
   geom_errorbar(aes(isYOY, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) +
-  facet_wrap(season~river, labeller = global_labellerInt_WB) +
+  facet_grid(season~river, labeller = global_labellerInt_WB) +
   guides(color = guide_legend(
     title = "Data source"
   ))
 ```
 
+################################ 
 
-################################
 ### Flow effect predictions
 
 ```{r}
@@ -490,7 +520,7 @@ getPredictions_FlowYOYSeasonCohort <- function(toSave, everyNIters = 10, flowSte
 }
 
 
-``` 
+```
 
 ```{r}
 #| label: getPredictions_FlowRiverYOYSeason
@@ -613,8 +643,6 @@ getPredictions_FlowRiverYOYSeason <- function(toSave, everyNIters = 10, flowStep
 }
 ```
 
-
-
 ```{r}
 #| label: predsBoth
 predFlowByAreaRiverYOYSeason <- getPredictions_FlowRiverYOYSeason(out_flowByArea, everyNIters = 2) %>%
@@ -627,7 +655,9 @@ predBoth <- bind_rows(predFlowByAreaRiverYOYSeason, predFlowByRiverRiverYOYSeaso
 ```
 
 #### Graph effect flow predictions
-Predictions based on flow from the flow extension curve - original approach
+
+Predictions based on flow from the flow extension curve (flowByArea) - original approach
+
 ```{r}
 #| label: predsflow
 
@@ -641,6 +671,7 @@ ggplot(predFlowByAreaRiverYOYSeason %>% filter(temp %in% c(-1,0,1)), aes(flow, p
 ```
 
 Predictions based on flow from flowByRiver
+
 ```{r}
 #| label: predsflowByRiver
 
@@ -652,6 +683,7 @@ ggplot(predFlowByRiverRiverYOYSeason %>% filter(temp %in% c(-1,0,1)), aes(flow, 
 ```
 
 Similar format to to the 2015 paper
+
 ```{r}
 #| label: preds2015
 #| 
@@ -662,62 +694,93 @@ ggplot(predFlowByAreaRiverYOYSeason %>% filter(flow %in% c(-1,0,1)), aes(temp, p
   scale_color_manual(values = colors2) +
   guides(colour = guide_legend(override.aes = list(alpha = 1))) +
   facet_grid(season ~ river+isYOY, labeller = global_labellerInt_WB)
+
+ggplot(predFlowByRiverRiverYOYSeason %>% filter(flow %in% c(-1,0,1)), aes(temp, predPhi, group = ((paste0(iter,flow, sep = "_"))))) +
+  geom_line(aes(color = factor(flow)), alpha = 0.05) +
+  scale_color_manual(values = colors2) +
+  guides(colour = guide_legend(override.aes = list(alpha = 1))) +
+  facet_grid(season ~ river+isYOY, labeller = global_labellerInt_WB)
 ```
 
 <!-- #################################### -->
+
 <!-- ### Flow effect predictions by cohort -->
+
 <!-- ```{r} -->
+
 <!-- predFlowYOYSeasonCohort <- getPredictions_FlowYOYSeasonCohort(out_flow, everyNIters = 5) %>% -->
+
 <!--     mutate(flowData = "flow") -->
 
 <!-- predFlowByRiverYOYSeasonCohort <- getPredictions_FlowYOYSeasonCohort(out_flowByRiver, everyNIters = 5) %>% -->
+
 <!--     mutate(flowData = "flowByRiver") -->
 
 <!-- predBothCohort <- bind_rows(predFlowYOYSeasonCohort, predFlowByRiverYOYSeasonCohort) -->
+
 <!-- ``` -->
 
 <!-- #### Graph flow predictions -->
+
 <!-- Predictions based on flow from the flow extension curve - original approach -->
+
 <!-- ```{r} -->
+
 <!-- colors <- c("blue", "green", "red") -->
 
 <!-- ggplot(predFlowYOYSeasonCohort %>% filter(temp %in% c(-1,0,1)), aes(flow, predPhi, group = ((paste0(iter,temp,cohort, sep = "_"))))) + -->
+
 <!--   geom_line(aes(color = factor(temp)), alpha = 0.05) + -->
+
 <!--   scale_color_manual(values = colors) + -->
+
 <!--   facet_grid(season ~ isYOY + cohort) -->
+
 <!-- ``` -->
 
 <!-- Predictions based on flow from flowByRiver -->
+
 <!-- ```{r} -->
+
 <!-- ggplot(predFlowByRiverYOYSeasonCohort %>% filter(temp %in% c(-1,0,1)), aes(flow, predPhi, group = ((paste0(iter,temp,cohort, sep = "_"))))) + -->
+
 <!--   geom_line(aes(color = factor(temp)), alpha = 0.05) + -->
+
 <!--   scale_color_manual(values = colors) + -->
+
 <!--   facet_grid(season ~ isYOY + cohort) -->
+
 <!-- ``` -->
 
 <!-- Similar format to to the 2015 paper -->
+
 <!-- ```{r} -->
+
 <!-- ggplot(predFlowYOYSeasonCohort %>% filter(flow %in% c(-1,0,1)), aes(temp, predPhi, group = ((paste0(iter,flow,cohort, sep = "_"))))) + -->
+
 <!--   geom_line(aes(color = factor(flow)), alpha = 0.05) + -->
+
 <!--   scale_color_manual(values = colors) + -->
+
 <!--   facet_grid(season ~ isYOY) -->
+
 <!-- ``` -->
 
-###########
+########### 
+
 ### Relate flow/temp to survival
 
 Get flow average flow and temp data for each occasion (cohort/season)
 
-Flow data pathway -
-| Raw data in `envDataWB_target` from getDataEnv_targets.R
-|  Data added to `cdWB_CMR0_target` using addEnvironmental3() in getDataCMR_targets.R
-|  Data scaled using scaleEnvData() in getDataCMR_targets.R
-|    meanFlowScaled
-|    meanFlowByRiverScaled
-|    meanTemperatureScaled
-| `cdWB_CMR0_target` feeds into getEH_AIS() to create `eh_WB_2002_2014_target`
-| `eh_WB_2002_2014_target`$data contains filtered data that created the components of eh_WB_2002_2014_target that are used for CMR analysis. We can use `eh_WB_2002_2014_target`$data to get summary flow and temp data
-
+Flow data pathway -\
+\| Raw data in `envDataWB_target` from getDataEnv_targets.R\
+\| Data added to `cdWB_CMR0_target` using addEnvironmental3() in getDataCMR_targets.R (now in `generalFunctions.R`)\
+\| Data scaled using scaleEnvData() in getDataCMR_targets.R\
+\| meanFlowScaled\
+\| meanFlowByRiverScaled\
+\| meanTemperatureScaled\
+\| `cdWB_CMR0_target` feeds into getEH_AIS() to create `eh_WB_2002_2014_target`\
+\| `eh_WB_2002_2014_target`$data contains filtered data that created the components of eh_WB_2002_2014_target that are used for CMR analysis. We can use `eh_WB_2002_2014_target`$data to get summary flow and temp data
 
 ```{r}
 #| label: betaIntsandeh_WB_2002_2014_target
@@ -740,6 +803,7 @@ betaIntsFT <- betaInts %>%
 ```
 
 How do the flow metrics (byArea, byRiver) compare to each other?
+
 ```{r}
 #| label: ggFT
 ggplot(betaIntsFT %>% filter(varName == "betaIntOut"), aes(mFlowByArea, mFlowByRiver, color = as.factor(cohort))) +
@@ -750,6 +814,7 @@ ggplot(betaIntsFT %>% filter(varName == "betaIntOut"), aes(mFlowByArea, mFlowByR
 ```
 
 How do flowByArea/flowByRiver compare to temperature?
+
 ```{r}
 #| label: ggFT_Temp
 ggplot(betaIntsFT %>% filter(varName == "betaIntOut"), aes(mFlowByArea, mTemp)) +
@@ -766,8 +831,8 @@ ggplot(betaIntsFT %>% filter(varName == "betaIntOut"), aes(mFlowByRiver, mTemp))
 
 ```
 
-
 How do the flow metrics (byArea, byRiver) compare to survival estimates?
+
 ```{r}
 #| label: ggFT_phi
 ggplot(betaIntsFT %>% filter(varName == "betaIntOut"), aes(mFlowByArea, mean)) +
@@ -791,6 +856,7 @@ ggplot(betaIntsFT %>% filter(varName == "betaIntOut"), aes(mTemp, mean)) +
 ```
 
 How do mean survival estimates compare to flowByArea and flowByriver on the same graph?
+
 ```{r}
 #| label: ggFT_phi_sameGraph
 
@@ -818,8 +884,41 @@ ggplot(betaIntsFT %>% filter(varName == "betaIntOut", flowData == "flowByRiver")
   facet_grid(season ~ isYOY+river, labeller = global_labellerInt_WB)
 ```
 
+How do mean survival estimates compare to flowByArea and flowByriver on the same graph without points?
+
+```{r}
+#| label: ggFT_phi_sameGraphNoPoints
+
+ggplot(betaIntsFT %>% filter(varName == "betaIntOut", flowData == "flowByRiver"), aes(mFlowByRiver, mean)) +
+  geom_smooth(se = TRUE, color = "#303140", method = lm) +
+  #geom_point(color = "#303140") +
+  geom_smooth(aes(mFlowByArea, mean), se = TRUE, color = "#d46313", method = lm, 
+              data = betaIntsFT %>% filter(varName == "betaIntOut", flowData == "flowByArea")) +
+  #geom_point(aes(mFlowByArea, mean), color = "#d46313", 
+  #           data = betaIntsFT %>% filter(varName == "betaIntOut", flowData == "flowByArea")) +
+  scale_x_continuous("Flow (orange) or flow by river (black)") +
+  scale_y_continuous("Seasonal survival", limits = c(0, 1)) +
+  facet_grid(season ~ isYOY+river, labeller = global_labellerInt_WB)
+
+# with spline smooths
+ggplot(betaIntsFT %>% filter(varName == "betaIntOut", flowData == "flowByRiver"), aes(mFlowByRiver, mean)) +
+  geom_smooth(se = TRUE, color = "#303140",
+              method = "lm", formula = y ~ splines::ns(x, df=3)) +
+  #geom_point(color = "#303140") +
+  geom_smooth(aes(mFlowByArea, mean), se = TRUE, color = "#d46313", 
+              method = "lm", formula = y ~ splines::ns(x, df=3), 
+              data = betaIntsFT %>% filter(varName == "betaIntOut", flowData == "flowByArea")) +
+  #geom_point(aes(mFlowByArea, mean), color = "#d46313", 
+  #           data = betaIntsFT %>% filter(varName == "betaIntOut", flowData == "flowByArea")) +
+  scale_x_continuous("Flow (orange) or flow by river (black)") +
+  scale_y_continuous("Seasonal survival", limits = c(0, 1.2)) +
+  facet_grid(season ~ isYOY+river, labeller = global_labellerInt_WB)
+```
+
 ## AI/ML models
+
 Model runs from Xiaowei
+
 ```{r}
 #| label: AIMLmodelLoad
 
@@ -832,4 +931,3 @@ Model runs from Xiaowei
 # npySurvival <- np$load('./models/cmrFlowWB/xiaowei/USGS_0320/USGS_0320/survival.npy')
 # npySurvivalByRiver <- np$load('./models/cmrFlowWB/xiaowei/USGS_0320/USGS_0320/survival_byriver.npy')
 ```
-

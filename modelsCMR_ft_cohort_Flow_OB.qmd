@@ -1,4 +1,4 @@
-# Flow effects on survival (phi) models with cohort structure - O'Bear only
+# Flow/survival models - O'Bear (IS) only
 
 Probability of survival (phi) model structure:  
 
