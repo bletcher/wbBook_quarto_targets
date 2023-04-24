@@ -1,3 +1,36 @@
+# Define the facet labeller function
+labelsIntYOY <- c(
+  "1" = "Growth year 1",
+  "2" = "Growth year 2"
+)
+
+labelsIntSeason <- c(
+  "1" = "Spring",
+  "2" = "Summer",
+  "3" = "Autumn",
+  "4" = "Winter"
+)
+
+labelsIntRiver <- c(
+  "1" = "West brook",
+  "2" = "Open Large",
+  "3" = "Open small",
+  "4" = "Isolated small"
+)
+
+global_labellerInt_WB <- labeller(
+  isYOY = labelsIntYOY,
+  season = labelsIntSeason,
+  river = labelsIntRiver
+  #.default = label_both
+)
+
+global_labellerIntYOYSeason <- labeller(
+  isYOY = labelsIntYOY
+  # season = labelsIntSeason
+  #.default = label_both
+)
+
 addGG <- function(d) {
   
   dOut <- 

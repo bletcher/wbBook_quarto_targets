@@ -42,7 +42,6 @@ book:
       chapters: 
         - modelsCMR_ft_cohort_Flow_OB.qmd
         - modelsCMR_ft_cohort_Flow_WB.qmd
-    - part: "Miscallaneous/playground"
     - references.qmd
 
 bibliography: references.bib
