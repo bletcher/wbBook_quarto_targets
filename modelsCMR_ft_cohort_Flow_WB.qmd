@@ -239,7 +239,16 @@ ggplot(both %>% filter(grepl("betaFlowRiver", var)), aes(color = flowData)) +
     title = "Data source"
   ))
 
-ggplot(both %>% filter(grepl("betaFlow", var)), aes(color = flowData)) +
+ggplot(both %>% filter(grepl("betaFlowRiverOut", var)), aes(color = flowData)) +
+  geom_point(aes(var, qlogis(median)), size = 2, position = position_dodge(width = 0.5)) +
+  geom_errorbar( aes(var, ymin = qlogis(lo), ymax = qlogis(hi)), width = 0.4, position = position_dodge(width = 0.5)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1)) +
+  #labs(x = "Variable", y = "Survival") +
+  guides(color = guide_legend(
+    title = "Data source"
+  ))
+
+ggplot(both %>% filter(grepl("betaFlow\\[", var)), aes(color = flowData)) +
   geom_point(aes(var, median), size = 2, position = position_dodge(width = 0.5)) +
   geom_errorbar( aes(var, ymin = lo, ymax = hi), width = 0.4, position = position_dodge(width = 0.5)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1)) +
@@ -1378,6 +1387,9 @@ getA4 <- function(flowType, earlySurvival = 0.1, fIn, tIn) {
 }
 ```
 
+
+### Simulations
+
 ```{r}
 #| label: fullyearProj
 
@@ -1388,36 +1400,176 @@ getEigen <- function(flowType, numEggs, earlySurvival, fIn1, fIn2, fIn3, fIn4, t
   A4 <- getA4(flowType, earlySurvival = earlySurvival, fIn4, tIn)
   
   A <- A2%*%A1%*%A4%*%A3
-  return(list(A = A, lambdas = eigen(A), A1=A1, A2=A2, A3=A3, A4=A4))
+  return(list(A = A, lambdas = eigen(A), A1=A1, A2=A2, A3=A3, A4=A4, fIn1=fIn1, fIn2=fIn2, fIn3=fIn3, fIn4=fIn4))
 }
 
-sens <- tibble(flowType = character(), e=numeric(), s=numeric(), fIn = numeric(), tIn = numeric(), lambda=numeric())
-As <- list()
-counter = 0
-for(flowType in c("flowByArea", "flowByRiver")){
-  for(ee in seq(80, 120, 10)){
-    for(fIn1 in seq(-1.5, 1.5, 0.5)){
-      for(fIn2 in seq(-1.5, 1.5, 0.5)){
-        for(fIn3 in seq(-1.5, 1.5, 0.5)){
-          for(fIn4 in seq(-1.5, 1.5, 0.5)){
+runSens <- FALSE
+
+if(runSens) {
+
+  fStart <- -0.1; fEnd <- 0.1; fStep <- 0.1
+  sens <- tibble(flowType = character(), e=numeric(), s=numeric(), fIn1=numeric(), fIn2=numeric(), fIn3=numeric(), fIn4=numeric(), tIn = numeric(), lambda=numeric())
+  As <- list()
+  counter = 0
+  for(flowType in c("flowByArea", "flowByRiver")){
+    for(fIn1 in seq(fStart, fEnd, fStep)){
+      for(fIn2 in seq(fStart, fEnd, fStep)){
+        for(fIn3 in seq(fStart, fEnd, fStep)){
+          for(fIn4 in seq(fStart, fEnd, fStep)){
             ss <- 0.03356
             tIn = 0
+            if(flowType == "flowByArea") {
+              ee = 76.5
+            } else {
+              ee = 117.5
+            }
             print(c(flowType, ee, fIn1, fIn2, fIn3, fIn4))
             counter <- counter + 1
-            As[[counter]] <- getEigen(flowType, ee, ss, fIn1 = fIn1, fIn2 = fIn2, fIn3 = fIn3, fIn4 = fIn4, tIn = tIn)
-            sens <- bind_rows(sens, tibble(flowType = flowType, e=ee, s=ss, fIn=0, tIn=0, lambda = As[[counter]]$lambdas$values[1]))
+            As[[counter]] <- getEigen(flowType, ee, ss, fIn1=fIn1, fIn2=fIn2, fIn3=fIn3, fIn4=fIn4, tIn = tIn)
+            sens <- bind_rows(sens, tibble(flowType=flowType, e=ee, s=ss, fIn1=fIn1, fIn2=fIn2, fIn3=fIn3, fIn4=fIn4, tIn=tIn, lambda = As[[counter]]$lambdas$values[1]))
           }
         }
       }
     }
   }
+  
+  save(As, sens, file = './data/out/projMatricies.RData')
+} else {
+  load('./data/out/projMatricies.RData')
 }
 
-ggplot(sens, aes(e, lambda, color = flowType)) +
+
+ggplot(sens, aes(fIn3, lambda, color = flowType)) +
   geom_point() +
   geom_hline(yintercept = 1) +
   geom_line() +
-  facet_wrap(~fIn)
+  facet_grid(fIn4~fIn1~fIn2)
+
+```
+
+
+
+
+### Projections
+```{r}
+#| label: projections
+initPop <- 200
+initN <- matrix(rep(initPop / 12, 12), nrow = 12, ncol = 1)
+initN <- matrix(rep(c(200,50,50, 50), 3), nrow = 12, ncol = 1)
+nYears <- 50
+
+projBySeason <- function(initN, nYears, flowType, numEggs, earlySurvival, fIn1, fIn2, fIn3, fIn4, tIn) {
+  A <- list()
+  A[[1]] <- getA1(flowType, fIn1, tIn)
+  A[[2]] <- getA2(flowType, fIn2, tIn)  
+  A[[3]] <- getA3(flowType, numEggs = numEggs, fIn3, tIn)
+  A[[4]] <- getA4(flowType, earlySurvival = earlySurvival, fIn4, tIn)
+  
+  
+  N <- matrix(NA, ncol = nYears * 4, nrow = 12)
+  N[,1] <- initN
+
+  i <- 1
+  for(t in 1:(nYears - 1)) {
+    for(s in c(3,4,1,2)) {
+      i <- i + 1
+      N[,i] <- A[[s]] %*% N[,i-1]
+      
+    }
+  }
+  #plot(N[6,])
+  
+  N2 <- t(N) |> 
+    as_tibble() |> 
+    rename(
+      wb0 = V1,
+      ol0 = V2,
+      os0 = V3,
+      is0 = V4,
+      wb1 = V5,
+      wb2 = V6,
+      ol1 = V7,
+      ol2 = V8,
+      os1 = V9,
+      os2 = V10,
+      is1 = V11,
+      is2 = V12
+    ) |> 
+    rownames_to_column('t') |> 
+    pivot_longer(cols = 2:13) |> 
+    mutate(
+      time = as.numeric(t),
+      season = rep(c(3,4,1,2), nYears, each = 12),
+      river = substr(name, 1, 2),
+      age = as.numeric(substr(name, 3, 3)),
+      flowType = flowType
+    )
+  
+  return(N2)
+}
+
+# reproduction #s that provide lambda~1
+# 76.5
+getEigen("flowByArea", 76.5, 0.03356, fIn1=0, fIn2=0, fIn3=0, fIn4=0, tIn = 0)$lambdas$values[1]
+nByArea <- projBySeason(initN, nYears, "flowByArea", 76.5, 0.03356, fIn1=0, fIn2=0, fIn3=0, fIn4=0, tIn = 0)
+
+ggplot(nByArea, aes(time, value, color = factor(age))) +
+  geom_point() +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
+  geom_line() +
+  ggtitle("nByArea") +
+  labs(x = "Time step (season*year)", y = "Number of fish") +
+  facet_grid(season~river, scales = "free")
+
+# 117.5
+getEigen("flowByRiver", 117.5, 0.03356, fIn1=0, fIn2=0, fIn3=0, fIn4=0, tIn = 0)$lambdas$values[1]
+nByRiver <- projBySeason(initN, nYears, "flowByRiver", 117.5, 0.03356, fIn1=0, fIn2=0, fIn3=0, fIn4=0, tIn = 0)
+
+ggplot(nByRiver, aes(time, value, color = factor(age))) +
+  geom_point() +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
+  geom_line() +
+  ggtitle("nByRiver") +
+  labs(x = "Time step (season*year)", y = "Number of fish") +
+  facet_grid(season~river, scales = "free")
+
+
+### both
+nBoth <- bind_rows(nByArea, nByRiver)
+nBothEnd <- nBoth |> filter(time %in% 193:196)
+
+ggplot(nBothEnd, aes(age, value, color = flowType)) +
+  geom_point() +
+  geom_line() +
+  facet_grid(season~river, scales = "free")
+
+nBothEndSum <- nBothEnd |> 
+  filter(age > 0) |> 
+  group_by(river, flowType) |> 
+  summarize(sum = sum(value))
+
+ggplot(nBothEndSum, aes(river, sum, fill = flowType)) +
+  geom_col(position = "dodge")
+
+#check 0's in some age1 entries
+
+
+projByYear <- function(initN, nYears, flowType, numEggs, earlySurvival, fIn1, fIn2, fIn3, fIn4, tIn) {
+  A1 <- getA1(flowType, fIn1, tIn)
+  A2 <- getA2(flowType, fIn2, tIn)  
+  A3 <- getA3(flowType, numEggs = numEggs, fIn3, tIn)
+  A4 <- getA4(flowType, earlySurvival = earlySurvival, fIn4, tIn)
+  
+  A <- A2%*%A1%*%A4%*%A3
+  
+  N <- matrix(NA, ncol = nYears, nrow = 12)
+  N[,1] <- initN
+  
+  for(t in 2:nYears) {
+    N[,t] <- A%*%N[,t-1]
+  }
+  
+}
 ```
 
 
