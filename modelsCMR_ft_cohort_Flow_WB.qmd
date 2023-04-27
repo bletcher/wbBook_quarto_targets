@@ -49,6 +49,10 @@ library(targets)
 
 library(reticulate)
 
+library(getPrepareWBData) # for theme_publication()
+library(ggthemes)
+library(gridExtra)
+
 source('./R/generalFunctions.R') #to get global_labeller_WB
 ```
 
@@ -1438,7 +1442,6 @@ if(runSens) {
   load('./data/out/projMatricies.RData')
 }
 
-
 ggplot(sens, aes(fIn3, lambda, color = flowType)) +
   geom_point() +
   geom_hline(yintercept = 1) +
@@ -1447,6 +1450,30 @@ ggplot(sens, aes(fIn3, lambda, color = flowType)) +
 
 ```
 
+```{r}
+#| label: plotGGSeason
+
+ggFlowSeason <- function(d, var, title) {
+  ggplot(d, aes(get(var), lambda, color = flowType)) +
+    geom_point(size = 4) +
+    geom_line(size = 1.2) +
+    geom_hline(yintercept = 1) +
+    scale_x_continuous("Stream flow (sd units)", breaks = c(-0.1,0,0.1)) +
+    scale_y_continuous("Population growth rate (lambda)", limits = c(0.85,1.15)) +
+    ggtitle(title) +
+    theme_publication() +
+    guides(color = FALSE)
+}
+
+#grid.arrange(
+  ggFlowSeason(sens |> filter(fIn2==0, fIn3==0, fIn4==0, tIn==0), "fIn1", "Spring")
+  ggFlowSeason(sens |> filter(fIn1==0, fIn3==0, fIn4==0, tIn==0), "fIn2", "Summer")
+  ggFlowSeason(sens |> filter(fIn1==0, fIn2==0, fIn4==0, tIn==0), "fIn3", "Autumn")
+  ggFlowSeason(sens |> filter(fIn1==0, fIn2==0, fIn3==0, tIn==0), "fIn4", "Winter")
+#   ncol = 2,
+#   padding = unit(1, "line")
+# )
+```
 
 
 
