@@ -34,7 +34,6 @@ book:
         - dataFlow.qmd
     - part: "Flow by Area/River models"
       chapters: 
-        - dataFlow.qmd
         - modelGrowthFlowByRiver.qmd
         - modelsCMR_ft_cohort_Flow_WB.qmd
     - part: "General models"

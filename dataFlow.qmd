@@ -194,7 +194,7 @@ ggplot(envData |> filter(river == "wb obear", year > 1999), aes(date, flow)) +
 ```
 :::
   
-  #### Summary stats
+### Summary stats
 ```{r}
 #| label: timeSeriesFlwoStats
 
@@ -298,9 +298,9 @@ ggplot(fdcStatsY |> filter(river == "wb obear"), aes(stat, perc, color = year, g
 ```
 :::
   
-  #### Grouped by season
+#### Grouped by season
   
-  ::: panel-tabset
+::: panel-tabset
 #### West Brook
 ```{r}
 #| label: fdcSWB
@@ -351,9 +351,9 @@ ggplot(fdcStatsS |> filter(river == "wb obear", !is.na(season)), aes(stat, perc,
 :::
   
   
-  #### Grouped by year and season
+#### Grouped by year and season
   
-  ::: panel-tabset
+::: panel-tabset
 #### West Brook
 ```{r}
 #| label: flowDurationCurvesYearSeasonWB
@@ -407,8 +407,8 @@ ggplot(fdcStatsYS |> filter(river == "wb obear"), aes(stat, perc, color = year, 
 ```
 :::
   
-  #### Proportion of days above/below flow duration curve thresholds  
-  Thresholds defined in `fdcThresholds_target` in modelFDC_targets.R. Based on season-specific flow duration curves.  
+#### Proportion of days above/below flow duration curve thresholds  
+Thresholds defined in `fdcThresholds_target` in modelFDC_targets.R. Based on season-specific flow duration curves.  
 
 ::: panel-tabset
 #### By river, high flows
@@ -521,9 +521,9 @@ ggplot(cd1 |> filter(year > 1999), aes(year, propAboveHiFlowThreshByArea_flowExt
 ```
 :::
   
-  ### Raw *mean* flow data
+### Raw *mean* flow data
   
-  Mean flow data that go into models as independent data. Calculated for each fish based on dates of capture for each interval.  
+Mean flow data that go into models as independent data. Calculated for each fish based on dates of capture for each interval.  
 #### Mean flow data types plotted against each other
 
 ```{r}
