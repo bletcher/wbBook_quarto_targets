@@ -25,6 +25,21 @@ global_labellerInt_WB <- labeller(
   #.default = label_both
 )
 
+labelsRiver <- c(
+  "west brook" = "West brook",
+  "wb jimmy" = "Open Large",
+  "wb mitchell" = "Open small",
+  "wb obear" = "Isolated small"
+)
+
+global_labellerRiverSeasonInt_WB <- labeller(
+  isYOY = labelsIntYOY,
+  season = labelsIntSeason,
+  river = labelsRiver
+  #.default = label_both
+)
+
+
 global_labellerIntYOYSeason <- labeller(
   isYOY = labelsIntYOY
   # season = labelsIntSeason

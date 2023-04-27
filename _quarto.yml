@@ -31,6 +31,9 @@ book:
     - part: "All data"
       chapters: 
         - dataAll.qmd
+    - part: "Flow data"
+      chapters: 
+        - dataFlow.qmd
     - part: "General models"
       chapters: 
         - modelYOY.qmd
