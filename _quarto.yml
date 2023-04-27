@@ -28,23 +28,25 @@ book:
         - getDataCMR.qmd
         - getDataWanding.qmd
         - getDataAntenna.qmd
-    - part: "All data"
+    - part: "Data"
       chapters: 
         - dataAll.qmd
-    - part: "Flow data"
+        - dataFlow.qmd
+    - part: "Flow by Area/River models"
       chapters: 
         - dataFlow.qmd
+        - modelGrowthFlowByRiver.qmd
+        - modelsCMR_ft_cohort_Flow_WB.qmd
     - part: "General models"
       chapters: 
         - modelYOY.qmd
         - modelFlow.qmd
         - modelConditionFactor.qmd
         - modelGrowthInMass.qmd
-        - modelGrowthFlowByRiver.qmd
     - part: "Capture-recapture models"
       chapters: 
         - modelsCMR_ft_cohort_Flow_OB.qmd
-        - modelsCMR_ft_cohort_Flow_WB.qmd
+        
     - references.qmd
 
 bibliography: references.bib
