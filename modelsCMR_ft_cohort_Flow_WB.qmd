@@ -1354,7 +1354,7 @@ Reproduction
 
 getA3 <- function(flowType, numEggs = 10, fIn, tIn) {
   A3 <- matrix(0, nrow = 12, ncol = 12, byrow = TRUE)
-  s <- 4
+  s <- 3
   
   # reproduction
   #numEggs <- 10
@@ -1558,17 +1558,39 @@ ggFlowSeason <- function(d, var, title) {
     theme_publication() +
     guides(color = FALSE)
 }
-
-#grid.arrange(
-  ggFlowSeason(sens |> filter(fIn2==0, fIn3==0, fIn4==0, tIn==0), "fIn1", "Spring")
-  ggFlowSeason(sens |> filter(fIn1==0, fIn3==0, fIn4==0, tIn==0), "fIn2", "Summer")
-  ggFlowSeason(sens |> filter(fIn1==0, fIn2==0, fIn4==0, tIn==0), "fIn3", "Autumn")
-  ggFlowSeason(sens |> filter(fIn1==0, fIn2==0, fIn3==0, tIn==0), "fIn4", "Winter")
-#   ncol = 2,
-#   padding = unit(1, "line")
-# )
 ```
 
+::: panel-tabset
+#### Spring
+```{r}
+#| label: plotGGSeason1
+
+  ggFlowSeason(sens |> filter(fIn2==0, fIn3==0, fIn4==0, tIn==0), "fIn1", "Spring")
+```
+
+#### Summer
+```{r}
+#| label: plotGGSeason2
+
+ggFlowSeason(sens |> filter(fIn1==0, fIn3==0, fIn4==0, tIn==0), "fIn2", "Summer")
+```
+
+#### Autumm
+```{r}
+#| label: plotGGSeason3
+
+ggFlowSeason(sens |> filter(fIn1==0, fIn2==0, fIn4==0, tIn==0), "fIn3", "Autumn")
+```
+
+#### Winter
+```{r}
+#| label: plotGGSeason4
+
+ggFlowSeason(sens |> filter(fIn1==0, fIn2==0, fIn3==0, tIn==0), "fIn4", "Winter")
+```
+:::
+  
+Hotter
 ```{r}
 #| label: plotGGSeasonHot
 
@@ -1583,12 +1605,89 @@ ggFlowSeasonHot <- function(d, var, title) {
     theme_publication() +
     guides(color = FALSE)
 }
-  ggFlowSeasonHot(sens |> filter(fIn2==0, fIn3==0, fIn4==0, tIn==0.1), "fIn1", "Spring")
-  ggFlowSeasonHot(sens |> filter(fIn1==0, fIn3==0, fIn4==0, tIn==0.1), "fIn2", "Summer")
-  ggFlowSeasonHot(sens |> filter(fIn1==0, fIn2==0, fIn4==0, tIn==0.1), "fIn3", "Autumn")
-  ggFlowSeasonHot(sens |> filter(fIn1==0, fIn2==0, fIn3==0, tIn==0.1), "fIn4", "Winter")
 
 ```
+
+#### Spring
+```{r}
+#| label: plotGGSeason1Hot
+
+  ggFlowSeason(sens |> filter(fIn2==0, fIn3==0, fIn4==0, tIn==0.1), "fIn1", "Spring")
+```
+
+#### Summer
+```{r}
+#| label: plotGGSeason2Hot
+
+ggFlowSeason(sens |> filter(fIn1==0, fIn3==0, fIn4==0, tIn==0.1), "fIn2", "Summer")
+```
+
+#### Autumm
+```{r}
+#| label: plotGGSeason3Hot
+
+ggFlowSeason(sens |> filter(fIn1==0, fIn2==0, fIn4==0, tIn==0.1), "fIn3", "Autumn")
+```
+
+#### Winter
+```{r}
+#| label: plotGGSeason4Hot
+
+ggFlowSeason(sens |> filter(fIn1==0, fIn2==0, fIn3==0, tIn==0.1), "fIn4", "Winter")
+```
+:::
+
+Colder
+```{r}
+#| label: plotGGSeasonCold
+
+ggFlowSeasonCold <- function(d, var, title) {
+  ggplot(d, aes(get(var), lambda, color = flowType)) +
+    geom_point(size = 4) +
+    geom_line(size = 1.2) +
+    geom_hline(yintercept = 1) +
+    scale_x_continuous("Stream flow (sd units)", breaks = c(-0.1,0,0.1)) +
+    scale_y_continuous("Population growth rate (lambda)", limits = c(0.95,1.4)) +
+    ggtitle(title) +
+    theme_publication() +
+    guides(color = FALSE)
+}
+  ggFlowSeasonCold(sens |> filter(fIn2==0, fIn3==0, fIn4==0, tIn== -0.1), "fIn1", "Spring")
+  ggFlowSeasonCold(sens |> filter(fIn1==0, fIn3==0, fIn4==0, tIn== -0.1), "fIn2", "Summer")
+  ggFlowSeasonCold(sens |> filter(fIn1==0, fIn2==0, fIn4==0, tIn== -0.1), "fIn3", "Autumn")
+  ggFlowSeasonCold(sens |> filter(fIn1==0, fIn2==0, fIn3==0, tIn== -0.1), "fIn4", "Winter")
+
+```
+
+#### Spring
+```{r}
+#| label: plotGGSeason1Cold
+
+  ggFlowSeason(sens |> filter(fIn2==0, fIn3==0, fIn4==0, tIn== -0.1), "fIn1", "Spring")
+```
+
+#### Summer
+```{r}
+#| label: plotGGSeason2Cold
+
+ggFlowSeason(sens |> filter(fIn1==0, fIn3==0, fIn4==0, tIn== -0.1), "fIn2", "Summer")
+```
+
+#### Autumm
+```{r}
+#| label: plotGGSeason3Cold
+
+ggFlowSeason(sens |> filter(fIn1==0, fIn2==0, fIn4==0, tIn== -0.1), "fIn3", "Autumn")
+```
+
+#### Winter
+```{r}
+#| label: plotGGSeason4Cold
+
+ggFlowSeason(sens |> filter(fIn1==0, fIn2==0, fIn3==0, tIn== -0.1), "fIn4", "Winter")
+```
+:::
+
 
 ### Projections
 ```{r}
