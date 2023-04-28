@@ -44,17 +44,17 @@ library(GGally)
 library(nimble)
 library(nimbleEcology)
 library(MCMCvis)
-library(tidyverse)
 library(targets)
 
 library(reticulate)
 
-library(getPrepareWBData) # for theme_publication()
 library(ggthemes)
 library(gridExtra)
 
+library(tidyverse)
+
 source('./R/generalFunctions.R') #to get global_labeller_WB
-talkColors <- c("#d46313", "#303140")
+colorsTalk <- c("#d46313", "#303140")
 ```
 
 ```{r}
@@ -1547,18 +1547,30 @@ if(runSens) {
 ```
 
 ```{r}
+#| label: sensAnova
+
+sensLM_byArea <- (lm(lambda~(fIn1+fIn2+fIn3+fIn4+tIn), data = sens |> filter(flowType == "flowByArea")))
+summary(sensLM_byArea)
+
+
+sensLM_byRiver <- (lm(lambda~(fIn1+fIn2+fIn3+fIn4+tIn), data = sens |> filter(flowType == "flowByRiver")))
+summary(sensLM_byRiver)
+
+```
+
+```{r}
 #| label: plotGGSeason
 
 ggFlowSeason <- function(d, var, title) {
   ggplot(d, aes(get(var), lambda, color = flowType)) +
-    geom_point(size = 4) +
+    geom_hline(yintercept = 1) +   
+    geom_point(size = 12) +
     geom_line(size = 1.2) +
-    geom_hline(yintercept = 1) +
     scale_x_continuous("Stream flow (sd units)", breaks = c(-0.1,0,0.1)) +
     scale_y_continuous("Population growth rate (lambda)", limits = c(0.85,1.15)) +
-    scale_color_manual(values = talkColors) +
+    scale_color_manual(values = colorsTalk) +
     ggtitle(title) +
-    theme_publication() + 
+    theme_publication(36) + 
     guides(color = FALSE)
 }
 ```
@@ -1599,14 +1611,14 @@ Hotter
 
 ggFlowSeasonHot <- function(d, var, title) {
   ggplot(d, aes(get(var), lambda, color = flowType)) +
-    geom_point(size = 4) +
+    geom_point(size = 12) +
     geom_line(size = 1.2) +
     geom_hline(yintercept = 1) +
     scale_x_continuous("Stream flow (sd units)", breaks = c(-0.1,0,0.1)) +
-    scale_y_continuous("Population growth rate (lambda)", limits = c(0.7,1.01)) +
+    scale_y_continuous("Population growth rate (lambda)", limits = c(0.7,1.04)) +
     ggtitle(title) +
-    scale_color_manual(values = talkColors) +
-    theme_publication() +
+    scale_color_manual(values = colorsTalk) +
+    theme_publication(28) +
     guides(color = FALSE)
 }
 
@@ -1617,7 +1629,7 @@ ggFlowSeasonHot <- function(d, var, title) {
 ```{r}
 #| label: plotGGSeason1Hot
 
-  ggFlowSeasonHot(sens |> filter(fIn2==0, fIn3==0, fIn4==0, tIn==0.1), "fIn1", "Spring")
+ggFlowSeasonHot(sens |> filter(fIn2==0, fIn3==0, fIn4==0, tIn==0.1), "fIn1", "Spring")
 ```
 
 #### Summer
@@ -1648,14 +1660,14 @@ Colder
 
 ggFlowSeasonCold <- function(d, var, title) {
   ggplot(d, aes(get(var), lambda, color = flowType)) +
-    geom_point(size = 4) +
+    geom_point(size = 12) +
     geom_line(size = 1.2) +
     geom_hline(yintercept = 1) +
     scale_x_continuous("Stream flow (sd units)", breaks = c(-0.1,0,0.1)) +
     scale_y_continuous("Population growth rate (lambda)", limits = c(0.95,1.4)) +
     ggtitle(title) +
-    scale_color_manual(values = talkColors) +
-    theme_publication() +
+    scale_color_manual(values = colorsTalk) +
+    theme_publication(28) +
     guides(color = FALSE)
 }
 
@@ -1689,6 +1701,14 @@ ggFlowSeasonCold(sens |> filter(fIn1==0, fIn2==0, fIn4==0, tIn== -0.1), "fIn3", 
 
 ggFlowSeasonCold(sens |> filter(fIn1==0, fIn2==0, fIn3==0, tIn== -0.1), "fIn4", "Winter")
 ```
+
+#### All
+```{r}
+#| label: plotGGCold
+
+ggFlowSeasonCold(sens |> filter(fIn1==0, fIn2==0, fIn3==0, tIn== -0.1), "fIn4", "Winter")
+```
+
 :::
 
 
@@ -1783,7 +1803,7 @@ nBothEnd <- nBoth |> filter(time %in% 193:196)
 ggplot(nBothEnd, aes(age, value, color = flowType)) +
   geom_point() +
   geom_line() +
-  scale_color_manual(values = talkColors) +
+  scale_color_manual(values = colorsTalk) +
   facet_grid(season~river, scales = "free")
 
 nBothEndSum <- nBothEnd |> 
@@ -1792,7 +1812,7 @@ nBothEndSum <- nBothEnd |>
   summarize(sum = sum(value))
 
 ggplot(nBothEndSum, aes(river, sum, fill = flowType)) +
-  scale_fill_manual(values = talkColors) +
+  scale_fill_manual(values = colorsTalk) +
   geom_col(position = "dodge")
 
 #check 0's in some age1 entries
