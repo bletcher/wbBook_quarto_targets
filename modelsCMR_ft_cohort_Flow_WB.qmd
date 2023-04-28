@@ -910,13 +910,13 @@ These are based on the individual fish flow metrics
 #| label: ggFT
 
 ggplot(betaIntsFT %>% filter(varName == "betaIntOut"), aes(mFlowByArea, mFlowByRiver, color = season)) +
-  geom_point() +
-  geom_abline(intercept = 0, slope = 1) +
+  geom_abline(intercept = 0, slope = 1, size = 1.5) +
+  geom_point(size = 4) +
   labs(x = "Standardized stream flow by area", y = "Standardized stream flow by river") +
   guides(color = guide_legend(
     title = "Season"
   )) +
-  theme_publication() 
+  theme_publication(24) 
 
 ggplot(betaIntsFT %>% filter(varName == "betaIntOut"), aes(mFlowByArea, mFlowByRiver, color = as.factor(cohort))) +
   geom_point() +

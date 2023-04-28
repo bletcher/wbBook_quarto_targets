@@ -29,8 +29,6 @@ library(relaimpo)
 library(caret)
 library(pscl)
 library(gridExtra)
-
-library(getPrepareWBData) # for theme_publication()
 library(ggthemes)
 
 library(viridis)
@@ -39,6 +37,7 @@ library(tidyverse)
 `%notin%` <- Negate(`%in%`)
 
 source('./R/generalFunctions.R') #to get global_labeller_WB
+colorsTalk <- c("#d46313", "#303140")
 ```
 
 ```{r}

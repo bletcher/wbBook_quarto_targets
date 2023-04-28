@@ -1351,17 +1351,17 @@ We can use <code>eh_WB_2002_2014_target$data</code> to get summary flow and temp
 <h4 data-number="11.2.6.1" class="anchored" data-anchor-id="environmental-variables"><span class="header-section-number">11.2.6.1</span> Environmental variables</h4>
 <p>How do the flow metrics (byArea, byRiver) compare to each other?<br>
 These are based on the individual fish flow metrics</p>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/ggFT_3bf80d8406d0f48ef1addca3a0f7a353">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/ggFT_0e8a9a22553aaeb971c7e02be1e99fd5">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(betaIntsFT <span class="sc">%&gt;%</span> <span class="fu">filter</span>(varName <span class="sc">==</span> <span class="st">"betaIntOut"</span>), <span class="fu">aes</span>(mFlowByArea, mFlowByRiver, <span class="at">color =</span> season)) <span class="sc">+</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Standardized stream flow by area"</span>, <span class="at">y =</span> <span class="st">"Standardized stream flow by river"</span>) <span class="sc">+</span></span>
 <span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(</span>
 <span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Season"</span></span>
 <span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">+</span></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_publication</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_publication</span>(<span class="dv">24</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="modelsCMR_ft_cohort_Flow_WB_files/figure-html/ggFT-1.png" class="img-fluid" width="672"></p>
@@ -3729,13 +3729,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb87-952"><a href="#cb87-952" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: ggFT</span></span>
 <span id="cb87-953"><a href="#cb87-953" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb87-954"><a href="#cb87-954" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(betaIntsFT <span class="sc">%&gt;%</span> <span class="fu">filter</span>(varName <span class="sc">==</span> <span class="st">"betaIntOut"</span>), <span class="fu">aes</span>(mFlowByArea, mFlowByRiver, <span class="at">color =</span> season)) <span class="sc">+</span></span>
-<span id="cb87-955"><a href="#cb87-955" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb87-956"><a href="#cb87-956" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb87-955"><a href="#cb87-955" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb87-956"><a href="#cb87-956" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
 <span id="cb87-957"><a href="#cb87-957" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Standardized stream flow by area"</span>, <span class="at">y =</span> <span class="st">"Standardized stream flow by river"</span>) <span class="sc">+</span></span>
 <span id="cb87-958"><a href="#cb87-958" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(</span>
 <span id="cb87-959"><a href="#cb87-959" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Season"</span></span>
 <span id="cb87-960"><a href="#cb87-960" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">+</span></span>
-<span id="cb87-961"><a href="#cb87-961" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_publication</span>() </span>
+<span id="cb87-961"><a href="#cb87-961" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_publication</span>(<span class="dv">24</span>) </span>
 <span id="cb87-962"><a href="#cb87-962" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb87-963"><a href="#cb87-963" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(betaIntsFT <span class="sc">%&gt;%</span> <span class="fu">filter</span>(varName <span class="sc">==</span> <span class="st">"betaIntOut"</span>), <span class="fu">aes</span>(mFlowByArea, mFlowByRiver, <span class="at">color =</span> <span class="fu">as.factor</span>(cohort))) <span class="sc">+</span></span>
 <span id="cb87-964"><a href="#cb87-964" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>

@@ -29,8 +29,6 @@ library(relaimpo)
 library(caret)
 library(pscl)
 library(gridExtra)
-
-library(getPrepareWBData) # for theme_publication()
 library(ggthemes)
 
 library(viridis)
@@ -39,6 +37,7 @@ library(tidyverse)
 `%notin%` <- Negate(`%in%`)
 
 source('./R/generalFunctions.R') #to get global_labeller_WB
+colorsTalk <- c("#d46313", "#303140")
 ```
 
 ```{r}
@@ -216,7 +215,8 @@ ggplot(summaryStatsLong, aes(seasonGG, value, color = flowType)) +
   geom_line(aes(season,value, color = flowType), size = 1.2) + # using seasonGG in ggplot aes throws an error because it is an ordered factor
   scale_x_discrete("Season") +
   scale_y_continuous("Mean stream flow (m3/s)") +
-  theme_publication() +
+  scale_color_manual(values = colorsTalk) +
+  theme_publication(18) +
   #guides(color = FALSE) +
   facet_wrap(~riverGG, scales = "free")
 ```
@@ -305,11 +305,13 @@ ggplot(fdcStatsY |> filter(river == "wb obear"), aes(stat, perc, color = year, g
 ```{r}
 #| label: fdcSWB
 
-ggplot(fdcStatsS |> filter(river == "west brook", !is.na(season)), aes(stat, perc, color = factor(season))) +
-  geom_line() +
-  geom_point(size = 0.5) +
-  labs(x = "Flow percentile", y = "Flow") +
+ggplot(fdcStatsS |> filter(river == "west brook", !is.na(season), variable != "flowByArea_ByRiver"), aes(stat, perc+.1, color = factor(season))) +
+  geom_line(sized = 1.5) +
+  geom_point(size = 3) +
+  labs(x = "Flow percentile", y = "Flow (+0.1)") +
   scale_y_log10() +
+  theme_publication(18) +
+  theme(strip.background = element_blank(), strip.text.x = element_blank()) +
   facet_wrap(~variable, ncol = 2, labeller = global_labellerRiverSeasonInt_WB)
 ```
 
