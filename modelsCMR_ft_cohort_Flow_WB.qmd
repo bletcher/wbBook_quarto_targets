@@ -1608,32 +1608,33 @@ ggFlowSeasonHot <- function(d, var, title) {
 
 ```
 
+::: panel-tabset
 #### Spring
 ```{r}
 #| label: plotGGSeason1Hot
 
-  ggFlowSeason(sens |> filter(fIn2==0, fIn3==0, fIn4==0, tIn==0.1), "fIn1", "Spring")
+  ggFlowSeasonHot(sens |> filter(fIn2==0, fIn3==0, fIn4==0, tIn==0.1), "fIn1", "Spring")
 ```
 
 #### Summer
 ```{r}
 #| label: plotGGSeason2Hot
 
-ggFlowSeason(sens |> filter(fIn1==0, fIn3==0, fIn4==0, tIn==0.1), "fIn2", "Summer")
+ggFlowSeasonHot(sens |> filter(fIn1==0, fIn3==0, fIn4==0, tIn==0.1), "fIn2", "Summer")
 ```
 
 #### Autumm
 ```{r}
 #| label: plotGGSeason3Hot
 
-ggFlowSeason(sens |> filter(fIn1==0, fIn2==0, fIn4==0, tIn==0.1), "fIn3", "Autumn")
+ggFlowSeasonHot(sens |> filter(fIn1==0, fIn2==0, fIn4==0, tIn==0.1), "fIn3", "Autumn")
 ```
 
 #### Winter
 ```{r}
 #| label: plotGGSeason4Hot
 
-ggFlowSeason(sens |> filter(fIn1==0, fIn2==0, fIn3==0, tIn==0.1), "fIn4", "Winter")
+ggFlowSeasonHot(sens |> filter(fIn1==0, fIn2==0, fIn3==0, tIn==0.1), "fIn4", "Winter")
 ```
 :::
 
@@ -1652,39 +1653,37 @@ ggFlowSeasonCold <- function(d, var, title) {
     theme_publication() +
     guides(color = FALSE)
 }
-  ggFlowSeasonCold(sens |> filter(fIn2==0, fIn3==0, fIn4==0, tIn== -0.1), "fIn1", "Spring")
-  ggFlowSeasonCold(sens |> filter(fIn1==0, fIn3==0, fIn4==0, tIn== -0.1), "fIn2", "Summer")
-  ggFlowSeasonCold(sens |> filter(fIn1==0, fIn2==0, fIn4==0, tIn== -0.1), "fIn3", "Autumn")
-  ggFlowSeasonCold(sens |> filter(fIn1==0, fIn2==0, fIn3==0, tIn== -0.1), "fIn4", "Winter")
+
 
 ```
 
+::: panel-tabset
 #### Spring
 ```{r}
 #| label: plotGGSeason1Cold
 
-  ggFlowSeason(sens |> filter(fIn2==0, fIn3==0, fIn4==0, tIn== -0.1), "fIn1", "Spring")
+  ggFlowSeasonCold(sens |> filter(fIn2==0, fIn3==0, fIn4==0, tIn== -0.1), "fIn1", "Spring")
 ```
 
 #### Summer
 ```{r}
 #| label: plotGGSeason2Cold
 
-ggFlowSeason(sens |> filter(fIn1==0, fIn3==0, fIn4==0, tIn== -0.1), "fIn2", "Summer")
+ggFlowSeasonCold(sens |> filter(fIn1==0, fIn3==0, fIn4==0, tIn== -0.1), "fIn2", "Summer")
 ```
 
 #### Autumm
 ```{r}
 #| label: plotGGSeason3Cold
 
-ggFlowSeason(sens |> filter(fIn1==0, fIn2==0, fIn4==0, tIn== -0.1), "fIn3", "Autumn")
+ggFlowSeasonCold(sens |> filter(fIn1==0, fIn2==0, fIn4==0, tIn== -0.1), "fIn3", "Autumn")
 ```
 
 #### Winter
 ```{r}
 #| label: plotGGSeason4Cold
 
-ggFlowSeason(sens |> filter(fIn1==0, fIn2==0, fIn3==0, tIn== -0.1), "fIn4", "Winter")
+ggFlowSeasonCold(sens |> filter(fIn1==0, fIn2==0, fIn3==0, tIn== -0.1), "fIn4", "Winter")
 ```
 :::
 
