@@ -64,6 +64,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 ## Load data
 ```{r}
+#|label: loadDataCMR
 
 # byArea
 load(paste0('./models/cmrFlowWB/runsOut/mod', 1, '/ttt_WB_mod', 1, '_mostRecent.RData'))
