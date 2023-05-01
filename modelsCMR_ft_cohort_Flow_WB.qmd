@@ -54,6 +54,7 @@ library(gridExtra)
 library(tidyverse)
 
 source('./R/generalFunctions.R') #to get global_labeller_WB
+
 colorsTalk <- c("#d46313", "#303140")
 ```
 
