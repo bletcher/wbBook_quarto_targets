@@ -82,7 +82,6 @@ envData <- tar_read(envDataWB_target)
 
 ## Growth models  
 
-### Flow standardized by season
 #### Environment/growth raw data graphs
 ```{r}
 #| label: growthEnvRaw
@@ -294,291 +293,562 @@ plotFDC_GR_byArea(dGAM, "Isolated Small")
 
 
 ### Flow models
-#### Brook trout - flow (not used)
-Original flow data
-```{r}
-#| label: gamSModsBKT2
+#### Flow standardized by season
+<!-- #### Brook trout - flow (not used) -->
+<!-- Original flow data -->
+<!-- ```{r} -->
+<!-- #| label: gamSModsBKT2 -->
 
-gamS0 <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowS)^2 + cohortF * ageF +             
-               s(flowS, bs = "cr", k = kIn, by = riverGG) +
-               s(flowS, bs = "cr", k = kIn, by = seasonGG) +
-               s(tempS, bs = "cr", k = kIn, by = riverGG) +
-               s(tempS, bs = "cr", k = kIn, by = seasonGG),
-             data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
+<!-- gamS0 <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowS)^2 + cohortF * ageF +              -->
+<!--                s(flowS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(flowS, bs = "cr", k = kIn, by = seasonGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = seasonGG), -->
+<!--              data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML") -->
 
-gamS1 <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowS)^2 + cohortF +             
-               s(flowS, bs = "cr", k = kIn, by = riverGG) +
-               s(flowS, bs = "cr", k = kIn, by = seasonGG) +
-               s(tempS, bs = "cr", k = kIn, by = riverGG) +
-               s(tempS, bs = "cr", k = kIn, by = seasonGG),
-             data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
+<!-- gamS1 <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowS)^2 + cohortF +              -->
+<!--                s(flowS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(flowS, bs = "cr", k = kIn, by = seasonGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = seasonGG), -->
+<!--              data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML") -->
 
-# age matters, what about taking out length?
-gamS2 <- bam(grWeight ~ (riverGG + seasonGG  + tempS + flowS)^2 + cohortF * ageF +             
-               s(flowS, bs = "cr", k = kIn, by = riverGG) +
-               s(flowS, bs = "cr", k = kIn, by = seasonGG) +
-               s(tempS, bs = "cr", k = kIn, by = riverGG) +
-               s(tempS, bs = "cr", k = kIn, by = seasonGG),
-             data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
+<!-- # age matters, what about taking out length? -->
+<!-- gamS2 <- bam(grWeight ~ (riverGG + seasonGG  + tempS + flowS)^2 + cohortF * ageF +              -->
+<!--                s(flowS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(flowS, bs = "cr", k = kIn, by = seasonGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = seasonGG), -->
+<!--              data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML") -->
 
-#nope, need to keep length
-#How about without the interactions?
-gamS3 <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowS) + cohortF * ageF +             
-               s(flowS, bs = "cr", k = kIn, by = riverGG) +
-               s(flowS, bs = "cr", k = kIn, by = seasonGG) +
-               s(tempS, bs = "cr", k = kIn, by = riverGG) +
-               s(tempS, bs = "cr", k = kIn, by = seasonGG),
-             data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
-#nope, need the interactions
+<!-- #nope, need to keep length -->
+<!-- #How about without the interactions? -->
+<!-- gamS3 <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowS) + cohortF * ageF +              -->
+<!--                s(flowS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(flowS, bs = "cr", k = kIn, by = seasonGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = seasonGG), -->
+<!--              data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML") -->
+<!-- #nope, need the interactions -->
 
-AIC(gamS0, gamS1, gamS2, gamS3) |> arrange(AIC)
-```
+<!-- AIC(gamS0, gamS1, gamS2, gamS3) |> arrange(AIC) -->
+<!-- ``` -->
+
+<!-- #### Brook trout - flow by area -->
+<!-- ```{r} -->
+<!-- #| label: gamSModsBKTFBA2 -->
+
+<!-- gamS1ByArea <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowByAreaS)^2 + cohortF +              -->
+<!--                s(flowByAreaS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(flowByAreaS, bs = "cr", k = kIn, by = seasonGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = seasonGG), -->
+<!--              data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML") -->
+
+<!-- # age matters, what about taking out length? -->
+<!-- gamS2ByArea <- bam(grWeight ~ (riverGG + seasonGG  + tempS + flowByAreaS)^2 + cohortF +              -->
+<!--                s(flowByAreaS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(flowByAreaS, bs = "cr", k = kIn, by = seasonGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = seasonGG), -->
+<!--              data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML") -->
+
+<!-- #nope, need to keep length -->
+<!-- #How about without the interactions? -->
+<!-- gamS3ByArea <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowByAreaS) + cohortF +              -->
+<!--                s(flowByAreaS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(flowByAreaS, bs = "cr", k = kIn, by = seasonGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = seasonGG), -->
+<!--              data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML") -->
+<!-- #nope, need the interactions -->
+
+<!-- ##### -->
+<!-- # add in lo flow thresh -->
+<!-- gamS4ByArea <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowByAreaS +  -->
+<!--                                propBelowLoFlowThreshByArea_flowExt)^2 + cohortF +              -->
+<!--                s(flowByAreaS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(flowByAreaS, bs = "cr", k = kIn, by = seasonGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = seasonGG), -->
+<!--              data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML") -->
+
+<!-- # add in high flow thresh -->
+<!-- gamS5ByArea <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowByAreaS +  -->
+<!--                                propAboveHiFlowThreshByArea_flowExt)^2 + cohortF +              -->
+<!--                s(flowByAreaS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(flowByAreaS, bs = "cr", k = kIn, by = seasonGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = seasonGG), -->
+<!--              data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML") -->
+
+<!-- # both lo and high flow thresh -->
+<!-- gamS6ByArea <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowByAreaS +  -->
+<!--                                propBelowLoFlowThreshByArea_flowExt + propAboveHiFlowThreshByArea_flowExt)^2 + cohortF +              -->
+<!--                s(flowByAreaS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(flowByAreaS, bs = "cr", k = kIn, by = seasonGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = seasonGG), -->
+<!--              data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML") -->
+
+<!-- # take out flow -->
+<!-- gamS7ByArea <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS +   -->
+<!--                                propBelowLoFlowThreshByArea_flowExt + propAboveHiFlowThreshByArea_flowExt)^2 + cohortF +              -->
+<!--                s(flowByAreaS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(flowByAreaS, bs = "cr", k = kIn, by = seasonGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = seasonGG), -->
+<!--              data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML") -->
+
+<!-- gamS10ByArea <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowByAreaS +  -->
+<!--                                propBelowLoFlowThreshByArea_flowExt + propAboveHiFlowThreshByArea_flowExt)^2 + cohortF +              -->
+<!--                s(meanFlow, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                #s(flowByAreaS, bs = "cr", k = kIn, by = seasonGG) + -->
+<!--                s(meanTemperature, bs = "cr", k = kIn, by = riverGG), -->
+<!--                #s(tempS, bs = "cr", k = kIn, by = seasonGG), -->
+<!--              data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML") -->
+
+<!-- AIC(gamS1ByArea, gamS2ByArea, gamS3ByArea, gamS4ByArea,  -->
+<!--     gamS5ByArea, gamS6ByArea, gamS7ByArea, gamS10ByArea) |> arrange(AIC) -->
+
+<!-- ``` -->
+
+<!-- #### Brook trout - flow by river -->
+<!-- ```{r} -->
+<!-- #| label: gamSModsBKTFBR2 -->
+
+<!-- gamS1ByRiver <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowByRiverS)^2 + cohortF +              -->
+<!--                s(flowByRiverS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(flowByRiverS, bs = "cr", k = kIn, by = seasonGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = seasonGG), -->
+<!--              data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML") -->
+
+<!-- # age matters, what about taking out length? -->
+<!-- gamS2ByRiver <- bam(grWeight ~ (riverGG + seasonGG  + tempS + flowByRiverS)^2 + cohortF +              -->
+<!--                s(flowByRiverS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(flowByRiverS, bs = "cr", k = kIn, by = seasonGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = seasonGG), -->
+<!--              data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML") -->
+
+<!-- #nope, need to keep length -->
+<!-- #How about without the interactions? -->
+<!-- gamS3ByRiver <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowByRiverS) + cohortF +              -->
+<!--                s(flowByRiverS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(flowByRiverS, bs = "cr", k = kIn, by = seasonGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = seasonGG), -->
+<!--              data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML") -->
+<!-- #nope, need the interactions -->
+
+<!-- ##### -->
+<!-- # add in lo flow thresh -->
+<!-- gamS4ByRiver <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowByRiverS +  -->
+<!--                                 propBelowLoFlowThreshByRiver)^2 + cohortF +              -->
+<!--                s(flowByRiverS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(flowByRiverS, bs = "cr", k = kIn, by = seasonGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = seasonGG), -->
+<!--              data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML") -->
+
+<!-- # add in high flow thresh -->
+<!-- gamS5ByRiver <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowByRiverS +  -->
+<!--                                 propAboveHiFlowThreshByRiver)^2 + cohortF +              -->
+<!--                s(flowByRiverS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(flowByRiverS, bs = "cr", k = kIn, by = seasonGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = seasonGG), -->
+<!--              data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML") -->
+
+<!-- # both lo and high flow thresh -->
+<!-- gamS6ByRiver <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowByRiverS +  -->
+<!--                                 propBelowLoFlowThreshByRiver + propAboveHiFlowThreshByRiver)^2 + cohortF +              -->
+<!--                s(flowByRiverS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(flowByRiverS, bs = "cr", k = kIn, by = seasonGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = seasonGG), -->
+<!--              data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML") -->
+
+<!-- # take out flow -->
+<!-- gamS7ByRiver <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS +   -->
+<!--                                 propBelowLoFlowThreshByRiver + propAboveHiFlowThreshByRiver)^2 + cohortF +              -->
+<!--                s(flowByRiverS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(flowByRiverS, bs = "cr", k = kIn, by = seasonGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = seasonGG), -->
+<!--              data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML") -->
+
+<!-- #take out significant smooths -->
+<!-- gamS8ByRiver <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowByRiverS +  -->
+<!--                                 propBelowLoFlowThreshByRiver + propAboveHiFlowThreshByRiver)^2 + cohortF +              -->
+<!--                s(flowByRiverS, bs = "cr", k = kIn, by = riverGG) , -->
+<!--              data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML") -->
+
+<!-- #take out insignificant smooths -->
+<!-- gamS9ByRiver <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowByRiverS +  -->
+<!--                                 propBelowLoFlowThreshByRiver + propAboveHiFlowThreshByRiver)^2 + cohortF +              -->
+<!--                s(flowByRiverS, bs = "cr", k = kIn, by = seasonGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                s(tempS, bs = "cr", k = kIn, by = seasonGG), -->
+<!--              data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML") -->
+
+<!-- gamS10ByRiver <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowByRiverS +  -->
+<!--                                 propBelowLoFlowThreshByRiver + propAboveHiFlowThreshByRiver)^2 + cohortF +              -->
+<!--                s(meanFlow, bs = "cr", k = kIn, by = riverGG) + -->
+<!--                #s(flowByRiverS, bs = "cr", k = kIn, by = seasonGG) + -->
+<!--                s(meanTemperature, bs = "cr", k = kIn, by = riverGG),  -->
+<!--                #s(tempS, bs = "cr", k = kIn, by = seasonGG), -->
+<!--              data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML") -->
+
+
+<!-- AIC(gamS1ByRiver, gamS2ByRiver, gamS3ByRiver, gamS4ByRiver,  -->
+<!--     gamS5ByRiver, gamS6ByRiver, gamS7ByRiver, gamS8ByRiver, gamS9ByRiver, gamS10ByRiver) |> arrange(AIC) -->
+<!-- ``` -->
+
+
+<!-- #### Brook trout - compare flow byArea and flow byRiver gams -->
+<!-- ```{r} -->
+<!-- #| label: gamModsCompare2 -->
+
+<!-- predictBKTgamS <- function(dIn, modInFlowByRiver, modInFlowByArea){ -->
+
+<!--   predMatByRiver0 <-  -->
+<!--     expand.grid( -->
+<!--       flowByRiverS = seq(-1.5, 1.5, 0.5),  -->
+<!--       propBelowLoFlowThreshByRiver = seq(0, 0.8, 0.2), -->
+<!--       propAboveHiFlowThreshByRiver = seq(0, 0.6, 0.2), -->
+<!--       tempS = seq(-1.5, 1.5, 0.5),  -->
+<!--       riverGG = unique(dIn$riverGG),  -->
+<!--       seasonGG= unique(dIn$seasonGG), -->
+<!--       observedWeight = c(2, 30, 60), #seq(2, max(dIn$observedWeight, na.rm = TRUE)/2, 20), -->
+<!--       cohortF = 2000:2013,#uunique(dIn$cohortF), -->
+<!--       byRiver = TRUE -->
+<!--   ) -->
+
+<!--   predMatByRiver <-  -->
+<!--     add_column( -->
+<!--       pred = predict.bam(modInFlowByRiver, predMatByRiver0), -->
+<!--       predMatByRiver0 -->
+<!--     ) |>  -->
+<!--     rename(flow = flowByRiverS, temp = tempS, -->
+<!--            loFlowThresh = propBelowLoFlowThreshByRiver, hiFlowThresh = propAboveHiFlowThreshByRiver) -->
+
+<!--   predMatByArea0 <-  -->
+<!--     expand.grid( -->
+<!--       flowByAreaS = seq(-1.5, 1.5, 0.5), -->
+<!--       propBelowLoFlowThreshByArea_flowExt = seq(0, 0.8, 0.2), -->
+<!--       propAboveHiFlowThreshByArea_flowExt = seq(0, 0.6, 0.2), -->
+<!--       tempS = seq(-1.5, 1.5, 0.5),  -->
+<!--       riverGG = unique(dIn$riverGG),  -->
+<!--       seasonGG= unique(dIn$seasonGG), -->
+<!--       observedWeight = c(2, 30, 60), #seq(2, max(dIn$observedWeight, na.rm = TRUE)/2, 20), -->
+<!--       cohortF = 2000:2013,#unique(dIn$cohortF), -->
+<!--       byRiver = FALSE -->
+<!--     )  -->
+<!--   predMatByArea <-  -->
+<!--     add_column( -->
+<!--       pred = predict.bam(modInFlowByArea, predMatByArea0), -->
+<!--       predMatByArea0 -->
+<!--     ) |>  -->
+<!--     rename(flow = flowByAreaS, temp = tempS, -->
+<!--            loFlowThresh = propBelowLoFlowThreshByArea_flowExt, hiFlowThresh =                                  propAboveHiFlowThreshByArea_flowExt) -->
+
+<!--   return(add_row(predMatByRiver, predMatByArea)) -->
+<!-- } -->
+
+<!-- gamS6BKTPredictions <- predictBKTgamS(dGAM, gamS6ByRiver, gamS6ByArea) -->
+
+<!-- predict10BKTgamS <- function(dIn, modInFlowByRiver, modInFlowByArea){ -->
+
+<!--   predMatByRiver0 <-  -->
+<!--     expand.grid( -->
+<!--       meanFlow = seq(0, 0.8, 0.2),  -->
+<!--       propBelowLoFlowThreshByRiver = seq(0, 0.8, 0.2), -->
+<!--       propAboveHiFlowThreshByRiver = seq(0, 0.6, 0.2), -->
+<!--       meanTemperature = seq(0, 20, 5),  -->
+<!--       flowByRiverS = seq(-1.5, 1.5, 0.5),  -->
+<!--       tempS = seq(-1.5, 1.5, 0.5),  -->
+<!--       riverGG = unique(dIn$riverGG),  -->
+<!--       seasonGG= unique(dIn$seasonGG), -->
+<!--       observedWeight = c(2, 30, 60), #seq(2, max(dIn$observedWeight, na.rm = TRUE)/2, 20), -->
+<!--       cohortF = 2000:2013,#uunique(dIn$cohortF), -->
+<!--       byRiver = TRUE -->
+<!--   ) -->
+
+<!--   predMatByRiver <-  -->
+<!--     add_column( -->
+<!--       pred = predict.bam(modInFlowByRiver, predMatByRiver0), -->
+<!--       predMatByRiver0 -->
+<!--     ) |>  -->
+<!--     rename(flow = flowByRiverS, temp = tempS, -->
+<!--            loFlowThresh = propBelowLoFlowThreshByRiver, hiFlowThresh = propAboveHiFlowThreshByRiver) -->
+
+<!--   predMatByArea0 <-  -->
+<!--     expand.grid( -->
+<!--       meanFlow = seq(0, 0.8, 0.2),  -->
+<!--       propBelowLoFlowThreshByArea_flowExt = seq(0, 0.8, 0.2), -->
+<!--       propAboveHiFlowThreshByArea_flowExt = seq(0, 0.6, 0.2), -->
+<!--       meanTemperature = seq(0, 20, 5),  -->
+<!--       flowByAreaS = seq(-1.5, 1.5, 0.5),  -->
+<!--       tempS = seq(-1.5, 1.5, 0.5),  -->
+<!--       riverGG = unique(dIn$riverGG),  -->
+<!--       seasonGG= unique(dIn$seasonGG), -->
+<!--       observedWeight = c(2, 30, 60), #seq(2, max(dIn$observedWeight, na.rm = TRUE)/2, 20), -->
+<!--       cohortF = 2000:2013,#unique(dIn$cohortF), -->
+<!--       byRiver = FALSE -->
+<!--     )  -->
+<!--   predMatByArea <-  -->
+<!--     add_column( -->
+<!--       pred = predict.bam(modInFlowByArea, predMatByArea0), -->
+<!--       predMatByArea0 -->
+<!--     ) |>  -->
+<!--     rename(flow = flowByAreaS, temp = tempS, -->
+<!--            loFlowThresh = propBelowLoFlowThreshByArea_flowExt, hiFlowThresh =                                  propAboveHiFlowThreshByArea_flowExt) -->
+
+<!--   return(add_row(predMatByRiver, predMatByArea)) -->
+<!-- } -->
+
+
+
+<!-- gamS10BKTPredictions <- predict10BKTgamS(dGAM, gamS10ByRiver, gamS10ByArea) -->
+<!-- ``` -->
+
+
+<!-- #### Graph predictions    -->
+<!-- Across cohorts, small fish -->
+<!-- ```{r} -->
+<!-- #| label: graphGAMPredictionsByRiverSmallFish -->
+
+<!-- ggplot( -->
+<!--   gamSBKTPredictions |>  -->
+<!--     filter( -->
+<!--       observedWeight %in% c(2), -->
+<!--       loFlowThresh == 0, -->
+<!--       hiFlowThresh == 0 -->
+<!--       #cohortF == 2012,  -->
+<!--     ),  -->
+<!--   aes(temp, pred, color = (flow), group = (flow))) + -->
+<!--   geom_point(alpha = 0.2) + -->
+<!--   labs(x = "Stream temperature", y = "Predicted growth rate") + -->
+<!--   ylim(-0.02, 0.06) + -->
+<!--   #geom_smooth(se = FALSE) + -->
+<!--   geom_hline(yintercept = 0) + -->
+<!--   facet_grid(seasonGG ~ riverGG + byRiver, scales = 'free') -->
+<!-- ``` -->
+
+<!-- #### Brook trout - compare flow byArea and flow byRiver gams -->
+<!-- ```{r} -->
+<!-- #| label: gamModsCompare -->
+
+<!-- predictBKTgamS <- function(dIn, modInFlowByArea, modInFlowByRiver){ -->
+
+<!--   predMatByArea0 <-  -->
+<!--     expand.grid( -->
+<!--       flowByAreaS = seq(-1.5, 1.5, 0.5), -->
+<!--       propBelowLoFlowThreshByArea_flowExt = seq(0, 0.8, 0.2), -->
+<!--       propAboveHiFlowThreshByArea_flowExt = seq(0, 0.6, 0.2), -->
+<!--       tempS = seq(-1.5, 1.5, 0.5),  -->
+<!--       meanFlowByArea_flowExt = seq(0, 0.8, 0.2),  -->
+<!--       meanTemperature = seq(0, 20, 5),  -->
+<!--       riverGG = unique(dIn$riverGG),  -->
+<!--       seasonGG= unique(dIn$seasonGG), -->
+<!--       observedWeight = c(2, 10, 30, 60), #seq(2, max(dIn$observedWeight, na.rm = TRUE)/2, 20), -->
+<!--       #cohortF = 2000:2013,#unique(dIn$cohortF), -->
+<!--       byRiver = FALSE -->
+<!--     )  -->
+<!--   predMatByArea <-  -->
+<!--     add_column( -->
+<!--       pred = predict.bam(modInFlowByArea, predMatByArea0), -->
+<!--       predMatByArea0 -->
+<!--     ) |>  -->
+<!--     rename(flow = flowByAreaS, temp = tempS, -->
+<!--            meanFlow = meanFlowByArea_flowExt, meanTemperature = meanTemperature, -->
+<!--            loFlowThresh = propBelowLoFlowThreshByArea_flowExt,  -->
+<!--            hiFlowThresh = propAboveHiFlowThreshByArea_flowExt) -->
+
+<!-- ######## -->
+<!--   predMatByRiver0 <-  -->
+<!--     expand.grid( -->
+<!--       flowByRiverS = seq(-1.5, 1.5, 0.5),  -->
+<!--       propBelowLoFlowThreshByRiver = seq(0, 0.8, 0.2), -->
+<!--       propAboveHiFlowThreshByRiver = seq(0, 0.6, 0.2), -->
+<!--       tempS = seq(-1.5, 1.5, 0.5),  -->
+<!--       meanFlowByRiver = seq(0, 0.8, 0.2),  -->
+<!--       meanTemperature = seq(0, 20, 5), -->
+<!--       riverGG = unique(dIn$riverGG),  -->
+<!--       seasonGG= unique(dIn$seasonGG), -->
+<!--       observedWeight = c(2, 10, 30, 60), #seq(2, max(dIn$observedWeight, na.rm = TRUE)/2, 20), -->
+<!--       #cohortF = 2000:2013,#uunique(dIn$cohortF), -->
+<!--       byRiver = TRUE -->
+<!--   ) -->
+
+<!--   predMatByRiver <-  -->
+<!--     add_column( -->
+<!--       pred = predict.bam(modInFlowByRiver, predMatByRiver0), -->
+<!--       predMatByRiver0 -->
+<!--     ) |>  -->
+<!--     rename(flow = flowByRiverS, temp = tempS, -->
+<!--            meanFlow = meanFlowByRiver, meanTemperature = meanTemperature, -->
+<!--            loFlowThresh = propBelowLoFlowThreshByRiver, hiFlowThresh = propAboveHiFlowThreshByRiver) -->
+
+<!--   return(add_row(predMatByArea, predMatByRiver)) -->
+<!-- } -->
+
+<!-- gamSBKTPredictions <- predictBKTgamS(dGAM, gamS1ByArea, gamS1ByRiver) -->
+<!-- ``` -->
 
 #### Brook trout - flow by area
+redo models
 ```{r}
-#| label: gamSModsBKTFBA2
+#| label: lmByArea
+lmS1ByArea <- lm(
+  grWeight ~
+    (riverGG + seasonGG + observedWeight + tempS + flowByAreaS + 
+     propBelowLoFlowThreshByArea_flowExt + propAboveHiFlowThreshByArea_flowExt)^2,
+  data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013))
 
-gamS1ByArea <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowByAreaS)^2 + cohortF +             
-               s(flowByAreaS, bs = "cr", k = kIn, by = riverGG) +
-               s(flowByAreaS, bs = "cr", k = kIn, by = seasonGG) +
-               s(tempS, bs = "cr", k = kIn, by = riverGG) +
-               s(tempS, bs = "cr", k = kIn, by = seasonGG),
-             data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
+lmS2ByArea <- lm(
+  grWeight ~
+    (riverGG + seasonGG + observedWeight)^2 +
+    (riverGG + seasonGG + poly(tempS, 2) + poly(flowByAreaS, 2))^2 + 
+    (riverGG + seasonGG + propBelowLoFlowThreshByArea_flowExt + propAboveHiFlowThreshByArea_flowExt)^2,
+  data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013))
 
-# age matters, what about taking out length?
-gamS2ByArea <- bam(grWeight ~ (riverGG + seasonGG  + tempS + flowByAreaS)^2 + cohortF +             
-               s(flowByAreaS, bs = "cr", k = kIn, by = riverGG) +
-               s(flowByAreaS, bs = "cr", k = kIn, by = seasonGG) +
-               s(tempS, bs = "cr", k = kIn, by = riverGG) +
-               s(tempS, bs = "cr", k = kIn, by = seasonGG),
-             data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
-
-#nope, need to keep length
-#How about without the interactions?
-gamS3ByArea <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowByAreaS) + cohortF +             
-               s(flowByAreaS, bs = "cr", k = kIn, by = riverGG) +
-               s(flowByAreaS, bs = "cr", k = kIn, by = seasonGG) +
-               s(tempS, bs = "cr", k = kIn, by = riverGG) +
-               s(tempS, bs = "cr", k = kIn, by = seasonGG),
-             data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
-#nope, need the interactions
-
-#####
-# add in lo flow thresh
-gamS4ByArea <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowByAreaS + 
-                               propBelowLoFlowThreshByArea_flowExt)^2 + cohortF +             
-               s(flowByAreaS, bs = "cr", k = kIn, by = riverGG) +
-               s(flowByAreaS, bs = "cr", k = kIn, by = seasonGG) +
-               s(tempS, bs = "cr", k = kIn, by = riverGG) +
-               s(tempS, bs = "cr", k = kIn, by = seasonGG),
-             data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
-
-# add in high flow thresh
-gamS5ByArea <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowByAreaS + 
-                               propAboveHiFlowThreshByArea_flowExt)^2 + cohortF +             
-               s(flowByAreaS, bs = "cr", k = kIn, by = riverGG) +
-               s(flowByAreaS, bs = "cr", k = kIn, by = seasonGG) +
-               s(tempS, bs = "cr", k = kIn, by = riverGG) +
-               s(tempS, bs = "cr", k = kIn, by = seasonGG),
-             data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
-
-# both lo and high flow thresh
-gamS6ByArea <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowByAreaS + 
-                               propBelowLoFlowThreshByArea_flowExt + propAboveHiFlowThreshByArea_flowExt)^2 + cohortF +             
-               s(flowByAreaS, bs = "cr", k = kIn, by = riverGG) +
-               s(flowByAreaS, bs = "cr", k = kIn, by = seasonGG) +
-               s(tempS, bs = "cr", k = kIn, by = riverGG) +
-               s(tempS, bs = "cr", k = kIn, by = seasonGG),
-             data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
-
-# take out flow
-gamS7ByArea <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS +  
-                               propBelowLoFlowThreshByArea_flowExt + propAboveHiFlowThreshByArea_flowExt)^2 + cohortF +             
-               s(flowByAreaS, bs = "cr", k = kIn, by = riverGG) +
-               s(flowByAreaS, bs = "cr", k = kIn, by = seasonGG) +
-               s(tempS, bs = "cr", k = kIn, by = riverGG) +
-               s(tempS, bs = "cr", k = kIn, by = seasonGG),
-             data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
-
-AIC(gamS1ByArea, gamS2ByArea, gamS3ByArea, gamS4ByArea, 
-    gamS5ByArea, gamS6ByArea, gamS7ByArea) |> arrange(AIC)
-
+AIC(lmS1ByArea, lmS2ByArea) |> arrange(AIC)
 ```
 
 #### Brook trout - flow by river
+redo models
 ```{r}
-#| label: gamSModsBKTFBR2
+#| label: lmByRiver
+lmS1ByRiver <- lm(
+  grWeight ~
+    (riverGG + seasonGG + observedWeight + tempS + flowByRiverS + 
+     propBelowLoFlowThreshByRiver + propAboveHiFlowThreshByRiver)^2,
+  data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013))
 
-gamS1ByRiver <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowByRiverS)^2 + cohortF +             
-               s(flowByRiverS, bs = "cr", k = kIn, by = riverGG) +
-               s(flowByRiverS, bs = "cr", k = kIn, by = seasonGG) +
-               s(tempS, bs = "cr", k = kIn, by = riverGG) +
-               s(tempS, bs = "cr", k = kIn, by = seasonGG),
-             data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
+lmS2ByRiver <- lm(
+  grWeight ~
+    (riverGG + seasonGG + observedWeight)^2 +
+    (riverGG + seasonGG + poly(tempS, 2) + poly(flowByRiverS, 2))^2 + 
+    (riverGG + seasonGG + propBelowLoFlowThreshByRiver + propAboveHiFlowThreshByRiver)^2,
+  data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013))
 
-# age matters, what about taking out length?
-gamS2ByRiver <- bam(grWeight ~ (riverGG + seasonGG  + tempS + flowByRiverS)^2 + cohortF +             
-               s(flowByRiverS, bs = "cr", k = kIn, by = riverGG) +
-               s(flowByRiverS, bs = "cr", k = kIn, by = seasonGG) +
-               s(tempS, bs = "cr", k = kIn, by = riverGG) +
-               s(tempS, bs = "cr", k = kIn, by = seasonGG),
-             data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
+lmS3ByRiver <- lm(
+  grWeight ~
+    (riverGG + seasonGG + observedWeight)^2 +
+    (riverGG + seasonGG + poly(tempS, 2) + poly(flowByRiverS, 2))^2, 
+    #(riverGG + seasonGG + propBelowLoFlowThreshByRiver + propAboveHiFlowThreshByRiver)^2,
+  data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013))
 
-#nope, need to keep length
-#How about without the interactions?
-gamS3ByRiver <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowByRiverS) + cohortF +             
-               s(flowByRiverS, bs = "cr", k = kIn, by = riverGG) +
-               s(flowByRiverS, bs = "cr", k = kIn, by = seasonGG) +
-               s(tempS, bs = "cr", k = kIn, by = riverGG) +
-               s(tempS, bs = "cr", k = kIn, by = seasonGG),
-             data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
-#nope, need the interactions
-
-#####
-# add in lo flow thresh
-gamS4ByRiver <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowByRiverS + 
-                                propBelowLoFlowThreshByRiver)^2 + cohortF +             
-               s(flowByRiverS, bs = "cr", k = kIn, by = riverGG) +
-               s(flowByRiverS, bs = "cr", k = kIn, by = seasonGG) +
-               s(tempS, bs = "cr", k = kIn, by = riverGG) +
-               s(tempS, bs = "cr", k = kIn, by = seasonGG),
-             data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
-
-# add in high flow thresh
-gamS5ByRiver <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowByRiverS + 
-                                propAboveHiFlowThreshByRiver)^2 + cohortF +             
-               s(flowByRiverS, bs = "cr", k = kIn, by = riverGG) +
-               s(flowByRiverS, bs = "cr", k = kIn, by = seasonGG) +
-               s(tempS, bs = "cr", k = kIn, by = riverGG) +
-               s(tempS, bs = "cr", k = kIn, by = seasonGG),
-             data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
-
-# both lo and high flow thresh
-gamS6ByRiver <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowByRiverS + 
-                                propBelowLoFlowThreshByRiver + propAboveHiFlowThreshByRiver)^2 + cohortF +             
-               s(flowByRiverS, bs = "cr", k = kIn, by = riverGG) +
-               s(flowByRiverS, bs = "cr", k = kIn, by = seasonGG) +
-               s(tempS, bs = "cr", k = kIn, by = riverGG) +
-               s(tempS, bs = "cr", k = kIn, by = seasonGG),
-             data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
-
-# take out flow
-gamS7ByRiver <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS +  
-                                propBelowLoFlowThreshByRiver + propAboveHiFlowThreshByRiver)^2 + cohortF +             
-               s(flowByRiverS, bs = "cr", k = kIn, by = riverGG) +
-               s(flowByRiverS, bs = "cr", k = kIn, by = seasonGG) +
-               s(tempS, bs = "cr", k = kIn, by = riverGG) +
-               s(tempS, bs = "cr", k = kIn, by = seasonGG),
-             data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
-
-#take out significant smooths
-gamS8ByRiver <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowByRiverS + 
-                                propBelowLoFlowThreshByRiver + propAboveHiFlowThreshByRiver)^2 + cohortF +             
-               s(flowByRiverS, bs = "cr", k = kIn, by = riverGG) ,
-             data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
-
-#take out insignificant smooths
-gamS9ByRiver <- bam(grWeight ~ (riverGG + seasonGG + observedWeight + tempS + flowByRiverS + 
-                                propBelowLoFlowThreshByRiver + propAboveHiFlowThreshByRiver)^2 + cohortF +             
-               s(flowByRiverS, bs = "cr", k = kIn, by = seasonGG) +
-               s(tempS, bs = "cr", k = kIn, by = riverGG) +
-               s(tempS, bs = "cr", k = kIn, by = seasonGG),
-             data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013), method = "REML")
+lmS4ByRiver <- lm(
+  grWeight ~
+    (riverGG + seasonGG + observedWeight)^2 +
+    (riverGG + seasonGG + poly(tempS, 2) + poly(flowByRiverS, 2))^2 + 
+    (propBelowLoFlowThreshByRiver + propAboveHiFlowThreshByRiver)^2,
+  data = dGAM |> filter(speciesGG == speciesIn, cohort %in% 2000:2013))
 
 
-
-AIC(gamS1ByRiver, gamS2ByRiver, gamS3ByRiver, gamS4ByRiver, 
-    gamS5ByRiver, gamS6ByRiver, gamS7ByRiver, gamS8ByRiver, gamS9ByRiver) |> arrange(AIC)
+AIC(lmS1ByRiver, lmS2ByRiver, lmS3ByRiver, lmS4ByRiver) |> arrange(AIC)
 ```
 
-#### Brook trout - compare flow and flow by river gams
+#### Brook trout - compare flow byArea and flow byRiver gams
 ```{r}
-#| label: gamModsCompare2
+#| label: gamModsCompare
 
-predictBKTgamS <- function(dIn, modInFlowByRiver, modInFlowByArea){
-
-  predMatByRiver0 <- 
-    expand.grid(
-      flowByRiverS = seq(-1.5, 1.5, 0.5), 
-      propBelowLoFlowThreshByRiver = seq(0, 0.8, 0.2),
-      propAboveHiFlowThreshByRiver = seq(0, 0.6, 0.2),
-      tempS = seq(-1.5, 1.5, 0.5), 
-      riverGG = unique(dIn$riverGG), 
-      seasonGG= unique(dIn$seasonGG),
-      observedWeight = c(2, 30, 60), #seq(2, max(dIn$observedWeight, na.rm = TRUE)/2, 20),
-      cohortF = 2000:2013,#uunique(dIn$cohortF),
-      byRiver = TRUE
-  )
-  
-  predMatByRiver <- 
-    add_column(
-      pred = predict.bam(modInFlowByRiver, predMatByRiver0),
-      predMatByRiver0
-    ) |> 
-    rename(flow = flowByRiverS, temp = tempS,
-           loFlowThresh = propBelowLoFlowThreshByRiver, hiFlowThresh = propAboveHiFlowThreshByRiver)
-  
+predictBKTlmS <- function(dIn, modInFlowByArea, modInFlowByRiver){
+    
   predMatByArea0 <- 
     expand.grid(
       flowByAreaS = seq(-1.5, 1.5, 0.5),
       propBelowLoFlowThreshByArea_flowExt = seq(0, 0.8, 0.2),
       propAboveHiFlowThreshByArea_flowExt = seq(0, 0.6, 0.2),
       tempS = seq(-1.5, 1.5, 0.5), 
+      #meanFlowByArea_flowExt = seq(0, 0.8, 0.2), 
+      #meanTemperature = seq(0, 20, 5), 
       riverGG = unique(dIn$riverGG), 
       seasonGG= unique(dIn$seasonGG),
-      observedWeight = c(2, 30, 60), #seq(2, max(dIn$observedWeight, na.rm = TRUE)/2, 20),
-      cohortF = 2000:2013,#unique(dIn$cohortF),
+      observedWeight = c(2, 10, 30, 60), #seq(2, max(dIn$observedWeight, na.rm = TRUE)/2, 20),
+      #cohortF = 2000:2013,#unique(dIn$cohortF),
       byRiver = FALSE
     ) 
   predMatByArea <- 
     add_column(
-      pred = predict.bam(modInFlowByArea, predMatByArea0),
+      pred = predict.lm(modInFlowByArea, predMatByArea0),
       predMatByArea0
     ) |> 
     rename(flow = flowByAreaS, temp = tempS,
-           loFlowThresh = propBelowLoFlowThreshByArea_flowExt, hiFlowThresh =                                  propAboveHiFlowThreshByArea_flowExt)
+           #meanFlow = meanFlowByArea_flowExt, meanTemperature = meanTemperature,
+           loFlowThresh = propBelowLoFlowThreshByArea_flowExt, 
+           hiFlowThresh = propAboveHiFlowThreshByArea_flowExt)
+  
+########
+  predMatByRiver0 <- 
+    expand.grid(
+      flowByRiverS = seq(-1.5, 1.5, 0.5), 
+      propBelowLoFlowThreshByRiver = seq(0, 0.8, 0.2),
+      propAboveHiFlowThreshByRiver = seq(0, 0.6, 0.2),
+      tempS = seq(-1.5, 1.5, 0.5), 
+      #meanFlowByRiver = seq(0, 0.8, 0.2), 
+      #meanTemperature = seq(0, 20, 5),
+      riverGG = unique(dIn$riverGG), 
+      seasonGG= unique(dIn$seasonGG),
+      observedWeight = c(2, 10, 30, 60), #seq(2, max(dIn$observedWeight, na.rm = TRUE)/2, 20),
+      #cohortF = 2000:2013,#uunique(dIn$cohortF),
+      byRiver = TRUE
+  )
+  
+  predMatByRiver <- 
+    add_column(
+      pred = predict.lm(modInFlowByRiver, predMatByRiver0),
+      predMatByRiver0
+    ) |> 
+    rename(flow = flowByRiverS, temp = tempS,
+           #meanFlow = meanFlowByRiver, meanTemperature = meanTemperature,
+           loFlowThresh = propBelowLoFlowThreshByRiver, hiFlowThresh = propAboveHiFlowThreshByRiver)
 
-  return(add_row(predMatByRiver, predMatByArea))
+  return(add_row(predMatByArea, predMatByRiver))
 }
 
-gamSBKTPredictions <- predictBKTgamS(dGAM, gamS6ByRiver, gamS6ByArea)
+lmSBKTPredictions <- predictBKTlmS(dGAM, lmS2ByArea, lmS2ByRiver) |> 
+  mutate(byLoFlowThresh = paste(byRiver, loFlowThresh, sep="_"),
+         byHiFlowThresh = paste(byRiver, hiFlowThresh, sep="_"))
 ```
+#### For talk    
 
-#### Graph predictions   
-Across cohorts, small fish
+West brook
 ```{r}
-#| label: graphGAMPredictionsByRiverSmallFish
+#| label: graphGAMPredictionsByRiverSmallFishTalkTWB
 
 ggplot(
-  gamSBKTPredictions |> 
+  lmSBKTPredictions |> 
     filter(
-      observedWeight %in% c(2),
-      loFlowThresh == 0,
-      hiFlowThresh == 0
-      #cohortF == 2012, 
-    ), 
-  aes(temp, pred, color = (flow), group = (flow))) +
-  geom_point(alpha = 0.2) +
-  labs(x = "Stream temperature", y = "Predicted growth rate") +
-  ylim(-0.02, 0.06) +
-  #geom_smooth(se = FALSE) +
-  geom_hline(yintercept = 0) +
-  facet_grid(seasonGG ~ riverGG + byRiver, scales = 'free')
-```
-
-For talk  
-
-temperature = 1
-```{r}
-#| label: graphGAMPredictionsByRiverSmallFishTalkT1
-
-ggplot(
-  gamSBKTPredictions |> 
-    filter(
-      observedWeight %in% c(30),
+      observedWeight == 10,
       loFlowThresh == 0,
       hiFlowThresh == 0,
-      cohortF == 2012, 
+      temp == 0,#c(-1.5,0,1.5)
+      riverGG == "West Brook"
+    ), 
+  aes(flow, pred, color = (byRiver), group = (byRiver))) +
+  geom_line(size = 1.5) +
+  geom_point(size = 5) +
+  labs(x = "Standardized stream flow", y = "Predicted growth rate") +
+  #ylim(-0.02, 0.06) +
+  #geom_smooth(se = FALSE) +
+  geom_hline(yintercept = 0) +
+  theme_publication(24) +
+  ggtitle("West Brook") +
+  scale_color_manual(values = colorsTalk) +
+  facet_wrap(~seasonGG)#, scales = 'free')
+
+
+ggplot(
+  lmSBKTPredictions |> 
+    filter(
+      observedWeight %in% c(10),
+      loFlowThresh == 0,
+      hiFlowThresh == 0,
       #flow %in% c(-1.5,0,1.5),
       temp %in% 1,#c(-1.5,0,1.5)
       riverGG == "West Brook"
@@ -591,18 +861,101 @@ ggplot(
   #geom_smooth(se = FALSE) +
   geom_hline(yintercept = 0) +
   theme_publication(24) +
-  ggtitle("West brook") +
+  ggtitle("West Brook") +
   scale_color_manual(values = colorsTalk) +
-  facet_wrap(~seasonGG, scales = 'free')
+  facet_wrap(~seasonGG)#, scales = 'free')
+
+```
+
+```{r}
+#| label: alphaonThresh
+ggplot(
+  lmSBKTPredictions |> 
+    filter(
+      observedWeight == 10,
+      #loFlowThresh == 0,
+      hiFlowThresh == 0,
+      temp == 0,#c(-1.5,0,1.5)
+      riverGG == "West Brook"
+    ), 
+  aes(flow, pred, color = (byRiver), group = (byLoFlowThresh), alpha = loFlowThresh)) +
+  scale_alpha(range = c(1, 0.1)) +
+  geom_line(size = 1.5) +
+  geom_point(size = 5) +
+  labs(x = "Standardized stream flow", y = "Predicted growth rate") +
+  #ylim(-0.02, 0.06) +
+  #geom_smooth(se = FALSE) +
+  geom_hline(yintercept = 0) +
+  theme_publication(24) +
+  ggtitle("West Brook") +
+  scale_color_manual(values = colorsTalk) +
+  facet_wrap(~seasonGG)#, scales = 'free')
 
 
 ggplot(
-  gamSBKTPredictions |> 
+  lmSBKTPredictions |> 
     filter(
-      observedWeight %in% c(30),
+      observedWeight == 10,
+      loFlowThresh == 0,
+      #hiFlowThresh == 0,
+      temp == 0,#c(-1.5,0,1.5)
+      riverGG == "West Brook"
+    ), 
+  aes(flow, pred, color = (byRiver), group = (byHiFlowThresh), alpha = hiFlowThresh)) +
+  scale_alpha(range = c(1, 0.1)) +
+  geom_line(size = 1.5) +
+  geom_point(size = 5) +
+  labs(x = "Standardized stream flow", y = "Predicted growth rate") +
+  #ylim(-0.02, 0.06) +
+  #geom_smooth(se = FALSE) +
+  geom_hline(yintercept = 0) +
+  theme_publication(24) +
+  ggtitle("West Brook") +
+  scale_color_manual(values = colorsTalk) +
+  facet_wrap(~seasonGG)#, scales = 'free')
+
+
+```
+
+
+
+
+Open Large
+```{r}
+#| label: graphGAMPredictionsByRiverSmallFishTalkTOL
+
+ggplot(
+  lmSBKTPredictions |> 
+    filter(
+      observedWeight %in% c(10),
       loFlowThresh == 0,
       hiFlowThresh == 0,
-      cohortF == 2012, 
+      #cohortF == 2012, 
+      #flow %in% c(-1.5,0,1.5),
+      #meanFlow == 0.4,
+      #meanTemperature == 10,
+      temp %in% 0,#c(-1.5,0,1.5)
+      riverGG == "Open Large"
+    ), 
+  aes(flow, pred, color = (byRiver), group = (byRiver))) +
+  geom_line(size = 1.5) +
+  geom_point(size = 5) +
+  labs(x = "Standardized stream flow", y = "Predicted growth rate") +
+  #ylim(-0.02, 0.06) +
+  #geom_smooth(se = FALSE) +
+  geom_hline(yintercept = 0) +
+  theme_publication(24) +
+  ggtitle("Open Large") +
+  scale_color_manual(values = colorsTalk) +
+  facet_wrap(~seasonGG)#, scales = 'free')
+
+
+ggplot(
+  lmSBKTPredictions |> 
+    filter(
+      observedWeight %in% c(10),
+      loFlowThresh == 0,
+      hiFlowThresh == 0,
       #flow %in% c(-1.5,0,1.5),
       temp %in% 1,#c(-1.5,0,1.5)
       riverGG == "Open Large"
@@ -615,31 +968,15 @@ ggplot(
   #geom_smooth(se = FALSE) +
   geom_hline(yintercept = 0) +
   theme_publication(24) +
-  ggtitle("Open large") +
+  ggtitle("Open Large") +
   scale_color_manual(values = colorsTalk) +
-  facet_wrap(~seasonGG, scales = 'free')
+  facet_wrap(~seasonGG)#, scales = 'free')
+
+
 ```
 
 
-Across cohorts, large fish
-```{r}
-#| label: graphGAMPredictionsByRiverBigFish
 
-ggplot(
-  gamSBKTPredictions |> 
-    filter(
-      observedWeight %in% c(122), 
-      #cohortF == 2012, 
-      ageF == 0
-    ), 
-  aes(temp, pred, color = (flow), group = (flow))) +
-  geom_point(alpha = 0.2) +
-  labs(x = "Stream temperature", y = "Predicted growth rate") +
-  ylim(-0.03, 0.04) +
-  #geom_smooth(se = FALSE) +
-  geom_hline(yintercept = 0) +
-  facet_grid(seasonGG ~ riverGG + byRiver, scales = 'free')
-```
 
 
 ### Flow std by season/river (not used)
