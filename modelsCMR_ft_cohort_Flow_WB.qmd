@@ -56,6 +56,10 @@ library(tidyverse)
 source('./R/generalFunctions.R') #to get global_labeller_WB
 
 colorsTalk <- c("#d46313", "#303140")
+colorBlindGrey8   <- c("#999999", "#E69F00", "#56B4E9", "#009E73", 
+                       "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+cbColorsTalk <- c(colorBlindGrey8[6],colorBlindGrey8[4],colorBlindGrey8[7])
+cbColorsTalk4 <- c(colorBlindGrey8[6],colorBlindGrey8[4],colorBlindGrey8[7],colorBlindGrey8[8])
 ```
 
 ```{r}
@@ -65,6 +69,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
 ## Load data
+move this section to targets
 ```{r}
 #|label: loadDataCMR
 
@@ -752,9 +757,28 @@ ggplot(predFlowByAreaRiverYOYSeason %>% filter(temp %in% c(-1,0,1), isYOY == 2),
   labs(x = "Scaled stream flow", y = "Survival") +
   guides(colour = guide_legend(override.aes = list(alpha = 1), title = "Scaled\n Temp")) +
   facet_grid(season ~ river, labeller = global_labellerInt_WB)
+
+## subset data for actual talk figures
+ggplot(predFlowByAreaRiverYOYSeason %>% filter(temp %in% c(-1,0,1), isYOY == 1, river == 1, season != 2), aes(flow, predPhi, group = ((paste0(iter,temp, sep = "_"))))) +
+  geom_line(aes(color = factor(temp)), alpha = 0.05) +
+  scale_color_manual(values = cbColorsTalk) +
+  labs(x = "Scaled stream flow", y = "Survival") +
+  ggtitle("Younger fish, by Area") +
+  guides(colour = guide_legend(override.aes = list(alpha = 1), title = "Scaled\n Temp")) +
+  theme_publication(24) +
+  facet_wrap(~season, labeller = global_labellerInt_WB)
+
+ggplot(predFlowByAreaRiverYOYSeason %>% filter(temp %in% c(-1,0,1), isYOY == 2, river == 1), aes(flow, predPhi, group = ((paste0(iter,temp, sep = "_"))))) +
+  geom_line(aes(color = factor(temp)), alpha = 0.05) +
+  scale_color_manual(values = cbColorsTalk) +
+  labs(x = "Scaled stream flow", y = "Survival") +
+  ggtitle("Older fish, by Area") +
+  guides(colour = guide_legend(override.aes = list(alpha = 1), title = "Scaled\n Temp")) +
+  theme_publication(24) +
+  facet_wrap(~season, labeller = global_labellerInt_WB)
 ```
 
-
+By river
 ```{r}
 #| label: predsflowByRiverTalk
 
@@ -773,6 +797,26 @@ ggplot(predFlowByRiverRiverYOYSeason %>% filter(temp %in% c(-1,0,1), isYOY == 2)
   ggtitle("Older fish, by River") +
   guides(colour = guide_legend(override.aes = list(alpha = 1), title = "Scaled\n Temp")) +
   facet_grid(season ~ river, labeller = global_labellerInt_WB)
+
+## subset data for actual talk figures
+ggplot(predFlowByRiverRiverYOYSeason %>% filter(temp %in% c(-1,0,1), isYOY == 1, river == 1, season != 2), aes(flow, predPhi, group = ((paste0(iter,temp, sep = "_"))))) +
+  geom_line(aes(color = factor(temp)), alpha = 0.05) +
+  scale_color_manual(values = cbColorsTalk) +
+  labs(x = "Scaled stream flow", y = "Survival") +
+  ggtitle("Younger fish, by River") +
+  guides(colour = guide_legend(override.aes = list(alpha = 1), title = "Scaled\n Temp")) +
+  theme_publication(24) +
+  facet_wrap(~season, labeller = global_labellerInt_WB)
+
+ggplot(predFlowByRiverRiverYOYSeason %>% filter(temp %in% c(-1,0,1), isYOY == 2, river == 1), aes(flow, predPhi, group = ((paste0(iter,temp, sep = "_"))))) +
+  geom_line(aes(color = factor(temp)), alpha = 0.05) +
+  scale_color_manual(values = cbColorsTalk) +
+  labs(x = "Scaled stream flow", y = "Survival") +
+  ggtitle("Older fish, by River") +
+  guides(colour = guide_legend(override.aes = list(alpha = 1), title = "Scaled\n Temp")) +
+  theme_publication(24) +
+  facet_wrap(~season, labeller = global_labellerInt_WB)
+
 ```
 
 
@@ -916,6 +960,17 @@ ggplot(betaIntsFT %>% filter(varName == "betaIntOut"), aes(mFlowByArea, mFlowByR
   labs(x = "Standardized stream flow by area", y = "Standardized stream flow by river") +
   guides(color = guide_legend(
     title = "Season"
+  )) +
+  theme_publication(24) 
+
+ggplot(betaIntsFT %>% filter(varName == "betaIntOut"), aes(mFlowByArea, mFlowByRiver, color = river)) +
+  geom_abline(intercept = 0, slope = 1, size = 1.5) +
+  geom_point(size = 4) +
+  geom_smooth(linewidth = 1.5, se = FALSE, method = "lm") +
+  scale_color_manual(values = cbColorsTalk4) +
+  labs(x = "Standardized stream flow by area", y = "Standardized stream flow by river") +
+  guides(color = guide_legend(
+    title = "River"
   )) +
   theme_publication(24) 
 

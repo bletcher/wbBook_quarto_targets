@@ -38,6 +38,11 @@ library(tidyverse)
 
 source('./R/generalFunctions.R') #to get global_labeller_WB
 colorsTalk <- c("#d46313", "#303140")
+
+colorBlindGrey8   <- c("#999999", "#E69F00", "#56B4E9", "#009E73", 
+                       "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+cbColorsTalk3 <- c(colorBlindGrey8[6],colorBlindGrey8[4],colorBlindGrey8[7])
+cbColorsTalk4 <- c(colorBlindGrey8[6],colorBlindGrey8[4],colorBlindGrey8[7],colorBlindGrey8[8])
 ```
 
 ```{r}
@@ -202,15 +207,28 @@ summaryStats <- envData |>
   group_by(river, season) |> 
   summarize(meanFlowByRiver = mean(flowByRiver, na.rm = TRUE),
             sdFlowByRiver = sd(flowByRiver, na.rm = TRUE),
-            meanFlowByArea = mean(flowByArea_flowExt),
-            sdFlowByArea = sd(flowByArea_flowExt))
+            meanFlowByArea = mean(flowByArea_flowExt, na.rm = TRUE),
+            sdFlowByArea = sd(flowByArea_flowExt, na.rm = TRUE),
+            meanFlowByArea_ByRiver = mean(flowByArea_ByRiver, na.rm = TRUE),
+            sdFlowByArea_ByRiver = sd(flowByArea_ByRiver, na.rm = TRUE))
 
 summaryStatsLong <- 
   summaryStats |> 
-  pivot_longer(cols = c(meanFlowByArea, meanFlowByRiver), names_to = "flowType") |> 
+  pivot_longer(cols = c(meanFlowByArea, meanFlowByRiver, meanFlowByArea_ByRiver), names_to = "flowType") |> 
   addGG_noSpecies()
 
 ggplot(summaryStatsLong, aes(seasonGG, value, color = flowType)) +
+  geom_point(size = 4) +
+  geom_line(aes(season,value, color = flowType), size = 1.2) + # using seasonGG in ggplot aes throws an error because it is an ordered factor
+  scale_x_discrete("Season") +
+  scale_y_continuous("Mean stream flow (m3/s)") +
+ # scale_color_manual(values = colorsTalk) +
+  theme_publication(18) +
+  #guides(color = FALSE) +
+  facet_wrap(~riverGG, scales = "free")
+
+#talk
+ggplot(summaryStatsLong |> filter(flowType %in% c('meanFlowByArea', 'meanFlowByRiver')), aes(seasonGG, value, color = flowType)) +
   geom_point(size = 4) +
   geom_line(aes(season,value, color = flowType), size = 1.2) + # using seasonGG in ggplot aes throws an error because it is an ordered factor
   scale_x_discrete("Season") +
@@ -305,11 +323,13 @@ ggplot(fdcStatsY |> filter(river == "wb obear"), aes(stat, perc, color = year, g
 ```{r}
 #| label: fdcSWB
 
-ggplot(fdcStatsS |> filter(river == "west brook", !is.na(season), variable != "flowByArea_ByRiver"), aes(stat, perc+.1, color = factor(season))) +
-  geom_line(sized = 1.5) +
+ggplot(fdcStatsS |> filter(river == "west brook", !is.na(season), variable != "flowByArea_ByRiver"), aes(stat, perc+0.1, color = factor(season))) +
+  geom_line(size = 1) +
   geom_point(size = 3) +
+  geom_vline(xintercept = c(0.11, 0.89), color = "black") +
   labs(x = "Flow percentile", y = "Flow (+0.1)") +
   scale_y_log10() +
+  scale_color_manual(values =colorBlindGrey8) +
   theme_publication(18) +
   theme(strip.background = element_blank(), strip.text.x = element_blank()) +
   facet_wrap(~variable, ncol = 2, labeller = global_labellerRiverSeasonInt_WB)

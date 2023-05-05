@@ -817,7 +817,7 @@ lmSBKTPredictions <- predictBKTlmS(dGAM, lmS2ByArea, lmS2ByRiver) |>
 ```
 #### For talk    
 
-West brook
+#### West brook
 ```{r}
 #| label: graphGAMPredictionsByRiverSmallFishTalkTWB
 
@@ -831,7 +831,7 @@ ggplot(
       riverGG == "West Brook"
     ), 
   aes(flow, pred, color = (byRiver), group = (byRiver))) +
-  geom_line(size = 1.5) +
+  geom_line(linewidth = 1.5) +
   geom_point(size = 5) +
   labs(x = "Standardized stream flow", y = "Predicted growth rate") +
   #ylim(-0.02, 0.06) +
@@ -850,11 +850,11 @@ ggplot(
       loFlowThresh == 0,
       hiFlowThresh == 0,
       #flow %in% c(-1.5,0,1.5),
-      temp %in% 1,#c(-1.5,0,1.5)
+      temp %in% 1.5,#c(-1.5,0,1.5)
       riverGG == "West Brook"
     ), 
   aes(flow, pred, color = (byRiver), group = (byRiver))) +
-  geom_line(size = 1.5) +
+  geom_line(linewidth = 1.5) +
   geom_point(size = 5) +
   labs(x = "Standardized stream flow", y = "Predicted growth rate") +
   #ylim(-0.02, 0.06) +
@@ -867,8 +867,9 @@ ggplot(
 
 ```
 
+WB alpha
 ```{r}
-#| label: alphaonThresh
+#| label: alphaonThreshWB
 ggplot(
   lmSBKTPredictions |> 
     filter(
@@ -917,10 +918,7 @@ ggplot(
 
 ```
 
-
-
-
-Open Large
+#### Open Large
 ```{r}
 #| label: graphGAMPredictionsByRiverSmallFishTalkTOL
 
@@ -975,9 +973,187 @@ ggplot(
 
 ```
 
+OL alpha
+```{r}
+#| label: alphaonThreshOL
+ggplot(
+  lmSBKTPredictions |> 
+    filter(
+      observedWeight == 10,
+      #loFlowThresh == 0,
+      hiFlowThresh == 0,
+      temp == 0,#c(-1.5,0,1.5)
+      riverGG == "Open Large"
+    ), 
+  aes(flow, pred, color = (byRiver), group = (byLoFlowThresh), alpha = loFlowThresh)) +
+  scale_alpha(range = c(1, 0.1)) +
+  geom_line(size = 1.5) +
+  geom_point(size = 5) +
+  labs(x = "Standardized stream flow", y = "Predicted growth rate") +
+  #ylim(-0.02, 0.06) +
+  #geom_smooth(se = FALSE) +
+  geom_hline(yintercept = 0) +
+  theme_publication(24) +
+  ggtitle("Open Large") +
+  scale_color_manual(values = colorsTalk) +
+  facet_wrap(~seasonGG)#, scales = 'free')
 
 
+ggplot(
+  lmSBKTPredictions |> 
+    filter(
+      observedWeight == 10,
+      loFlowThresh == 0,
+      #hiFlowThresh == 0,
+      temp == 0,#c(-1.5,0,1.5)
+      riverGG == "Open Large"
+    ), 
+  aes(flow, pred, color = (byRiver), group = (byHiFlowThresh), alpha = hiFlowThresh)) +
+  scale_alpha(range = c(1, 0.1)) +
+  geom_line(size = 1.5) +
+  geom_point(size = 5) +
+  labs(x = "Standardized stream flow", y = "Predicted growth rate") +
+  #ylim(-0.02, 0.06) +
+  #geom_smooth(se = FALSE) +
+  geom_hline(yintercept = 0) +
+  theme_publication(24) +
+  ggtitle("Open Large") +
+  scale_color_manual(values = colorsTalk) +
+  facet_wrap(~seasonGG)#, scales = 'free')
 
+
+```
+
+#### Open Small
+```{r}
+#| label: graphGAMPredictionsByRiverSmallFishTalkTOL
+
+ggplot(
+  lmSBKTPredictions |> 
+    filter(
+      observedWeight %in% c(10),
+      loFlowThresh == 0,
+      hiFlowThresh == 0,
+      #cohortF == 2012, 
+      #flow %in% c(-1.5,0,1.5),
+      #meanFlow == 0.4,
+      #meanTemperature == 10,
+      temp %in% 0,#c(-1.5,0,1.5)
+      riverGG == "Open Small"
+    ), 
+  aes(flow, pred, color = (byRiver), group = (byRiver))) +
+  geom_line(size = 1.5) +
+  geom_point(size = 5) +
+  labs(x = "Standardized stream flow", y = "Predicted growth rate") +
+  #ylim(-0.02, 0.06) +
+  #geom_smooth(se = FALSE) +
+  geom_hline(yintercept = 0) +
+  theme_publication(24) +
+  ggtitle("Open Small") +
+  scale_color_manual(values = colorsTalk) +
+  facet_wrap(~seasonGG)#, scales = 'free')
+```
+
+#### Isolated Small
+```{r}
+#| label: graphGAMPredictionsByRiverSmallFishTalkTOL
+
+ggplot(
+  lmSBKTPredictions |> 
+    filter(
+      observedWeight %in% c(10),
+      loFlowThresh == 0,
+      hiFlowThresh == 0,
+      #cohortF == 2012, 
+      #flow %in% c(-1.5,0,1.5),
+      #meanFlow == 0.4,
+      #meanTemperature == 10,
+      temp %in% 0,#c(-1.5,0,1.5)
+      riverGG == "Isolated Small"
+    ), 
+  aes(flow, pred, color = (byRiver), group = (byRiver))) +
+  geom_line(size = 1.5) +
+  geom_point(size = 5) +
+  labs(x = "Standardized stream flow", y = "Predicted growth rate") +
+  #ylim(-0.02, 0.06) +
+  #geom_smooth(se = FALSE) +
+  geom_hline(yintercept = 0) +
+  theme_publication(24) +
+  ggtitle("Isolated Small") +
+  scale_color_manual(values = colorsTalk) +
+  facet_wrap(~seasonGG)#, scales = 'free')
+
+ggplot(
+  lmSBKTPredictions |> 
+    filter(
+      observedWeight == 10,
+      #loFlowThresh == 0,
+      hiFlowThresh == 0,
+      temp == 0,#c(-1.5,0,1.5)
+      riverGG == "Isolated Small"
+    ), 
+  aes(flow, pred, color = (byRiver), group = (byLoFlowThresh), alpha = loFlowThresh)) +
+  scale_alpha(range = c(1, 0.1)) +
+  geom_line(size = 1.5) +
+  geom_point(size = 5) +
+  labs(x = "Standardized stream flow", y = "Predicted growth rate") +
+  #ylim(-0.02, 0.06) +
+  #geom_smooth(se = FALSE) +
+  geom_hline(yintercept = 0) +
+  theme_publication(24) +
+  ggtitle("Isolated Small") +
+  scale_color_manual(values = colorsTalk) +
+  facet_wrap(~seasonGG)#, scales = 'free')
+```
+
+IS alpha
+```{r}
+#| label: alphaonThreshIS
+ggplot(
+  lmSBKTPredictions |> 
+    filter(
+      observedWeight == 10,
+      #loFlowThresh == 0,
+      hiFlowThresh == 0,
+      temp == 0,#c(-1.5,0,1.5)
+      riverGG == "Isolated Small"
+    ), 
+  aes(flow, pred, color = (byRiver), group = (byLoFlowThresh), alpha = loFlowThresh)) +
+  scale_alpha(range = c(1, 0.1)) +
+  geom_line(size = 1.5) +
+  geom_point(size = 5) +
+  labs(x = "Standardized stream flow", y = "Predicted growth rate") +
+  #ylim(-0.02, 0.06) +
+  #geom_smooth(se = FALSE) +
+  geom_hline(yintercept = 0) +
+  theme_publication(24) +
+  ggtitle("Isolated Small") +
+  scale_color_manual(values = colorsTalk) +
+  facet_wrap(~seasonGG)#, scales = 'free')
+
+
+ggplot(
+  lmSBKTPredictions |> 
+    filter(
+      observedWeight == 10,
+      loFlowThresh == 0,
+      #hiFlowThresh == 0,
+      temp == 0,#c(-1.5,0,1.5)
+      riverGG == "Open Large"
+    ), 
+  aes(flow, pred, color = (byRiver), group = (byHiFlowThresh), alpha = hiFlowThresh)) +
+  scale_alpha(range = c(1, 0.1)) +
+  geom_line(size = 1.5) +
+  geom_point(size = 5) +
+  labs(x = "Standardized stream flow", y = "Predicted growth rate") +
+  #ylim(-0.02, 0.06) +
+  #geom_smooth(se = FALSE) +
+  geom_hline(yintercept = 0) +
+  theme_publication(24) +
+  ggtitle("Isolated Small") +
+  scale_color_manual(values = colorsTalk) +
+  facet_wrap(~seasonGG)#, scales = 'free')
+```
 
 ### Flow std by season/river (not used)
 
