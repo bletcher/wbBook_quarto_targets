@@ -1,28 +1,27 @@
 # Visualize targets
 
-Run code in buildBook.R to update targets and run quarto_render()
-
 ```{r}
 #| label: getVizTargetsOptions
 #| include: false
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ```
 
-
-Data processing and model running is controlled by [targets](https://books.ropensci.org/targets/). Targets are only re-run if the upstream data source changes
-
+Data processing and model running is controlled by [targets](https://books.ropensci.org/targets/). Targets are only re-run if the upstream data source changes. The chart below shows the dependencies among all the targets.
 ```{r}
 #| label: librariesvizTargets
 #| echo: false
 library(targets)
 library(tarchetypes)
 library(visNetwork)
+library(dplyr)
+library(ggplot2)
+
+#source('./R/generalFunctions.R') #to get global_labeller_WB
 ```
 
 Visualize the targets network
-
 ```{r}
-#| message: false
-#| warning: false
-tar_visnetwork()
+#| label: vizTargets
+
+#tar_visnetwork()
 ```

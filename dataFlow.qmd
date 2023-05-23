@@ -37,7 +37,7 @@ library(tidyverse)
 `%notin%` <- Negate(`%in%`)
 
 source('./R/generalFunctions.R') #to get global_labeller_WB
-colorsTalk <- c("#d46313", "#303140")
+colorsTalk <- c("#d46313", "#303140", "#009E73")
 
 colorBlindGrey8   <- c("#999999", "#E69F00", "#56B4E9", "#009E73", 
                        "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
@@ -83,6 +83,7 @@ kIn = 4
 speciesIn <- "Brook trout"
 
 envData <- tar_read(envDataWB_target)
+# write.csv(envData, './data/outForXiaowei/envData.csv')
 ```
 
 Read in flow duration curve data
@@ -110,8 +111,8 @@ Raw data by day.
 Four types of flow data:\
 \
 Primary flow data types  
-- *flowByArea_flowExt* (green), flow from the flow extension model scaled by watershed area as a proportion of WB area.\
-- *FlowByRiver* (blue), flows for each river hindcast from Jenn's model based on tributary-specific flow estimates.\
+- *FlowByArea_flowExt* (orange), flow from the flow extension model scaled by watershed area as a proportion of WB area.\
+- *FlowByRiver* (black), flows for each river hindcast from Jenn's model based on tributary-specific flow estimates.\
 \
 Additional flow data types  
 - *Flow* (red), flow extension model for the West Brook from the Mill River.\
@@ -121,14 +122,14 @@ Additional flow data types
 
 ```{r}
 #| label: flow_envFlowFreq
-#| fig-cap: "Stream flow distributions, type (red = flow, blue = flowByRiver, green = flowByArea_flowExt, orange = FlowByArea_ByRiver)"
+#| fig-cap: "Stream flow distributions, type (red = flow, black = flowByRiver, orange = flowByArea_flowExt, green = FlowByArea_ByRiver)"
 
 ggplot(envData |> filter(!is.na(season)), aes(flow)) +
   #geom_density(color = viridis(10)[1], adjust = 2.5) +
-  geom_density(color = "red3", adjust = 2.5, size = 2) +
-  geom_density(aes(flowByRiver), color = "blue3", adjust = 2.5) +
-  geom_density(aes(flowByArea_flowExt), color = "green4", adjust = 2.5) +
-  geom_density(aes(flowByArea_ByRiver), color = "orange2", adjust = 2.5) +
+  geom_density(color = "red3", adjust = 2.5, linewidth = 2) +
+  geom_density(aes(flowByRiver), color = colorsTalk[2], adjust = 2.5) +
+  geom_density(aes(flowByArea_flowExt), color = colorsTalk[1], adjust = 2.5) +
+  geom_density(aes(flowByArea_ByRiver), color = colorsTalk[3], adjust = 2.5) +
   labs(x = "Flow (m3/s)") +
   scale_x_log10() +
   facet_grid(river~season, scales = 'free', labeller = global_labellerRiverSeasonInt_WB)
@@ -136,6 +137,96 @@ ggplot(envData |> filter(!is.na(season)), aes(flow)) +
 
 ### Time series
 
+#### For talk
+```{r}
+#| label: flowRawTalkbounds
+lo = 2008
+hi = 2010
+```
+
+::: panel-tabset
+#### West Brook
+```{r}
+#| label: flowRawTalkWB
+
+ggplot(envData |> filter(river == "west brook", year > lo, year <= hi)) +
+  #geom_point(color = "red3") +
+  geom_point(aes(yday, flowByRiver+0.1), color = colorsTalk[2], size = 0.1) +
+  geom_line(aes(yday, flowByRiver+0.1), color = colorsTalk[2]) +
+  
+  geom_point(aes(yday, flowByArea_flowExt+0.1), color = colorsTalk[1], size = 0.5) +
+  geom_line(aes(yday, flowByArea_flowExt+0.1), color = colorsTalk[1]) +
+  
+  geom_point(aes(yday, flowByArea_ByRiver+0.1), color = colorsTalk[3], size = 0.5) +
+  geom_line(aes(yday, flowByArea_ByRiver+0.1), color = colorsTalk[3]) +
+  scale_y_log10() +
+  theme_publication() +
+  labs(x = "Day of year", y = "Stream flow (m3/s)") +
+  facet_wrap(~year)
+```
+
+#### Open Large
+```{r}
+#| label: flowRawTalkOL
+
+ggplot(envData |> filter(river == "wb jimmy", year > lo, year <= hi)) +
+  #geom_point(color = "red3") +
+  geom_point(aes(yday, flowByRiver+0.1), color = colorsTalk[2], size = 0.1) +
+  geom_line(aes(yday, flowByRiver+0.1), color = colorsTalk[2]) +
+  
+  geom_point(aes(yday, flowByArea_flowExt+0.1), color = colorsTalk[1], size = 0.5) +
+  geom_line(aes(yday, flowByArea_flowExt+0.1), color = colorsTalk[1]) +
+  
+  geom_point(aes(yday, flowByArea_ByRiver+0.1), color = colorsTalk[3], size = 0.5) +
+  geom_line(aes(yday, flowByArea_ByRiver+0.1), color = colorsTalk[3]) +
+  scale_y_log10() +
+  theme_publication() +
+  labs(x = "Day of year", y = "Stream flow (m3/s)") +
+  facet_wrap(~year)
+```
+
+#### Open Small
+```{r}
+#| label: flowRawTalkOS
+
+ggplot(envData |> filter(river == "wb mitchell", year > lo, year <= hi)) +
+  #geom_point(color = "red3") +
+  geom_point(aes(yday, flowByRiver+0.1), color = colorsTalk[2], size = 0.1) +
+  geom_line(aes(yday, flowByRiver+0.1), color = colorsTalk[2]) +
+  
+  geom_point(aes(yday, flowByArea_flowExt+0.1), color = colorsTalk[1], size = 0.5) +
+  geom_line(aes(yday, flowByArea_flowExt+0.1), color = colorsTalk[1]) +
+  
+  geom_point(aes(yday, flowByArea_ByRiver+0.1), color = colorsTalk[3], size = 0.5) +
+  geom_line(aes(yday, flowByArea_ByRiver+0.1), color = colorsTalk[3]) +
+  scale_y_log10() +
+  theme_publication() +
+  labs(x = "Day of year", y = "Stream flow (m3/s)") +
+  facet_wrap(~year)
+```
+
+#### Isolated Small
+```{r}
+#| label: flowRawTalkIS
+
+ggplot(envData |> filter(river == "wb obear", year > lo, year <= hi)) +
+  #geom_point(color = "red3") +
+  geom_point(aes(yday, flowByRiver+0.1), color = colorsTalk[2], size = 0.1) +
+  geom_line(aes(yday, flowByRiver+0.1), color = colorsTalk[2]) +
+  
+  geom_point(aes(yday, flowByArea_flowExt+0.1), color = colorsTalk[1], size = 0.5) +
+  geom_line(aes(yday, flowByArea_flowExt+0.1), color = colorsTalk[1]) +
+  
+  geom_point(aes(yday, flowByArea_ByRiver+0.1), color = colorsTalk[3], size = 0.5) +
+  geom_line(aes(yday, flowByArea_ByRiver+0.1), color = colorsTalk[3]) +
+  scale_y_log10() +
+  theme_publication() +
+  labs(x = "Day of year", y = "Stream flow (m3/s)") +
+  facet_wrap(~year)
+```
+:::
+
+#### All years
 ::: panel-tabset
 #### West Brook
 ```{r}

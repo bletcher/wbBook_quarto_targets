@@ -1026,7 +1026,7 @@ ggplot(
 
 #### Open Small
 ```{r}
-#| label: graphGAMPredictionsByRiverSmallFishTalkTOL
+#| label: graphGAMPredictionsByRiverSmallFishTalkTOS
 
 ggplot(
   lmSBKTPredictions |> 
@@ -1056,7 +1056,7 @@ ggplot(
 
 #### Isolated Small
 ```{r}
-#| label: graphGAMPredictionsByRiverSmallFishTalkTOL
+#| label: graphGAMPredictionsByRiverSmallFishTalkTIS
 
 ggplot(
   lmSBKTPredictions |> 
