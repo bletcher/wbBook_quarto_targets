@@ -148,6 +148,7 @@ hi = 2010
 #### West Brook
 ```{r}
 #| label: flowRawTalkWB
+#| fig-cap: "Stream flow distributions, type (black = flowByRiver, orange = flowByArea_flowExt, green = FlowByArea_ByRiver)"
 
 ggplot(envData |> filter(river == "west brook", year > lo, year <= hi)) +
   #geom_point(color = "red3") +
@@ -168,6 +169,7 @@ ggplot(envData |> filter(river == "west brook", year > lo, year <= hi)) +
 #### Open Large
 ```{r}
 #| label: flowRawTalkOL
+#| fig-cap: "Stream flow distributions, type (black = flowByRiver, orange = flowByArea_flowExt, green = FlowByArea_ByRiver)"
 
 ggplot(envData |> filter(river == "wb jimmy", year > lo, year <= hi)) +
   #geom_point(color = "red3") +
@@ -188,6 +190,7 @@ ggplot(envData |> filter(river == "wb jimmy", year > lo, year <= hi)) +
 #### Open Small
 ```{r}
 #| label: flowRawTalkOS
+#| fig-cap: "Stream flow distributions, type (black = flowByRiver, orange = flowByArea_flowExt, green = FlowByArea_ByRiver)"
 
 ggplot(envData |> filter(river == "wb mitchell", year > lo, year <= hi)) +
   #geom_point(color = "red3") +
@@ -208,6 +211,7 @@ ggplot(envData |> filter(river == "wb mitchell", year > lo, year <= hi)) +
 #### Isolated Small
 ```{r}
 #| label: flowRawTalkIS
+#| fig-cap: "Stream flow distributions, type (black = flowByRiver, orange = flowByArea_flowExt, green = FlowByArea_ByRiver)"
 
 ggplot(envData |> filter(river == "wb obear", year > lo, year <= hi)) +
   #geom_point(color = "red3") +
@@ -231,13 +235,13 @@ ggplot(envData |> filter(river == "wb obear", year > lo, year <= hi)) +
 #### West Brook
 ```{r}
 #| label: flowRawWB
-#| fig-cap: "West Brook stream flow distributions, type (red = flow, blue = flowByRiver, green = flowByArea_flowExt, orange = FlowByArea_ByRiver)"
+#| fig-cap: "Stream flow distributions, type (black = flowByRiver, orange = flowByArea_flowExt, green = FlowByArea_ByRiver)"
 
 ggplot(envData |> filter(river == "west brook", year > 1999), aes(yday, flow)) +
   #geom_point(color = "red3") +
-  geom_point(aes(yday, flowByRiver), color = "blue3", size = 0.1) +
-  geom_point(aes(yday, flowByArea_flowExt), color = "green4", size = 0.5) +
-  geom_point(aes(yday, flowByArea_ByRiver), color = "orange2", size = 0.5) +
+  geom_line(aes(yday, flowByRiver), color = colorsTalk[2]) +
+  geom_line(aes(yday, flowByArea_flowExt), color = colorsTalk[1]) +
+  geom_line(aes(yday, flowByArea_ByRiver), color = colorsTalk[3]) +
   scale_y_log10() +
   facet_wrap(~year)
 
@@ -246,13 +250,13 @@ ggplot(envData |> filter(river == "west brook", year > 1999), aes(yday, flow)) +
 #### Open Large
 ```{r}
 #| label: flowRawOL
-#| fig-cap: "Open Large stream flow distributions, type (red = flow, blue = flowByRiver, green = flowByArea_flowExt, orange = FlowByArea_ByRiver)"
+#| fig-cap: "Stream flow distributions, type (black = flowByRiver, orange = flowByArea_flowExt, green = FlowByArea_ByRiver)"
 
 ggplot(envData |> filter(river == "wb jimmy", year > 1999), aes(yday, flow)) +
-  #geom_point(color = "red3") +
-  geom_point(aes(yday, flowByRiver), color = "blue3", size = 0.1) +
-  geom_point(aes(yday, flowByArea_flowExt), color = "green4", size = 0.5) +
-  geom_point(aes(yday, flowByArea_ByRiver), color = "orange2", size = 0.5) +
+  #geom_line(color = "red3") +
+  geom_line(aes(yday, flowByRiver), color = colorsTalk[2]) +
+  geom_line(aes(yday, flowByArea_flowExt), color = colorsTalk[1]) +
+  geom_line(aes(yday, flowByArea_ByRiver), color = colorsTalk[3]) +
   scale_y_log10() +
   facet_wrap(~year)
 
@@ -261,13 +265,13 @@ ggplot(envData |> filter(river == "wb jimmy", year > 1999), aes(yday, flow)) +
 #### Open Small
 ```{r}
 #| label: flowRawOS
-#| fig-cap: "Open Small stream flow distributions, type (red = flow, blue = flowByRiver, green = flowByArea_flowExt, orange = FlowByArea_ByRiver)"
+#| fig-cap: "Stream flow distributions, type (black = flowByRiver, orange = flowByArea_flowExt, green = FlowByArea_ByRiver)"
 
 ggplot(envData |> filter(river == "wb mitchell", year > 1999), aes(date, flow)) +
   #geom_line(color = "red3") +
-  geom_point(aes(yday, flowByRiver), color = "blue3", size = 0.1) +
-  geom_point(aes(yday, flowByArea_flowExt), color = "green4", size = 0.5) +
-  geom_point(aes(yday, flowByArea_ByRiver), color = "orange2", size = 0.5) +
+  geom_line(aes(yday, flowByRiver), color = colorsTalk[2]) +
+  geom_line(aes(yday, flowByArea_flowExt), color = colorsTalk[1]) +
+  geom_line(aes(yday, flowByArea_ByRiver), color = colorsTalk[3]) +
   scale_y_log10() +
   facet_wrap(~year)
 
@@ -276,13 +280,13 @@ ggplot(envData |> filter(river == "wb mitchell", year > 1999), aes(date, flow)) 
 #### Isolated Small
 ```{r}
 #| label: flowRawIS
-#| fig-cap: "Isolated Small stream flow distributions, type (red = flow, blue = flowByRiver, green = flowByArea_flowExt, orange = FlowByArea_ByRiver)"
+#| fig-cap: "Stream flow distributions, type (black = flowByRiver, orange = flowByArea_flowExt, green = FlowByArea_ByRiver)"
 
 ggplot(envData |> filter(river == "wb obear", year > 1999), aes(date, flow)) +
   #geom_line(color = "red3") +
-  geom_point(aes(yday, flowByRiver), color = "blue3", size = 0.1) +
-  geom_point(aes(yday, flowByArea_flowExt), color = "green4", size = 0.5) +
-  geom_point(aes(yday, flowByArea_ByRiver), color = "orange2", size = 0.1) +
+  geom_line(aes(yday, flowByRiver), color = colorsTalk[2]) +
+  geom_line(aes(yday, flowByArea_flowExt), color = colorsTalk[1]) +
+  geom_line(aes(yday, flowByArea_ByRiver), color = colorsTalk[3]) +
   scale_y_log10() +
   facet_wrap(~year)
 
@@ -313,6 +317,7 @@ ggplot(summaryStatsLong, aes(seasonGG, value, color = flowType)) +
   geom_line(aes(season,value, color = flowType), size = 1.2) + # using seasonGG in ggplot aes throws an error because it is an ordered factor
   scale_x_discrete("Season") +
   scale_y_continuous("Mean stream flow (m3/s)") +
+  scale_color_manual(values = colorsTalk) +
  # scale_color_manual(values = colorsTalk) +
   theme_publication(18) +
   #guides(color = FALSE) +
@@ -345,9 +350,11 @@ Peak flow analysis for spring
 
 ggplot(fdcStats, aes(stat, perc, color = variable)) +
   geom_line() +
-  geom_point(size = 1) +
+  geom_point(size = 2) +
   labs(x = "Flow percentile", y = "Flow") +
   scale_y_log10() +
+  scale_color_manual(values = colorsTalk) +
+  theme_publication() +
   facet_wrap(~river, scales = "free", labeller = global_labellerRiverSeasonInt_WB)
 ```
 
@@ -408,22 +415,34 @@ ggplot(fdcStatsY |> filter(river == "wb obear"), aes(stat, perc, color = year, g
 :::
   
 #### Grouped by season
-  
+ 
+
 ::: panel-tabset
 #### West Brook
 ```{r}
 #| label: fdcSWB
 
-ggplot(fdcStatsS |> filter(river == "west brook", !is.na(season), variable != "flowByArea_ByRiver"), aes(stat, perc+0.1, color = factor(season))) +
+ggplot(fdcStatsS |> filter(river == "west brook", !is.na(season)), aes(stat, perc+0.1, color = factor(season))) +
   geom_line(size = 1) +
   geom_point(size = 3) +
   geom_vline(xintercept = c(0.11, 0.89), color = "black") +
   labs(x = "Flow percentile", y = "Flow (+0.1)") +
   scale_y_log10() +
-  scale_color_manual(values =colorBlindGrey8) +
+  scale_color_manual(values = colorBlindGrey8) +
   theme_publication(18) +
-  theme(strip.background = element_blank(), strip.text.x = element_blank()) +
+  theme(strip.background = element_blank()) +
   facet_wrap(~variable, ncol = 2, labeller = global_labellerRiverSeasonInt_WB)
+
+ggplot(fdcStatsS |> filter(river == "wb mitchell", !is.na(season)), aes(stat, perc+0.1, color = (variable))) +
+  geom_line(size = 1) +
+  geom_point(size = 3) +
+  geom_vline(xintercept = c(0.11, 0.89), color = "black") +
+  labs(x = "Flow percentile", y = "Flow (+0.1)") +
+  scale_y_log10() +
+  scale_color_manual(values = colorsTalk) +
+  theme_publication(18) +
+  theme(strip.background = element_blank()) +
+  facet_wrap(~season, ncol = 2, labeller = global_labellerRiverSeasonInt_WB)
 ```
 
 #### Open Large
