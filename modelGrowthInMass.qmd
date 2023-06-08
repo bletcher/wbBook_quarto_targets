@@ -50,6 +50,8 @@ library(Ckmeans.1d.dp)
 
 library(tidyverse)
 
+source('./R/generalFunctions.R')
+
 `%notin%` <- Negate(`%in%`)
 ```
 
@@ -190,12 +192,16 @@ ggplot(cd1, aes(grWeight, color = speciesGG)) +
   geom_freqpoly(bins = 50) +
   labs(x = "Growth in mass (/d)", y = "Frequency") +
   scale_color_discrete() +
+  geom_vline(xintercept = 0) +
+  theme_publication() +
   facet_wrap(~seasonGG)
 
 ggplot(cd1, aes(grLength, color = speciesGG)) +
   geom_freqpoly(bins = 50) +
   labs(x = "Growth in Length (mm/d)", y = "Frequency") +
   scale_color_discrete() +
+  geom_vline(xintercept = 0) +
+  theme_publication() +
   facet_wrap(~seasonGG)
 ```
 
@@ -213,6 +219,7 @@ plotLenW <- function(d, s){
     #ggtitle(s) +
     labs(x = "Length (mm)", y = "Mass (mg)") +
     scale_color_discrete() +
+    theme_publication() +
     facet_grid(riverGG~year, scales = 'free')
 }
 ```
@@ -253,6 +260,7 @@ plotWW <- function(d, spp){
     guides(color = guide_legend(override.aes = list(alpha = 1))) +
     labs(x = "Mass (mg)", y = "Mass (mg) at next sample") +
     scale_color_discrete() +
+    theme_publication() +
     facet_wrap(~riverGG, scales = 'free')
 }
 ```
@@ -304,7 +312,8 @@ plotPairs <- function(d0, sppIn, cohortIn, firstSamp = 1, lastSamp = 9, upperBla
       geom_abline(intercept = 0, slope = 1) +
       geom_smooth(aes(color = factor(cohort)), method = method, se = FALSE, ...) +
       geom_point(aes(color = factor(cohort))) +
-      geom_smooth(color = 'black', size = 1.1, method = method, se = FALSE, ...) 
+      geom_smooth(color = 'black', size = 1.1, method = method, se = FALSE, ...) +
+      theme_publication() 
   }
 
   if(upperBlank) {
@@ -498,6 +507,7 @@ ggplot(cd1Wide_grWeight |> filter(speciesGG == "Brook trout", cohort %in% 2000:2
   #geom_abline(intercept = 0, slope = 1) +
   geom_smooth(method = "lm", se = FALSE, color = '#45454d') +
   guides(colour = FALSE) +
+  theme_publication() +
   facet_wrap(~cohort)
 
 ggplot(cd1Wide_grWeight |> filter(speciesGG == "Brook trout", cohort %in% 2000:2014), aes(`0_4`, `1_1`, color = factor(cohort))) +
@@ -507,6 +517,7 @@ ggplot(cd1Wide_grWeight |> filter(speciesGG == "Brook trout", cohort %in% 2000:2
   #geom_abline(intercept = 0, slope = 1) +
   geom_smooth(method = "lm", se = FALSE, color = '#45454d') +
   guides(colour = FALSE) +
+  theme_publication() +  
   facet_wrap(~cohort)
 
 ggplot(cd1Wide_grWeight |> filter(speciesGG == "Brook trout", cohort %in% 2000:2014), aes(`1_1`, `1_2`, color = factor(cohort))) +
@@ -516,6 +527,7 @@ ggplot(cd1Wide_grWeight |> filter(speciesGG == "Brook trout", cohort %in% 2000:2
   #geom_abline(intercept = 0, slope = 1) +
   geom_smooth(method = "lm", se = FALSE) +
   guides(colour = FALSE) +
+  theme_publication() +  
   facet_wrap(~cohort)
 
 ggplot(cd1Wide_grWeight |> filter(speciesGG == "Brook trout", cohort %in% 2000:2014), aes(`1_2`, `1_3`, color = factor(cohort))) +
@@ -525,6 +537,7 @@ ggplot(cd1Wide_grWeight |> filter(speciesGG == "Brook trout", cohort %in% 2000:2
   #geom_abline(intercept = 0, slope = 1) +
   geom_smooth(method = "lm", se = FALSE, color = '#45454d') +
   guides(colour = FALSE) +
+  theme_publication() +  
   facet_wrap(~cohort)
  
 ggplot(cd1Wide_grWeight |> filter(speciesGG == "Brook trout", cohort %in% 2000:2012), aes(`1_1`, `2_1`, color = factor(cohort))) +
@@ -534,6 +547,7 @@ ggplot(cd1Wide_grWeight |> filter(speciesGG == "Brook trout", cohort %in% 2000:2
   geom_abline(intercept = 0, slope = 1) +
   geom_smooth(method = "lm", se = FALSE, color = '#45454d') +
   guides(colour = FALSE) +
+  theme_publication() +  
   facet_wrap(~cohort)
  
 ```
@@ -547,6 +561,7 @@ ggplot(cd1, aes(grLength, grWeight)) +
   guides(size = guide_legend(override.aes = list(alpha = 1))) +
   labs(x = "Growth in length", y = "Growth in mass") +
   scale_color_discrete() +
+  theme_publication() +  
   facet_grid(seasonGG~speciesGG)
 
 plotGrLenMass <- function(d, s){
@@ -556,6 +571,7 @@ plotGrLenMass <- function(d, s){
     guides(size = guide_legend(override.aes = list(alpha = 1))) +
     labs(x = "Growth in length", y = "Growth in mass") +
     scale_color_discrete() +
+    theme_publication(legendPosition = "right", legendDirection = "vertical") +
     facet_wrap(~seasonGG, scales = 'free')  
 }
 #  facet_wrap(~year)
@@ -597,11 +613,13 @@ ggplot(meanNegSRsN |> filter(speciesGG == "Brook trout"), aes(year, meanNegPos, 
   geom_point() +
   geom_line() +
   geom_hline(yintercept = 0) +
+  theme_publication() +
   facet_grid(seasonGG~riverGG)
 
 ggplot(meanNegSRsNWide, aes(`FALSE`, `TRUE`)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
+  theme_publication() +  
   facet_grid(seasonGG~riverGG)
 ```
 
@@ -621,6 +639,7 @@ ggplot(d |> filter(river == r), aes(meanFlowByRiver, grWeight, color = speciesGG
   labs(x = "Mean flow", y = "Growth in mass") +
   scale_color_discrete() +
   #ggtitle(r) +
+  theme_publication() +  
   facet_grid(seasonGG~speciesGG)#, scales = 'free')
 }
 
@@ -676,6 +695,7 @@ plotTempGR <- function(d, s){
     labs(x = "Mean temperature (c)", y = "Growth in mass") +
     scale_color_discrete() +
    # ggtitle(s) +
+    theme_publication() +  
     facet_grid(speciesGG~riverGG)#, scales = 'free')
 }
 
@@ -723,6 +743,7 @@ plotTempGR(cd1, "Winter")
 #| label: neg_pos
 ggplot(cd1 |> filter(!is.na(negGrowth)), aes(negGrowth)) +
   geom_bar() +
+  theme_publication() +  
   facet_grid(seasonGG~speciesGG+riverGG, scales = "free")
 ```
 
@@ -736,6 +757,7 @@ ggplot(propNegSRS |> filter(n > 50), aes(seasonGG, propNeg, color = riverGG, gro
   geom_line() +
   labs(x = "Season", y = "Proportion of fish with negative growth in mass") +
   scale_color_discrete() +
+  theme_publication() +  
   facet_wrap(~speciesGG)
 ```
 
@@ -751,6 +773,7 @@ plotPropNegByRiver <- function(d, spp){
     geom_line() +
     labs(x = "Year", y = "Proportion of fish with negative growth in mass") +
     scale_color_discrete() +
+    theme_publication() +  
     facet_wrap(~riverGG)
 }
 ```
@@ -793,6 +816,7 @@ ggplot(propNegSRsN |> filter(n > 10), aes(year, propNeg, color = riverGG)) +
   geom_line() +
   labs(x = "Year", y = "Proportion of fish with negative growth in mass") +
   scale_color_discrete() +
+  theme_publication() +  
   facet_grid(seasonGG~speciesGG)
 
 ```
@@ -811,6 +835,7 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG == "West Brook"), aes(mF, propNeg, 
   scale_x_log10("Mean flow") +
   scale_color_discrete() +
   ggtitle("West Brook") +
+  theme_publication() +  
   facet_grid(seasonGG~speciesGG)
 
 ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(mF, propNeg, color = riverGG)) +
@@ -820,6 +845,7 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(mF, propNeg, 
   scale_x_log10("Mean flow") +
   scale_color_discrete() +
   ggtitle("Tributaries") +
+  theme_publication() +  
   facet_grid(seasonGG~speciesGG)
 ```
 
@@ -836,6 +862,7 @@ plotNegGrowth_temp <- function(d, s){
     scale_x_continuous("Mean temperature (C)") +
     scale_color_discrete() +
     ggtitle(s) +
+    theme_publication() +  
     facet_grid(riverGG~speciesGG)
 }
 
@@ -883,6 +910,7 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG == "West Brook"), aes(nInd, propNeg
   scale_x_log10("3 species count") +
   scale_color_discrete() +
   ggtitle("West Brook") +
+  theme_publication() +  
   facet_grid(seasonGG~speciesGG)
 
 ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(nInd, propNeg, color = riverGG)) +
@@ -892,6 +920,7 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(nInd, propNeg
   scale_x_log10("3 species count") +
   scale_color_discrete() +
   ggtitle("Tributaries") +
+  theme_publication() +  
   facet_grid(seasonGG~speciesGG)
 ```
 
@@ -907,6 +936,7 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG == "West Brook"), aes(nIndBySpp, pr
   scale_x_log10("conspecific count") +
   scale_color_discrete() +
   ggtitle("West Brook") +
+  theme_publication() +
   facet_grid(seasonGG~speciesGG)
 
 ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(nIndBySpp, propNeg, color = riverGG)) +
@@ -916,6 +946,7 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(nIndBySpp, pr
   scale_x_log10("conspecific count") +
   scale_color_discrete() +
   ggtitle("Tributaries") +
+  theme_publication() +  
   facet_grid(seasonGG~speciesGG)
 ```
 
@@ -931,6 +962,7 @@ plot_mT_mF <- function(d, s, plotText){
     {if(plotText) geom_text(aes(label = year), vjust = 0, nudge_y = -0.075, check_overlap = FALSE, size = 3)} +
     labs(x = "Mean temperature (C)", y = "log10 of mean Flow") +
     scale_color_discrete() +
+    theme_publication() +  
     facet_wrap(~riverGG, scales = "free")
 }
 
@@ -1012,13 +1044,14 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG == 'West Brook') |> arrange(riverGG
 
 plotMerged <- function(d, r, minYear = 2000, maxYear = 2017){
   ggplot(d |> filter(riverGG == r, year %in% c(minYear:maxYear)), 
-         aes(temperature, log10(flowByRiverm3s), color = seasonGG, group = seasonGG)) +
+         aes(temperature, log10(flowByRiver), color = seasonGG, group = seasonGG)) +
     geom_point() +
     geom_smooth(se = FALSE) +
     #geom_line() +
     labs(x = "Temperature (C)", y = "log10 of Flow") +
     scale_color_discrete() +
     ggtitle(r) +
+    theme_publication() +  
     facet_wrap(~year, scales = 'free')
 }
 # this plots f/t for all three species - good for filling in gaps
@@ -1067,7 +1100,7 @@ plotMerged(envIn_propNeg, "Isolated Small", 2002, 2017)
 
 plotMergedBySeason <- function(d, r, minYear = 2000, maxYear = 2017) {
   ggplot(d |> filter(riverGG == r, year %in% c(minYear:maxYear), !is.na(seasonGG)), 
-         aes(temperature, log10(flowByRiverm3s), 
+         aes(temperature, log10(flowByRiver), 
              color = factor(year), group = year
              )
          ) +
@@ -1076,6 +1109,7 @@ plotMergedBySeason <- function(d, r, minYear = 2000, maxYear = 2017) {
     labs(x = "Temperature (C)", y = "log10 of Flow") +
     scale_color_discrete() +
     ggtitle(r) +
+    theme_publication(legendPosition = "right", legendDirection = "vertical") +  
     facet_wrap(~seasonGG, scales = 'free')
 }
 
@@ -1133,7 +1167,7 @@ plotMergedBySeasonByEverything <- function(d, d2, r, s, spp, minYear = 2000, max
                   !is.na(seasonGG), 
                   seasonGG == s, 
                   speciesGG == spp), 
-         aes(temperature, log10(flowByRiverm3s))
+         aes(temperature, log10(flowByRiver))
          ) +
     geom_smooth(se = FALSE, color = "darkgrey") +
     geom_point(aes(color = yday)) +
@@ -1162,6 +1196,7 @@ plotMergedBySeasonByEverything <- function(d, d2, r, s, spp, minYear = 2000, max
         ) +
     labs(x = "Temperature (c)", y = "log10 Flow") +
     ggtitle(paste(r, s, spp, sep = ", ")) +
+  theme_publication() +  
   facet_wrap(~year)
 }
 
@@ -1385,6 +1420,7 @@ plotGrowthSamplesLeft <- function(d, spp, r){
     geom_smooth(method = "lm", se = FALSE) +
     geom_vline(xintercept = 0) +
     ggtitle(paste(spp, r, sep = ", ")) +
+    theme_publication() +    
     facet_grid(seasonGG~year)
 }
 
@@ -1405,6 +1441,7 @@ plotGrowthSamplesLeftNoYear <- function(d, spp, r){
     geom_vline(xintercept = 0) +
     ggtitle(paste(spp, r, sep = ", ")) +
     labs(x = "Individual growth in mass", y = "Number of samples before last observation") +
+    theme_publication() +  
     facet_wrap(~seasonGG)
 }
 
@@ -1426,6 +1463,7 @@ plotGR_sampsBL <- function(d, spp, r) {
     geom_smooth(method = "lm", se = FALSE) +
     ggtitle(paste(spp, r, sep = ", ")) +
     labs(x = "Individual growth in mass", y = "Number of samples before last observation") +
+    theme_publication() +    
     facet_grid(speciesGG~seasonGG+riverGG, scales = "free")
 }
 
@@ -1439,6 +1477,7 @@ plotGR_sampsBL2 <- function(d, spp, r) {
     scale_color_discrete() +
     ggtitle(paste(spp, r, sep = ", ")) +
     labs(x = "Individual growth in mass", y = "Number of samples before last observation") +
+    theme_publication() +    
     facet_grid(riverGG~negGrowth+seasonGG, scales = "free")
 }
 
@@ -1451,6 +1490,7 @@ plotGR_sampsBL3 <- function(d, spp, r, ng) {
     scale_color_discrete() +
     ggtitle(paste(spp, r, ng, sep = ", ")) +
     labs(x = "Individual growth in mass", y = "Number of samples before last observation") +
+    theme_publication() +    
     facet_wrap(negGrowth~seasonGG, scales = "free")
 }
 
@@ -1483,11 +1523,11 @@ plotGR_moveDist <- function(d, spp, r) {
     scale_color_discrete() +
     ggtitle(paste(spp, r, sep = ", ")) +
     labs(x = "Individual growth in mass", y = "Movement distance") +
+    theme_publication() +    
     facet_grid(speciesGG~seasonGG, scales = "free")
 }
 
 plotGR_moveDist(cd1, c("Brook trout","Brown trout","Atlantic salmon"), c("West Brook"))
-
 
 ```
 
@@ -1501,6 +1541,7 @@ plotGR_moveDist2 <- function(d, spp, r) {
     scale_color_discrete() +
     ggtitle(paste(spp, r, sep = ", ")) +
     labs(x = "Individual growth in mass", y = "Movement distance") +
+    theme_publication() +    
     facet_grid(riverGG~seasonGG, scales = "free")
 }
 
@@ -2114,6 +2155,7 @@ ggplot(dGAM |> filter(speciesGG != "Atlantic salmon"), aes(flowByRiverS, grWeigh
   geom_smooth(method = "gam", 
               formula = y ~ s(x, bs = "cs", fx = TRUE, k = kValue), 
               se = FALSE) +
+  theme_publication() +    
   facet_grid(seasonGG~riverGG)
 
 ggplot(dGAM |> filter(speciesGG != "Atlantic salmon"), aes(flowByRiverSR, grWeight, group = speciesGG, color = speciesGG)) +
@@ -2123,6 +2165,7 @@ ggplot(dGAM |> filter(speciesGG != "Atlantic salmon"), aes(flowByRiverSR, grWeig
               formula = y ~ s(x, bs = "cs", fx = TRUE, k = kValue), 
               se = FALSE) +
   scale_color_discrete() +
+  theme_publication() +    
   facet_grid(seasonGG~riverGG, scales = "free")
 
 
@@ -2133,6 +2176,7 @@ ggplot(dGAM |> filter(speciesGG != "Atlantic salmon"), aes(tempSR, grWeight, gro
               formula = y ~ s(x, bs = "cs", fx = TRUE, k = kValue), 
               se = FALSE) +
   scale_color_discrete() +
+  theme_publication() +    
   facet_grid(seasonGG~riverGG, scales = "free")
 ```
 
@@ -2359,6 +2403,7 @@ ggplot(
   labs(x = "Stream temperature", y = "Predicted growth rate") +
   #geom_smooth(se = FALSE) +
   geom_hline(yintercept = 0) +
+  theme_publication() +    
   facet_grid(seasonGG~riverGG+byRiver, scales = 'free')
 
 ```
@@ -2405,6 +2450,7 @@ ggplot(cd1 |> filter(!is.na(negGrowth)), aes(meanFlowByRiverZ, negGrowth * 1, co
               method.args = list(family = "binomial"),
               se = FALSE) +
   labs(y = "Probability of negative growth in mass", x = "Mean flow") +
+  theme_publication() +    
   facet_grid(season~species)
 
 ggplot(cd1 |> filter(!is.na(negGrowth)), aes(meanFlowByRiverZ, negGrowth * 1, color = river)) +
@@ -2413,6 +2459,7 @@ ggplot(cd1 |> filter(!is.na(negGrowth)), aes(meanFlowByRiverZ, negGrowth * 1, co
               method.args = list(family = "binomial"),
               se = FALSE) +
   labs(y = "Probability of negative growth in mass", x = "Mean flow") +
+  theme_publication() +    
   facet_grid(season~species+river)
 ```
 
@@ -2427,6 +2474,7 @@ ggplot(cd1 |> filter(!is.na(negGrowth), meanTempZ > -4), aes(meanTempZ, negGrowt
               method.args = list(family = "binomial"),
               se = FALSE) +
   labs(y = "Probability of negative growth in mass", x = "Mean temperature") +
+  theme_publication() +    
   facet_grid(season~species)
 ```
 
@@ -2516,6 +2564,7 @@ predBKT <- predictSpp(cd1, modBKT, speciesIn)
 ggplot(predBKT$pred |> filter(meanTempZ %in% c(-1.5,0,1.5), meanFlowByRiverZ %in% c(-1.5,0,1.5)), aes(observedWeight, pred, group = groupF)) +
   geom_line(aes(color = factor(meanFlowByRiverZ))) +
   labs(y = "Probability of negative growth in mass", x = "Body mass (mg)") +
+  theme_publication() +    
   facet_grid(season~river+meanTempZ)
 
 ```
@@ -2534,6 +2583,7 @@ predBNT <- predictSpp(cd1, modBNT, speciesIn)
 ggplot(predBNT$pred |> filter(meanTempZ %in% c(-1.5,0,1.5), meanFlowByRiverZ %in% c(-1.5,0,1.5)), aes(observedWeight, pred, group = groupF)) +
   geom_line(aes(color = factor(meanFlowByRiverZ))) +
   labs(y = "Probability of negative growth in mass", x = "Body mass (mg)") +
+  theme_publication() +    
   facet_grid(season~river+meanTempZ)
 ```
 
@@ -2551,6 +2601,7 @@ predATS <- predictSpp(cd1, modATS, speciesIn)
 ggplot(predATS$pred |> filter(meanTempZ %in% c(-1.5,0,1.5), meanFlowByRiverZ %in% c(-1.5,0,1.5)), aes(observedWeight, pred, group = groupF)) +
   geom_line(aes(color = factor(meanFlowByRiverZ))) +
   labs(y = "Probability of negative growth in mass", x = "Body mass (mg)") +
+  theme_publication() +    
   facet_grid(season~river+meanTempZ)
 ```
 
@@ -2577,6 +2628,7 @@ ggplot(cd1 |> filter(grWeight > 0),
   geom_smooth(method = "lm", se = FALSE) +
   labs(y = "Log of mass (mg)", x = "Log of growth in mass") +
   scale_color_discrete() +
+  theme_publication() +    
   facet_grid(seasonGG~speciesGG)
 
 mod0 <- lm(log(grWeight) ~ log(observedWeight), data = cd1 |> filter(grWeight > 0))
@@ -2601,6 +2653,7 @@ ggplot(cd1, aes(grWeight, grWeightS, color = riverGG)) +
   geom_abline(intercept = 0, slope = 1) +
   labs(y = "Gowth in mass", x = "Size-adjusted growth in mass") +
   scale_color_discrete() +
+  theme_publication() +    
   facet_grid(seasonGG~speciesGG)
 
 ggplot(cd1 |> 
@@ -2612,6 +2665,7 @@ ggplot(cd1 |>
   geom_smooth(method = "lm", se = FALSE) +
   labs(y = "Log of mass (mg)", x = "Growth in mass") +
   scale_color_discrete() +
+  theme_publication() +    
   facet_grid(seasonGG~speciesGG)
 ```
 
@@ -2626,6 +2680,7 @@ ggplot(cd1, aes(grLength, grWeightS)) +
   guides(size = guide_legend(override.aes = list(alpha = 1))) +
   labs(x = "Growth in length", y = "Size-adjusted growth in mass") +
   scale_color_discrete() +
+  theme_publication() +    
   facet_grid(seasonGG~speciesGG)
 ```
 
@@ -2717,5 +2772,6 @@ pred <- add_column(predD,
 ggplot(pred |> filter(meanTempZ %in% c(-1.5,0,1.5), observedWeight == 161.3), aes(meanFlowByRiverZ, pred, group= groupT)) +
   geom_line(aes(color = factor(meanTempZ))) +
   labs(y = "Probability of negative growth in mass", x = "Mean flow") +
+  theme_publication() +    
   facet_grid(season~species+river)
 ```
