@@ -4,7 +4,7 @@ modelFDC_target <-
   tar_plan(
     flowVars_target = c("flowByArea_ByRiver", "flowByArea_flowExt", "flowByRiver"),
     fdcStats_target =
-      tar_read(envDataWB_target) |> 
+      envDataWB_target |> 
         filter(!is.na(flowByRiverWB_WithTribs)) |> 
         dplyr::select(river, date, all_of(flowVars_target)) |> 
         pivot_longer(cols = flowVars_target) |> 
@@ -14,7 +14,7 @@ modelFDC_target <-
           getFDC(flow)
         ),
     fdcStatsY_target =
-      tar_read(envDataWB_target) |> 
+      envDataWB_target |> 
         filter(!is.na(flowByRiverWB_WithTribs)) |> 
         dplyr::select(river, date, year, all_of(flowVars_target)) |> 
         pivot_longer(cols = flowVars_target) |> 
@@ -24,7 +24,7 @@ modelFDC_target <-
           getFDC(flow)
         ),
     fdcStatsS_target =
-      tar_read(envDataWB_target) |>
+      envDataWB_target |>
         filter(!is.na(flowByRiverWB_WithTribs)) |> 
         dplyr::select(river, date, season, all_of(flowVars_target)) |> 
         pivot_longer(cols = flowVars_target) |> 
@@ -34,7 +34,7 @@ modelFDC_target <-
           getFDC(flow)
         ),
     fdcStatsYS_target =
-      tar_read(envDataWB_target) |>
+      envDataWB_target |>
         filter(!is.na(flowByRiverWB_WithTribs), !is.na(season)) |> 
         dplyr::select(river, date, year, season, all_of(flowVars_target)) |> 
         pivot_longer(cols = flowVars_target) |> 
@@ -49,17 +49,19 @@ modelFDC_target <-
     # do this in getEnvData so we don't need to redo in getDataElectro
     # no, use envDataWB_fdcThresh_target  in getDataElectro
     # envDataWB_fdcThresh_target =
-    #   tar_read(envDataWB_target) |> 
+    #   envDataWB_target |> 
     #     addFDC_stats(fdcStatsS_target, fdcThresholds_target),
     
     envDataWB_fdcThresh_target =
-      tar_read(envDataWB_target) |> 
+      envDataWB_target |> 
       left_join(fdcThreshWide_target) |> 
       mutate(
         belowLoFlowThreshByRiver = flowByRiver < flowByRiver_0.9, #will need to make these names not hardcoded
         aboveHiFlowThreshByRiver = flowByRiver > flowByRiver_0.1,
         belowLoFlowThreshByArea_flowExt = flowByArea_flowExt < flowByArea_flowExt_0.9,
         aboveHiFlowThreshByArea_flowExt = flowByArea_flowExt > flowByArea_flowExt_0.1
+#addBack        belowLoFlowThreshByArea_ByArea = flowByArea_ByArea < flowByArea_ByArea_0.9,
+#        aboveHiFlowThreshByArea_ByArea = flowByArea_ByArea > flowByArea_ByArea_0.1
       ),
     
     fdcThreshWide_target =   
@@ -80,6 +82,9 @@ modelFDC_target <-
           propAboveHiFlowThreshRiver = sum(aboveHiFlowThreshByRiver, na.rm = TRUE) / sum(!is.na(aboveHiFlowThreshByRiver)),
           propBelowLoFlowThreshByArea_flowExt = sum(belowLoFlowThreshByArea_flowExt, na.rm = TRUE) / sum(!is.na(belowLoFlowThreshByArea_flowExt)),
           propAboveHiFlowThreshByArea_flowExt = sum(aboveHiFlowThreshByArea_flowExt, na.rm = TRUE) / sum(!is.na(aboveHiFlowThreshByArea_flowExt))
+          
+# addBack         propBelowLoFlowThreshByArea_ByArea = sum(belowLoFlowThreshByArea_ByArea, na.rm = TRUE) / sum(!is.na(belowLoFlowThreshByArea_ByArea)),
+#          propAboveHiFlowThreshByArea_ByArea = sum(aboveHiFlowThreshByArea_ByArea, na.rm = TRUE) / sum(!is.na(aboveHiFlowThreshByArea_ByArea))
         ) |> 
       ungroup() |> 
       addGG_noSpecies()  # in generalFunctions.R
@@ -140,6 +145,8 @@ addFDC_stats <- function(d, fdcIn, fdcThresh) {
       aboveHiFlowThreshByRiver = flowByRiver > flowByRiver_0.1,
       belowLoFlowThreshByArea_flowExt = flowByArea_flowExt < flowByArea_flowExt_0.9,
       aboveHiFlowThreshByArea_flowExt = flowByArea_flowExt > flowByArea_flowExt_0.1
+# addBack     belowLoFlowThreshByArea_ByArea = flowByArea_ByArea < flowByArea_ByArea_0.9,
+#      aboveHiFlowThreshByArea_ByArea = flowByArea_ByArea > flowByArea_ByArea_0.1
     )
   
   return(dOut)

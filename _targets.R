@@ -15,21 +15,23 @@ plan(callr)
 
 # Set target options:
 tar_option_set(
-  packages = c("tibble",     
-               "tidyr",
-               "lubridate",
-               "knitr",
-               "targets",
-               "tarchetypes",
-               "getWBData",
-               "getPrepareWBData",
-               "daymetr",
-               "nimble",
-               "nimbleEcology",
-               "tidyverse"
-               ), # packages that your targets need to run
+  packages = c(
+     "tibble",     
+     "tidyr",
+     "lubridate",
+     "knitr",
+     "targets",
+     "tarchetypes",
+     "getWBData",
+     "getPrepareWBData",
+     "daymetr",
+     "nimble",
+     "nimbleEcology",
+     "tidyverse"
+  ), # packages that your targets need to run
   format = "rds" # default storage format
   # Set other options as needed.
+  #error= "null"
 )
 
 # tar_make_clustermq() configuration (okay to leave alone):
@@ -47,6 +49,7 @@ lapply(list.files("R", pattern = "*.R", full.names = TRUE, recursive = FALSE), s
 
 list(
   getEnvData_target,
+  modelFDC_target,  
   getElectroData_target,
   dataCMR_WB_2002_2014_target,
   dataCMR_WBbkt_2002_2014_target,
@@ -59,12 +62,12 @@ list(
   modelFlow_target,
   modelConditionFactor_target,
   modelGrowthInMass_target,
-  modelFDC_target,
-  modelXGBoost_target,
-  
-  # retrieves the mcmc files
-  # run the files 'by hand' in ./models/cmrFlowWB/modelCMR_ttt_ft_cohort_WB_makeFile.R
-  modelCMR_ttt_WB_target
+
+  modelXGBoost_target
+  # 
+  # # retrieves the mcmc files
+  # # run the files 'by hand' in ./models/cmrFlowWB/modelCMR_ttt_ft_cohort_WB_makeFile.R
+  # modelCMR_ttt_WB_target
   
   # turn off for now
   # modelCMR_tt_ft_OB_flow_target,
@@ -72,12 +75,12 @@ list(
   # 
   # modelCMR_tt_ft_cohort_OB_flow_target,
   # modelCMR_tt_ft_cohort_OB_flowByRiver_target
-
-    # old models
-    # modelCMR_tt_OB_target
-    
-    # modelCMR_tt_OB_flow_target,
-    # modelCMR_tt_OB_flowByRiver_target,
+  
+  # old models
+  # modelCMR_tt_OB_target
+  
+  # modelCMR_tt_OB_flow_target,
+  # modelCMR_tt_OB_flowByRiver_target,
   #run_ttt_models_target
   #modelCMR_ttt_ft_cohort_WB_flow_target,
   #modelCMR_ttt_ft_cohort_WB_flowByRiver_target

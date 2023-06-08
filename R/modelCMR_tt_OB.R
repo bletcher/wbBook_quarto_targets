@@ -2,9 +2,6 @@ tar_option_set(packages = c("tidyverse", "nimble", "nimbleEcology", "MCMCvis", "
 
 #load('./models/cmrFlowOB/dataOut/eh_2002200320042005200620072008200920102011201220132014_wb obear.RData')
 
-#eh_OB_target = tar_read(eh_OB_2002_2014_target)
-#eh_OB_2002_2014_target=tar_read(eh_OB_2002_2014_target)
-
 modelCMR_tt_OB_target <-
   tar_plan(
   

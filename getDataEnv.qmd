@@ -36,7 +36,7 @@ Flow data in envDataWB:
 #| label: getEnvData
 #| cache: false
 
-envDataWB <- tar_read(envDataWB_Target)
+envDataWB <- tar_read(envDataWB_target)
 str(envDataWB)
 
 ojs_define(envDataWB_OJS = transpose(envDataWB))

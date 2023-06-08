@@ -3,8 +3,11 @@ library(tarchetypes)
 library(quarto)
 library(knitr)
 
-# run when there is a change in the data
-#tar_invalidate(c("envDataWB_Target", "cdWB_electro0_target", ...)
+library(getPrepareWBData)
+library(getWBData)
+# run when there is a change in the data and to force target re-run
+#tar_invalidate(c("envDataWB_target", "cdWB_electro0_target", ...)
+# tar_invalidate(ends_with("_target"))
 
 # to convert markdown headers to quarto in-body chunk options
 #convert_chunk_header("dataAll.qmd", output = identity)
@@ -22,7 +25,7 @@ tar_make_future(workers = 2)
 quarto::quarto_render(output_format = "html")
 
 
-quarto::quarto_render("modelYOY.qmd", output_format = "html")
+quarto::quarto_render("dataFlow.qmd", output_format = "html")
 quarto::quarto_render("getDataEnv.qmd", output_format = "html")
 
 # working chapter

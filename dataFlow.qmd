@@ -95,7 +95,7 @@ library(targets) #Seems to be needed with cache: false
 
 fdcStats <- tar_read(fdcStats_target)
 fdcStatsY <- tar_read(fdcStatsY_target)
-fdcStatsS <- tar_read(fdcStatsS)
+fdcStatsS <- tar_read(fdcStatsS_target)
 fdcStatsYS <- tar_read(fdcStatsYS_target)
 
 envDataWB_fdcThresh <- tar_read(envDataWB_fdcThresh_target)
@@ -431,7 +431,61 @@ ggplot(fdcStatsS |> filter(river == "west brook", !is.na(season)), aes(stat, per
   scale_color_manual(values = colorBlindGrey8) +
   theme_publication(18) +
   theme(strip.background = element_blank()) +
-  facet_wrap(~variable, ncol = 2, labeller = global_labellerRiverSeasonInt_WB)
+  facet_grid(~variable, labeller = global_labellerRiverSeasonInt_WB)
+
+ggplot(fdcStatsS |> filter(river == "west brook", !is.na(season)), aes(stat, perc+0.1, color = (variable))) +
+  geom_line(size = 1) +
+  geom_point(size = 3) +
+  geom_vline(xintercept = c(0.11, 0.89), color = "black") +
+  labs(x = "Flow percentile", y = "Flow (+0.1)") +
+  scale_y_log10() +
+  scale_color_manual(values = colorsTalk) +
+  theme_publication(18) +
+  theme(strip.background = element_blank()) +
+  facet_grid(~season, labeller = global_labellerRiverSeasonInt_WB)
+```
+
+#### Open Large
+```{r}
+#| label: fdcSOL
+
+ggplot(fdcStatsS |> filter(river == "wb jimmy", !is.na(season)), aes(stat, perc+0.1, color = factor(season))) +
+  geom_line(size = 1) +
+  geom_point(size = 3) +
+  geom_vline(xintercept = c(0.11, 0.89), color = "black") +
+  labs(x = "Flow percentile", y = "Flow (+0.1)") +
+  scale_y_log10() +
+  scale_color_manual(values = colorBlindGrey8) +
+  theme_publication(18) +
+  theme(strip.background = element_blank()) +
+  facet_grid(~variable, labeller = global_labellerRiverSeasonInt_WB)
+
+ggplot(fdcStatsS |> filter(river == "wb jimmy", !is.na(season)), aes(stat, perc+0.1, color = (variable))) +
+  geom_line(size = 1) +
+  geom_point(size = 3) +
+  geom_vline(xintercept = c(0.11, 0.89), color = "black") +
+  labs(x = "Flow percentile", y = "Flow (+0.1)") +
+  scale_y_log10() +
+  scale_color_manual(values = colorsTalk) +
+  theme_publication(18) +
+  theme(strip.background = element_blank()) +
+  facet_grid(~season, labeller = global_labellerRiverSeasonInt_WB)
+```
+
+#### Open Small
+```{r}
+#| label: fdcSOS
+
+ggplot(fdcStatsS |> filter(river == "wb mitchell", !is.na(season)), aes(stat, perc+0.1, color = factor(season))) +
+  geom_line(size = 1) +
+  geom_point(size = 3) +
+  geom_vline(xintercept = c(0.11, 0.89), color = "black") +
+  labs(x = "Flow percentile", y = "Flow (+0.1)") +
+  scale_y_log10() +
+  scale_color_manual(values = colorBlindGrey8) +
+  theme_publication(18) +
+  theme(strip.background = element_blank()) +
+  facet_grid(~variable, labeller = global_labellerRiverSeasonInt_WB)
 
 ggplot(fdcStatsS |> filter(river == "wb mitchell", !is.na(season)), aes(stat, perc+0.1, color = (variable))) +
   geom_line(size = 1) +
@@ -442,43 +496,34 @@ ggplot(fdcStatsS |> filter(river == "wb mitchell", !is.na(season)), aes(stat, pe
   scale_color_manual(values = colorsTalk) +
   theme_publication(18) +
   theme(strip.background = element_blank()) +
-  facet_wrap(~season, ncol = 2, labeller = global_labellerRiverSeasonInt_WB)
-```
-
-#### Open Large
-```{r}
-#| label: fdcSOL
-
-ggplot(fdcStatsS |> filter(river == "wb jimmy", !is.na(season)), aes(stat, perc, color = factor(season))) +
-  geom_line() +
-  geom_point(size = 0.5) +
-  labs(x = "Flow percentile", y = "Flow") +
-  scale_y_log10() +
-  facet_wrap(~variable, ncol = 2, labeller = global_labellerRiverSeasonInt_WB)
-```
-
-#### Open Small
-```{r}
-#| label: fdcSOS
-
-ggplot(fdcStatsS |> filter(river == "wb mitchell", !is.na(season)), aes(stat, perc, color = factor(season))) +
-  geom_line() +
-  geom_point(size = 0.5) +
-  labs(x = "Flow percentile", y = "Flow") +
-  scale_y_log10() +
-  facet_wrap(~variable, ncol = 2, labeller = global_labellerRiverSeasonInt_WB)
+  facet_grid(~season, labeller = global_labellerRiverSeasonInt_WB)
 ```
 
 #### Isolated Small
 ```{r}
 #| label: fdcSIS
 
-ggplot(fdcStatsS |> filter(river == "wb obear", !is.na(season)), aes(stat, perc, color = factor(season))) +
-  geom_line() +
-  geom_point(size = 0.5) +
-  labs(x = "Flow percentile", y = "Flow") +
+ggplot(fdcStatsS |> filter(river == "wb obear", !is.na(season)), aes(stat, perc+0.1, color = factor(season))) +
+  geom_line(size = 1) +
+  geom_point(size = 3) +
+  geom_vline(xintercept = c(0.11, 0.89), color = "black") +
+  labs(x = "Flow percentile", y = "Flow (+0.1)") +
   scale_y_log10() +
-  facet_wrap(~variable, ncol = 2, labeller = global_labellerRiverSeasonInt_WB)
+  scale_color_manual(values = colorBlindGrey8) +
+  theme_publication(18) +
+  theme(strip.background = element_blank()) +
+  facet_grid(~variable, labeller = global_labellerRiverSeasonInt_WB)
+
+ggplot(fdcStatsS |> filter(river == "wb obear", !is.na(season)), aes(stat, perc+0.1, color = (variable))) +
+  geom_line(size = 1) +
+  geom_point(size = 3) +
+  geom_vline(xintercept = c(0.11, 0.89), color = "black") +
+  labs(x = "Flow percentile", y = "Flow (+0.1)") +
+  scale_y_log10() +
+  scale_color_manual(values = colorsTalk) +
+  theme_publication(18) +
+  theme(strip.background = element_blank()) +
+  facet_grid(~season, labeller = global_labellerRiverSeasonInt_WB)
 ```
 :::
   
@@ -584,7 +629,7 @@ ggplot(propFDC_aboveBelow |> filter(year > 1999), aes(year, propBelowLoFlowThres
 
 #### By area, low flows
 ```{r}
-#| label: flowDurationCurvesAboveByArea
+#| label: flowDurationCurvesAboveByArea_flowExt
 
 ggplot(propFDC_aboveBelow |> filter(year > 1999), aes(year, propAboveHiFlowThreshByArea_flowExt, color = riverGG)) + 
   geom_point() +
@@ -594,6 +639,22 @@ ggplot(propFDC_aboveBelow |> filter(year > 1999), aes(year, propAboveHiFlowThres
   facet_wrap(~season, labeller = global_labellerRiverSeasonInt_WB)
 
 ```
+
+#### By area_byRiver, high flows
+```{r}
+#| label: flowDurationCurvesBelowByAreaByArea
+
+# ggplot(propFDC_aboveBelow |> filter(year > 1999), aes(year, propBelowLoFlowThreshByArea_byArea, color = riverGG)) + 
+#   geom_point() +
+#   geom_line() +
+#   scale_color_discrete() +
+#   labs(x = "Year", y = "Proportion of days with flows higher than the high flow threshold") +
+#   facet_wrap(~season, labeller = global_labellerRiverSeasonInt_WB)
+
+```
+
+
+
 :::
   #### Proportion of days above/below flow duration curve thresholds for individual fish data      
   Thresholds defined in `fdcThresholds_target` in modelFDC_targets.R. Based on season-specific flow duration curves. 

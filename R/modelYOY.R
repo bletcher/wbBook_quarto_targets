@@ -4,8 +4,7 @@ selectedVariables <- c("tag", "species", "river", "detectionDate", "sampleNumber
                        "proportionSampled", "observedLength", "observedWeight", "area", 
                        "section", "season", "isYOY")
 
-cdWB_electro <- tar_read(cdWB_electro_target)
-envDataWB <- tar_read(envDataWB_target)
+
 
 spawn_month <- "11" # spawning
 spawn_day <- "15"
@@ -17,6 +16,9 @@ maxYear <- 2015
 
 modelYOY_target <-
   tar_plan(
+    cdWB_electro = cdWB_electro_target,
+    envDataWB = envDataWB_target,
+    
     firstObs_noTag_target = cdWB_electro %>%
       filter(is.na(tag), ageInSamples == 1) %>%
       mutate(n = 1) %>%
