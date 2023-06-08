@@ -5,31 +5,34 @@ dataWanding_target <-
     cdWB_wanding0_target = 
       createCoreData(
         sampleType = "portableAntenna",
-        columnsToAdd = c("tag", 
-                         "detectionDate", 
-                         "river", 
-                         "area", 
-                         "section", 
-                         "survey", 
-                         "cohort",
-                         "sampleName", 
-                         "readerId", 
-                         "aliveOrDead", 
-                         "instance", 
-                         "pass", 
-                         "quarter", 
-                         "leftOrRight", 
-                         "habitat", 
-                         "cover", 
-                         "justification", 
-                         "comments")
+        columnsToAdd = c(
+          "tag", 
+          "detectionDate", 
+          "river", 
+          "area", 
+          "section", 
+          "survey", 
+          "cohort",
+          "sampleName", 
+          "readerId", 
+          "aliveOrDead", 
+          "instance", 
+          "pass", 
+          "quarter", 
+          "leftOrRight", 
+          "habitat", 
+          "cover", 
+          "justification", 
+          "comments"
+        )
       ) %>% 
       addTagProperties(
-        columnsToAdd = c("cohort",
-                         "species",
-                         "dateEmigrated",
-                         "sex",
-                         "species"
+        columnsToAdd = c(
+          "cohort",
+          "species",
+          "dateEmigrated",
+          "sex",
+          "species"
         )
       ) %>%
       dplyr::filter(species %in% c( "bkt","bnt","ats" )) %>%

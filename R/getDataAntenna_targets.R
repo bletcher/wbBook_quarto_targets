@@ -2,8 +2,7 @@ tar_option_set(packages = c("tidyverse", "lubridate", "getWBData"))
 
 dataAntenna_target <-
   tar_plan(
-    cdWB_antenna0_target = 
-      cdWB_antenna0 <- createCoreData(
+    cdWB_antenna0_target = createCoreData(
         sampleType=c("stationaryAntenna"), 
         whichDrainage = "west",
         columnsToAdd=c(
@@ -17,15 +16,16 @@ dataAntenna_target <-
       ) %>%  
       filter(!is.na(tag)) %>% # for now
       addTagProperties(
-        columnsToAdd = c("cohort",
-                         "species",
-                         "dateEmigrated",
-                         "sex",
-                         "species"
-                        )
+        columnsToAdd = c(
+          "cohort",
+          "species",
+          "dateEmigrated",
+          "sex",
+          "species"
+        )
       ) %>%
       mutate(riverOrdered = factor(river, levels = c('west brook', 'wb jimmy', 'wb mitchell',"wb obear"),
-                                   labels = c("West Brook","WB Jimmy","WB Mitchell","WB OBear"), ordered = T)
+                                         labels = c("West Brook", "WB Jimmy", "WB Mitchell", "WB OBear"), ordered = T)
       ) %>%
       updateAntennaData(sites_target),
     

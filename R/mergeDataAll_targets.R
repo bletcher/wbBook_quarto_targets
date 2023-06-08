@@ -6,8 +6,8 @@ dataAll_target <-
       add_row(cdWB_wanding0_target %>% select(-riverOrdered)) %>% 
       add_row(cdWB_antenna0_target %>% select(-riverOrdered)) %>%
       mutate(
-        riverOrdered = factor(river, levels = c('west brook', 'wb jimmy', 'wb mitchell',"wb obear"),
-                              labels = c("West Brook","WB Jimmy","WB Mitchell","WB OBear"), ordered = T
+        riverOrdered = factor(river, levels = c('west brook', 'wb jimmy', 'wb mitchell', "wb obear"),
+                                     labels = c("West Brook", "WB Jimmy", "WB Mitchell", "WB OBear"), ordered = T
         )
       )
     

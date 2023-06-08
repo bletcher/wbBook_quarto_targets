@@ -1,8 +1,9 @@
 tar_option_set(packages = c("tidyverse", "lubridate", "getWBData", "daymetr", "fuzzyjoin"))
 
-library(daymetr) # not sure why this is needed here, but without it get can't find download_daymet error
+#library(daymetr) # not sure why this is needed here, but without it get can't find download_daymet error
+reconnect()
 
-
+tmpMedDates <- readRDS('./_targets/objects/medianDates_target') # hack to get around circularity
 
 getEnvData_target <-
   tar_plan(
@@ -25,7 +26,8 @@ getEnvData_target <-
       ) %>%
       left_join(WB_daymet_target, by = c('year', 'yday')) %>%
       left_join(flowByRiver_target) |> 
-      addSeason(tar_read(medianDates_target)) |> 
+      addSeason(tmpMedDates) |>  #(medianDates_target) |>  # addBack
+      #addSeason(medianDates_target) |>  
       addFlowToTribs() |> 
       addFlowByRiverToTribs() |> 
       getFlowByArea()
@@ -35,8 +37,8 @@ getEnvData_target <-
 #### Functions
 
 getDaymet <- function(lat, lon, start_year, end_year) {
-  WB_daymet_list <- download_daymet(site = "WestBrook", lat = lat, lon = lon, 
-                                    start = start_year, end = end_year)
+  WB_daymet_list <- daymetr::download_daymet(site = "WestBrook", lat = lat, lon = lon, 
+                                             start = start_year, end = end_year)
   out <- WB_daymet_list$data %>%
     rename(dayLength = dayl..s., precip = prcp..mm.day., solarRadiation = srad..W.m.2.,
            swe = swe..kg.m.2., airTempMax = tmax..deg.c., airTempMin = tmin..deg.c.,
@@ -114,7 +116,7 @@ getFlowByArea_hold <- function(dIn) {
     )
 }
 
-addSeason <- function(d = d, medDate = tar_read(medianDates_target)){
+addSeason <- function(d = d, medDate = medianDates_target){
 
   medDateSeason <- fuzzy_left_join(
     d |> dplyr::select(river, date), medDate,

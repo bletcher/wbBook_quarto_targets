@@ -13,8 +13,6 @@ vals <- list(2002:2014)
 
 dataCMR_WB_2002_2014_target <-
   tar_plan(
-    tmp_target = tar_read(envDataWB_fdcThresh_target), #to force this to run
-    
     cdWB_CMR0_target = 
       createCoreData(
         sampleType = "electrofishing", #"stationaryAntenna","portableAntenna"),
@@ -48,7 +46,7 @@ dataCMR_WB_2002_2014_target <-
 
       filter(sampleNumber <= 83) %>%
       addSampleProperties() %>%
-      addEnvironmental3() %>%
+      addEnvironmental3(envDataWBIn = envDataWB_target, envDataWB_fdcThreshIn = envDataWB_fdcThresh_target) %>%
       # these commented functions below do not work for CMR data - they separate out shock and non-shock samples
       #addEnvironmentalDaily() %>%
       #addEnvironmentalInterval() %>%
@@ -75,7 +73,7 @@ vals_wBbkt <- list(2002:2014, "bkt")
 
 dataCMR_WBbkt_2002_2014_target <-
   tar_plan(
-    eh_WBbkt_2002_2014_target = getEH_AIS(tar_read(cdWB_CMR0_target), cols_wBbkt, ops_wBbkt, vals_wBbkt, maxAgeInSamples)#, maxIndexByCohort = 100)
+    eh_WBbkt_2002_2014_target = getEH_AIS(cdWB_CMR0_target, cols_wBbkt, ops_wBbkt, vals_wBbkt, maxAgeInSamples)#, maxIndexByCohort = 100)
   )
 
 ################################################################
@@ -88,7 +86,7 @@ vals_wBbnt <- list(2002:2014, "bnt")
 
 dataCMR_WBbnt_2002_2014_target <-
   tar_plan(
-    eh_WBbnt_2002_2014_target = getEH_AIS(tar_read(cdWB_CMR0_target), cols_wBbnt, ops_wBbnt, vals_wBbnt, maxAgeInSamples)#, maxIndexByCohort = 100)
+    eh_WBbnt_2002_2014_target = getEH_AIS(cdWB_CMR0_target, cols_wBbnt, ops_wBbnt, vals_wBbnt, maxAgeInSamples)#, maxIndexByCohort = 100)
   )
 
 
@@ -106,7 +104,7 @@ vals_OB <- list(2002:2014, "wb obear")
 
 dataCMR_OB_2002_2014_target <-
   tar_plan(
-    eh_OB_2002_2014_target = getEH_AIS(tar_read(cdWB_CMR0_target), cols_OB, ops_OB, vals_OB, maxAgeInSamples)#, maxIndexByCohort = 100)
+    eh_OB_2002_2014_target = getEH_AIS(cdWB_CMR0_target, cols_OB, ops_OB, vals_OB, maxAgeInSamples)#, maxIndexByCohort = 100)
   )  
 
 
