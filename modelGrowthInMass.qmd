@@ -1409,9 +1409,10 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Isolated Small", "
 ### Growth and last observation
 
 Relationship between individual growth and length of subsequent
-observations (how many more observations before the last observatoin)
-for individual fish.
+observations (how many more observations before the last observation)
+for individual fish.  
 
+Broken up by years  
 ```{r}
 #| label: negGrowth_samplesLeft
 plotGrowthSamplesLeft <- function(d, spp, r){
@@ -1432,6 +1433,7 @@ plotGrowthSamplesLeft(cd1, "Brook trout", "Isolated Small")
 plotGrowthSamplesLeft(cd1, "Brown trout", "West Brook")
 ```
 
+All years  
 ```{r}
 #| label: negGrowth_samplesLeftNoYear
 plotGrowthSamplesLeftNoYear <- function(d, spp, r){
@@ -1454,6 +1456,7 @@ plotGrowthSamplesLeftNoYear(cd1, "Brown trout", "West Brook")
 plotGrowthSamplesLeftNoYear(cd1, "Atlantic salmon", "West Brook")
 ```
 
+Break up by pos/neg growth  
 ```{r}
 #| label: negGrowth_means
 
@@ -1499,8 +1502,76 @@ plotGR_sampsBL3(negGr_beforeLast, c("Brook trout","Brown trout", "Atlantic salmo
 plotGR_sampsBL3(negGr_beforeLast, c("Brook trout","Brown trout", "Atlantic salmon"), c("West Brook"), TRUE)
 ```
 
-TO ADD: mean samplesBeforeLast by negGR TO ADD: knownZ=0 vs knownZ==1,
-growth in previous interval
+TO ADD: mean samplesBeforeLast by negGR 
+```{r}
+#| label: growthKnkownZPosNeg
+plotGrowthKnownZPosNeg <- function(d, spp, r){
+  ggplot(d |> filter(speciesGG %in% spp, riverGG == r, year < 2011, !is.na(samplesBeforeLast)), aes(grWeight, color = samplesBeforeLast == 1)) +
+    geom_boxplot() +
+    geom_vline(xintercept = 0) +
+    ggtitle(paste(r)) +
+    theme_publication() +   
+    theme(axis.text.y = element_blank()) +
+    facet_grid(speciesGG~seasonGG, scales = "free")
+}
+
+plotGrowthKnownZPosNeg(cd1, c("Brook trout", "Brown trout", "Atlantic salmon"), "West Brook")
+plotGrowthKnownZPosNeg(cd1, c("Brook trout", "Brown trout", "Atlantic salmon"), "Open Large")
+plotGrowthKnownZPosNeg(cd1, c("Brook trout", "Brown trout"), "Open Small")
+plotGrowthKnownZPosNeg(cd1, c("Brook trout"), "Isolated Small")
+
+```
+
+
+
+
+TO ADD: knownZ=0 vs knownZ==1, growth in previous interval
+```{r}
+#| label: growthKnkownZ
+plotGrowthKnownZ <- function(d, spp, r){
+  ggplot(d |> filter(speciesGG == spp, riverGG == r, year < 2011), aes(grWeight, color = samplesBeforeLast == 1)) +
+    geom_density() +
+    geom_vline(xintercept = 0) +
+    ggtitle(paste(spp, r, sep = ", ")) +
+    theme_publication() +    
+    facet_wrap(~seasonGG, scales = "free")
+}
+
+plotGrowthKnownZ(cd1, "Brook trout", "West Brook")
+plotGrowthKnownZ(cd1, "Brook trout", "Open Large")
+plotGrowthKnownZ(cd1, "Brook trout", "Open Small")
+plotGrowthKnownZ(cd1, "Brook trout", "Isolated Small")
+
+plotGrowthKnownZ(cd1, "Brown trout", "West Brook")
+plotGrowthKnownZ(cd1, "Brown trout", "Open Large")
+plotGrowthKnownZ(cd1, "Brown trout", "Open Small")
+
+
+```
+
+By year
+```{r}
+#| label: growthKnkownZByYear
+plotGrowthKnownZByYear <- function(d, spp, r){
+  ggplot(d |> filter(speciesGG == spp, riverGG == r, year < 2011), aes(grWeight, color = samplesBeforeLast == 1)) +
+    geom_boxplot() +
+    geom_vline(xintercept = 0) +
+    ggtitle(paste(spp, r, sep = ", ")) +
+    theme_publication() +    
+    facet_grid(year~seasonGG)
+}
+
+plotGrowthKnownZByYear(cd1, "Brook trout", "West Brook")
+plotGrowthKnownZByYear(cd1, "Brook trout", "Open Large")
+plotGrowthKnownZByYear(cd1, "Brook trout", "Open Small")
+plotGrowthKnownZByYear(cd1, "Brook trout", "Isolated Small")
+
+
+
+
+```
+
+
 
 ```{r}
 
@@ -1512,6 +1583,24 @@ growth in previous interval
 ### Growth and movement distance
 
 TO add: break avg move into negGR/not negGR
+```{r}
+#| label: growthMovementNegPos
+
+plotGR_moveDistNegPos <- function(d, spp, r) {
+  ggplot(d |> filter(speciesGG %in% spp, riverGG %in% r, !is.na(negGrowth)), aes(distMoved, color = negGrowth)) + 
+    geom_boxplot() +
+    scale_color_discrete() +
+    ggtitle(paste(spp, r, sep = ", ")) +
+    labs(x = "Movement distance") +
+    theme_publication() +  
+    theme(axis.text.y = element_blank()) +
+    facet_grid(speciesGG~seasonGG, scales = "free")
+}
+
+plotGR_moveDistNegPos(cd1, c("Brook trout","Brown trout","Atlantic salmon"), c("West Brook"))
+
+```
+
 
 ```{r}
 #| label: growthMovement
