@@ -25,7 +25,7 @@ tar_make_future(workers = 2)
 quarto::quarto_render(output_format = "html")
 
 
-quarto::quarto_render("dataFlow.qmd", output_format = "html")
+quarto::quarto_render("modelsCMR_NN_OB.qmd", output_format = "html")
 quarto::quarto_render("getDataEnv.qmd", output_format = "html")
 
 # working chapter
