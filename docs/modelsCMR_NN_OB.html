@@ -104,8 +104,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </script>
 <script async="" src="https://hypothes.is/embed.js"></script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -434,7 +432,7 @@ tt_NN_OB_2023-06-15 08.RData: tracing phi and p and z [most recent]</p>
 <tbody>
 <tr class="odd">
 <td>Total number of iterations</td>
-<td>out_NN_OB<span class="math inline">\(runData\)</span>nIter</td>
+<td>5000</td>
 </tr>
 <tr class="even">
 <td>Number of burnin iterations</td>
@@ -454,66 +452,24 @@ tt_NN_OB_2023-06-15 08.RData: tracing phi and p and z [most recent]</p>
 </tr>
 </tbody>
 </table>
-<div class="cell" data-hash="modelsCMR_NN_OB_cache/html/OB_tt_NN_statsTable_6e0eeeb5b8e2c299474881022d67bf75">
+<div class="cell" data-hash="modelsCMR_NN_OB_cache/html/OB_tt_NN_statsTable_8211e7bc19327b4d39801d01f4d86ad9">
 <div class="cell-output-display">
-<table class="kable_wrapper table table-sm table-striped small" data-quarto-postprocess="true">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
 <caption>Run statistics</caption>
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><table data-quarto-postprocess="true" class="table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th style="text-align: right;" data-quarto-table-cell-role="th">x</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">nIter</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">nBurnin</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">nChains</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">thinRate</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">5000</td>
-</tr>
-</tbody>
-</table></td>
-<td><table data-quarto-postprocess="true" class="table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: right;" data-quarto-table-cell-role="th">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
 <td style="text-align: right;">2000</td>
-</tr>
-</tbody>
-</table></td>
-<td><table data-quarto-postprocess="true" class="table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: right;" data-quarto-table-cell-role="th">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
 <td style="text-align: right;">2</td>
-</tr>
-</tbody>
-</table></td>
-<td><table data-quarto-postprocess="true" class="table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: right;" data-quarto-table-cell-role="th">x</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
 <td style="text-align: right;">5</td>
-</tr>
-</tbody>
-</table></td>
 </tr>
 </tbody>
 </table>
@@ -1152,7 +1108,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb21-77"><a href="#cb21-77" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-78"><a href="#cb21-78" aria-hidden="true" tabindex="-1"></a>| Col1                        | Col2                          |</span>
 <span id="cb21-79"><a href="#cb21-79" aria-hidden="true" tabindex="-1"></a>|-----------------------------|-------------------------------|</span>
-<span id="cb21-80"><a href="#cb21-80" aria-hidden="true" tabindex="-1"></a>| Total number of iterations  | out_NN_OB$runData$nIter       |</span>
+<span id="cb21-80"><a href="#cb21-80" aria-hidden="true" tabindex="-1"></a>| Total number of iterations  | <span class="in">`r out_NN_OB$runData$nIter`</span>      |</span>
 <span id="cb21-81"><a href="#cb21-81" aria-hidden="true" tabindex="-1"></a>| Number of burnin iterations | <span class="in">`r out_NN_OB$runData$nBurnin`</span> |</span>
 <span id="cb21-82"><a href="#cb21-82" aria-hidden="true" tabindex="-1"></a>|                             |                               |</span>
 <span id="cb21-83"><a href="#cb21-83" aria-hidden="true" tabindex="-1"></a>|                             |                               |</span>
@@ -1161,7 +1117,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb21-86"><a href="#cb21-86" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=FALSE, results='asis'}</span></span>
 <span id="cb21-87"><a href="#cb21-87" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: OB_tt_NN_statsTable</span></span>
 <span id="cb21-88"><a href="#cb21-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-89"><a href="#cb21-89" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(out_NN_OB<span class="sc">$</span>runData, <span class="at">caption =</span> <span class="st">"Run statistics"</span>)</span>
+<span id="cb21-89"><a href="#cb21-89" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">as_tibble</span>(out_NN_OB<span class="sc">$</span>runData), <span class="at">caption =</span> <span class="st">"Run statistics"</span>)</span>
 <span id="cb21-90"><a href="#cb21-90" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-91"><a href="#cb21-91" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb21-92"><a href="#cb21-92" aria-hidden="true" tabindex="-1"></a></span>
