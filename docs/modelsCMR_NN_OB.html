@@ -630,7 +630,7 @@ tt_NN_OB_2023-06-15 08.RData: tracing phi and p and z [most recent]</p>
 <span id="cb15-138"><a href="#cb15-138" aria-hidden="true" tabindex="-1"></a>  <span class="dt">multiple</span><span class="op">:</span> <span class="kw">true</span></span>
 <span id="cb15-139"><a href="#cb15-139" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb15-140"><a href="#cb15-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-141"><a href="#cb15-141" aria-hidden="true" tabindex="-1"></a>summary_tt_z_OJS_T_selected <span class="op">=</span> summary_tt_z_OJS_T<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">ind</span> <span class="op">===</span> selectInd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-141"><a href="#cb15-141" aria-hidden="true" tabindex="-1"></a>summary_tt_z_OJS_T_selected <span class="op">=</span> summary_tt_z_OJS_T<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">ind</span><span class="op">.</span><span class="fu">includes</span>(selectInd))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -663,10 +663,11 @@ tt_NN_OB_2023-06-15 08.RData: tracing phi and p and z [most recent]</p>
 <span id="cb16-154"><a href="#cb16-154" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">frame</span>()<span class="op">,</span></span>
 <span id="cb16-155"><a href="#cb16-155" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(summary_tt_z_OJS_T_selected<span class="op">,</span> {</span>
 <span id="cb16-156"><a href="#cb16-156" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> <span class="st">"t"</span><span class="op">,</span></span>
-<span id="cb16-157"><a href="#cb16-157" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> <span class="st">"mean"</span></span>
-<span id="cb16-158"><a href="#cb16-158" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb16-159"><a href="#cb16-159" aria-hidden="true" tabindex="-1"></a>  ]</span>
-<span id="cb16-160"><a href="#cb16-160" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-157"><a href="#cb16-157" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> <span class="st">"mean"</span><span class="op">,</span></span>
+<span id="cb16-158"><a href="#cb16-158" aria-hidden="true" tabindex="-1"></a>      <span class="dt">stroke</span><span class="op">:</span> <span class="st">"ind"</span></span>
+<span id="cb16-159"><a href="#cb16-159" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb16-160"><a href="#cb16-160" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb16-161"><a href="#cb16-161" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-2" data-nodetype="expression">
@@ -733,7 +734,7 @@ tt_NN_OB_2023-06-15 08.RData: tracing phi and p and z [most recent]</p>
 
 </main> <!-- /main -->
 <script type="ojs-module-contents">
-{"contents":[{"methodName":"interpret","cellName":"ojs-cell-1","inline":false,"source":"summary_tt_z_OJS_T = transpose(summary_tt_z_OJS)\n\nnumTags_OJS\nsummary_tt_z_OJS_T\nselectInd\nsummary_tt_z_OJS_T_selected\n\nviewof selectInd = Inputs.select([...Array(numTags_OJS).keys()], {\n  label: \"Which fish?\",\n  value: 1,\n  step: 1,\n  multiple: true\n})\n\nsummary_tt_z_OJS_T_selected = summary_tt_z_OJS_T.filter(d => d.ind === selectInd)\n"},{"methodName":"interpret","cellName":"ojs-cell-2","inline":false,"source":"Plot.plot({\n  width: width,\n  height: 350,\n  inset: 10,\n  color: {\n    scheme: \"greys\"\n  },\n  x: { label: \"Time\" },\n  y: { label: \"Probability of survival\" },\n  marks: [\n    Plot.frame(),\n    Plot.dot(summary_tt_z_OJS_T_selected, {\n      x: \"t\",\n      y: \"mean\"\n    })\n  ]\n})\n"},{"methodName":"interpretQuiet","source":"shinyInput('selectInd')"}]}
+{"contents":[{"methodName":"interpret","cellName":"ojs-cell-1","inline":false,"source":"summary_tt_z_OJS_T = transpose(summary_tt_z_OJS)\n\nnumTags_OJS\nsummary_tt_z_OJS_T\nselectInd\nsummary_tt_z_OJS_T_selected\n\nviewof selectInd = Inputs.select([...Array(numTags_OJS).keys()], {\n  label: \"Which fish?\",\n  value: 1,\n  step: 1,\n  multiple: true\n})\n\nsummary_tt_z_OJS_T_selected = summary_tt_z_OJS_T.filter(d => d.ind.includes(selectInd))\n"},{"methodName":"interpret","cellName":"ojs-cell-2","inline":false,"source":"Plot.plot({\n  width: width,\n  height: 350,\n  inset: 10,\n  color: {\n    scheme: \"greys\"\n  },\n  x: { label: \"Time\" },\n  y: { label: \"Probability of survival\" },\n  marks: [\n    Plot.frame(),\n    Plot.dot(summary_tt_z_OJS_T_selected, {\n      x: \"t\",\n      y: \"mean\",\n      stroke: \"ind\"\n    })\n  ]\n})\n"},{"methodName":"interpretQuiet","source":"shinyInput('selectInd')"}]}
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
@@ -1294,7 +1295,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb20-154"><a href="#cb20-154" aria-hidden="true" tabindex="-1"></a>  <span class="dt">multiple</span><span class="op">:</span> <span class="kw">true</span></span>
 <span id="cb20-155"><a href="#cb20-155" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb20-156"><a href="#cb20-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-157"><a href="#cb20-157" aria-hidden="true" tabindex="-1"></a>summary_tt_z_OJS_T_selected <span class="op">=</span> summary_tt_z_OJS_T<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">ind</span> <span class="op">===</span> selectInd)</span>
+<span id="cb20-157"><a href="#cb20-157" aria-hidden="true" tabindex="-1"></a>summary_tt_z_OJS_T_selected <span class="op">=</span> summary_tt_z_OJS_T<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">ind</span><span class="op">.</span><span class="fu">includes</span>(selectInd))</span>
 <span id="cb20-158"><a href="#cb20-158" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb20-159"><a href="#cb20-159" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-162"><a href="#cb20-162" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
@@ -1311,45 +1312,46 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb20-173"><a href="#cb20-173" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">frame</span>()<span class="op">,</span></span>
 <span id="cb20-174"><a href="#cb20-174" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(summary_tt_z_OJS_T_selected<span class="op">,</span> {</span>
 <span id="cb20-175"><a href="#cb20-175" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> <span class="st">"t"</span><span class="op">,</span></span>
-<span id="cb20-176"><a href="#cb20-176" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> <span class="st">"mean"</span></span>
-<span id="cb20-177"><a href="#cb20-177" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb20-178"><a href="#cb20-178" aria-hidden="true" tabindex="-1"></a>  ]</span>
-<span id="cb20-179"><a href="#cb20-179" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb20-180"><a href="#cb20-180" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-181"><a href="#cb20-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-176"><a href="#cb20-176" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> <span class="st">"mean"</span><span class="op">,</span></span>
+<span id="cb20-177"><a href="#cb20-177" aria-hidden="true" tabindex="-1"></a>      <span class="dt">stroke</span><span class="op">:</span> <span class="st">"ind"</span></span>
+<span id="cb20-178"><a href="#cb20-178" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb20-179"><a href="#cb20-179" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb20-180"><a href="#cb20-180" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb20-181"><a href="#cb20-181" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb20-182"><a href="#cb20-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-183"><a href="#cb20-183" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Get z for an individual</span></span>
-<span id="cb20-184"><a href="#cb20-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-187"><a href="#cb20-187" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-188"><a href="#cb20-188" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: getZ</span></span>
-<span id="cb20-189"><a href="#cb20-189" aria-hidden="true" tabindex="-1"></a><span class="co">#rangeYear</span></span>
-<span id="cb20-190"><a href="#cb20-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-191"><a href="#cb20-191" aria-hidden="true" tabindex="-1"></a> ind <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb20-192"><a href="#cb20-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-193"><a href="#cb20-193" aria-hidden="true" tabindex="-1"></a> summary_tt_z <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">substr</span>(var,<span class="dv">1</span>,<span class="dv">4</span>) <span class="sc">==</span> <span class="fu">paste0</span>(<span class="st">"z["</span>, ind,<span class="st">","</span>))</span>
-<span id="cb20-194"><a href="#cb20-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-195"><a href="#cb20-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-196"><a href="#cb20-196" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Output for Xiaowei</span></span>
-<span id="cb20-197"><a href="#cb20-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-200"><a href="#cb20-200" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-201"><a href="#cb20-201" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: OB_tt_NN_xioawei</span></span>
-<span id="cb20-202"><a href="#cb20-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-203"><a href="#cb20-203" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write.csv</span>(summary_tt, <span class="st">'./models/cmrNN_OB/tt/dataOut/xiaowei/summary_tt.csv'</span>)</span>
-<span id="cb20-204"><a href="#cb20-204" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb20-205"><a href="#cb20-205" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write.csv</span>(summary_tt_z, <span class="st">'./models/cmrNN_OB/tt/dataOut/xiaowei/summary_tt_z.csv'</span>)</span>
-<span id="cb20-206"><a href="#cb20-206" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb20-207"><a href="#cb20-207" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Output input data to Xiaowei directory. Turn to TRUE to output.</span></span>
-<span id="cb20-208"><a href="#cb20-208" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="cn">FALSE</span>) {</span>
-<span id="cb20-209"><a href="#cb20-209" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb20-210"><a href="#cb20-210" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(eh)){</span>
-<span id="cb20-211"><a href="#cb20-211" aria-hidden="true" tabindex="-1"></a>      <span class="fu">write.csv</span>(eh[[i]], <span class="at">file =</span> <span class="fu">paste0</span>(<span class="st">'./models/cmrNN_OB/tt/dataOut/xiaowei/'</span>, </span>
-<span id="cb20-212"><a href="#cb20-212" aria-hidden="true" tabindex="-1"></a>                                       <span class="fu">names</span>(eh)[i], </span>
-<span id="cb20-213"><a href="#cb20-213" aria-hidden="true" tabindex="-1"></a>                                       <span class="st">".csv"</span>), </span>
-<span id="cb20-214"><a href="#cb20-214" aria-hidden="true" tabindex="-1"></a>                <span class="at">row.names =</span> F)</span>
-<span id="cb20-215"><a href="#cb20-215" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb20-216"><a href="#cb20-216" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb20-217"><a href="#cb20-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-218"><a href="#cb20-218" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-183"><a href="#cb20-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-184"><a href="#cb20-184" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Get z for an individual</span></span>
+<span id="cb20-185"><a href="#cb20-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-188"><a href="#cb20-188" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-189"><a href="#cb20-189" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: getZ</span></span>
+<span id="cb20-190"><a href="#cb20-190" aria-hidden="true" tabindex="-1"></a><span class="co">#rangeYear</span></span>
+<span id="cb20-191"><a href="#cb20-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-192"><a href="#cb20-192" aria-hidden="true" tabindex="-1"></a> ind <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb20-193"><a href="#cb20-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-194"><a href="#cb20-194" aria-hidden="true" tabindex="-1"></a> summary_tt_z <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">substr</span>(var,<span class="dv">1</span>,<span class="dv">4</span>) <span class="sc">==</span> <span class="fu">paste0</span>(<span class="st">"z["</span>, ind,<span class="st">","</span>))</span>
+<span id="cb20-195"><a href="#cb20-195" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-196"><a href="#cb20-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-197"><a href="#cb20-197" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Output for Xiaowei</span></span>
+<span id="cb20-198"><a href="#cb20-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-201"><a href="#cb20-201" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-202"><a href="#cb20-202" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: OB_tt_NN_xioawei</span></span>
+<span id="cb20-203"><a href="#cb20-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-204"><a href="#cb20-204" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write.csv</span>(summary_tt, <span class="st">'./models/cmrNN_OB/tt/dataOut/xiaowei/summary_tt.csv'</span>)</span>
+<span id="cb20-205"><a href="#cb20-205" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-206"><a href="#cb20-206" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write.csv</span>(summary_tt_z, <span class="st">'./models/cmrNN_OB/tt/dataOut/xiaowei/summary_tt_z.csv'</span>)</span>
+<span id="cb20-207"><a href="#cb20-207" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-208"><a href="#cb20-208" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Output input data to Xiaowei directory. Turn to TRUE to output.</span></span>
+<span id="cb20-209"><a href="#cb20-209" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="cn">FALSE</span>) {</span>
+<span id="cb20-210"><a href="#cb20-210" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-211"><a href="#cb20-211" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(eh)){</span>
+<span id="cb20-212"><a href="#cb20-212" aria-hidden="true" tabindex="-1"></a>      <span class="fu">write.csv</span>(eh[[i]], <span class="at">file =</span> <span class="fu">paste0</span>(<span class="st">'./models/cmrNN_OB/tt/dataOut/xiaowei/'</span>, </span>
+<span id="cb20-213"><a href="#cb20-213" aria-hidden="true" tabindex="-1"></a>                                       <span class="fu">names</span>(eh)[i], </span>
+<span id="cb20-214"><a href="#cb20-214" aria-hidden="true" tabindex="-1"></a>                                       <span class="st">".csv"</span>), </span>
+<span id="cb20-215"><a href="#cb20-215" aria-hidden="true" tabindex="-1"></a>                <span class="at">row.names =</span> F)</span>
+<span id="cb20-216"><a href="#cb20-216" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb20-217"><a href="#cb20-217" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb20-218"><a href="#cb20-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-219"><a href="#cb20-219" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
