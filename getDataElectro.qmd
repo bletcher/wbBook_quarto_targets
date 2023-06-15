@@ -91,7 +91,33 @@ ggplot(cdWB_electro, aes(observedLength, observedWeight, color = species)) +
   facet_wrap(~ species)
 
 
+ggplot(cdWB_electro |> filter(!is.na(observedWeight)), aes(observedWeight, color = species)) +
+  stat_ecdf(pad = TRUE) +
+  lims(x = c(0,200)) +
+  geom_hline(yintercept = c(0.9, 0.95)) +
+  facet_wrap(~river)
+
+
+
 ```
+
+## Cumulative mass curves
+
+```{r}
+#| label: fig-electroCumulMass
+#| fig-cap: "Cumulative mass curve"
+
+
+ggplot(cdWB_electro |> filter(!is.na(observedWeight)), aes(observedWeight, color = species)) +
+  stat_ecdf(pad = TRUE) +
+  lims(x = c(0,200)) +
+  geom_hline(yintercept = c(0.9, 0.95)) +
+  facet_wrap(~river)
+
+
+
+```
+
 
 ## Length-weight regression
 Simple linear regression statistics

@@ -35,6 +35,7 @@ book:
     - part: "Flow by Area/River models"
       chapters: 
         - modelGrowthFlowByRiver.qmd
+        - modelsCMR_ft_cohort_Flow_OB.qmd
         - modelsCMR_ft_cohort_Flow_WB.qmd
     - part: "General models"
       chapters: 
@@ -42,10 +43,9 @@ book:
         - modelFlow.qmd
         - modelConditionFactor.qmd
         - modelGrowthInMass.qmd
-    - part: "Capture-recapture models"
+    - part: "Neural network/CMR model comparison"
       chapters: 
-        - modelsCMR_ft_cohort_Flow_OB.qmd
-        
+        - modelsCMR_NN_OB.qmd
     - references.qmd
 
 bibliography: references.bib
