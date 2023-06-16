@@ -136,7 +136,10 @@ Summary values
     dplyr::select(-c(name, value, ind0))
   
   summary_tt_z <- summary_tt_z0 |> 
-    left_join(ehLong)
+    left_join(ehLong) |> 
+    mutate(
+      meanM1 = mean - 1
+    )
 ```
 
 ```{r}
@@ -164,6 +167,7 @@ summary_tt_z_OJS_T_selected = summary_tt_z_OJS_T.filter((d) =>
 )
 ```
 
+Black dots/line is probability of mortality and orange dots are encountered yes/no  
 ```{ojs}
 Plot.plot({
   width: width,
@@ -178,7 +182,7 @@ Plot.plot({
     Plot.frame(),
     Plot.dot(summary_tt_z_OJS_T_selected, {
       x: "t",
-      y: "mean"
+      y: "meanM1"
     }),
     Plot.dot(summary_tt_z_OJS_T_selected, {
       x: "t",
@@ -187,7 +191,7 @@ Plot.plot({
     }),
     Plot.line(summary_tt_z_OJS_T_selected, {
       x: "t",
-      y: "mean"
+      y: "meanM1"
     })
   ],
   facet: {
