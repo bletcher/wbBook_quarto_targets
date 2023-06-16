@@ -1,0 +1,220 @@
+# CJS models for NN testing - O'Bear (IS, River 4) only
+
+Simple CJS models to get phi and p estimates to compare with Neural Network CMR
+
+In all the models below, 1 = not observed and 2 = observed in the input *encounter data*.
+
+```{r}
+#| label: librariesModelsNimbleRiverNN
+#| echo: false
+library(getWBData)
+library(lubridate)
+library(kableExtra)
+library(GGally)
+library(nimble)
+library(nimbleEcology)
+library(MCMCvis)
+library(tidyverse)
+library(targets)
+```
+
+```{r}
+#| label: globalModelsNimbleRiverCohortNN
+#| include: false
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+### \[t,t\] model
+
+Model with phi and p for each age-in-samples (column in the encounter history file)
+
+Probability of survival (phi) model structure:
+
+logit(phi\[t,i\]) \<- betaInt\[t\]
+
+Probability of capture (p) model structure:
+
+logit(p\[t,i\]) \<- betaP\[t\]
+
+Model code is in `./models/cmrNN_OB/modelsmodelCMR_tt_NN_OB_functionsToSource.R`\
+Model is run 'by hand' in `./models/cmrNN_OB/modelsmodelCMR_tt_NN_OB_makeFile.R`\
+*Not* using this: Targets are loaded in `R/modelCMR_tt_NN_OB.R` and saved as `modelCMR_tt_NN_OB_target`
+
+Model runs:\
+tt_NN_OB_2023-06-14 23.RData: preliminary run only tracing phi and p\
+tt_NN_OB_2023-06-15 08.RData: tracing phi and p and z \[most recent\]
+
+#### Retrieve model results
+
+```{r}
+#| label: OB_tt_NN
+# Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
+# 
+  load('./models/cmrNN_OB/tt/runsOut/tt_NN_OB_mostRecent.RData')
+  out_NN_OB <- d
+  
+  #Input data
+  eh <- tar_read(eh_OB_2002_2014_target)
+```
+
+#### Model code
+
+In the model code, a value of `1` for `z` or in *gamma* or *omega* signifies the individual is alive and a value of `2` signifies the individual is dead.
+
+```{r}
+#| label: OB_tt_NN_code
+
+  out_NN_OB$modelCode
+
+```
+
+#### Model statistics
+
+```{r, echo=FALSE, results='asis'}
+#| label: OB_tt_NN_statsTable
+
+kable(as_tibble(out_NN_OB$runData), caption = "Run statistics")
+
+paste0('Run time = ', round(out_NN_OB$runTime, 3), ' ',  attr(out_NN_OB$runTime, "units"))
+```
+
+#### Plot traces
+
+```{r}
+#| label: OB_tt_NN_plotTraces
+
+  priors <- runif(out_NN_OB$runData$nIter * out_NN_OB$runData$nChains, 0, 1)
+  MCMCtrace(object = out_NN_OB$mcmc,
+            #ISB = FALSE,
+            #exact = TRUE, 
+            params = c("phi", "p"),
+            pdf = FALSE, 
+            priors = priors)
+
+```
+
+#### Summary data
+
+```{r}
+#| label: OB_tt_NN_plot
+#|   
+  MCMCplot(object = out_NN_OB$mcmc, params = c("phi"))
+  MCMCplot(object = out_NN_OB$mcmc, params = c("p"))
+```  
+
+Summary values  
+```{r}
+#| label: OB_tt_NN_SummaryZ
+#|
+  (summary_tt <- MCMCsummary(object = out_NN_OB$mcmc, params = c("phi", "p"), round = 3) %>%
+    rownames_to_column(var = "var"))
+  
+  # To get the mMCMCSummaryRMNA funcion which I adapted to deal with NAs
+  source('./models/cmrNN_OB/tt/modelCMR_tt_NN_OB_functionsToSource.R')
+  
+  summary_tt_z0 <- MCMCSummaryRMNA(object = out_NN_OB$mcmc, params = c("z"), round = 3) %>%
+    rownames_to_column(var = "var") |> 
+    mutate(
+      ind0 = str_match(var, "([0-9]+), ([0-9]+)")[,2],
+      t0 =   str_match(var, "([0-9]+), ([0-9]+)")[,3],
+      ind = as.numeric(ind0),
+      t = as.numeric(t0)
+    ) |> 
+    dplyr::select(-c(t0, ind0))
+
+  
+  ehLong <- 
+    eh$eh |>
+    as.data.frame() |> 
+    rownames_to_column("ind0") |> 
+    pivot_longer(starts_with("ais")) |> 
+    mutate(
+      t = as.numeric(str_match(name, "([0-9]+)")[,1]),
+      enc = value,
+      ind = as.numeric(ind0)
+    ) |> 
+    dplyr::select(-c(name, value, ind0))
+  
+  summary_tt_z <- summary_tt_z0 |> 
+    left_join(ehLong)
+```
+
+```{r}
+#| cache: FALSE
+ojs_define(numTags_OJS = dim(eh$tags)[1])
+ojs_define(summary_tt_z_OJS = (summary_tt_z))
+```
+
+#### Get probability of mortality (z) for selected individuals
+```{ojs}
+summary_tt_z_OJS_T = transpose(summary_tt_z_OJS)
+
+selectInd
+summary_tt_z_OJS_T_selected
+
+viewof selectInd = Inputs.select([...Array(numTags_OJS).keys()], {
+  label: "Which fish?",
+  value: 1,
+  step: 1,
+  multiple: true
+})
+
+summary_tt_z_OJS_T_selected = summary_tt_z_OJS_T.filter((d) =>
+  selectInd.includes(d.ind)
+)
+```
+
+```{ojs}
+Plot.plot({
+  width: width,
+  height: 350,
+  inset: 10,
+  color: {
+    scheme: "greys"
+  },
+  x: { label: "Time" },
+  y: { label: "Probability of mortality" },
+  marks: [
+    Plot.frame(),
+    Plot.dot(summary_tt_z_OJS_T_selected, {
+      x: "t",
+      y: "mean"
+    }),
+    Plot.dot(summary_tt_z_OJS_T_selected, {
+      x: "t",
+      y: "enc",
+      fill: "orange"
+    }),
+    Plot.line(summary_tt_z_OJS_T_selected, {
+      x: "t",
+      y: "mean"
+    })
+  ],
+  facet: {
+    data: summary_tt_z_OJS_T_selected,
+    x: "ind"
+  }
+})
+```
+
+#### Output for Xiaowei
+
+```{r}
+#| label: OB_tt_NN_xioawei
+
+  write.csv(summary_tt, './models/cmrNN_OB/tt/dataOut/xiaowei/summary_tt.csv')
+  
+  write.csv(summary_tt_z, './models/cmrNN_OB/tt/dataOut/xiaowei/summary_tt_z.csv')
+  
+  #Output input data to Xiaowei directory. Turn to TRUE to output.
+  if(FALSE) {
+  
+    for (i in seq_along(eh)){
+      write.csv(eh[[i]], file = paste0('./models/cmrNN_OB/tt/dataOut/xiaowei/', 
+                                       names(eh)[i], 
+                                       ".csv"), 
+                row.names = F)
+    }
+  }
+
+```
