@@ -135,11 +135,26 @@ Summary values
     ) |> 
     dplyr::select(-c(name, value, ind0))
   
+  firstLong <- eh$first |> 
+    as_tibble() |> 
+    rownames_to_column("ind") |> 
+    mutate(ind = as.numeric(ind)) |> 
+    rename(first = value)
+  
+  lastLong <- eh$last |> 
+    as_tibble() |> 
+    rownames_to_column("ind") |> 
+    mutate(ind = as.numeric(ind)) |> 
+    rename(last = value)
+    
+  
   summary_tt_z <- summary_tt_z0 |> 
     left_join(ehLong) |> 
     mutate(
       meanM1 = mean - 1
-    )
+    ) |> 
+    left_join(firstLong) |> 
+    left_join(lastLong)
 ```
 
 ```{r}
@@ -167,7 +182,7 @@ summary_tt_z_OJS_T_selected = summary_tt_z_OJS_T.filter((d) =>
 )
 ```
 
-Black dots/line is probability of mortality and orange dots are encountered yes/no  
+Black dots/line is estimated probability of mortality and orange dots are encountered yes/no  
 ```{ojs}
 Plot.plot({
   width: width,
@@ -176,7 +191,7 @@ Plot.plot({
   color: {
     scheme: "greys"
   },
-  x: { label: "Time" },
+  x: { label: "Age/season combination" },
   y: { label: "Probability of mortality" },
   marks: [
     Plot.frame(),
@@ -192,6 +207,10 @@ Plot.plot({
     Plot.line(summary_tt_z_OJS_T_selected, {
       x: "t",
       y: "meanM1"
+    }),
+        Plot.ruleX(summary_tt_z_OJS_T_selected, {
+      x: "first",
+      y: 1.5
     })
   ],
   facet: {
