@@ -161,7 +161,7 @@ Add to summary values
     left_join(ehLong) |> 
     mutate(
       meanM1 = mean - 1,
-      pSurv = ifelse(meanM1 == 0, 1, 0),
+      pSurv = ifelse(meanM1 == 0, 1, 1 - meanM1),
       enc8 = ifelse(enc == 1, 0.8, 0)
     ) |> 
     left_join(firstLong) |> 
@@ -226,6 +226,12 @@ Plot.plot({
       "stroke": "green"
     }),
     Plot.ruleX(summary_tt_z_OJS_T_selected, {
+      x: "last",
+      y: 1,
+      "stroke": "red"
+    })
+    ,
+    Plot.text(summary_tt_z_OJS_T_selected, {
       x: "last",
       y: 1,
       "stroke": "red"
