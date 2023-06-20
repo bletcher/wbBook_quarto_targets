@@ -210,7 +210,13 @@ Plot.plot({
     }),
         Plot.ruleX(summary_tt_z_OJS_T_selected, {
       x: "first",
-      y: 1.5
+      y: 1,
+      "stroke": "green"
+    }),
+        Plot.ruleX(summary_tt_z_OJS_T_selected, {
+      x: "last",
+      y: 1,
+      "stroke": "red"
     })
   ],
   facet: {
