@@ -121,8 +121,13 @@ Summary values
       t = as.numeric(t0)
     ) |> 
     dplyr::select(-c(t0, ind0))
+```
 
-  
+
+Add to summary values  
+```{r}
+#| label: OB_tt_NN_Summary2
+#|  
   ehLong <- 
     eh$eh |>
     as.data.frame() |> 
@@ -147,14 +152,21 @@ Summary values
     mutate(ind = as.numeric(ind)) |> 
     rename(last = value)
     
+  cohortLong <- eh$cohort |> 
+    as_tibble() |> 
+    rownames_to_column("ind") |> 
+    mutate(ind = as.numeric(ind)) 
   
   summary_tt_z <- summary_tt_z0 |> 
     left_join(ehLong) |> 
     mutate(
-      meanM1 = mean - 1
+      meanM1 = mean - 1,
+      pSurv = ifelse(meanM1 == 0, 1, 0),
+      enc8 = ifelse(enc == 1, 0.8, 0)
     ) |> 
     left_join(firstLong) |> 
-    left_join(lastLong)
+    left_join(lastLong) |> 
+    left_join(cohortLong)
 ```
 
 ```{r}
@@ -197,23 +209,23 @@ Plot.plot({
     Plot.frame(),
     Plot.dot(summary_tt_z_OJS_T_selected, {
       x: "t",
-      y: "meanM1"
+      y: "pSurv"
     }),
     Plot.dot(summary_tt_z_OJS_T_selected, {
       x: "t",
-      y: "enc",
+      y: "enc8",
       fill: "orange"
     }),
     Plot.line(summary_tt_z_OJS_T_selected, {
       x: "t",
-      y: "meanM1"
+      y: "pSurv"
     }),
-        Plot.ruleX(summary_tt_z_OJS_T_selected, {
+    Plot.ruleX(summary_tt_z_OJS_T_selected, {
       x: "first",
       y: 1,
       "stroke": "green"
     }),
-        Plot.ruleX(summary_tt_z_OJS_T_selected, {
+    Plot.ruleX(summary_tt_z_OJS_T_selected, {
       x: "last",
       y: 1,
       "stroke": "red"
