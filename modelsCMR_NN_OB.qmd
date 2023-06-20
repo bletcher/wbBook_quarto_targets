@@ -175,8 +175,8 @@ ojs_define(numTags_OJS = dim(eh$tags)[1])
 ojs_define(summary_tt_z_OJS = (summary_tt_z))
 ```
 
-#### Get probability of mortality (z) for selected individuals  
-Select one or more individuals  
+#### Plot the probability of survival (z) for selected individuals  
+Select one or more individuals :  
 ```{ojs}
 
 viewof selectInd = Inputs.select([...Array(numTags_OJS).keys()], {
@@ -231,7 +231,7 @@ Plot.plot({
     ,
     Plot.text(summary_tt_z_OJS_T_selected, 
       Plot.selectFirst({
-        x: 12,
+        x: 11,
         y: 1,
         text: d => d.cohort
       })

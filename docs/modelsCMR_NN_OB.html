@@ -619,9 +619,9 @@ tt_NN_OB_2023-06-15 08.RData: tracing phi and p and z [most recent]</p>
 </details>
 </div>
 </section>
-<section id="get-probability-of-mortality-z-for-selected-individuals" class="level4" data-number="17.0.1.6">
-<h4 data-number="17.0.1.6" class="anchored" data-anchor-id="get-probability-of-mortality-z-for-selected-individuals"><span class="header-section-number">17.0.1.6</span> Get probability of mortality (z) for selected individuals</h4>
-<p>Select one or more individuals</p>
+<section id="plot-the-probability-of-survival-z-for-selected-individuals" class="level4" data-number="17.0.1.6">
+<h4 data-number="17.0.1.6" class="anchored" data-anchor-id="plot-the-probability-of-survival-z-for-selected-individuals"><span class="header-section-number">17.0.1.6</span> Plot the probability of survival (z) for selected individuals</h4>
+<p>Select one or more individuals :</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -700,7 +700,7 @@ tt_NN_OB_2023-06-15 08.RData: tracing phi and p and z [most recent]</p>
 <span id="cb13-230"><a href="#cb13-230" aria-hidden="true" tabindex="-1"></a>    <span class="op">,</span></span>
 <span id="cb13-231"><a href="#cb13-231" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">text</span>(summary_tt_z_OJS_T_selected<span class="op">,</span> </span>
 <span id="cb13-232"><a href="#cb13-232" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">selectFirst</span>({</span>
-<span id="cb13-233"><a href="#cb13-233" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="dv">12</span><span class="op">,</span></span>
+<span id="cb13-233"><a href="#cb13-233" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="dv">11</span><span class="op">,</span></span>
 <span id="cb13-234"><a href="#cb13-234" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
 <span id="cb13-235"><a href="#cb13-235" aria-hidden="true" tabindex="-1"></a>        <span class="dt">text</span><span class="op">:</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">cohort</span></span>
 <span id="cb13-236"><a href="#cb13-236" aria-hidden="true" tabindex="-1"></a>      })</span>
@@ -749,7 +749,7 @@ tt_NN_OB_2023-06-15 08.RData: tracing phi and p and z [most recent]</p>
 
 </main> <!-- /main -->
 <script type="ojs-module-contents">
-{"contents":[{"methodName":"interpret","cellName":"ojs-cell-1","inline":false,"source":"\nviewof selectInd = Inputs.select([...Array(numTags_OJS).keys()], {\n  label: \"Which fish?\",\n  value: 1,\n  step: 1,\n  multiple: true\n})\n\nsummary_tt_z_OJS_T = transpose(summary_tt_z_OJS)\nsummary_tt_z_OJS_T_selected = summary_tt_z_OJS_T.filter((d) =>\n  selectInd.includes(d.ind)\n)\n"},{"methodName":"interpret","cellName":"ojs-cell-2","inline":false,"source":"Plot.plot({\n  width: width,\n  height: 350,\n  inset: 10,\n  color: {\n    scheme: \"greys\"\n  },\n  x: { label: \"Age/season combination\" },\n  y: { label: \"Probability of survival\" },\n  marks: [\n    Plot.frame(),\n    Plot.dot(summary_tt_z_OJS_T_selected, {\n      x: \"t\",\n      y: \"pSurv\"\n    }),\n    Plot.dot(summary_tt_z_OJS_T_selected, {\n      x: \"t\",\n      y: \"enc8\",\n      fill: \"orange\"\n    }),\n    Plot.line(summary_tt_z_OJS_T_selected, {\n      x: \"t\",\n      y: \"pSurv\"\n    }),\n    Plot.ruleX(summary_tt_z_OJS_T_selected, {\n      x: \"first\",\n      y: 1,\n      \"stroke\": \"green\"\n    }),\n    Plot.ruleX(summary_tt_z_OJS_T_selected, {\n      x: \"last\",\n      y: 1,\n      \"stroke\": \"red\"\n    })\n    ,\n    Plot.text(summary_tt_z_OJS_T_selected, \n      Plot.selectFirst({\n        x: 12,\n        y: 1,\n        text: d => d.cohort\n      })\n    )\n  ],\n  facet: {\n    data: summary_tt_z_OJS_T_selected,\n    x: \"ind\"\n  }\n})\n"},{"methodName":"interpretQuiet","source":"shinyInput('selectInd')"}]}
+{"contents":[{"methodName":"interpret","cellName":"ojs-cell-1","inline":false,"source":"\nviewof selectInd = Inputs.select([...Array(numTags_OJS).keys()], {\n  label: \"Which fish?\",\n  value: 1,\n  step: 1,\n  multiple: true\n})\n\nsummary_tt_z_OJS_T = transpose(summary_tt_z_OJS)\nsummary_tt_z_OJS_T_selected = summary_tt_z_OJS_T.filter((d) =>\n  selectInd.includes(d.ind)\n)\n"},{"methodName":"interpret","cellName":"ojs-cell-2","inline":false,"source":"Plot.plot({\n  width: width,\n  height: 350,\n  inset: 10,\n  color: {\n    scheme: \"greys\"\n  },\n  x: { label: \"Age/season combination\" },\n  y: { label: \"Probability of survival\" },\n  marks: [\n    Plot.frame(),\n    Plot.dot(summary_tt_z_OJS_T_selected, {\n      x: \"t\",\n      y: \"pSurv\"\n    }),\n    Plot.dot(summary_tt_z_OJS_T_selected, {\n      x: \"t\",\n      y: \"enc8\",\n      fill: \"orange\"\n    }),\n    Plot.line(summary_tt_z_OJS_T_selected, {\n      x: \"t\",\n      y: \"pSurv\"\n    }),\n    Plot.ruleX(summary_tt_z_OJS_T_selected, {\n      x: \"first\",\n      y: 1,\n      \"stroke\": \"green\"\n    }),\n    Plot.ruleX(summary_tt_z_OJS_T_selected, {\n      x: \"last\",\n      y: 1,\n      \"stroke\": \"red\"\n    })\n    ,\n    Plot.text(summary_tt_z_OJS_T_selected, \n      Plot.selectFirst({\n        x: 11,\n        y: 1,\n        text: d => d.cohort\n      })\n    )\n  ],\n  facet: {\n    data: summary_tt_z_OJS_T_selected,\n    x: \"ind\"\n  }\n})\n"},{"methodName":"interpretQuiet","source":"shinyInput('selectInd')"}]}
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
@@ -1347,8 +1347,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb15-193"><a href="#cb15-193" aria-hidden="true" tabindex="-1"></a><span class="fu">ojs_define</span>(<span class="at">summary_tt_z_OJS =</span> (summary_tt_z))</span>
 <span id="cb15-194"><a href="#cb15-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb15-195"><a href="#cb15-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-196"><a href="#cb15-196" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Get probability of mortality (z) for selected individuals  </span></span>
-<span id="cb15-197"><a href="#cb15-197" aria-hidden="true" tabindex="-1"></a>Select one or more individuals  </span>
+<span id="cb15-196"><a href="#cb15-196" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Plot the probability of survival (z) for selected individuals  </span></span>
+<span id="cb15-197"><a href="#cb15-197" aria-hidden="true" tabindex="-1"></a>Select one or more individuals :  </span>
 <span id="cb15-200"><a href="#cb15-200" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb15-201"><a href="#cb15-201" aria-hidden="true" tabindex="-1"></a>viewof selectInd <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>([<span class="op">...</span><span class="bu">Array</span>(numTags_OJS)<span class="op">.</span><span class="fu">keys</span>()]<span class="op">,</span> {</span>
 <span id="cb15-202"><a href="#cb15-202" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Which fish?"</span><span class="op">,</span></span>
@@ -1402,7 +1402,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb15-252"><a href="#cb15-252" aria-hidden="true" tabindex="-1"></a>    <span class="op">,</span></span>
 <span id="cb15-253"><a href="#cb15-253" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">text</span>(summary_tt_z_OJS_T_selected<span class="op">,</span> </span>
 <span id="cb15-254"><a href="#cb15-254" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">selectFirst</span>({</span>
-<span id="cb15-255"><a href="#cb15-255" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="dv">12</span><span class="op">,</span></span>
+<span id="cb15-255"><a href="#cb15-255" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="dv">11</span><span class="op">,</span></span>
 <span id="cb15-256"><a href="#cb15-256" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
 <span id="cb15-257"><a href="#cb15-257" aria-hidden="true" tabindex="-1"></a>        <span class="dt">text</span><span class="op">:</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">cohort</span></span>
 <span id="cb15-258"><a href="#cb15-258" aria-hidden="true" tabindex="-1"></a>      })</span>
