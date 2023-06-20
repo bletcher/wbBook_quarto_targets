@@ -233,7 +233,8 @@ Plot.plot({
     ,
     Plot.text(summary_tt_z_OJS_T_selected, {
       x: 11,
-      y: 1
+      y: 1,
+      text: d => d.cohort
     })
   ],
   facet: {
