@@ -178,10 +178,6 @@ ojs_define(summary_tt_z_OJS = (summary_tt_z))
 #### Get probability of mortality (z) for selected individuals  
 Select one or more individuals  
 ```{ojs}
-summary_tt_z_OJS_T = transpose(summary_tt_z_OJS)
-
-selectInd
-summary_tt_z_OJS_T_selected
 
 viewof selectInd = Inputs.select([...Array(numTags_OJS).keys()], {
   label: "Which fish?",
@@ -190,12 +186,13 @@ viewof selectInd = Inputs.select([...Array(numTags_OJS).keys()], {
   multiple: true
 })
 
+summary_tt_z_OJS_T = transpose(summary_tt_z_OJS)
 summary_tt_z_OJS_T_selected = summary_tt_z_OJS_T.filter((d) =>
   selectInd.includes(d.ind)
 )
 ```
 
-Black dots/line is estimated probability of mortality and orange dots are encountered yes/no. The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort. 
+Black dots/line is estimated probability of survival and orange dots are encountered yes (y = 0.8)/no (y = 0). The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort. 
 ```{ojs}
 Plot.plot({
   width: width,
@@ -205,7 +202,7 @@ Plot.plot({
     scheme: "greys"
   },
   x: { label: "Age/season combination" },
-  y: { label: "Probability of mortality" },
+  y: { label: "Probability of survival" },
   marks: [
     Plot.frame(),
     Plot.dot(summary_tt_z_OJS_T_selected, {
@@ -233,11 +230,11 @@ Plot.plot({
     })
     ,
     Plot.text(summary_tt_z_OJS_T_selected, 
-        Plot.selectFirst({
-          x: 11,
-          y: 1,
-          text: d => d.cohort
-        })
+      Plot.selectFirst({
+        x: 12,
+        y: 1,
+        text: d => d.cohort
+      })
     )
   ],
   facet: {
