@@ -175,7 +175,8 @@ ojs_define(numTags_OJS = dim(eh$tags)[1])
 ojs_define(summary_tt_z_OJS = (summary_tt_z))
 ```
 
-#### Get probability of mortality (z) for selected individuals
+#### Get probability of mortality (z) for selected individuals  
+Select one or more individuals  
 ```{ojs}
 summary_tt_z_OJS_T = transpose(summary_tt_z_OJS)
 
@@ -194,7 +195,7 @@ summary_tt_z_OJS_T_selected = summary_tt_z_OJS_T.filter((d) =>
 )
 ```
 
-Black dots/line is estimated probability of mortality and orange dots are encountered yes/no  
+Black dots/line is estimated probability of mortality and orange dots are encountered yes/no. The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort. 
 ```{ojs}
 Plot.plot({
   width: width,
@@ -231,11 +232,13 @@ Plot.plot({
       "stroke": "red"
     })
     ,
-    Plot.text(summary_tt_z_OJS_T_selected, {
-      x: 11,
-      y: 1,
-      text: d => d.cohort
-    })
+    Plot.text(summary_tt_z_OJS_T_selected, 
+        Plot.selectFirst({
+          x: 11,
+          y: 1,
+          text: d => d.cohort
+        })
+    )
   ],
   facet: {
     data: summary_tt_z_OJS_T_selected,
