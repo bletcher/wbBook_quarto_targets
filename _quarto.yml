@@ -45,6 +45,7 @@ book:
         - modelGrowthInMass.qmd
     - part: "Neural network/CMR model comparison"
       chapters: 
+        - modelsCMR_NN_OB_saveData.qmd
         - modelsCMR_NN_OB.qmd
     - references.qmd
 
