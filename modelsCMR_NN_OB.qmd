@@ -30,11 +30,13 @@ Model with phi and p for each age-in-samples (column in the encounter history fi
 
 Probability of survival (phi) model structure:
 
-logit(phi\[t,i\]) \<- betaInt\[t\]
+(phi\[t\]) \<- betaInt\[t\]
 
 Probability of capture (p) model structure:
 
-logit(p\[t,i\]) \<- betaP\[t\]
+(p\[t\]) \<- betaP\[t\]
+
+
 
 Model code is in `./models/cmrNN_OB/modelsmodelCMR_tt_NN_OB_functionsToSource.R`\
 Model is run 'by hand' in `./models/cmrNN_OB/modelsmodelCMR_tt_NN_OB_makeFile.R`\
@@ -59,7 +61,7 @@ tt_NN_OB_2023-06-15 08.RData: tracing phi and p and z \[most recent\]
 
 #### Model code
 
-In the model code, a value of `1` for `z` or in *gamma* or *omega* signifies the individual is alive and a value of `2` signifies the individual is dead.
+In the model code, a value of `1` for `z` or in *gamma* or *omega* signifies the individual is alive and a value of `2` signifies the individual is dead. `y[i,j]` is the observed data (encounter history file).
 
 ```{r}
 #| label: OB_tt_NN_code
