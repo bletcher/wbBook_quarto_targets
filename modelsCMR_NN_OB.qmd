@@ -1,8 +1,9 @@
-# CJS models for NN testing - O'Bear (IS, River 4) only
+# CJS [t,t] model- O'Bear (IS, River 4) only
 
 Simple CJS models to get phi and p estimates to compare with Neural Network CMR
 
-In all the models below, 1 = not observed and 2 = observed in the input *encounter data*.
+In all the models below, 1 = not observed and 2 = observed in the input *encounter data*.  
+Encounter data are available [here](https://drive.google.com/drive/folders/1UmPv49xL-mzUBndqjRISylNO3q3Zs-cm) in the `eh.csv` file.  
 
 ```{r}
 #| label: librariesModelsNimbleRiverNN
@@ -30,16 +31,16 @@ Model with phi and p for each age-in-samples (column in the encounter history fi
 
 Probability of survival (phi) model structure:
 
-(phi\[t\]) \<- betaInt\[t\]
+phi\[t\] \<- betaInt\[t\]
 
 Probability of capture (p) model structure:
 
-(p\[t\]) \<- betaP\[t\]
+p\[t\] \<- betaP\[t\]
 
 
 
-Model code is in `./models/cmrNN_OB/modelsmodelCMR_tt_NN_OB_functionsToSource.R`\
-Model is run 'by hand' in `./models/cmrNN_OB/modelsmodelCMR_tt_NN_OB_makeFile.R`\
+Model code is in `./models/cmrNN_OB/models/modelCMR_tt_NN_OB_functionsToSource.R`\
+Model is run 'by hand' in `./models/cmrNN_OB/models/modelCMR_tt_NN_OB_makeFile.R`\
 *Not* using this: Targets are loaded in `R/modelCMR_tt_NN_OB.R` and saved as `modelCMR_tt_NN_OB_target`
 
 Model runs:\
@@ -246,7 +247,7 @@ Plot.plot({
 })
 ```
 
-#### Output for Xiaowei
+#### Output model summary data for Xiaowei
 
 ```{r}
 #| label: OB_tt_NN_xioawei
@@ -255,15 +256,16 @@ Plot.plot({
   
   write.csv(summary_tt_z, './models/cmrNN_OB/tt/dataOut/xiaowei/summary_tt_z.csv')
   
-  #Output input data to Xiaowei directory. Turn to TRUE to output.
-  if(FALSE) {
-  
-    for (i in seq_along(eh)){
-      write.csv(eh[[i]], file = paste0('./models/cmrNN_OB/tt/dataOut/xiaowei/', 
-                                       names(eh)[i], 
-                                       ".csv"), 
-                row.names = F)
-    }
-  }
+  # #Output input data to Xiaowei directory. Turn to TRUE to output.
+  # Output happens here: C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/modelsCMR_NN_OB_outputData.qmd
+  # if(FALSE) {
+  # 
+  #   for (i in seq_along(eh)){
+  #     write.csv(eh[[i]], file = paste0('./models/cmrNN_OB/tt/dataOut/xiaowei/', 
+  #                                      names(eh)[i], 
+  #                                      ".csv"), 
+  #               row.names = F)
+  #   }
+  # }
 
 ```
