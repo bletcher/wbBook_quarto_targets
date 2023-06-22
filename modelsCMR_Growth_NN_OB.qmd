@@ -56,9 +56,11 @@ Model runs:\
 
 ```{r}
 #| label: OB_tt_growth_NN
+#| cache: false
+library(targets)
 # Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
 # 
-dummy <- 1
+
 load('./models/cmrNN_OB/tt_growth/runsOut/tt_growth_NN_OB_mostRecent.RData')
 out_NN_OB <- d
 
@@ -190,8 +192,29 @@ Add other variables to summary values
     left_join(firstLong) |> 
     left_join(lastLong) |> 
     left_join(cohortLong) |> 
-    left_join(weightLong)
+    left_join(weightLong) |> 
+    mutate(
+      resid = weight - mean
+    ) 
+    
+    
 ```
+
+```{r}
+#| label: OB_tt_growth_NN_getResids
+  resids <- summary_tt_growth_z |> 
+    group_by(ind) |> 
+    summarize(
+      meanResid = mean(resid, na.rm = TRUE),
+      n = n()
+    ) 
+
+  summary_tt_growth_z <- 
+    summary_tt_growth_z |> 
+    left_join((resids))
+
+```
+
 
 ```{r}
 #| cache: FALSE
@@ -233,6 +256,10 @@ Plot.plot({
       x: "t",
       y: "mean"
     }),
+    Plot.line(summary_tt_growth_z_OJS_T_selected, {
+      x: "t",
+      y: "mean"
+    }),
     Plot.dot(summary_tt_growth_z_OJS_T_selected, {
       x: "t",
       y: "weight",
@@ -240,7 +267,8 @@ Plot.plot({
     }),
     Plot.line(summary_tt_growth_z_OJS_T_selected, {
       x: "t",
-      y: "mean"
+      y: "weight",
+      fill: "orange"
     }),
     Plot.ruleX(summary_tt_growth_z_OJS_T_selected, {
       x: "first",
@@ -251,13 +279,19 @@ Plot.plot({
       x: "last",
       y: 3,
       "stroke": "red"
-    })
-    ,
+    }),
     Plot.text(summary_tt_growth_z_OJS_T_selected, 
       Plot.selectFirst({
         x: 11,
         y: 4,
-        text: d => d.cohort
+        text: d => "Cohort = " + d.cohort
+      })
+    ),
+    Plot.text(summary_tt_growth_z_OJS_T_selected, 
+      Plot.selectFirst({
+        x: 11,
+        y: 4,
+        text: d => "Residual = " + d.meanResid
       })
     )
   ],
