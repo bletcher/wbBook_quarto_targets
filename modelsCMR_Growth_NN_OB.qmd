@@ -60,6 +60,7 @@ Model runs:\
 library(targets)
 # Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
 # 
+dummy = 2
 
 load('./models/cmrNN_OB/tt_growth/runsOut/tt_growth_NN_OB_mostRecent.RData')
 out_NN_OB <- d
@@ -205,13 +206,13 @@ Add other variables to summary values
   resids <- summary_tt_growth_z |> 
     group_by(ind) |> 
     summarize(
-      meanResid = mean(resid, na.rm = TRUE),
+      meanResid = mean(abs(resid), na.rm = TRUE),
       n = n()
     ) 
 
   summary_tt_growth_z <- 
     summary_tt_growth_z |> 
-    left_join((resids))
+    left_join(resids)
 
 ```
 
