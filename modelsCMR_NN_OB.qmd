@@ -1,4 +1,4 @@
-# CJS [t,t] model- O'Bear (IS, River 4) only
+# CJS [t,t] model
 
 Simple CJS models to get phi and p estimates to compare with Neural Network CMR
 
@@ -39,8 +39,8 @@ p\[t\] \<- betaP\[t\]
 
 
 
-Model code is in `./models/cmrNN_OB/models/modelCMR_tt_NN_OB_functionsToSource.R`\
-Model is run 'by hand' in `./models/cmrNN_OB/models/modelCMR_tt_NN_OB_makeFile.R`\
+Model code is in `./models/cmrNN_OB/tt/modelCMR_tt_NN_OB_functionsToSource.R`\
+Model is run 'by hand' in `./models/cmrNN_OB/tt/modelCMR_tt_NN_OB_makeFile.R`\
 *Not* using this: Targets are loaded in `R/modelCMR_tt_NN_OB.R` and saved as `modelCMR_tt_NN_OB_target`
 
 Model runs:\
@@ -127,7 +127,7 @@ Summary values
 ```
 
 
-Add to summary values  
+Add other variables to summary values  
 ```{r}
 #| label: OB_tt_NN_Summary2
 #|  

@@ -1,0 +1,44 @@
+# Save input data
+
+```{r}
+#| label: librariesModelsNimbleRiverNN_data
+#| echo: false
+
+library(targets)
+```
+
+```{r}
+#| label: globalModelsNimbleRiverCohortNN_data
+#| include: false
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+### Get and save input data
+
+#### Retrieve input data
+
+```{r}
+#| label: OB_tt_NN_data
+
+  #Input data
+  eh <- tar_read(eh_OB_2002_2014_target)
+```
+
+#### Save input data for Xiaowei
+
+```{r}
+#| label: OB_tt_NN_xioawei_data
+
+
+  #Output input data to Xiaowei directory. Turn to TRUE to output.
+  if(FALSE) {
+  
+    for (i in seq_along(eh)){
+      write.csv(eh[[i]], file = paste0('./models/cmrNN_OB/tt/dataOut/xiaowei/', 
+                                       names(eh)[i], 
+                                       ".csv"), 
+                row.names = F)
+    }
+  }
+
+```

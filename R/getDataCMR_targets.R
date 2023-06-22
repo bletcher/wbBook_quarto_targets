@@ -46,6 +46,7 @@ dataCMR_WB_2002_2014_target <-
 
       filter(sampleNumber <= 83) %>%
       addSampleProperties() %>%
+      arrange(tag, ageInSamples) |> # so we get correct lagDetectionDate in addEnvironmental3
       addEnvironmental3(envDataWBIn = envDataWB_target, envDataWB_fdcThreshIn = envDataWB_fdcThresh_target) %>%
       # these commented functions below do not work for CMR data - they separate out shock and non-shock samples
       #addEnvironmentalDaily() %>%
@@ -56,13 +57,16 @@ dataCMR_WB_2002_2014_target <-
       addRiverTagged() %>%
       scaleEnvData() %>%
       addIsYOY() %>%
-      addRiverN()%>%
-      mutate(riverOrdered = factor(river, levels = c('west brook', 'wb jimmy', 'wb mitchell',"wb obear"),
-                                   labels = c("West Brook","WB Jimmy","WB Mitchell","WB OBear"), ordered = T)
+      addRiverN() %>%
+      mutate(
+        riverOrdered = factor(river, levels = c('west brook', 'wb jimmy', 'wb mitchell',"wb obear"),
+                                     labels = c("West Brook","WB Jimmy","WB Mitchell","WB OBear"), ordered = T),
+        sampleInterval = as.numeric(lagDetectionDate - detectionDate)
       ),
 
    eh_WB_2002_2014_target = getEH_AIS(cdWB_CMR0_target, cols, ops, vals, maxAgeInSamples)#, maxIndexByCohort = 100)
   )  
+
 ###############################################################
 ## WB - BKT fish
 # read down through the cols, ops, vals variables for filter conditions
@@ -393,6 +397,9 @@ getEH_AIS <- function(dIn, cols, ops, vals, maxOccasionValue, maxIndexByCohort =
   weightWide <- getEHDataWide_AIS(d, cols, ops, vals, "observedWeight", maxOccasionValue, valuesFill = NA)
   weightMatrix <- as.matrix(weightWide %>% dplyr::select(-tag), nrow = nrow(weightWide), ncol = ncol(weightWide) - 1)
   
+  sampleIntervalWide <- getEHDataWide_AIS(d, cols, ops, vals, "sampleInterval", maxOccasionValue, valuesFill = NA)
+  sampleIntervalMatrix <- as.matrix(sampleIntervalWide %>% dplyr::select(-tag), nrow = nrow(sampleIntervalWide), ncol = ncol(sampleIntervalWide) - 1)
+  
   
   tags <- encWide %>% dplyr::select(tag)
   
@@ -415,6 +422,8 @@ getEH_AIS <- function(dIn, cols, ops, vals, maxOccasionValue, maxIndexByCohort =
               propBelowLoFlowThreshByRiver = propBelowLoFlowThreshByRiverMatrix, propAboveHiFlowThreshByRiver = propAboveHiFlowThreshByRiverMatrix,
               propBelowLoFlowThreshByArea_flowExt = propBelowLoFlowThreshByArea_flowExtMatrix, propAboveHiFlowThreshByArea_flowExt = propAboveHiFlowThreshByArea_flowExtMatrix,
               temperature = temperatureMatrix, river = riverMatrix, section = sectionRiverNMatrix,
-              riverN = riverNMatrix, isYOY = isYOYMatrix, length = lengthMatrix, weight = weightMatrix, tags = tags, cohorts = cohorts, seasons = seasons, species = species,
+              riverN = riverNMatrix, isYOY = isYOYMatrix, length = lengthMatrix, weight = weightMatrix,
+              sampleInterval = sampleIntervalMatrix,
+              tags = tags, cohorts = cohorts, seasons = seasons, species = species,
               first = first, last = last, data = data))
 }
