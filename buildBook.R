@@ -21,11 +21,12 @@ tar_make()
 #                   'modelCMR_ttt_ft_cohort_WB_flowByRiver_target'))
 tar_make_future(workers = 2)
 
-
 quarto::quarto_render(output_format = "html")
 
 
-quarto::quarto_render("modelsCMR_NN_OB.qmd", output_format = "html")
+
+quarto::quarto_render("modelsCMR_Growth_NN_OB.qmd", output_format = "html")
+
 quarto::quarto_render("getDataEnv.qmd", output_format = "html")
 
 # working chapter

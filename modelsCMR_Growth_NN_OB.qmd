@@ -25,19 +25,25 @@ library(targets)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
-### \[t,t\] model
+### phi(i,t) + g(i,t), p(i,t) model
 
-Model with phi and p for each age-in-samples (column in the encounter history file)
+Model with phi and p for each age-in-samples (t = column in the encounter history file) and individual (i)  
 
 Probability of survival (phi) model structure:
   
-  phi\[t\] \<- betaInt\[t\]
+  phi(t,i) \<- phiInt(t,i)
 
 Probability of capture (p) model structure:
   
-  p\[t\] \<- betaP\[t\]
+  p(t,i) \<- pInt(t,i)
 
+Growth rate (gr) model structure:
+  
+  gr(t,i) \<- grInt(t,i)  
+  
+Survival/growth rate interaction:  
 
+  Additive  
 
 Model code is in `./models/cmrNN_OB/tt_growth/modelCMR_tt_growth_NN_OB_functionsToSource.R`\
 Model is run 'by hand' in `./models/cmrNN_OB/tt_growth/modelCMR_tt_growth_NN_OB_makeFile.R`\
@@ -52,7 +58,7 @@ Model runs:\
 #| label: OB_tt_growth_NN
 # Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
 # 
-
+dummy <- 1
 load('./models/cmrNN_OB/tt_growth/runsOut/tt_growth_NN_OB_mostRecent.RData')
 out_NN_OB <- d
 
@@ -90,7 +96,7 @@ paste0('Run time = ', round(out_NN_OB$runTime, 3), ' ',  attr(out_NN_OB$runTime,
   MCMCtrace(object = out_NN_OB$mcmc,
             #ISB = FALSE,
             #exact = TRUE, 
-            params = c("gr"),
+            params = c("grIntT"),
             pdf = FALSE, 
             priors = priors)
 
@@ -101,16 +107,16 @@ paste0('Run time = ', round(out_NN_OB$runTime, 3), ' ',  attr(out_NN_OB$runTime,
 ```{r}
 #| label: OB_tt_growth_NN_plot
 #|   
-  MCMCplot(object = out_NN_OB$mcmc, params = c("phi"))
+  MCMCplot(object = out_NN_OB$mcmc, params = c("phiIntT"))
   MCMCplot(object = out_NN_OB$mcmc, params = c("p"))
-  MCMCplot(object = out_NN_OB$mcmc, params = c("gr"))
+  MCMCplot(object = out_NN_OB$mcmc, params = c("grIntT"))
 ```  
 
 Summary values  
 ```{r}
 #| label: OB_tt_growth_NN_SummaryZ
 #|
-  (summary_tt_growth <- MCMCsummary(object = out_NN_OB$mcmc, params = c("phi", "p", "gr"), round = 3) %>%
+  (summary_tt_growth <- MCMCsummary(object = out_NN_OB$mcmc, params = c("phiIntT", "p", "grIntT"), round = 3) %>%
     rownames_to_column(var = "var"))
   
   # To get the mMCMCSummaryRMNA funcion which I adapted to deal with NAs
@@ -193,7 +199,7 @@ ojs_define(numTags_OJS = dim(eh$tags)[1])
 ojs_define(summary_tt_growth_z_OJS = (summary_tt_growth_z))
 ```
 
-#### Plot the probability of survival (z) for selected individuals  
+#### Plot predicted and observed masses for selected individuals  
 Select one or more individuals :  
 ```{ojs}
 
@@ -210,7 +216,7 @@ summary_tt_growth_z_OJS_T_selected = summary_tt_growth_z_OJS_T.filter((d) =>
 )
 ```
 
-Black dots/line is estimated probability of survival and orange dots are encountered yes (y = 0.8)/no (y = 0). The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort. 
+Black dots/line is estimated mass and orange dots are observed masses. The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort. 
 ```{ojs}
 Plot.plot({
   width: width,
@@ -238,19 +244,19 @@ Plot.plot({
     }),
     Plot.ruleX(summary_tt_growth_z_OJS_T_selected, {
       x: "first",
-      y: 1,
+      y: 3,
       "stroke": "green"
     }),
     Plot.ruleX(summary_tt_growth_z_OJS_T_selected, {
       x: "last",
-      y: 1,
+      y: 3,
       "stroke": "red"
     })
     ,
     Plot.text(summary_tt_growth_z_OJS_T_selected, 
       Plot.selectFirst({
         x: 11,
-        y: 1,
+        y: 4,
         text: d => d.cohort
       })
     )
