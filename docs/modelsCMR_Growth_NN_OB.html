@@ -757,41 +757,36 @@ Model is run ‘by hand’ in <code>./models/cmrNN_OB/tt_growth/modelCMR_tt_grow
 <span id="cb15-264"><a href="#cb15-264" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> <span class="st">"weight"</span><span class="op">,</span></span>
 <span id="cb15-265"><a href="#cb15-265" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fill</span><span class="op">:</span> <span class="st">"orange"</span></span>
 <span id="cb15-266"><a href="#cb15-266" aria-hidden="true" tabindex="-1"></a>    })<span class="op">,</span></span>
-<span id="cb15-267"><a href="#cb15-267" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(summary_tt_growth_z_OJS_T_selected<span class="op">,</span> {</span>
-<span id="cb15-268"><a href="#cb15-268" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> <span class="st">"t"</span><span class="op">,</span></span>
-<span id="cb15-269"><a href="#cb15-269" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> <span class="st">"weight"</span><span class="op">,</span></span>
-<span id="cb15-270"><a href="#cb15-270" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fill</span><span class="op">:</span> <span class="st">"orange"</span></span>
+<span id="cb15-267"><a href="#cb15-267" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>(summary_tt_growth_z_OJS_T_selected<span class="op">,</span> {</span>
+<span id="cb15-268"><a href="#cb15-268" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> <span class="st">"first"</span><span class="op">,</span></span>
+<span id="cb15-269"><a href="#cb15-269" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span></span>
+<span id="cb15-270"><a href="#cb15-270" aria-hidden="true" tabindex="-1"></a>      <span class="st">"stroke"</span><span class="op">:</span> <span class="st">"green"</span></span>
 <span id="cb15-271"><a href="#cb15-271" aria-hidden="true" tabindex="-1"></a>    })<span class="op">,</span></span>
 <span id="cb15-272"><a href="#cb15-272" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>(summary_tt_growth_z_OJS_T_selected<span class="op">,</span> {</span>
-<span id="cb15-273"><a href="#cb15-273" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> <span class="st">"first"</span><span class="op">,</span></span>
+<span id="cb15-273"><a href="#cb15-273" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> <span class="st">"last"</span><span class="op">,</span></span>
 <span id="cb15-274"><a href="#cb15-274" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span></span>
-<span id="cb15-275"><a href="#cb15-275" aria-hidden="true" tabindex="-1"></a>      <span class="st">"stroke"</span><span class="op">:</span> <span class="st">"green"</span></span>
+<span id="cb15-275"><a href="#cb15-275" aria-hidden="true" tabindex="-1"></a>      <span class="st">"stroke"</span><span class="op">:</span> <span class="st">"red"</span></span>
 <span id="cb15-276"><a href="#cb15-276" aria-hidden="true" tabindex="-1"></a>    })<span class="op">,</span></span>
-<span id="cb15-277"><a href="#cb15-277" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>(summary_tt_growth_z_OJS_T_selected<span class="op">,</span> {</span>
-<span id="cb15-278"><a href="#cb15-278" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> <span class="st">"last"</span><span class="op">,</span></span>
-<span id="cb15-279"><a href="#cb15-279" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span></span>
-<span id="cb15-280"><a href="#cb15-280" aria-hidden="true" tabindex="-1"></a>      <span class="st">"stroke"</span><span class="op">:</span> <span class="st">"red"</span></span>
-<span id="cb15-281"><a href="#cb15-281" aria-hidden="true" tabindex="-1"></a>    })<span class="op">,</span></span>
-<span id="cb15-282"><a href="#cb15-282" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">text</span>(summary_tt_growth_z_OJS_T_selected<span class="op">,</span> </span>
-<span id="cb15-283"><a href="#cb15-283" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">selectFirst</span>({</span>
-<span id="cb15-284"><a href="#cb15-284" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="dv">11</span><span class="op">,</span></span>
-<span id="cb15-285"><a href="#cb15-285" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span></span>
-<span id="cb15-286"><a href="#cb15-286" aria-hidden="true" tabindex="-1"></a>        <span class="dt">text</span><span class="op">:</span> d <span class="kw">=&gt;</span> <span class="st">"Cohort = "</span> <span class="op">+</span> d<span class="op">.</span><span class="at">cohort</span></span>
-<span id="cb15-287"><a href="#cb15-287" aria-hidden="true" tabindex="-1"></a>      })</span>
-<span id="cb15-288"><a href="#cb15-288" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
-<span id="cb15-289"><a href="#cb15-289" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">text</span>(summary_tt_growth_z_OJS_T_selected<span class="op">,</span> </span>
-<span id="cb15-290"><a href="#cb15-290" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">selectFirst</span>({</span>
-<span id="cb15-291"><a href="#cb15-291" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="dv">11</span><span class="op">,</span></span>
-<span id="cb15-292"><a href="#cb15-292" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span></span>
-<span id="cb15-293"><a href="#cb15-293" aria-hidden="true" tabindex="-1"></a>        <span class="dt">text</span><span class="op">:</span> d <span class="kw">=&gt;</span> <span class="st">"Residual = "</span> <span class="op">+</span> d<span class="op">.</span><span class="at">meanResid</span></span>
-<span id="cb15-294"><a href="#cb15-294" aria-hidden="true" tabindex="-1"></a>      })</span>
-<span id="cb15-295"><a href="#cb15-295" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb15-296"><a href="#cb15-296" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">,</span></span>
-<span id="cb15-297"><a href="#cb15-297" aria-hidden="true" tabindex="-1"></a>  <span class="dt">facet</span><span class="op">:</span> {</span>
-<span id="cb15-298"><a href="#cb15-298" aria-hidden="true" tabindex="-1"></a>    <span class="dt">data</span><span class="op">:</span> summary_tt_growth_z_OJS_T_selected<span class="op">,</span></span>
-<span id="cb15-299"><a href="#cb15-299" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> <span class="st">"ind"</span></span>
-<span id="cb15-300"><a href="#cb15-300" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb15-301"><a href="#cb15-301" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-277"><a href="#cb15-277" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">text</span>(summary_tt_growth_z_OJS_T_selected<span class="op">,</span> </span>
+<span id="cb15-278"><a href="#cb15-278" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">selectFirst</span>({</span>
+<span id="cb15-279"><a href="#cb15-279" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="dv">11</span><span class="op">,</span></span>
+<span id="cb15-280"><a href="#cb15-280" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span></span>
+<span id="cb15-281"><a href="#cb15-281" aria-hidden="true" tabindex="-1"></a>        <span class="dt">text</span><span class="op">:</span> d <span class="kw">=&gt;</span> <span class="st">"Cohort = "</span> <span class="op">+</span> d<span class="op">.</span><span class="at">cohort</span></span>
+<span id="cb15-282"><a href="#cb15-282" aria-hidden="true" tabindex="-1"></a>      })</span>
+<span id="cb15-283"><a href="#cb15-283" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb15-284"><a href="#cb15-284" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">text</span>(summary_tt_growth_z_OJS_T_selected<span class="op">,</span> </span>
+<span id="cb15-285"><a href="#cb15-285" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">selectFirst</span>({</span>
+<span id="cb15-286"><a href="#cb15-286" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="dv">9</span><span class="op">,</span></span>
+<span id="cb15-287"><a href="#cb15-287" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="dv">8</span><span class="op">,</span></span>
+<span id="cb15-288"><a href="#cb15-288" aria-hidden="true" tabindex="-1"></a>        <span class="dt">text</span><span class="op">:</span> d <span class="kw">=&gt;</span> <span class="st">"Residual = "</span> <span class="op">+</span> d<span class="op">.</span><span class="at">meanResid</span></span>
+<span id="cb15-289"><a href="#cb15-289" aria-hidden="true" tabindex="-1"></a>      })</span>
+<span id="cb15-290"><a href="#cb15-290" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-291"><a href="#cb15-291" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">,</span></span>
+<span id="cb15-292"><a href="#cb15-292" aria-hidden="true" tabindex="-1"></a>  <span class="dt">facet</span><span class="op">:</span> {</span>
+<span id="cb15-293"><a href="#cb15-293" aria-hidden="true" tabindex="-1"></a>    <span class="dt">data</span><span class="op">:</span> summary_tt_growth_z_OJS_T_selected<span class="op">,</span></span>
+<span id="cb15-294"><a href="#cb15-294" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> <span class="st">"ind"</span></span>
+<span id="cb15-295"><a href="#cb15-295" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb15-296"><a href="#cb15-296" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-2" data-nodetype="expression">
@@ -819,7 +814,7 @@ Model is run ‘by hand’ in <code>./models/cmrNN_OB/tt_growth/modelCMR_tt_grow
 
 </main> <!-- /main -->
 <script type="ojs-module-contents">
-{"contents":[{"methodName":"interpret","cellName":"ojs-cell-1","inline":false,"source":"\nviewof selectInd = Inputs.select([...Array(numTags_OJS).keys()], {\n  label: \"Which fish?\",\n  value: 1,\n  step: 1,\n  multiple: true\n})\n\nsummary_tt_growth_z_OJS_T = transpose(summary_tt_growth_z_OJS)\nsummary_tt_growth_z_OJS_T_selected = summary_tt_growth_z_OJS_T.filter((d) =>\n  selectInd.includes(d.ind)\n)\n"},{"methodName":"interpret","cellName":"ojs-cell-2","inline":false,"source":"Plot.plot({\n  width: width,\n  height: 350,\n  inset: 10,\n  color: {\n    scheme: \"greys\"\n  },\n  x: { label: \"Age/season combination\" },\n  y: { label: \"Body mass (mg)\" },\n  marks: [\n    Plot.frame(),\n    Plot.dot(summary_tt_growth_z_OJS_T_selected, {\n      x: \"t\",\n      y: \"mean\"\n    }),\n    Plot.line(summary_tt_growth_z_OJS_T_selected, {\n      x: \"t\",\n      y: \"mean\"\n    }),\n    Plot.dot(summary_tt_growth_z_OJS_T_selected, {\n      x: \"t\",\n      y: \"weight\",\n      fill: \"orange\"\n    }),\n    Plot.line(summary_tt_growth_z_OJS_T_selected, {\n      x: \"t\",\n      y: \"weight\",\n      fill: \"orange\"\n    }),\n    Plot.ruleX(summary_tt_growth_z_OJS_T_selected, {\n      x: \"first\",\n      y: 3,\n      \"stroke\": \"green\"\n    }),\n    Plot.ruleX(summary_tt_growth_z_OJS_T_selected, {\n      x: \"last\",\n      y: 3,\n      \"stroke\": \"red\"\n    }),\n    Plot.text(summary_tt_growth_z_OJS_T_selected, \n      Plot.selectFirst({\n        x: 11,\n        y: 4,\n        text: d => \"Cohort = \" + d.cohort\n      })\n    ),\n    Plot.text(summary_tt_growth_z_OJS_T_selected, \n      Plot.selectFirst({\n        x: 11,\n        y: 4,\n        text: d => \"Residual = \" + d.meanResid\n      })\n    )\n  ],\n  facet: {\n    data: summary_tt_growth_z_OJS_T_selected,\n    x: \"ind\"\n  }\n})\n"},{"methodName":"interpretQuiet","source":"shinyInput('selectInd')"}]}
+{"contents":[{"methodName":"interpret","cellName":"ojs-cell-1","inline":false,"source":"\nviewof selectInd = Inputs.select([...Array(numTags_OJS).keys()], {\n  label: \"Which fish?\",\n  value: 1,\n  step: 1,\n  multiple: true\n})\n\nsummary_tt_growth_z_OJS_T = transpose(summary_tt_growth_z_OJS)\nsummary_tt_growth_z_OJS_T_selected = summary_tt_growth_z_OJS_T.filter((d) =>\n  selectInd.includes(d.ind)\n)\n"},{"methodName":"interpret","cellName":"ojs-cell-2","inline":false,"source":"Plot.plot({\n  width: width,\n  height: 350,\n  inset: 10,\n  color: {\n    scheme: \"greys\"\n  },\n  x: { label: \"Age/season combination\" },\n  y: { label: \"Body mass (mg)\" },\n  marks: [\n    Plot.frame(),\n    Plot.dot(summary_tt_growth_z_OJS_T_selected, {\n      x: \"t\",\n      y: \"mean\"\n    }),\n    Plot.line(summary_tt_growth_z_OJS_T_selected, {\n      x: \"t\",\n      y: \"mean\"\n    }),\n    Plot.dot(summary_tt_growth_z_OJS_T_selected, {\n      x: \"t\",\n      y: \"weight\",\n      fill: \"orange\"\n    }),\n    Plot.ruleX(summary_tt_growth_z_OJS_T_selected, {\n      x: \"first\",\n      y: 3,\n      \"stroke\": \"green\"\n    }),\n    Plot.ruleX(summary_tt_growth_z_OJS_T_selected, {\n      x: \"last\",\n      y: 3,\n      \"stroke\": \"red\"\n    }),\n    Plot.text(summary_tt_growth_z_OJS_T_selected, \n      Plot.selectFirst({\n        x: 11,\n        y: 4,\n        text: d => \"Cohort = \" + d.cohort\n      })\n    ),\n    Plot.text(summary_tt_growth_z_OJS_T_selected, \n      Plot.selectFirst({\n        x: 9,\n        y: 8,\n        text: d => \"Residual = \" + d.meanResid\n      })\n    )\n  ],\n  facet: {\n    data: summary_tt_growth_z_OJS_T_selected,\n    x: \"ind\"\n  }\n})\n"},{"methodName":"interpretQuiet","source":"shinyInput('selectInd')"}]}
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
@@ -1506,60 +1501,55 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-288"><a href="#cb17-288" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> <span class="st">"weight"</span><span class="op">,</span></span>
 <span id="cb17-289"><a href="#cb17-289" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fill</span><span class="op">:</span> <span class="st">"orange"</span></span>
 <span id="cb17-290"><a href="#cb17-290" aria-hidden="true" tabindex="-1"></a>    })<span class="op">,</span></span>
-<span id="cb17-291"><a href="#cb17-291" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(summary_tt_growth_z_OJS_T_selected<span class="op">,</span> {</span>
-<span id="cb17-292"><a href="#cb17-292" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> <span class="st">"t"</span><span class="op">,</span></span>
-<span id="cb17-293"><a href="#cb17-293" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> <span class="st">"weight"</span><span class="op">,</span></span>
-<span id="cb17-294"><a href="#cb17-294" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fill</span><span class="op">:</span> <span class="st">"orange"</span></span>
+<span id="cb17-291"><a href="#cb17-291" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>(summary_tt_growth_z_OJS_T_selected<span class="op">,</span> {</span>
+<span id="cb17-292"><a href="#cb17-292" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> <span class="st">"first"</span><span class="op">,</span></span>
+<span id="cb17-293"><a href="#cb17-293" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span></span>
+<span id="cb17-294"><a href="#cb17-294" aria-hidden="true" tabindex="-1"></a>      <span class="st">"stroke"</span><span class="op">:</span> <span class="st">"green"</span></span>
 <span id="cb17-295"><a href="#cb17-295" aria-hidden="true" tabindex="-1"></a>    })<span class="op">,</span></span>
 <span id="cb17-296"><a href="#cb17-296" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>(summary_tt_growth_z_OJS_T_selected<span class="op">,</span> {</span>
-<span id="cb17-297"><a href="#cb17-297" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> <span class="st">"first"</span><span class="op">,</span></span>
+<span id="cb17-297"><a href="#cb17-297" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> <span class="st">"last"</span><span class="op">,</span></span>
 <span id="cb17-298"><a href="#cb17-298" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span></span>
-<span id="cb17-299"><a href="#cb17-299" aria-hidden="true" tabindex="-1"></a>      <span class="st">"stroke"</span><span class="op">:</span> <span class="st">"green"</span></span>
+<span id="cb17-299"><a href="#cb17-299" aria-hidden="true" tabindex="-1"></a>      <span class="st">"stroke"</span><span class="op">:</span> <span class="st">"red"</span></span>
 <span id="cb17-300"><a href="#cb17-300" aria-hidden="true" tabindex="-1"></a>    })<span class="op">,</span></span>
-<span id="cb17-301"><a href="#cb17-301" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>(summary_tt_growth_z_OJS_T_selected<span class="op">,</span> {</span>
-<span id="cb17-302"><a href="#cb17-302" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> <span class="st">"last"</span><span class="op">,</span></span>
-<span id="cb17-303"><a href="#cb17-303" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span></span>
-<span id="cb17-304"><a href="#cb17-304" aria-hidden="true" tabindex="-1"></a>      <span class="st">"stroke"</span><span class="op">:</span> <span class="st">"red"</span></span>
-<span id="cb17-305"><a href="#cb17-305" aria-hidden="true" tabindex="-1"></a>    })<span class="op">,</span></span>
-<span id="cb17-306"><a href="#cb17-306" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">text</span>(summary_tt_growth_z_OJS_T_selected<span class="op">,</span> </span>
-<span id="cb17-307"><a href="#cb17-307" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">selectFirst</span>({</span>
-<span id="cb17-308"><a href="#cb17-308" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="dv">11</span><span class="op">,</span></span>
-<span id="cb17-309"><a href="#cb17-309" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span></span>
-<span id="cb17-310"><a href="#cb17-310" aria-hidden="true" tabindex="-1"></a>        <span class="dt">text</span><span class="op">:</span> d <span class="kw">=&gt;</span> <span class="st">"Cohort = "</span> <span class="op">+</span> d<span class="op">.</span><span class="at">cohort</span></span>
-<span id="cb17-311"><a href="#cb17-311" aria-hidden="true" tabindex="-1"></a>      })</span>
-<span id="cb17-312"><a href="#cb17-312" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
-<span id="cb17-313"><a href="#cb17-313" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">text</span>(summary_tt_growth_z_OJS_T_selected<span class="op">,</span> </span>
-<span id="cb17-314"><a href="#cb17-314" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">selectFirst</span>({</span>
-<span id="cb17-315"><a href="#cb17-315" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="dv">11</span><span class="op">,</span></span>
-<span id="cb17-316"><a href="#cb17-316" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span></span>
-<span id="cb17-317"><a href="#cb17-317" aria-hidden="true" tabindex="-1"></a>        <span class="dt">text</span><span class="op">:</span> d <span class="kw">=&gt;</span> <span class="st">"Residual = "</span> <span class="op">+</span> d<span class="op">.</span><span class="at">meanResid</span></span>
-<span id="cb17-318"><a href="#cb17-318" aria-hidden="true" tabindex="-1"></a>      })</span>
-<span id="cb17-319"><a href="#cb17-319" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb17-320"><a href="#cb17-320" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">,</span></span>
-<span id="cb17-321"><a href="#cb17-321" aria-hidden="true" tabindex="-1"></a>  <span class="dt">facet</span><span class="op">:</span> {</span>
-<span id="cb17-322"><a href="#cb17-322" aria-hidden="true" tabindex="-1"></a>    <span class="dt">data</span><span class="op">:</span> summary_tt_growth_z_OJS_T_selected<span class="op">,</span></span>
-<span id="cb17-323"><a href="#cb17-323" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> <span class="st">"ind"</span></span>
-<span id="cb17-324"><a href="#cb17-324" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb17-325"><a href="#cb17-325" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb17-326"><a href="#cb17-326" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-301"><a href="#cb17-301" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">text</span>(summary_tt_growth_z_OJS_T_selected<span class="op">,</span> </span>
+<span id="cb17-302"><a href="#cb17-302" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">selectFirst</span>({</span>
+<span id="cb17-303"><a href="#cb17-303" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="dv">11</span><span class="op">,</span></span>
+<span id="cb17-304"><a href="#cb17-304" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span></span>
+<span id="cb17-305"><a href="#cb17-305" aria-hidden="true" tabindex="-1"></a>        <span class="dt">text</span><span class="op">:</span> d <span class="kw">=&gt;</span> <span class="st">"Cohort = "</span> <span class="op">+</span> d<span class="op">.</span><span class="at">cohort</span></span>
+<span id="cb17-306"><a href="#cb17-306" aria-hidden="true" tabindex="-1"></a>      })</span>
+<span id="cb17-307"><a href="#cb17-307" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb17-308"><a href="#cb17-308" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">text</span>(summary_tt_growth_z_OJS_T_selected<span class="op">,</span> </span>
+<span id="cb17-309"><a href="#cb17-309" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">selectFirst</span>({</span>
+<span id="cb17-310"><a href="#cb17-310" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="dv">9</span><span class="op">,</span></span>
+<span id="cb17-311"><a href="#cb17-311" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="dv">8</span><span class="op">,</span></span>
+<span id="cb17-312"><a href="#cb17-312" aria-hidden="true" tabindex="-1"></a>        <span class="dt">text</span><span class="op">:</span> d <span class="kw">=&gt;</span> <span class="st">"Residual = "</span> <span class="op">+</span> d<span class="op">.</span><span class="at">meanResid</span></span>
+<span id="cb17-313"><a href="#cb17-313" aria-hidden="true" tabindex="-1"></a>      })</span>
+<span id="cb17-314"><a href="#cb17-314" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb17-315"><a href="#cb17-315" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">,</span></span>
+<span id="cb17-316"><a href="#cb17-316" aria-hidden="true" tabindex="-1"></a>  <span class="dt">facet</span><span class="op">:</span> {</span>
+<span id="cb17-317"><a href="#cb17-317" aria-hidden="true" tabindex="-1"></a>    <span class="dt">data</span><span class="op">:</span> summary_tt_growth_z_OJS_T_selected<span class="op">,</span></span>
+<span id="cb17-318"><a href="#cb17-318" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> <span class="st">"ind"</span></span>
+<span id="cb17-319"><a href="#cb17-319" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb17-320"><a href="#cb17-320" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb17-321"><a href="#cb17-321" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-322"><a href="#cb17-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-323"><a href="#cb17-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-324"><a href="#cb17-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-325"><a href="#cb17-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-326"><a href="#cb17-326" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-327"><a href="#cb17-327" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-328"><a href="#cb17-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-328"><a href="#cb17-328" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Output model summary data for Xiaowei</span></span>
 <span id="cb17-329"><a href="#cb17-329" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-330"><a href="#cb17-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-331"><a href="#cb17-331" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-332"><a href="#cb17-332" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-333"><a href="#cb17-333" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Output model summary data for Xiaowei</span></span>
+<span id="cb17-332"><a href="#cb17-332" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-333"><a href="#cb17-333" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: OB_tt_NN_xioawei</span></span>
 <span id="cb17-334"><a href="#cb17-334" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-337"><a href="#cb17-337" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb17-338"><a href="#cb17-338" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: OB_tt_NN_xioawei</span></span>
+<span id="cb17-335"><a href="#cb17-335" aria-hidden="true" tabindex="-1"></a>  <span class="co">#write.csv(summary_tt, './models/cmrNN_OB/tt/dataOut/xiaowei/summary_tt.csv')</span></span>
+<span id="cb17-336"><a href="#cb17-336" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-337"><a href="#cb17-337" aria-hidden="true" tabindex="-1"></a>  <span class="co">#write.csv(summary_tt_z, './models/cmrNN_OB/tt/dataOut/xiaowei/summary_tt_z.csv')</span></span>
+<span id="cb17-338"><a href="#cb17-338" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb17-339"><a href="#cb17-339" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-340"><a href="#cb17-340" aria-hidden="true" tabindex="-1"></a>  <span class="co">#write.csv(summary_tt, './models/cmrNN_OB/tt/dataOut/xiaowei/summary_tt.csv')</span></span>
-<span id="cb17-341"><a href="#cb17-341" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb17-342"><a href="#cb17-342" aria-hidden="true" tabindex="-1"></a>  <span class="co">#write.csv(summary_tt_z, './models/cmrNN_OB/tt/dataOut/xiaowei/summary_tt_z.csv')</span></span>
-<span id="cb17-343"><a href="#cb17-343" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb17-344"><a href="#cb17-344" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-345"><a href="#cb17-345" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-346"><a href="#cb17-346" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-340"><a href="#cb17-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-341"><a href="#cb17-341" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

@@ -265,11 +265,6 @@ Plot.plot({
       y: "weight",
       fill: "orange"
     }),
-    Plot.line(summary_tt_growth_z_OJS_T_selected, {
-      x: "t",
-      y: "weight",
-      fill: "orange"
-    }),
     Plot.ruleX(summary_tt_growth_z_OJS_T_selected, {
       x: "first",
       y: 3,
@@ -289,8 +284,8 @@ Plot.plot({
     ),
     Plot.text(summary_tt_growth_z_OJS_T_selected, 
       Plot.selectFirst({
-        x: 11,
-        y: 4,
+        x: 9,
+        y: 8,
         text: d => "Residual = " + d.meanResid
       })
     )
