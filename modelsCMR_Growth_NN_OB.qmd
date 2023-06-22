@@ -204,7 +204,7 @@ viewof selectInd = Inputs.select([...Array(numTags_OJS).keys()], {
   multiple: true
 })
 
-summary_tt_z_OJS_T = transpose(summary_tt_growth_z_OJS)
+summary_tt_growth_z_OJS_T = transpose(summary_tt_growth_z_OJS)
 summary_tt_growth_z_OJS_T_selected = summary_tt_growth_z_OJS_T.filter((d) =>
   selectInd.includes(d.ind)
 )
