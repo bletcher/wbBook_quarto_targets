@@ -417,6 +417,10 @@ getEH_AIS <- function(dIn, cols, ops, vals, maxOccasionValue, maxIndexByCohort =
   last <- apply(riverMatrix, 1, function(x) max(which(!is.na(x))))
   last <- ifelse(last == maxOccasionValue, last, last - 1)
   
+  meanWeight_AIS <- d |> 
+    group_by(ageInSamples) |> 
+    summarize(meanWeight = mean(observedWeight, na.rm = TRUE))
+  
   return(list(eh = eh, flow = flowMatrix, flowByRiver = flowByRiverMatrix, flowByArea_flowExt = flowByArea_flowExtMatrix, 
               flowByArea_ByRiver = flowByArea_ByRiverMatrix, 
               propBelowLoFlowThreshByRiver = propBelowLoFlowThreshByRiverMatrix, propAboveHiFlowThreshByRiver = propAboveHiFlowThreshByRiverMatrix,
@@ -425,5 +429,5 @@ getEH_AIS <- function(dIn, cols, ops, vals, maxOccasionValue, maxIndexByCohort =
               riverN = riverNMatrix, isYOY = isYOYMatrix, length = lengthMatrix, weight = weightMatrix,
               sampleInterval = sampleIntervalMatrix,
               tags = tags, cohorts = cohorts, seasons = seasons, species = species,
-              first = first, last = last, data = data))
+              first = first, last = last, meanWeight_AIS = meanWeight_AIS, data = data))
 }
