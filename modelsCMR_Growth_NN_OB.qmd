@@ -311,31 +311,31 @@ Plot.plot({
   y: { label: "Probability of survival" },
   marks: [
     Plot.frame(),
-    Plot.dot(summary_tt_zR_OJS_T_selected, {
+    Plot.dot(summary_tt_growth_zR_OJS_T_selected, {
       x: "t",
       y: "pSurv"
     }),
-    Plot.dot(summary_tt_zR_OJS_T_selected, {
+    Plot.dot(summary_tt_growth_zR_OJS_T_selected, {
       x: "t",
       y: "enc8",
       fill: "orange"
     }),
-    Plot.line(summary_tt_zR_OJS_T_selected, {
+    Plot.line(summary_tt_growth_zR_OJS_T_selected, {
       x: "t",
       y: "pSurv"
     }),
-    Plot.ruleX(summary_tt_zR_OJS_T_selected, {
+    Plot.ruleX(summary_tt_growth_zR_OJS_T_selected, {
       x: "first",
       y: 1,
       "stroke": "green"
     }),
-    Plot.ruleX(summary_tt_zR_OJS_T_selected, {
+    Plot.ruleX(summary_tt_growth_zR_OJS_T_selected, {
       x: "last",
       y: 1,
       "stroke": "red"
     })
     ,
-    Plot.text(summary_tt_zR_OJS_T_selected, 
+    Plot.text(summary_tt_growth_zR_OJS_T_selected, 
       Plot.selectFirst({
         x: 11,
         y: 1,
@@ -344,7 +344,7 @@ Plot.plot({
     )
   ],
   facet: {
-    data: summary_tt_zR_OJS_T_selected,
+    data: summary_tt_growth_zR_OJS_T_selected,
     x: "ind"
   }
 })
