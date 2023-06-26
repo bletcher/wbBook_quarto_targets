@@ -116,17 +116,28 @@ Summary values
   source('./models/cmrNN_OB/tt_growth/modelCMR_tt_growth_NN_OB_functionsToSource.R')
   
   #summary_tt_growth_z0 <- MCMCSummaryRMNA(object = out_NN_OBmod1$mcmc, params = c("weightDATA"), round = 3) %>%
-  summary_tt_growth_z0 <- MCMCSummaryRMNA(object = out_NN_OBmod1$mcmc, params = c("gr", "weightDATA"), round = 3) %>%
-    rownames_to_column(var = "varAll") |> 
+  summary_tt_growth_zGR <- MCMCSummaryRMNA(object = out_NN_OBmod1$mcmc, params = c("gr"), round = 3) %>%
+    rownames_to_column(var = "var") |> 
     mutate(
-      ind0 = str_match(varAll, "([0-9]+), ([0-9]+)")[,2],
-      t0 =   str_match(varAll, "([0-9]+), ([0-9]+)")[,3],
+      ind0 = str_match(var, "([0-9]+), ([0-9]+)")[,2],
+      t0 =   str_match(var, "([0-9]+), ([0-9]+)")[,3],
       ind = as.numeric(ind0),
-      t = as.numeric(t0),
-      var = str_split(varAll, "\\[")[[1]][1]
+      t = as.numeric(t0)
     ) |> 
     dplyr::select(-c(t0, ind0))
   
+  summary_tt_growth_zW <- MCMCSummaryRMNA(object = out_NN_OBmod1$mcmc, params = c("weightDATA"), round = 3) %>%
+    rownames_to_column(var = "var") |> 
+    mutate(
+      ind0 = str_match(var, "([0-9]+), ([0-9]+)")[,2],
+      t0 =   str_match(var, "([0-9]+), ([0-9]+)")[,3],
+      ind = as.numeric(ind0),
+      t = as.numeric(t0)
+    ) |> 
+    dplyr::select(-c(t0, ind0))
+  
+  summary_tt_growth_z0 <- summary_tt_growth_zW |> 
+    left_join(summary_tt_growth_zGR, by = c("ind", "t"), suffix = c("_weight", "_gr"))
 ```
 
 Add other variables to summary values  
@@ -169,7 +180,7 @@ Add other variables to summary values
     pivot_longer(starts_with("ais")) |> 
     mutate(
       t = as.numeric(str_match(name, "([0-9]+)")[,1]),
-      weight = value,
+      weightDATA = value,
       ind = as.numeric(ind0)
     ) |> 
     dplyr::select(-c(name, value, ind0))
@@ -186,7 +197,7 @@ Add other variables to summary values
     left_join(cohortLong) |> 
     left_join(weightLong) |> 
     mutate(
-      resid = weight - mean
+      resid = weightDATA - mean_weight
     ) 
     
 ```
@@ -205,6 +216,14 @@ Add other variables to summary values
     summary_tt_growth_z |> 
     left_join(resids)
 
+  
+
+```
+
+```{r}
+#| label: saveCSV
+#| 
+  write.csv(summary_tt_growth_zR, './data/outForObservable/summary_tt_growth_zR.csv')
 ```
 
 
@@ -246,51 +265,53 @@ Plot.plot({
   y: { label: "Body mass (mg)" },
   marks: [
     Plot.frame(),
-    Plot.dot(summary_tt_growth_zR_OJS_T_selected.filter(d => d.var === "weightDATA"), {
+    Plot.dot(summary_tt_growth_zR_selected, {
       x: "t",
-      y: "mean"
+      y: "mean_weight"
     }),
-    Plot.line(summary_tt_growth_zR_OJS_T_selected.filter(d => d.var === "weightDATA"), {
+    Plot.line(summary_tt_growth_zR_selected, {
       x: "t",
-      y: "mean"
+      y: "mean_weight"
     }),
-    Plot.dot(summary_tt_growth_zR_OJS_T_selected.filter(d => d.var === "gr"), {
+    Plot.dot(summary_tt_growth_zR_selected, {
       x: "t",
-      y: "mean",
+      y: "mean_gr",
       fill: "green"
     }),
-    Plot.dot(summary_tt_growth_zR_OJS_T_selected.filter(d => d.var === "weightDATA"), {
+    Plot.dot(summary_tt_growth_zR_selected, {
       x: "t",
-      y: "weight",
+      y: "weightDATA",
       fill: "orange"
     }),
-    Plot.ruleX(summary_tt_growth_zR_OJS_T_selected, {
+    Plot.ruleX(summary_tt_growth_zR_selected, {
       x: "first",
       y: 3,
-      "stroke": "green"
+      stroke: "green"
     }),
-    Plot.ruleX(summary_tt_growth_zR_OJS_T_selected, {
+    Plot.ruleX(summary_tt_growth_zR_selected, {
       x: "last",
       y: 3,
-      "stroke": "red"
+      stroke: "red"
     }),
-    Plot.text(summary_tt_growth_zR_OJS_T_selected, 
+    Plot.text(
+      summary_tt_growth_zR_selected,
       Plot.selectFirst({
         x: 9,
         y: 4,
-        text: d => "Cohort = " + d.cohort
+        text: (d) => "Cohort = " + d.cohort
       })
     ),
-    Plot.text(summary_tt_growth_zR_OJS_T_selected, 
+    Plot.text(
+      summary_tt_growth_zR_selected,
       Plot.selectFirst({
         x: 9,
         y: 8,
-        text: d => "Residual = " + d.meanResid
+        text: (d) => "Residual = " + d.meanResid
       })
     )
   ],
   facet: {
-    data: summary_tt_growth_zR_OJS_T_selected,
+    data: summary_tt_growth_zR_selected,
     x: "ind"
   }
 })
