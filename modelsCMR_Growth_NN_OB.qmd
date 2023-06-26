@@ -223,7 +223,7 @@ Add other variables to summary values
 ```{r}
 #| label: saveCSV
 #| 
-  write.csv(summary_tt_growth_zR, './data/outForObservable/summary_tt_growth_zR.csv')
+#  write.csv(summary_tt_growth_zR, './data/outForObservable/summary_tt_growth_zR.csv')
 ```
 
 
@@ -265,36 +265,36 @@ Plot.plot({
   y: { label: "Body mass (mg)" },
   marks: [
     Plot.frame(),
-    Plot.dot(summary_tt_growth_zR_selected, {
+    Plot.dot(summary_tt_growth_zR_OJS_T_selected, {
       x: "t",
       y: "mean_weight"
     }),
-    Plot.line(summary_tt_growth_zR_selected, {
+    Plot.line(summary_tt_growth_zR_OJS_T_selected, {
       x: "t",
       y: "mean_weight"
     }),
-    Plot.dot(summary_tt_growth_zR_selected, {
+    Plot.dot(summary_tt_growth_zR_OJS_T_selected, {
       x: "t",
       y: "mean_gr",
       fill: "green"
     }),
-    Plot.dot(summary_tt_growth_zR_selected, {
+    Plot.dot(summary_tt_growth_zR_OJS_T_selected, {
       x: "t",
       y: "weightDATA",
       fill: "orange"
     }),
-    Plot.ruleX(summary_tt_growth_zR_selected, {
+    Plot.ruleX(summary_tt_growth_zR_OJS_T_selected, {
       x: "first",
       y: 3,
       stroke: "green"
     }),
-    Plot.ruleX(summary_tt_growth_zR_selected, {
+    Plot.ruleX(summary_tt_growth_zR_OJS_T_selected, {
       x: "last",
       y: 3,
       stroke: "red"
     }),
     Plot.text(
-      summary_tt_growth_zR_selected,
+      summary_tt_growth_zR_OJS_T_selected,
       Plot.selectFirst({
         x: 9,
         y: 4,
@@ -302,7 +302,7 @@ Plot.plot({
       })
     ),
     Plot.text(
-      summary_tt_growth_zR_selected,
+      summary_tt_growth_zR_OJS_T_selected,
       Plot.selectFirst({
         x: 9,
         y: 8,
@@ -311,7 +311,7 @@ Plot.plot({
     )
   ],
   facet: {
-    data: summary_tt_growth_zR_selected,
+    data: summary_tt_growth_zR_OJS_T_selected,
     x: "ind"
   }
 })
