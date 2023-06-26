@@ -107,6 +107,7 @@ paste0('Run time = ', round(out_NN_OBmod1$runTime, 3), ' ',  attr(out_NN_OBmod1$
 Summary values  
 ```{r}
 #| label: OB_tt_growth_NN_SummaryZ
+
 #|
   (summary_tt_growth <- MCMCsummary(object = out_NN_OBmod1$mcmc, params = c("grIntT"), round = 3) %>%
     rownames_to_column(var = "var"))
