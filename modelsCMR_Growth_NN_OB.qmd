@@ -293,7 +293,7 @@ Plot.plot({
       y: 3,
       stroke: "red"
     }),
-    Plot.text(summaryMod1_tt_growth_zR_selected,
+    Plot.text(summaryMod1_tt_growth_zR_OJS_T_selected,
       Plot.selectFirst({
         x: 1,
         y: 60,
@@ -301,7 +301,7 @@ Plot.plot({
         text: (d) => "Cohort = " + d.cohort
       })
     ),
-    Plot.text(summaryMod1_tt_growth_zR_selected,
+    Plot.text(summaryMod1_tt_growth_zR_OJS_T_selected,
       Plot.selectFirst({
         x: 1,
         y: 56,
@@ -581,11 +581,11 @@ Plot.plot({
       x: "t",
       y: "mean_weight"
     }),
-    Plot.dot(summaryMod2_tt_zR_OJS_T_selected, {
-      x: "t",
-      y: "mean_gr",
-      fill: "green"
-    }),
+    <!-- Plot.dot(summaryMod2_tt_zR_OJS_T_selected, { -->
+    <!--   x: "t", -->
+    <!--   y: "mean_gr", -->
+    <!--   fill: "green" -->
+    <!-- }), -->
     Plot.dot(summaryMod2_tt_zR_OJS_T_selected, {
       x: "t",
       y: "weightDATA",
