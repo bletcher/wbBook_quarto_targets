@@ -109,14 +109,14 @@ Summary values
 #| label: OB_tt_growth_NN_SummaryZ
 
 #|
-  (summary_tt_growth <- MCMCsummary(object = out_NN_OBmod1$mcmc, params = c("grIntT"), round = 3) %>%
+  (summaryMod1_tt_growth <- MCMCsummary(object = out_NN_OBmod1$mcmc, params = c("grIntT"), round = 3) %>%
     rownames_to_column(var = "var"))
   
   # To get the mMCMCSummaryRMNA funcion which I adapted to deal with NAs
   source('./models/cmrNN_OB/tt_growth/modelCMR_tt_growth_NN_OB_functionsToSource.R')
   
-  #summary_tt_growth_z0 <- MCMCSummaryRMNA(object = out_NN_OBmod1$mcmc, params = c("weightDATA"), round = 3) %>%
-  summary_tt_growth_zGR <- MCMCSummaryRMNA(object = out_NN_OBmod1$mcmc, params = c("gr"), round = 3) %>%
+  #summaryMod1_tt_growth_z0 <- MCMCSummaryRMNA(object = out_NN_OBmod1$mcmc, params = c("weightDATA"), round = 3) %>%
+  summaryMod1_tt_growth_zGR <- MCMCSummaryRMNA(object = out_NN_OBmod1$mcmc, params = c("gr"), round = 3) %>%
     rownames_to_column(var = "var") |> 
     mutate(
       ind0 = str_match(var, "([0-9]+), ([0-9]+)")[,2],
@@ -126,7 +126,7 @@ Summary values
     ) |> 
     dplyr::select(-c(t0, ind0))
   
-  summary_tt_growth_zW <- MCMCSummaryRMNA(object = out_NN_OBmod1$mcmc, params = c("weightDATA"), round = 3) %>%
+  summaryMod1_tt_growth_zW <- MCMCSummaryRMNA(object = out_NN_OBmod1$mcmc, params = c("weightDATA"), round = 3) %>%
     rownames_to_column(var = "var") |> 
     mutate(
       ind0 = str_match(var, "([0-9]+), ([0-9]+)")[,2],
@@ -136,8 +136,8 @@ Summary values
     ) |> 
     dplyr::select(-c(t0, ind0))
   
-  summary_tt_growth_z0 <- summary_tt_growth_zW |> 
-    left_join(summary_tt_growth_zGR, by = c("ind", "t"), suffix = c("_weight", "_gr"))
+  summaryMod1_tt_growth_z0 <- summaryMod1_tt_growth_zW |> 
+    left_join(summaryMod1_tt_growth_zGR, by = c("ind", "t"), suffix = c("_weight", "_gr"))
 ```
 
 Add other variables to summary values  
@@ -185,7 +185,7 @@ Add other variables to summary values
     ) |> 
     dplyr::select(-c(name, value, ind0))
   
-  summary_tt_growth_z <- summary_tt_growth_z0 |> 
+  summaryMod1_tt_growth_z <- summaryMod1_tt_growth_z0 |> 
     left_join(ehLong) |> 
     mutate(
       # meanM1 = mean - 1,
@@ -204,7 +204,7 @@ Add other variables to summary values
 
 ```{r}
 #| label: OB_tt_growth_NN_getResids
-  resids <- summary_tt_growth_z |> 
+  resids <- summaryMod1_tt_growth_z |> 
     group_by(ind) |> 
     summarize(
       meanResid = mean(abs(resid), na.rm = TRUE),
@@ -212,8 +212,8 @@ Add other variables to summary values
     ) |> 
     ungroup()
 
-  summary_tt_growth_zR <- 
-    summary_tt_growth_z |> 
+  summaryMod1_tt_growth_zR <- 
+    summaryMod1_tt_growth_z |> 
     left_join(resids)
 
   
@@ -223,14 +223,14 @@ Add other variables to summary values
 ```{r}
 #| label: saveCSV
 #| 
-#  write.csv(summary_tt_growth_zR, './data/outForObservable/summary_tt_growth_zR.csv')
+#  write.csv(summaryMod1_tt_growth_zR, './data/outForObservable/summaryMod1_tt_growth_zR.csv')
 ```
 
 
 ```{r}
 #| cache: FALSE
 ojs_define(numTags_OJS = dim(eh$tags)[1])
-ojs_define(summary_tt_growth_zR_OJS = (summary_tt_growth_zR))
+ojs_define(summaryMod1_tt_growth_zR_OJS = (summaryMod1_tt_growth_zR))
 
 ```
 
@@ -245,14 +245,14 @@ viewof selectInd = Inputs.select([...Array(numTags_OJS).keys()], {
   multiple: true
 })
 
-summary_tt_growth_zR_OJS_T = transpose(summary_tt_growth_zR_OJS)
-summary_tt_growth_zR_OJS_T_selected = summary_tt_growth_zR_OJS_T.filter((d) =>
+summaryMod1_tt_growth_zR_OJS_T = transpose(summaryMod1_tt_growth_zR_OJS)
+summaryMod1_tt_growth_zR_OJS_T_selected = summaryMod1_tt_growth_zR_OJS_T.filter((d) =>
   selectInd.includes(d.ind)
 )
 
 ```
 
-Black dots/line is estimated mass and orange dots are observed masses. The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort. 
+Black dots/line is estimated mass and orange dots are observed masses. The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort. Green dots are estimated growth rates.
 ```{ojs}
 Plot.plot({
   width: width,
@@ -265,53 +265,53 @@ Plot.plot({
   y: { label: "Body mass (mg)" },
   marks: [
     Plot.frame(),
-    Plot.dot(summary_tt_growth_zR_OJS_T_selected, {
+    Plot.dot(summaryMod1_tt_growth_zR_OJS_T_selected, {
       x: "t",
       y: "mean_weight"
     }),
-    Plot.line(summary_tt_growth_zR_OJS_T_selected, {
+    Plot.line(summaryMod1_tt_growth_zR_OJS_T_selected, {
       x: "t",
       y: "mean_weight"
     }),
-    Plot.dot(summary_tt_growth_zR_OJS_T_selected, {
+    Plot.dot(summaryMod1_tt_growth_zR_OJS_T_selected, {
       x: "t",
       y: "mean_gr",
       fill: "green"
     }),
-    Plot.dot(summary_tt_growth_zR_OJS_T_selected, {
+    Plot.dot(summaryMod1_tt_growth_zR_OJS_T_selected, {
       x: "t",
       y: "weightDATA",
       fill: "orange"
     }),
-    Plot.ruleX(summary_tt_growth_zR_OJS_T_selected, {
+    Plot.ruleX(summaryMod1_tt_growth_zR_OJS_T_selected, {
       x: "first",
       y: 3,
       stroke: "green"
     }),
-    Plot.ruleX(summary_tt_growth_zR_OJS_T_selected, {
+    Plot.ruleX(summaryMod1_tt_growth_zR_OJS_T_selected, {
       x: "last",
       y: 3,
       stroke: "red"
     }),
-    Plot.text(
-      summary_tt_growth_zR_OJS_T_selected,
+    Plot.text(summaryMod1_tt_growth_zR_selected,
       Plot.selectFirst({
-        x: 9,
-        y: 4,
+        x: 1,
+        y: 60,
+        frameAnchor: "top-left",
         text: (d) => "Cohort = " + d.cohort
       })
     ),
-    Plot.text(
-      summary_tt_growth_zR_OJS_T_selected,
+    Plot.text(summaryMod1_tt_growth_zR_selected,
       Plot.selectFirst({
-        x: 9,
-        y: 8,
+        x: 1,
+        y: 56,
+        frameAnchor: "top-left",
         text: (d) => "Residual = " + d.meanResid
       })
     )
   ],
   facet: {
-    data: summary_tt_growth_zR_OJS_T_selected,
+    data: summaryMod1_tt_growth_zR_OJS_T_selected,
     x: "ind"
   }
 })
@@ -391,11 +391,11 @@ paste0('Run time = ', round(out_NN_OBmod2$runTime, 3), ' ',  attr(out_NN_OBmod2$
 ```{r}
 #| label: OB_tt_growth_NN_plotTraces2
 
-  priors <- runif(out_NN_OBmod2$runData$nIter * out_NN_OBmod2$runData$nChains, 0, 1)
+  priors <- rnorm(out_NN_OBmod2$runData$nIter * out_NN_OBmod2$runData$nChains, 0, 1000)
   MCMCtrace(object = out_NN_OBmod2$mcmc,
             #ISB = FALSE,
             #exact = TRUE, 
-            params = c("grIntTOut"),
+            params = c("phiIntTOut", "grIntT"),
             pdf = FALSE, 
             priors = priors)
 
@@ -408,20 +408,21 @@ paste0('Run time = ', round(out_NN_OBmod2$runTime, 3), ' ',  attr(out_NN_OBmod2$
 #|   
   MCMCplot(object = out_NN_OBmod2$mcmc, params = c("phiIntTOut"))
   MCMCplot(object = out_NN_OBmod2$mcmc, params = c("p"))
-  MCMCplot(object = out_NN_OBmod2$mcmc, params = c("grIntTOut"))
+  MCMCplot(object = out_NN_OBmod2$mcmc, params = c("grIntT"))
 ```  
 
 Summary values  
 ```{r}
 #| label: OB_tt_growth_NN_SummaryZ2
 #|
-  (summary_tt_growth_mod2 <- MCMCsummary(object = out_NN_OBmod2$mcmc, params = c("phiIntTOut", "p", "grIntTOut"), round = 3) %>%
+(summaryMod2_tt_growth <- MCMCsummary(object = out_NN_OBmod2$mcmc, params = c("phiIntTOut", "p", "grIntT"), round = 3) %>%
     rownames_to_column(var = "var"))
   
   # To get the mMCMCSummaryRMNA funcion which I adapted to deal with NAs
   source('./models/cmrNN_OB/tt_growth/modelCMR_tt_growth_NN_OB_functionsToSource.R')
   
-  summary_tt_growth_z0_mod2 <- MCMCSummaryRMNA(object = out_NN_OBmod2$mcmc, params = c("weight"), round = 3) %>%
+  #summaryMod2_tt_growth_z0 <- MCMCSummaryRMNA(object = out_NN_OBmod2$mcmc, params = c("weightDATA"), round = 3) %>%
+  summaryMod2_tt_w <- MCMCSummaryRMNA(object = out_NN_OBmod2$mcmc, params = c("weightDATA"), round = 3) %>%
     rownames_to_column(var = "var") |> 
     mutate(
       ind0 = str_match(var, "([0-9]+), ([0-9]+)")[,2],
@@ -431,7 +432,7 @@ Summary values
     ) |> 
     dplyr::select(-c(t0, ind0))
   
-  summary_tt_z0_mod2 <- MCMCSummaryRMNA(object = out_NN_OBmod2$mcmc, params = c("z"), round = 3) %>%
+  summaryMod2_tt_z <- MCMCSummaryRMNA(object = out_NN_OBmod2$mcmc, params = c("z"), round = 3) %>%
     rownames_to_column(var = "var") |> 
     mutate(
       ind0 = str_match(var, "([0-9]+), ([0-9]+)")[,2],
@@ -440,6 +441,9 @@ Summary values
       t = as.numeric(t0)
     ) |> 
     dplyr::select(-c(t0, ind0))
+  
+  summaryMod2_tt_z0 <- summaryMod2_tt_z |> 
+    left_join(summaryMod2_tt_w, by = c("ind", "t"), suffix = c("_z", "_weight"))
 ```
 
 Add other variables to summary values  
@@ -482,12 +486,12 @@ Add other variables to summary values
     pivot_longer(starts_with("ais")) |> 
     mutate(
       t = as.numeric(str_match(name, "([0-9]+)")[,1]),
-      weight = value,
+      weightDATA = value,
       ind = as.numeric(ind0)
     ) |> 
     dplyr::select(-c(name, value, ind0))
   
-  summary_tt_growth_z_mod2 <- summary_tt_growth_z0_mod2 |> 
+  summaryMod2_tt_z <- summaryMod2_tt_z0 |> 
     left_join(ehLong) |> 
     mutate(
       # meanM1 = mean - 1,
@@ -499,24 +503,24 @@ Add other variables to summary values
     left_join(cohortLong) |> 
     left_join(weightLong) |> 
     mutate(
-      resid = weight - mean
+      resid = weightDATA - mean_weight
     ) 
     
-  summary_tt_z_mod2 <- summary_tt_z0_mod2 |> 
-    left_join(ehLong) |> 
-    mutate(
-      # meanM1 = mean - 1,
-      # pSurv = ifelse(meanM1 == 0, 1, 1 - meanM1),
-      enc8 = ifelse(enc == 1, 0.8, 0)
-    ) |> 
-    left_join(firstLong) |> 
-    left_join(lastLong) |> 
-    left_join(cohortLong) 
+  # summaryMod2_tt_z <- summaryMod2_tt_z0 |> 
+  #   left_join(ehLong) |> 
+  #   mutate(
+  #     # meanM1 = mean - 1,
+  #     # pSurv = ifelse(meanM1 == 0, 1, 1 - meanM1),
+  #     enc8 = ifelse(enc == 1, 0.8, 0)
+  #   ) |> 
+  #   left_join(firstLong) |> 
+  #   left_join(lastLong) |> 
+  #   left_join(cohortLong) 
 ```
 
 ```{r}
 #| label: OB_tt_growth_NN_getResids2
-  resids_mod2 <- summary_tt_growth_z_mod2 |> 
+  resids_mod2 <- summaryMod2_tt_z |> 
     group_by(ind) |> 
     summarize(
       meanResid = mean(abs(resid), na.rm = TRUE),
@@ -524,8 +528,8 @@ Add other variables to summary values
     ) |> 
     ungroup()
 
-  summary_tt_growth_zR_mod2 <- 
-    summary_tt_growth_z |> 
+  summaryMod2_tt_zR <- 
+    summaryMod2_tt_z |> 
     left_join(resids_mod2)
 
 ```
@@ -534,8 +538,8 @@ Add other variables to summary values
 ```{r}
 #| cache: FALSE
 ojs_define(numTags_OJS_mod2 = dim(eh$tags)[1])
-ojs_define(summary_tt_growth_zR_OJS_mod2 = (summary_tt_growth_zR_mod2))
-ojs_define(summary_tt_z_OJS_mod2 = (summary_tt_z_mod2))
+ojs_define(summaryMod2_tt_zR_OJS = (summaryMod2_tt_zR))
+#ojs_define(summary_tt_z_OJS = (summary_tt_z_mod2))
 ```
 
 #### Plot predicted and observed masses for selected individuals  
@@ -549,15 +553,11 @@ viewof selectInd_mod2 = Inputs.select([...Array(numTags_OJS).keys()], {
   multiple: true
 })
 
-summary_tt_growth_zR_OJS_T_mod2 = transpose(summary_tt_growth_zR_OJS_mod2)
-summary_tt_growth_zR_OJS_T_selected_mod2 = summary_tt_growth_zR_OJS_T_mod2.filter((d) =>
+summaryMod2_tt_zR_OJS_T = transpose(summaryMod2_tt_zR_OJS)
+summaryMod2_tt_zR_OJS_T_selected = summaryMod2_tt_zR_OJS_T.filter((d) =>
   selectInd_mod2.includes(d.ind)
 )
 
-summary_tt_z_OJS_T_mod2 = transpose(summary_tt_z_OJS_mod2)
-summary_tt_z_OJS_T_selected_mod2 = summary_tt_z_OJS_T_mod2.filter((d) =>
-  selectInd_mod2.includes(d.ind)
-)
 ```
 
 Black dots/line is estimated mass and orange dots are observed masses. The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort. 
@@ -573,46 +573,53 @@ Plot.plot({
   y: { label: "Body mass (mg)" },
   marks: [
     Plot.frame(),
-    Plot.dot(summary_tt_growth_zR_OJS_T_selected_mod2, {
+    Plot.dot(summaryMod2_tt_zR_OJS_T_selected, {
       x: "t",
-      y: "mean"
+      y: "mean_weight"
     }),
-    Plot.line(summary_tt_growth_zR_OJS_T_selected_mod2, {
+    Plot.line(summaryMod2_tt_zR_OJS_T_selected, {
       x: "t",
-      y: "mean"
+      y: "mean_weight"
     }),
-    Plot.dot(summary_tt_growth_zR_OJS_T_selected_mod2, {
+    Plot.dot(summaryMod2_tt_zR_OJS_T_selected, {
       x: "t",
-      y: "weight",
+      y: "mean_gr",
+      fill: "green"
+    }),
+    Plot.dot(summaryMod2_tt_zR_OJS_T_selected, {
+      x: "t",
+      y: "weightDATA",
       fill: "orange"
     }),
-    Plot.ruleX(summary_tt_growth_zR_OJS_T_selected_mod2, {
+    Plot.ruleX(summaryMod2_tt_zR_OJS_T_selected, {
       x: "first",
       y: 3,
       "stroke": "green"
     }),
-    Plot.ruleX(summary_tt_growth_zR_OJS_T_selected_mod2, {
+    Plot.ruleX(summaryMod2_tt_zR_OJS_T_selected, {
       x: "last",
       y: 3,
       "stroke": "red"
     }),
-    Plot.text(summary_tt_growth_zR_OJS_T_selected_mod2, 
+    Plot.text(summaryMod2_tt_zR_OJS_T_selected,
       Plot.selectFirst({
-        x: 9,
-        y: 4,
-        text: d => "Cohort = " + d.cohort
+        x: 1,
+        y: 60,
+        frameAnchor: "top-left",
+        text: (d) => "Cohort = " + d.cohort
       })
     ),
-    Plot.text(summary_tt_growth_zR_OJS_T_selected_mod2, 
+    Plot.text(summaryMod2_tt_zR_OJS_T_selected,
       Plot.selectFirst({
-        x: 9,
-        y: 8,
-        text: d => "Residual = " + d.meanResid
+        x: 1,
+        y: 56,
+        frameAnchor: "top-left",
+        text: (d) => "Residual = " + d.meanResid
       })
     )
   ],
   facet: {
-    data: summary_tt_growth_zR_OJS_T_selected_mod2,
+    data: summaryMod2_tt_zR_OJS_T_selected,
     x: "ind"
   }
 })
@@ -633,31 +640,31 @@ Plot.plot({
   y: { label: "Probability of survival" },
   marks: [
     Plot.frame(),
-    Plot.dot(summary_tt_z_OJS_T_selected_mod2, {
+    Plot.dot(summaryMod2_tt_zR_OJS_T_selected, {
       x: "t",
-      y: "pSurv"
+      y: "mean_z"
     }),
-    Plot.dot(summary_tt_z_OJS_T_selected_mod2, {
+    Plot.dot(summaryMod2_tt_zR_OJS_T_selected, {
       x: "t",
       y: "enc8",
       fill: "orange"
     }),
-    Plot.line(summary_tt_z_OJS_T_selected_mod2, {
+    Plot.line(summaryMod2_tt_zR_OJS_T_selected, {
       x: "t",
-      y: "pSurv"
+      y: "mean_z"
     }),
-    Plot.ruleX(summary_tt_z_OJS_T_selected_mod2, {
+    Plot.ruleX(summaryMod2_tt_zR_OJS_T_selected, {
       x: "first",
       y: 1,
       "stroke": "green"
     }),
-    Plot.ruleX(summary_tt_z_OJS_T_selected_mod2, {
+    Plot.ruleX(summaryMod2_tt_zR_OJS_T_selected, {
       x: "last",
       y: 1,
       "stroke": "red"
     })
     ,
-    Plot.text(summary_tt_z_OJS_T_selected_mod2, 
+    Plot.text(summaryMod2_tt_zR_OJS_T_selected, 
       Plot.selectFirst({
         x: 11,
         y: 1,
@@ -666,7 +673,7 @@ Plot.plot({
     )
   ],
   facet: {
-    data: summary_tt_z_OJS_T_selected_mod2,
+    data: summaryMod2_tt_zR_OJS_T_selected,
     x: "ind"
   }
 })
