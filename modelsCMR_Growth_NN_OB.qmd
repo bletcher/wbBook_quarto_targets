@@ -496,8 +496,8 @@ Add other variables to summary values
   summaryMod2_tt_z <- summaryMod2_tt_z0 |> 
     left_join(ehLong) |> 
     mutate(
-      # meanM1 = mean - 1,
-      # pSurv = ifelse(meanM1 == 0, 1, 1 - meanM1),
+      meanM1 = mean_z - 1,
+      pSurv = ifelse(meanM1 == 0, 1, 1 - meanM1),
       enc8 = ifelse(enc == 1, 0.8, 0)
     ) |> 
     left_join(firstLong) |> 
@@ -644,7 +644,7 @@ Plot.plot({
     Plot.frame(),
     Plot.dot(summaryMod2_tt_zR_OJS_T_selected, {
       x: "t",
-      y: "mean_z"
+      y: "pSurv"
     }),
     Plot.dot(summaryMod2_tt_zR_OJS_T_selected, {
       x: "t",
@@ -653,7 +653,7 @@ Plot.plot({
     }),
     Plot.line(summaryMod2_tt_zR_OJS_T_selected, {
       x: "t",
-      y: "mean_z"
+      y: "pSurv"
     }),
     Plot.ruleX(summaryMod2_tt_zR_OJS_T_selected, {
       x: "first",
@@ -861,8 +861,8 @@ Add other variables to summary values
   summaryMod3_tt_z <- summaryMod3_tt_z0 |> 
     left_join(ehLong) |> 
     mutate(
-      # meanM1 = mean - 1,
-      # pSurv = ifelse(meanM1 == 0, 1, 1 - meanM1),
+      meanM1 = mean_z - 1,
+      pSurv = ifelse(meanM1 == 0, 1, 1 - meanM1),
       enc8 = ifelse(enc == 1, 0.8, 0)
     ) |> 
     left_join(firstLong) |> 
@@ -1009,7 +1009,7 @@ Plot.plot({
     Plot.frame(),
     Plot.dot(summaryMod3_tt_zR_OJS_T_selected, {
       x: "t",
-      y: "mean_z"
+      y: "pSurv"
     }),
     Plot.dot(summaryMod3_tt_zR_OJS_T_selected, {
       x: "t",
@@ -1018,7 +1018,7 @@ Plot.plot({
     }),
     Plot.line(summaryMod3_tt_zR_OJS_T_selected, {
       x: "t",
-      y: "mean_z"
+      y: "pSurv"
     }),
     Plot.ruleX(summaryMod3_tt_zR_OJS_T_selected, {
       x: "first",
