@@ -858,6 +858,9 @@ Add other variables to summary values
     ) |> 
     dplyr::select(-c(name, value, ind0))
   
+  meanWeight <- mean(eh$weight, na.rm = TRUE)
+  sdWeight <- sd(eh$weight, na.rm = TRUE)
+
   summaryMod3_tt_z <- summaryMod3_tt_z0 |> 
     left_join(ehLong) |> 
     mutate(
@@ -870,7 +873,8 @@ Add other variables to summary values
     left_join(cohortLong) |> 
     left_join(weightLong) |> 
     mutate(
-      resid = weightDATA - mean_weight
+      weightDATA_std = (weightDATA - meanWeight) / sdWeight, 
+      resid = weightDATA_std - mean_weight
     ) 
     
   # summaryMod3_tt_z <- summaryMod3_tt_z0 |> 
@@ -900,7 +904,6 @@ Add other variables to summary values
     left_join(resids_mod3)
 
 ```
-
 
 ```{r}
 #| cache: FALSE
@@ -955,7 +958,7 @@ Plot.plot({
     <!-- }), -->
     Plot.dot(summaryMod3_tt_zR_OJS_T_selected, {
       x: "t",
-      y: "weightDATA",
+      y: "weightDATA_std",
       fill: "orange"
     }),
     Plot.ruleX(summaryMod3_tt_zR_OJS_T_selected, {
@@ -971,7 +974,7 @@ Plot.plot({
     Plot.text(summaryMod3_tt_zR_OJS_T_selected,
       Plot.selectFirst({
         x: 1,
-        y: 60,
+        y: 4,
         frameAnchor: "top-left",
         text: (d) => "Cohort = " + d.cohort
       })
@@ -979,7 +982,7 @@ Plot.plot({
     Plot.text(summaryMod3_tt_zR_OJS_T_selected,
       Plot.selectFirst({
         x: 1,
-        y: 56,
+        y: 3.5,
         frameAnchor: "top-left",
         text: (d) => "Residual = " + d.meanResid
       })
