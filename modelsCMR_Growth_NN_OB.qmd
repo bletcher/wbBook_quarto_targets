@@ -25,7 +25,7 @@ library(targets)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
-### modelNum 1: g(i,t) model
+## modelNum 1: g(i,t) model
 
 
 Growth rate (gr) model structure:
@@ -40,7 +40,7 @@ Model is run 'by hand' in `./models/cmrNN_OB/tt_growth/modelCMR_tt_growth_NN_OB_
 Model runs:\
 
 
-#### Retrieve model results
+## Retrieve model results
 
 ```{r}
 #| label: OB_tt_growth_NN
@@ -60,7 +60,7 @@ rm(d)
 eh <- tar_read(eh_OB_2002_2014_target)
 ```
 
-#### Model code
+### Model code
 
 In the model code, a value of `1` for `z` or in *gamma* or *omega* signifies the individual is alive and a value of `2` signifies the individual is dead. `y[i,j]` is the observed data (encounter history file).
 
@@ -71,7 +71,7 @@ out_NN_OBmod1$modelCode
 
 ```
 
-#### Model statistics
+### Model statistics
 
 ```{r, echo=FALSE, results='asis'}
 #| label: OB_tt_growth_NN_statsTable
@@ -81,7 +81,7 @@ kable(as_tibble(out_NN_OBmod1$runData), caption = "Run statistics")
 paste0('Run time = ', round(out_NN_OBmod1$runTime, 3), ' ',  attr(out_NN_OBmod1$runTime, "units"))
 ```
 
-#### Plot traces
+### Plot traces
 
 ```{r}
 #| label: OB_tt_growth_NN_plotTraces
@@ -96,7 +96,7 @@ paste0('Run time = ', round(out_NN_OBmod1$runTime, 3), ' ',  attr(out_NN_OBmod1$
 
 ```
 
-#### Summary data
+### Summary data
 
 ```{r}
 #| label: OB_tt_growth_NN_plot
@@ -235,7 +235,7 @@ ojs_define(summaryMod1_tt_growth_zR_OJS = (summaryMod1_tt_growth_zR))
 
 ```
 
-#### Plot predicted and observed masses for selected individuals  
+### Plot predicted and observed masses for selected individuals  
 Select one or more individuals:  
 ```{ojs}
 
@@ -321,7 +321,7 @@ Plot.plot({
 
 
 
-### modelNum 2: phi(i,t) + g(i,t), p(i,t) model
+## modelNum 2: phi(i,t) + g(i,t), p(i,t) model
 
 Model with phi and p for each age-in-samples (t = column in the encounter history file) and individual (i)  
 
@@ -348,7 +348,7 @@ Model is run 'by hand' in `./models/cmrNN_OB/tt_growth/modelCMR_tt_growth_NN_OB_
 Model runs:\
 
 
-#### Retrieve model results
+### Retrieve model results
 
 ```{r}
 #| label: OB_tt_growth_NN2
@@ -367,7 +367,7 @@ rm(d)
 eh <- tar_read(eh_OB_2002_2014_target)
 ```
 
-#### Model code
+### Model code
 
 In the model code, a value of `1` for `z` or in *gamma* or *omega* signifies the individual is alive and a value of `2` signifies the individual is dead. `y[i,j]` is the observed data (encounter history file).
 
@@ -378,7 +378,7 @@ out_NN_OBmod2$modelCode
 
 ```
 
-#### Model statistics
+### Model statistics
 
 ```{r, echo=FALSE, results='asis'}
 #| label: OB_tt_growth_NN_statsTable2
@@ -388,7 +388,7 @@ kable(as_tibble(out_NN_OBmod2$runData), caption = "Run statistics")
 paste0('Run time = ', round(out_NN_OBmod2$runTime, 3), ' ',  attr(out_NN_OBmod2$runTime, "units"))
 ```
 
-#### Plot traces
+### Plot traces
 
 ```{r}
 #| label: OB_tt_growth_NN_plotTraces2
@@ -403,7 +403,7 @@ paste0('Run time = ', round(out_NN_OBmod2$runTime, 3), ' ',  attr(out_NN_OBmod2$
 
 ```
 
-#### Summary data
+### Summary data
 
 ```{r}
 #| label: OB_tt_growth_NN_plot2
@@ -544,7 +544,7 @@ ojs_define(summaryMod2_tt_zR_OJS = (summaryMod2_tt_zR))
 #ojs_define(summary_tt_z_OJS = (summary_tt_z_mod2))
 ```
 
-#### Plot predicted and observed masses for selected individuals  
+### Plot predicted and observed masses for selected individuals  
 Select one or more individuals:  
 ```{ojs}
 
@@ -627,7 +627,7 @@ Plot.plot({
 })
 ```
 
-#### Plot survival
+### Plot survival
 
 Black dots/line is estimated probability of survival and orange dots are encountered yes (y = 0.8)/no (y = 0). The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort. 
 ```{ojs}
@@ -682,10 +682,7 @@ Plot.plot({
 ```
 
 
-
-
-
-### modelNum 3: phi(i,t) * g(i,t), p(i,t) model
+## modelNum 3: phi(i,t) * g(i,t), p(i,t) model
 
 Model with phi and p for each age-in-samples (t = column in the encounter history file) and individual (i)  
 
@@ -712,7 +709,7 @@ Model is run 'by hand' in `./models/cmrNN_OB/tt_growth/modelCMR_tt_growth_NN_OB_
 Model runs:\
 
 
-#### Retrieve model results
+### Retrieve model results
 
 ```{r}
 #| label: OB_tt_growth_NN3
@@ -731,7 +728,7 @@ rm(d)
 eh <- tar_read(eh_OB_2002_2014_target)
 ```
 
-#### Model code
+### Model code
 
 In the model code, a value of `1` for `z` or in *gamma* or *omega* signifies the individual is alive and a value of `2` signifies the individual is dead. `y[i,j]` is the observed data (encounter history file).
 
@@ -742,7 +739,7 @@ out_NN_OBmod3$modelCode
 
 ```
 
-#### Model statistics
+### Model statistics
 
 ```{r, echo=FALSE, results='asis'}
 #| label: OB_tt_growth_NN_statsTable3
@@ -752,7 +749,7 @@ kable(as_tibble(out_NN_OBmod3$runData), caption = "Run statistics")
 paste0('Run time = ', round(out_NN_OBmod3$runTime, 3), ' ',  attr(out_NN_OBmod3$runTime, "units"))
 ```
 
-#### Plot traces
+### Plot traces
 
 ```{r}
 #| label: OB_tt_growth_NN_plotTraces3
@@ -767,7 +764,7 @@ paste0('Run time = ', round(out_NN_OBmod3$runTime, 3), ' ',  attr(out_NN_OBmod3$
 
 ```
 
-#### Summary data
+### Summary data
 
 ```{r}
 #| label: OB_tt_growth_NN_plot3
@@ -912,7 +909,7 @@ ojs_define(summaryMod3_tt_zR_OJS = (summaryMod3_tt_zR))
 #ojs_define(summary_tt_z_OJS = (summary_tt_z_mod3))
 ```
 
-#### Plot predicted and observed masses for selected individuals  
+### Plot predicted and observed masses for selected individuals  
 Select one or more individuals:  
 ```{ojs}
 
@@ -940,7 +937,7 @@ Plot.plot({
     scheme: "greys"
   },
   x: { label: "Age/season combination" },
-  y: { label: "Body mass (mg)" },
+  y: { label: "Standardized body mass (mg)" },
   marks: [
     Plot.frame(),
     Plot.dot(summaryMod3_tt_zR_OJS_T_selected, {
@@ -995,7 +992,7 @@ Plot.plot({
 })
 ```
 
-#### Plot survival
+### Plot survival
 
 Black dots/line is estimated probability of survival and orange dots are encountered yes (y = 0.8)/no (y = 0). The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort. 
 ```{ojs}
@@ -1053,7 +1050,7 @@ Plot.plot({
 
 
 
-#### Output model summary data for Xiaowei
+### Output model summary data for Xiaowei
 
 ```{r}
 #| label: OB_tt_NN_xioawei
