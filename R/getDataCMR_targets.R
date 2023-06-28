@@ -400,6 +400,11 @@ getEH_AIS <- function(dIn, cols, ops, vals, maxOccasionValue, maxIndexByCohort =
   sampleIntervalWide <- getEHDataWide_AIS(d, cols, ops, vals, "sampleInterval", maxOccasionValue, valuesFill = NA)
   sampleIntervalMatrix <- as.matrix(sampleIntervalWide %>% dplyr::select(-tag), nrow = nrow(sampleIntervalWide), ncol = ncol(sampleIntervalWide) - 1)
   
+  seasonWide <- getEHDataWide_AIS(d, cols, ops, vals, "season", maxOccasionValue, valuesFill = NA)
+  seasonMatrix <- as.matrix(seasonWide %>% dplyr::select(-tag), nrow = nrow(seasonWide), ncol = ncol(seasonWide) - 1)
+  
+  yearWide <- getEHDataWide_AIS(d, cols, ops, vals, "year", maxOccasionValue, valuesFill = NA)
+  yearMatrix <- as.matrix(yearWide %>% dplyr::select(-tag), nrow = nrow(yearWide), ncol = ncol(yearWide) - 1)
   
   tags <- encWide %>% dplyr::select(tag)
   
@@ -427,7 +432,7 @@ getEH_AIS <- function(dIn, cols, ops, vals, maxOccasionValue, maxIndexByCohort =
               propBelowLoFlowThreshByArea_flowExt = propBelowLoFlowThreshByArea_flowExtMatrix, propAboveHiFlowThreshByArea_flowExt = propAboveHiFlowThreshByArea_flowExtMatrix,
               temperature = temperatureMatrix, river = riverMatrix, section = sectionRiverNMatrix,
               riverN = riverNMatrix, isYOY = isYOYMatrix, length = lengthMatrix, weight = weightMatrix,
-              sampleInterval = sampleIntervalMatrix,
+              sampleInterval = sampleIntervalMatrix, season = seasonMatrix, year = yearMatrix,
               tags = tags, cohorts = cohorts, seasons = seasons, species = species,
               first = first, last = last, meanWeight_AIS = meanWeight_AIS, data = data))
 }

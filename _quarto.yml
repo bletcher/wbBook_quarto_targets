@@ -12,7 +12,7 @@ comments:
     theme: clean
 
 book:
-  title: "West brook story"
+  title: "West Brook story"
   author: "Ben Letcher"
   date: today
   chapters:
@@ -45,7 +45,6 @@ book:
         - modelGrowthInMass.qmd
     - part: "Neural network/CMR model comparison - river 4 (IS) only"
       chapters: 
-        - modelsCMR_NN_OB_saveData.qmd
         - modelsCMR_NN_OB.qmd
         - modelsCMR_Growth_NN_OB.qmd
     - references.qmd

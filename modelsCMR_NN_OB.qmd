@@ -25,7 +25,7 @@ library(targets)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
-### \[t,t\] model
+## \[t,t\] model
 
 Model with phi and p for each age-in-samples (column in the encounter history file)
 
@@ -47,7 +47,7 @@ Model runs:\
 tt_NN_OB_2023-06-14 23.RData: preliminary run only tracing phi and p\
 tt_NN_OB_2023-06-15 08.RData: tracing phi and p and z \[most recent\]
 
-#### Retrieve model results
+### Retrieve model results
 
 ```{r}
 #| label: OB_tt_NN
@@ -60,7 +60,7 @@ tt_NN_OB_2023-06-15 08.RData: tracing phi and p and z \[most recent\]
   eh <- tar_read(eh_OB_2002_2014_target)
 ```
 
-#### Model code
+### Model code
 
 In the model code, a value of `1` for `z` or in *gamma* or *omega* signifies the individual is alive and a value of `2` signifies the individual is dead. `y[i,j]` is the observed data (encounter history file).
 
@@ -71,7 +71,7 @@ In the model code, a value of `1` for `z` or in *gamma* or *omega* signifies the
 
 ```
 
-#### Model statistics
+### Model statistics
 
 ```{r, echo=FALSE, results='asis'}
 #| label: OB_tt_NN_statsTable
@@ -81,7 +81,7 @@ kable(as_tibble(out_NN_OB$runData), caption = "Run statistics")
 paste0('Run time = ', round(out_NN_OB$runTime, 3), ' ',  attr(out_NN_OB$runTime, "units"))
 ```
 
-#### Plot traces
+### Plot traces
 
 ```{r}
 #| label: OB_tt_NN_plotTraces
@@ -96,7 +96,7 @@ paste0('Run time = ', round(out_NN_OB$runTime, 3), ' ',  attr(out_NN_OB$runTime,
 
 ```
 
-#### Summary data
+### Summary data
 
 ```{r}
 #| label: OB_tt_NN_plot
@@ -178,7 +178,7 @@ ojs_define(numTags_OJS = dim(eh$tags)[1])
 ojs_define(summary_tt_z_OJS = (summary_tt_z))
 ```
 
-#### Plot the probability of survival (z) for selected individuals  
+### Plot the probability of survival (z) for selected individuals  
 Select one or more individuals :  
 ```{ojs}
 
@@ -247,7 +247,7 @@ Plot.plot({
 })
 ```
 
-#### Output model summary data for Xiaowei
+## Output model summary data for Xiaowei
 
 ```{r}
 #| label: OB_tt_NN_xioawei

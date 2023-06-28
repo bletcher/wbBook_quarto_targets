@@ -806,6 +806,16 @@ Summary values
     ) |> 
     dplyr::select(-c(t0, ind0))
   
+  summaryMod3_tt_PhiBetaT <- MCMCSummaryRMNA(object = out_NN_OBmod3$mcmc, params = c("phiBetaT"), round = 3) %>%
+    rownames_to_column(var = "var") |> 
+    mutate(
+      ind0 = str_match(var, "([0-9]+), ([0-9]+)")[,2],
+      t0 =   str_match(var, "([0-9]+), ([0-9]+)")[,3],
+      ind = as.numeric(ind0),
+      t = as.numeric(t0)
+    ) |> 
+    dplyr::select(-c(t0, ind0))
+  
   summaryMod3_tt_z0 <- summaryMod3_tt_z |> 
     left_join(summaryMod3_tt_w, by = c("ind", "t"), suffix = c("_z", "_weight"))
 ```
@@ -1050,7 +1060,7 @@ Plot.plot({
 
 
 
-### Output model summary data for Xiaowei
+## Output model summary data for Xiaowei
 
 ```{r}
 #| label: OB_tt_NN_xioawei
