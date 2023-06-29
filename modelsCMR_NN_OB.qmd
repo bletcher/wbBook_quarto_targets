@@ -195,7 +195,7 @@ summary_tt_z_OJS_T_selected = summary_tt_z_OJS_T.filter((d) =>
 )
 ```
 
-Black dots/line is estimated probability of survival and orange dots are encountered yes (y = 0.8)/no (y = 0). The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort. 
+Black dots/line is estimated probability of survival and orange dots are encountered yes (y = 0.8)/no (y = 0). The green line is the first observation and the red line is the last possible observation. The number in the upper right corner of each panel is the fish's cohort. 
 ```{ojs}
 Plot.plot({
   width: width,

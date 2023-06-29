@@ -779,7 +779,7 @@ Summary values
 ```{r}
 #| label: OB_tt_growth_NN_SummaryZ3
 #|
-(summaryMod3_tt_growth <- MCMCsummary(object = out_NN_OBmod3$mcmc, params = c("phiIntTOut", "p", "grIntT"), round = 3) %>%
+(summaryMod3_tt_growth <- MCMCsummary(object = out_NN_OBmod3$mcmc, params = c("phiIntTOut", "p", "grIntT", "phiBetaT"), round = 3) %>%
     rownames_to_column(var = "var"))
   
   # To get the mMCMCSummaryRMNA funcion which I adapted to deal with NAs
@@ -819,6 +819,40 @@ Summary values
   summaryMod3_tt_z0 <- summaryMod3_tt_z |> 
     left_join(summaryMod3_tt_w, by = c("ind", "t"), suffix = c("_z", "_weight"))
 ```
+
+```{r}
+#| label: OB_tt_growth_NN_plotSurvWeight
+
+summaryMod3_tt_growth_phi <- MCMCsummary(object = out_NN_OBmod3$mcmc, params = c("phiIntTOut", "grIntT"), round = 3) |> 
+    rownames_to_column(var = "var") |> 
+    mutate(
+      t = as.numeric(str_match(var, "[0-9]+"))
+    ) |> 
+    separate_wider_delim(var, "[", names = c("var1", "var2")) |> 
+  dplyr::select(mean,var1,t) |> 
+  pivot_wider(names_from = var1, names_prefix = "beta", values_from = mean)
+
+summaryMod3_tt_growth_phiBetas = MCMCsummary(object = out_NN_OBmod3$mcmc, params = c("phiBetaT"), round = 3) |> 
+        rownames_to_column(var = "var") |> 
+        mutate(
+          beta = str_match(var, "([0-9]+), ([0-9]+)")[,2],
+          t = as.numeric(str_match(var, "([0-9]+), ([0-9]+)")[,3])
+        ) |> 
+  dplyr::select(mean,beta,t) |> 
+  pivot_wider(names_from = beta, names_prefix = "beta", values_from = mean)
+
+
+
+summaryMod3_tt_growth_phiParams <-  
+  bind_cols(summaryMod3_tt_growth_phi, summaryMod3_tt_growth_phiBetas |> dplyr::select(-t)) |> 
+  mutate(
+    phiInt = logit(betaphiIntTOut)
+  )
+
+weights = expand.grid(weights = seq(-2,2,0.25), t = 1:11)
+#add predictions...
+```
+
 
 Add other variables to summary values  
 ```{r}
@@ -1057,6 +1091,425 @@ Plot.plot({
 ```
 
 
+
+## modelNum 4: phi(i,ys) * g(i,ys), p(i,t) model
+
+Model with phi and p for each yoy(y)/season(s) combination and individual (i)  
+
+Probability of survival (phi) model structure:
+  
+  phi(t,i) \<- phiInt(ys,i) + weight(t,i) + weight(t,i)^2
+
+Probability of capture (p) model structure:
+  
+  p(t,i) \<- pInt(t,i)
+
+Growth rate (gr) model structure:
+  
+  gr(t,i) \<- grInt(ys,i)  
+  
+Survival/growth rate interaction:  
+
+  Multiplicative  
+
+Model code is in `./models/cmrNN_OB/tt_growth/modelCMR_tt_growth_NN_OB_functionsToSource.R`\
+Model is run 'by hand' in `./models/cmrNN_OB/tt_growth/modelCMR_tt_growth_NN_OB_makeFile.R`\
+*Not* using this: Targets are loaded in `R/modelCMR_tt_growth_NN_OB.R` and saved as `modelCMR_tt_growth_NN_OB_target`
+
+Model runs:\
+
+
+### Retrieve model results
+
+```{r}
+#| label: OB_tt_growth_NN4
+#| cache: false
+library(targets)
+# Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
+# 
+modelNum = 4 # phi + growth
+
+#load('./models/cmrNN_OB/tt_growth/runsOut/tt_growth_NN_OB_mostRecent.RData')
+load(paste0('./models/cmrNN_OB/tt_growth/runsOut/tt_growth_NN_OB_model', modelNum, '_mostRecent.RData'))
+out_NN_OBmod4 <- d
+rm(d)
+
+#Input data
+eh <- tar_read(eh_OB_2002_2014_target)
+```
+
+### Model code
+
+In the model code, a value of `1` for `z` or in *gamma* or *omega* signifies the individual is alive and a value of `2` signifies the individual is dead. `y[i,j]` is the observed data (encounter history file).
+
+```{r}
+#| label: OB_tt_growth_NN_code4
+
+out_NN_OBmod4$modelCode
+
+```
+
+### Model statistics
+
+```{r, echo=FALSE, results='asis'}
+#| label: OB_tt_growth_NN_statsTable4
+
+kable(as_tibble(out_NN_OBmod4$runData), caption = "Run statistics")
+
+paste0('Run time = ', round(out_NN_OBmod4$runTime, 3), ' ',  attr(out_NN_OBmod4$runTime, "units"))
+```
+
+### Plot traces
+
+```{r}
+#| label: OB_tt_growth_NN_plotTraces4
+
+  priors <- rnorm(out_NN_OBmod4$runData$nIter * out_NN_OBmod4$runData$nChains, 0, 1000)
+  MCMCtrace(object = out_NN_OBmod4$mcmc,
+            #ISB = FALSE,
+            #exact = TRUE, 
+            params = c("phiInt", "grIntYS"),
+            pdf = FALSE, 
+            priors = priors)
+
+```
+
+### Summary data
+
+```{r}
+#| label: OB_tt_growth_NN_plot4
+#|   
+  MCMCplot(object = out_NN_OBmod4$mcmc, params = c("phiInt"))
+  MCMCplot(object = out_NN_OBmod4$mcmc, params = c("phiBeta"))
+  MCMCplot(object = out_NN_OBmod4$mcmc, params = c("p"))
+  MCMCplot(object = out_NN_OBmod4$mcmc, params = c("grInt"))
+
+```  
+
+Summary values  
+```{r}
+#| label: OB_tt_growth_NN_SummaryZ4
+#|
+(summaryMod4_tt_growth <- MCMCsummary(object = out_NN_OBmod4$mcmc, params = c("phiInt", "p", "grInt", "phiBeta"), round = 3) %>%
+    rownames_to_column(var = "var"))
+  
+  # To get the mMCMCSummaryRMNA funcion which I adapted to deal with NAs
+  source('./models/cmrNN_OB/tt_growth/modelCMR_tt_growth_NN_OB_functionsToSource.R')
+  
+  #summaryMod4_tt_growth_z0 <- MCMCSummaryRMNA(object = out_NN_OBmod4$mcmc, params = c("weight"), round = 4) %>%
+  summaryMod4_tt_w <- MCMCSummaryRMNA(object = out_NN_OBmod4$mcmc, params = c("weight"), round = 3) %>%
+    rownames_to_column(var = "var") |> 
+    mutate(
+      ind0 = str_match(var, "([0-9]+), ([0-9]+)")[,2],
+      t0 =   str_match(var, "([0-9]+), ([0-9]+)")[,3],
+      ind = as.numeric(ind0),
+      t = as.numeric(t0)
+    ) |> 
+    dplyr::select(-c(t0, ind0))
+  
+  summaryMod4_tt_z <- MCMCSummaryRMNA(object = out_NN_OBmod4$mcmc, params = c("z"), round = 3) %>%
+    rownames_to_column(var = "var") |> 
+    mutate(
+      ind0 = str_match(var, "([0-9]+), ([0-9]+)")[,2],
+      t0 =   str_match(var, "([0-9]+), ([0-9]+)")[,3],
+      ind = as.numeric(ind0),
+      t = as.numeric(t0)
+    ) |> 
+    dplyr::select(-c(t0, ind0))
+  
+  # summaryMod4_tt_PhiBetaT <- MCMCSummaryRMNA(object = out_NN_OBmod4$mcmc, params = c("phiBeta"), round = 3) %>%
+  #   rownames_to_column(var = "var") |> 
+  #   mutate(
+  #     ind0 = str_match(var, "([0-9]+), ([0-9]+)")[,2],
+  #     t0 =   str_match(var, "([0-9]+), ([0-9]+)")[,3],
+  #     ind = as.numeric(ind0),
+  #     t = as.numeric(t0)
+  #   ) |> 
+  #   dplyr::select(-c(t0, ind0))
+  
+  summaryMod4_tt_z0 <- summaryMod4_tt_z |> 
+    left_join(summaryMod4_tt_w, by = c("ind", "t"), suffix = c("_z", "_weight"))
+```
+
+Add other variables to summary values  
+```{r}
+#| label: OB_tt_growth_NN_Summary24
+#|  
+  ehLong <- 
+    eh$eh |>
+    as.data.frame() |> 
+    rownames_to_column("ind0") |> 
+    pivot_longer(starts_with("ais")) |> 
+    mutate(
+      t = as.numeric(str_match(name, "([0-9]+)")[,1]),
+      enc = value,
+      ind = as.numeric(ind0)
+    ) |> 
+    dplyr::select(-c(name, value, ind0))
+  
+  firstLong <- eh$first |> 
+    as_tibble() |> 
+    rownames_to_column("ind") |> 
+    mutate(ind = as.numeric(ind)) |> 
+    rename(first = value)
+  
+  lastLong <- eh$last |> 
+    as_tibble() |> 
+    rownames_to_column("ind") |> 
+    mutate(ind = as.numeric(ind)) |> 
+    rename(last = value)
+    
+  cohortLong <- eh$cohort |> 
+    as_tibble() |> 
+    rownames_to_column("ind") |> 
+    mutate(ind = as.numeric(ind)) 
+  
+  weightLong <- 
+    eh$weight |>
+    as.data.frame() |> 
+    rownames_to_column("ind0") |> 
+    pivot_longer(starts_with("ais")) |> 
+    mutate(
+      t = as.numeric(str_match(name, "([0-9]+)")[,1]),
+      weightDATA = value,
+      ind = as.numeric(ind0)
+    ) |> 
+    dplyr::select(-c(name, value, ind0))
+  
+  meanWeight <- mean(eh$weight, na.rm = TRUE)
+  sdWeight <- sd(eh$weight, na.rm = TRUE)
+
+  summaryMod4_tt_z <- summaryMod4_tt_z0 |> 
+    left_join(ehLong) |> 
+    mutate(
+      meanM1 = mean_z - 1,
+      pSurv = ifelse(meanM1 == 0, 1, 1 - meanM1),
+      enc8 = ifelse(enc == 1, 0.8, 0)
+    ) |> 
+    left_join(firstLong) |> 
+    left_join(lastLong) |> 
+    left_join(cohortLong) |> 
+    left_join(weightLong) |> 
+    mutate(
+      weightDATA_std = (weightDATA - meanWeight) / sdWeight, 
+      resid = weightDATA_std - mean_weight
+    ) 
+    
+  # summaryMod4_tt_z <- summaryMod4_tt_z0 |> 
+  #   left_join(ehLong) |> 
+  #   mutate(
+  #     # meanM1 = mean - 1,
+  #     # pSurv = ifelse(meanM1 == 0, 1, 1 - meanM1),
+  #     enc8 = ifelse(enc == 1, 0.8, 0)
+  #   ) |> 
+  #   left_join(firstLong) |> 
+  #   left_join(lastLong) |> 
+  #   left_join(cohortLong) 
+```
+
+```{r}
+#| label: OB_tt_growth_NN_getResids4
+  resids_mod4 <- summaryMod4_tt_z |> 
+    group_by(ind) |> 
+    summarize(
+      meanResid = mean(abs(resid), na.rm = TRUE),
+      n = n()
+    ) |> 
+    ungroup()
+
+  summaryMod4_tt_zR <- 
+    summaryMod4_tt_z |> 
+    left_join(resids_mod4)
+
+```
+
+```{r}
+#| cache: FALSE
+ojs_define(numTags_OJS_mod4 = dim(eh$tags)[1])
+ojs_define(summaryMod4_tt_zR_OJS = (summaryMod4_tt_zR))
+#ojs_define(summary_tt_z_OJS = (summary_tt_z_mod4))
+```
+
+### Plot predicted and observed masses for selected individuals  
+Select one or more individuals:  
+```{ojs}
+
+viewof selectInd_mod4 = Inputs.select([...Array(numTags_OJS).keys()], {
+  label: "Which fish?",
+  value: 1,
+  step: 1,
+  multiple: true
+})
+
+summaryMod4_tt_zR_OJS_T = transpose(summaryMod4_tt_zR_OJS)
+summaryMod4_tt_zR_OJS_T_selected = summaryMod4_tt_zR_OJS_T.filter((d) =>
+  selectInd_mod4.includes(d.ind)
+)
+
+```
+
+Black dots/line is estimated mass and orange dots are observed masses. The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort. 
+```{ojs}
+Plot.plot({
+  width: width,
+  height: 350,
+  inset: 10,
+  color: {
+    scheme: "greys"
+  },
+  x: { label: "Age/season combination" },
+  y: { label: "Standardized body mass (mg)" },
+  marks: [
+    Plot.frame(),
+    Plot.dot(summaryMod4_tt_zR_OJS_T_selected, {
+      x: "t",
+      y: "mean_weight"
+    }),
+    Plot.line(summaryMod4_tt_zR_OJS_T_selected, {
+      x: "t",
+      y: "mean_weight"
+    }),
+    <!-- Plot.dot(summaryMod4_tt_zR_OJS_T_selected, { -->
+    <!--   x: "t", -->
+    <!--   y: "mean_gr", -->
+    <!--   fill: "green" -->
+    <!-- }), -->
+    Plot.dot(summaryMod4_tt_zR_OJS_T_selected, {
+      x: "t",
+      y: "weightDATA_std",
+      fill: "orange"
+    }),
+    Plot.ruleX(summaryMod4_tt_zR_OJS_T_selected, {
+      x: "first",
+      y: 3,
+      "stroke": "green"
+    }),
+    Plot.ruleX(summaryMod4_tt_zR_OJS_T_selected, {
+      x: "last",
+      y: 3,
+      "stroke": "red"
+    }),
+    Plot.text(summaryMod4_tt_zR_OJS_T_selected,
+      Plot.selectFirst({
+        x: 1,
+        y: 4,
+        frameAnchor: "top-left",
+        text: (d) => "Cohort = " + d.cohort
+      })
+    ),
+    Plot.text(summaryMod4_tt_zR_OJS_T_selected,
+      Plot.selectFirst({
+        x: 1,
+        y: 3.5,
+        frameAnchor: "top-left",
+        text: (d) => "Residual = " + d.meanResid
+      })
+    )
+  ],
+  facet: {
+    data: summaryMod4_tt_zR_OJS_T_selected,
+    x: "ind"
+  }
+})
+```
+
+### Plot survival
+
+Black dots/line is estimated probability of survival and orange dots are encountered yes (y = 0.8)/no (y = 0). The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort. 
+```{ojs}
+Plot.plot({
+  width: width,
+  height: 350,
+  inset: 10,
+  color: {
+    scheme: "greys"
+  },
+  x: { label: "Age/season combination" },
+  y: { label: "Probability of survival" },
+  marks: [
+    Plot.frame(),
+    Plot.dot(summaryMod4_tt_zR_OJS_T_selected, {
+      x: "t",
+      y: "pSurv"
+    }),
+    Plot.dot(summaryMod4_tt_zR_OJS_T_selected, {
+      x: "t",
+      y: "enc8",
+      fill: "orange"
+    }),
+    Plot.line(summaryMod4_tt_zR_OJS_T_selected, {
+      x: "t",
+      y: "pSurv"
+    }),
+    Plot.ruleX(summaryMod4_tt_zR_OJS_T_selected, {
+      x: "first",
+      y: 1,
+      "stroke": "green"
+    }),
+    Plot.ruleX(summaryMod4_tt_zR_OJS_T_selected, {
+      x: "last",
+      y: 1,
+      "stroke": "red"
+    })
+    ,
+    Plot.text(summaryMod4_tt_zR_OJS_T_selected, 
+      Plot.selectFirst({
+        x: 11,
+        y: 1,
+        text: d => d.cohort
+      })
+    )
+  ],
+  facet: {
+    data: summaryMod4_tt_zR_OJS_T_selected,
+    x: "ind"
+  }
+})
+```
+
+### Size-dependent survival
+```{r}
+#| label: OB_tt_growth_NN_plotSurvWeight4
+  
+  summaryMod4_tt_growth_phi <- MCMCsummary(object = out_NN_OBmod4$mcmc, params = c("phiInt", "grInt"), round = 3) |> 
+    rownames_to_column(var = "var") |> 
+    mutate(
+      yoy = as.numeric(str_match(var, "([0-9]+), ([0-9]+)")[,2]),
+      season = as.numeric(str_match(var, "([0-9]+), ([0-9]+)")[,3])
+    ) |> 
+    separate_wider_delim(var, "[", names = c("var1", "var2")) |> 
+    dplyr::select(mean, var1, yoy, season) |> 
+    pivot_wider(names_from = var1,  values_from = mean)
+
+  summaryMod4_tt_growth_phiBetas = MCMCsummary(object = out_NN_OBmod4$mcmc, params = c("phiBeta"), round = 3) |> 
+    rownames_to_column(var = "var") |> 
+    mutate(
+      beta = str_match(var, "([0-9]+), ([0-9]+), ([0-9]+)")[,2],
+      yoy = as.numeric(str_match(var, "([0-9]+), ([0-9]+), ([0-9]+)")[,3]),
+      season = as.numeric(str_match(var, "([0-9]+), ([0-9]+), ([0-9]+)")[,4])
+    ) |> 
+    separate_wider_delim(var, "[", names = c("var1", "var2")) |> 
+    dplyr::select(var1, mean, beta, yoy, season) |> 
+    pivot_wider(names_from = beta, names_prefix = "beta_", values_from = mean)
+  
+  summaryMod4_tt_growth_phiParams <-  
+    bind_cols(summaryMod4_tt_growth_phi, summaryMod4_tt_growth_phiBetas |> select(-c(yoy, season))) 
+    # mutate(
+    #   phiInt = logit(betaphiIntTOut)
+    # )
+  
+  weights = expand.grid(weight = seq(-2,2,0.25), yoy = 1:2, season = 1:4) |> 
+    left_join(summaryMod4_tt_growth_phiParams) |> 
+    filter(!(yoy == 1 & season == 2)) |> 
+    mutate(pSurv = ilogit(phiInt + beta_1*weight + beta_2*weight^2))
+
+  ggplot(weights, aes(weight, pSurv, color = factor(season))) +
+    geom_point() +
+    geom_line() +
+    #theme_publication() +
+    facet_wrap(~yoy)
+
+```
 
 
 
