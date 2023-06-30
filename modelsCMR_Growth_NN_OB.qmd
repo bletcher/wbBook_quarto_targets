@@ -1181,7 +1181,7 @@ paste0('Run time = ', round(out_NN_OBmod4$runTime, 3), ' ',  attr(out_NN_OBmod4$
 #|   
   MCMCplot(object = out_NN_OBmod4$mcmc, params = c("phiInt"))
   MCMCplot(object = out_NN_OBmod4$mcmc, params = c("phiBeta"))
-  MCMCplot(object = out_NN_OBmod4$mcmc, params = c("p"))
+  MCMCplot(object = out_NN_OBmod4$mcmc, params = c("pInt"))
   MCMCplot(object = out_NN_OBmod4$mcmc, params = c("grInt"))
 
 ```  
@@ -1190,7 +1190,7 @@ Summary values
 ```{r}
 #| label: OB_tt_growth_NN_SummaryZ4
 #|
-(summaryMod4_tt_growth <- MCMCsummary(object = out_NN_OBmod4$mcmc, params = c("phiInt", "p", "grInt", "phiBeta"), round = 3) %>%
+(summaryMod4_tt_growth <- MCMCsummary(object = out_NN_OBmod4$mcmc, params = c("phiInt", "pInt", "grInt", "phiBeta"), round = 3) %>%
     rownames_to_column(var = "var"))
   
   # To get the mMCMCSummaryRMNA funcion which I adapted to deal with NAs
