@@ -1116,8 +1116,10 @@ Model code is in `./models/cmrNN_OB/tt_growth/modelCMR_tt_growth_NN_OB_functions
 Model is run 'by hand' in `./models/cmrNN_OB/tt_growth/modelCMR_tt_growth_NN_OB_makeFile.R`\
 *Not* using this: Targets are loaded in `R/modelCMR_tt_growth_NN_OB.R` and saved as `modelCMR_tt_growth_NN_OB_target`
 
-Model runs:\
+*Model runs*:\
+tt_growth_NN_OB_model4_2023-06-29 19: quadratic phi - poor phi estimates. Very high phiInts. Run time = 2.04 hrs  
 
+: make phi linear, add phiBetaMu, switch p[t,i] to p[i,t], add grBeta, grBetaMu
 
 ### Retrieve model results
 
@@ -1128,6 +1130,7 @@ library(targets)
 # Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
 # 
 modelNum = 4 # phi + growth
+dummy = 2
 
 #load('./models/cmrNN_OB/tt_growth/runsOut/tt_growth_NN_OB_mostRecent.RData')
 load(paste0('./models/cmrNN_OB/tt_growth/runsOut/tt_growth_NN_OB_model', modelNum, '_mostRecent.RData'))
@@ -1189,12 +1192,14 @@ paste0('Run time = ', round(out_NN_OBmod4$runTime, 3), ' ',  attr(out_NN_OBmod4$
 Summary values  
 ```{r}
 #| label: OB_tt_growth_NN_SummaryZ4
-#|
-(summaryMod4_tt_growth <- MCMCsummary(object = out_NN_OBmod4$mcmc, params = c("phiInt", "pInt", "grInt", "phiBeta"), round = 3) %>%
-    rownames_to_column(var = "var"))
-  
   # To get the mMCMCSummaryRMNA funcion which I adapted to deal with NAs
   source('./models/cmrNN_OB/tt_growth/modelCMR_tt_growth_NN_OB_functionsToSource.R')
+
+  dummy=1
+  (summaryMod4_tt_growth <- MCMCSummaryRMNA(object = out_NN_OBmod4$mcmc, params = c("phiInt", "pInt", "grInt", "phiBeta"), round = 3) %>%
+      rownames_to_column(var = "var"))
+    
+
   
   #summaryMod4_tt_growth_z0 <- MCMCSummaryRMNA(object = out_NN_OBmod4$mcmc, params = c("weight"), round = 4) %>%
   summaryMod4_tt_w <- MCMCSummaryRMNA(object = out_NN_OBmod4$mcmc, params = c("weight"), round = 3) %>%
