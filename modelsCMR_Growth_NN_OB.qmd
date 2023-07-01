@@ -1167,13 +1167,14 @@ paste0('Run time = ', round(out_NN_OBmod4$runTime, 3), ' ',  attr(out_NN_OBmod4$
 ```{r}
 #| label: OB_tt_growth_NN_plotTraces4
 
-  priors <- rnorm(out_NN_OBmod4$runData$nIter * out_NN_OBmod4$runData$nChains, 0, 1000)
+  #priors <- rnorm(out_NN_OBmod4$runData$nIter * out_NN_OBmod4$runData$nChains, 0, 1000)
   MCMCtrace(object = out_NN_OBmod4$mcmc,
             #ISB = FALSE,
             #exact = TRUE, 
-            params = c("phiInt", "grIntYS"),
-            pdf = FALSE, 
-            priors = priors)
+            params = c("phiInt", "grInt"),
+            pdf = FALSE 
+            #priors = priors
+            )
 
 ```
 
@@ -1506,7 +1507,7 @@ Plot.plot({
   weights = expand.grid(weight = seq(-2,2,0.25), yoy = 1:2, season = 1:4) |> 
     left_join(summaryMod4_tt_growth_phiParams) |> 
     filter(!(yoy == 1 & season == 2)) |> 
-    mutate(pSurv = ilogit(phiInt + beta_1*weight + beta_2*weight^2))
+    mutate(pSurv = ilogit(phiInt + beta_1*weight))# + beta_2*weight^2))
 
   ggplot(weights, aes(weight, pSurv, color = factor(season))) +
     geom_point() +
