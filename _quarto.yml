@@ -72,4 +72,4 @@ sidebar:
         - icon: save
           menu:
             - text: dataElectro CSV
-              url:  "data/outforDownload/cdWB_electro.csv"
+              url:  "data/outForDownload/cdWB_electro.csv"
