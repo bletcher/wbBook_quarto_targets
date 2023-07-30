@@ -66,3 +66,10 @@ format:
 
 editor: source
 
+sidebar:
+  pinned: true
+  tools:
+        - icon: save
+          menu:
+            - text: dataElectro CSV
+              url:  "data/outforDownload/cdWB_electro.csv"

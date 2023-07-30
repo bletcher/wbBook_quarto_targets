@@ -1,15 +1,5 @@
-  sidebar:
-    pinned: true
-    tools:
-          - icon: save
-            menu:
-              - text: Data XLSX
-                url:  "data/mtcars.xlsx"
-              - text: Data CSV
-                url:  "data/mtcars.csv"
-
 ## Get electrofishing data
-
+test
 
 ```{r}
 #| label: getEnvDataOptions
