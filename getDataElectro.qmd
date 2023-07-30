@@ -1,4 +1,15 @@
+  sidebar:
+    pinned: true
+    tools:
+          - icon: save
+            menu:
+              - text: Data XLSX
+                url:  "data/mtcars.xlsx"
+              - text: Data CSV
+                url:  "data/mtcars.csv"
+
 ## Get electrofishing data
+
 
 ```{r}
 #| label: getEnvDataOptions
@@ -32,6 +43,9 @@ Show variables in the dataframe
 #| #| cache: false
 cdWB_electro <- tar_read(cdWB_electro_target)
 str(cdWB_electro)
+
+# Save csv for downloading
+#write.csv(cdWB_electro, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_electro.csv")
 ```
 
 ## Counts by species  
