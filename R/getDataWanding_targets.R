@@ -44,16 +44,28 @@ dataWanding_target <-
       ) %>%
       updateWandingData(),
     
-    #cd2
-    cdWB_wandingTribs_target = cdWB_wanding0_target %>%
+    cdWB_wanding_target = cdWB_wanding0_target %>%
       group_by(tag) %>%
       mutate(sectionWQuarterLagged = lead(sectionWQuarter),
-              detectionDateLagged = lead(detectionDate),
-              moveDist = (sectionWQuarter - sectionWQuarterLagged) * 20,
-              moveTime = as.numeric((difftime(detectionDateLagged, detectionDate, units="days"))) / 7,
-              moveRate = moveDist/moveTime) %>%
-      filter(moveTime >= 1 & moveTime < 365) %>%
-      mutate(month = as.numeric(month( detectionDate))),
+             detectionDateLagged = lead(detectionDate),
+             moveDist = (sectionWQuarter - sectionWQuarterLagged) * 20,
+             moveTime = as.numeric((difftime(detectionDateLagged, detectionDate, units="days"))) / 7,
+             moveRate = moveDist/moveTime) %>%
+      #filter(moveTime >= 1 & moveTime < 365) %>%
+      mutate(month = as.numeric(month( detectionDate))) |> 
+      ungroup(),
+    
+    
+    #cd2
+    cdWB_wandingTribs_target = cdWB_wanding_target %>%
+      # group_by(tag) %>%
+      # mutate(sectionWQuarterLagged = lead(sectionWQuarter),
+      #         detectionDateLagged = lead(detectionDate),
+      #         moveDist = (sectionWQuarter - sectionWQuarterLagged) * 20,
+      #         moveTime = as.numeric((difftime(detectionDateLagged, detectionDate, units="days"))) / 7,
+      #         moveRate = moveDist/moveTime) %>%
+      filter(moveTime >= 1 & moveTime < 365),
+      # mutate(month = as.numeric(month( detectionDate))),
     
     #cd3
     cdWB_wandingTribs3_target = cdWB_wandingTribs_target %>%
@@ -69,15 +81,15 @@ dataWanding_target <-
       #mutate(interval = cut_interval(moveTime, 5))
 
     # cd2wb 
-    cdWB_wandingWB2_target = cdWB_wanding0_target %>%
-      group_by(tag) %>%
-      mutate(sectionWQuarterLagged = lead(sectionWQuarter),
-              detectionDateLagged = lead(detectionDate),
-              moveDist = (sectionWQuarter-sectionWQuarterLagged) * 20,
-              moveTime = as.numeric((difftime(detectionDateLagged, detectionDate, units="days"))) / 7,
-              moveRate = moveDist/moveTime) %>%
-      #      filter( moveTime >= 1 & moveTime < 365 ) %>%
-      mutate(month = as.numeric(month(detectionDate))),
+    cdWB_wandingWB2_target = cdWB_wanding_target, #%>%
+      # group_by(tag) %>%
+      # mutate(sectionWQuarterLagged = lead(sectionWQuarter),
+      #         detectionDateLagged = lead(detectionDate),
+      #         moveDist = (sectionWQuarter-sectionWQuarterLagged) * 20,
+      #         moveTime = as.numeric((difftime(detectionDateLagged, detectionDate, units="days"))) / 7,
+      #         moveRate = moveDist/moveTime) %>%
+      # #      filter( moveTime >= 1 & moveTime < 365 ) %>%
+      # mutate(month = as.numeric(month(detectionDate))),
     
     cdWB_wandingWB3_target = cdWB_wandingWB2_target %>%
       filter(aliveOrDead != 'dead' & 

@@ -1,14 +1,16 @@
----
-sidebar:
-  pinned: true
-  tools:
-        - icon: save
-          menu:
-            - text: Data CSV
-              url:  "data/outForDownload/cdWB_electro.csv"
----
-
 ## Get electrofishing data
+```{r}
+# ---
+# sidebar:
+#   pinned: true
+#   tools:
+#         - icon: save
+#           menu:
+#             - text: Data CSV
+#               url:  "data/outForDownload/cdWB_electro.csv"
+# ---
+```
+
 
 ```{r}
 #| label: getEnvDataOptions
@@ -45,6 +47,8 @@ str(cdWB_electro)
 
 # Save csv for downloading
 #write.csv(cdWB_electro, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_electro.csv")
+# Save rData file for downloading
+# save(cdWB_electro, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_electro.RData")
 ```
 
 

@@ -33,20 +33,25 @@ Also, just interesting to see movement patterns from the wanding data.
 
 library(targets)
 
-cdWB_wanding0 <- tar_read(cdWB_wanding0_target)
-str(cdWB_wanding0)
+cdWB_wanding <- tar_read(cdWB_wanding_target)
+str(cdWB_wanding)
 
 cdWB_wandingTribs3 <- tar_read(cdWB_wandingTribs3_target)
 
 cdWB_wandingWB2 <- tar_read(cdWB_wandingWB2_target)
 cdWB_wandingWB3 <- tar_read(cdWB_wandingWB3_target)
+
+# Save csv for downloading
+#write.csv(cdWB_wanding, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_wanding.csv")
+# Save rData file for downloading
+# save(cdWB_wanding, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_wanding.RData")
 ```
 
 ```{r}
 #| label: tbl-wandAll
 #| tbl-cap: "Count of wanding data by river"
 
-cdWB_wanding0 %>% 
+cdWB_wanding %>% 
   group_by(riverOrdered, cohort) %>% 
   summarize(n = n()) %>%
   pivot_wider(values_from = "n", names_from = "riverOrdered") %>%
