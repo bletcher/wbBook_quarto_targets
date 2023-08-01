@@ -64,6 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./modelsCMR_NN_OB.html" rel="next">
+<link href="./modelConditionFactor.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -105,14 +107,333 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-sidebar">
+<body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./modelYOY.html">General models</a></li><li class="breadcrumb-item"><a href="./modelGrowthInMass.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Growth in mass</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-layout-custom">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">West Brook story</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Targets</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vizTargets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Visualize targets</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Get data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Get data info</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getDataEnv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Get environmental data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getDataElectro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Get electrofishing data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getDataCMR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Create Capture-Recapture data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getDataWanding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Get wanding data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getDataAntenna.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Get antenna data</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dataAll.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">All fish data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dataFlow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Flow data</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Flow by Area/River models</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelGrowthFlowByRiver.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Growth in mass byRiver/byArea</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelsCMR_ft_cohort_Flow_OB.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Flow/survival models - O’Bear (IS) only</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelsCMR_ft_cohort_Flow_WB.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Survival by river/area</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">General models</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelYOY.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Young-of-year size model</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelFlow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Flow model</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelConditionFactor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Condition factor</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelGrowthInMass.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Growth in mass</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+ <span class="menu-text">Neural network/CMR model comparison - river 4 (IS) only</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelsCMR_NN_OB.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">CJS [t,t] model</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelsCMR_Growth_NN_OB.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">CJS [t,t] - growth model</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#get-data" id="toc-get-data" class="nav-link active" data-scroll-target="#get-data"><span class="header-section-number">16.1</span> Get data</a>
+  <ul class="collapse">
+  <li><a href="#get-electrofishing-data" id="toc-get-electrofishing-data" class="nav-link" data-scroll-target="#get-electrofishing-data"><span class="header-section-number">16.1.1</span> Get electrofishing data</a></li>
+  <li><a href="#get-environmental-data" id="toc-get-environmental-data" class="nav-link" data-scroll-target="#get-environmental-data"><span class="header-section-number">16.1.2</span> Get environmental data</a></li>
+  </ul></li>
+  <li><a href="#examine-raw-data" id="toc-examine-raw-data" class="nav-link" data-scroll-target="#examine-raw-data"><span class="header-section-number">16.2</span> Examine raw data</a>
+  <ul class="collapse">
+  <li><a href="#limit-data-to-consecutive-sample-captures-cd1" id="toc-limit-data-to-consecutive-sample-captures-cd1" class="nav-link" data-scroll-target="#limit-data-to-consecutive-sample-captures-cd1"><span class="header-section-number">16.2.1</span> Limit data to consecutive sample captures (cd1)</a></li>
+  <li><a href="#find-outlier-growth-rates" id="toc-find-outlier-growth-rates" class="nav-link" data-scroll-target="#find-outlier-growth-rates"><span class="header-section-number">16.2.2</span> Find outlier growth rates</a></li>
+  <li><a href="#raw-length-weight-data-graphs" id="toc-raw-length-weight-data-graphs" class="nav-link" data-scroll-target="#raw-length-weight-data-graphs"><span class="header-section-number">16.2.3</span> Raw length, weight data graphs</a></li>
+  <li><a href="#length-vs-weight-by-species" id="toc-length-vs-weight-by-species" class="nav-link" data-scroll-target="#length-vs-weight-by-species"><span class="header-section-number">16.2.4</span> Length vs weight by species</a></li>
+  <li><a href="#weight-vs-weight-at-next-sample" id="toc-weight-vs-weight-at-next-sample" class="nav-link" data-scroll-target="#weight-vs-weight-at-next-sample"><span class="header-section-number">16.2.5</span> Weight vs weight at next sample</a></li>
+  <li><a href="#growth-rate-pairs-plots" id="toc-growth-rate-pairs-plots" class="nav-link" data-scroll-target="#growth-rate-pairs-plots"><span class="header-section-number">16.2.6</span> Growth rate pairs plots</a></li>
+  <li><a href="#growth-rate-in-length-vs-growth-rate-in-mass" id="toc-growth-rate-in-length-vs-growth-rate-in-mass" class="nav-link" data-scroll-target="#growth-rate-in-length-vs-growth-rate-in-mass"><span class="header-section-number">16.2.7</span> Growth rate in length vs growth rate in mass</a></li>
+  </ul></li>
+  <li><a href="#flow-and-temperature-growth-relationships" id="toc-flow-and-temperature-growth-relationships" class="nav-link" data-scroll-target="#flow-and-temperature-growth-relationships"><span class="header-section-number">16.3</span> Flow and temperature growth relationships</a>
+  <ul class="collapse">
+  <li><a href="#mean-flow-effect-on-growth" id="toc-mean-flow-effect-on-growth" class="nav-link" data-scroll-target="#mean-flow-effect-on-growth"><span class="header-section-number">16.3.1</span> Mean flow effect on growth?</a></li>
+  <li><a href="#mean-temperature-effect-on-growth" id="toc-mean-temperature-effect-on-growth" class="nav-link" data-scroll-target="#mean-temperature-effect-on-growth"><span class="header-section-number">16.3.2</span> Mean temperature effect on growth?</a></li>
+  </ul></li>
+  <li><a href="#proportion-of-fish-with-negative-growth" id="toc-proportion-of-fish-with-negative-growth" class="nav-link" data-scroll-target="#proportion-of-fish-with-negative-growth"><span class="header-section-number">16.4</span> Proportion of fish with <strong>negative growth</strong></a>
+  <ul class="collapse">
+  <li><a href="#proportion-of-fish-with-negative-growth-by-speciesriverseason" id="toc-proportion-of-fish-with-negative-growth-by-speciesriverseason" class="nav-link" data-scroll-target="#proportion-of-fish-with-negative-growth-by-speciesriverseason"><span class="header-section-number">16.4.1</span> Proportion of fish with negative growth by species/river/season</a></li>
+  <li><a href="#proportion-of-fish-with-negative-growth-by-speciesseason" id="toc-proportion-of-fish-with-negative-growth-by-speciesseason" class="nav-link" data-scroll-target="#proportion-of-fish-with-negative-growth-by-speciesseason"><span class="header-section-number">16.4.2</span> Proportion of fish with negative growth by species/season</a></li>
+  <li><a href="#proportion-of-fish-with-negative-growth-by-speciesriveryear" id="toc-proportion-of-fish-with-negative-growth-by-speciesriveryear" class="nav-link" data-scroll-target="#proportion-of-fish-with-negative-growth-by-speciesriveryear"><span class="header-section-number">16.4.3</span> Proportion of fish with negative growth by species/river/year</a></li>
+  <li><a href="#proportion-of-fish-with-negative-growth-by-speciesriveryear-1" id="toc-proportion-of-fish-with-negative-growth-by-speciesriveryear-1" class="nav-link" data-scroll-target="#proportion-of-fish-with-negative-growth-by-speciesriveryear-1"><span class="header-section-number">16.4.4</span> Proportion of fish with negative growth by species/river/year</a></li>
+  </ul></li>
+  <li><a href="#environmental-effects-on-proportion-of-fish-with-negative-growth" id="toc-environmental-effects-on-proportion-of-fish-with-negative-growth" class="nav-link" data-scroll-target="#environmental-effects-on-proportion-of-fish-with-negative-growth"><span class="header-section-number">16.5</span> Environmental effects on proportion of fish with negative growth</a>
+  <ul class="collapse">
+  <li><a href="#proportion-of-fish-with-negative-growth-by-flow" id="toc-proportion-of-fish-with-negative-growth-by-flow" class="nav-link" data-scroll-target="#proportion-of-fish-with-negative-growth-by-flow"><span class="header-section-number">16.5.1</span> Proportion of fish with negative growth by <strong>flow</strong></a></li>
+  <li><a href="#proportion-of-fish-with-negative-growth-by-temperature" id="toc-proportion-of-fish-with-negative-growth-by-temperature" class="nav-link" data-scroll-target="#proportion-of-fish-with-negative-growth-by-temperature"><span class="header-section-number">16.5.2</span> Proportion of fish with negative growth by <strong>temperature</strong></a></li>
+  <li><a href="#proportion-of-fish-with-negative-growth-by-3-species-fish-counts" id="toc-proportion-of-fish-with-negative-growth-by-3-species-fish-counts" class="nav-link" data-scroll-target="#proportion-of-fish-with-negative-growth-by-3-species-fish-counts"><span class="header-section-number">16.5.3</span> Proportion of fish with negative growth by <strong>3 species fish counts</strong></a></li>
+  <li><a href="#proportion-of-fish-with-negative-growth-by-conspecific-fish-counts" id="toc-proportion-of-fish-with-negative-growth-by-conspecific-fish-counts" class="nav-link" data-scroll-target="#proportion-of-fish-with-negative-growth-by-conspecific-fish-counts"><span class="header-section-number">16.5.4</span> Proportion of fish with negative growth by <strong>conspecific fish counts</strong></a></li>
+  </ul></li>
+  <li><a href="#ft-cycle-graphs" id="toc-ft-cycle-graphs" class="nav-link" data-scroll-target="#ft-cycle-graphs"><span class="header-section-number">16.6</span> F/T cycle graphs</a>
+  <ul class="collapse">
+  <li><a href="#mean-flow-and-temperature" id="toc-mean-flow-and-temperature" class="nav-link" data-scroll-target="#mean-flow-and-temperature"><span class="header-section-number">16.6.1</span> Mean flow and temperature</a></li>
+  <li><a href="#mean-flow-and-temperature-with-year-labels" id="toc-mean-flow-and-temperature-with-year-labels" class="nav-link" data-scroll-target="#mean-flow-and-temperature-with-year-labels"><span class="header-section-number">16.6.2</span> Mean flow and temperature with year labels</a></li>
+  <li><a href="#brook-trout-6" id="toc-brook-trout-6" class="nav-link" data-scroll-target="#brook-trout-6"><span class="header-section-number">16.6.3</span> Brook trout</a></li>
+  <li><a href="#yearly-temperatureflow-cycles-of-daily-data" id="toc-yearly-temperatureflow-cycles-of-daily-data" class="nav-link" data-scroll-target="#yearly-temperatureflow-cycles-of-daily-data"><span class="header-section-number">16.6.4</span> Yearly temperature/flow cycles of daily data</a></li>
+  <li><a href="#smooths-of-temperatureflow-cycles-of-daily-data-by-season" id="toc-smooths-of-temperatureflow-cycles-of-daily-data-by-season" class="nav-link" data-scroll-target="#smooths-of-temperatureflow-cycles-of-daily-data-by-season"><span class="header-section-number">16.6.5</span> Smooths of temperature/flow cycles of daily data by season</a></li>
+  <li><a href="#ft-cycles-with-labels" id="toc-ft-cycles-with-labels" class="nav-link" data-scroll-target="#ft-cycles-with-labels"><span class="header-section-number">16.6.6</span> F/T cycles with labels</a></li>
+  </ul></li>
+  <li><a href="#consequences-of-negative-growth" id="toc-consequences-of-negative-growth" class="nav-link" data-scroll-target="#consequences-of-negative-growth"><span class="header-section-number">16.7</span> Consequences of negative growth</a>
+  <ul class="collapse">
+  <li><a href="#growth-and-last-observation" id="toc-growth-and-last-observation" class="nav-link" data-scroll-target="#growth-and-last-observation"><span class="header-section-number">16.7.1</span> Growth and last observation</a></li>
+  <li><a href="#growth-and-movement-distance" id="toc-growth-and-movement-distance" class="nav-link" data-scroll-target="#growth-and-movement-distance"><span class="header-section-number">16.7.2</span> Growth and movement distance</a></li>
+  </ul></li>
+  <li><a href="#machine-learning-models" id="toc-machine-learning-models" class="nav-link" data-scroll-target="#machine-learning-models"><span class="header-section-number">16.8</span> Machine Learning models</a>
+  <ul class="collapse">
+  <li><a href="#binary-model-with-negative-growth-yesno" id="toc-binary-model-with-negative-growth-yesno" class="nav-link" data-scroll-target="#binary-model-with-negative-growth-yesno"><span class="header-section-number">16.8.1</span> Binary model with negative growth, yes:no</a></li>
+  <li><a href="#growth-model-continuous-growth" id="toc-growth-model-continuous-growth" class="nav-link" data-scroll-target="#growth-model-continuous-growth"><span class="header-section-number">16.8.2</span> Growth model, continuous growth</a></li>
+  </ul></li>
+  <li><a href="#gam-for-growth" id="toc-gam-for-growth" class="nav-link" data-scroll-target="#gam-for-growth"><span class="header-section-number">16.9</span> GAM for growth</a>
+  <ul class="collapse">
+  <li><a href="#linear-models-for-growth" id="toc-linear-models-for-growth" class="nav-link" data-scroll-target="#linear-models-for-growth"><span class="header-section-number">16.9.1</span> Linear models for growth</a></li>
+  <li><a href="#gam-models-for-growth" id="toc-gam-models-for-growth" class="nav-link" data-scroll-target="#gam-models-for-growth"><span class="header-section-number">16.9.2</span> GAM models for growth</a></li>
+  </ul></li>
+  <li><a href="#logistic-models-for-environmental-effects-on-propneg" id="toc-logistic-models-for-environmental-effects-on-propneg" class="nav-link" data-scroll-target="#logistic-models-for-environmental-effects-on-propneg"><span class="header-section-number">16.10</span> Logistic models for environmental effects on propNeg</a>
+  <ul class="collapse">
+  <li><a href="#standardize-flow-and-temperature" id="toc-standardize-flow-and-temperature" class="nav-link" data-scroll-target="#standardize-flow-and-temperature"><span class="header-section-number">16.10.1</span> Standardize flow and temperature</a></li>
+  <li><a href="#raw-data-with-logistic-fit-for-flow-effect" id="toc-raw-data-with-logistic-fit-for-flow-effect" class="nav-link" data-scroll-target="#raw-data-with-logistic-fit-for-flow-effect"><span class="header-section-number">16.10.2</span> Raw data with logistic fit for flow effect</a></li>
+  <li><a href="#raw-data-with-logistic-fit-for-temperature-effect" id="toc-raw-data-with-logistic-fit-for-temperature-effect" class="nav-link" data-scroll-target="#raw-data-with-logistic-fit-for-temperature-effect"><span class="header-section-number">16.10.3</span> Raw data with logistic fit for temperature effect</a></li>
+  </ul></li>
+  <li><a href="#logistic-model-for-flow-and-temperature-one-species-at-a-time" id="toc-logistic-model-for-flow-and-temperature-one-species-at-a-time" class="nav-link" data-scroll-target="#logistic-model-for-flow-and-temperature-one-species-at-a-time"><span class="header-section-number">16.11</span> Logistic model for flow and temperature, one species at a time</a>
+  <ul class="collapse">
+  <li><a href="#predict-pneg-growth-in-mass" id="toc-predict-pneg-growth-in-mass" class="nav-link" data-scroll-target="#predict-pneg-growth-in-mass"><span class="header-section-number">16.11.1</span> Predict p(neg growth in mass)</a></li>
+  <li><a href="#brook-trout-8" id="toc-brook-trout-8" class="nav-link" data-scroll-target="#brook-trout-8"><span class="header-section-number">16.11.2</span> Brook trout</a></li>
+  <li><a href="#brown-trout-8" id="toc-brown-trout-8" class="nav-link" data-scroll-target="#brown-trout-8"><span class="header-section-number">16.11.3</span> Brown trout</a></li>
+  <li><a href="#atlantic-salmon-7" id="toc-atlantic-salmon-7" class="nav-link" data-scroll-target="#atlantic-salmon-7"><span class="header-section-number">16.11.4</span> Atlantic salmon</a></li>
+  </ul></li>
+  <li><a href="#two-growth-models" id="toc-two-growth-models" class="nav-link" data-scroll-target="#two-growth-models"><span class="header-section-number">16.12</span> Two growth models</a>
+  <ul class="collapse">
+  <li><a href="#size-adjusted-growth-model" id="toc-size-adjusted-growth-model" class="nav-link" data-scroll-target="#size-adjusted-growth-model"><span class="header-section-number">16.12.1</span> Size-adjusted growth model</a></li>
+  <li><a href="#compare-size-adjusted-and-instantaneous-growth" id="toc-compare-size-adjusted-and-instantaneous-growth" class="nav-link" data-scroll-target="#compare-size-adjusted-and-instantaneous-growth"><span class="header-section-number">16.12.2</span> Compare size-adjusted and instantaneous growth</a></li>
+  </ul></li>
+  <li><a href="#compare-growth-in-length-and-mass" id="toc-compare-growth-in-length-and-mass" class="nav-link" data-scroll-target="#compare-growth-in-length-and-mass"><span class="header-section-number">16.13</span> Compare growth in length and mass</a>
+  <ul class="collapse">
+  <li><a href="#growth-rate-in-length-vs-size-independent-growth-rate-in-mass" id="toc-growth-rate-in-length-vs-size-independent-growth-rate-in-mass" class="nav-link" data-scroll-target="#growth-rate-in-length-vs-size-independent-growth-rate-in-mass"><span class="header-section-number">16.13.1</span> Growth rate in length vs size-independent growth rate in mass</a></li>
+  </ul></li>
+  <li><a href="#deprecated-logistic-models-below" id="toc-deprecated-logistic-models-below" class="nav-link" data-scroll-target="#deprecated-logistic-models-below"><span class="header-section-number">16.14</span> <strong>Deprecated</strong> logistic models below</a>
+  <ul class="collapse">
+  <li><a href="#logistic-model-for-flow-and-temperature-all-species" id="toc-logistic-model-for-flow-and-temperature-all-species" class="nav-link" data-scroll-target="#logistic-model-for-flow-and-temperature-all-species"><span class="header-section-number">16.14.1</span> Logistic model for flow and temperature, all species</a></li>
+  <li><a href="#model-selection" id="toc-model-selection" class="nav-link" data-scroll-target="#model-selection"><span class="header-section-number">16.14.2</span> Model selection</a></li>
+  <li><a href="#model-results-for-additive-model-not-very-good" id="toc-model-results-for-additive-model-not-very-good" class="nav-link" data-scroll-target="#model-results-for-additive-model-not-very-good"><span class="header-section-number">16.14.3</span> Model results for additive model (not very good)</a></li>
+  <li><a href="#model-results-for-full-interactive-model-best-model" id="toc-model-results-for-full-interactive-model-best-model" class="nav-link" data-scroll-target="#model-results-for-full-interactive-model-best-model"><span class="header-section-number">16.14.4</span> Model results for full interactive model (best model)</a></li>
+  <li><a href="#precict-pneg-growth-in-mass" id="toc-precict-pneg-growth-in-mass" class="nav-link" data-scroll-target="#precict-pneg-growth-in-mass"><span class="header-section-number">16.14.5</span> Precict p(neg growth in mass)</a></li>
+  <li><a href="#plot-predictions" id="toc-plot-predictions" class="nav-link" data-scroll-target="#plot-predictions"><span class="header-section-number">16.14.6</span> Plot predictions</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -130,101 +451,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 </header>
-<nav id="TOC" role="doc-toc">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#get-data" id="toc-get-data"><span class="header-section-number">16.1</span> Get data</a>
-  <ul>
-  <li><a href="#get-electrofishing-data" id="toc-get-electrofishing-data"><span class="header-section-number">16.1.1</span> Get electrofishing data</a></li>
-  <li><a href="#get-environmental-data" id="toc-get-environmental-data"><span class="header-section-number">16.1.2</span> Get environmental data</a></li>
-  </ul></li>
-  <li><a href="#examine-raw-data" id="toc-examine-raw-data"><span class="header-section-number">16.2</span> Examine raw data</a>
-  <ul>
-  <li><a href="#limit-data-to-consecutive-sample-captures-cd1" id="toc-limit-data-to-consecutive-sample-captures-cd1"><span class="header-section-number">16.2.1</span> Limit data to consecutive sample captures (cd1)</a></li>
-  <li><a href="#find-outlier-growth-rates" id="toc-find-outlier-growth-rates"><span class="header-section-number">16.2.2</span> Find outlier growth rates</a></li>
-  <li><a href="#raw-length-weight-data-graphs" id="toc-raw-length-weight-data-graphs"><span class="header-section-number">16.2.3</span> Raw length, weight data graphs</a></li>
-  <li><a href="#length-vs-weight-by-species" id="toc-length-vs-weight-by-species"><span class="header-section-number">16.2.4</span> Length vs weight by species</a></li>
-  <li><a href="#weight-vs-weight-at-next-sample" id="toc-weight-vs-weight-at-next-sample"><span class="header-section-number">16.2.5</span> Weight vs weight at next sample</a></li>
-  <li><a href="#growth-rate-pairs-plots" id="toc-growth-rate-pairs-plots"><span class="header-section-number">16.2.6</span> Growth rate pairs plots</a></li>
-  <li><a href="#growth-rate-in-length-vs-growth-rate-in-mass" id="toc-growth-rate-in-length-vs-growth-rate-in-mass"><span class="header-section-number">16.2.7</span> Growth rate in length vs growth rate in mass</a></li>
-  </ul></li>
-  <li><a href="#flow-and-temperature-growth-relationships" id="toc-flow-and-temperature-growth-relationships"><span class="header-section-number">16.3</span> Flow and temperature growth relationships</a>
-  <ul>
-  <li><a href="#mean-flow-effect-on-growth" id="toc-mean-flow-effect-on-growth"><span class="header-section-number">16.3.1</span> Mean flow effect on growth?</a></li>
-  <li><a href="#mean-temperature-effect-on-growth" id="toc-mean-temperature-effect-on-growth"><span class="header-section-number">16.3.2</span> Mean temperature effect on growth?</a></li>
-  </ul></li>
-  <li><a href="#proportion-of-fish-with-negative-growth" id="toc-proportion-of-fish-with-negative-growth"><span class="header-section-number">16.4</span> Proportion of fish with <strong>negative growth</strong></a>
-  <ul>
-  <li><a href="#proportion-of-fish-with-negative-growth-by-speciesriverseason" id="toc-proportion-of-fish-with-negative-growth-by-speciesriverseason"><span class="header-section-number">16.4.1</span> Proportion of fish with negative growth by species/river/season</a></li>
-  <li><a href="#proportion-of-fish-with-negative-growth-by-speciesseason" id="toc-proportion-of-fish-with-negative-growth-by-speciesseason"><span class="header-section-number">16.4.2</span> Proportion of fish with negative growth by species/season</a></li>
-  <li><a href="#proportion-of-fish-with-negative-growth-by-speciesriveryear" id="toc-proportion-of-fish-with-negative-growth-by-speciesriveryear"><span class="header-section-number">16.4.3</span> Proportion of fish with negative growth by species/river/year</a></li>
-  <li><a href="#proportion-of-fish-with-negative-growth-by-speciesriveryear-1" id="toc-proportion-of-fish-with-negative-growth-by-speciesriveryear-1"><span class="header-section-number">16.4.4</span> Proportion of fish with negative growth by species/river/year</a></li>
-  </ul></li>
-  <li><a href="#environmental-effects-on-proportion-of-fish-with-negative-growth" id="toc-environmental-effects-on-proportion-of-fish-with-negative-growth"><span class="header-section-number">16.5</span> Environmental effects on proportion of fish with negative growth</a>
-  <ul>
-  <li><a href="#proportion-of-fish-with-negative-growth-by-flow" id="toc-proportion-of-fish-with-negative-growth-by-flow"><span class="header-section-number">16.5.1</span> Proportion of fish with negative growth by <strong>flow</strong></a></li>
-  <li><a href="#proportion-of-fish-with-negative-growth-by-temperature" id="toc-proportion-of-fish-with-negative-growth-by-temperature"><span class="header-section-number">16.5.2</span> Proportion of fish with negative growth by <strong>temperature</strong></a></li>
-  <li><a href="#proportion-of-fish-with-negative-growth-by-3-species-fish-counts" id="toc-proportion-of-fish-with-negative-growth-by-3-species-fish-counts"><span class="header-section-number">16.5.3</span> Proportion of fish with negative growth by <strong>3 species fish counts</strong></a></li>
-  <li><a href="#proportion-of-fish-with-negative-growth-by-conspecific-fish-counts" id="toc-proportion-of-fish-with-negative-growth-by-conspecific-fish-counts"><span class="header-section-number">16.5.4</span> Proportion of fish with negative growth by <strong>conspecific fish counts</strong></a></li>
-  </ul></li>
-  <li><a href="#ft-cycle-graphs" id="toc-ft-cycle-graphs"><span class="header-section-number">16.6</span> F/T cycle graphs</a>
-  <ul>
-  <li><a href="#mean-flow-and-temperature" id="toc-mean-flow-and-temperature"><span class="header-section-number">16.6.1</span> Mean flow and temperature</a></li>
-  <li><a href="#mean-flow-and-temperature-with-year-labels" id="toc-mean-flow-and-temperature-with-year-labels"><span class="header-section-number">16.6.2</span> Mean flow and temperature with year labels</a></li>
-  <li><a href="#brook-trout-6" id="toc-brook-trout-6"><span class="header-section-number">16.6.3</span> Brook trout</a></li>
-  <li><a href="#yearly-temperatureflow-cycles-of-daily-data" id="toc-yearly-temperatureflow-cycles-of-daily-data"><span class="header-section-number">16.6.4</span> Yearly temperature/flow cycles of daily data</a></li>
-  <li><a href="#smooths-of-temperatureflow-cycles-of-daily-data-by-season" id="toc-smooths-of-temperatureflow-cycles-of-daily-data-by-season"><span class="header-section-number">16.6.5</span> Smooths of temperature/flow cycles of daily data by season</a></li>
-  <li><a href="#ft-cycles-with-labels" id="toc-ft-cycles-with-labels"><span class="header-section-number">16.6.6</span> F/T cycles with labels</a></li>
-  </ul></li>
-  <li><a href="#consequences-of-negative-growth" id="toc-consequences-of-negative-growth"><span class="header-section-number">16.7</span> Consequences of negative growth</a>
-  <ul>
-  <li><a href="#growth-and-last-observation" id="toc-growth-and-last-observation"><span class="header-section-number">16.7.1</span> Growth and last observation</a></li>
-  <li><a href="#growth-and-movement-distance" id="toc-growth-and-movement-distance"><span class="header-section-number">16.7.2</span> Growth and movement distance</a></li>
-  </ul></li>
-  <li><a href="#machine-learning-models" id="toc-machine-learning-models"><span class="header-section-number">16.8</span> Machine Learning models</a>
-  <ul>
-  <li><a href="#binary-model-with-negative-growth-yesno" id="toc-binary-model-with-negative-growth-yesno"><span class="header-section-number">16.8.1</span> Binary model with negative growth, yes:no</a></li>
-  <li><a href="#growth-model-continuous-growth" id="toc-growth-model-continuous-growth"><span class="header-section-number">16.8.2</span> Growth model, continuous growth</a></li>
-  </ul></li>
-  <li><a href="#gam-for-growth" id="toc-gam-for-growth"><span class="header-section-number">16.9</span> GAM for growth</a>
-  <ul>
-  <li><a href="#linear-models-for-growth" id="toc-linear-models-for-growth"><span class="header-section-number">16.9.1</span> Linear models for growth</a></li>
-  <li><a href="#gam-models-for-growth" id="toc-gam-models-for-growth"><span class="header-section-number">16.9.2</span> GAM models for growth</a></li>
-  </ul></li>
-  <li><a href="#logistic-models-for-environmental-effects-on-propneg" id="toc-logistic-models-for-environmental-effects-on-propneg"><span class="header-section-number">16.10</span> Logistic models for environmental effects on propNeg</a>
-  <ul>
-  <li><a href="#standardize-flow-and-temperature" id="toc-standardize-flow-and-temperature"><span class="header-section-number">16.10.1</span> Standardize flow and temperature</a></li>
-  <li><a href="#raw-data-with-logistic-fit-for-flow-effect" id="toc-raw-data-with-logistic-fit-for-flow-effect"><span class="header-section-number">16.10.2</span> Raw data with logistic fit for flow effect</a></li>
-  <li><a href="#raw-data-with-logistic-fit-for-temperature-effect" id="toc-raw-data-with-logistic-fit-for-temperature-effect"><span class="header-section-number">16.10.3</span> Raw data with logistic fit for temperature effect</a></li>
-  </ul></li>
-  <li><a href="#logistic-model-for-flow-and-temperature-one-species-at-a-time" id="toc-logistic-model-for-flow-and-temperature-one-species-at-a-time"><span class="header-section-number">16.11</span> Logistic model for flow and temperature, one species at a time</a>
-  <ul>
-  <li><a href="#predict-pneg-growth-in-mass" id="toc-predict-pneg-growth-in-mass"><span class="header-section-number">16.11.1</span> Predict p(neg growth in mass)</a></li>
-  <li><a href="#brook-trout-8" id="toc-brook-trout-8"><span class="header-section-number">16.11.2</span> Brook trout</a></li>
-  <li><a href="#brown-trout-8" id="toc-brown-trout-8"><span class="header-section-number">16.11.3</span> Brown trout</a></li>
-  <li><a href="#atlantic-salmon-7" id="toc-atlantic-salmon-7"><span class="header-section-number">16.11.4</span> Atlantic salmon</a></li>
-  </ul></li>
-  <li><a href="#two-growth-models" id="toc-two-growth-models"><span class="header-section-number">16.12</span> Two growth models</a>
-  <ul>
-  <li><a href="#size-adjusted-growth-model" id="toc-size-adjusted-growth-model"><span class="header-section-number">16.12.1</span> Size-adjusted growth model</a></li>
-  <li><a href="#compare-size-adjusted-and-instantaneous-growth" id="toc-compare-size-adjusted-and-instantaneous-growth"><span class="header-section-number">16.12.2</span> Compare size-adjusted and instantaneous growth</a></li>
-  </ul></li>
-  <li><a href="#compare-growth-in-length-and-mass" id="toc-compare-growth-in-length-and-mass"><span class="header-section-number">16.13</span> Compare growth in length and mass</a>
-  <ul>
-  <li><a href="#growth-rate-in-length-vs-size-independent-growth-rate-in-mass" id="toc-growth-rate-in-length-vs-size-independent-growth-rate-in-mass"><span class="header-section-number">16.13.1</span> Growth rate in length vs size-independent growth rate in mass</a></li>
-  </ul></li>
-  <li><a href="#deprecated-logistic-models-below" id="toc-deprecated-logistic-models-below"><span class="header-section-number">16.14</span> <strong>Deprecated</strong> logistic models below</a>
-  <ul>
-  <li><a href="#logistic-model-for-flow-and-temperature-all-species" id="toc-logistic-model-for-flow-and-temperature-all-species"><span class="header-section-number">16.14.1</span> Logistic model for flow and temperature, all species</a></li>
-  <li><a href="#model-selection" id="toc-model-selection"><span class="header-section-number">16.14.2</span> Model selection</a></li>
-  <li><a href="#model-results-for-additive-model-not-very-good" id="toc-model-results-for-additive-model-not-very-good"><span class="header-section-number">16.14.3</span> Model results for additive model (not very good)</a></li>
-  <li><a href="#model-results-for-full-interactive-model-best-model" id="toc-model-results-for-full-interactive-model-best-model"><span class="header-section-number">16.14.4</span> Model results for full interactive model (best model)</a></li>
-  <li><a href="#precict-pneg-growth-in-mass" id="toc-precict-pneg-growth-in-mass"><span class="header-section-number">16.14.5</span> Precict p(neg growth in mass)</a></li>
-  <li><a href="#plot-predictions" id="toc-plot-predictions"><span class="header-section-number">16.14.6</span> Plot predictions</a></li>
-  </ul></li>
-  </ul>
-</nav>
+
 <p>Distribution of growth, negative growth<br>
 - Seasonal differences<br>
 - Species differences in size/growth/CF - Patterns of negative growth</p>
@@ -245,9 +472,9 @@ spawning loss mass in the fall, esp in OB</p>
 <p>compare condition factor among species - looks like bkt growing faster in weight</p>
 <p>flow/temp circles with gr on top</p>
 <section id="get-data" class="level2" data-number="16.1">
-<h2 data-number="16.1" data-anchor-id="get-data"><span class="header-section-number">16.1</span> Get data</h2>
+<h2 data-number="16.1" class="anchored" data-anchor-id="get-data"><span class="header-section-number">16.1</span> Get data</h2>
 <section id="get-electrofishing-data" class="level3" data-number="16.1.1">
-<h3 data-number="16.1.1" data-anchor-id="get-electrofishing-data"><span class="header-section-number">16.1.1</span> Get electrofishing data</h3>
+<h3 data-number="16.1.1" class="anchored" data-anchor-id="get-electrofishing-data"><span class="header-section-number">16.1.1</span> Get electrofishing data</h3>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -275,7 +502,7 @@ spawning loss mass in the fall, esp in OB</p>
 </div>
 </section>
 <section id="get-environmental-data" class="level3" data-number="16.1.2">
-<h3 data-number="16.1.2" data-anchor-id="get-environmental-data"><span class="header-section-number">16.1.2</span> Get environmental data</h3>
+<h3 data-number="16.1.2" class="anchored" data-anchor-id="get-environmental-data"><span class="header-section-number">16.1.2</span> Get environmental data</h3>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -288,9 +515,9 @@ spawning loss mass in the fall, esp in OB</p>
 </section>
 </section>
 <section id="examine-raw-data" class="level2" data-number="16.2">
-<h2 data-number="16.2" data-anchor-id="examine-raw-data"><span class="header-section-number">16.2</span> Examine raw data</h2>
+<h2 data-number="16.2" class="anchored" data-anchor-id="examine-raw-data"><span class="header-section-number">16.2</span> Examine raw data</h2>
 <section id="limit-data-to-consecutive-sample-captures-cd1" class="level3" data-number="16.2.1">
-<h3 data-number="16.2.1" data-anchor-id="limit-data-to-consecutive-sample-captures-cd1"><span class="header-section-number">16.2.1</span> Limit data to consecutive sample captures (cd1)</h3>
+<h3 data-number="16.2.1" class="anchored" data-anchor-id="limit-data-to-consecutive-sample-captures-cd1"><span class="header-section-number">16.2.1</span> Limit data to consecutive sample captures (cd1)</h3>
 <p>Previous growth models with length used all possible observations for a fish and interpolated missing observations. Here, we are just looking at consecutive captures to estimate growth over just that interval.</p>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/consecSamples_3a598bcabccab172d3863373aa970486">
 <details>
@@ -314,9 +541,9 @@ spawning loss mass in the fall, esp in OB</p>
 </div>
 </section>
 <section id="find-outlier-growth-rates" class="level3" data-number="16.2.2">
-<h3 data-number="16.2.2" data-anchor-id="find-outlier-growth-rates"><span class="header-section-number">16.2.2</span> Find outlier growth rates</h3>
+<h3 data-number="16.2.2" class="anchored" data-anchor-id="find-outlier-growth-rates"><span class="header-section-number">16.2.2</span> Find outlier growth rates</h3>
 <section id="negative-outlier-growth" class="level4" data-number="16.2.2.1">
-<h4 data-number="16.2.2.1" data-anchor-id="negative-outlier-growth"><span class="header-section-number">16.2.2.1</span> Negative outlier growth</h4>
+<h4 data-number="16.2.2.1" class="anchored" data-anchor-id="negative-outlier-growth"><span class="header-section-number">16.2.2.1</span> Negative outlier growth</h4>
 <p><code>1bf20ebe4e</code> and <code>1bf20ff490</code> have incorrect weights leading to very negative growth rates.<br>
 Exclude these tags in <code>cd1_target</code>. The rest of the quite negative growth fish seem plausible (remember we can’t account for stomach contents or egg loss).</p>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/negOutlier_b81a9db51317ea9be54dacd672cb1fe2">
@@ -346,7 +573,7 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </div>
 </section>
 <section id="positive-outlier-growth" class="level4" data-number="16.2.2.2">
-<h4 data-number="16.2.2.2" data-anchor-id="positive-outlier-growth"><span class="header-section-number">16.2.2.2</span> Positive outlier growth</h4>
+<h4 data-number="16.2.2.2" class="anchored" data-anchor-id="positive-outlier-growth"><span class="header-section-number">16.2.2.2</span> Positive outlier growth</h4>
 <p>Lots of very fast growth mostly in the spring. No clear way to exclude fish. <code>1c2c582218</code> is excluded in <code>cd1_target</code> because of very high growth in length.</p>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/posOutlier_786684fa3ba1133223110e9f0989ce65">
 <details>
@@ -377,9 +604,9 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </section>
 </section>
 <section id="raw-length-weight-data-graphs" class="level3" data-number="16.2.3">
-<h3 data-number="16.2.3" data-anchor-id="raw-length-weight-data-graphs"><span class="header-section-number">16.2.3</span> Raw length, weight data graphs</h3>
+<h3 data-number="16.2.3" class="anchored" data-anchor-id="raw-length-weight-data-graphs"><span class="header-section-number">16.2.3</span> Raw length, weight data graphs</h3>
 <section id="distribution-of-growth-rates" class="level4" data-number="16.2.3.1">
-<h4 data-number="16.2.3.1" data-anchor-id="distribution-of-growth-rates"><span class="header-section-number">16.2.3.1</span> Distribution of growth rates</h4>
+<h4 data-number="16.2.3.1" class="anchored" data-anchor-id="distribution-of-growth-rates"><span class="header-section-number">16.2.3.1</span> Distribution of growth rates</h4>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/rawlengthWeight_0c3cf9056dbcc96cbd3fd78edab3c8b1">
 <details>
 <summary>Code</summary>
@@ -411,7 +638,7 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </section>
 </section>
 <section id="length-vs-weight-by-species" class="level3" data-number="16.2.4">
-<h3 data-number="16.2.4" data-anchor-id="length-vs-weight-by-species"><span class="header-section-number">16.2.4</span> Length vs weight by species</h3>
+<h3 data-number="16.2.4" class="anchored" data-anchor-id="length-vs-weight-by-species"><span class="header-section-number">16.2.4</span> Length vs weight by species</h3>
 <p>Very few outliers</p>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/len_v_weight_0627c502df6cef9dc489fe93d0559fdb">
 <details>
@@ -429,8 +656,8 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Brook trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Brown trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Atlantic salmon</a></li></ul>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">Brook trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Brown trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Atlantic salmon</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell" data-hash="modelGrowthInMass_cache/html/len_v_weight_bkt_d3261f5f90704e95eda944cf8247efd0">
@@ -469,7 +696,7 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </div>
 </section>
 <section id="weight-vs-weight-at-next-sample" class="level3" data-number="16.2.5">
-<h3 data-number="16.2.5" data-anchor-id="weight-vs-weight-at-next-sample"><span class="header-section-number">16.2.5</span> Weight vs weight at next sample</h3>
+<h3 data-number="16.2.5" class="anchored" data-anchor-id="weight-vs-weight-at-next-sample"><span class="header-section-number">16.2.5</span> Weight vs weight at next sample</h3>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/weight_v_weight_73bd521991d518def6c07fc3dcd8a33e">
 <details>
 <summary>Code</summary>
@@ -484,7 +711,7 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Brook trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Brown trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Atlantic salmon</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
@@ -524,7 +751,7 @@ Exclude these tags in <code>cd1_target</code>. The rest of the quite negative gr
 </div>
 </section>
 <section id="growth-rate-pairs-plots" class="level3" data-number="16.2.6">
-<h3 data-number="16.2.6" data-anchor-id="growth-rate-pairs-plots"><span class="header-section-number">16.2.6</span> Growth rate pairs plots</h3>
+<h3 data-number="16.2.6" class="anchored" data-anchor-id="growth-rate-pairs-plots"><span class="header-section-number">16.2.6</span> Growth rate pairs plots</h3>
 <p>By species, all cohorts<br>
 Row and column labels in the pairs plots are ‘age’_‘season’</p>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/pairs_e882623d42c6b6ef7b035890c9dc0df3">
@@ -567,7 +794,7 @@ Row and column labels in the pairs plots are ‘age’_‘season’</p>
 <span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Brook trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Brown trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">Atlantic salmon</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
@@ -618,10 +845,10 @@ Row and column labels in the pairs plots are ‘age’_‘season’</p>
 </div>
 </div>
 <section id="brook-trout-by-cohort" class="level4" data-number="16.2.6.1">
-<h4 data-number="16.2.6.1" data-anchor-id="brook-trout-by-cohort"><span class="header-section-number">16.2.6.1</span> Brook trout by cohort</h4>
+<h4 data-number="16.2.6.1" class="anchored" data-anchor-id="brook-trout-by-cohort"><span class="header-section-number">16.2.6.1</span> Brook trout by cohort</h4>
 <p>Row and column labels are ‘age’_‘season’<br>
 Color by river - make new function</p>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">2000</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">2001</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false">2002</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-4" role="tab" aria-controls="tabset-4-4" aria-selected="false">2003</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-5" role="tab" aria-controls="tabset-4-5" aria-selected="false">2004</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-6" role="tab" aria-controls="tabset-4-6" aria-selected="false">2005</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-7-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-7" role="tab" aria-controls="tabset-4-7" aria-selected="false">2006</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-8-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-8" role="tab" aria-controls="tabset-4-8" aria-selected="false">2007</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-9-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-9" role="tab" aria-controls="tabset-4-9" aria-selected="false">2008</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-10-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-10" role="tab" aria-controls="tabset-4-10" aria-selected="false">2009</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-11-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-11" role="tab" aria-controls="tabset-4-11" aria-selected="false">2010</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-12-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-12" role="tab" aria-controls="tabset-4-12" aria-selected="false">2011</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-13-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-13" role="tab" aria-controls="tabset-4-13" aria-selected="false">2012</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-14-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-14" role="tab" aria-controls="tabset-4-14" aria-selected="false">2013</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-15-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-15" role="tab" aria-controls="tabset-4-15" aria-selected="false">2014</a></li></ul>
 <div class="tab-content">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
@@ -793,7 +1020,7 @@ Color by river - make new function</p>
 </div>
 </section>
 <section id="consecutive-season-growth-comparisons-by-age_season" class="level4" data-number="16.2.6.2">
-<h4 data-number="16.2.6.2" data-anchor-id="consecutive-season-growth-comparisons-by-age_season"><span class="header-section-number">16.2.6.2</span> Consecutive season growth comparisons by age_season</h4>
+<h4 data-number="16.2.6.2" class="anchored" data-anchor-id="consecutive-season-growth-comparisons-by-age_season"><span class="header-section-number">16.2.6.2</span> Consecutive season growth comparisons by age_season</h4>
 <p>Brook trout</p>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/pairsByAgeSeason_e4cfe97ff9bc0bc6cdce65d585d332cc">
 <details>
@@ -875,7 +1102,7 @@ Color by river - make new function</p>
 </section>
 </section>
 <section id="growth-rate-in-length-vs-growth-rate-in-mass" class="level3" data-number="16.2.7">
-<h3 data-number="16.2.7" data-anchor-id="growth-rate-in-length-vs-growth-rate-in-mass"><span class="header-section-number">16.2.7</span> Growth rate in length vs growth rate in mass</h3>
+<h3 data-number="16.2.7" class="anchored" data-anchor-id="growth-rate-in-length-vs-growth-rate-in-mass"><span class="header-section-number">16.2.7</span> Growth rate in length vs growth rate in mass</h3>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/grLen_v_grWeight_06a5dfaf359b276a9e4186c681095a61">
 <details>
 <summary>Code</summary>
@@ -905,7 +1132,7 @@ Color by river - make new function</p>
 <span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a><span class="co">#  facet_wrap(~year)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Brook trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Brown trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-3" role="tab" aria-controls="tabset-5-3" aria-selected="false">Atlantic salmon</a></li></ul>
 <div class="tab-content">
 <div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
@@ -972,9 +1199,9 @@ Color by river - make new function</p>
 </section>
 </section>
 <section id="flow-and-temperature-growth-relationships" class="level2" data-number="16.3">
-<h2 data-number="16.3" data-anchor-id="flow-and-temperature-growth-relationships"><span class="header-section-number">16.3</span> Flow and temperature growth relationships</h2>
+<h2 data-number="16.3" class="anchored" data-anchor-id="flow-and-temperature-growth-relationships"><span class="header-section-number">16.3</span> Flow and temperature growth relationships</h2>
 <section id="mean-flow-effect-on-growth" class="level3" data-number="16.3.1">
-<h3 data-number="16.3.1" data-anchor-id="mean-flow-effect-on-growth"><span class="header-section-number">16.3.1</span> Mean flow effect on growth?</h3>
+<h3 data-number="16.3.1" class="anchored" data-anchor-id="mean-flow-effect-on-growth"><span class="header-section-number">16.3.1</span> Mean flow effect on growth?</h3>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/flow_weight_dcf3f921d2c3df4631482ad1aa94b1c3">
 <details>
 <summary>Code</summary>
@@ -992,7 +1219,7 @@ Color by river - make new function</p>
 <span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">West Brook</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Open Large</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-3" role="tab" aria-controls="tabset-6-3" aria-selected="false">Open Small</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-4" role="tab" aria-controls="tabset-6-4" aria-selected="false">Isolated small</a></li></ul>
 <div class="tab-content">
 <div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
@@ -1043,7 +1270,7 @@ Color by river - make new function</p>
 </div>
 </section>
 <section id="mean-temperature-effect-on-growth" class="level3" data-number="16.3.2">
-<h3 data-number="16.3.2" data-anchor-id="mean-temperature-effect-on-growth"><span class="header-section-number">16.3.2</span> Mean temperature effect on growth?</h3>
+<h3 data-number="16.3.2" class="anchored" data-anchor-id="mean-temperature-effect-on-growth"><span class="header-section-number">16.3.2</span> Mean temperature effect on growth?</h3>
 <p>Maybe in Jimmy for bnt, or for ats</p>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/temp_grWeight_e123d98e214bf72b2470384f1a749d5c">
 <details>
@@ -1062,7 +1289,7 @@ Color by river - make new function</p>
 <span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">Spring</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Summer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-3" role="tab" aria-controls="tabset-7-3" aria-selected="false">Autumn</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-4" role="tab" aria-controls="tabset-7-4" aria-selected="false">Winter</a></li></ul>
 <div class="tab-content">
 <div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
@@ -1114,9 +1341,9 @@ Color by river - make new function</p>
 </section>
 </section>
 <section id="proportion-of-fish-with-negative-growth" class="level2" data-number="16.4">
-<h2 data-number="16.4" data-anchor-id="proportion-of-fish-with-negative-growth"><span class="header-section-number">16.4</span> Proportion of fish with <strong>negative growth</strong></h2>
+<h2 data-number="16.4" class="anchored" data-anchor-id="proportion-of-fish-with-negative-growth"><span class="header-section-number">16.4</span> Proportion of fish with <strong>negative growth</strong></h2>
 <section id="proportion-of-fish-with-negative-growth-by-speciesriverseason" class="level3" data-number="16.4.1">
-<h3 data-number="16.4.1" data-anchor-id="proportion-of-fish-with-negative-growth-by-speciesriverseason"><span class="header-section-number">16.4.1</span> Proportion of fish with negative growth by species/river/season</h3>
+<h3 data-number="16.4.1" class="anchored" data-anchor-id="proportion-of-fish-with-negative-growth-by-speciesriverseason"><span class="header-section-number">16.4.1</span> Proportion of fish with negative growth by species/river/season</h3>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/neg_pos_27142bfbd53b23d7bcdcaa147761ee5c">
 <details>
 <summary>Code</summary>
@@ -1131,7 +1358,7 @@ Color by river - make new function</p>
 </div>
 </section>
 <section id="proportion-of-fish-with-negative-growth-by-speciesseason" class="level3" data-number="16.4.2">
-<h3 data-number="16.4.2" data-anchor-id="proportion-of-fish-with-negative-growth-by-speciesseason"><span class="header-section-number">16.4.2</span> Proportion of fish with negative growth by species/season</h3>
+<h3 data-number="16.4.2" class="anchored" data-anchor-id="proportion-of-fish-with-negative-growth-by-speciesseason"><span class="header-section-number">16.4.2</span> Proportion of fish with negative growth by species/season</h3>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/propNegBySeason_09c3115d2d9a2b3634618b92b3db40fb">
 <details>
 <summary>Code</summary>
@@ -1149,7 +1376,7 @@ Color by river - make new function</p>
 </div>
 </section>
 <section id="proportion-of-fish-with-negative-growth-by-speciesriveryear" class="level3" data-number="16.4.3">
-<h3 data-number="16.4.3" data-anchor-id="proportion-of-fish-with-negative-growth-by-speciesriveryear"><span class="header-section-number">16.4.3</span> Proportion of fish with negative growth by species/river/year</h3>
+<h3 data-number="16.4.3" class="anchored" data-anchor-id="proportion-of-fish-with-negative-growth-by-speciesriveryear"><span class="header-section-number">16.4.3</span> Proportion of fish with negative growth by species/river/year</h3>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/propNegWB_BKT_69a545a0b309971e463145a9c727d744">
 <details>
 <summary>Code</summary>
@@ -1165,7 +1392,7 @@ Color by river - make new function</p>
 <span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">Brook trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">Brown trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-3" role="tab" aria-controls="tabset-8-3" aria-selected="false">Atlantic salmon</a></li></ul>
 <div class="tab-content">
 <div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
@@ -1205,7 +1432,7 @@ Color by river - make new function</p>
 </div>
 </section>
 <section id="proportion-of-fish-with-negative-growth-by-speciesriveryear-1" class="level3" data-number="16.4.4">
-<h3 data-number="16.4.4" data-anchor-id="proportion-of-fish-with-negative-growth-by-speciesriveryear-1"><span class="header-section-number">16.4.4</span> Proportion of fish with negative growth by species/river/year</h3>
+<h3 data-number="16.4.4" class="anchored" data-anchor-id="proportion-of-fish-with-negative-growth-by-speciesriveryear-1"><span class="header-section-number">16.4.4</span> Proportion of fish with negative growth by species/river/year</h3>
 <p>Break down season by year, compare across rivers</p>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/neg_posN_40687f4eda2a0d7fbaedf660d3caa00f">
 <details>
@@ -1225,9 +1452,9 @@ Color by river - make new function</p>
 </section>
 </section>
 <section id="environmental-effects-on-proportion-of-fish-with-negative-growth" class="level2" data-number="16.5">
-<h2 data-number="16.5" data-anchor-id="environmental-effects-on-proportion-of-fish-with-negative-growth"><span class="header-section-number">16.5</span> Environmental effects on proportion of fish with negative growth</h2>
+<h2 data-number="16.5" class="anchored" data-anchor-id="environmental-effects-on-proportion-of-fish-with-negative-growth"><span class="header-section-number">16.5</span> Environmental effects on proportion of fish with negative growth</h2>
 <section id="proportion-of-fish-with-negative-growth-by-flow" class="level3" data-number="16.5.1">
-<h3 data-number="16.5.1" data-anchor-id="proportion-of-fish-with-negative-growth-by-flow"><span class="header-section-number">16.5.1</span> Proportion of fish with negative growth by <strong>flow</strong></h3>
+<h3 data-number="16.5.1" class="anchored" data-anchor-id="proportion-of-fish-with-negative-growth-by-flow"><span class="header-section-number">16.5.1</span> Proportion of fish with negative growth by <strong>flow</strong></h3>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/negGrowth_flow_ff74ca78ec638f42ecbd2ba70753d094">
 <details>
 <summary>Code</summary>
@@ -1262,7 +1489,7 @@ Color by river - make new function</p>
 </div>
 </section>
 <section id="proportion-of-fish-with-negative-growth-by-temperature" class="level3" data-number="16.5.2">
-<h3 data-number="16.5.2" data-anchor-id="proportion-of-fish-with-negative-growth-by-temperature"><span class="header-section-number">16.5.2</span> Proportion of fish with negative growth by <strong>temperature</strong></h3>
+<h3 data-number="16.5.2" class="anchored" data-anchor-id="proportion-of-fish-with-negative-growth-by-temperature"><span class="header-section-number">16.5.2</span> Proportion of fish with negative growth by <strong>temperature</strong></h3>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/negGrowth_temp_18cb2847d3ce159c07e7c2cb47f747e7">
 <details>
 <summary>Code</summary>
@@ -1279,7 +1506,7 @@ Color by river - make new function</p>
 <span id="cb71-11"><a href="#cb71-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">Spring</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false">Summer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-3" role="tab" aria-controls="tabset-9-3" aria-selected="false">Autumn</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-4" role="tab" aria-controls="tabset-9-4" aria-selected="false">Winter</a></li></ul>
 <div class="tab-content">
 <div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
@@ -1330,7 +1557,7 @@ Color by river - make new function</p>
 </div>
 </section>
 <section id="proportion-of-fish-with-negative-growth-by-3-species-fish-counts" class="level3" data-number="16.5.3">
-<h3 data-number="16.5.3" data-anchor-id="proportion-of-fish-with-negative-growth-by-3-species-fish-counts"><span class="header-section-number">16.5.3</span> Proportion of fish with negative growth by <strong>3 species fish counts</strong></h3>
+<h3 data-number="16.5.3" class="anchored" data-anchor-id="proportion-of-fish-with-negative-growth-by-3-species-fish-counts"><span class="header-section-number">16.5.3</span> Proportion of fish with negative growth by <strong>3 species fish counts</strong></h3>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/negGrowth_counts3Spp_989a5b3507251cf6728af5c5d131a536">
 <details>
 <summary>Code</summary>
@@ -1365,7 +1592,7 @@ Color by river - make new function</p>
 </div>
 </section>
 <section id="proportion-of-fish-with-negative-growth-by-conspecific-fish-counts" class="level3" data-number="16.5.4">
-<h3 data-number="16.5.4" data-anchor-id="proportion-of-fish-with-negative-growth-by-conspecific-fish-counts"><span class="header-section-number">16.5.4</span> Proportion of fish with negative growth by <strong>conspecific fish counts</strong></h3>
+<h3 data-number="16.5.4" class="anchored" data-anchor-id="proportion-of-fish-with-negative-growth-by-conspecific-fish-counts"><span class="header-section-number">16.5.4</span> Proportion of fish with negative growth by <strong>conspecific fish counts</strong></h3>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/negGrowth_counts1Spp_57248a2dfa70adc12ecc49afc080b82f">
 <details>
 <summary>Code</summary>
@@ -1401,9 +1628,9 @@ Color by river - make new function</p>
 </section>
 </section>
 <section id="ft-cycle-graphs" class="level2" data-number="16.6">
-<h2 data-number="16.6" data-anchor-id="ft-cycle-graphs"><span class="header-section-number">16.6</span> F/T cycle graphs</h2>
+<h2 data-number="16.6" class="anchored" data-anchor-id="ft-cycle-graphs"><span class="header-section-number">16.6</span> F/T cycle graphs</h2>
 <section id="mean-flow-and-temperature" class="level3" data-number="16.6.1">
-<h3 data-number="16.6.1" data-anchor-id="mean-flow-and-temperature"><span class="header-section-number">16.6.1</span> Mean flow and temperature</h3>
+<h3 data-number="16.6.1" class="anchored" data-anchor-id="mean-flow-and-temperature"><span class="header-section-number">16.6.1</span> Mean flow and temperature</h3>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/flow_temp_cycle_bySpecies_c4a1cbc36a6475be4ada53671527ab56">
 <details>
 <summary>Code</summary>
@@ -1418,7 +1645,7 @@ Color by river - make new function</p>
 <span id="cb80-9"><a href="#cb80-9" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true">Brook trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false">Brown trout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-3" role="tab" aria-controls="tabset-10-3" aria-selected="false">Atlantic salmon</a></li></ul>
 <div class="tab-content">
 <div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
@@ -1458,13 +1685,13 @@ Color by river - make new function</p>
 </div>
 </section>
 <section id="mean-flow-and-temperature-with-year-labels" class="level3" data-number="16.6.2">
-<h3 data-number="16.6.2" data-anchor-id="mean-flow-and-temperature-with-year-labels"><span class="header-section-number">16.6.2</span> Mean flow and temperature with year labels</h3>
+<h3 data-number="16.6.2" class="anchored" data-anchor-id="mean-flow-and-temperature-with-year-labels"><span class="header-section-number">16.6.2</span> Mean flow and temperature with year labels</h3>
 <section id="panel-tabset" class="level4" data-number="16.6.2.1">
-<h4 data-number="16.6.2.1" data-anchor-id="panel-tabset"><span class="header-section-number">16.6.2.1</span> panel-tabset</h4>
+<h4 data-number="16.6.2.1" class="anchored" data-anchor-id="panel-tabset"><span class="header-section-number">16.6.2.1</span> panel-tabset</h4>
 </section>
 </section>
 <section id="brook-trout-6" class="level3" data-number="16.6.3">
-<h3 data-number="16.6.3" data-anchor-id="brook-trout-6"><span class="header-section-number">16.6.3</span> Brook trout</h3>
+<h3 data-number="16.6.3" class="anchored" data-anchor-id="brook-trout-6"><span class="header-section-number">16.6.3</span> Brook trout</h3>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/flow_temp_cycle_bySpeciesYear_bkt_c130951084770026dab669731a764061">
 <details>
 <summary>Code</summary>
@@ -1475,7 +1702,7 @@ Color by river - make new function</p>
 </div>
 </div>
 <section id="brown-trout-6" class="level4" data-number="16.6.3.1">
-<h4 data-number="16.6.3.1" data-anchor-id="brown-trout-6"><span class="header-section-number">16.6.3.1</span> Brown trout</h4>
+<h4 data-number="16.6.3.1" class="anchored" data-anchor-id="brown-trout-6"><span class="header-section-number">16.6.3.1</span> Brown trout</h4>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/flow_temp_cycle_bySpeciesYear_bnt_b9c0ffe50365da14f37397204906ddfd">
 <details>
 <summary>Code</summary>
@@ -1487,7 +1714,7 @@ Color by river - make new function</p>
 </div>
 </section>
 <section id="atlantic-salmon-6" class="level4" data-number="16.6.3.2">
-<h4 data-number="16.6.3.2" data-anchor-id="atlantic-salmon-6"><span class="header-section-number">16.6.3.2</span> Atlantic salmon</h4>
+<h4 data-number="16.6.3.2" class="anchored" data-anchor-id="atlantic-salmon-6"><span class="header-section-number">16.6.3.2</span> Atlantic salmon</h4>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/flow_temp_cycle_bySpeciesYear_ats_af7eae3181f102531a570a0974ad70e8">
 <details>
 <summary>Code</summary>
@@ -1515,7 +1742,7 @@ Not very informative</p>
 </section>
 </section>
 <section id="yearly-temperatureflow-cycles-of-daily-data" class="level3" data-number="16.6.4">
-<h3 data-number="16.6.4" data-anchor-id="yearly-temperatureflow-cycles-of-daily-data"><span class="header-section-number">16.6.4</span> Yearly temperature/flow cycles of daily data</h3>
+<h3 data-number="16.6.4" class="anchored" data-anchor-id="yearly-temperatureflow-cycles-of-daily-data"><span class="header-section-number">16.6.4</span> Yearly temperature/flow cycles of daily data</h3>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/mergePropNegPlot_5475acd008bc3bf86da227aee0a3df45">
 <details>
 <summary>Code</summary>
@@ -1534,7 +1761,7 @@ Not very informative</p>
 <span id="cb88-13"><a href="#cb88-13" aria-hidden="true" tabindex="-1"></a><span class="co"># this plots f/t for all three species - good for filling in gaps</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true">West Brook</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false">Open Large</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-3" role="tab" aria-controls="tabset-11-3" aria-selected="false">Open Small</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-4" role="tab" aria-controls="tabset-11-4" aria-selected="false">Isolated small</a></li></ul>
 <div class="tab-content">
 <div id="tabset-11-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-11-1-tab">
@@ -1585,7 +1812,7 @@ Not very informative</p>
 </div>
 </section>
 <section id="smooths-of-temperatureflow-cycles-of-daily-data-by-season" class="level3" data-number="16.6.5">
-<h3 data-number="16.6.5" data-anchor-id="smooths-of-temperatureflow-cycles-of-daily-data-by-season"><span class="header-section-number">16.6.5</span> Smooths of temperature/flow cycles of daily data by season</h3>
+<h3 data-number="16.6.5" class="anchored" data-anchor-id="smooths-of-temperatureflow-cycles-of-daily-data-by-season"><span class="header-section-number">16.6.5</span> Smooths of temperature/flow cycles of daily data by season</h3>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/plotMergedBySeason_6ac0edde808cf86e69780a965fbfd8ec">
 <details>
 <summary>Code</summary>
@@ -1605,7 +1832,7 @@ Not very informative</p>
 <span id="cb93-14"><a href="#cb93-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true">West Brook</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-2" role="tab" aria-controls="tabset-12-2" aria-selected="false">Open Large</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-3" role="tab" aria-controls="tabset-12-3" aria-selected="false">Open Small</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-4" role="tab" aria-controls="tabset-12-4" aria-selected="false">Isolated small</a></li></ul>
 <div class="tab-content">
 <div id="tabset-12-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-12-1-tab">
@@ -1657,7 +1884,7 @@ Not very informative</p>
 <p>TO ADD: low flow high density important? Look at interaction btw flow:density</p>
 </section>
 <section id="ft-cycles-with-labels" class="level3" data-number="16.6.6">
-<h3 data-number="16.6.6" data-anchor-id="ft-cycles-with-labels"><span class="header-section-number">16.6.6</span> F/T cycles with labels</h3>
+<h3 data-number="16.6.6" class="anchored" data-anchor-id="ft-cycles-with-labels"><span class="header-section-number">16.6.6</span> F/T cycles with labels</h3>
 <p>Plot F/T cycles by river, season, species with label for propNeg and conspecific and all-species abundances</p>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/plotMergedBySeasonByEverything_5083f49a8f3c905d86f1552a4096c6cb">
 <details>
@@ -1704,8 +1931,8 @@ Not very informative</p>
 </details>
 </div>
 <section id="west-brook-3" class="level4" data-number="16.6.6.1">
-<h4 data-number="16.6.6.1" data-anchor-id="west-brook-3"><span class="header-section-number">16.6.6.1</span> West Brook</h4>
-<div class="panel-tabset">
+<h4 data-number="16.6.6.1" class="anchored" data-anchor-id="west-brook-3"><span class="header-section-number">16.6.6.1</span> West Brook</h4>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-13-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-1" role="tab" aria-controls="tabset-13-1" aria-selected="true">Spring</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-2" role="tab" aria-controls="tabset-13-2" aria-selected="false">Summer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-3" role="tab" aria-controls="tabset-13-3" aria-selected="false">Autumn</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-4" role="tab" aria-controls="tabset-13-4" aria-selected="false">Winter</a></li></ul>
 <div class="tab-content">
 <div id="tabset-13-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-13-1-tab">
@@ -1812,8 +2039,8 @@ Not very informative</p>
 </div>
 </section>
 <section id="open-large-3" class="level4" data-number="16.6.6.2">
-<h4 data-number="16.6.6.2" data-anchor-id="open-large-3"><span class="header-section-number">16.6.6.2</span> Open Large</h4>
-<div class="panel-tabset">
+<h4 data-number="16.6.6.2" class="anchored" data-anchor-id="open-large-3"><span class="header-section-number">16.6.6.2</span> Open Large</h4>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-14-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-1" role="tab" aria-controls="tabset-14-1" aria-selected="true">Spring</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-2" role="tab" aria-controls="tabset-14-2" aria-selected="false">Summer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-3" role="tab" aria-controls="tabset-14-3" aria-selected="false">Autumn</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-4" role="tab" aria-controls="tabset-14-4" aria-selected="false">Winter</a></li></ul>
 <div class="tab-content">
 <div id="tabset-14-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-14-1-tab">
@@ -1920,8 +2147,8 @@ Not very informative</p>
 </div>
 </section>
 <section id="open-small-3" class="level4" data-number="16.6.6.3">
-<h4 data-number="16.6.6.3" data-anchor-id="open-small-3"><span class="header-section-number">16.6.6.3</span> Open Small</h4>
-<div class="panel-tabset">
+<h4 data-number="16.6.6.3" class="anchored" data-anchor-id="open-small-3"><span class="header-section-number">16.6.6.3</span> Open Small</h4>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-15-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-1" role="tab" aria-controls="tabset-15-1" aria-selected="true">Spring</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-2" role="tab" aria-controls="tabset-15-2" aria-selected="false">Summer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-3" role="tab" aria-controls="tabset-15-3" aria-selected="false">Autumn</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-4" role="tab" aria-controls="tabset-15-4" aria-selected="false">Winter</a></li></ul>
 <div class="tab-content">
 <div id="tabset-15-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-15-1-tab">
@@ -2000,8 +2227,8 @@ Not very informative</p>
 </div>
 </section>
 <section id="isolated-small-3" class="level4" data-number="16.6.6.4">
-<h4 data-number="16.6.6.4" data-anchor-id="isolated-small-3"><span class="header-section-number">16.6.6.4</span> Isolated Small</h4>
-<div class="panel-tabset">
+<h4 data-number="16.6.6.4" class="anchored" data-anchor-id="isolated-small-3"><span class="header-section-number">16.6.6.4</span> Isolated Small</h4>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-16-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-1" role="tab" aria-controls="tabset-16-1" aria-selected="true">Spring</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-2" role="tab" aria-controls="tabset-16-2" aria-selected="false">Summer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-3" role="tab" aria-controls="tabset-16-3" aria-selected="false">Autumn</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-4" role="tab" aria-controls="tabset-16-4" aria-selected="false">Winter</a></li></ul>
 <div class="tab-content">
 <div id="tabset-16-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-16-1-tab">
@@ -2054,9 +2281,9 @@ Not very informative</p>
 </section>
 </section>
 <section id="consequences-of-negative-growth" class="level2" data-number="16.7">
-<h2 data-number="16.7" data-anchor-id="consequences-of-negative-growth"><span class="header-section-number">16.7</span> Consequences of negative growth</h2>
+<h2 data-number="16.7" class="anchored" data-anchor-id="consequences-of-negative-growth"><span class="header-section-number">16.7</span> Consequences of negative growth</h2>
 <section id="growth-and-last-observation" class="level3" data-number="16.7.1">
-<h3 data-number="16.7.1" data-anchor-id="growth-and-last-observation"><span class="header-section-number">16.7.1</span> Growth and last observation</h3>
+<h3 data-number="16.7.1" class="anchored" data-anchor-id="growth-and-last-observation"><span class="header-section-number">16.7.1</span> Growth and last observation</h3>
 <p>Relationship between individual growth and length of subsequent observations (how many more observations before the last observation) for individual fish.</p>
 <p>Broken up by years</p>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/negGrowth_samplesLeft_8bdf59bddc4d1a247042e160286001ec">
@@ -2376,7 +2603,7 @@ Not very informative</p>
 </div>
 </section>
 <section id="growth-and-movement-distance" class="level3" data-number="16.7.2">
-<h3 data-number="16.7.2" data-anchor-id="growth-and-movement-distance"><span class="header-section-number">16.7.2</span> Growth and movement distance</h3>
+<h3 data-number="16.7.2" class="anchored" data-anchor-id="growth-and-movement-distance"><span class="header-section-number">16.7.2</span> Growth and movement distance</h3>
 <p>TO add: break avg move into negGR/not negGR</p>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/growthMovementNegPos_f2c848741ceb16eadb46dec42e892e94">
 <details>
@@ -2448,12 +2675,12 @@ Not very informative</p>
 </section>
 </section>
 <section id="machine-learning-models" class="level2" data-number="16.8">
-<h2 data-number="16.8" data-anchor-id="machine-learning-models"><span class="header-section-number">16.8</span> Machine Learning models</h2>
+<h2 data-number="16.8" class="anchored" data-anchor-id="machine-learning-models"><span class="header-section-number">16.8</span> Machine Learning models</h2>
 <p>Using xgBoost to explore patterns in:<br>
 - Binary, lose mass:gain mass<br>
 - Regression, growth in mass</p>
 <section id="binary-model-with-negative-growth-yesno" class="level3" data-number="16.8.1">
-<h3 data-number="16.8.1" data-anchor-id="binary-model-with-negative-growth-yesno"><span class="header-section-number">16.8.1</span> Binary model with negative growth, yes:no</h3>
+<h3 data-number="16.8.1" class="anchored" data-anchor-id="binary-model-with-negative-growth-yesno"><span class="header-section-number">16.8.1</span> Binary model with negative growth, yes:no</h3>
 <p>Not yet in targets….</p>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/rf_91b7428977dd1aa1a73c93baa4694706">
 <details>
@@ -2501,7 +2728,7 @@ Not very informative</p>
 </div>
 </div>
 <section id="run-first-model" class="level4" data-number="16.8.1.1">
-<h4 data-number="16.8.1.1" data-anchor-id="run-first-model"><span class="header-section-number">16.8.1.1</span> Run first model</h4>
+<h4 data-number="16.8.1.1" class="anchored" data-anchor-id="run-first-model"><span class="header-section-number">16.8.1.1</span> Run first model</h4>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/runML1_6310a9b49d852fd4ecd11e2e7c11063e">
 <details>
 <summary>Code</summary>
@@ -2544,7 +2771,7 @@ Not very informative</p>
 </div>
 </section>
 <section id="add-early-stopping" class="level4" data-number="16.8.1.2">
-<h4 data-number="16.8.1.2" data-anchor-id="add-early-stopping"><span class="header-section-number">16.8.1.2</span> Add early stopping</h4>
+<h4 data-number="16.8.1.2" class="anchored" data-anchor-id="add-early-stopping"><span class="header-section-number">16.8.1.2</span> Add early stopping</h4>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/runML2_656f17ebf29fcc4b4fc2bbb9aad0636b">
 <details>
 <summary>Code</summary>
@@ -2594,7 +2821,7 @@ Not very informative</p>
 </div>
 </section>
 <section id="hyperparameter-search-grid" class="level4" data-number="16.8.1.3">
-<h4 data-number="16.8.1.3" data-anchor-id="hyperparameter-search-grid"><span class="header-section-number">16.8.1.3</span> Hyperparameter search grid</h4>
+<h4 data-number="16.8.1.3" class="anchored" data-anchor-id="hyperparameter-search-grid"><span class="header-section-number">16.8.1.3</span> Hyperparameter search grid</h4>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/runML_HP_4d5fdf20f84941970b2c3cfc77a4cf19">
 <details>
 <summary>Code</summary>
@@ -2672,7 +2899,7 @@ Not very informative</p>
 </div>
 </section>
 <section id="fit-the-top-model" class="level4" data-number="16.8.1.4">
-<h4 data-number="16.8.1.4" data-anchor-id="fit-the-top-model"><span class="header-section-number">16.8.1.4</span> Fit the top model</h4>
+<h4 data-number="16.8.1.4" class="anchored" data-anchor-id="fit-the-top-model"><span class="header-section-number">16.8.1.4</span> Fit the top model</h4>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/fitBinary_0ef8da89a6d6a9340672fa017d8b8b7d">
 <details>
 <summary>Code</summary>
@@ -2699,7 +2926,7 @@ Not very informative</p>
 </div>
 </section>
 <section id="variable-importance-plot" class="level4" data-number="16.8.1.5">
-<h4 data-number="16.8.1.5" data-anchor-id="variable-importance-plot"><span class="header-section-number">16.8.1.5</span> Variable importance plot</h4>
+<h4 data-number="16.8.1.5" class="anchored" data-anchor-id="variable-importance-plot"><span class="header-section-number">16.8.1.5</span> Variable importance plot</h4>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/vipBinary_de4b7416f1d6d842f86bf77935218c06">
 <details>
 <summary>Code</summary>
@@ -2715,7 +2942,7 @@ Not very informative</p>
 </div>
 </section>
 <section id="partial-dependence-plots" class="level4" data-number="16.8.1.6">
-<h4 data-number="16.8.1.6" data-anchor-id="partial-dependence-plots"><span class="header-section-number">16.8.1.6</span> Partial dependence plots</h4>
+<h4 data-number="16.8.1.6" class="anchored" data-anchor-id="partial-dependence-plots"><span class="header-section-number">16.8.1.6</span> Partial dependence plots</h4>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/pdpBinary_01eac33ca597314dd2c8d2eddbb5012b">
 <details>
 <summary>Code</summary>
@@ -2750,7 +2977,7 @@ Not very informative</p>
 </div>
 </section>
 <section id="lime" class="level4" data-number="16.8.1.7">
-<h4 data-number="16.8.1.7" data-anchor-id="lime"><span class="header-section-number">16.8.1.7</span> Lime</h4>
+<h4 data-number="16.8.1.7" class="anchored" data-anchor-id="lime"><span class="header-section-number">16.8.1.7</span> Lime</h4>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/limeBinary_435d9577977087f0cc22b5c7307c1943">
 <details>
 <summary>Code</summary>
@@ -2772,7 +2999,7 @@ Not very informative</p>
 </section>
 </section>
 <section id="growth-model-continuous-growth" class="level3" data-number="16.8.2">
-<h3 data-number="16.8.2" data-anchor-id="growth-model-continuous-growth"><span class="header-section-number">16.8.2</span> Growth model, continuous growth</h3>
+<h3 data-number="16.8.2" class="anchored" data-anchor-id="growth-model-continuous-growth"><span class="header-section-number">16.8.2</span> Growth model, continuous growth</h3>
 <p>can we add season, river interactions? or do separate analyses?</p>
 <div class="cell">
 <details>
@@ -2801,7 +3028,7 @@ Not very informative</p>
 </details>
 </div>
 <section id="run-first-model-1" class="level4" data-number="16.8.2.1">
-<h4 data-number="16.8.2.1" data-anchor-id="run-first-model-1"><span class="header-section-number">16.8.2.1</span> Run first model</h4>
+<h4 data-number="16.8.2.1" class="anchored" data-anchor-id="run-first-model-1"><span class="header-section-number">16.8.2.1</span> Run first model</h4>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/runML1_W_45cee65c756e70fdb2c963f243cbcecf">
 <details>
 <summary>Code</summary>
@@ -2844,7 +3071,7 @@ Not very informative</p>
 </div>
 </section>
 <section id="hyperparameter-search-grid-1" class="level4" data-number="16.8.2.2">
-<h4 data-number="16.8.2.2" data-anchor-id="hyperparameter-search-grid-1"><span class="header-section-number">16.8.2.2</span> Hyperparameter search grid</h4>
+<h4 data-number="16.8.2.2" class="anchored" data-anchor-id="hyperparameter-search-grid-1"><span class="header-section-number">16.8.2.2</span> Hyperparameter search grid</h4>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/runML_HP_W_8af413facca3478e2e9df376979630a5">
 <details>
 <summary>Code</summary>
@@ -2878,7 +3105,7 @@ Not very informative</p>
 </div>
 </section>
 <section id="variable-importance-plot-1" class="level4" data-number="16.8.2.3">
-<h4 data-number="16.8.2.3" data-anchor-id="variable-importance-plot-1"><span class="header-section-number">16.8.2.3</span> Variable importance plot</h4>
+<h4 data-number="16.8.2.3" class="anchored" data-anchor-id="variable-importance-plot-1"><span class="header-section-number">16.8.2.3</span> Variable importance plot</h4>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -2889,7 +3116,7 @@ Not very informative</p>
 </div>
 </section>
 <section id="partial-dependence-plots-1" class="level4" data-number="16.8.2.4">
-<h4 data-number="16.8.2.4" data-anchor-id="partial-dependence-plots-1"><span class="header-section-number">16.8.2.4</span> Partial dependence plots</h4>
+<h4 data-number="16.8.2.4" class="anchored" data-anchor-id="partial-dependence-plots-1"><span class="header-section-number">16.8.2.4</span> Partial dependence plots</h4>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/pdpContinuous_W_0815d6055d988ac27bb2f6dbc434d507">
 <details>
 <summary>Code</summary>
@@ -3075,7 +3302,7 @@ TableGrob (4 x 2) "arrange": 6 grobs
 </div>
 </section>
 <section id="lime-1" class="level4" data-number="16.8.2.5">
-<h4 data-number="16.8.2.5" data-anchor-id="lime-1"><span class="header-section-number">16.8.2.5</span> Lime</h4>
+<h4 data-number="16.8.2.5" class="anchored" data-anchor-id="lime-1"><span class="header-section-number">16.8.2.5</span> Lime</h4>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/limeContinuous_W_e414449fc97a81595034601262f934b7">
 <details>
 <summary>Code</summary>
@@ -3096,7 +3323,7 @@ TableGrob (4 x 2) "arrange": 6 grobs
 </div>
 </section>
 <section id="predict" class="level4" data-number="16.8.2.6">
-<h4 data-number="16.8.2.6" data-anchor-id="predict"><span class="header-section-number">16.8.2.6</span> Predict</h4>
+<h4 data-number="16.8.2.6" class="anchored" data-anchor-id="predict"><span class="header-section-number">16.8.2.6</span> Predict</h4>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/predict_W_a163b7bbd70ad60fb964cb19bffca3d0">
 <details>
 <summary>Code</summary>
@@ -3223,7 +3450,7 @@ TableGrob (4 x 2) "arrange": 6 grobs
 </div>
 </section>
 <section id="when-and-where-do-fish-have-predicted-negative-growth" class="level4" data-number="16.8.2.7">
-<h4 data-number="16.8.2.7" data-anchor-id="when-and-where-do-fish-have-predicted-negative-growth"><span class="header-section-number">16.8.2.7</span> When and where do fish have predicted negative growth?</h4>
+<h4 data-number="16.8.2.7" class="anchored" data-anchor-id="when-and-where-do-fish-have-predicted-negative-growth"><span class="header-section-number">16.8.2.7</span> When and where do fish have predicted negative growth?</h4>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/negPredGrowth_W_627d9028a693e64644804ecf4659ba4a">
 <details>
 <summary>Code</summary>
@@ -3287,7 +3514,7 @@ TableGrob (4 x 2) "arrange": 6 grobs
 </section>
 </section>
 <section id="gam-for-growth" class="level2" data-number="16.9">
-<h2 data-number="16.9" data-anchor-id="gam-for-growth"><span class="header-section-number">16.9</span> GAM for growth</h2>
+<h2 data-number="16.9" class="anchored" data-anchor-id="gam-for-growth"><span class="header-section-number">16.9</span> GAM for growth</h2>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/gamGrowthRaw_1a849109825fff0ee3132b8d11331ee3">
 <details>
 <summary>Code</summary>
@@ -3339,7 +3566,7 @@ TableGrob (4 x 2) "arrange": 6 grobs
 </div>
 </div>
 <section id="linear-models-for-growth" class="level3" data-number="16.9.1">
-<h3 data-number="16.9.1" data-anchor-id="linear-models-for-growth"><span class="header-section-number">16.9.1</span> Linear models for growth</h3>
+<h3 data-number="16.9.1" class="anchored" data-anchor-id="linear-models-for-growth"><span class="header-section-number">16.9.1</span> Linear models for growth</h3>
 <p>Initial test of model structure for GAMs</p>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/linearModelGrowth_f7af9a3615130b37abf551b8263651ad">
 <details>
@@ -3366,7 +3593,7 @@ TableGrob (4 x 2) "arrange": 6 grobs
 </details>
 </div>
 <section id="brook-trout-7" class="level4" data-number="16.9.1.1">
-<h4 data-number="16.9.1.1" data-anchor-id="brook-trout-7"><span class="header-section-number">16.9.1.1</span> Brook trout</h4>
+<h4 data-number="16.9.1.1" class="anchored" data-anchor-id="brook-trout-7"><span class="header-section-number">16.9.1.1</span> Brook trout</h4>
 <p>Most complex model has lowest AIC</p>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/linBKT_60890a3a36f39ad1456aa703c7de6d84">
 <details>
@@ -3394,7 +3621,7 @@ TableGrob (4 x 2) "arrange": 6 grobs
 </div>
 </section>
 <section id="brown-trout-7" class="level4" data-number="16.9.1.2">
-<h4 data-number="16.9.1.2" data-anchor-id="brown-trout-7"><span class="header-section-number">16.9.1.2</span> Brown trout</h4>
+<h4 data-number="16.9.1.2" class="anchored" data-anchor-id="brown-trout-7"><span class="header-section-number">16.9.1.2</span> Brown trout</h4>
 <p>Most complex model has lowest AIC</p>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/linBNT_888d086bf07c9df929171691492407be">
 <details>
@@ -3424,7 +3651,7 @@ TableGrob (4 x 2) "arrange": 6 grobs
 </section>
 </section>
 <section id="gam-models-for-growth" class="level3" data-number="16.9.2">
-<h3 data-number="16.9.2" data-anchor-id="gam-models-for-growth"><span class="header-section-number">16.9.2</span> GAM models for growth</h3>
+<h3 data-number="16.9.2" class="anchored" data-anchor-id="gam-models-for-growth"><span class="header-section-number">16.9.2</span> GAM models for growth</h3>
 <p>This modeling approach map() (which I would like to use), throws an error using bam(). Use gamX model approach below.</p>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/gamModelsGrowth_f60ca3cfbd90a261012d58d63ee8887e">
 <details>
@@ -3466,7 +3693,7 @@ TableGrob (4 x 2) "arrange": 6 grobs
 </details>
 </div>
 <section id="brook-trout---flow-by-river" class="level4" data-number="16.9.2.1">
-<h4 data-number="16.9.2.1" data-anchor-id="brook-trout---flow-by-river"><span class="header-section-number">16.9.2.1</span> Brook trout - flow by river</h4>
+<h4 data-number="16.9.2.1" class="anchored" data-anchor-id="brook-trout---flow-by-river"><span class="header-section-number">16.9.2.1</span> Brook trout - flow by river</h4>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/gamModsBKTFBR_5c7a511ffc16d696b8d61da3d65c0838">
 <details>
 <summary>Code</summary>
@@ -3525,7 +3752,7 @@ gam3ByRiver 102.51579 -85461.99</code></pre>
 </div>
 </section>
 <section id="brook-trout---compare-flow-and-flow-by-river-gams" class="level4" data-number="16.9.2.2">
-<h4 data-number="16.9.2.2" data-anchor-id="brook-trout---compare-flow-and-flow-by-river-gams"><span class="header-section-number">16.9.2.2</span> Brook trout - compare flow and flow by river gams</h4>
+<h4 data-number="16.9.2.2" class="anchored" data-anchor-id="brook-trout---compare-flow-and-flow-by-river-gams"><span class="header-section-number">16.9.2.2</span> Brook trout - compare flow and flow by river gams</h4>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/gamModsCompare_a3cc032a95316ac380919761b9b3b73d">
 <details>
 <summary>Code</summary>
@@ -3575,7 +3802,7 @@ gam3ByRiver 102.51579 -85461.99</code></pre>
 </div>
 </section>
 <section id="graph-predictions" class="level4" data-number="16.9.2.3">
-<h4 data-number="16.9.2.3" data-anchor-id="graph-predictions"><span class="header-section-number">16.9.2.3</span> Graph predictions</h4>
+<h4 data-number="16.9.2.3" class="anchored" data-anchor-id="graph-predictions"><span class="header-section-number">16.9.2.3</span> Graph predictions</h4>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/graphGAMPredictions_8079e9e2f797a26c13163ca9b8659c0a">
 <details>
 <summary>Code</summary>
@@ -3609,9 +3836,9 @@ gam3ByRiver 102.51579 -85461.99</code></pre>
 </section>
 </section>
 <section id="logistic-models-for-environmental-effects-on-propneg" class="level2" data-number="16.10">
-<h2 data-number="16.10" data-anchor-id="logistic-models-for-environmental-effects-on-propneg"><span class="header-section-number">16.10</span> Logistic models for environmental effects on propNeg</h2>
+<h2 data-number="16.10" class="anchored" data-anchor-id="logistic-models-for-environmental-effects-on-propneg"><span class="header-section-number">16.10</span> Logistic models for environmental effects on propNeg</h2>
 <section id="standardize-flow-and-temperature" class="level3" data-number="16.10.1">
-<h3 data-number="16.10.1" data-anchor-id="standardize-flow-and-temperature"><span class="header-section-number">16.10.1</span> Standardize flow and temperature</h3>
+<h3 data-number="16.10.1" class="anchored" data-anchor-id="standardize-flow-and-temperature"><span class="header-section-number">16.10.1</span> Standardize flow and temperature</h3>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/flowTempZ_66f0015e4021311a7df17a747d5906e1">
 <details>
 <summary>Code</summary>
@@ -3640,7 +3867,7 @@ gam3ByRiver 102.51579 -85461.99</code></pre>
 </div>
 </section>
 <section id="raw-data-with-logistic-fit-for-flow-effect" class="level3" data-number="16.10.2">
-<h3 data-number="16.10.2" data-anchor-id="raw-data-with-logistic-fit-for-flow-effect"><span class="header-section-number">16.10.2</span> Raw data with logistic fit for flow effect</h3>
+<h3 data-number="16.10.2" class="anchored" data-anchor-id="raw-data-with-logistic-fit-for-flow-effect"><span class="header-section-number">16.10.2</span> Raw data with logistic fit for flow effect</h3>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/logisticFlow_1c5e884742cc2e4af088982a18ddf43b">
 <details>
 <summary>Code</summary>
@@ -3673,7 +3900,7 @@ gam3ByRiver 102.51579 -85461.99</code></pre>
 </div>
 </section>
 <section id="raw-data-with-logistic-fit-for-temperature-effect" class="level3" data-number="16.10.3">
-<h3 data-number="16.10.3" data-anchor-id="raw-data-with-logistic-fit-for-temperature-effect"><span class="header-section-number">16.10.3</span> Raw data with logistic fit for temperature effect</h3>
+<h3 data-number="16.10.3" class="anchored" data-anchor-id="raw-data-with-logistic-fit-for-temperature-effect"><span class="header-section-number">16.10.3</span> Raw data with logistic fit for temperature effect</h3>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/logisticTemp_96bd24ef202422121e6b84daa4ef62a3">
 <details>
 <summary>Code</summary>
@@ -3693,7 +3920,7 @@ gam3ByRiver 102.51579 -85461.99</code></pre>
 </section>
 </section>
 <section id="logistic-model-for-flow-and-temperature-one-species-at-a-time" class="level2" data-number="16.11">
-<h2 data-number="16.11" data-anchor-id="logistic-model-for-flow-and-temperature-one-species-at-a-time"><span class="header-section-number">16.11</span> Logistic model for flow and temperature, one species at a time</h2>
+<h2 data-number="16.11" class="anchored" data-anchor-id="logistic-model-for-flow-and-temperature-one-species-at-a-time"><span class="header-section-number">16.11</span> Logistic model for flow and temperature, one species at a time</h2>
 <p>Species occupy different rivers, so an all-species model will have unequal river representation across species and don’t need to predict where species are not.</p>
 <p>Need to think through whether these models make sense…</p>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/runLogisticModels_abf29187cdb2d9b786af348b862b563e">
@@ -3726,7 +3953,7 @@ gam3ByRiver 102.51579 -85461.99</code></pre>
 </details>
 </div>
 <section id="predict-pneg-growth-in-mass" class="level3" data-number="16.11.1">
-<h3 data-number="16.11.1" data-anchor-id="predict-pneg-growth-in-mass"><span class="header-section-number">16.11.1</span> Predict p(neg growth in mass)</h3>
+<h3 data-number="16.11.1" class="anchored" data-anchor-id="predict-pneg-growth-in-mass"><span class="header-section-number">16.11.1</span> Predict p(neg growth in mass)</h3>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/predictLogistic_cbf331a5d41e4ca6535ee36214254812">
 <details>
 <summary>Code</summary>
@@ -3762,7 +3989,7 @@ gam3ByRiver 102.51579 -85461.99</code></pre>
 </div>
 </section>
 <section id="brook-trout-8" class="level3" data-number="16.11.2">
-<h3 data-number="16.11.2" data-anchor-id="brook-trout-8"><span class="header-section-number">16.11.2</span> Brook trout</h3>
+<h3 data-number="16.11.2" class="anchored" data-anchor-id="brook-trout-8"><span class="header-section-number">16.11.2</span> Brook trout</h3>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/modBKT_bb3eb6112e6d1273eb93c30440e0f723">
 <details>
 <summary>Code</summary>
@@ -3783,7 +4010,7 @@ gam3ByRiver 102.51579 -85461.99</code></pre>
 </div>
 </section>
 <section id="brown-trout-8" class="level3" data-number="16.11.3">
-<h3 data-number="16.11.3" data-anchor-id="brown-trout-8"><span class="header-section-number">16.11.3</span> Brown trout</h3>
+<h3 data-number="16.11.3" class="anchored" data-anchor-id="brown-trout-8"><span class="header-section-number">16.11.3</span> Brown trout</h3>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/modBnt_854efb9a453a2256ff0b712c0623f929">
 <details>
 <summary>Code</summary>
@@ -3805,7 +4032,7 @@ gam3ByRiver 102.51579 -85461.99</code></pre>
 </div>
 </section>
 <section id="atlantic-salmon-7" class="level3" data-number="16.11.4">
-<h3 data-number="16.11.4" data-anchor-id="atlantic-salmon-7"><span class="header-section-number">16.11.4</span> Atlantic salmon</h3>
+<h3 data-number="16.11.4" class="anchored" data-anchor-id="atlantic-salmon-7"><span class="header-section-number">16.11.4</span> Atlantic salmon</h3>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/modAts_a6d5b59611aff61e14effebd471b7028">
 <details>
 <summary>Code</summary>
@@ -3828,11 +4055,11 @@ gam3ByRiver 102.51579 -85461.99</code></pre>
 </section>
 </section>
 <section id="two-growth-models" class="level2" data-number="16.12">
-<h2 data-number="16.12" data-anchor-id="two-growth-models"><span class="header-section-number">16.12</span> Two growth models</h2>
+<h2 data-number="16.12" class="anchored" data-anchor-id="two-growth-models"><span class="header-section-number">16.12</span> Two growth models</h2>
 <section id="size-adjusted-growth-model" class="level3" data-number="16.12.1">
-<h3 data-number="16.12.1" data-anchor-id="size-adjusted-growth-model"><span class="header-section-number">16.12.1</span> Size-adjusted growth model</h3>
+<h3 data-number="16.12.1" class="anchored" data-anchor-id="size-adjusted-growth-model"><span class="header-section-number">16.12.1</span> Size-adjusted growth model</h3>
 <section id="get-l-w-relationships-for-size-adjusted-growth-model" class="level4" data-number="16.12.1.1">
-<h4 data-number="16.12.1.1" data-anchor-id="get-l-w-relationships-for-size-adjusted-growth-model"><span class="header-section-number">16.12.1.1</span> Get l-w relationships for size-adjusted growth model</h4>
+<h4 data-number="16.12.1.1" class="anchored" data-anchor-id="get-l-w-relationships-for-size-adjusted-growth-model"><span class="header-section-number">16.12.1.1</span> Get l-w relationships for size-adjusted growth model</h4>
 <p>Here, we will explore size-independent growth in mass, see <code>Sigourney, D. B., B H Letcher, M. Obedzinski, and R. A. Cunjak. “Size-Independent Growth in Fishes: Patterns, Models and Metrics.” Journal of Fish Biology 72, no. 10 (2008): 2435–55. https://doi.org/10.1111/j.1095-8649.2008.01830.x.</code> Size-independent growth (<code>grWeightS</code>) is calculated in getDataElectro_targets.R file using addSizeIndGrowthWeight().<br>
 <code>grWeightS</code> uses the slope of <code>log(observedWeight)</code> ~ <code>log(grWeight)</code> for each river and season and species to adjust growth.<br>
 A simple linear models shows we need to get separate slopes for each river and season and species.</p>
@@ -3873,7 +4100,7 @@ mod0  3 64744.59</code></pre>
 </section>
 </section>
 <section id="compare-size-adjusted-and-instantaneous-growth" class="level3" data-number="16.12.2">
-<h3 data-number="16.12.2" data-anchor-id="compare-size-adjusted-and-instantaneous-growth"><span class="header-section-number">16.12.2</span> Compare size-adjusted and instantaneous growth</h3>
+<h3 data-number="16.12.2" class="anchored" data-anchor-id="compare-size-adjusted-and-instantaneous-growth"><span class="header-section-number">16.12.2</span> Compare size-adjusted and instantaneous growth</h3>
 <p>Differences don’t seem big enough to warrant the extra complexity from the s-adjusted growth metric</p>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/grWeight_v_grWeightS_82104c5cd44b246b7be030a9837bbcff">
 <details>
@@ -3911,9 +4138,9 @@ mod0  3 64744.59</code></pre>
 </section>
 </section>
 <section id="compare-growth-in-length-and-mass" class="level2" data-number="16.13">
-<h2 data-number="16.13" data-anchor-id="compare-growth-in-length-and-mass"><span class="header-section-number">16.13</span> Compare growth in length and mass</h2>
+<h2 data-number="16.13" class="anchored" data-anchor-id="compare-growth-in-length-and-mass"><span class="header-section-number">16.13</span> Compare growth in length and mass</h2>
 <section id="growth-rate-in-length-vs-size-independent-growth-rate-in-mass" class="level3" data-number="16.13.1">
-<h3 data-number="16.13.1" data-anchor-id="growth-rate-in-length-vs-size-independent-growth-rate-in-mass"><span class="header-section-number">16.13.1</span> Growth rate in length vs size-independent growth rate in mass</h3>
+<h3 data-number="16.13.1" class="anchored" data-anchor-id="growth-rate-in-length-vs-size-independent-growth-rate-in-mass"><span class="header-section-number">16.13.1</span> Growth rate in length vs size-independent growth rate in mass</h3>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/grLen_v_grWeightS_e562b1345ad6b7babc8ae82b15198b8c">
 <details>
 <summary>Code</summary>
@@ -3932,12 +4159,12 @@ mod0  3 64744.59</code></pre>
 </section>
 </section>
 <section id="deprecated-logistic-models-below" class="level2" data-number="16.14">
-<h2 data-number="16.14" data-anchor-id="deprecated-logistic-models-below"><span class="header-section-number">16.14</span> <strong>Deprecated</strong> logistic models below</h2>
+<h2 data-number="16.14" class="anchored" data-anchor-id="deprecated-logistic-models-below"><span class="header-section-number">16.14</span> <strong>Deprecated</strong> logistic models below</h2>
 <section id="logistic-model-for-flow-and-temperature-all-species" class="level3" data-number="16.14.1">
-<h3 data-number="16.14.1" data-anchor-id="logistic-model-for-flow-and-temperature-all-species"><span class="header-section-number">16.14.1</span> Logistic model for flow and temperature, all species</h3>
+<h3 data-number="16.14.1" class="anchored" data-anchor-id="logistic-model-for-flow-and-temperature-all-species"><span class="header-section-number">16.14.1</span> Logistic model for flow and temperature, all species</h3>
 </section>
 <section id="model-selection" class="level3" data-number="16.14.2">
-<h3 data-number="16.14.2" data-anchor-id="model-selection"><span class="header-section-number">16.14.2</span> Model selection</h3>
+<h3 data-number="16.14.2" class="anchored" data-anchor-id="model-selection"><span class="header-section-number">16.14.2</span> Model selection</h3>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/logistic models all species_7cd0a5fad74f583211e46acad6ef3582">
 <details>
 <summary>Code</summary>
@@ -3982,7 +4209,7 @@ modFT10  71 124492.604</code></pre>
 </div>
 </section>
 <section id="model-results-for-additive-model-not-very-good" class="level3" data-number="16.14.3">
-<h3 data-number="16.14.3" data-anchor-id="model-results-for-additive-model-not-very-good"><span class="header-section-number">16.14.3</span> Model results for additive model (not very good)</h3>
+<h3 data-number="16.14.3" class="anchored" data-anchor-id="model-results-for-additive-model-not-very-good"><span class="header-section-number">16.14.3</span> Model results for additive model (not very good)</h3>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/badAdditiveModel_7d282e1032ddbaf62b5dbc3a5fd8ed2f">
 <details>
 <summary>Code</summary>
@@ -4016,7 +4243,7 @@ meanTempZ         0.2562374</code></pre>
 </div>
 </section>
 <section id="model-results-for-full-interactive-model-best-model" class="level3" data-number="16.14.4">
-<h3 data-number="16.14.4" data-anchor-id="model-results-for-full-interactive-model-best-model"><span class="header-section-number">16.14.4</span> Model results for full interactive model (best model)</h3>
+<h3 data-number="16.14.4" class="anchored" data-anchor-id="model-results-for-full-interactive-model-best-model"><span class="header-section-number">16.14.4</span> Model results for full interactive model (best model)</h3>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/fullModel_42705f0569700dbabff9f6332d4d3630">
 <details>
 <summary>Code</summary>
@@ -4173,7 +4400,7 @@ meanFlowByRiverZ:meanTempZ:riverwb mitchell                                    4
 </div>
 </section>
 <section id="precict-pneg-growth-in-mass" class="level3" data-number="16.14.5">
-<h3 data-number="16.14.5" data-anchor-id="precict-pneg-growth-in-mass"><span class="header-section-number">16.14.5</span> Precict p(neg growth in mass)</h3>
+<h3 data-number="16.14.5" class="anchored" data-anchor-id="precict-pneg-growth-in-mass"><span class="header-section-number">16.14.5</span> Precict p(neg growth in mass)</h3>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/predictFull_1331b8cf58fa25bd5bdb8be8a90dfe7b">
 <details>
 <summary>Code</summary>
@@ -4195,7 +4422,7 @@ meanFlowByRiverZ:meanTempZ:riverwb mitchell                                    4
 </div>
 </section>
 <section id="plot-predictions" class="level3" data-number="16.14.6">
-<h3 data-number="16.14.6" data-anchor-id="plot-predictions"><span class="header-section-number">16.14.6</span> Plot predictions</h3>
+<h3 data-number="16.14.6" class="anchored" data-anchor-id="plot-predictions"><span class="header-section-number">16.14.6</span> Plot predictions</h3>
 <div class="cell" data-hash="modelGrowthInMass_cache/html/plotPred_eac2c9bdb19b80f0b826a55ff9dc7f47">
 <details>
 <summary>Code</summary>
@@ -4212,7 +4439,422 @@ meanFlowByRiverZ:meanTempZ:riverwb mitchell                                    4
 
 
 <!-- -->
-<div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./modelConditionFactor.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Condition factor</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./modelsCMR_NN_OB.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">CJS [t,t] model</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb267" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb267-1"><a href="#cb267-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb267-2"><a href="#cb267-2" aria-hidden="true" tabindex="-1"></a><span class="an">editor:</span><span class="co"> </span></span>
 <span id="cb267-3"><a href="#cb267-3" aria-hidden="true" tabindex="-1"></a><span class="co">  markdown: </span></span>
@@ -7080,409 +7722,6 @@ meanFlowByRiverZ:meanTempZ:riverwb mitchell                                    4
 <span id="cb267-3171"><a href="#cb267-3171" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
-</section>
-</section>
-
-
-<script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const disableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'prefetch';
-    }
-  }
-  const enableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'stylesheet';
-    }
-  }
-  const manageTransitions = (selector, allowTransitions) => {
-    const els = window.document.querySelectorAll(selector);
-    for (let i=0; i < els.length; i++) {
-      const el = els[i];
-      if (allowTransitions) {
-        el.classList.remove('notransition');
-      } else {
-        el.classList.add('notransition');
-      }
-    }
-  }
-  const toggleColorMode = (alternate) => {
-    // Switch the stylesheets
-    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-    manageTransitions('#quarto-margin-sidebar .nav-link', false);
-    if (alternate) {
-      enableStylesheet(alternateStylesheets);
-      for (const sheetNode of alternateStylesheets) {
-        if (sheetNode.id === "quarto-bootstrap") {
-          toggleBodyColorMode(sheetNode);
-        }
-      }
-    } else {
-      disableStylesheet(alternateStylesheets);
-      toggleBodyColorPrimary();
-    }
-    manageTransitions('#quarto-margin-sidebar .nav-link', true);
-    // Switch the toggles
-    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-    for (let i=0; i < toggles.length; i++) {
-      const toggle = toggles[i];
-      if (toggle) {
-        if (alternate) {
-          toggle.classList.add("alternate");     
-        } else {
-          toggle.classList.remove("alternate");
-        }
-      }
-    }
-    // Hack to workaround the fact that safari doesn't
-    // properly recolor the scrollbar when toggling (#1455)
-    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-      manageTransitions("body", false);
-      window.scrollTo(0, 1);
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        manageTransitions("body", true);
-      }, 40);  
-    }
-  }
-  const isFileUrl = () => { 
-    return window.location.protocol === 'file:';
-  }
-  const hasAlternateSentinel = () => {  
-    let styleSentinel = getColorSchemeSentinel();
-    if (styleSentinel !== null) {
-      return styleSentinel === "alternate";
-    } else {
-      return false;
-    }
-  }
-  const setStyleSentinel = (alternate) => {
-    const value = alternate ? "alternate" : "default";
-    if (!isFileUrl()) {
-      window.localStorage.setItem("quarto-color-scheme", value);
-    } else {
-      localAlternateSentinel = value;
-    }
-  }
-  const getColorSchemeSentinel = () => {
-    if (!isFileUrl()) {
-      const storageValue = window.localStorage.getItem("quarto-color-scheme");
-      return storageValue != null ? storageValue : localAlternateSentinel;
-    } else {
-      return localAlternateSentinel;
-    }
-  }
-  let localAlternateSentinel = 'default';
-  // Dark / light mode switch
-  window.quartoToggleColorScheme = () => {
-    // Read the current dark / light value 
-    let toAlternate = !hasAlternateSentinel();
-    toggleColorMode(toAlternate);
-    setStyleSentinel(toAlternate);
-  };
-  // Ensure there is a toggle, if there isn't float one in the top right
-  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-    const a = window.document.createElement('a');
-    a.classList.add('top-right');
-    a.classList.add('quarto-color-scheme-toggle');
-    a.href = "";
-    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-    const i = window.document.createElement("i");
-    i.classList.add('bi');
-    a.appendChild(i);
-    window.document.body.appendChild(a);
-  }
-  // Switch to dark mode if need be
-  if (hasAlternateSentinel()) {
-    toggleColorMode(true);
-  } else {
-    toggleColorMode(false);
-  }
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  });
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
-    }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
-  }
-  function tippyHover(el, contentFn) {
-    const config = {
-      allowHTML: true,
-      content: contentFn,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start'
-    };
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      return note.innerHTML;
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
-      });
-    }
-  }
-});
-</script>
 </div> <!-- /content -->
 
 

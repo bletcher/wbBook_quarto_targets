@@ -60,7 +60,6 @@ format:
     code-tools: true
     code-overflow: wrap
     number-depth: 4
-    page-layout: custom
       
   pdf:
     documentclass: scrreprt
