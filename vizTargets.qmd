@@ -23,5 +23,5 @@ Visualize the targets network
 ```{r}
 #| label: vizTargets
 
-#tar_visnetwork()
+tar_visnetwork()
 ```
