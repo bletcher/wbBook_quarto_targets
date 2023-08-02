@@ -38,7 +38,6 @@ str(cdWB_electro)
 # save(cdWB_electro, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_electro.RData")
 ```
 
-
 ## Counts by species  
 What are the counts by species for *tagged* fish?
 ```{r}
