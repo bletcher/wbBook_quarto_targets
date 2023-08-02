@@ -28,7 +28,9 @@ Data are generated in `R/getDataElectro-targets.R` [file](https://github.com/ble
 Show variables in the dataframe
 ```{r}
 #| label: getEnvData
-#| #| cache: false
+#| cache: false
+
+library(targets)
 cdWB_electro <- tar_read(cdWB_electro_target)
 str(cdWB_electro)
 
