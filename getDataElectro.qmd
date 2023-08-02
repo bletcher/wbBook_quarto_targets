@@ -70,6 +70,7 @@ untagged %>%
 Plot length distributions of tagged and untagged fish
 ```{r}
 #| label: lwDists
+
 ######
 cdWB_electro %>%
   ggplot(aes(observedLength, color = is.na(tag))) +
