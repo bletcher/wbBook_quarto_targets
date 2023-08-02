@@ -27,7 +27,7 @@ quarto::quarto_render(output_format = "html")
 
 quarto::quarto_render("modelsCMR_Growth_NN_OB.qmd", output_format = "html")#, cache_refresh = TRUE)
 
-quarto::quarto_render("getDataWanding.qmd", output_format = "html")
+quarto::quarto_render("getDataElectro.qmd", output_format = "html")
 
 # working chapter
 quarto::quarto_render("modelGrowthInMass.qmd", 

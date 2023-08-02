@@ -88,14 +88,14 @@
     "href": "getDataElectro.html#length-weight-graph",
     "title": "4  Get electrofishing data",
     "section": "4.4 Length-weight graph",
-    "text": "4.4 Length-weight graph\n\n\nCode\nggplot(cdWB_electro, aes(observedLength, observedWeight, color = species)) +\n  geom_point(size = 0.75, alpha = 0.1) +\n  scale_x_log10(\"Length (mm)\") +\n  scale_y_log10(\"Mass (mg)\") +\n#  theme_publication() +\n  facet_wrap(~ species)\n\n\nggplot(cdWB_electro |&gt; filter(!is.na(observedWeight)), aes(observedWeight, color = species)) +\n  stat_ecdf(pad = TRUE) +\n  lims(x = c(0,200)) +\n  geom_hline(yintercept = c(0.9, 0.95)) +\n  facet_wrap(~river)\n\n\n\n\n\nFigure 4.1: Length - mass graph\n\n\n\n\n\n\n\nFigure 4.2: Length - mass graph"
+    "text": "4.4 Length-weight graph\n\n\nCode\nggplot(cdWB_electro, aes(observedLength, observedWeight, color = species)) +\n  geom_point(size = 0.75, alpha = 0.1) +\n  scale_x_log10(\"Length (mm)\") +\n  scale_y_log10(\"Mass (mg)\") +\n#  theme_publication() +\n  facet_wrap(~ species)\n\n\n\n\n\nFigure 4.1: Length - mass graph"
   },
   {
     "objectID": "getDataElectro.html#cumulative-mass-curves",
     "href": "getDataElectro.html#cumulative-mass-curves",
     "title": "4  Get electrofishing data",
     "section": "4.5 Cumulative mass curves",
-    "text": "4.5 Cumulative mass curves\n\n\nCode\nggplot(cdWB_electro |&gt; filter(!is.na(observedWeight)), aes(observedWeight, color = species)) +\n  stat_ecdf(pad = TRUE) +\n  lims(x = c(0,200)) +\n  geom_hline(yintercept = c(0.9, 0.95)) +\n  facet_wrap(~river)\n\n\n\n\n\nFigure 4.3: Cumulative mass curve"
+    "text": "4.5 Cumulative mass curves\n\n\nCode\nggplot(cdWB_electro |&gt; filter(!is.na(observedWeight)), aes(observedWeight, color = species)) +\n  stat_ecdf(pad = TRUE) +\n  lims(x = c(0,200)) +\n  geom_hline(yintercept = c(0.9, 0.95)) +\n  facet_wrap(~river)\n\n\n\n\n\nFigure 4.2: Cumulative mass curve"
   },
   {
     "objectID": "getDataElectro.html#length-weight-regression",

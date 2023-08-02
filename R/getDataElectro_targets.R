@@ -53,7 +53,7 @@ getElectroData_target <-
       cover = NA,
       justification = NA,
       sectionWQuarter = NA,
-      j = NA, # not sure what this is,
+      j = NA, # not sure what this is - julian date
       
       date = date(detectionDate),
       dummy = 1
@@ -65,7 +65,7 @@ getElectroData_target <-
       mergeSites(drainage) %>%
       addNPasses(drainage) %>%
       mutate(drainage = drainage) %>%
-      addSizeIndGrowthWeight() %>%
+      addSizeIndGrowthWeight2() %>% # adapted below so
       addCF() %>%
       addCountPerIndividual() |> 
       addSeasonFT_zScore() |> 
@@ -117,6 +117,44 @@ getElectroData_target <-
 setYday <- function(d, dateYday){
   yday(d) = dateYday
   return(d)
+}
+
+
+addSizeIndGrowthWeight2 <- function(dIn) {
+  
+  d <- dIn |> filter(sampleNumberDiff == 1)
+  
+  lmMod <- function(dd){
+    lm(log(grWeight) ~ log(observedWeight), data = dd)
+  }
+  
+  weight_grMod <- d |> 
+    filter(grWeight > 0) |> # to avoid log() problems
+    group_by(species, season, river) |> 
+    nest() |> 
+    mutate(model = map(data, lmMod))
+  
+  weight_grMod_GT <- weight_grMod  |>  
+    mutate(glanced = map(model, broom::glance),
+           tidied = map(model, broom::tidy)) 
+  
+  weight_grMod_GT_slope <- weight_grMod_GT  |>  
+    unnest(tidied) |> 
+    filter(term == "log(observedWeight)") |> 
+    dplyr::select(species, river, season, estimate) |> 
+    rename(wGR_Slope = estimate) |> 
+    mutate(wGR_Slope = ifelse(species == 'ats' & river == 'wb jimmy' & season == 2, -0.572, wGR_Slope), # set values = WB values - limited data
+           wGR_Slope = ifelse(species == 'ats' & river == 'wb jimmy' & season == 4, -0.139, wGR_Slope))
+  
+  dOut <- dIn |> 
+    left_join(weight_grMod_GT_slope) |> 
+    mutate(grWeightS = (lagObservedWeight ^ wGR_Slope -
+                          observedWeight ^ wGR_Slope) /
+             (as.numeric(lagDetectionDate - detectionDate) * wGR_Slope)
+    )
+  
+  return(dOut)
+  
 }
 
 addCF <- function(d){

@@ -1,17 +1,5 @@
+
 ## Get electrofishing data
-```{r}
-# ---
-# sidebar:
-#   pinned: true
-#   tools:
-#         - icon: save
-#           menu:
-#             - text: Data CSV
-#               url:  "data/outForDownload/cdWB_electro.csv"
-# ---
-```
-
-
 ```{r}
 #| label: getEnvDataOptions
 #| include: false
@@ -36,7 +24,6 @@ library(targets)
 
 Data are generated in `R/getDataElectro-targets.R` [file](https://github.com/bletcher/wbBook_quarto_targets/blob/main/R/getDataElectro_targets.R)  
 
-
 ## Get electrofishing data target  
 Show variables in the dataframe
 ```{r}
@@ -55,6 +42,8 @@ str(cdWB_electro)
 ## Counts by species  
 What are the counts by species for *tagged* fish?
 ```{r}
+#| label: lwDistsTagged
+#| 
 # # off tagged individuals/species
 tagged <- cdWB_electro %>%
   group_by(tag, species)
@@ -67,6 +56,7 @@ tagged %>%
 
 What are the counts by species for *untagged* fish?
 ```{r}
+#| label: lwDistsUntagged
 #####
 untagged <- cdWB_electro %>%
   filter(is.na(tag))
@@ -78,14 +68,18 @@ untagged %>%
 
 Plot length distributions of tagged and untagged fish
 ```{r}
+#| label: lwDists
 ######
 cdWB_electro %>%
   ggplot(aes(observedLength, color = is.na(tag))) +
   geom_freqpoly() 
 ```
+
 ## Mortality comments
 Show comments related to mortalities
 ```{r}
+#| label: MortComments
+
 cdWB_electro %>%
   group_by(comments) %>%
   summarize(n = n()) %>%
@@ -108,15 +102,6 @@ ggplot(cdWB_electro, aes(observedLength, observedWeight, color = species)) +
 #  theme_publication() +
   facet_wrap(~ species)
 
-
-ggplot(cdWB_electro |> filter(!is.na(observedWeight)), aes(observedWeight, color = species)) +
-  stat_ecdf(pad = TRUE) +
-  lims(x = c(0,200)) +
-  geom_hline(yintercept = c(0.9, 0.95)) +
-  facet_wrap(~river)
-
-
-
 ```
 
 ## Cumulative mass curves
@@ -125,14 +110,11 @@ ggplot(cdWB_electro |> filter(!is.na(observedWeight)), aes(observedWeight, color
 #| label: fig-electroCumulMass
 #| fig-cap: "Cumulative mass curve"
 
-
 ggplot(cdWB_electro |> filter(!is.na(observedWeight)), aes(observedWeight, color = species)) +
   stat_ecdf(pad = TRUE) +
   lims(x = c(0,200)) +
   geom_hline(yintercept = c(0.9, 0.95)) +
   facet_wrap(~river)
-
-
 
 ```
 
