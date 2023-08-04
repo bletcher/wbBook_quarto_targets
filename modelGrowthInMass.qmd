@@ -182,6 +182,34 @@ cd1 |>
   print(n = 10)
 ```
 
+### Numbers of observations for analysis
+```{r}
+#| label: rawObs
+#| 
+min(cd1$year)
+max(cd1$year)
+table(cd1$species, cd1$year)
+
+
+table(cd1$species)
+
+
+```
+
+```{r}
+#| label: rawUniques
+#| 
+
+length(unique(cd1$tag))
+cd1 |> 
+  group_by(species) |> 
+  summarize(tag = (unique(tag))) |> 
+  reframe(count = n())
+
+
+```
+
+
 ### Raw length, weight data graphs
 
 #### Distribution of growth rates
@@ -735,7 +763,136 @@ plotTempGR(cd1, "Winter")
 ```
 :::
 
-## Proportion of fish with **negative growth**
+## Proportion of fish with **negative growth**  
+
+Counts/proportions of negative growth  
+Proportions for Table 1
+```{r}
+#| label: neg_posCounts
+
+# All
+cd1 |> 
+  filter(!is.na(negGrowth)) |> 
+  mutate(nTotal = n()) |> 
+  group_by(nTotal, negGrowth) |> 
+  summarize(n = n()) |> 
+  mutate(prop = n/nTotal)
+
+#by river
+cd1 |> 
+  filter(!is.na(negGrowth)) |> 
+  group_by(riverGG, negGrowth) |> 
+  summarize(n = n()) |> 
+  pivot_wider(names_from = negGrowth, values_from = n) |> 
+  mutate(prop = `TRUE`/(`TRUE` + `FALSE`))
+
+
+#by species
+cd1 |> 
+  filter(!is.na(negGrowth)) |> 
+  group_by(species, negGrowth) |> 
+  summarize(n = n()) |> 
+  pivot_wider(names_from = negGrowth, values_from = n) |> 
+  mutate(prop = `TRUE`/(`TRUE` + `FALSE`))
+
+# by season
+cd1 |> 
+  filter(!is.na(negGrowth)) |> 
+  group_by(season, negGrowth) |> 
+  summarize(n = n()) |> 
+  pivot_wider(names_from = negGrowth, values_from = n) |> 
+  mutate(prop = `TRUE`/(`TRUE` + `FALSE`))
+
+
+```
+
+#### Brook trout
+```{r}
+#| label: propBKT
+
+# by season
+cd1 |> 
+  filter(!is.na(negGrowth), species == 'bkt') |> 
+  group_by(season, negGrowth) |> 
+  summarize(n = n()) |> 
+  pivot_wider(names_from = negGrowth, values_from = n) |> 
+  mutate(prop = `TRUE`/(`TRUE` + `FALSE`))
+
+# by river
+cd1 |> 
+  filter(!is.na(negGrowth), species == 'bkt') |> 
+  group_by(riverGG, negGrowth) |> 
+  summarize(n = n()) |> 
+  pivot_wider(names_from = negGrowth, values_from = n) |> 
+  mutate(prop = `TRUE`/(`TRUE` + `FALSE`))
+
+# by season/river
+cd1 |> 
+  filter(!is.na(negGrowth), species == 'bkt') |> 
+  group_by(season, riverGG, negGrowth) |> 
+  summarize(n = n()) |> 
+  pivot_wider(names_from = negGrowth, values_from = n) |> 
+  mutate(prop = `TRUE`/(`TRUE` + `FALSE`))
+```
+
+#### Brown trout
+```{r}
+#| label: propBNT
+
+# by season
+cd1 |> 
+  filter(!is.na(negGrowth), species == 'bnt') |> 
+  group_by(season, negGrowth) |> 
+  summarize(n = n()) |> 
+  pivot_wider(names_from = negGrowth, values_from = n) |> 
+  mutate(prop = `TRUE`/(`TRUE` + `FALSE`))
+
+# by river
+cd1 |> 
+  filter(!is.na(negGrowth), species == 'bnt') |> 
+  group_by(riverGG, negGrowth) |> 
+  summarize(n = n()) |> 
+  pivot_wider(names_from = negGrowth, values_from = n) |> 
+  mutate(prop = `TRUE`/(`TRUE` + `FALSE`))
+
+# by season/river
+cd1 |> 
+  filter(!is.na(negGrowth), species == 'bnt') |> 
+  group_by(season, riverGG, negGrowth) |> 
+  summarize(n = n()) |> 
+  pivot_wider(names_from = negGrowth, values_from = n) |> 
+  mutate(prop = `TRUE`/(`TRUE` + `FALSE`))
+```
+
+#### Atlantic salmon
+```{r}
+#| label: propATS
+
+# by season
+cd1 |> 
+  filter(!is.na(negGrowth), species == 'ats') |> 
+  group_by(season, negGrowth) |> 
+  summarize(n = n()) |> 
+  pivot_wider(names_from = negGrowth, values_from = n) |> 
+  mutate(prop = `TRUE`/(`TRUE` + `FALSE`))
+
+# by river
+cd1 |> 
+  filter(!is.na(negGrowth), species == 'ats') |> 
+  group_by(riverGG, negGrowth) |> 
+  summarize(n = n()) |> 
+  pivot_wider(names_from = negGrowth, values_from = n) |> 
+  mutate(prop = `TRUE`/(`TRUE` + `FALSE`))
+
+# by season/river
+cd1 |> 
+  filter(!is.na(negGrowth), species == 'ats') |> 
+  group_by(season, riverGG, negGrowth) |> 
+  summarize(n = n()) |> 
+  pivot_wider(names_from = negGrowth, values_from = n) |> 
+  mutate(prop = `TRUE`/(`TRUE` + `FALSE`))
+```
+
 
 ### Proportion of fish with negative growth by species/river/season
 
