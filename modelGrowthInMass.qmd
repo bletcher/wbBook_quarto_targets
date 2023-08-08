@@ -651,6 +651,60 @@ ggplot(meanNegSRsNWide, aes(`FALSE`, `TRUE`)) +
   facet_grid(seasonGG~riverGG)
 ```
 
+## Body size effect on prop neg growth
+```{r}
+#| label: propNegSize
+
+ggplot(cd1 |> filter(!is.na(negGrowth), species == "bkt", seasonGG != "Spring"), aes(observedWeight, negGrowth*1)) +
+  #geom_point(alpha = 0.1, ) +
+  geom_jitter(alpha = 0.1, width = 0.0, height = 0.1) +
+  geom_smooth() +
+  geom_smooth(method = "lm") +
+  theme_publication() +  
+  facet_grid(seasonGG~riverGG)
+
+ggplot(cd1 |> filter(!is.na(negGrowth), seasonGG == "Summer"), aes(observedWeight, negGrowth*1)) +
+  #geom_point(alpha = 0.1, ) +
+  geom_jitter(alpha = 0.1, width = 0.0, height = 0.1) +
+  geom_smooth() +
+  geom_smooth(method = "lm") +
+  theme_publication() +  
+  facet_grid(speciesGG~riverGG, scales = "free")
+
+ggplot(cd1 |> filter(!is.na(negGrowth), seasonGG == "Summer", speciesGG == "Brook trout", riverGG == "West Brook", year > 2001), aes(observedWeight, negGrowth*1)) +
+  #geom_point(alpha = 0.1, ) +
+  geom_jitter(alpha = 0.1, width = 0.0, height = 0.1) +
+  geom_smooth(se=FALSE) +
+  geom_smooth(method = "lm", color = "black", se = FALSE) +
+  theme_publication() +  
+  facet_wrap(~year)#, scales = "free")
+
+ggplot(cd1 |> filter(!is.na(negGrowth), seasonGG == "Summer", speciesGG == "Brook trout", riverGG == "West Brook", year > 2001), aes(observedWeight, grWeight*1)) +
+  #geom_point(alpha = 0.1, ) +
+  geom_jitter(alpha = 0.1, width = 0.0, height = 0.1) +
+  geom_smooth(se=FALSE) +
+  geom_smooth(method = "lm", color = "black", se = FALSE) +
+  theme_publication() +  
+  facet_wrap(~year)#, scales = "free")
+
+ggplot(cd1 |> filter(!is.na(negGrowth), seasonGG == "Summer", speciesGG == "Brook trout", riverGG == "West Brook", year > 2001), aes(ageInSamples, grWeight*1)) +
+  #geom_point(alpha = 0.1, ) +
+  geom_jitter(alpha = 0.1, width = 0.0, height = 0.1) +
+  geom_smooth(se=FALSE) +
+  geom_smooth(method = "lm", color = "black", se = FALSE) +
+  theme_publication() +  
+  facet_wrap(~year)#, scales = "free")
+
+ggplot(cd1 |> filter(!is.na(negGrowth), seasonGG == "Summer", speciesGG == "Brook trout", riverGG == "West Brook", year > 2001, ageInSamples > 0), aes(ageInSamples, negGrowth*1)) +
+  #geom_point(alpha = 0.1, ) +
+  geom_jitter(alpha = 0.1, width = 0.0, height = 0.1) +
+  geom_smooth(se=FALSE) +
+  geom_smooth(method = "lm", color = "black", se = FALSE) +
+  theme_publication() +  
+  facet_wrap(~year)#, scales = "free")
+```
+
+
 ## Flow and temperature growth relationships
 
 ### Mean flow effect on growth?
@@ -894,7 +948,7 @@ cd1 |>
 ```
 
 
-### Proportion of fish with negative growth by species/river/season
+### Proportion of observations with negative growth by species/river/season
 
 ```{r}
 #| label: neg_pos
@@ -904,7 +958,7 @@ ggplot(cd1 |> filter(!is.na(negGrowth)), aes(negGrowth)) +
   facet_grid(seasonGG~speciesGG+riverGG, scales = "free")
 ```
 
-### Proportion of fish with negative growth by species/season
+### Proportion of observations with negative growth by species/season
 
 ```{r}
 #| label: propNegBySeason
@@ -912,27 +966,30 @@ ggplot(cd1 |> filter(!is.na(negGrowth)), aes(negGrowth)) +
 ggplot(propNegSRS |> filter(n > 50), aes(seasonGG, propNeg, color = riverGG, group = riverGG)) +
   geom_point(aes(size = n)) +
   geom_line() +
-  labs(x = "Season", y = "Proportion of fish with negative growth in mass") +
+  labs(x = "Season", y = "Proportion of observations with negative growth in mass") +
   scale_color_discrete() +
   theme_publication() +  
+  theme(axis.text.x = element_text(angle = 360-45, vjust = 0, hjust = .5)) +
   facet_wrap(~speciesGG)
+
 ```
 
-### Proportion of fish with negative growth by species/river/year
+### Proportion of observations with negative growth by species/river/year
 
 ```{r}
 #| label: propNegWB_BKT
 
 plotPropNegByRiver <- function(d, spp){
-  ggplot(d |> filter(n > 10,  speciesGG == spp), 
+  ggplot(d |> filter(n > 20,  speciesGG == spp), 
          aes(year, propNeg, color = factor(seasonGG))) +
     geom_point(aes(size = n)) +
     geom_line() +
-    labs(x = "Year", y = "Proportion of fish with negative growth in mass") +
+    labs(x = "Year", y = "Proportion of opnservations with negative growth in mass") +
     scale_color_discrete() +
     theme_publication() +  
     facet_wrap(~riverGG)
 }
+
 ```
 
 ::: panel-tabset
@@ -961,7 +1018,7 @@ plotPropNegByRiver(propNegSRsN, "Atlantic salmon")
 ```
 :::
 
-### Proportion of fish with negative growth by species/river/year
+### Proportion of observations with negative growth by species/river/year
 
 Break down season by year, compare across rivers
 
@@ -971,16 +1028,22 @@ Break down season by year, compare across rivers
 ggplot(propNegSRsN |> filter(n > 10), aes(year, propNeg, color = riverGG)) +
   geom_point(aes(size = n)) +
   geom_line() +
-  labs(x = "Year", y = "Proportion of fish with negative growth in mass") +
+  labs(x = "Year", y = "Proportion of observations with negative growth in mass") +
   scale_color_discrete() +
   theme_publication() +  
   facet_grid(seasonGG~speciesGG)
 
+ggplot(propNegSRsN |> filter(n > 15, seasonGG == "Summer", speciesGG == "Brook trout", year > 2001), aes(year, propNeg, color = riverGG)) +
+  geom_point(aes(size = n)) +
+  geom_line() +
+  labs(x = "Year", y = "Proportion of observations with negative growth in mass") +
+  scale_color_discrete() +
+  theme_publication()
 ```
 
-## Environmental effects on proportion of fish with negative growth
+## Environmental effects on Proportion of observations with negative growth
 
-### Proportion of fish with negative growth by **flow**
+### Proportion of observations with negative growth by **flow**
 
 ```{r}
 #| label: negGrowth_flow
@@ -988,7 +1051,7 @@ ggplot(propNegSRsN |> filter(n > 10), aes(year, propNeg, color = riverGG)) +
 ggplot(propNegSRsN |> filter(n > 10, riverGG == "West Brook"), aes(mF, propNeg, color = riverGG)) +
   geom_point(aes(size = n)) +
   geom_smooth(method = "lm", se = FALSE) +
-  scale_y_continuous("Proportion of fish with negative growth in mass") +
+  scale_y_continuous("Proportion of observations with negative growth in mass") +
   scale_x_log10("Mean flow") +
   scale_color_discrete() +
   ggtitle("West Brook") +
@@ -998,7 +1061,7 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG == "West Brook"), aes(mF, propNeg, 
 ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(mF, propNeg, color = riverGG)) +
   geom_point(aes(size = n)) +
   geom_smooth(method = "lm", se = FALSE) +
-  scale_y_continuous("Proportion of fish with negative growth in mass") +
+  scale_y_continuous("Proportion of observations with negative growth in mass") +
   scale_x_log10("Mean flow") +
   scale_color_discrete() +
   ggtitle("Tributaries") +
@@ -1006,7 +1069,7 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(mF, propNeg, 
   facet_grid(seasonGG~speciesGG)
 ```
 
-### Proportion of fish with negative growth by **temperature**
+### Proportion of observations with negative growth by **temperature**
 
 ```{r}
 #| label: negGrowth_temp
@@ -1015,7 +1078,7 @@ plotNegGrowth_temp <- function(d, s){
   ggplot(d |> filter(n > 10, seasonGG == s), aes(mT, propNeg, color = riverGG)) +
     geom_point(aes(size = n)) +
     geom_smooth(method = "lm", se = FALSE) +
-    scale_y_continuous("Proportion of fish with negative growth in mass") +
+    scale_y_continuous("Proportion of observations with negative growth in mass") +
     scale_x_continuous("Mean temperature (C)") +
     scale_color_discrete() +
     ggtitle(s) +
@@ -1055,7 +1118,7 @@ plotNegGrowth_temp(propNegSRsN, "Winter")
 ```
 :::
 
-### Proportion of fish with negative growth by **3 species fish counts**
+### Proportion of observations with negative growth by **3 species fish counts**
 
 ```{r}
 #| label: negGrowth_counts3Spp
@@ -1063,7 +1126,7 @@ plotNegGrowth_temp(propNegSRsN, "Winter")
 ggplot(propNegSRsN |> filter(n > 10, riverGG == "West Brook"), aes(nInd, propNeg, color = riverGG)) +
   geom_point(aes(size = n)) +
   geom_smooth(method = "lm", se = FALSE) +
-  scale_y_continuous("Proportion of fish with negative growth in mass") +
+  scale_y_continuous("Proportion of observations with negative growth in mass") +
   scale_x_log10("3 species count") +
   scale_color_discrete() +
   ggtitle("West Brook") +
@@ -1073,7 +1136,7 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG == "West Brook"), aes(nInd, propNeg
 ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(nInd, propNeg, color = riverGG)) +
   geom_point(aes(size = n)) +
   geom_smooth(method = "lm", se = FALSE) +
-  scale_y_continuous("Proportion of fish with negative growth in mass") +
+  scale_y_continuous("Proportion of observations with negative growth in mass") +
   scale_x_log10("3 species count") +
   scale_color_discrete() +
   ggtitle("Tributaries") +
@@ -1081,7 +1144,7 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(nInd, propNeg
   facet_grid(seasonGG~speciesGG)
 ```
 
-### Proportion of fish with negative growth by **conspecific fish counts**
+### Proportion of observations with negative growth by **conspecific fish counts**
 
 ```{r}
 #| label: negGrowth_counts1Spp
@@ -1089,7 +1152,7 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(nInd, propNeg
 ggplot(propNegSRsN |> filter(n > 10, riverGG == "West Brook"), aes(nIndBySpp, propNeg, color = riverGG)) +
   geom_point(aes(size = n)) +
   geom_smooth(method = "lm", se = FALSE) +
-  scale_y_continuous("Proportion of fish with negative growth in mass") +
+  scale_y_continuous("Proportion of observations with negative growth in mass") +
   scale_x_log10("conspecific count") +
   scale_color_discrete() +
   ggtitle("West Brook") +
@@ -1099,7 +1162,7 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG == "West Brook"), aes(nIndBySpp, pr
 ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(nIndBySpp, propNeg, color = riverGG)) +
   geom_point(aes(size = n)) +
   geom_smooth(method = "lm", se = FALSE) +
-  scale_y_continuous("Proportion of fish with negative growth in mass") +
+  scale_y_continuous("Proportion of observations with negative growth in mass") +
   scale_x_log10("conspecific count") +
   scale_color_discrete() +
   ggtitle("Tributaries") +
