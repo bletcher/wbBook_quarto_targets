@@ -1217,114 +1217,428 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(nIndBySpp, pr
 
 
 
-### XGBoost model for proportion of fish with neg growth  
-#### Brook trout
+### XGBoost model for proportion of fish with neg growth
+
+#### Function to run models
+
 ```{r}
-#| label: xgBoostPropNeg
+#| label: xgBoostPropNegFunction
 
 # http://uc-r.github.io/gbm_regression
+runXGB <- function(d = propNegSRsN, vars = c("speciesGG", "riverGG", "year", "mT", "mF_log10", "nInd", "propNeg"), nRoundsIn = 100000) {
+  
+  set.seed(123)
+  
+  dML_propNeg <- d |> 
+    dplyr::select(all_of(vars)) 
+  
+  # variable names
+  features_propNeg <- setdiff(names(dML_propNeg), "propNeg")
+  
+  # Create the treatment plan from the training data
+  treatplan_propNeg <- vtreat::designTreatmentsZ(dML_propNeg, features_propNeg, verbose = FALSE)
+  
+  # Get the "clean" variable names from the scoreFrame
+  new_vars_propNeg <- treatplan_propNeg %>%
+    magrittr::use_series(scoreFrame) %>%        
+    dplyr::filter(code %in% c("clean", "lev")) %>% 
+    magrittr::use_series(varName)     
+  
+  # Prepare the training data
+  features_train_propNeg <- vtreat::prepare(treatplan_propNeg, dML_propNeg, varRestriction = new_vars_propNeg) %>% as.matrix()
+  response_train_propNeg <- dML_propNeg$propNeg
+  
+  # Prepare the test data
+  features_test_propNeg <- vtreat::prepare(treatplan_propNeg, dML_propNeg, varRestriction = new_vars_propNeg) %>% as.matrix()
+  response_test_propNeg <- dML_propNeg$propNeg
 
-dML_propNeg <- propNegSRsN |> 
-  filter(speciesGG == "Brook trout", year > 2001) |> 
-  dplyr::select(riverGG, year, mT, mF_log10, nInd, propNeg) 
+  ##### Run model
+  # parameter list - from the top model of the grid search above
+  params_propNeg <- list(
+    eta = 0.01,
+    max_depth = 1,
+    min_child_weight = 7,
+    subsample = 0.8,
+    colsample_bytree = 0.9
+    #optimal_trees = 57
+  )
+  
+  # train final model
+  xgb.fit.final_propNeg <- xgboost(
+    params = params_propNeg,
+    data = features_train_propNeg,
+    label = response_train_propNeg,
+    nrounds = nRoundsIn,
+    objective = "reg:squarederror",
+    verbose = 0,
+    early_stopping_rounds = 20 # stop if no improvement for 20 consecutive trees
+  )
+  
 
-# variable names
-features_propNeg <- setdiff(names(dML_propNeg), "propNeg")
+  return(
+    list(
+      dat = dML_propNeg,
+      xgb = xgb.fit.final_propNeg,
+      new_vars = new_vars_propNeg,
+      features_train = features_train_propNeg,
+      response_train = response_train_propNeg
+    )
+  )
 
-# Create the treatment plan from the training data
-treatplan_propNeg <- vtreat::designTreatmentsZ(dML_propNeg, features_propNeg, verbose = FALSE)
-
-# Get the "clean" variable names from the scoreFrame
-new_vars_propNeg <- treatplan_propNeg %>%
-  magrittr::use_series(scoreFrame) %>%        
-  dplyr::filter(code %in% c("clean", "lev")) %>% 
-  magrittr::use_series(varName)     
-
-# Prepare the training data
-features_train_propNeg <- vtreat::prepare(treatplan_propNeg, dML_propNeg, varRestriction = new_vars_propNeg) %>% as.matrix()
-response_train_propNeg <- dML_propNeg$propNeg
-
-# Prepare the test data
-features_test_propNeg <- vtreat::prepare(treatplan_propNeg, dML_propNeg, varRestriction = new_vars_propNeg) %>% as.matrix()
-response_test_propNeg <- dML_propNeg$propNeg
-
-# dimensions of one-hot encoded data
-dim(features_train_propNeg)
+}
 
 ```
 
-#### Run first model
-
+#### Brook trout
 ```{r}
-#| label: runML1_propNeg
-#| 
-# reproducibility
-set.seed(123)
+#| label: runXGB_bkt
 
-xgb.fit1_propNeg <- xgb.cv(
-  data = features_train_propNeg,
-  label = response_train_propNeg,
-  nrounds = 1000,
-  nfold = 5,
-  objective = "reg:squarederror", #"reg:linear",  # for regression models
-  verbose = 0,               # silent,
-  early_stopping_rounds = 15 # stop if no improvement for 10 consecutive trees
+propNegBKT <- runXGB(
+  d = propNegSRsN |>  filter(speciesGG == "Brook trout", year > 2001),
+  vars = c("riverGG", "year", "mT", "mF_log10", "nInd", "propNeg")
 )
 
-# get number of trees that minimize error
-xgb.fit1_propNeg$evaluation_log %>%
-  dplyr::summarise(
-    ntrees.train = which(train_rmse_mean == min(train_rmse_mean))[1],
-    rmseloss.train = min(train_rmse_mean),
-    ntrees.test = which(test_rmse_mean == min(test_rmse_mean))[1],
-    rmseloss.test = min(test_rmse_mean),
-  )
+propNegBKT$xgb$best_iteration
+propNegBKT$xgb$best_score
 
-# plot error vs number trees
-ggplot(xgb.fit1_propNeg$evaluation_log) +
-  geom_line(aes(iter, train_rmse_mean), color = "red") +
-  geom_line(aes(iter, test_rmse_mean), color = "blue")
+# variable importance plot
+xgb.plot.importance(xgb.importance(model = propNegBKT$xgb), top_n = 10, measure = "Gain")
+
+####################################################################
+#s_propNegBKT <- hstats(propNegBKT$xgb, v = propNegBKT$new_vars, X = propNegBKT$features_train)
+# s_propNegBKT
+# plot(s_propNegBKT)
+# 
+# # top 5 2-way interactions
+# h2_pairwise(s_propNegBKT, normalize = FALSE, squared = FALSE, top_m = 8)
+# 
+# # 3-way interactions
+# plot(s_propNegBKT, which = 1:3, normalize = F, squared = F, facet_scales = "free_y", ncol = 1)
+
+## Partial dep plots ################################################################
+
+pFlow_propNeg <- propNegBKT$xgb %>%
+  pdp::partial(pred.var = "mF_log10", n.trees = 1082, grid.resolution = 100, train = propNegBKT$features_train) %>%
+  autoplot(rug = TRUE, train = propNegBKT$features_train) +
+  geom_smooth(se = FALSE)
+  #scale_y_discrete() +
+  #ggtitle("PDP")
+pTemp_propNeg <- propNegBKT$xgb %>%
+  pdp::partial(pred.var = "mT", n.trees = 1082, grid.resolution = 100, train = propNegBKT$features_train) %>%
+  autoplot(rug = TRUE, train = propNegBKT$features_train) +
+  geom_smooth(se = FALSE)
+
+pNInd_propNeg <- propNegBKT$xgb %>%
+  pdp::partial(pred.var = "nInd", n.trees = 1082, grid.resolution = 100, train = propNegBKT$features_train) %>%
+  autoplot(rug = TRUE, train = propNegBKT$features_train) +
+  geom_smooth(se = FALSE)
+
+pYear_propNeg <- propNegBKT$xgb %>%
+  pdp::partial(pred.var = "year", n.trees = 1082, grid.resolution = 100, train = propNegBKT$features_train) %>%
+  autoplot(rug = TRUE, train = propNegBKT$features_train) +
+  geom_smooth(se = FALSE)
+
+gridExtra::grid.arrange(pFlow_propNeg, pTemp_propNeg, pNInd_propNeg, pYear_propNeg, nrow = 3)
+
+##################################################################
+# all on one graph
+pFlow_propNegDataBKT <- propNegBKT$xgb %>%
+  pdp::partial(pred.var = "mF_log10", n.trees = 1082, grid.resolution = 100, train = propNegBKT$features_train) |> 
+  mutate(xScaled = (mF_log10-mean(mF_log10))/sd(mF_log10),
+         var = "Flow")
+
+pMT_propNegDataBKT <- propNegBKT$xgb %>%
+  pdp::partial(pred.var = "mT", n.trees = 1082, grid.resolution = 100, train = propNegBKT$features_train) |> 
+  mutate(xScaled = (mT-mean(mT))/sd(mT),
+         var = "Temperature")
+
+pNInd_propNegDataBKT <- propNegBKT$xgb %>%
+  pdp::partial(pred.var = "nInd", n.trees = 1082, grid.resolution = 100, train = propNegBKT$features_train) |> 
+  mutate(xScaled = (nInd-mean(nInd))/sd(nInd),
+         var = "Num inds")
+
+pYear_propNegDataBKT <- propNegBKT$xgb %>%
+  pdp::partial(pred.var = "year", n.trees = 1082, grid.resolution = 100, train = propNegBKT$features_train) |> 
+  mutate(xScaled = (year-mean(year))/sd(year),
+         var = "Year")
+
+
+all_propNegDataBKT <- bind_rows(pFlow_propNegDataBKT, pMT_propNegDataBKT, pNInd_propNegDataBKT, pYear_propNegDataBKT)
+
+ggplot(all_propNegDataBKT, aes(xScaled, yhat, color = var)) +
+  #geom_point(alpha = 0.2) +
+  geom_smooth(se = FALSE) +
+  theme_publication() +
+  labs(y = "Effect on proportion of negative observations", x = "Scaled value")
+
+##################################################################
+# All river on one graph
+partialWBBKT <- propNegBKT$xgb %>%
+  pdp::partial(pred.var = "riverGG_lev_x_West_Brook", n.trees = 1082, grid.resolution = 100, train = propNegBKT$features_train) |> 
+  mutate(riverGG = "West Brook") |> 
+  rename(x = "riverGG_lev_x_West_Brook")
+
+partialOLBKT <- propNegBKT$xgb %>%
+  pdp::partial(pred.var = "riverGG_lev_x_Open_Large", n.trees = 1082, grid.resolution = 100, train = propNegBKT$features_train)|> 
+  mutate(riverGG = "Open Large") |> 
+  rename(x = "riverGG_lev_x_Open_Large")
+
+partialOSBKT <- propNegBKT$xgb %>%
+  pdp::partial(pred.var = "riverGG_lev_x_Open_Small", n.trees = 1082, grid.resolution = 100, train = propNegBKT$features_train) |> 
+  mutate(riverGG = "Open Small") |> 
+  rename(x = "riverGG_lev_x_Open_Small")
+
+partialISBKT <- propNegBKT$xgb %>%
+  pdp::partial(pred.var = "riverGG_lev_x_Isolated_Small", n.trees = 1082, grid.resolution = 100, train = propNegBKT$features_train)|> 
+  mutate(riverGG = "Isolated Small") |> 
+  rename(x = "riverGG_lev_x_Isolated_Small")
+
+partialRiversBKT <- bind_rows(partialWBBKT, partialOLBKT, partialOSBKT, partialISBKT) |> 
+  filter(x %in% c(0,1)) |> 
+  mutate(RiverEffect = ifelse(x ==1, "Yes", "No"),
+         riverOrdered = factor(riverGG, levels = c("West Brook", "Open Large", "Open Small", "Isolated Small"), 
+                             ordered = T))
+
+ggplot(partialRiversBKT, aes(riverOrdered, yhat, fill = factor(RiverEffect))) +
+  geom_col(position = "dodge", linewidth = 1.5) +
+  labs(y = "Effect on proportion of negative observations")
+
+### Interaction plots ##################################################################
+
+plot(partial_dep(propNegBKT$xgb, v = "mT", X = propNegBKT$features_train, BY = "mF_log10")) +
+  geom_smooth(aes(color = mF_log10), se = FALSE)
+
+plot(partial_dep(propNegBKT$xgb, v = "mF_log10", X = propNegBKT$features_train, BY = "mT")) +
+  geom_smooth(aes(color = mT), se = FALSE)
+
+plot(partial_dep(propNegBKT$xgb, v = "mF_log10", X = propNegBKT$features_train, BY = c("nInd"))) +
+  geom_smooth(aes(color = nInd), se = FALSE)
+
+##################################################################
 ```
 
-#### Add early stopping
-
+#### Brown trout
 ```{r}
-#| label: runML2_propNeg
+#| label: runXGB_BNT
 
-## tune the model
-# create parameter list
-params_propNeg <- list(
-  eta = .1,
-  max_depth = 5,
-  min_child_weight = 2,
-  subsample = .8,
-  colsample_bytree = .9
+propNegBNT <- runXGB(
+  d = propNegSRsN |>  filter(speciesGG == "Brown trout", year > 2001),
+  vars = c("riverGG", "year", "mT", "mF_log10", "nInd", "propNeg"),
+  nRoundsIn = 150000
 )
 
-xgb.fit2_propNeg <- xgb.cv(
-  params = params_propNeg,
-  data = features_train_propNeg,
-  label = response_train_propNeg,
-  nrounds = 5000,
-  nfold = 5,
-  objective = "reg:squarederror", #"reg:linear",  # for regression models
-  verbose = 0,               # silent,
-  early_stopping_rounds = 20 # stop if no improvement for 20 consecutive trees
+propNegBNT$xgb$best_iteration
+propNegBNT$xgb$best_score
+
+# variable importance plot
+xgb.plot.importance(xgb.importance(model = propNegBNT$xgb), top_n = 10, measure = "Gain")
+
+####################################################################
+#s_propNegBNT <- hstats(propNegBNT$xgb, v = propNegBNT$new_vars, X = propNegBNT$features_train)
+# s_propNegBNT
+# plot(s_propNegBNT)
+# 
+# # top 5 2-way interactions
+# h2_pairwise(s_propNegBNT, normalize = FALSE, squared = FALSE, top_m = 8)
+# 
+# # 3-way interactions
+# plot(s_propNegBNT, which = 1:3, normalize = F, squared = F, facet_scales = "free_y", ncol = 1)
+
+## Partial dep plots ################################################################
+
+pFlow_propNeg <- propNegBNT$xgb %>%
+  pdp::partial(pred.var = "mF_log10", n.trees = 1082, grid.resolution = 100, train = propNegBNT$features_train) %>%
+  autoplot(rug = TRUE, train = propNegBNT$features_train) +
+  geom_smooth(se = FALSE)
+  #scale_y_discrete() +
+  #ggtitle("PDP")
+pTemp_propNeg <- propNegBNT$xgb %>%
+  pdp::partial(pred.var = "mT", n.trees = 1082, grid.resolution = 100, train = propNegBNT$features_train) %>%
+  autoplot(rug = TRUE, train = propNegBNT$features_train) +
+  geom_smooth(se = FALSE)
+
+pNInd_propNeg <- propNegBNT$xgb %>%
+  pdp::partial(pred.var = "nInd", n.trees = 1082, grid.resolution = 100, train = propNegBNT$features_train) %>%
+  autoplot(rug = TRUE, train = propNegBNT$features_train) +
+  geom_smooth(se = FALSE)
+
+pYear_propNeg <- propNegBNT$xgb %>%
+  pdp::partial(pred.var = "year", n.trees = 1082, grid.resolution = 100, train = propNegBNT$features_train) %>%
+  autoplot(rug = TRUE, train = propNegBNT$features_train) +
+  geom_smooth(se = FALSE)
+
+gridExtra::grid.arrange(pFlow_propNeg, pTemp_propNeg, pNInd_propNeg, pYear_propNeg, nrow = 3)
+
+##################################################################
+# all on one graph
+pFlow_propNegDataBNT <- propNegBNT$xgb %>%
+  pdp::partial(pred.var = "mF_log10", n.trees = 1082, grid.resolution = 100, train = propNegBNT$features_train) |> 
+  mutate(xScaled = (mF_log10-mean(mF_log10))/sd(mF_log10),
+         var = "Flow")
+
+pMT_propNegDataBNT <- propNegBNT$xgb %>%
+  pdp::partial(pred.var = "mT", n.trees = 1082, grid.resolution = 100, train = propNegBNT$features_train) |> 
+  mutate(xScaled = (mT-mean(mT))/sd(mT),
+         var = "Temperature")
+
+pNInd_propNegDataBNT <- propNegBNT$xgb %>%
+  pdp::partial(pred.var = "nInd", n.trees = 1082, grid.resolution = 100, train = propNegBNT$features_train) |> 
+  mutate(xScaled = (nInd-mean(nInd))/sd(nInd),
+         var = "Num inds")
+
+pYear_propNegDataBNT <- propNegBNT$xgb %>%
+  pdp::partial(pred.var = "year", n.trees = 1082, grid.resolution = 100, train = propNegBNT$features_train) |> 
+  mutate(xScaled = (year-mean(year))/sd(year),
+         var = "Year")
+
+
+all_propNegDataBNT <- bind_rows(pFlow_propNegDataBNT, pMT_propNegDataBNT, pNInd_propNegDataBNT, pYear_propNegDataBNT)
+
+ggplot(all_propNegDataBNT, aes(xScaled, yhat, color = var)) +
+  #geom_point(alpha = 0.2) +
+  geom_smooth(se = FALSE) +
+  theme_publication() +
+  labs(y = "Effect on proportion of negative observations", x = "Scaled value")
+
+##################################################################
+# All river on one graph
+partialWBBNT <- propNegBNT$xgb %>%
+  pdp::partial(pred.var = "riverGG_lev_x_West_Brook", n.trees = 1082, grid.resolution = 100, train = propNegBNT$features_train) |> 
+  mutate(riverGG = "West Brook") |> 
+  rename(x = "riverGG_lev_x_West_Brook")
+
+partialOLBNT <- propNegBNT$xgb %>%
+  pdp::partial(pred.var = "riverGG_lev_x_Open_Large", n.trees = 1082, grid.resolution = 100, train = propNegBNT$features_train)|> 
+  mutate(riverGG = "Open Large") |> 
+  rename(x = "riverGG_lev_x_Open_Large")
+
+partialOSBNT <- propNegBNT$xgb %>%
+  pdp::partial(pred.var = "riverGG_lev_x_Open_Small", n.trees = 1082, grid.resolution = 100, train = propNegBNT$features_train) |> 
+  mutate(riverGG = "Open Small") |> 
+  rename(x = "riverGG_lev_x_Open_Small")
+
+
+partialRiversBNT <- bind_rows(partialWBBNT, partialOLBNT, partialOSBNT) |> 
+  filter(x %in% c(0,1)) |> 
+  mutate(RiverEffect = ifelse(x ==1, "Yes", "No"),
+         riverOrdered = factor(riverGG, levels = c("West Brook", "Open Large", "Open Small"), 
+                             ordered = T))
+
+ggplot(partialRiversBNT, aes(riverOrdered, yhat, fill = factor(RiverEffect))) +
+  geom_col(position = "dodge", linewidth = 1.5) +
+  labs(y = "Effect on proportion of negative observations")
+
+### Interaction plots ##################################################################
+
+plot(partial_dep(propNegBNT$xgb, v = "mT", X = propNegBNT$features_train, BY = "mF_log10")) +
+  geom_smooth(aes(color = mF_log10), se = FALSE)
+
+plot(partial_dep(propNegBNT$xgb, v = "mF_log10", X = propNegBNT$features_train, BY = "mT")) +
+  geom_smooth(aes(color = mT), se = FALSE)
+
+plot(partial_dep(propNegBNT$xgb, v = "mF_log10", X = propNegBNT$features_train, BY = c("nInd"))) +
+  geom_smooth(aes(color = nInd), se = FALSE)
+
+##################################################################
+```
+
+#### Atlantic salmon
+```{r}
+#| label: runXGB_ATS
+
+propNegSRsN |> filter(speciesGG == "Atlantic salmon") |> 
+  ggplot(aes(year, n, color = seasonGG)) + geom_line() + facet_wrap(~riverGG)
+
+propNegATS <- runXGB(
+  d = propNegSRsN |> filter(speciesGG == "Atlantic salmon", riverGG == "West Brook", year < 2007),
+  vars = c("year", "mT", "mF_log10", "nInd", "propNeg")
 )
 
-xgb.fit2_propNeg$evaluation_log %>%
-  dplyr::summarise(
-    ntrees.train = which(train_rmse_mean == min(train_rmse_mean))[1],
-    rmseloss.train   = min(train_rmse_mean),
-    ntrees.test  = which(test_rmse_mean == min(test_rmse_mean))[1],
-    rmseloss.test   = min(test_rmse_mean),
-  )
+propNegATS$xgb$best_iteration
+propNegATS$xgb$best_score
 
-# plot error vs number trees
-ggplot(xgb.fit2_propNeg$evaluation_log) +
-  geom_line(aes(iter, train_rmse_mean), color = "red") +
-  geom_line(aes(iter, test_rmse_mean), color = "blue")
+# variable importance plot
+xgb.plot.importance(xgb.importance(model = propNegATS$xgb), top_n = 10, measure = "Gain")
 
+####################################################################
+#s_propNegATS <- hstats(propNegATS$xgb, v = propNegATS$new_vars, X = propNegATS$features_train)
+# s_propNegATS
+# plot(s_propNegATS)
+# 
+# # top 5 2-way interactions
+# h2_pairwise(s_propNegATS, normalize = FALSE, squared = FALSE, top_m = 8)
+# 
+# # 3-way interactions
+# plot(s_propNegATS, which = 1:3, normalize = F, squared = F, facet_scales = "free_y", ncol = 1)
+
+## Partial dep plots ################################################################
+
+pFlow_propNegATS <- propNegATS$xgb %>%
+  pdp::partial(pred.var = "mF_log10", n.trees = 1082, grid.resolution = 100, train = propNegATS$features_train) %>%
+  autoplot(rug = TRUE, train = propNegATS$features_train) +
+  geom_smooth(se = FALSE)
+  #scale_y_discrete() +
+  #ggtitle("PDP")
+pTemp_propNegATS <- propNegATS$xgb %>%
+  pdp::partial(pred.var = "mT", n.trees = 1082, grid.resolution = 100, train = propNegATS$features_train) %>%
+  autoplot(rug = TRUE, train = propNegATS$features_train) +
+  geom_smooth(se = FALSE)
+
+pNInd_propNegATS <- propNegATS$xgb %>%
+  pdp::partial(pred.var = "nInd", n.trees = 1082, grid.resolution = 100, train = propNegATS$features_train) %>%
+  autoplot(rug = TRUE, train = propNegATS$features_train) +
+  geom_smooth(se = FALSE)
+
+pYear_propNegATS <- propNegATS$xgb %>%
+  pdp::partial(pred.var = "year", n.trees = 1082, grid.resolution = 100, train = propNegATS$features_train) %>%
+  autoplot(rug = TRUE, train = propNegATS$features_train) +
+  geom_smooth(se = FALSE)
+
+gridExtra::grid.arrange(pFlow_propNegATS, pTemp_propNegATS, pNInd_propNegATS, pYear_propNegATS, nrow = 3)
+
+##################################################################
+# all on one graph
+pFlow_propNegDataATS <- propNegATS$xgb %>%
+  pdp::partial(pred.var = "mF_log10", n.trees = 1082, grid.resolution = 100, train = propNegATS$features_train) |> 
+  mutate(xScaled = (mF_log10-mean(mF_log10))/sd(mF_log10),
+         var = "Flow")
+
+pMT_propNegDataATS <- propNegATS$xgb %>%
+  pdp::partial(pred.var = "mT", n.trees = 1082, grid.resolution = 100, train = propNegATS$features_train) |> 
+  mutate(xScaled = (mT-mean(mT))/sd(mT),
+         var = "Temperature")
+
+pNInd_propNegDataATS <- propNegATS$xgb %>%
+  pdp::partial(pred.var = "nInd", n.trees = 1082, grid.resolution = 100, train = propNegATS$features_train) |> 
+  mutate(xScaled = (nInd-mean(nInd))/sd(nInd),
+         var = "Num inds")
+
+pYear_propNegDataATS <- propNegATS$xgb %>%
+  pdp::partial(pred.var = "year", n.trees = 1082, grid.resolution = 100, train = propNegATS$features_train) |> 
+  mutate(xScaled = (year-mean(year))/sd(year),
+         var = "Year")
+
+
+all_propNegDataATS <- bind_rows(pFlow_propNegDataATS, pMT_propNegDataATS, pNInd_propNegDataATS, pYear_propNegDataATS)
+
+ggplot(all_propNegDataATS, aes(xScaled, yhat, color = var)) +
+  #geom_point(alpha = 0.2) +
+  geom_smooth(se = FALSE) +
+  theme_publication() +
+  labs(y = "Effect on proportion of negative observations", x = "Scaled value")
+
+### Interaction plots ##################################################################
+
+plot(partial_dep(propNegATS$xgb, v = "mT", X = propNegATS$features_train, BY = "mF_log10")) +
+  geom_smooth(aes(color = mF_log10), se = FALSE)
+
+plot(partial_dep(propNegATS$xgb, v = "mF_log10", X = propNegATS$features_train, BY = "mT")) +
+  geom_smooth(aes(color = mT), se = FALSE)
+
+plot(partial_dep(propNegATS$xgb, v = "mF_log10", X = propNegATS$features_train, BY = c("nInd"))) +
+  geom_smooth(aes(color = nInd), se = FALSE)
+
+##################################################################
 ```
 
 #### Hyperparameter search grid
@@ -1400,240 +1714,6 @@ nrow(hyper_grid_propNeg)
 # > # 14 0.10         3                5      1.00              1.0            55 0.1861160
 # # > # 15 0.10         1                1      1.00              0.9           179 0.1861891
 ```
-
-#### Fit the top model
-
-```{r}
-#| label: fitBinary_propNeg
-
-# parameter list - from the top model of the grid search above
-params_propNeg <- list(
-  eta = 0.01,
-  max_depth = 1,
-  min_child_weight = 7,
-  subsample = 0.8,
-  colsample_bytree = 0.9
-  #optimal_trees = 57
-)
-
-# train final model
-xgb.fit.final_propNeg <- xgboost(
-  params = params_propNeg,
-  data = features_train_propNeg,
-  label = response_train_propNeg,
-  nrounds = 30000,
-  objective = "reg:squarederror",
-  verbose = 0,
-  early_stopping_rounds = 20 # stop if no improvement for 20 consecutive trees
-)
-
-```
-
-#### Variable importance plot
-
-```{r}
-#| label: vipBinary_propNeg
-
-# create importance matrix
-importance_matrix_propNeg <- xgb.importance(model = xgb.fit.final_propNeg)
-
-# variable importance plot
-xgb.plot.importance(importance_matrix_propNeg, top_n = 10, measure = "Gain")
-
-```
-
-#### Partial dependence plots
-
-```{r}
-#| label: pdpBinary_propNeg
-
-pFlow_propNeg <- xgb.fit.final_propNeg %>%
-  pdp::partial(pred.var = "mF_log10", n.trees = 1082, grid.resolution = 100, train = features_train_propNeg) %>%
-  autoplot(rug = TRUE, train = features_train_propNeg) +
-  geom_smooth(se = FALSE)
-  #scale_y_discrete() +
-  #ggtitle("PDP")
-pTemp_propNeg <- xgb.fit.final_propNeg %>%
-  pdp::partial(pred.var = "mT", n.trees = 1082, grid.resolution = 100, train = features_train_propNeg) %>%
-  autoplot(rug = TRUE, train = features_train_propNeg) +
-  geom_smooth(se = FALSE)
-
-pNInd_propNeg <- xgb.fit.final_propNeg %>%
-  pdp::partial(pred.var = "nInd", n.trees = 1082, grid.resolution = 100, train = features_train_propNeg) %>%
-  autoplot(rug = TRUE, train = features_train_propNeg) +
-  geom_smooth(se = FALSE)
-
-pYear_propNeg <- xgb.fit.final_propNeg %>%
-  pdp::partial(pred.var = "year", n.trees = 1082, grid.resolution = 100, train = features_train_propNeg) %>%
-  autoplot(rug = TRUE, train = features_train_propNeg) +
-  geom_smooth(se = FALSE)
-
-gridExtra::grid.arrange(pFlow_propNeg, pTemp_propNeg, pNInd_propNeg, pYear_propNeg, nrow = 3)
-
-# #Seasons
-# pSpring_propNeg <- xgb.fit.final_propNeg %>%
-#   pdp::partial(pred.var = "seasonGG_lev_x_Spring", n.trees = 1082, grid.resolution = 100, train = features_train_propNeg) %>%
-#   autoplot(rug = TRUE, train = features_train_propNeg)
-# 
-# pSummer_propNeg <- xgb.fit.final_propNeg %>%
-#   pdp::partial(pred.var = "seasonGG_lev_x_Summer", n.trees = 1082, grid.resolution = 100, train = features_train_propNeg) %>%
-#   autoplot(rug = TRUE, train = features_train_propNeg)
-# 
-# pAutumn_propNeg <- xgb.fit.final_propNeg %>%
-#   pdp::partial(pred.var = "seasonGG_lev_x_Autumn", n.trees = 1082, grid.resolution = 100, train = features_train_propNeg) %>%
-#   autoplot(rug = TRUE, train = features_train_propNeg)
-# 
-# pWinter_propNeg <- xgb.fit.final_propNeg %>%
-#   pdp::partial(pred.var = "seasonGG_lev_x_Winter", n.trees = 1082, grid.resolution = 100, train = features_train_propNeg) %>%
-#   autoplot(rug = TRUE, train = features_train_propNeg)
-# 
-# gridExtra::grid.arrange(pSpring_propNeg, pSummer_propNeg, pAutumn_propNeg, pWinter_propNeg, nrow = 2)
-# 
-# # All seasons on one graph
-# partialSpring <- xgb.fit.final_propNeg %>%
-#   pdp::partial(pred.var = "seasonGG_lev_x_Spring", n.trees = 1082, grid.resolution = 100, train = features_train_propNeg) |> 
-#   mutate(seasonGG = "Spring") |> 
-#   rename(x = "seasonGG_lev_x_Spring")
-# 
-# partialSummer <- xgb.fit.final_propNeg %>%
-#   pdp::partial(pred.var = "seasonGG_lev_x_Summer", n.trees = 1082, grid.resolution = 100, train = features_train_propNeg) |> 
-#   mutate(seasonGG = "Summer") |> 
-#   rename(x = "seasonGG_lev_x_Summer")
-# 
-# partialAutumn <- xgb.fit.final_propNeg %>%
-#   pdp::partial(pred.var = "seasonGG_lev_x_Autumn", n.trees = 1082, grid.resolution = 100, train = features_train_propNeg) |> 
-#   mutate(seasonGG = "Autumn") |> 
-#   rename(x = "seasonGG_lev_x_Autumn")
-# 
-# partialWinter <- xgb.fit.final_propNeg %>%
-#   pdp::partial(pred.var = "seasonGG_lev_x_Winter", n.trees = 1082, grid.resolution = 100, train = features_train_propNeg) |> 
-#   mutate(seasonGG = "Winter") |> 
-#   rename(x = "seasonGG_lev_x_Winter")
-# 
-# 
-# partialSeasons <- bind_rows(partialSpring, partialSummer, partialAutumn, partialWinter) |> 
-#   filter(x %in% c(0,1)) |> 
-#   mutate(seasonEffect = ifelse(x == 1, "Yes", "No"),
-#          seasonOrdered = factor(seasonGG, levels = c("Spring", "Summer", "Autumn", "Winter"), 
-#                              ordered = T)
-#          )
-# 
-# ggplot(partialSeasons, aes(seasonOrdered, yhat, fill = factor(seasonEffect))) +
-#   geom_col(position = "dodge", size = 1.5) +
-#   labs(y = "Effect on proportion of negative observations") +
-#   theme_publication()
-
-
-############################################################
-#Rivers
-# pWB_propNeg <- xgb.fit.final_propNeg %>%
-#   pdp::partial(pred.var = "riverGG_lev_x_West_Brook", n.trees = 1082, grid.resolution = 100, train = features_train_propNeg) %>%
-#   autoplot(rug = TRUE, train = features_train_propNeg)
-# 
-# pOL_propNeg <- xgb.fit.final_propNeg %>%
-#   pdp::partial(pred.var = "riverGG_lev_x_Open_Large", n.trees = 1082, grid.resolution = 100, train = features_train_propNeg) %>%
-#   autoplot(rug = TRUE, train = features_train_propNeg)
-# 
-# pOS_propNeg <- xgb.fit.final_propNeg %>%
-#   pdp::partial(pred.var = "riverGG_lev_x_Open_Small", n.trees = 1082, grid.resolution = 100, train = features_train_propNeg) %>%
-#   autoplot(rug = TRUE, train = features_train_propNeg)
-# 
-# pIS_propNeg <- xgb.fit.final_propNeg %>%
-#   pdp::partial(pred.var = "riverGG_lev_x_Isolated_Small", n.trees = 1082, grid.resolution = 100, train = features_train_propNeg) %>%
-#   autoplot(rug = TRUE, train = features_train_propNeg)
-# 
-# gridExtra::grid.arrange(pWB_propNeg, pOL_propNeg, pOS_propNeg, pIS_propNeg, nrow = 2)
-
-# Al river on one graph
-partialWB <- xgb.fit.final_propNeg %>%
-  pdp::partial(pred.var = "riverGG_lev_x_West_Brook", n.trees = 1082, grid.resolution = 100, train = features_train_propNeg) |> 
-  mutate(riverGG = "West Brook") |> 
-  rename(x = "riverGG_lev_x_West_Brook")
-
-partialOL <- xgb.fit.final_propNeg %>%
-  pdp::partial(pred.var = "riverGG_lev_x_Open_Large", n.trees = 1082, grid.resolution = 100, train = features_train_propNeg)|> 
-  mutate(riverGG = "Open Large") |> 
-  rename(x = "riverGG_lev_x_Open_Large")
-
-partialOS <- xgb.fit.final_propNeg %>%
-  pdp::partial(pred.var = "riverGG_lev_x_Open_Small", n.trees = 1082, grid.resolution = 100, train = features_train_propNeg) |> 
-  mutate(riverGG = "Open Small") |> 
-  rename(x = "riverGG_lev_x_Open_Small")
-
-partialIS <- xgb.fit.final_propNeg %>%
-  pdp::partial(pred.var = "riverGG_lev_x_Isolated_Small", n.trees = 1082, grid.resolution = 100, train = features_train_propNeg)|> 
-  mutate(riverGG = "Isolated Small") |> 
-  rename(x = "riverGG_lev_x_Isolated_Small")
-
-
-partialRivers <- bind_rows(partialWB, partialOL, partialOS, partialIS) |> 
-  filter(x %in% c(0,1)) |> 
-  mutate(RiverEffect = ifelse(x ==1, "Yes", "No"),
-         riverOrdered = factor(riverGG, levels = c("West Brook", "Open Large", "Open Small", "Isolated Small"), 
-                             ordered = T))
-
-ggplot(partialRivers, aes(riverOrdered, yhat, fill = factor(RiverEffect))) +
-  geom_col(position = "dodge", size = 1.5) +
-  labs(y = "Effect on proportion of negative observations")
-
-
-```
-
-#### hstats
-https://github.com/mayer79/hstats#background
-```{r}
-#| label: hstatsPropNegPropNeg
-
-s_propNeg <- hstats(xgb.fit.final_propNeg, v = new_vars_propNeg, X = features_train_propNeg)
-s_propNeg
-plot(s_propNeg)
-
-# top 5 2-way interactions
-h2_pairwise(s_propNeg, normalize = FALSE, squared = FALSE, top_m = 8)
-
-# 3-way interactions
-plot(s_propNeg, which = 1:3, normalize = F, squared = F, facet_scales = "free_y", ncol = 1)
-```
-
-Interaction plots
-```{r}
-#| label: hstatsInteractionsPlots_propNeg
-
-plot(partial_dep(xgb.fit.final_propNeg, v = "mT", X = features_train_propNeg, BY = "mF_log10")) +
-  geom_smooth(aes(color = mF_log10), se = FALSE)
-
-plot(partial_dep(xgb.fit.final_propNeg, v = "mF_log10", X = features_train_propNeg, BY = "mT")) +
-  geom_smooth(aes(color = mT), se = FALSE)
-
-plot(partial_dep(xgb.fit.final_propNeg, v = "mF_log10", X = features_train_propNeg, BY = c("nInd"))) +
-  geom_smooth(aes(color = nInd), se = FALSE)
-#plot(partial_dep(xgb.fit.final, v = c("observedWeight", "meanFlowByRiver"), X = features_train, grid_size = 1000))
-
-# plot(ice(xgb.fit.final_propNeg, v = "mF_log10", X = features_train_propNeg, BY = c("mT", "seasonGG_lev_x_Summer")), center = FALSE) +
-#   geom_smooth(aes(color = mT), se = FALSE) +
-#   scale_color_viridis_b()
-
-
-plot(ice(xgb.fit.final_propNeg, v = "mF_log10", X = features_train_propNeg, BY = c("mT", "riverGG_lev_x_Isolated_Small")), center = FALSE)
-```
-
-Variable importance plots
-```{r}
-#| label: hstatsVIPlots_propNeg
-
-pd_importance(s_propNeg)
-
-# Compared with tree split gain importance
-xgb.plot.importance(xgb.importance(model = xgb.fit.final_propNeg), measure = "Gain")
-```
-
-
-
-
-
-
-
-
 
 ## F/T cycle graphs
 
