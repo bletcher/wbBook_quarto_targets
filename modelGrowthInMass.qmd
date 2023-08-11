@@ -1291,7 +1291,7 @@ runXGB <- function(d = propNegSRsN, vars = c("speciesGG", "riverGG", "year", "mT
 
 #### Brook trout
 ```{r}
-#| label: runXGB_bkt
+#| label: runXGB_BKT
 
 propNegBKT <- runXGB(
   d = propNegSRsN |>  filter(speciesGG == "Brook trout", year > 2001),
@@ -1302,7 +1302,8 @@ propNegBKT$xgb$best_iteration
 propNegBKT$xgb$best_score
 
 # variable importance plot
-xgb.plot.importance(xgb.importance(model = propNegBKT$xgb), top_n = 10, measure = "Gain")
+viBKT <- xgb.importance(model = propNegBKT$xgb)
+xgb.plot.importance(viBKT, top_n = 10, measure = "Gain")
 
 ####################################################################
 #s_propNegBKT <- hstats(propNegBKT$xgb, v = propNegBKT$new_vars, X = propNegBKT$features_train)
@@ -1345,22 +1346,26 @@ gridExtra::grid.arrange(pFlow_propNeg, pTemp_propNeg, pNInd_propNeg, pYear_propN
 pFlow_propNegDataBKT <- propNegBKT$xgb %>%
   pdp::partial(pred.var = "mF_log10", n.trees = 1082, grid.resolution = 100, train = propNegBKT$features_train) |> 
   mutate(xScaled = (mF_log10-mean(mF_log10))/sd(mF_log10),
-         var = "Flow")
+         var = "Flow",
+         speciesGG = "Brook Trout")
 
 pMT_propNegDataBKT <- propNegBKT$xgb %>%
   pdp::partial(pred.var = "mT", n.trees = 1082, grid.resolution = 100, train = propNegBKT$features_train) |> 
   mutate(xScaled = (mT-mean(mT))/sd(mT),
-         var = "Temperature")
+         var = "Temperature",
+         speciesGG = "Brook Trout")
 
 pNInd_propNegDataBKT <- propNegBKT$xgb %>%
   pdp::partial(pred.var = "nInd", n.trees = 1082, grid.resolution = 100, train = propNegBKT$features_train) |> 
   mutate(xScaled = (nInd-mean(nInd))/sd(nInd),
-         var = "Num inds")
+         var = "Num inds",
+         speciesGG = "Brook Trout")
 
 pYear_propNegDataBKT <- propNegBKT$xgb %>%
   pdp::partial(pred.var = "year", n.trees = 1082, grid.resolution = 100, train = propNegBKT$features_train) |> 
   mutate(xScaled = (year-mean(year))/sd(year),
-         var = "Year")
+         var = "Year",
+         speciesGG = "Brook Trout")
 
 
 all_propNegDataBKT <- bind_rows(pFlow_propNegDataBKT, pMT_propNegDataBKT, pNInd_propNegDataBKT, pYear_propNegDataBKT)
@@ -1431,8 +1436,8 @@ propNegBNT$xgb$best_iteration
 propNegBNT$xgb$best_score
 
 # variable importance plot
-xgb.plot.importance(xgb.importance(model = propNegBNT$xgb), top_n = 10, measure = "Gain")
-
+viBNT <- xgb.importance(model = propNegBNT$xgb)
+xgb.plot.importance(viBNT, top_n = 10, measure = "Gain")
 ####################################################################
 #s_propNegBNT <- hstats(propNegBNT$xgb, v = propNegBNT$new_vars, X = propNegBNT$features_train)
 # s_propNegBNT
@@ -1474,22 +1479,26 @@ gridExtra::grid.arrange(pFlow_propNeg, pTemp_propNeg, pNInd_propNeg, pYear_propN
 pFlow_propNegDataBNT <- propNegBNT$xgb %>%
   pdp::partial(pred.var = "mF_log10", n.trees = 1082, grid.resolution = 100, train = propNegBNT$features_train) |> 
   mutate(xScaled = (mF_log10-mean(mF_log10))/sd(mF_log10),
-         var = "Flow")
+         var = "Flow",
+         speciesGG = "Brown Trout")
 
 pMT_propNegDataBNT <- propNegBNT$xgb %>%
   pdp::partial(pred.var = "mT", n.trees = 1082, grid.resolution = 100, train = propNegBNT$features_train) |> 
   mutate(xScaled = (mT-mean(mT))/sd(mT),
-         var = "Temperature")
+         var = "Temperature",
+         speciesGG = "Brown Trout")
 
 pNInd_propNegDataBNT <- propNegBNT$xgb %>%
   pdp::partial(pred.var = "nInd", n.trees = 1082, grid.resolution = 100, train = propNegBNT$features_train) |> 
   mutate(xScaled = (nInd-mean(nInd))/sd(nInd),
-         var = "Num inds")
+         var = "Num inds",
+         speciesGG = "Brown Trout")
 
 pYear_propNegDataBNT <- propNegBNT$xgb %>%
   pdp::partial(pred.var = "year", n.trees = 1082, grid.resolution = 100, train = propNegBNT$features_train) |> 
   mutate(xScaled = (year-mean(year))/sd(year),
-         var = "Year")
+         var = "Year",
+         speciesGG = "Brown Trout")
 
 
 all_propNegDataBNT <- bind_rows(pFlow_propNegDataBNT, pMT_propNegDataBNT, pNInd_propNegDataBNT, pYear_propNegDataBNT)
@@ -1558,8 +1567,8 @@ propNegATS$xgb$best_iteration
 propNegATS$xgb$best_score
 
 # variable importance plot
-xgb.plot.importance(xgb.importance(model = propNegATS$xgb), top_n = 10, measure = "Gain")
-
+viATS <- xgb.importance(model = propNegATS$xgb)
+xgb.plot.importance(viATS, top_n = 10, measure = "Gain")
 ####################################################################
 #s_propNegATS <- hstats(propNegATS$xgb, v = propNegATS$new_vars, X = propNegATS$features_train)
 # s_propNegATS
@@ -1601,22 +1610,26 @@ gridExtra::grid.arrange(pFlow_propNegATS, pTemp_propNegATS, pNInd_propNegATS, pY
 pFlow_propNegDataATS <- propNegATS$xgb %>%
   pdp::partial(pred.var = "mF_log10", n.trees = 1082, grid.resolution = 100, train = propNegATS$features_train) |> 
   mutate(xScaled = (mF_log10-mean(mF_log10))/sd(mF_log10),
-         var = "Flow")
+         var = "Flow",
+         speciesGG = "Atlantic Salmon")
 
 pMT_propNegDataATS <- propNegATS$xgb %>%
   pdp::partial(pred.var = "mT", n.trees = 1082, grid.resolution = 100, train = propNegATS$features_train) |> 
   mutate(xScaled = (mT-mean(mT))/sd(mT),
-         var = "Temperature")
+         var = "Temperature",
+         speciesGG = "Atlantic Salmon")
 
 pNInd_propNegDataATS <- propNegATS$xgb %>%
   pdp::partial(pred.var = "nInd", n.trees = 1082, grid.resolution = 100, train = propNegATS$features_train) |> 
   mutate(xScaled = (nInd-mean(nInd))/sd(nInd),
-         var = "Num inds")
+         var = "Num inds",
+         speciesGG = "Atlantic Salmon")
 
 pYear_propNegDataATS <- propNegATS$xgb %>%
   pdp::partial(pred.var = "year", n.trees = 1082, grid.resolution = 100, train = propNegATS$features_train) |> 
   mutate(xScaled = (year-mean(year))/sd(year),
-         var = "Year")
+         var = "Year",
+         speciesGG = "Atlantic Salmon")
 
 
 all_propNegDataATS <- bind_rows(pFlow_propNegDataATS, pMT_propNegDataATS, pNInd_propNegDataATS, pYear_propNegDataATS)
@@ -1639,6 +1652,64 @@ plot(partial_dep(propNegATS$xgb, v = "mF_log10", X = propNegATS$features_train, 
   geom_smooth(aes(color = nInd), se = FALSE)
 
 ##################################################################
+```
+
+#### 3 species together
+```{r}
+#| label: threeSppVIP
+
+# variable importance plots
+
+viAll <- bind_rows(
+  viBKT |> dplyr::select(Feature, Gain) |> mutate(speciesGG = "Brook Trout"),
+  viBNT |> dplyr::select(Feature, Gain) |> mutate(speciesGG = "Brown Trout"),
+  viATS |> dplyr::select(Feature, Gain) |> mutate(speciesGG = "Atlantic Salmon")
+) |> 
+  mutate(sppOrdered = factor(speciesGG, levels = c("Brook Trout", "Brown Trout", "Atlantic Salmon"), ordered = TRUE),
+         feature2 = case_when(
+           Feature == "mF_log10" ~ "Flow",
+           Feature == "mT" ~ "Temperature",
+           Feature == "nInd" ~ "Num Individuals",
+           Feature == "year" ~ "Year")
+  )
+
+ggplot(viAll |> filter(Feature %in% c("mF_log10", "mT", "nInd", "year")), aes(feature2, Gain, fill = sppOrdered)) +
+  geom_col(position = "dodge") +
+  theme_publication() +
+  scale_fill_grey() +
+  labs(y = "Effoct on proportion of negative observations", x = "Variable")
+
+########################################################
+
+all_propNegData3spp <- bind_rows(all_propNegDataBKT, all_propNegDataBNT, all_propNegDataATS)
+
+ggplot(all_propNegData3spp |> filter(var == "Flow"), aes(xScaled, yhat, color = speciesGG)) +
+  #geom_point(alpha = 0.2) +
+  geom_smooth(se = FALSE) +
+  theme_publication() +
+  labs(y = "Effect on proportion of negative observations", x = "Scaled flow")
+
+
+ggplot(all_propNegData3spp |> filter(var == "Temperature"), aes(xScaled, yhat, color = speciesGG)) +
+  #geom_point(alpha = 0.2) +
+  geom_smooth(se = FALSE) +
+  theme_publication() +
+  labs(y = "Effect on proportion of negative observations", x = "Scaled temperature")
+
+ggplot(all_propNegData3spp |> filter(var == "Num inds"), aes(xScaled, yhat, color = speciesGG)) +
+  #geom_point(alpha = 0.2) +
+  geom_smooth(se = FALSE) +
+  theme_publication() +
+  labs(y = "Effect on proportion of negative observations", x = "Scaled Number of individuals")
+
+ggplot(all_propNegData3spp |> filter(var == "Year"), aes(xScaled, yhat, color = speciesGG)) +
+  #geom_point(alpha = 0.2) +
+  geom_smooth(se = FALSE) +
+  theme_publication() +
+  labs(y = "Effect on proportion of negative observations", x = "Scaled year")
+
+#######################################
+
 ```
 
 #### Hyperparameter search grid
