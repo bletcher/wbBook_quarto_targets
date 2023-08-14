@@ -218,12 +218,14 @@ cd1 |>
 
 ```{r}
 #| label: rawlengthWeight
-ggplot(cd1, aes(grWeight, color = speciesGG)) +
+ggplot(cd1, aes(grWeight, color = speciesGG, linetype = speciesGG)) +
   geom_freqpoly(bins = 50) +
   labs(x = "Growth in mass (/d)", y = "Frequency") +
-  scale_color_discrete() +
+  #scale_color_discrete() +
   geom_vline(xintercept = 0) +
+  xlim(c(-0.01, 0.028)) +
   theme_publication() +
+  scale_color_grey() +
   facet_wrap(~seasonGG)
 
 ggplot(cd1, aes(grLength, color = speciesGG)) +
@@ -1217,15 +1219,109 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(nIndBySpp, pr
 
 
 
-### XGBoost model for proportion of fish with neg growth
+## XGBoost model for proportion of fish with neg growth
 
-#### Function to run models
+### Hyperparameter search grid
+
+```{r}
+#| label: runML_HP_propNeg
+
+runHyperparamSearch <- function(d = propNegSRsN, vars = c("speciesGG", "riverGG", "year", "mT", "mF_log10", "nInd", "propNeg"), nRoundsIn = 100000) {
+  
+  set.seed(123)
+  
+  dML_propNeg <- d |> 
+    dplyr::select(all_of(vars)) 
+  
+  # variable names
+  features_propNeg <- setdiff(names(dML_propNeg), "propNeg")
+  
+  # Create the treatment plan from the training data
+  treatplan_propNeg <- vtreat::designTreatmentsZ(dML_propNeg, features_propNeg, verbose = FALSE)
+  
+  # Get the "clean" variable names from the scoreFrame
+  new_vars_propNeg <- treatplan_propNeg %>%
+    magrittr::use_series(scoreFrame) %>%        
+    dplyr::filter(code %in% c("clean", "lev")) %>% 
+    magrittr::use_series(varName)     
+  
+  # Prepare the training data
+  features_train_propNeg <- vtreat::prepare(treatplan_propNeg, dML_propNeg, varRestriction = new_vars_propNeg) %>% as.matrix()
+  response_train_propNeg <- dML_propNeg$propNeg
+  
+  # create hyperparameter grid
+  hyper_grid_propNeg <- expand.grid(
+    eta = c(.01, .05, .1, .3),
+    max_depth = c(1, 3, 5, 7),
+    min_child_weight = c(1, 3, 5, 7),
+    subsample = c(.65, .8, 1),
+    colsample_bytree = c(.8, .9, 1),
+    optimal_trees = 0,               # a place to dump results
+    min_RMSE = 0                     # a place to dump results
+  )
+
+  # reproducibility
+    set.seed(123)
+  #   
+  # grid search
+  for(i in 1:nrow(hyper_grid_propNeg)) {
+    print(paste0(i, " out of ", nrow(hyper_grid_propNeg)))
+    # create parameter list
+    params_propNeg <- list(
+      eta = hyper_grid_propNeg$eta[i],
+      max_depth = hyper_grid_propNeg$max_depth[i],
+      min_child_weight = hyper_grid_propNeg$min_child_weight[i],
+      subsample = hyper_grid_propNeg$subsample[i],
+      colsample_bytree = hyper_grid_propNeg$colsample_bytree[i]
+    )
+  
+  
+    # train model
+    xgb.tune_propNeg <- xgb.cv(
+      params = params_propNeg,
+      data = features_train_propNeg,
+      label = response_train_propNeg,
+      nrounds = 100000,
+      nfold = 5,
+      objective = "reg:squarederror", #"reg:linear",  # for regression models
+      verbose = 0,               # silent,
+      early_stopping_rounds = 20 # stop if no improvement for 10 consecutive trees
+    )
+  
+    # add min training error and trees to grid
+    hyper_grid_propNeg$optimal_trees[i] <- which.min(xgb.tune_propNeg$evaluation_log$test_rmse_mean)
+    hyper_grid_propNeg$min_RMSE[i] <- min(xgb.tune_propNeg$evaluation_log$test_rmse_mean)
+  }
+  
+  return(hyper_grid_propNeg |> arrange(min_RMSE))
+}
+#   
+# > #     eta max_depth min_child_weight subsample colsample_bytree optimal_trees  min_RMSE
+# > # 1  0.10         1                7      0.80              0.9            57 0.1833918
+# > # 2  0.10         3                3      1.00              1.0            52 0.1835447
+# > # 3  0.05         3                1      0.65              0.9            88 0.1849762
+# > # 4  0.01         3                7      1.00              0.9           514 0.1853950
+# > # 5  0.30         5                1      0.80              1.0            17 0.1854102
+# > # 6  0.01         3                3      0.65              0.8           438 0.1854346
+# > # 7  0.30         5                1      1.00              0.9            14 0.1856684
+# > # 8  0.01         1                3      0.65              0.9           560 0.1857717
+# > # 9  0.30         3                1      1.00              1.0            13 0.1859183
+# > # 10 0.30         3                3      0.65              0.8            21 0.1860299
+# > # 11 0.05         7                3      0.80              0.8           123 0.1860336
+# > # 12 0.01         3                5      0.80              1.0           512 0.1861016
+# > # 13 0.10         3                7      0.65              1.0            45 0.1861042
+# > # 14 0.10         3                5      1.00              1.0            55 0.1861160
+# # > # 15 0.10         1                1      1.00              0.9           179 0.1861891
+```
+
+
+### Function to run models
 
 ```{r}
 #| label: xgBoostPropNegFunction
 
 # http://uc-r.github.io/gbm_regression
-runXGB <- function(d = propNegSRsN, vars = c("speciesGG", "riverGG", "year", "mT", "mF_log10", "nInd", "propNeg"), nRoundsIn = 100000) {
+runXGB <- function(d = propNegSRsN, vars = c("speciesGG", "riverGG", "year", "mT", "mF_log10", "nInd", "propNeg"), nRoundsIn = 100000, params = params_propNegIn) {
   
   set.seed(123)
   
@@ -1255,12 +1351,12 @@ runXGB <- function(d = propNegSRsN, vars = c("speciesGG", "riverGG", "year", "mT
   ##### Run model
   # parameter list - from the top model of the grid search above
   params_propNeg <- list(
-    eta = 0.01,
-    max_depth = 1,
-    min_child_weight = 7,
-    subsample = 0.8,
-    colsample_bytree = 0.9
-    #optimal_trees = 57
+    eta = params$eta, #0.01,
+    max_depth = params$max_depth, #1,
+    min_child_weight = params$min_child_weight, #7,
+    subsample = params$subsample, #0.8,
+    colsample_bytree = params$colsample_bytree, #0.9
+    optimal_trees = params$optimal_trees
   )
   
   # train final model
@@ -1289,13 +1385,23 @@ runXGB <- function(d = propNegSRsN, vars = c("speciesGG", "riverGG", "year", "mT
 
 ```
 
-#### Brook trout
+
+### Brook trout
 ```{r}
 #| label: runXGB_BKT
 
+# hpPropNegBKT <- runHyperparamSearch(
+#   d = propNegSRsN |>  filter(speciesGG == "Brook trout", year > 2001),
+#   vars = c("riverGG", "year", "mT", "mF_log10", "nInd", "propNeg")
+# )
+# save(hpPropNegBKT, file = "./data/out/hyperParam/hpPropNegBKT.RData")
+load("./data/out/hyperParam/hpPropNegBKT.RData")
+hpPropNegBKT[1:10,]
+
 propNegBKT <- runXGB(
   d = propNegSRsN |>  filter(speciesGG == "Brook trout", year > 2001),
-  vars = c("riverGG", "year", "mT", "mF_log10", "nInd", "propNeg")
+  vars = c("riverGG", "year", "mT", "mF_log10", "nInd", "propNeg"),
+  params = hpPropNegBKT[1,]
 )
 
 propNegBKT$xgb$best_iteration
@@ -1370,11 +1476,13 @@ pYear_propNegDataBKT <- propNegBKT$xgb %>%
 
 all_propNegDataBKT <- bind_rows(pFlow_propNegDataBKT, pMT_propNegDataBKT, pNInd_propNegDataBKT, pYear_propNegDataBKT)
 
-ggplot(all_propNegDataBKT, aes(xScaled, yhat, color = var)) +
+(
+all_propNegDataBKT_gg <- ggplot(all_propNegDataBKT, aes(xScaled, yhat, color = var)) +
   #geom_point(alpha = 0.2) +
   geom_smooth(se = FALSE) +
   theme_publication() +
   labs(y = "Effect on proportion of negative observations", x = "Scaled value")
+)
 
 ##################################################################
 # All river on one graph
@@ -1422,14 +1530,23 @@ plot(partial_dep(propNegBKT$xgb, v = "mF_log10", X = propNegBKT$features_train, 
 ##################################################################
 ```
 
-#### Brown trout
+### Brown trout
 ```{r}
 #| label: runXGB_BNT
+# hpPropNegBNT <- runHyperparamSearch(
+#   d = propNegSRsN |>  filter(speciesGG == "Brown trout", year > 2001),
+#   vars = c("riverGG", "year", "mT", "mF_log10", "nInd", "propNeg")
+# )
+# save(hpPropNegBNT, file = "./data/out/hyperParam/hpPropNegBNT.RData")
+load("./data/out/hyperParam/hpPropNegBNT.RData")
+hpPropNegBNT[1:10,]
+
 
 propNegBNT <- runXGB(
   d = propNegSRsN |>  filter(speciesGG == "Brown trout", year > 2001),
   vars = c("riverGG", "year", "mT", "mF_log10", "nInd", "propNeg"),
-  nRoundsIn = 150000
+  nRoundsIn = 150000,
+  params = hpPropNegBNT[1,]
 )
 
 propNegBNT$xgb$best_iteration
@@ -1503,12 +1620,14 @@ pYear_propNegDataBNT <- propNegBNT$xgb %>%
 
 all_propNegDataBNT <- bind_rows(pFlow_propNegDataBNT, pMT_propNegDataBNT, pNInd_propNegDataBNT, pYear_propNegDataBNT)
 
-ggplot(all_propNegDataBNT, aes(xScaled, yhat, color = var)) +
-  #geom_point(alpha = 0.2) +
-  geom_smooth(se = FALSE) +
-  theme_publication() +
-  labs(y = "Effect on proportion of negative observations", x = "Scaled value")
-
+(
+all_propNegDataBNT_gg <- 
+  ggplot(all_propNegDataBNT, aes(xScaled, yhat, color = var)) +
+    #geom_point(alpha = 0.2) +
+    geom_smooth(se = FALSE) +
+    theme_publication() +
+    labs(y = "Effect on proportion of negative observations", x = "Scaled value")
+)
 ##################################################################
 # All river on one graph
 partialWBBNT <- propNegBNT$xgb %>%
@@ -1551,16 +1670,25 @@ plot(partial_dep(propNegBNT$xgb, v = "mF_log10", X = propNegBNT$features_train, 
 ##################################################################
 ```
 
-#### Atlantic salmon
+### Atlantic salmon
 ```{r}
 #| label: runXGB_ATS
+
+# hpPropNegATS <- runHyperparamSearch(
+#   d = propNegSRsN |>  filter(speciesGG == "Atlantic salmon", riverGG == "West Brook", year < 2007),
+#   vars = c("year", "mT", "mF_log10", "nInd", "propNeg")
+# )
+# save(hpPropNegATS, file = "./data/out/hyperParam/hpPropNegATS.RData")
+load("./data/out/hyperParam/hpPropNegATS.RData")
+hpPropNegATS[1:10,]
 
 propNegSRsN |> filter(speciesGG == "Atlantic salmon") |> 
   ggplot(aes(year, n, color = seasonGG)) + geom_line() + facet_wrap(~riverGG)
 
 propNegATS <- runXGB(
   d = propNegSRsN |> filter(speciesGG == "Atlantic salmon", riverGG == "West Brook", year < 2007),
-  vars = c("year", "mT", "mF_log10", "nInd", "propNeg")
+  vars = c("year", "mT", "mF_log10", "nInd", "propNeg"),
+  params = hpPropNegATS[1,]
 )
 
 propNegATS$xgb$best_iteration
@@ -1634,12 +1762,14 @@ pYear_propNegDataATS <- propNegATS$xgb %>%
 
 all_propNegDataATS <- bind_rows(pFlow_propNegDataATS, pMT_propNegDataATS, pNInd_propNegDataATS, pYear_propNegDataATS)
 
+(
+all_propNegDataATS_gg <- 
 ggplot(all_propNegDataATS, aes(xScaled, yhat, color = var)) +
   #geom_point(alpha = 0.2) +
   geom_smooth(se = FALSE) +
   theme_publication() +
   labs(y = "Effect on proportion of negative observations", x = "Scaled value")
-
+)
 ### Interaction plots ##################################################################
 
 plot(partial_dep(propNegATS$xgb, v = "mT", X = propNegATS$features_train, BY = "mF_log10")) +
@@ -1654,7 +1784,7 @@ plot(partial_dep(propNegATS$xgb, v = "mF_log10", X = propNegATS$features_train, 
 ##################################################################
 ```
 
-#### 3 species together
+### 3 species together
 ```{r}
 #| label: threeSppVIP
 
@@ -1677,114 +1807,54 @@ ggplot(viAll |> filter(Feature %in% c("mF_log10", "mT", "nInd", "year")), aes(fe
   geom_col(position = "dodge") +
   theme_publication() +
   scale_fill_grey() +
-  labs(y = "Effoct on proportion of negative observations", x = "Variable")
+  labs(y = "Variable importance for the proportion of negative observations", x = "Variable")
 
 ########################################################
 
-all_propNegData3spp <- bind_rows(all_propNegDataBKT, all_propNegDataBNT, all_propNegDataATS)
+all_propNegData3spp <- bind_rows(all_propNegDataBKT, all_propNegDataBNT, all_propNegDataATS) |> 
+  mutate(sppOrdered = factor(speciesGG, levels = c("Brook Trout", "Brown Trout", "Atlantic Salmon"), ordered = TRUE))
 
-ggplot(all_propNegData3spp |> filter(var == "Flow"), aes(xScaled, yhat, color = speciesGG)) +
+all_propNegData3sppFlow_gg <- ggplot(all_propNegData3spp |> filter(var == "Flow"), aes(xScaled, yhat, color = sppOrdered, linetype = sppOrdered)) +
   #geom_point(alpha = 0.2) +
   geom_smooth(se = FALSE) +
   theme_publication() +
-  labs(y = "Effect on proportion of negative observations", x = "Scaled flow")
+    scale_color_grey() +
+  labs(y = "Effect on proportion of negative observations", x = "Scaled flow") +
+  theme(legend.position = "none")  
 
 
-ggplot(all_propNegData3spp |> filter(var == "Temperature"), aes(xScaled, yhat, color = speciesGG)) +
+all_propNegData3sppTemp_gg <- ggplot(all_propNegData3spp |> filter(var == "Temperature"), aes(xScaled, yhat, color = sppOrdered, linetype = sppOrdered)) +
   #geom_point(alpha = 0.2) +
   geom_smooth(se = FALSE) +
   theme_publication() +
-  labs(y = "Effect on proportion of negative observations", x = "Scaled temperature")
+    scale_color_grey() +
+  labs(y = NULL, x = "Scaled temperature") +
+  theme(legend.position = "none")  
 
-ggplot(all_propNegData3spp |> filter(var == "Num inds"), aes(xScaled, yhat, color = speciesGG)) +
+all_propNegData3sppNInd_gg <- ggplot(all_propNegData3spp |> filter(var == "Num inds"), aes(xScaled, yhat, color = sppOrdered, linetype = sppOrdered)) +
   #geom_point(alpha = 0.2) +
   geom_smooth(se = FALSE) +
   theme_publication() +
-  labs(y = "Effect on proportion of negative observations", x = "Scaled Number of individuals")
+    scale_color_grey() +
+  labs(y = "Effect on proportion of negative observations", x = "Scaled Number of individuals") +
+  theme(legend.position = "none")  
 
-ggplot(all_propNegData3spp |> filter(var == "Year"), aes(xScaled, yhat, color = speciesGG)) +
+all_propNegData3sppYear_gg <- ggplot(all_propNegData3spp |> filter(var == "Year"), aes(year, yhat, color = sppOrdered, linetype = sppOrdered)) +
   #geom_point(alpha = 0.2) +
   geom_smooth(se = FALSE) +
   theme_publication() +
-  labs(y = "Effect on proportion of negative observations", x = "Scaled year")
+  scale_color_grey() +
+  labs(y = NULL, x = "Year") +
+  theme(legend.position = "none")  
 
+gridExtra::grid.arrange(all_propNegData3sppFlow_gg, 
+                        all_propNegData3sppTemp_gg,
+                        all_propNegData3sppNInd_gg,
+                        all_propNegData3sppYear_gg)
 #######################################
 
 ```
 
-#### Hyperparameter search grid
-
-```{r}
-#| label: runML_HP_propNeg
-
-
-# create hyperparameter grid
-hyper_grid_propNeg <- expand.grid(
-  eta = c(.01, .05, .1, .3),
-  max_depth = c(1, 3, 5, 7),
-  min_child_weight = c(1, 3, 5, 7),
-  subsample = c(.65, .8, 1), 
-  colsample_bytree = c(.8, .9, 1),
-  optimal_trees = 0,               # a place to dump results
-  min_RMSE = 0                     # a place to dump results
-)
-nrow(hyper_grid_propNeg)
-
-  
-# reproducibility
-  set.seed(123)
-#   
-# # grid search 
-# for(i in 1:nrow(hyper_grid_propNeg)) {
-#   print(i)
-#   # create parameter list
-#   params_propNeg <- list(
-#     eta = hyper_grid_propNeg$eta[i],
-#     max_depth = hyper_grid_propNeg$max_depth[i],
-#     min_child_weight = hyper_grid_propNeg$min_child_weight[i],
-#     subsample = hyper_grid_propNeg$subsample[i],
-#     colsample_bytree = hyper_grid_propNeg$colsample_bytree[i]
-#   )
-# 
-# 
-#   # train model
-#   xgb.tune_propNeg <- xgb.cv(
-#     params = params_propNeg,
-#     data = features_train_propNeg,
-#     label = response_train_propNeg,
-#     nrounds = 5000,
-#     nfold = 5,
-#     objective = "reg:squarederror", #"reg:linear",  # for regression models
-#     verbose = 0,               # silent,
-#     early_stopping_rounds = 20 # stop if no improvement for 10 consecutive trees
-#   )
-# 
-#   # add min training error and trees to grid
-#   hyper_grid_propNeg$optimal_trees[i] <- which.min(xgb.tune_propNeg$evaluation_log$test_rmse_mean)
-#   hyper_grid_propNeg$min_RMSE[i] <- min(xgb.tune_propNeg$evaluation_log$test_rmse_mean)
-# }
-# 
-# hyper_grid_propNeg %>%
-#   dplyr::arrange(min_RMSE) %>%
-#   head(15)
-#   
-# > #     eta max_depth min_child_weight subsample colsample_bytree optimal_trees  min_RMSE
-# > # 1  0.10         1                7      0.80              0.9            57 0.1833918
-# > # 2  0.10         3                3      1.00              1.0            52 0.1835447
-# > # 3  0.05         3                1      0.65              0.9            88 0.1849762
-# > # 4  0.01         3                7      1.00              0.9           514 0.1853950
-# > # 5  0.30         5                1      0.80              1.0            17 0.1854102
-# > # 6  0.01         3                3      0.65              0.8           438 0.1854346
-# > # 7  0.30         5                1      1.00              0.9            14 0.1856684
-# > # 8  0.01         1                3      0.65              0.9           560 0.1857717
-# > # 9  0.30         3                1      1.00              1.0            13 0.1859183
-# > # 10 0.30         3                3      0.65              0.8            21 0.1860299
-# > # 11 0.05         7                3      0.80              0.8           123 0.1860336
-# > # 12 0.01         3                5      0.80              1.0           512 0.1861016
-# > # 13 0.10         3                7      0.65              1.0            45 0.1861042
-# > # 14 0.10         3                5      1.00              1.0            55 0.1861160
-# # > # 15 0.10         1                1      1.00              0.9           179 0.1861891
-```
 
 ## F/T cycle graphs
 
