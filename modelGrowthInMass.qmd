@@ -1387,7 +1387,7 @@ runXGB <- function(d = propNegSRsN, vars = c("speciesGG", "riverGG", "year", "mT
 
 ### Brook trout
 ```{r}
-#| label: runXGB_BKT_test
+#| label: runXGB_BKT1
 
 #### uncomment to run hyperparameter search grid
 # hpPropNegBKT <- runHyperparamSearch(
@@ -1689,21 +1689,19 @@ plot(partial_dep(propNegBNT$xgb, v = "mF_log10", X = propNegBNT$features_train, 
 #   early_stopping_roundsIn = 250
 # )
 # save(hpPropNegATS, file = "./data/out/hyperParam/hpPropNegATS_250.RData")
-#load("./data/out/hyperParam/hpPropNegATS_250.RData")
-
-load("./data/out/hyperParam/hpPropNegATS.RData")
+load("./data/out/hyperParam/hpPropNegATS_250.RData")
 hpPropNegATS[1:10,]
 
 propNegSRsN |> filter(speciesGG == "Atlantic salmon") |> 
   ggplot(aes(year, n, color = seasonGG)) + geom_line() + facet_wrap(~riverGG)
 
-propNegATS <- runXGB(
-  d = propNegSRsN |> filter(speciesGG == "Atlantic salmon", riverGG == "West Brook", year < 2007),
-  vars = c("year", "mT", "mF_log10", "nInd", "propNeg"),
-  params = hpPropNegATS[1,]
-)
+# propNegATS <- runXGB(
+#   d = propNegSRsN |> filter(speciesGG == "Atlantic salmon", riverGG == "West Brook", year < 2007),
+#   vars = c("year", "mT", "mF_log10", "nInd", "propNeg"),
+#   params = hpPropNegATS[1,]
+# )
 # save(propNegATS, file = "./data/out/hyperParam/XGBpropNegATS_250.RData")
-#load("./data/out/hyperParam/XGBpropNegATS_250.RData")
+load("./data/out/hyperParam/XGBpropNegATS_250.RData")
 
 propNegATS$xgb$best_iteration
 propNegATS$xgb$best_score
