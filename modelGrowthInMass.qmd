@@ -1226,7 +1226,7 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(nIndBySpp, pr
 ```{r}
 #| label: runML_HP_propNeg
 
-runHyperparamSearch <- function(d = propNegSRsN, vars = c("speciesGG", "riverGG", "year", "mT", "mF_log10", "nInd", "propNeg"), nRoundsIn = 100000) {
+runHyperparamSearch <- function(d = propNegSRsN, vars = c("speciesGG", "riverGG", "year", "mT", "mF_log10", "nInd", "propNeg"), nRoundsIn = 100000, early_stopping_roundsIn = 500) {
   
   set.seed(123)
   
@@ -1285,7 +1285,7 @@ runHyperparamSearch <- function(d = propNegSRsN, vars = c("speciesGG", "riverGG"
       nfold = 5,
       objective = "reg:squarederror", #"reg:linear",  # for regression models
       verbose = 0,               # silent,
-      early_stopping_rounds = 20 # stop if no improvement for 10 consecutive trees
+      early_stopping_rounds = early_stopping_roundsIn # stop if no improvement for x consecutive trees
     )
   
     # add min training error and trees to grid
@@ -1323,7 +1323,7 @@ runHyperparamSearch <- function(d = propNegSRsN, vars = c("speciesGG", "riverGG"
 # http://uc-r.github.io/gbm_regression
 runXGB <- function(d = propNegSRsN, vars = c("speciesGG", "riverGG", "year", "mT", "mF_log10", "nInd", "propNeg"), nRoundsIn = 100000, params = params_propNegIn) {
   
-  set.seed(123)
+  set.seed(125)
   
   dML_propNeg <- d |> 
     dplyr::select(all_of(vars)) 
@@ -1355,8 +1355,8 @@ runXGB <- function(d = propNegSRsN, vars = c("speciesGG", "riverGG", "year", "mT
     max_depth = params$max_depth, #1,
     min_child_weight = params$min_child_weight, #7,
     subsample = params$subsample, #0.8,
-    colsample_bytree = params$colsample_bytree, #0.9
-    optimal_trees = params$optimal_trees
+    colsample_bytree = params$colsample_bytree #0.9
+   # optimal_trees = params$optimal_trees
   )
   
   # train final model
@@ -1366,8 +1366,8 @@ runXGB <- function(d = propNegSRsN, vars = c("speciesGG", "riverGG", "year", "mT
     label = response_train_propNeg,
     nrounds = nRoundsIn,
     objective = "reg:squarederror",
-    verbose = 0,
-    early_stopping_rounds = 20 # stop if no improvement for 20 consecutive trees
+    verbose = 1,
+    early_stopping_rounds = 250 # stop if no improvement for 20 consecutive trees
   )
   
 
@@ -1392,17 +1392,20 @@ runXGB <- function(d = propNegSRsN, vars = c("speciesGG", "riverGG", "year", "mT
 
 # hpPropNegBKT <- runHyperparamSearch(
 #   d = propNegSRsN |>  filter(speciesGG == "Brook trout", year > 2001),
-#   vars = c("riverGG", "year", "mT", "mF_log10", "nInd", "propNeg")
+#   vars = c("riverGG", "year", "mT", "mF_log10", "nInd", "propNeg"),
+#   early_stopping_roundsIn = 250
 # )
-# save(hpPropNegBKT, file = "./data/out/hyperParam/hpPropNegBKT.RData")
-load("./data/out/hyperParam/hpPropNegBKT.RData")
+# save(hpPropNegBKT, file = "./data/out/hyperParam/hpPropNegBKT_250.RData")
+load("./data/out/hyperParam/hpPropNegBKT_250.RData")
 hpPropNegBKT[1:10,]
 
-propNegBKT <- runXGB(
-  d = propNegSRsN |>  filter(speciesGG == "Brook trout", year > 2001),
-  vars = c("riverGG", "year", "mT", "mF_log10", "nInd", "propNeg"),
-  params = hpPropNegBKT[1,]
-)
+# propNegBKT <- runXGB(
+#   d = propNegSRsN |>  filter(speciesGG == "Brook trout", year > 2001),
+#   vars = c("riverGG", "year", "mT", "mF_log10", "nInd", "propNeg"),
+#   params = hpPropNegBKT[1,]
+# )
+# save(propNegBKT, file = "./data/out/hyperParam/XGBpropNegBKT_250.RData")
+load("./data/out/hyperParam/XGBpropNegBKT_250.RData")
 
 propNegBKT$xgb$best_iteration
 propNegBKT$xgb$best_score
@@ -1445,7 +1448,7 @@ pYear_propNeg <- propNegBKT$xgb %>%
   autoplot(rug = TRUE, train = propNegBKT$features_train) +
   geom_smooth(se = FALSE)
 
-gridExtra::grid.arrange(pFlow_propNeg, pTemp_propNeg, pNInd_propNeg, pYear_propNeg, nrow = 3)
+gridExtra::grid.arrange(pFlow_propNeg, pTemp_propNeg, pNInd_propNeg, pYear_propNeg, nrow = 2)
 
 ##################################################################
 # all on one graph
@@ -1533,21 +1536,25 @@ plot(partial_dep(propNegBKT$xgb, v = "mF_log10", X = propNegBKT$features_train, 
 ### Brown trout
 ```{r}
 #| label: runXGB_BNT
+#| 
 # hpPropNegBNT <- runHyperparamSearch(
 #   d = propNegSRsN |>  filter(speciesGG == "Brown trout", year > 2001),
-#   vars = c("riverGG", "year", "mT", "mF_log10", "nInd", "propNeg")
+#   vars = c("riverGG", "year", "mT", "mF_log10", "nInd", "propNeg"),
+#   early_stopping_roundsIn = 250
 # )
-# save(hpPropNegBNT, file = "./data/out/hyperParam/hpPropNegBNT.RData")
-load("./data/out/hyperParam/hpPropNegBNT.RData")
+# save(hpPropNegBNT, file = "./data/out/hyperParam/hpPropNegBNT_250.RData")
+load("./data/out/hyperParam/hpPropNegBNT_250.RData")
 hpPropNegBNT[1:10,]
 
 
-propNegBNT <- runXGB(
-  d = propNegSRsN |>  filter(speciesGG == "Brown trout", year > 2001),
-  vars = c("riverGG", "year", "mT", "mF_log10", "nInd", "propNeg"),
-  nRoundsIn = 150000,
-  params = hpPropNegBNT[1,]
-)
+# propNegBNT <- runXGB(
+#   d = propNegSRsN |>  filter(speciesGG == "Brown trout", year > 2001),
+#   vars = c("riverGG", "year", "mT", "mF_log10", "nInd", "propNeg"),
+#   nRoundsIn = 150000,
+#   params = hpPropNegBNT[1,]
+# )
+# save(propNegBNT, file = "./data/out/hyperParam/XGBpropNegBNT_250.RData")
+load("./data/out/hyperParam/XGBpropNegBNT_250.RData")
 
 propNegBNT$xgb$best_iteration
 propNegBNT$xgb$best_score
@@ -1589,10 +1596,10 @@ pYear_propNeg <- propNegBNT$xgb %>%
   autoplot(rug = TRUE, train = propNegBNT$features_train) +
   geom_smooth(se = FALSE)
 
-gridExtra::grid.arrange(pFlow_propNeg, pTemp_propNeg, pNInd_propNeg, pYear_propNeg, nrow = 3)
+gridExtra::grid.arrange(pFlow_propNeg, pTemp_propNeg, pNInd_propNeg, pYear_propNeg, nrow = 2)
 
 ##################################################################
-# all on one graph
+# all partials on one graph
 pFlow_propNegDataBNT <- propNegBNT$xgb %>%
   pdp::partial(pred.var = "mF_log10", n.trees = 1082, grid.resolution = 100, train = propNegBNT$features_train) |> 
   mutate(xScaled = (mF_log10-mean(mF_log10))/sd(mF_log10),
@@ -1676,10 +1683,13 @@ plot(partial_dep(propNegBNT$xgb, v = "mF_log10", X = propNegBNT$features_train, 
 
 # hpPropNegATS <- runHyperparamSearch(
 #   d = propNegSRsN |>  filter(speciesGG == "Atlantic salmon", riverGG == "West Brook", year < 2007),
-#   vars = c("year", "mT", "mF_log10", "nInd", "propNeg")
+#   vars = c("year", "mT", "mF_log10", "nInd", "propNeg"),
+#   early_stopping_roundsIn = 250
 # )
-# save(hpPropNegATS, file = "./data/out/hyperParam/hpPropNegATS.RData")
-load("./data/out/hyperParam/hpPropNegATS.RData")
+# save(hpPropNegATS, file = "./data/out/hyperParam/hpPropNegATS_250.RData")
+load("./data/out/hyperParam/hpPropNegATS_250.RData")
+
+#load("./data/out/hyperParam/hpPropNegATS.RData")
 hpPropNegATS[1:10,]
 
 propNegSRsN |> filter(speciesGG == "Atlantic salmon") |> 
@@ -1690,6 +1700,8 @@ propNegATS <- runXGB(
   vars = c("year", "mT", "mF_log10", "nInd", "propNeg"),
   params = hpPropNegATS[1,]
 )
+# save(propNegATS, file = "./data/out/hyperParam/XGBpropNegATS_250.RData")
+#load("./data/out/hyperParam/XGBpropNegATS_250.RData")
 
 propNegATS$xgb$best_iteration
 propNegATS$xgb$best_score
@@ -1731,7 +1743,7 @@ pYear_propNegATS <- propNegATS$xgb %>%
   autoplot(rug = TRUE, train = propNegATS$features_train) +
   geom_smooth(se = FALSE)
 
-gridExtra::grid.arrange(pFlow_propNegATS, pTemp_propNegATS, pNInd_propNegATS, pYear_propNegATS, nrow = 3)
+gridExtra::grid.arrange(pFlow_propNegATS, pTemp_propNegATS, pNInd_propNegATS, pYear_propNegATS, nrow = 2)
 
 ##################################################################
 # all on one graph
@@ -1850,7 +1862,7 @@ all_propNegData3sppYear_gg <- ggplot(all_propNegData3spp |> filter(var == "Year"
 gridExtra::grid.arrange(all_propNegData3sppFlow_gg, 
                         all_propNegData3sppTemp_gg,
                         all_propNegData3sppNInd_gg,
-                        all_propNegData3sppYear_gg)
+                        all_propNegData3sppYear_gg)# + labs(y = "Effect on proportion of negative observations")
 #######################################
 
 ```
