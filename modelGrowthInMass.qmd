@@ -1366,7 +1366,7 @@ runXGB <- function(d = propNegSRsN, vars = c("speciesGG", "riverGG", "year", "mT
     label = response_train_propNeg,
     nrounds = nRoundsIn,
     objective = "reg:squarederror",
-    verbose = 1,
+    verbose = 0,
     early_stopping_rounds = 250 # stop if no improvement for 20 consecutive trees
   )
   
@@ -1385,11 +1385,11 @@ runXGB <- function(d = propNegSRsN, vars = c("speciesGG", "riverGG", "year", "mT
 
 ```
 
-
 ### Brook trout
 ```{r}
-#| label: runXGB_BKT
+#| label: runXGB_BKT_test
 
+#### uncomment to run hyperparameter search grid
 # hpPropNegBKT <- runHyperparamSearch(
 #   d = propNegSRsN |>  filter(speciesGG == "Brook trout", year > 2001),
 #   vars = c("riverGG", "year", "mT", "mF_log10", "nInd", "propNeg"),
@@ -1399,6 +1399,7 @@ runXGB <- function(d = propNegSRsN, vars = c("speciesGG", "riverGG", "year", "mT
 load("./data/out/hyperParam/hpPropNegBKT_250.RData")
 hpPropNegBKT[1:10,]
 
+#### uncomment to run XGBoost
 # propNegBKT <- runXGB(
 #   d = propNegSRsN |>  filter(speciesGG == "Brook trout", year > 2001),
 #   vars = c("riverGG", "year", "mT", "mF_log10", "nInd", "propNeg"),
@@ -1415,12 +1416,13 @@ viBKT <- xgb.importance(model = propNegBKT$xgb)
 xgb.plot.importance(viBKT, top_n = 10, measure = "Gain")
 
 ####################################################################
-#s_propNegBKT <- hstats(propNegBKT$xgb, v = propNegBKT$new_vars, X = propNegBKT$features_train)
-# s_propNegBKT
-# plot(s_propNegBKT)
+s_propNegBKT <- hstats(propNegBKT$xgb, v = propNegBKT$new_vars, X = propNegBKT$features_train)
+s_propNegBKT
+plot(s_propNegBKT)
 # 
 # # top 5 2-way interactions
 # h2_pairwise(s_propNegBKT, normalize = FALSE, squared = FALSE, top_m = 8)
+plot(s_propNegBKT, which = 1:2, normalize = F, squared = F, facet_scales = "free_y", ncol = 1)
 # 
 # # 3-way interactions
 # plot(s_propNegBKT, which = 1:3, normalize = F, squared = F, facet_scales = "free_y", ncol = 1)
@@ -1687,9 +1689,9 @@ plot(partial_dep(propNegBNT$xgb, v = "mF_log10", X = propNegBNT$features_train, 
 #   early_stopping_roundsIn = 250
 # )
 # save(hpPropNegATS, file = "./data/out/hyperParam/hpPropNegATS_250.RData")
-load("./data/out/hyperParam/hpPropNegATS_250.RData")
+#load("./data/out/hyperParam/hpPropNegATS_250.RData")
 
-#load("./data/out/hyperParam/hpPropNegATS.RData")
+load("./data/out/hyperParam/hpPropNegATS.RData")
 hpPropNegATS[1:10,]
 
 propNegSRsN |> filter(speciesGG == "Atlantic salmon") |> 
