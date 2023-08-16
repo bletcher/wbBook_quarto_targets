@@ -68,6 +68,28 @@ modelGrowthInMass_target <-
         n = n()
       ),
     
+    negGr_beforeLastMean_target = cd1_target |> 
+      filter(!is.na(negGrowth)) |> 
+      group_by(speciesGG, riverGG, seasonGG, negGrowth) |> 
+      summarize(
+        meanGR = mean(grWeight, na.rm = TRUE),
+        sdGR = sd(grWeight, na.rm = TRUE),
+        meanSamplesBeforeLast = mean(samplesBeforeLast, na.rm = TRUE),
+        sdSamplesBeforeLast = sd(samplesBeforeLast, na.rm = TRUE),
+        n = n()
+      ),
+    
+    negGr_beforeLastMean_year_target = cd1_target |> 
+      filter(!is.na(negGrowth)) |> 
+      group_by(speciesGG, riverGG, seasonGG, year, negGrowth) |> 
+      summarize(
+        meanGR = mean(grWeight, na.rm = TRUE),
+        sdGR = sd(grWeight, na.rm = TRUE),
+        meanSamplesBeforeLast = mean(samplesBeforeLast, na.rm = TRUE),
+        sdSamplesBeforeLast = sd(samplesBeforeLast, na.rm = TRUE),
+        n = n()
+      ),
+    
     dGAM_target = cd1_target |> 
       filter(!is.na(grWeight)) |> 
       mutate(age = year - cohort,

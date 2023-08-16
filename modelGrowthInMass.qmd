@@ -95,6 +95,7 @@ flow/temp circles with gr on top
 #| cache: false
 library(targets)
 cd <- tar_read(cdWB_electro_target) # raw data
+
 cd1 <- tar_read(cd1_target) # from modelGrowthInMass_target
 propNegSRS <- tar_read(propNegSRS_target)
 propNegSRsN <- tar_read(propNegSRsN_target)
@@ -104,6 +105,8 @@ indCounts <- tar_read(indCounts_target)
 propNegLabels <- tar_read(propNegLabels_target)
 
 negGr_beforeLast <- tar_read(negGr_beforeLast_target)
+negGr_beforeLastMean <- tar_read(negGr_beforeLastMean_target)
+negGr_beforeLastMean_year <- tar_read(negGr_beforeLastMean_year_target)
 
 meanNegSRsN <- tar_read(meanNegSRsN_target)
 meanNegSRsNWide <- tar_read(meanNegSRsNWide_target)
@@ -1828,16 +1831,16 @@ all_propNegData3spp <- bind_rows(all_propNegDataBKT, all_propNegDataBNT, all_pro
 
 all_propNegData3sppFlow_gg <- ggplot(all_propNegData3spp |> filter(var == "Flow"), aes(xScaled, yhat, color = sppOrdered, linetype = sppOrdered)) +
   #geom_point(alpha = 0.2) +
-  geom_smooth(se = FALSE) +
+  geom_smooth(se = FALSE, linewidth = 1.5) +
   theme_publication() +
     scale_color_grey() +
-  labs(y = "Effect on proportion of negative observations", x = "Scaled flow") +
+  labs(y = NULL, x = "Scaled flow") +
   theme(legend.position = "none")  
 
 
 all_propNegData3sppTemp_gg <- ggplot(all_propNegData3spp |> filter(var == "Temperature"), aes(xScaled, yhat, color = sppOrdered, linetype = sppOrdered)) +
   #geom_point(alpha = 0.2) +
-  geom_smooth(se = FALSE) +
+  geom_smooth(se = FALSE, linewidth = 1.5) +
   theme_publication() +
     scale_color_grey() +
   labs(y = NULL, x = "Scaled temperature") +
@@ -1845,24 +1848,27 @@ all_propNegData3sppTemp_gg <- ggplot(all_propNegData3spp |> filter(var == "Tempe
 
 all_propNegData3sppNInd_gg <- ggplot(all_propNegData3spp |> filter(var == "Num inds"), aes(xScaled, yhat, color = sppOrdered, linetype = sppOrdered)) +
   #geom_point(alpha = 0.2) +
-  geom_smooth(se = FALSE) +
+  geom_smooth(se = FALSE, linewidth = 1.5) +
   theme_publication() +
     scale_color_grey() +
-  labs(y = "Effect on proportion of negative observations", x = "Scaled Number of individuals") +
+  labs(y = NULL, x = "Scaled Number of individuals") +
   theme(legend.position = "none")  
 
 all_propNegData3sppYear_gg <- ggplot(all_propNegData3spp |> filter(var == "Year"), aes(year, yhat, color = sppOrdered, linetype = sppOrdered)) +
   #geom_point(alpha = 0.2) +
-  geom_smooth(se = FALSE) +
+  geom_smooth(se = FALSE, linewidth = 1.5) +
   theme_publication() +
   scale_color_grey() +
   labs(y = NULL, x = "Year") +
   theme(legend.position = "none")  
 
-gridExtra::grid.arrange(all_propNegData3sppFlow_gg, 
-                        all_propNegData3sppTemp_gg,
-                        all_propNegData3sppNInd_gg,
-                        all_propNegData3sppYear_gg)# + labs(y = "Effect on proportion of negative observations")
+gridExtra::grid.arrange(
+  all_propNegData3sppFlow_gg, 
+  all_propNegData3sppTemp_gg,
+  all_propNegData3sppNInd_gg,
+  all_propNegData3sppYear_gg,
+  left = textGrob(expression(bold("Effect on proportion of negative observations")), rot = 90, gp = gpar(fontsize = 16))
+)
 #######################################
 
 ```
@@ -2324,13 +2330,88 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Isolated Small", "
 
 ## Consequences of negative growth
 
-### Growth and last observation
+### Growth and last observation  
+#### All years  
+Mean number of last observed sample as response variable
+```{r}
+#| label: negGrowth_samplesLeftMean
+
+plot_negGr_beforeLastMean <- function(sppIn) {
+  ggplot(negGr_beforeLastMean |> filter(speciesGG == sppIn, seasonGG != "Spring"), aes(negGrowth, meanSamplesBeforeLast, fill = negGrowth)) +
+    geom_col() +
+    theme_publication() +    
+    facet_grid(seasonGG~riverGG)    
+}
+
+plot_negGr_beforeLastMean("Brook trout")
+plot_negGr_beforeLastMean("Brown trout")
+plot_negGr_beforeLastMean("Atlantic salmon")
+
+  ggplot(negGr_beforeLastMean |> filter(speciesGG == "Brook trout", seasonGG != "Spring"), aes(meanGR, meanSamplesBeforeLast)) +
+    geom_point(aes(color = riverGG, shape = riverGG)) +
+    geom_line(aes(shape = riverGG, color = riverGG)) +
+    #geom_smooth(method = "lm", se = FALSE) +
+    theme_publication() +    
+    facet_wrap(~seasonGG, scales = "free")
+
+```
+
+#### By year
+```{r}
+#| label: negGrowth_samplesLeftMean_year
+
+  ggplot(negGr_beforeLastMean_year |> filter(n > 2, year > 2001, year < 2015, speciesGG == "Brook trout", seasonGG != "Spring"), aes(meanGR, meanSamplesBeforeLast)) +
+    geom_point(aes(color = riverGG, shape = riverGG)) +
+    geom_line(aes(shape = riverGG, color = riverGG)) +
+    #geom_smooth(method = "lm", se = FALSE) +
+    theme_publication() +    
+    facet_grid(seasonGG ~ year, scales = "free")
+
+```
+
+Split data by samplesBeforeLast = 1 and samplesBeforeLast > 1.  
+The graph
+```{r}
+#| label: negGrowth_samplesLeft01
+
+lastSampleGT1_data <-  cd1 |>
+  mutate(lastSampleGT1 = samplesBeforeLast > 1) |> 
+  filter(!is.na(negGrowth)) |> 
+  group_by(speciesGG, riverGG, seasonGG, lastSampleGT1) |> 
+  summarize(
+    meanGR = mean(grWeight, na.rm = TRUE),
+    sdGR = sd(grWeight, na.rm = TRUE),
+    meanSamplesBeforeLast = mean(samplesBeforeLast, na.rm = TRUE),
+    sdSamplesBeforeLast = sd(samplesBeforeLast, na.rm = TRUE),
+    ymax = meanGR + sdGR,
+    n = n()
+  )
+
+ #  ggplot(tmp |> filter(n > 2, speciesGG == "Brook trout"), aes(lastSampleGT1, meanGR)) +
+ #    geom_errorbar(aes(x = lastSampleGT1, ymin = meanGR, ymax = ymax), width = 0.2) +
+ #    geom_col() +
+ #    theme_publication() +    
+ #    facet_grid(riverGG~seasonGG , scales = "free")
+ #  
+ # ggplot(tmp |> filter(n > 2, speciesGG == "Brown trout"), aes(lastSampleGT1, meanGR)) +
+ #    geom_errorbar(aes(x = lastSampleGT1, ymin = meanGR, ymax = ymax), width = 0.2) +
+ #    geom_col() +
+ #    theme_publication() +    
+ #    facet_grid(riverGG~seasonGG , scales = "free")
+ 
+   ggplot(lastSampleGT1_data |> filter(n > 2, !is.na(lastSampleGT1)), aes(lastSampleGT1, meanGR, fill = speciesGG, color = speciesGG)) +
+    geom_errorbar(aes(x = lastSampleGT1, ymin = meanGR, ymax = ymax), width = 0.2, position = position_dodge(0.9)) +
+    geom_col(position = "dodge") +
+    theme_publication() +    
+    facet_grid(riverGG~seasonGG , scales = "free")
+
+```
 
 Relationship between individual growth and length of subsequent
 observations (how many more observations before the last observation)
 for individual fish.  
 
-Broken up by years  
+#### Broken up by years  
 ```{r}
 #| label: negGrowth_samplesLeft
 plotGrowthSamplesLeft <- function(d, spp, r){
@@ -2351,7 +2432,7 @@ plotGrowthSamplesLeft(cd1, "Brook trout", "Isolated Small")
 plotGrowthSamplesLeft(cd1, "Brown trout", "West Brook")
 ```
 
-All years  
+#### All years  
 ```{r}
 #| label: negGrowth_samplesLeftNoYear
 plotGrowthSamplesLeftNoYear <- function(d, spp, r){
@@ -2374,7 +2455,7 @@ plotGrowthSamplesLeftNoYear(cd1, "Brown trout", "West Brook")
 plotGrowthSamplesLeftNoYear(cd1, "Atlantic salmon", "West Brook")
 ```
 
-Break up by pos/neg growth  
+#### Break up by pos/neg growth  
 ```{r}
 #| label: negGrowth_means
 
@@ -2392,8 +2473,8 @@ plotGR_sampsBL(negGr_beforeLast, c("Brook trout","Brown trout", "Atlantic salmon
 
 
 plotGR_sampsBL2 <- function(d, spp, r) {
-  ggplot(d |> filter(n > 5, speciesGG %in% spp, riverGG %in% r), aes(meanGR, samplesBeforeLast, color = speciesGG)) + 
-    geom_point() +
+  ggplot(d |> filter(n > 5, speciesGG %in% spp, riverGG %in% r, !is.na(negGrowth)), aes(meanGR, samplesBeforeLast, color = speciesGG)) + 
+    geom_point(aes(size = n)) +
     geom_smooth(method = "lm", se = FALSE) +
     scale_color_discrete() +
     ggtitle(paste(spp, r, sep = ", ")) +

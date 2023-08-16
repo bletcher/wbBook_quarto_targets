@@ -45,7 +45,7 @@ modelYOY_target <-
     firstObs_Env_target = firstObsDates_target %>%
       rowwise() %>%
       mutate(
-        year = year(date),
+        year = lubridate::year(date),
         spawnDate = ymd(paste0(year,spawn_month,spawn_day)) - years(1),
         emergeDate = ymd(paste0(year,emerge_month,emerge_day)),
         oneMonthDate = date - days(as.integer(1 * 30.5)), #months(1), 'months gives error when prev month has 30 days and current has 31
