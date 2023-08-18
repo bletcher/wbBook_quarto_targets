@@ -976,7 +976,7 @@ ggplot(propNegSRS |> filter(n > 50), aes(seasonGG, propNeg, color = riverGG, gro
   labs(x = "Season", y = "Proportion of observations with negative growth in mass") +
   scale_color_discrete() +
   theme_publication() +  
-  theme(axis.text.x = element_text(angle = 360-45, vjust = 0, hjust = .5)) +
+  theme(axis.text.x = element_text(angle = 360-45, vjust = 0, hjust = 0.5)) +
   facet_wrap(~speciesGG)
 
 ```
@@ -2370,14 +2370,14 @@ plot_negGr_beforeLastMean("Atlantic salmon")
 ```
 
 Split data by samplesBeforeLast = 1 and samplesBeforeLast > 1.  
-The graph
+The graph shows mean growth for fish that were caught for the last time in the next sample or at some later sample
 ```{r}
 #| label: negGrowth_samplesLeft01
 
-lastSampleGT1_data <-  cd1 |>
-  mutate(lastSampleGT1 = samplesBeforeLast > 1) |> 
+numSamplesBeforeLastGT1_data <-  cd1 |>
+  mutate(numSamplesBeforeLastGT1 = samplesBeforeLast > 1) |> 
   filter(!is.na(negGrowth)) |> 
-  group_by(speciesGG, riverGG, seasonGG, lastSampleGT1) |> 
+  group_by(speciesGG, riverGG, seasonGG, numSamplesBeforeLastGT1) |> 
   summarize(
     meanGR = mean(grWeight, na.rm = TRUE),
     sdGR = sd(grWeight, na.rm = TRUE),
@@ -2387,22 +2387,29 @@ lastSampleGT1_data <-  cd1 |>
     n = n()
   )
 
- #  ggplot(tmp |> filter(n > 2, speciesGG == "Brook trout"), aes(lastSampleGT1, meanGR)) +
- #    geom_errorbar(aes(x = lastSampleGT1, ymin = meanGR, ymax = ymax), width = 0.2) +
+ #  ggplot(tmp |> filter(n > 2, speciesGG == "Brook trout"), aes(numSamplesBeforeLastGT1, meanGR)) +
+ #    geom_errorbar(aes(x = numSamplesBeforeLastGT1, ymin = meanGR, ymax = ymax), width = 0.2) +
  #    geom_col() +
  #    theme_publication() +    
  #    facet_grid(riverGG~seasonGG , scales = "free")
  #  
- # ggplot(tmp |> filter(n > 2, speciesGG == "Brown trout"), aes(lastSampleGT1, meanGR)) +
- #    geom_errorbar(aes(x = lastSampleGT1, ymin = meanGR, ymax = ymax), width = 0.2) +
+ # ggplot(tmp |> filter(n > 2, speciesGG == "Brown trout"), aes(numSamplesBeforeLastGT1, meanGR)) +
+ #    geom_errorbar(aes(x = numSamplesBeforeLastGT1, ymin = meanGR, ymax = ymax), width = 0.2) +
  #    geom_col() +
  #    theme_publication() +    
  #    facet_grid(riverGG~seasonGG , scales = "free")
  
-   ggplot(lastSampleGT1_data |> filter(n > 2, !is.na(lastSampleGT1)), aes(lastSampleGT1, meanGR, fill = speciesGG, color = speciesGG)) +
-    geom_errorbar(aes(x = lastSampleGT1, ymin = meanGR, ymax = ymax), width = 0.2, position = position_dodge(0.9)) +
+   ggplot(numSamplesBeforeLastGT1_data |> filter(n > 2, !is.na(numSamplesBeforeLastGT1)), aes(numSamplesBeforeLastGT1, meanGR, fill = speciesGG, color = speciesGG)) +
+    geom_errorbar(aes(x = numSamplesBeforeLastGT1, ymin = meanGR, ymax = ymax), width = 0.2, position = position_dodge(0.9)) +
     geom_col(position = "dodge") +
     theme_publication() +    
+    facet_grid(riverGG~seasonGG , scales = "free")
+   
+  ggplot(numSamplesBeforeLastGT1_data |> filter(n > 2, !is.na(numSamplesBeforeLastGT1)), aes(speciesGG, meanGR, fill = numSamplesBeforeLastGT1, color = numSamplesBeforeLastGT1)) +
+    geom_errorbar(aes(x = speciesGG, ymin = meanGR, ymax = ymax), width = 0.2, position = position_dodge(0.9)) +
+    geom_col(position = "dodge") +
+    theme_publication() +
+    theme(axis.text.x = element_text(angle = 360 - 60, vjust = 0.3, hjust = 0.1)) +
     facet_grid(riverGG~seasonGG , scales = "free")
 
 ```
