@@ -1222,7 +1222,7 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(nIndBySpp, pr
 
 
 
-## XGBoost model for proportion of fish with neg growth
+## XGBoost model for proportion of fish with negative growth
 
 ### Hyperparameter search grid
 
@@ -1398,8 +1398,8 @@ runXGB <- function(d = propNegSRsN, vars = c("speciesGG", "riverGG", "year", "mT
 #   vars = c("riverGG", "year", "mT", "mF_log10", "nInd", "propNeg"),
 #   early_stopping_roundsIn = 250
 # )
-# save(hpPropNegBKT, file = "./data/out/hyperParam/hpPropNegBKT_250.RData")
-load("./data/out/hyperParam/hpPropNegBKT_250.RData")
+# save(hpPropNegBKT, file = "./data/out/XGBoost/hyperParam/hpPropNegBKT_250.RData")
+load("./data/out/XGBoost/hyperParam/hpPropNegBKT_250.RData")
 hpPropNegBKT[1:10,]
 
 #### uncomment to run XGBoost
@@ -1408,8 +1408,8 @@ hpPropNegBKT[1:10,]
 #   vars = c("riverGG", "year", "mT", "mF_log10", "nInd", "propNeg"),
 #   params = hpPropNegBKT[1,]
 # )
-# save(propNegBKT, file = "./data/out/hyperParam/XGBpropNegBKT_250.RData")
-load("./data/out/hyperParam/XGBpropNegBKT_250.RData")
+# save(propNegBKT, file = "./data/out/XGBoost/modelRuns/XGBpropNegBKT_250.RData")
+load("./data/out/XGBoost/modelRuns/XGBpropNegBKT_250.RData")
 
 propNegBKT$xgb$best_iteration
 propNegBKT$xgb$best_score
@@ -1547,19 +1547,19 @@ plot(partial_dep(propNegBKT$xgb, v = "mF_log10", X = propNegBKT$features_train, 
 #   vars = c("riverGG", "year", "mT", "mF_log10", "nInd", "propNeg"),
 #   early_stopping_roundsIn = 250
 # )
-# save(hpPropNegBNT, file = "./data/out/hyperParam/hpPropNegBNT_250.RData")
-load("./data/out/hyperParam/hpPropNegBNT_250.RData")
+# save(hpPropNegBNT, file = "./data/out/XGBoost/hyperParam/hpPropNegBNT_250.RData")
+load("./data/out/XGBoost/hyperParam/hpPropNegBNT_250.RData")
 hpPropNegBNT[1:10,]
 
 
-# propNegBNT <- runXGB(
-#   d = propNegSRsN |>  filter(speciesGG == "Brown trout", year > 2001),
-#   vars = c("riverGG", "year", "mT", "mF_log10", "nInd", "propNeg"),
-#   nRoundsIn = 150000,
-#   params = hpPropNegBNT[1,]
-# )
-# save(propNegBNT, file = "./data/out/hyperParam/XGBpropNegBNT_250.RData")
-load("./data/out/hyperParam/XGBpropNegBNT_250.RData")
+propNegBNT <- runXGB(
+  d = propNegSRsN |>  filter(speciesGG == "Brown trout", year > 2001, nInd > 10),
+  vars = c("riverGG", "year", "mT", "mF_log10", "nInd", "propNeg"),
+  nRoundsIn = 250000,
+  params = hpPropNegBNT[1,]
+)
+# save(propNegBNT, file = "./data/out/XGBoost/modelRuns/XGBpropNegBNT_250.RData")
+load("./data/out/XGBoost/modelRuns/XGBpropNegBNT_250.RData")
 
 propNegBNT$xgb$best_iteration
 propNegBNT$xgb$best_score
@@ -1691,8 +1691,8 @@ plot(partial_dep(propNegBNT$xgb, v = "mF_log10", X = propNegBNT$features_train, 
 #   vars = c("year", "mT", "mF_log10", "nInd", "propNeg"),
 #   early_stopping_roundsIn = 250
 # )
-# save(hpPropNegATS, file = "./data/out/hyperParam/hpPropNegATS_250.RData")
-load("./data/out/hyperParam/hpPropNegATS_250.RData")
+# save(hpPropNegATS, file = "./data/out/XGBoost/hyperParam/hpPropNegATS_250.RData")
+load("./data/out/XGBoost/hyperParam/hpPropNegATS_250.RData")
 hpPropNegATS[1:10,]
 
 propNegSRsN |> filter(speciesGG == "Atlantic salmon") |> 
@@ -1703,8 +1703,8 @@ propNegSRsN |> filter(speciesGG == "Atlantic salmon") |>
 #   vars = c("year", "mT", "mF_log10", "nInd", "propNeg"),
 #   params = hpPropNegATS[1,]
 # )
-# save(propNegATS, file = "./data/out/hyperParam/XGBpropNegATS_250.RData")
-load("./data/out/hyperParam/XGBpropNegATS_250.RData")
+# save(propNegATS, file = "./data/out/XGBoost/modelRuns/XGBpropNegATS_250.RData")
+load("./data/out/XGBoost/modelRuns/XGBpropNegATS_250.RData")
 
 propNegATS$xgb$best_iteration
 propNegATS$xgb$best_score
@@ -2577,15 +2577,6 @@ plotGrowthKnownZByYear(cd1, "Brook trout", "Isolated Small")
 
 ```
 
-
-
-```{r}
-
-# cd1_target |> 
-#       group_by(speciesGG, riverGG, seasonGG, samplesBeforeLast, negGrowth) |> 
-
-```
-
 ### Growth and movement distance
 
 TO add: break avg move into negGR/not negGR
@@ -2645,7 +2636,7 @@ plotGR_moveDist2(cd1, c("Brook trout"), c("West Brook", "Open Large", "Open Smal
 plotGR_moveDist2(cd1, c("Brown trout"), c("West Brook", "Open Large", "Open Small"))
 ```
 
-## Machine Learning models
+## Machine Learning models - individual data
 
 Using xgBoost to explore patterns in:\
 - Binary, lose mass:gain mass\
@@ -2655,336 +2646,630 @@ Using xgBoost to explore patterns in:\
 
 Not yet in targets....
 
-```{r}
-#| label: rf
-# http://uc-r.github.io/gbm_regression
 
-
-dML <- cd1 |> 
-  filter(speciesGG == "Brook trout", !is.na(grWeight)) |> 
-  mutate(age = year - cohort) |> 
-  dplyr::select(riverGG, seasonGG, observedWeight, cohort, age, meanTemperature, meanFlowByRiver, negGrowth) 
-
-# variable names
-features <- setdiff(names(dML), "negGrowth")
-
-# Create the treatment plan from the training data
-treatplan <- vtreat::designTreatmentsZ(dML, features, verbose = FALSE)
-
-# Get the "clean" variable names from the scoreFrame
-new_vars <- treatplan %>%
-  magrittr::use_series(scoreFrame) %>%        
-  dplyr::filter(code %in% c("clean", "lev")) %>% 
-  magrittr::use_series(varName)     
-
-# Prepare the training data
-features_train <- vtreat::prepare(treatplan, dML, varRestriction = new_vars) %>% as.matrix()
-response_train <- dML$negGrowth
-
-# Prepare the test data
-features_test <- vtreat::prepare(treatplan, dML, varRestriction = new_vars) %>% as.matrix()
-response_test <- dML$negGrowth
-
-# dimensions of one-hot encoded data
-dim(features_train)
-dim(features_test)
-```
-
-#### Run first model
+### Function to run hyperparameters
 
 ```{r}
-#| label: runML1
-#| 
-# reproducibility
-set.seed(123)
+#| label: runML_HP_negGrowth
 
-xgb.fit1 <- xgb.cv(
-  data = features_train,
-  label = response_train,
-  nrounds = 10000,
-  nfold = 5,
-  objective = "binary:logistic", #"reg:linear",  # for regression models
-  verbose = 0,               # silent,
-  early_stopping_rounds = 15 # stop if no improvement for 10 consecutive trees
-)
-
-# get number of trees that minimize error
-xgb.fit1$evaluation_log %>%
-  dplyr::summarise(
-    ntrees.train = which(train_logloss_mean == min(train_logloss_mean))[1],
-    logloss.train   = min(train_logloss_mean),
-    ntrees.test  = which(test_logloss_mean == min(test_logloss_mean))[1],
-    logloss.test   = min(test_logloss_mean),
-  )
-
-# plot error vs number trees
-ggplot(xgb.fit1$evaluation_log) +
-  geom_line(aes(iter, train_logloss_mean), color = "red") +
-  geom_line(aes(iter, test_logloss_mean), color = "blue")
-```
-
-#### Add early stopping
-
-```{r}
-#| label: runML2
-
-## tune the model
-# create parameter list
-params <- list(
-  eta = .1,
-  max_depth = 5,
-  min_child_weight = 2,
-  subsample = .8,
-  colsample_bytree = .9
-)
-
-xgb.fit2 <- xgb.cv(
-  params = params,
-  data = features_train,
-  label = response_train,
-  nrounds = 20000,
-  nfold = 5,
-  objective = "binary:logistic", #"reg:linear",  # for regression models
-  verbose = 0,               # silent,
-  early_stopping_rounds = 10 # stop if no improvement for 10 consecutive trees
-)
-
-xgb.fit2$evaluation_log %>%
-  dplyr::summarise(
-    ntrees.train = which(train_logloss_mean == min(train_logloss_mean))[1],
-    logloss.train   = min(train_logloss_mean),
-    ntrees.test  = which(test_logloss_mean == min(test_logloss_mean))[1],
-    logloss.test   = min(test_logloss_mean),
-  )
-
-# plot error vs number trees
-ggplot(xgb.fit2$evaluation_log) +
-  geom_line(aes(iter, train_logloss_mean), color = "red") +
-  geom_line(aes(iter, test_logloss_mean), color = "blue")
-
-```
-
-#### Hyperparameter search grid
-
-```{r}
-#| label: runML_HP
-
-
-# create hyperparameter grid
-hyper_grid <- expand.grid(
-  eta = c(.01, .05, .1, .3),
-  max_depth = c(1, 3, 5, 7),
-  min_child_weight = c(1, 3, 5, 7),
-  subsample = c(.65, .8, 1), 
-  colsample_bytree = c(.8, .9, 1),
-  optimal_trees = 0,               # a place to dump results
-  min_RMSE = 0                     # a place to dump results
-)
-nrow(hyper_grid)
-
+runHyperparamSearchIndData <- function(d = cd1, vars = c("riverGG", "observedWeight", "cohort", "age", "meanTemperature", "meanFlowByRiver", "negGrowth"), nRoundsIn = 150000, early_stopping_roundsIn = 50) {
   
-# reproducibility
   set.seed(123)
-#   
-# # grid search 
-# for(i in 1:nrow(hyper_grid)) {
-#   print(i)
-#   # create parameter list
-#   params <- list(
-#     eta = hyper_grid$eta[i],
-#     max_depth = hyper_grid$max_depth[i],
-#     min_child_weight = hyper_grid$min_child_weight[i],
-#     subsample = hyper_grid$subsample[i],
-#     colsample_bytree = hyper_grid$colsample_bytree[i]
-#   )
-# 
-#   
-#   # train model
-#   xgb.tune <- xgb.cv(
-#     params = params,
-#     data = features_train,
-#     label = response_train,
-#     nrounds = 5000,
-#     nfold = 5,
-#     objective = "binary:logistic", #"reg:linear",  # for regression models
-#     verbose = 0,               # silent,
-#     early_stopping_rounds = 20 # stop if no improvement for 10 consecutive trees
-#   )
-#   
-#   # add min training error and trees to grid
-#   hyper_grid$optimal_trees[i] <- which.min(xgb.tune$evaluation_log$test_logloss_mean)
-#   hyper_grid$min_RMSE[i] <- min(xgb.tune$evaluation_log$test_logloss_mean)
-# }
-# 
-# hyper_grid %>%
-#   dplyr::arrange(min_RMSE) %>%
-#   head(15)
   
-#       eta max_depth min_child_weight subsample colsample_bytree optimal_trees  min_RMSE
-# 1  0.01         5                1      0.80              0.8          1082 0.2464962
-# 2  0.01         5                1      0.65              0.8          1042 0.2466260
-# 3  0.01         5                1      0.80              0.9          1115 0.2467519
-# 4  0.01         7                1      0.80              0.8           676 0.2467640
-# 5  0.01         7                1      0.65              0.8           671 0.2468416
-# 6  0.05         5                1      0.65              0.9           217 0.2470321
-# 7  0.01         7                3      0.80              0.8           676 0.2470520
-# 8  0.01         5                3      0.80              0.8          1115 0.2470706
-# 9  0.01         5                3      0.80              0.9          1089 0.2470969
-# 10 0.10         5                3      1.00              0.9           158 0.2471294
-# 11 0.05         7                3      0.80              1.0           139 0.2471420
-# 12 0.01         5                1      0.65              0.9           960 0.2471568
-# 13 0.01         5                1      0.80              1.0          1023 0.2471608
-# 14 0.01         7                3      0.65              0.8           671 0.2472037
-# 15 0.10         5                1      0.80              0.8            95 0.2472090
+  dML_negGrowth <- d |> 
+    mutate(age = year - cohort) |> 
+    dplyr::select(all_of(vars)) 
+  
+  # variable names
+  features_negGrowth <- setdiff(names(dML_negGrowth), "negGrowth")
+  
+  # Create the treatment plan from the training data
+  treatplan_negGrowth <- vtreat::designTreatmentsZ(dML_negGrowth, features_negGrowth, verbose = FALSE)
+  
+  # Get the "clean" variable names from the scoreFrame
+  new_vars_negGrowth <- treatplan_negGrowth %>%
+    magrittr::use_series(scoreFrame) %>%        
+    dplyr::filter(code %in% c("clean", "lev")) %>% 
+    magrittr::use_series(varName)     
+  
+  # Prepare the training data
+  features_train_negGrowth <- vtreat::prepare(treatplan_negGrowth, dML_negGrowth, varRestriction = new_vars_negGrowth) %>% as.matrix()
+  response_train_negGrowth <- dML_negGrowth$negGrowth
+  
+  # create hyperparameter grid
+  hyper_grid_negGrowth <- expand.grid(
+    eta = c(.01, .05, .1, .3),
+    max_depth = c(1, 3, 5, 7),
+    min_child_weight = c(1, 3, 5, 7),
+    subsample = c(.65, .8, 1),
+    colsample_bytree = c(.8, .9, 1),
+    optimal_trees = 0,               # a place to dump results
+    min_logloss = 0                     # a place to dump results
+  )
+
+  # reproducibility
+    #set.seed(123)
+  #   
+  # grid search
+  for(i in 1:nrow(hyper_grid_negGrowth)) {
+    print(paste0(i, " out of ", nrow(hyper_grid_negGrowth)))
+    # create parameter list
+    params_negGrowth <- list(
+      eta = hyper_grid_negGrowth$eta[i],
+      max_depth = hyper_grid_negGrowth$max_depth[i],
+      min_child_weight = hyper_grid_negGrowth$min_child_weight[i],
+      subsample = hyper_grid_negGrowth$subsample[i],
+      colsample_bytree = hyper_grid_negGrowth$colsample_bytree[i]
+    )
+  
+  
+    # train model
+    xgb.tune_negGrowth <- xgb.cv(
+      params = params_negGrowth,
+      data = features_train_negGrowth,
+      label = response_train_negGrowth,
+      nrounds = nRoundsIn,
+      nfold = 5,
+      objective = "binary:logistic", #"reg:linear",  # for regression models
+      verbose = 0,               # silent,
+      early_stopping_rounds = early_stopping_roundsIn # stop if no improvement for x consecutive trees
+    )
+  
+    # add min training error and trees to grid
+    hyper_grid_negGrowth$optimal_trees[i] <- which.min(xgb.tune_negGrowth$evaluation_log$test_logloss_mean)
+    hyper_grid_negGrowth$min_logloss[i] <- min(xgb.tune_negGrowth$evaluation_log$test_logloss_mean)
+  }
+  
+  return(hyper_grid_negGrowth |> arrange(min_logloss))
+}
+
 ```
 
-#### Fit the top model
+
+### Function to run models
 
 ```{r}
-#| label: fitBinary
+#| label: xgBoostNegGrowthFunction
 
-# parameter list - from the top model of the grid search above
-params <- list(
-  eta = 0.01,
-  max_depth = 5,
-  min_child_weight = 1,
-  subsample = 0.8,
-  colsample_bytree = 0.8
-)
+# http://uc-r.github.io/gbm_regression
+runXGB_indData <- function(d = cd1, vars = c("riverGG", "observedWeight", "year", "age", "meanTemperature", "meanFlowByRiver", "negGrowth"), nRoundsIn = 200000, early_stopping_roundsIn = 50, params = params_negGrowthIn) {
+  
+  set.seed(125)
+  
+  dML <- d |> 
+    mutate(age = year - cohort) |> 
+    dplyr::select(all_of(vars))
+    
+  
+  # variable names
+  features_negGrowth <- setdiff(names(dML), "negGrowth")
+  
+  # Create the treatment plan from the training data
+  treatplan_negGrowth <- vtreat::designTreatmentsZ(dML, features_negGrowth, verbose = FALSE)
+  
+  # Get the "clean" variable names from the scoreFrame
+  new_vars_negGrowth <- treatplan_negGrowth %>%
+    magrittr::use_series(scoreFrame) %>%        
+    dplyr::filter(code %in% c("clean", "lev")) %>% 
+    magrittr::use_series(varName)     
+  
+  # Prepare the training data
+  features_train_negGrowth <- vtreat::prepare(treatplan_negGrowth, dML, varRestriction = new_vars_negGrowth) %>% as.matrix()
+  response_train_negGrowth <- dML$negGrowth
+  
+  # Prepare the test data
+  features_test_negGrowth <- vtreat::prepare(treatplan_negGrowth, dML, varRestriction = new_vars_negGrowth) %>% as.matrix()
+  response_test_negGrowth <- dML$negGrowth
 
-# train final model
-xgb.fit.final <- xgboost(
-  params = params,
-  data = features_train,
-  label = response_train,
-  nrounds = 20000,
-  objective = "binary:logistic",
-  verbose = 0,
-  early_stopping_rounds = 20 # stop if no improvement for 10 consecutive trees
-)
+  ##### Run model
+  # parameter list - from the top model of the grid search above
+  params_negGrowth <- list(
+    eta = params$eta, #0.01,
+    max_depth = params$max_depth, #1,
+    min_child_weight = params$min_child_weight, #7,
+    subsample = params$subsample, #0.8,
+    colsample_bytree = params$colsample_bytree #0.9
+   # optimal_trees = params$optimal_trees
+  )
+  
+  # train final model
+  xgb.fit.final_negGrowth <- xgboost(
+    params = params_negGrowth,
+    data = features_train_negGrowth,
+    label = response_train_negGrowth,
+    nrounds = nRoundsIn,
+    objective = "binary:logistic",
+    verbose = 1,
+    early_stopping_rounds = early_stopping_roundsIn # stop if no improvement for 20 consecutive trees
+  )
+  
+
+  return(
+    list(
+      dat = dML,
+      xgb = xgb.fit.final_negGrowth,
+      new_vars = new_vars_negGrowth,
+      features_train = features_train_negGrowth,
+      response_train = response_train_negGrowth
+    )
+  )
+
+}
 
 ```
 
-#### Variable importance plot
-
+### Brook trout
+#### Run hyperparameter grid and main model
 ```{r}
-#| label: vipBinary
+#| label: xgbIndBKT
 
-# create importance matrix
-importance_matrix <- xgb.importance(model = xgb.fit.final)
+#### uncomment to run hyperparameter search grid
+# hpNegGrowthBKT <- runHyperparamSearchIndData(
+#   d = cd1 |>  filter(speciesGG == "Brook trout", !is.na(grWeight), year > 2001) |> 
+#     left_join(tar_read(indCounts_target)) |> 
+#     left_join(tar_read(indCountsBySpp_target)),
+#   vars = c("riverGG", "observedWeight", "year", "age", "meanTemperature", "meanFlowByRiver", "nInd", "nIndBySpp", "negGrowth"),
+#   nRoundsIn = 20000,
+#   early_stopping_roundsIn = 25
+# )
+# save(hpNegGrowthBKT, file = "./data/out/XGBoost/hyperParam/hpNegGrowthBKT.RData")
+load("./data/out/XGBoost/hyperParam/hpNegGrowthBKT.RData")
+hpNegGrowthBKT[1:10,]
+
+#### uncomment to run XGBoost
+# negGrowthBKT <- runXGB_indData(
+#   d = cd1 |>  filter(speciesGG == "Brook trout", !is.na(grWeight), year > 2001) |> 
+#     left_join(tar_read(indCounts_target)) |> 
+#     left_join(tar_read(indCountsBySpp_target)),
+#   vars = c("riverGG", "observedWeight", "year", "age", "meanTemperature", "meanFlowByRiver", "nInd", "nIndBySpp", "negGrowth"),
+#   nRoundsIn = 200000,
+#   early_stopping_roundsIn = 50,
+#   params = hpPropNegBKT[1,]
+# )
+# save(negGrowthBKT, file = "./data/out/XGBoost/modelRuns/XGBnegGrowthBKT.RData")
+load("./data/out/XGBoost/modelRuns/XGBnegGrowthBKT.RData")
+
+negGrowthBKT$xgb$best_iteration
+negGrowthBKT$xgb$best_score
+
+# plot error vs number trees
+ggplot(negGrowthBKT$xgb$evaluation_log) +
+  geom_line(aes(iter, train_logloss), color = "red") 
+#  geom_line(aes(iter, test_logloss), color = "blue")
 
 # variable importance plot
-xgb.plot.importance(importance_matrix, top_n = 10, measure = "Gain")
+viBKT <- xgb.importance(model = negGrowthBKT$xgb)
+xgb.plot.importance(viBKT, top_n = 10, measure = "Gain")
 
-```
+####################################################################
+s_negGrowthBKT <- hstats(negGrowthBKT$xgb, v = negGrowthBKT$new_vars, X = negGrowthBKT$features_train)
+s_negGrowthBKT
+plot(s_negGrowthBKT)
+# 
+# # top 5 2-way interactions
+# h2_pairwise(s_negGrowthBKT, normalize = FALSE, squared = FALSE, top_m = 8)
+plot(s_negGrowthBKT, which = 1:2, normalize = F, squared = F, facet_scales = "free_y", ncol = 1)
+# 
+# # 3-way interactions
+# plot(s_negGrowthBKT, which = 1:3, normalize = F, squared = F, facet_scales = "free_y", ncol = 1)
 
-#### Partial dependence plots
+## Partial dep plots ################################################################
 
-```{r}
-#| label: pdpBinary
+pWeight_negGrowth <- negGrowthBKT$xgb %>%
+  pdp::partial(pred.var = "observedWeight", n.trees = 10, grid.resolution = 25, train = negGrowthBKT$features_train) %>%
+  autoplot(rug = TRUE, train = negGrowthBKT$features_train) +
+  geom_smooth(se = FALSE)
 
-pW <- xgb.fit.final %>%
-  pdp::partial(pred.var = "observedWeight", n.trees = 1082, grid.resolution = 100, train = features_train) %>%
-  autoplot(rug = TRUE, train = features_train) 
+#n.trees = 1082, grid.resolution = 100,
+
+pFlow_negGrowth <- negGrowthBKT$xgb %>%
+  pdp::partial(pred.var = "meanFlowByRiver", n.trees = 10, grid.resolution = 50, train = negGrowthBKT$features_train) %>%
+  autoplot(rug = TRUE, train = negGrowthBKT$features_train) +
+  geom_smooth(se = FALSE)
   #scale_y_discrete() +
   #ggtitle("PDP")
+pTemp_negGrowth <- negGrowthBKT$xgb %>%
+  pdp::partial(pred.var = "meanTemperature", n.trees = 10, grid.resolution = 50, train = negGrowthBKT$features_train) %>%
+  autoplot(rug = TRUE, train = negGrowthBKT$features_train) +
+  geom_smooth(se = FALSE)
 
-pFlow <- xgb.fit.final %>%
-  pdp::partial(pred.var = "meanFlowByRiver", n.trees = 1082, grid.resolution = 100, train = features_train) %>%
-  autoplot(rug = TRUE, train = features_train)
+pNInd_negGrowth <- negGrowthBKT$xgb %>%
+  pdp::partial(pred.var = "nInd", n.trees = 10, grid.resolution = 50, train = negGrowthBKT$features_train) %>%
+  autoplot(rug = TRUE, train = negGrowthBKT$features_train) +
+  geom_smooth(se = FALSE)
 
-pTemp <- xgb.fit.final %>%
-  pdp::partial(pred.var = "meanTemperature", n.trees = 1082, grid.resolution = 100, train = features_train) %>%
-  autoplot(rug = TRUE, train = features_train)
+pYear_negGrowth <- negGrowthBKT$xgb %>%
+  pdp::partial(pred.var = "year", n.trees = 10, grid.resolution = 50, train = negGrowthBKT$features_train) %>%
+  autoplot(rug = TRUE, train = negGrowthBKT$features_train) +
+  geom_smooth(se = FALSE)
 
-pAge <- xgb.fit.final %>%
-  pdp::partial(pred.var = "age", n.trees = 1082, grid.resolution = 100, train = features_train) %>%
-  autoplot(rug = TRUE, train = features_train)
+gridExtra::grid.arrange(pWeight_negGrowth, pFlow_negGrowth, pTemp_negGrowth, pNInd_negGrowth, pYear_negGrowth, nrow = 3)
 
-pCohort <- xgb.fit.final %>%
-  pdp::partial(pred.var = "cohort", n.trees = 1082, grid.resolution = 100, train = features_train) %>%
-  autoplot(rug = TRUE, train = features_train)
+##################################################################
+# all on one graph
+pWeight_propNegDataBKT <- negGrowthBKT$xgb %>%
+  pdp::partial(pred.var = "observedWeight", n.trees = 10, grid.resolution = 50, train = negGrowthBKT$features_train) |> 
+  mutate(xScaled = (observedWeight-mean(observedWeight))/sd(observedWeight),
+         var = "Mass",
+         speciesGG = "Brook Trout")
 
-gridExtra::grid.arrange(pW, pFlow, pTemp, pAge, pCohort, nrow = 3)
+pFlow_propNegDataBKT <- negGrowthBKT$xgb %>%
+  pdp::partial(pred.var = "meanFlowByRiver", n.trees = 10, grid.resolution = 50, train = negGrowthBKT$features_train) |> 
+  mutate(xScaled = (meanFlowByRiver-mean(meanFlowByRiver))/sd(meanFlowByRiver),
+         var = "Flow",
+         speciesGG = "Brook Trout")
 
-#Seasons
-pSpring <- xgb.fit.final %>%
-  pdp::partial(pred.var = "seasonGG_lev_x_Spring", n.trees = 1082, grid.resolution = 100, train = features_train) %>%
-  autoplot(rug = TRUE, train = features_train)
+pMT_propNegDataBKT <- negGrowthBKT$xgb %>%
+  pdp::partial(pred.var = "meanTemperature", n.trees = 10, grid.resolution = 50, train = negGrowthBKT$features_train) |> 
+  mutate(xScaled = (meanTemperature-mean(meanTemperature))/sd(meanTemperature),
+         var = "Temperature",
+         speciesGG = "Brook Trout")
 
-pSummer <- xgb.fit.final %>%
-  pdp::partial(pred.var = "seasonGG_lev_x_Summer", n.trees = 1082, grid.resolution = 100, train = features_train) %>%
-  autoplot(rug = TRUE, train = features_train)
+pNInd_propNegDataBKT <- negGrowthBKT$xgb %>%
+  pdp::partial(pred.var = "nInd", n.trees = 10, grid.resolution = 50, train = negGrowthBKT$features_train) |> 
+  mutate(xScaled = (nInd-mean(nInd))/sd(nInd),
+         var = "Num inds",
+         speciesGG = "Brook Trout")
 
-pAutumn <- xgb.fit.final %>%
-  pdp::partial(pred.var = "seasonGG_lev_x_Autumn", n.trees = 1082, grid.resolution = 100, train = features_train) %>%
-  autoplot(rug = TRUE, train = features_train)
+pYear_propNegDataBKT <- negGrowthBKT$xgb %>%
+  pdp::partial(pred.var = "year", n.trees = 10, grid.resolution = 50, train = negGrowthBKT$features_train) |> 
+  mutate(xScaled = (year-mean(year))/sd(year),
+         var = "Year",
+         speciesGG = "Brook Trout")
 
-pWinter <- xgb.fit.final %>%
-  pdp::partial(pred.var = "seasonGG_lev_x_Winter", n.trees = 1082, grid.resolution = 100, train = features_train) %>%
-  autoplot(rug = TRUE, train = features_train)
 
-gridExtra::grid.arrange(pSpring, pSummer, pAutumn, pWinter, nrow = 2)
+all_propNegDataBKT <- bind_rows(pWeight_propNegDataBKT, pFlow_propNegDataBKT, pMT_propNegDataBKT, pNInd_propNegDataBKT, pYear_propNegDataBKT)
+
+(
+all_propNegDataBKT_gg <- ggplot(all_propNegDataBKT, aes(xScaled, yhat, color = var)) +
+  #geom_point(alpha = 0.2) +
+  geom_smooth(se = FALSE) +
+  theme_publication() +
+  labs(y = "Effect on proportion of negative observations", x = "Scaled value")
+)
+
+##################################################################
+# All river on one graph
+partialWBBKT <- negGrowthBKT$xgb %>%
+  pdp::partial(pred.var = "riverGG_lev_x_West_Brook", n.trees = 10, grid.resolution = 50, train = negGrowthBKT$features_train) |> 
+  mutate(riverGG = "West Brook") |> 
+  rename(x = "riverGG_lev_x_West_Brook")
+
+partialOLBKT <- negGrowthBKT$xgb %>%
+  pdp::partial(pred.var = "riverGG_lev_x_Open_Large", n.trees = 10, grid.resolution = 50, train = negGrowthBKT$features_train)|> 
+  mutate(riverGG = "Open Large") |> 
+  rename(x = "riverGG_lev_x_Open_Large")
+
+partialOSBKT <- negGrowthBKT$xgb %>%
+  pdp::partial(pred.var = "riverGG_lev_x_Open_Small", n.trees = 10, grid.resolution = 50, train = negGrowthBKT$features_train) |> 
+  mutate(riverGG = "Open Small") |> 
+  rename(x = "riverGG_lev_x_Open_Small")
+
+partialISBKT <- negGrowthBKT$xgb %>%
+  pdp::partial(pred.var = "riverGG_lev_x_Isolated_Small", n.trees = 10, grid.resolution = 50, train = negGrowthBKT$features_train)|> 
+  mutate(riverGG = "Isolated Small") |> 
+  rename(x = "riverGG_lev_x_Isolated_Small")
+
+partialRiversBKT <- bind_rows(partialWBBKT, partialOLBKT, partialOSBKT, partialISBKT) |> 
+  filter(x %in% c(0,1)) |> 
+  mutate(RiverEffect = ifelse(x ==1, "Yes", "No"),
+         riverOrdered = factor(riverGG, levels = c("West Brook", "Open Large", "Open Small", "Isolated Small"), 
+                             ordered = T))
+
+ggplot(partialRiversBKT, aes(riverOrdered, yhat, fill = factor(RiverEffect))) +
+  geom_col(position = "dodge", linewidth = 1.5) +
+  labs(y = "Effect on proportion of negative observations")
+
+### Interaction plots ##################################################################
+
+plot(partial_dep(negGrowthBKT$xgb, v = "meanTemperature", X = negGrowthBKT$features_train, BY = "meanFlowByRiver")) +
+  geom_smooth(aes(color = meanFlowByRiver), se = FALSE)
+
+plot(partial_dep(negGrowthBKT$xgb, v = "meanFlowByRiver", X = negGrowthBKT$features_train, BY = "meanTemperature")) +
+  geom_smooth(aes(color = meanTemperature), se = FALSE)
+
+plot(partial_dep(negGrowthBKT$xgb, v = "meanFlowByRiver", X = negGrowthBKT$features_train, BY = c("nInd"))) +
+  geom_smooth(aes(color = nInd), se = FALSE)
 
 ```
 
-#### Lime
-
+### Brown trout
+#### Run hyperparameter grid and main model
 ```{r}
-#| label: limeBinary
+#| label: xgbIndBNT
 
-# get a few observations to perform local interpretation on
-local_obs <- dML[1:3, ]
+#### uncomment to run hyperparameter search grid
+# hpNegGrowthBNT <- runHyperparamSearchIndData(
+#   d = cd1 |>  filter(speciesGG == "Brown trout", !is.na(grWeight), year > 2001) |> 
+#     left_join(tar_read(indCounts_target)) |> 
+#     left_join(tar_read(indCountsBySpp_target)),
+#   vars = c("riverGG", "observedWeight", "year", "age", "meanTemperature", "meanFlowByRiver", "nInd", "nIndBySpp", "negGrowth"),
+#   nRoundsIn = 20000,
+#   early_stopping_roundsIn = 25
+# )
+# save(hpNegGrowthBNT, file = "./data/out/XGBoost/hyperParam/hpNegGrowthBNT.RData")
+load("./data/out/XGBoost/hyperParam/hpNegGrowthBNT.RData")
+hpNegGrowthBNT[1:10,]
 
-# one-hot encode the local observations to be assessed.
-local_obs_onehot <- vtreat::prepare(treatplan, local_obs, varRestriction = new_vars)
+#### uncomment to run XGBoost
+# negGrowthBNT <- runXGB_indData(
+#   d = cd1 |>  filter(speciesGG == "Brown trout", !is.na(grWeight), year > 2001) |> 
+#     left_join(tar_read(indCounts_target)) |> 
+#     left_join(tar_read(indCountsBySpp_target)),
+#   vars = c("riverGG", "observedWeight", "year", "age", "meanTemperature", "meanFlowByRiver", "nInd", "nIndBySpp", "negGrowth"),
+#   nRoundsIn = 100000,
+#   early_stopping_roundsIn = 50,
+#   params = hpPropNegBNT[1,]
+# )
+# save(negGrowthBNT, file = "./data/out/XGBoost/modelRuns/XGBnegGrowthBNT.RData")
+load("./data/out/XGBoost/modelRuns/XGBnegGrowthBNT.RData")
 
-# apply LIME
-explainer <- lime(data.frame(features_train), xgb.fit.final, quantile_bins = FALSE)
-explanation <- lime::explain(local_obs_onehot, explainer, n_features = 5, n_labels = 2)
-plot_features(explanation)
+negGrowthBNT$xgb$best_iteration
+negGrowthBNT$xgb$best_score
+
+# plot error vs number trees
+ggplot(negGrowthBNT$xgb$evaluation_log) +
+  geom_line(aes(iter, train_logloss), color = "red") 
+#  geom_line(aes(iter, test_logloss), color = "blue")
+
+# variable importance plot
+viBNT <- xgb.importance(model = negGrowthBNT$xgb)
+xgb.plot.importance(viBNT, top_n = 10, measure = "Gain")
+
+####################################################################
+s_negGrowthBNT <- hstats(negGrowthBNT$xgb, v = negGrowthBNT$new_vars, X = negGrowthBNT$features_train)
+s_negGrowthBNT
+plot(s_negGrowthBNT)
+# 
+# # top 5 2-way interactions
+# h2_pairwise(s_negGrowthBNT, normalize = FALSE, squared = FALSE, top_m = 8)
+plot(s_negGrowthBNT, which = 1:2, normalize = F, squared = F, facet_scales = "free_y", ncol = 1)
+# 
+# # 3-way interactions
+# plot(s_negGrowthBNT, which = 1:3, normalize = F, squared = F, facet_scales = "free_y", ncol = 1)
+
+## Partial dep plots ################################################################
+
+pWeight_negGrowth <- negGrowthBNT$xgb %>%
+  pdp::partial(pred.var = "observedWeight", n.trees = 10, grid.resolution = 50, train = negGrowthBNT$features_train) %>%
+  autoplot(rug = TRUE, train = negGrowthBNT$features_train) +
+  geom_smooth(se = FALSE)
+
+pFlow_negGrowth <- negGrowthBNT$xgb %>%
+  pdp::partial(pred.var = "meanFlowByRiver", n.trees = 10, grid.resolution = 50, train = negGrowthBNT$features_train) %>%
+  autoplot(rug = TRUE, train = negGrowthBNT$features_train) +
+  geom_smooth(se = FALSE)
+  #scale_y_discrete() +
+  #ggtitle("PDP")
+pTemp_negGrowth <- negGrowthBNT$xgb %>%
+  pdp::partial(pred.var = "meanTemperature", n.trees = 10, grid.resolution = 50, train = negGrowthBNT$features_train) %>%
+  autoplot(rug = TRUE, train = negGrowthBNT$features_train) +
+  geom_smooth(se = FALSE)
+
+pNInd_negGrowth <- negGrowthBNT$xgb %>%
+  pdp::partial(pred.var = "nInd", n.trees = 10, grid.resolution = 50, train = negGrowthBNT$features_train) %>%
+  autoplot(rug = TRUE, train = negGrowthBNT$features_train) +
+  geom_smooth(se = FALSE)
+
+pYear_negGrowth <- negGrowthBNT$xgb %>%
+  pdp::partial(pred.var = "year", n.trees = 10, grid.resolution = 50, train = negGrowthBNT$features_train) %>%
+  autoplot(rug = TRUE, train = negGrowthBNT$features_train) +
+  geom_smooth(se = FALSE)
+
+gridExtra::grid.arrange(pWeight_negGrowth, pFlow_negGrowth, pTemp_negGrowth, pNInd_negGrowth, pYear_negGrowth, nrow = 3)
+
+##################################################################
+# all on one graph
+pFlow_propNegDataBNT <- negGrowthBNT$xgb %>%
+  pdp::partial(pred.var = "meanFlowByRiver", n.trees = 10, grid.resolution = 50, train = negGrowthBNT$features_train) |> 
+  mutate(xScaled = (meanFlowByRiver-mean(meanFlowByRiver))/sd(meanFlowByRiver),
+         var = "Flow",
+         speciesGG = "Brown Trout")
+
+pMT_propNegDataBNT <- negGrowthBNT$xgb %>%
+  pdp::partial(pred.var = "meanTemperature", n.trees = 10, grid.resolution = 50, train = negGrowthBNT$features_train) |> 
+  mutate(xScaled = (meanTemperature-mean(meanTemperature))/sd(meanTemperature),
+         var = "Temperature",
+         speciesGG = "Brown Trout")
+
+pNInd_propNegDataBNT <- negGrowthBNT$xgb %>%
+  pdp::partial(pred.var = "nInd", n.trees = 10, grid.resolution = 50, train = negGrowthBNT$features_train) |> 
+  mutate(xScaled = (nInd-mean(nInd))/sd(nInd),
+         var = "Num inds",
+         speciesGG = "Brown Trout")
+
+pYear_propNegDataBNT <- negGrowthBNT$xgb %>%
+  pdp::partial(pred.var = "year", n.trees = 10, grid.resolution = 50, train = negGrowthBNT$features_train) |> 
+  mutate(xScaled = (year-mean(year))/sd(year),
+         var = "Year",
+         speciesGG = "Brown Trout")
+
+
+all_propNegDataBNT <- bind_rows(pFlow_propNegDataBNT, pMT_propNegDataBNT, pNInd_propNegDataBNT, pYear_propNegDataBNT)
+
+(
+all_propNegDataBNT_gg <- ggplot(all_propNegDataBNT, aes(xScaled, yhat, color = var)) +
+  #geom_point(alpha = 0.2) +
+  geom_smooth(se = FALSE) +
+  theme_publication() +
+  labs(y = "Effect on proportion of negative observations", x = "Scaled value")
+)
+
+##################################################################
+# All river on one graph
+partialWBBNT <- negGrowthBNT$xgb %>%
+  pdp::partial(pred.var = "riverGG_lev_x_West_Brook", n.trees = 10, grid.resolution = 50, train = negGrowthBNT$features_train) |> 
+  mutate(riverGG = "West Brook") |> 
+  rename(x = "riverGG_lev_x_West_Brook")
+
+partialOLBNT <- negGrowthBNT$xgb %>%
+  pdp::partial(pred.var = "riverGG_lev_x_Open_Large", n.trees = 10, grid.resolution = 50, train = negGrowthBNT$features_train)|> 
+  mutate(riverGG = "Open Large") |> 
+  rename(x = "riverGG_lev_x_Open_Large")
+
+partialOSBNT <- negGrowthBNT$xgb %>%
+  pdp::partial(pred.var = "riverGG_lev_x_Open_Small", n.trees = 10, grid.resolution = 50, train = negGrowthBNT$features_train) |> 
+  mutate(riverGG = "Open Small") |> 
+  rename(x = "riverGG_lev_x_Open_Small")
+
+partialRiversBNT <- bind_rows(partialWBBNT, partialOLBNT, partialOSBNT) |> 
+  filter(x %in% c(0,1)) |> 
+  mutate(RiverEffect = ifelse(x ==1, "Yes", "No"),
+         riverOrdered = factor(riverGG, levels = c("West Brook", "Open Large", "Open Small"), 
+                             ordered = T))
+
+ggplot(partialRiversBNT, aes(riverOrdered, yhat, fill = factor(RiverEffect))) +
+  geom_col(position = "dodge", linewidth = 1.5) +
+  labs(y = "Effect on proportion of negative observations")
+
+### Interaction plots ##################################################################
+
+plot(partial_dep(negGrowthBNT$xgb, v = "meanTemperature", X = negGrowthBNT$features_train, BY = "meanFlowByRiver")) +
+  geom_smooth(aes(color = meanFlowByRiver), se = FALSE)
+
+plot(partial_dep(negGrowthBNT$xgb, v = "meanFlowByRiver", X = negGrowthBNT$features_train, BY = "meanTemperature")) +
+  geom_smooth(aes(color = meanTemperature), se = FALSE)
+
+plot(partial_dep(negGrowthBNT$xgb, v = "meanFlowByRiver", X = negGrowthBNT$features_train, BY = c("nInd"))) +
+  geom_smooth(aes(color = nInd), se = FALSE)
+
 ```
 
-#### hstats
-https://github.com/mayer79/hstats#background
+### Atlantic salmon
+#### Run hyperparameter grid and main model
 ```{r}
-#| label: hstatsPropNeg
-library(hstats)
+#| label: xgbIndATS
 
-s <- hstats(xgb.fit.final, v = new_vars, X = features_train)
-s
-plot(s)
+#### uncomment to run hyperparameter search grid
+# hpNegGrowthATS <- runHyperparamSearchIndData(
+#   d = cd1 |>  filter(speciesGG == "Atlantic salmon", !is.na(grWeight)) |> 
+#     left_join(tar_read(indCounts_target)) |> 
+#     left_join(tar_read(indCountsBySpp_target)),
+#   vars = c("observedWeight", "year", "age", "meanTemperature", "meanFlowByRiver", "nInd", "nIndBySpp", "negGrowth"),
+#   nRoundsIn = 20000,
+#   early_stopping_roundsIn = 25
+# )
+# save(hpNegGrowthATS, file = "./data/out/XGBoost/hyperParam/hpNegGrowthATS.RData")
+load("./data/out/XGBoost/hyperParam/hpNegGrowthATS.RData")
+hpNegGrowthATS[1:10,]
 
-# top 5 2-way interations
-h2_pairwise(s, normalize = FALSE, squared = FALSE, top_m = 5)
+#### uncomment to run XGBoost
+# negGrowthATS <- runXGB_indData(
+#   d = cd1 |>  filter(speciesGG == "Atlantic salmon", !is.na(grWeight)) |> 
+#     left_join(tar_read(indCounts_target)) |> 
+#     left_join(tar_read(indCountsBySpp_target)),
+#   vars = c("observedWeight", "year", "age", "meanTemperature", "meanFlowByRiver", "nInd", "nIndBySpp", "negGrowth"),
+#   nRoundsIn = 200000,
+#   early_stopping_roundsIn = 50,
+#   params = hpNegGrowthATS[1,]
+# )
+# save(negGrowthATS, file = "./data/out/XGBoost/modelRuns/XGBnegGrowthATS.RData")
+load("./data/out/XGBoost/modelRuns/XGBnegGrowthATS.RData")
 
-# 3-way interactions
-plot(s, which = 1:3, normalize = F, squared = F, facet_scales = "free_y", ncol = 1)
+negGrowthATS$xgb$best_iteration
+negGrowthATS$xgb$best_score
+
+# plot error vs number trees
+ggplot(negGrowthATS$xgb$evaluation_log) +
+  geom_line(aes(iter, train_logloss), color = "red") 
+#  geom_line(aes(iter, test_logloss), color = "blue")
+
+# variable importance plot
+viATS <- xgb.importance(model = negGrowthATS$xgb)
+xgb.plot.importance(viATS, top_n = 10, measure = "Gain")
+
+####################################################################
+s_negGrowthATS <- hstats(negGrowthATS$xgb, v = negGrowthATS$new_vars, X = negGrowthATS$features_train)
+s_negGrowthATS
+plot(s_negGrowthATS)
+# 
+# # top 5 2-way interactions
+# h2_pairwise(s_negGrowthATS, normalize = FALSE, squared = FALSE, top_m = 8)
+plot(s_negGrowthATS, which = 1:2, normalize = F, squared = F, facet_scales = "free_y", ncol = 1)
+# 
+# # 3-way interactions
+# plot(s_negGrowthATS, which = 1:3, normalize = F, squared = F, facet_scales = "free_y", ncol = 1)
+
+## Partial dep plots ################################################################
+
+pWeight_negGrowth <- negGrowthATS$xgb %>%
+  pdp::partial(pred.var = "observedWeight", n.trees = 10, grid.resolution = 50, train = negGrowthATS$features_train) %>%
+  autoplot(rug = TRUE, train = negGrowthATS$features_train) +
+  geom_smooth(se = FALSE)
+
+pFlow_negGrowth <- negGrowthATS$xgb %>%
+  pdp::partial(pred.var = "meanFlowByRiver", n.trees = 10, grid.resolution = 50, train = negGrowthATS$features_train) %>%
+  autoplot(rug = TRUE, train = negGrowthATS$features_train) +
+  geom_smooth(se = FALSE)
+  #scale_y_discrete() +
+  #ggtitle("PDP")
+pTemp_negGrowth <- negGrowthATS$xgb %>%
+  pdp::partial(pred.var = "meanTemperature", n.trees = 10, grid.resolution = 50, train = negGrowthATS$features_train) %>%
+  autoplot(rug = TRUE, train = negGrowthATS$features_train) +
+  geom_smooth(se = FALSE)
+
+pNInd_negGrowth <- negGrowthATS$xgb %>%
+  pdp::partial(pred.var = "nInd", n.trees = 10, grid.resolution = 50, train = negGrowthATS$features_train) %>%
+  autoplot(rug = TRUE, train = negGrowthATS$features_train) +
+  geom_smooth(se = FALSE)
+
+pYear_negGrowth <- negGrowthATS$xgb %>%
+  pdp::partial(pred.var = "year", n.trees = 10, grid.resolution = 50, train = negGrowthATS$features_train) %>%
+  autoplot(rug = TRUE, train = negGrowthATS$features_train) +
+  geom_smooth(se = FALSE)
+
+gridExtra::grid.arrange(pWeight_negGrowth, pFlow_negGrowth, pTemp_negGrowth, pNInd_negGrowth, pYear_negGrowth, nrow = 3)
+
+##################################################################
+# all on one graph
+pFlow_propNegDataATS <- negGrowthATS$xgb %>%
+  pdp::partial(pred.var = "meanFlowByRiver", n.trees = 10, grid.resolution = 50, train = negGrowthATS$features_train) |> 
+  mutate(xScaled = (meanFlowByRiver-mean(meanFlowByRiver))/sd(meanFlowByRiver),
+         var = "Flow",
+         speciesGG = "Atlantic salmon")
+
+pMT_propNegDataATS <- negGrowthATS$xgb %>%
+  pdp::partial(pred.var = "meanTemperature", n.trees = 10, grid.resolution = 50, train = negGrowthATS$features_train) |> 
+  mutate(xScaled = (meanTemperature-mean(meanTemperature))/sd(meanTemperature),
+         var = "Temperature",
+         speciesGG = "Atlantic salmon")
+
+pNInd_propNegDataATS <- negGrowthATS$xgb %>%
+  pdp::partial(pred.var = "nInd", n.trees = 10, grid.resolution = 50, train = negGrowthATS$features_train) |> 
+  mutate(xScaled = (nInd-mean(nInd))/sd(nInd),
+         var = "Num inds",
+         speciesGG = "Atlantic salmon")
+
+pYear_propNegDataATS <- negGrowthATS$xgb %>%
+  pdp::partial(pred.var = "year", n.trees = 10, grid.resolution = 50, train = negGrowthATS$features_train) |> 
+  mutate(xScaled = (year-mean(year))/sd(year),
+         var = "Year",
+         speciesGG = "Atlantic salmon")
+
+
+all_propNegDataATS <- bind_rows(pFlow_propNegDataATS, pMT_propNegDataATS, pNInd_propNegDataATS, pYear_propNegDataATS)
+
+(
+all_propNegDataATS_gg <- ggplot(all_propNegDataATS, aes(xScaled, yhat, color = var)) +
+  #geom_point(alpha = 0.2) +
+  geom_smooth(se = FALSE) +
+  theme_publication() +
+  labs(y = "Effect on proportion of negative observations", x = "Scaled value")
+)
+
+
+### Interaction plots ##################################################################
+
+plot(partial_dep(negGrowthATS$xgb, v = "meanTemperature", X = negGrowthATS$features_train, BY = "meanFlowByRiver")) +
+  geom_smooth(aes(color = meanFlowByRiver), se = FALSE)
+
+plot(partial_dep(negGrowthATS$xgb, v = "meanFlowByRiver", X = negGrowthATS$features_train, BY = "meanTemperature")) +
+  geom_smooth(aes(color = meanTemperature), se = FALSE)
+
+plot(partial_dep(negGrowthATS$xgb, v = "meanFlowByRiver", X = negGrowthATS$features_train, BY = c("nInd"))) +
+  geom_smooth(aes(color = nInd), se = FALSE)
+
 ```
-
-Interaction plots
-```{r}
-#| label: hstatsInteractionsPlots
-
-plot(partial_dep(xgb.fit.final, v = "observedWeight", X = features_train, BY = "meanFlowByRiver"))
-
-#plot(partial_dep(xgb.fit.final, v = c("observedWeight", "meanFlowByRiver"), X = features_train, grid_size = 1000))
-
-plot(ice(xgb.fit.final, v = "observedWeight", X = features_train, BY = "meanFlowByRiver"), center = FALSE)
-plot(ice(xgb.fit.final, v = "meanFlowByRiver", X = features_train, BY = c("riverGG_lev_x_West_Brook", "seasonGG_lev_x_Summer")), center = FALSE)
-```
-
-Variable importance plots
-```{r}
-#| label: hstatsVIPlots
-
-pd_importance(s)
-
-# Compared with tree split gain importance
-xgb.plot.importance(xgb.importance(model = xgb.fit.final), measure = "Gain")
-```
-
-
 
 
 ### Growth model, continuous growth
@@ -3297,7 +3582,7 @@ predNeg |>
 
 ```
 
-## GAM for growth
+## GAM for individual growth
 ```{r}
 #| label: gamGrowthRaw
 
@@ -3565,7 +3850,7 @@ ggplot(
 ```
 
 
-## Logistic models for environmental effects on propNeg
+## Logistic models for environmental effects on negGrowth
 
 ### Standardize flow and temperature
 
