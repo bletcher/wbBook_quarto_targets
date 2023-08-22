@@ -2838,8 +2838,8 @@ ggplot(negGrowthBKT$xgb$evaluation_log) +
 #  geom_line(aes(iter, test_logloss), color = "blue")
 
 # variable importance plot
-viBKT <- xgb.importance(model = negGrowthBKT$xgb)
-xgb.plot.importance(viBKT, top_n = 10, measure = "Gain")
+viBKT_negGrowth <- xgb.importance(model = negGrowthBKT$xgb)
+xgb.plot.importance(viBKT_negGrowth, top_n = 10, measure = "Gain")
 
 ####################################################################
 s_negGrowthBKT <- hstats(negGrowthBKT$xgb, v = negGrowthBKT$new_vars, X = negGrowthBKT$features_train)
@@ -3013,8 +3013,8 @@ ggplot(negGrowthBNT$xgb$evaluation_log) +
 #  geom_line(aes(iter, test_logloss), color = "blue")
 
 # variable importance plot
-viBNT <- xgb.importance(model = negGrowthBNT$xgb)
-xgb.plot.importance(viBNT, top_n = 10, measure = "Gain")
+viBNT_negGrowth <- xgb.importance(model = negGrowthBNT$xgb)
+xgb.plot.importance(viBNT_negGrowth, top_n = 10, measure = "Gain")
 
 ####################################################################
 s_negGrowthBNT <- hstats(negGrowthBNT$xgb, v = negGrowthBNT$new_vars, X = negGrowthBNT$features_train)
@@ -3175,8 +3175,8 @@ ggplot(negGrowthATS$xgb$evaluation_log) +
 #  geom_line(aes(iter, test_logloss), color = "blue")
 
 # variable importance plot
-viATS <- xgb.importance(model = negGrowthATS$xgb)
-xgb.plot.importance(viATS, top_n = 10, measure = "Gain")
+viATS_negGrowth <- xgb.importance(model = negGrowthATS$xgb)
+xgb.plot.importance(viATS_negGrowth, top_n = 10, measure = "Gain")
 
 ####################################################################
 s_negGrowthATS <- hstats(negGrowthATS$xgb, v = negGrowthATS$new_vars, X = negGrowthATS$features_train)
@@ -3222,6 +3222,13 @@ gridExtra::grid.arrange(pWeight_negGrowth, pFlow_negGrowth, pTemp_negGrowth, pNI
 
 ##################################################################
 # all on one graph
+
+pWeight_propNegDataATS <- negGrowthATS$xgb %>%
+  pdp::partial(pred.var = "observedWeight", n.trees = 10, grid.resolution = 50, train = negGrowthATS$features_train) |> 
+  mutate(xScaled = (observedWeight-mean(observedWeight))/sd(observedWeight),
+         var = "Mass",
+         speciesGG = "Atlantic salmon")
+
 pFlow_propNegDataATS <- negGrowthATS$xgb %>%
   pdp::partial(pred.var = "meanFlowByRiver", n.trees = 10, grid.resolution = 50, train = negGrowthATS$features_train) |> 
   mutate(xScaled = (meanFlowByRiver-mean(meanFlowByRiver))/sd(meanFlowByRiver),
@@ -3271,6 +3278,89 @@ plot(partial_dep(negGrowthATS$xgb, v = "meanFlowByRiver", X = negGrowthATS$featu
 
 ```
 
+#### All 3 species
+```{r}
+#| label: partial3sppIndProbNeg
+
+# variable importance plots
+
+viAll_negGrowth <- bind_rows(
+  viBKT_negGrowth |> dplyr::select(Feature, Gain) |> mutate(speciesGG = "Brook Trout"),
+  viBNT_negGrowth |> dplyr::select(Feature, Gain) |> mutate(speciesGG = "Brown Trout"),
+  viATS_negGrowth |> dplyr::select(Feature, Gain) |> mutate(speciesGG = "Atlantic Salmon")
+) |> 
+  mutate(sppOrdered = factor(speciesGG, levels = c("Brook Trout", "Brown Trout", "Atlantic Salmon"), ordered = TRUE),
+         feature2 = case_when(
+           Feature == "observedWeight" ~ "Fish mass",
+           Feature == "meanFlowByRiver" ~ "Flow",
+           Feature == "meanTemperature" ~ "Temperature",
+           Feature == "nInd" ~ "Num Individuals",
+           Feature == "year" ~ "Year")
+  )
+
+ggplot(viAll_negGrowth |> filter(Feature %in% c("observedWeight", "meanFlowByRiver", "meanTemperature", "nInd", "year")), aes(feature2, Gain, fill = sppOrdered)) +
+  geom_col(position = "dodge") +
+  theme_publication() +
+  scale_fill_grey() +
+  labs(y = "Variable importance for the proportion of negative observations", x = "Variable")
+
+########################################################
+
+all_negGrowthData3spp <- bind_rows(all_propNegDataBKT, all_propNegDataBNT, all_propNegDataATS) |> 
+  mutate(sppOrdered = factor(speciesGG, levels = c("Brook Trout", "Brown Trout", "Atlantic Salmon"), ordered = TRUE))
+
+all_negGrowthData3sppMass_gg <- ggplot(all_negGrowthData3spp |> filter(var == "Mass"), aes(xScaled, yhat, color = sppOrdered, linetype = sppOrdered)) +
+  #geom_point(alpha = 0.2) +
+  geom_smooth(se = FALSE, linewidth = 1.5) +
+  theme_publication() +
+    scale_color_grey() +
+  labs(y = NULL, x = "Fish mass (mg)") +
+  theme(legend.position = "none")  
+
+
+all_negGrowthData3sppFlow_gg <- ggplot(all_negGrowthData3spp |> filter(var == "Flow"), aes(xScaled, yhat, color = sppOrdered, linetype = sppOrdered)) +
+  #geom_point(alpha = 0.2) +
+  geom_smooth(se = FALSE, linewidth = 1.5) +
+  theme_publication() +
+    scale_color_grey() +
+  labs(y = NULL, x = "Scaled flow") +
+  theme(legend.position = "none")  
+
+
+all_negGrowthData3sppTemp_gg <- ggplot(all_negGrowthData3spp |> filter(var == "Temperature"), aes(xScaled, yhat, color = sppOrdered, linetype = sppOrdered)) +
+  #geom_point(alpha = 0.2) +
+  geom_smooth(se = FALSE, linewidth = 1.5) +
+  theme_publication() +
+    scale_color_grey() +
+  labs(y = NULL, x = "Scaled temperature") +
+  theme(legend.position = "none")  
+
+all_negGrowthData3sppNInd_gg <- ggplot(all_negGrowthData3spp |> filter(var == "Num inds"), aes(xScaled, yhat, color = sppOrdered, linetype = sppOrdered)) +
+  #geom_point(alpha = 0.2) +
+  geom_smooth(se = FALSE, linewidth = 1.5) +
+  theme_publication() +
+    scale_color_grey() +
+  labs(y = NULL, x = "Scaled Number of individuals") +
+  theme(legend.position = "none")  
+
+all_negGrowthData3sppYear_gg <- ggplot(all_negGrowthData3spp |> filter(var == "Year"), aes(year, yhat, color = sppOrdered, linetype = sppOrdered)) +
+  #geom_point(alpha = 0.2) +
+  geom_smooth(se = FALSE, linewidth = 1.5) +
+  theme_publication() +
+  scale_color_grey() +
+  labs(y = NULL, x = "Year") +
+  theme(legend.position = "none")  
+
+gridExtra::grid.arrange(
+  all_negGrowthData3sppMass_gg,
+  all_negGrowthData3sppFlow_gg, 
+  all_negGrowthData3sppTemp_gg,
+  all_negGrowthData3sppNInd_gg,
+  all_negGrowthData3sppYear_gg,
+  left = textGrob(expression(bold("Effect on proportion of negative observations")), rot = 90, gp = gpar(fontsize = 16))
+)
+#######################################
+```
 
 ### Growth model, continuous growth
 
