@@ -44,3 +44,6 @@ nlme
 mgcv
 ggthemes
 hstats
+getPrepareWBData
+carData
+car
