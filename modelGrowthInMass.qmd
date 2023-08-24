@@ -40,6 +40,10 @@ library(pscl)
 
 library(getPrepareWBData)
 
+library(car)
+library(lmtest)
+library(rcompanion)
+
 # for xgboost models
 library(rsample)      # data splitting 
 library(gbm)          # basic implementation
@@ -4114,6 +4118,14 @@ runSppModels <- function(d, speciesIn) {
   models =
     tibble(model = 
       c(
+          'negGrowth ~ meanFlowByRiverZbySeason',
+          'negGrowth ~ meanTempZbySeason',
+          'negGrowth ~ river',
+          'negGrowth ~ factor(season)',
+          'negGrowth ~ observedWeightZ',
+          'negGrowth ~ nIndBySpeciesZ',
+          'negGrowth ~ nIndZ',
+        
           'negGrowth ~ meanFlowByRiverZbySeason * meanTempZbySeason * river',
           'negGrowth ~ meanFlowByRiverZbySeason * meanTempZbySeason + river',
           'negGrowth ~ meanFlowByRiverZbySeason + meanTempZbySeason + river', 
@@ -4125,19 +4137,30 @@ runSppModels <- function(d, speciesIn) {
           'negGrowth ~ meanFlowByRiverZbySeason + meanTempZbySeason * river * factor(season)', 
           
           'negGrowth ~ meanFlowByRiverZbySeason * meanTempZbySeason * river * factor(season) * observedWeightZ',
+          'negGrowth ~ (meanFlowByRiverZbySeason + meanTempZbySeason + river + factor(season) + observedWeightZ)^2',
+          'negGrowth ~ (meanFlowByRiverZbySeason + meanTempZbySeason + river + factor(season) + observedWeightZ + nIndBySpeciesZ)^2',
+          'negGrowth ~ (meanFlowByRiverZbySeason + meanTempZbySeason + river + factor(season) + observedWeightZ + nIndZ)^2',
+          'negGrowth ~ (meanFlowByRiverZbySeason + meanTempZbySeason + river + factor(season) + observedWeightZ + nIndZ + nIndBySpeciesZ)^2',
+          'negGrowth ~ (meanFlowByRiverZbySeason + meanTempZbySeason + river + factor(season) + observedWeightZ + nIndZ)^3',
+          
           'negGrowth ~ meanFlowByRiverZbySeason * meanTempZbySeason * river * factor(season) * observedWeightZ * nIndBySpeciesZ',
           'negGrowth ~ meanFlowByRiverZbySeason * meanTempZbySeason * river * factor(season) * observedWeightZ + nIndBySpeciesZ',
           'negGrowth ~ meanFlowByRiverZbySeason * meanTempZbySeason * river * observedWeightZ + nIndBySpeciesZ + factor(season)',
           'negGrowth ~ meanFlowByRiverZbySeason * meanTempZbySeason * river * observedWeightZ + nIndBySpeciesZ * factor(season)',
-          'negGrowth ~ meanFlowByRiverZbySeason * meanTempZbySeason * river * observedWeightZ * nIndBySpeciesZ + factor(season)'
+          'negGrowth ~ meanFlowByRiverZbySeason * meanTempZbySeason * river * observedWeightZ * nIndBySpeciesZ + factor(season)',
+          
+          'negGrowth ~ meanFlowByRiverZbySeason * meanTempZbySeason * nIndBySpeciesZ + river + observedWeightZ + factor(season)',
+          'negGrowth ~ (meanFlowByRiverZbySeason + meanTempZbySeason + nIndBySpeciesZ)^2 + river + observedWeightZ + factor(season)'
+    
         )
     ) |>
     mutate(
       fit = map(model, ~glm(.x, family = "binomial", data = d |> filter(species == speciesIn))),
       glanced = map(fit, broom::glance),
-      tidied = map(fit, broom::tidy),
-      anova = map(fit, anova),
-      summary = map(fit, summary)
+      tidied = map(fit, broom::tidy)
+      # anova = map(fit, anova),
+      # summary = map(fit, summary),
+      # confint = map(fit, confint)
     )
   return(models)
 }
@@ -4153,9 +4176,9 @@ predictSpp <- function(dIn, modIn, speciesIn){
   d <- dIn |> filter(species == speciesIn)
   
   byAIC = modIn |> 
-    unnest(glanced) |>
+    unnest(glanced) |> 
     arrange(AIC) |>
-    dplyr::select(model, AIC, df.residual, fit, tidied, summary, anova)
+    dplyr::select(model, AIC, df.residual, deviance, fit, tidied) 
   
   predDSpp <- expand.grid(
     meanFlowByRiverZbySeason = seq(-1.5,1.5,0.25), 
@@ -4163,7 +4186,8 @@ predictSpp <- function(dIn, modIn, speciesIn){
     river = unique(d$river), 
     season = unique(d$season),
     observedWeightZ = seq(-1.5,1.5,0.25),
-    nIndBySpeciesZ = seq(-1.5,1.5,0.25)
+    nIndBySpeciesZ = seq(-1.5,1.5,0.25),
+    nIndZ = seq(-1.5,1.5,0.25)
     )
   
   
@@ -4171,7 +4195,8 @@ predictSpp <- function(dIn, modIn, speciesIn){
                      pred = predict.glm(byAIC[1,]$fit[[1]], predDSpp, type = "response")) |> 
              mutate(groupT = paste(river, season, meanTempZbySeason, sep = "_"),
                     groupF = paste(river, season, meanFlowByRiverZbySeason, sep = "_"),
-                    groupTM = paste(river, season, meanTempZbySeason, observedWeightZ, sep = "_")) |> 
+                    groupTM = paste(river, season, meanTempZbySeason, observedWeightZ, sep = "_"),
+                    groupFN = paste(river, season, meanFlowByRiverZbySeason, nIndZ, sep = "_")) |> 
     addGG_noSpecies()
   
   return(
@@ -4180,7 +4205,7 @@ predictSpp <- function(dIn, modIn, speciesIn){
       byAIC = byAIC
     )
   )
-}   
+}  
 
 
 ```
@@ -4189,26 +4214,92 @@ predictSpp <- function(dIn, modIn, speciesIn){
 
 ```{r}
 #| label: modBKT
+
 speciesIn <- "bkt"
+
+ggpairs(
+  cd1_z |> filter(species == speciesIn) |> 
+  dplyr::select(meanFlowByRiverZbySeason, meanTempZbySeason, observedWeightZ, nIndBySpeciesZ, nIndZ, river, season)
+)
+
+
 modBKT <- runSppModels(cd1_z, speciesIn)
 predBKT <- predictSpp(cd1_z, modBKT, speciesIn)
-predBKT$byAIC
+predBKT$byAIC |> dplyr::select(model, AIC, deviance) 
 
-predBKT$byAIC[1,]$summary
-predBKT$byAIC[1,]$anova
+#https://rcompanion.org/rcompanion/e_06.html
+confint(predBKT$byAIC[1,]$fit[[1]]) |> 
+  as.data.frame() |> 
+  mutate(
+    lo = `2.5 %` > 0,
+    hi =  `97.5 %` < 0,
+    overlap0 = ifelse(`2.5 %` > 0 | `97.5 %` < 0, FALSE, TRUE))
 
-ggplot(predBKT$pred |> filter(meanTempZbySeason %in% c(-1.5,0,1.5), meanFlowByRiverZbySeason %in% c(-1.5,0,1.5), season > 1), aes(observedWeightZ, pred, group = groupF)) +
+anova(predBKT$byAIC[1,]$fit[[1]])
+
+Anova(predBKT$byAIC[1,]$fit[[1]], type="II", test="Wald")
+
+efronRSquared(predBKT$byAIC[1,]$fit[[1]])
+
+
+ggplot(predBKT$pred |> filter(meanTempZbySeason %in% c(-1.5,0,1.5), meanFlowByRiverZbySeason %in% c(-1.5,0,1.5), nIndZ == 0, season > 1), aes(observedWeightZ, pred, group = groupF)) +
   geom_line(aes(color = factor(meanFlowByRiverZbySeason))) +
   labs(y = "Probability of negative growth in mass", x = "Body mass (mg)") +
   theme_publication() +    
   facet_grid(seasonGG ~ riverGG + meanTempZbySeason)
 
-ggplot(predBKT$pred |> filter(meanTempZbySeason %in% c(-1.5,0,1.5), observedWeightZ %in% c(-1.5,0,1.5), season > 1), aes(meanFlowByRiverZbySeason, pred, group = groupTM)) +
+ggplot(predBKT$pred |> filter(meanTempZbySeason == 0, meanFlowByRiverZbySeason %in% c(-1.5,0,1.5), nIndZ == 0, season > 1), aes(observedWeightZ, pred, group = groupF)) +
+  geom_line(aes(color = factor(meanFlowByRiverZbySeason))) +
+  labs(y = "Probability of negative growth in mass", x = "Body mass (mg)") +
+  theme_publication() +    
+  facet_grid(seasonGG ~ riverGG)
+
+ggplot(predBKT$pred |> filter(meanTempZbySeason %in% c(-1.5,0,1.5), observedWeightZ == 0, nIndZ == 0, season > 1), aes(meanFlowByRiverZbySeason, pred, group = groupTM)) +
   geom_line(aes(color = factor(meanTempZbySeason))) + #, linetype = factor(observedWeightZ))) +
   labs(y = "Probability of negative growth in mass", x = "Stream flow") +
   theme_publication() +    
-  facet_grid(seasonGG + observedWeightZ ~ riverGG)
+  facet_grid(seasonGG ~ riverGG)
 
+
+predBKTWider <- predBKT$pred |> 
+  filter(nIndZ %in% c(-1.5, 0, 1.5)) |> 
+  dplyr::select(-groupFN) |> 
+  pivot_wider(values_from = pred, names_from = nIndZ, names_prefix = "nIndZ")
+
+tempColors <-  c("lightblue", "grey", "red")
+
+ggplot(predBKTWider |> filter(meanTempZbySeason %in% c(-1.5,0,1.5), observedWeightZ == -1.5, nIndBySpeciesZ == 0, season > 1), aes(meanFlowByRiverZbySeason, nIndZ0, group = groupTM)) +
+  geom_line(aes(color = factor(meanTempZbySeason)), linewidth = 1) + #, linetype = factor(observedWeightZ))) +
+  #geom_line(aes(meanFlowByRiverZbySeason, `nIndZ-1.5`, color = factor(meanTempZbySeason)), alpha = 0.5, linetype = 2, linewidth = 0.75) +
+  geom_line(aes(meanFlowByRiverZbySeason, nIndZ1.5, color = factor(meanTempZbySeason)), alpha = 0.33, linewidth = 0.75) +
+  geom_ribbon(aes(meanFlowByRiverZbySeason, ymin = `nIndZ-1.5`, max = nIndZ1.5, fill = factor(meanTempZbySeason)), alpha = 0.3) +
+  scale_color_manual(values = tempColors) +
+  scale_fill_manual(values = tempColors) +
+  labs(y = "Probability of negative growth in mass", x = "Stream flow", title = "Small fish") +
+  theme_publication() +    
+  facet_grid(seasonGG ~ riverGG)
+
+ggplot(predBKTWider |> filter(meanTempZbySeason %in% c(-1.5,0,1.5), observedWeightZ == 0, nIndBySpeciesZ == 0, season > 1), aes(meanFlowByRiverZbySeason, nIndZ0, group = groupTM)) +
+  geom_line(aes(color = factor(meanTempZbySeason)), linewidth = 1) + #, linetype = factor(observedWeightZ))) +
+  #geom_line(aes(meanFlowByRiverZbySeason, `nIndZ-1.5`, color = factor(meanTempZbySeason)), alpha = 0.5, linetype = 2, linewidth = 0.75) +
+  geom_line(aes(meanFlowByRiverZbySeason, nIndZ1.5, color = factor(meanTempZbySeason)), alpha = 0.33, linewidth = 0.75) +
+  geom_ribbon(aes(meanFlowByRiverZbySeason, ymin = `nIndZ-1.5`, max = nIndZ1.5, fill = factor(meanTempZbySeason)), alpha = 0.3) +
+  scale_color_manual(values = tempColors) +
+  scale_fill_manual(values = tempColors) +
+  labs(y = "Probability of negative growth in mass", x = "Stream flow", title = "Medium fish") +
+  theme_publication() +    
+  facet_grid(seasonGG ~ riverGG)
+
+ggplot(predBKTWider |> filter(meanTempZbySeason %in% c(-1.5,0,1.5), observedWeightZ == 1.5, nIndBySpeciesZ == 0, season > 1), aes(meanFlowByRiverZbySeason, nIndZ0, group = groupTM)) +
+  geom_line(aes(color = factor(meanTempZbySeason)), linewidth = 1) + #, linetype = factor(observedWeightZ))) +
+  #geom_line(aes(meanFlowByRiverZbySeason, `nIndZ-1.5`, color = factor(meanTempZbySeason)), alpha = 0.5, linetype = 2, linewidth = 0.75) +
+  geom_line(aes(meanFlowByRiverZbySeason, nIndZ1.5, color = factor(meanTempZbySeason)), alpha = 0.33, linewidth = 0.75) +
+  geom_ribbon(aes(meanFlowByRiverZbySeason, ymin = `nIndZ-1.5`, max = nIndZ1.5, fill = factor(meanTempZbySeason)), alpha = 0.3) +
+  scale_color_manual(values = tempColors) +
+  scale_fill_manual(values = tempColors) +
+  labs(y = "Probability of negative growth in mass", x = "Stream flow", title = "Large fish") +
+  theme_publication() +    
+  facet_grid(seasonGG ~ riverGG)
 
 
 ```
@@ -4220,30 +4311,91 @@ ggplot(predBKT$pred |> filter(meanTempZbySeason %in% c(-1.5,0,1.5), observedWeig
 #| 
 speciesIn <- "bnt"
 
+ggpairs(
+  cd1_z |> filter(species == speciesIn) |> 
+  dplyr::select(meanFlowByRiverZbySeason, meanTempZbySeason, observedWeightZ, nIndBySpeciesZ, nIndZ, river, season)
+)
+
+
 modBNT <- runSppModels(cd1_z, speciesIn)
 predBNT <- predictSpp(cd1_z, modBNT, speciesIn)
-predBNT$byAIC
+predBNT$byAIC |> dplyr::select(model, AIC, deviance)
 
-predBNT$byAIC[1,]$summary
-predBNT$byAIC[1,]$anova
+#https://rcompanion.org/rcompanion/e_06.html
+confint(predBNT$byAIC[1,]$fit[[1]]) |> 
+  as.data.frame() |> 
+  mutate(
+    lo = `2.5 %` > 0,
+    hi =  `97.5 %` < 0,
+    overlap0 = ifelse(`2.5 %` > 0 | `97.5 %` < 0, FALSE, TRUE))
 
-ggplot(predBNT$pred |> filter(meanTempZbySeason %in% c(-1.5,0,1.5), meanFlowByRiverZbySeason %in% c(-1.5,0,1.5), season > 1, nIndBySpeciesZ == 0), aes(observedWeightZ, pred, group = groupF)) +
+anova(predBNT$byAIC[1,]$fit[[1]])
+
+Anova(predBNT$byAIC[1,]$fit[[1]], type="II", test="Wald")
+
+efronRSquared(predBNT$byAIC[1,]$fit[[1]])
+
+
+ggplot(predBNT$pred |> filter(meanTempZbySeason %in% c(-1.5,0,1.5), meanFlowByRiverZbySeason %in% c(-1.5,0,1.5), nIndZ == 0, season > 1), aes(observedWeightZ, pred, group = groupF)) +
   geom_line(aes(color = factor(meanFlowByRiverZbySeason))) +
   labs(y = "Probability of negative growth in mass", x = "Body mass (mg)") +
   theme_publication() +    
   facet_grid(seasonGG ~ riverGG + meanTempZbySeason)
 
-ggplot(predBNT$pred |> filter(meanTempZbySeason %in% c(-1.5,0,1.5), observedWeightZ %in% c(-1.5,0,1.5), season > 1, nIndBySpeciesZ == 0), aes(meanFlowByRiverZbySeason, pred, group = groupTM)) +
+ggplot(predBNT$pred |> filter(meanTempZbySeason == 0, meanFlowByRiverZbySeason %in% c(-1.5,0,1.5), nIndZ == 0, season > 1), aes(observedWeightZ, pred, group = groupF)) +
+  geom_line(aes(color = factor(meanFlowByRiverZbySeason))) +
+  labs(y = "Probability of negative growth in mass", x = "Body mass (mg)") +
+  theme_publication() +    
+  facet_grid(seasonGG ~ riverGG)
+
+ggplot(predBNT$pred |> filter(meanTempZbySeason %in% c(-1.5,0,1.5), observedWeightZ == 0, nIndZ == 0, season > 1), aes(meanFlowByRiverZbySeason, pred, group = groupTM)) +
   geom_line(aes(color = factor(meanTempZbySeason))) + #, linetype = factor(observedWeightZ))) +
   labs(y = "Probability of negative growth in mass", x = "Stream flow") +
   theme_publication() +    
-  facet_grid(seasonGG + observedWeightZ ~ riverGG)
+  facet_grid(seasonGG ~ riverGG)
 
-ggplot(predBNT$pred |> filter(meanTempZbySeason %in% c(-1.5,0,1.5), observedWeightZ %in% c(-1.5,0,1.5), season > 1, meanFlowByRiverZbySeason == 0), aes(nIndBySpeciesZ, pred, group = groupTM)) +
-  geom_line(aes(color = factor(meanTempZbySeason))) + #, linetype = factor(observedWeightZ))) +
-  labs(y = "Probability of negative growth in mass", x = "Number of brown trout") +
+
+predBNTWider <- predBNT$pred |> 
+  filter(nIndZ %in% c(-1.5, 0, 1.5)) |> 
+  dplyr::select(-groupFN) |> 
+  pivot_wider(values_from = pred, names_from = nIndZ, names_prefix = "nIndZ")
+
+tempColors <-  c("lightblue", "grey", "red")
+
+ggplot(predBNTWider |> filter(meanTempZbySeason %in% c(-1.5,0,1.5), observedWeightZ == -1.5, nIndBySpeciesZ == 0, season > 1), aes(meanFlowByRiverZbySeason, nIndZ0, group = groupTM)) +
+  geom_line(aes(color = factor(meanTempZbySeason)), linewidth = 1) + #, linetype = factor(observedWeightZ))) +
+  #geom_line(aes(meanFlowByRiverZbySeason, `nIndZ-1.5`, color = factor(meanTempZbySeason)), alpha = 0.5, linetype = 2, linewidth = 0.75) +
+  geom_line(aes(meanFlowByRiverZbySeason, nIndZ1.5, color = factor(meanTempZbySeason)), alpha = 0.33, linewidth = 0.75) +
+  geom_ribbon(aes(meanFlowByRiverZbySeason, ymin = `nIndZ-1.5`, max = nIndZ1.5, fill = factor(meanTempZbySeason)), alpha = 0.3) +
+  scale_color_manual(values = tempColors) +
+  scale_fill_manual(values = tempColors) +
+  labs(y = "Probability of negative growth in mass", x = "Stream flow", title = "Small fish") +
   theme_publication() +    
-  facet_grid(seasonGG + observedWeightZ ~ riverGG)
+  facet_grid(seasonGG ~ riverGG)
+
+ggplot(predBNTWider |> filter(meanTempZbySeason %in% c(-1.5,0,1.5), observedWeightZ == 0, nIndBySpeciesZ == 0, season > 1), aes(meanFlowByRiverZbySeason, nIndZ0, group = groupTM)) +
+  geom_line(aes(color = factor(meanTempZbySeason)), linewidth = 1) + #, linetype = factor(observedWeightZ))) +
+  #geom_line(aes(meanFlowByRiverZbySeason, `nIndZ-1.5`, color = factor(meanTempZbySeason)), alpha = 0.5, linetype = 2, linewidth = 0.75) +
+  geom_line(aes(meanFlowByRiverZbySeason, nIndZ1.5, color = factor(meanTempZbySeason)), alpha = 0.33, linewidth = 0.75) +
+  geom_ribbon(aes(meanFlowByRiverZbySeason, ymin = `nIndZ-1.5`, max = nIndZ1.5, fill = factor(meanTempZbySeason)), alpha = 0.3) +
+  scale_color_manual(values = tempColors) +
+  scale_fill_manual(values = tempColors) +
+  labs(y = "Probability of negative growth in mass", x = "Stream flow", title = "Medium fish") +
+  theme_publication() +    
+  facet_grid(seasonGG ~ riverGG)
+
+ggplot(predBNTWider |> filter(meanTempZbySeason %in% c(-1.5,0,1.5), observedWeightZ == 1.5, nIndBySpeciesZ == 0, season > 1), aes(meanFlowByRiverZbySeason, nIndZ0, group = groupTM)) +
+  geom_line(aes(color = factor(meanTempZbySeason)), linewidth = 1) + #, linetype = factor(observedWeightZ))) +
+  #geom_line(aes(meanFlowByRiverZbySeason, `nIndZ-1.5`, color = factor(meanTempZbySeason)), alpha = 0.5, linetype = 2, linewidth = 0.75) +
+  geom_line(aes(meanFlowByRiverZbySeason, nIndZ1.5, color = factor(meanTempZbySeason)), alpha = 0.33, linewidth = 0.75) +
+  geom_ribbon(aes(meanFlowByRiverZbySeason, ymin = `nIndZ-1.5`, max = nIndZ1.5, fill = factor(meanTempZbySeason)), alpha = 0.3) +
+  scale_color_manual(values = tempColors) +
+  scale_fill_manual(values = tempColors) +
+  labs(y = "Probability of negative growth in mass", x = "Stream flow", title = "Large fish") +
+  theme_publication() +    
+  facet_grid(seasonGG ~ riverGG)
+
+
 
 ```
 
@@ -4254,30 +4406,91 @@ ggplot(predBNT$pred |> filter(meanTempZbySeason %in% c(-1.5,0,1.5), observedWeig
 #| 
 speciesIn <- "ats"
 
+ggpairs(
+  cd1_z |> filter(species == speciesIn) |> 
+  dplyr::select(meanFlowByRiverZbySeason, meanTempZbySeason, observedWeightZ, nIndBySpeciesZ, nIndZ, river, season)
+)
+
+
 modATS <- runSppModels(cd1_z, speciesIn)
 predATS <- predictSpp(cd1_z, modATS, speciesIn)
-predATS$byAIC
+predATS$byAIC |> dplyr::select(model, AIC, deviance) 
 
-predATS$byAIC[1,]$summary
-predATS$byAIC[1,]$anova
+#https://rcompanion.org/rcompanion/e_06.html
+confint(predATS$byAIC[1,]$fit[[1]]) |> 
+  as.data.frame() |> 
+  mutate(
+    lo = `2.5 %` > 0,
+    hi =  `97.5 %` < 0,
+    overlap0 = ifelse(`2.5 %` > 0 | `97.5 %` < 0, FALSE, TRUE))
 
-ggplot(predATS$pred |> filter(meanTempZbySeason %in% c(-1.5,0,1.5), meanFlowByRiverZbySeason %in% c(-1.5,0,1.5), season > 1, nIndBySpeciesZ == 0), aes(observedWeightZ, pred, group = groupF)) +
+anova(predATS$byAIC[1,]$fit[[1]])
+
+Anova(predATS$byAIC[1,]$fit[[1]], type="II", test="Wald")
+
+efronRSquared(predATS$byAIC[1,]$fit[[1]])
+
+
+ggplot(predATS$pred |> filter(meanTempZbySeason %in% c(-1.5,0,1.5), meanFlowByRiverZbySeason %in% c(-1.5,0,1.5), nIndZ == 0, nIndBySpeciesZ == 0, season > 1), aes(observedWeightZ, pred, group = groupF)) +
   geom_line(aes(color = factor(meanFlowByRiverZbySeason))) +
   labs(y = "Probability of negative growth in mass", x = "Body mass (mg)") +
   theme_publication() +    
   facet_grid(seasonGG ~ riverGG + meanTempZbySeason)
 
-ggplot(predATS$pred |> filter(meanTempZbySeason %in% c(-1.5,0,1.5), observedWeightZ %in% c(-1.5,0,1.5), season > 1, nIndBySpeciesZ == 0), aes(meanFlowByRiverZbySeason, pred, group = groupTM)) +
+ggplot(predATS$pred |> filter(meanTempZbySeason == 0, meanFlowByRiverZbySeason %in% c(-1.5,0,1.5), nIndZ == 0, nIndBySpeciesZ == 0, season > 1), aes(observedWeightZ, pred, group = groupF)) +
+  geom_line(aes(color = factor(meanFlowByRiverZbySeason))) +
+  labs(y = "Probability of negative growth in mass", x = "Body mass (mg)") +
+  theme_publication() +    
+  facet_grid(seasonGG ~ riverGG)
+
+ggplot(predATS$pred |> filter(meanTempZbySeason %in% c(-1.5,0,1.5), observedWeightZ == 0, nIndZ == 0, nIndBySpeciesZ == 0, season > 1), aes(meanFlowByRiverZbySeason, pred, group = groupTM)) +
   geom_line(aes(color = factor(meanTempZbySeason))) + #, linetype = factor(observedWeightZ))) +
   labs(y = "Probability of negative growth in mass", x = "Stream flow") +
   theme_publication() +    
-  facet_grid(seasonGG + observedWeightZ ~ riverGG)
+  facet_grid(seasonGG ~ riverGG)
 
-ggplot(predATS$pred |> filter(meanTempZbySeason %in% c(-1.5,0,1.5), observedWeightZ %in% c(-1.5,0,1.5), season > 1, meanFlowByRiverZbySeason == 0), aes(nIndBySpeciesZ, pred, group = groupTM)) +
-  geom_line(aes(color = factor(meanTempZbySeason))) + #, linetype = factor(observedWeightZ))) +
-  labs(y = "Probability of negative growth in mass", x = "Number of brown trout") +
+
+predATSWider <- predATS$pred |> 
+  filter(nIndZ %in% c(-1.5, 0, 1.5)) |> 
+  dplyr::select(-groupFN) |> 
+  pivot_wider(values_from = pred, names_from = nIndZ, names_prefix = "nIndZ")
+
+tempColors <-  c("lightblue", "grey", "red")
+
+ggplot(predATSWider |> filter(meanTempZbySeason %in% c(-1.5,0,1.5), observedWeightZ == -1.5, nIndBySpeciesZ == 0, season > 1, riverGG == "West Brook"), aes(meanFlowByRiverZbySeason, nIndZ0, group = groupTM)) +
+  geom_line(aes(color = factor(meanTempZbySeason)), linewidth = 1) + #, linetype = factor(observedWeightZ))) +
+  #geom_line(aes(meanFlowByRiverZbySeason, `nIndZ-1.5`, color = factor(meanTempZbySeason)), alpha = 0.5, linetype = 2, linewidth = 0.75) +
+  geom_line(aes(meanFlowByRiverZbySeason, nIndZ1.5, color = factor(meanTempZbySeason)), alpha = 0.33, linewidth = 0.75) +
+  geom_ribbon(aes(meanFlowByRiverZbySeason, ymin = `nIndZ-1.5`, max = nIndZ1.5, fill = factor(meanTempZbySeason)), alpha = 0.3) +
+  scale_color_manual(values = tempColors) +
+  scale_fill_manual(values = tempColors) +
+  labs(y = "Probability of negative growth in mass", x = "Stream flow", title = "Small fish") +
   theme_publication() +    
-  facet_grid(seasonGG + observedWeightZ ~ riverGG)
+  facet_grid(seasonGG ~ riverGG)
+
+ggplot(predATSWider |> filter(meanTempZbySeason %in% c(-1.5,0,1.5), observedWeightZ == 0, nIndBySpeciesZ == 0,  season > 1, riverGG == "West Brook"), aes(meanFlowByRiverZbySeason, nIndZ0, group = groupTM)) +
+  geom_line(aes(color = factor(meanTempZbySeason)), linewidth = 1) + #, linetype = factor(observedWeightZ))) +
+  #geom_line(aes(meanFlowByRiverZbySeason, `nIndZ-1.5`, color = factor(meanTempZbySeason)), alpha = 0.5, linetype = 2, linewidth = 0.75) +
+  geom_line(aes(meanFlowByRiverZbySeason, nIndZ1.5, color = factor(meanTempZbySeason)), alpha = 0.33, linewidth = 0.75) +
+  geom_ribbon(aes(meanFlowByRiverZbySeason, ymin = `nIndZ-1.5`, max = nIndZ1.5, fill = factor(meanTempZbySeason)), alpha = 0.3) +
+  scale_color_manual(values = tempColors) +
+  scale_fill_manual(values = tempColors) +
+  labs(y = "Probability of negative growth in mass", x = "Stream flow", title = "Medium fish") +
+  theme_publication() +    
+  facet_grid(seasonGG ~ riverGG)
+
+ggplot(predATSWider |> filter(meanTempZbySeason %in% c(-1.5,0,1.5), observedWeightZ == 1.5, nIndBySpeciesZ == 0,  season > 1, riverGG == "West Brook"), aes(meanFlowByRiverZbySeason, nIndZ0, group = groupTM)) +
+  geom_line(aes(color = factor(meanTempZbySeason)), linewidth = 1) + #, linetype = factor(observedWeightZ))) +
+  #geom_line(aes(meanFlowByRiverZbySeason, `nIndZ-1.5`, color = factor(meanTempZbySeason)), alpha = 0.5, linetype = 2, linewidth = 0.75) +
+  geom_line(aes(meanFlowByRiverZbySeason, nIndZ1.5, color = factor(meanTempZbySeason)), alpha = 0.33, linewidth = 0.75) +
+  geom_ribbon(aes(meanFlowByRiverZbySeason, ymin = `nIndZ-1.5`, max = nIndZ1.5, fill = factor(meanTempZbySeason)), alpha = 0.3) +
+  scale_color_manual(values = tempColors) +
+  scale_fill_manual(values = tempColors) +
+  labs(y = "Probability of negative growth in mass", x = "Stream flow", title = "Large fish") +
+  theme_publication() +    
+  facet_grid(seasonGG ~ riverGG)
+
+
 ```
 
 ## Two growth models
