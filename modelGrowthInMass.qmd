@@ -4211,7 +4211,7 @@ predictSpp <- function(dIn, modIn, speciesIn){
 ```
 
 ### Brook trout
-
+In the figures with the shading, the shading is the range of effects from number of individuals, with the darker line on one edge of the shaded area representing high numbers of individuals. 
 ```{r}
 #| label: modBKT
 
