@@ -58,7 +58,76 @@ cdWB_wanding %>%
   arrange(cohort) %>%
   kable() %>%
   kable_styling(full_width = T)
+
 ```
+
+::: panel-tabset
+#### West Brook
+
+```{r}
+#| label: wandWB
+
+
+cdWB_wanding %>% 
+  filter(riverOrdered == "West Brook") |> 
+  group_by(riverOrdered, cohort, date(detectionDate)) %>% 
+  summarize(n = n()) %>%
+  pivot_wider(values_from = "n", names_from = "riverOrdered") %>%
+  arrange(cohort) %>%
+  kable() %>%
+  kable_styling(full_width = T)
+```
+
+#### Jimmy (OL)
+
+```{r}
+#| label: wandJimmy
+
+
+cdWB_wanding %>% 
+  filter(riverOrdered == "WB Jimmy") |> 
+  group_by(riverOrdered, cohort, date(detectionDate)) %>% 
+  summarize(n = n()) %>%
+  pivot_wider(values_from = "n", names_from = "riverOrdered") %>%
+  arrange(cohort) %>%
+  kable() %>%
+  kable_styling(full_width = T)
+```
+
+#### Mitchell (OS)
+
+```{r}
+#| label: wandOS
+
+
+cdWB_wanding %>% 
+  filter(riverOrdered == "WB Mitchell") |> 
+  group_by(riverOrdered, cohort, date(detectionDate)) %>% 
+  summarize(n = n()) %>%
+  pivot_wider(values_from = "n", names_from = "riverOrdered") %>%
+  arrange(cohort) %>%
+  kable() %>%
+  kable_styling(full_width = T)
+```
+
+
+#### O'Bear (IS)
+
+```{r}
+#| label: wandOB
+
+cdWB_wanding %>% 
+  filter(riverOrdered == "WB OBear") |> 
+  group_by(riverOrdered, cohort, date(detectionDate)) %>% 
+  summarize(n = n()) %>%
+  pivot_wider(values_from = "n", names_from = "riverOrdered") %>%
+  arrange(cohort) %>%
+  kable() %>%
+  kable_styling(full_width = T)
+```
+:::
+
+
 
 ```{r}
 #| label: fig-wanding
@@ -73,7 +142,7 @@ Based on the following, looks like best data for analysis are trout in the tribs
 #| cache: true
 
 #everything
-ggplot(cdWB_wanding0, aes(j, sectionWQuarter, color = tag) )+
+ggplot(cdWB_wanding, aes(j, sectionWQuarter, color = tag) )+
   geom_point()+
   geom_line() +
   scale_y_continuous(limits = c(0,50))+
@@ -82,7 +151,7 @@ ggplot(cdWB_wanding0, aes(j, sectionWQuarter, color = tag) )+
   facet_grid(riverOrdered ~ year)
 
 #everything
-ggplot(filter(cdWB_wanding0, aliveOrDead != 'dead'), aes(j, sectionWQuarter, color = tag) )+
+ggplot(filter(cdWB_wanding, aliveOrDead != 'dead'), aes(j, sectionWQuarter, color = tag) )+
   geom_point()+
   geom_line() +
   scale_y_continuous(limits = c(0, 50))+
@@ -100,7 +169,7 @@ ggplot(filter(cdWB_wanding0, aliveOrDead != 'dead'), aes(j, sectionWQuarter, col
 # Loop over species
 for (s in c("bkt","bnt") ) {
   tmp2 <-
-    ggplot(filter(cdWB_wanding0, river!="west brook" & species == s & aliveOrDead != 'dead'), 
+    ggplot(filter(cdWB_wanding, river!="west brook" & species == s & aliveOrDead != 'dead'), 
            aes(detectionDate,sectionWQuarter, group = tag))+
     geom_point(aes(shape = aliveOrDead), size = 2)+
     geom_line() +
@@ -125,7 +194,7 @@ for (s in c("bkt", "bnt") ) {
     for (r in c("wb mitchell", "wb jimmy", "wb obear")) {
 
       tmp <-
-        ggplot(filter(cdWB_wanding0, river == r & species == s & year == y & aliveOrDead != 'dead'), 
+        ggplot(filter(cdWB_wanding, river == r & species == s & year == y & aliveOrDead != 'dead'), 
                aes(detectionDate,sectionWQuarter, color = tag))+
         geom_point(aes(shape=aliveOrDead),size=2)+
         geom_line() +
@@ -237,9 +306,9 @@ Calculate and plot movement
 ```{r}
 #| cache: true
 # Loop over species
-for (s in unique(cdWB_wanding0$species)) {
+for (s in unique(cdWB_wanding$species)) {
   tmp <-
-    ggplot(filter(cdWB_wanding0, river == "west brook" & species==s & aliveOrDead != 'dead'), 
+    ggplot(filter(cdWB_wanding, river == "west brook" & species==s & aliveOrDead != 'dead'), 
            aes(detectionDate,sectionWQuarter, color = tag))+
     geom_point(size=2)+
     geom_line() +
