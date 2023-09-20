@@ -47,6 +47,10 @@ all <- tar_read(cdWB_all)
   
 str(all)
 #ojs_define(allOJS0 = all) can't use whole dataset, html file gets too big
+
+# Save rData file for downloading
+# save(all, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_all.RData")
+
 ```
 
 ```{r}

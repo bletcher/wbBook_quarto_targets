@@ -1,4 +1,4 @@
-# CJS [t,t] - growth model
+# CJS - growth model
 
 Simple CJS model integrated with a growth in weight model to get phi, p, and growth estimates to compare with Neural Network CMR/growth model
 

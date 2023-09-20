@@ -128,13 +128,6 @@ cdWB_wanding %>%
 :::
 
 
-
-```{r}
-#| label: fig-wanding
-#| fig-cap: "graph"
-
-
-```
 ## All wanding data  
 Based on the following, looks like best data for analysis are trout in the tribs in 2009 2010. Need to decide what to do for salmon
 ```{r}
@@ -164,6 +157,7 @@ ggplot(filter(cdWB_wanding, aliveOrDead != 'dead'), aes(j, sectionWQuarter, colo
 
 ## Tributaries
 ```{r}
+#| label: tribs
 #| cache: true
 # Tribs
 # Loop over species
@@ -185,7 +179,8 @@ for (s in c("bkt","bnt") ) {
 ### Which species_year_tributary?  
 Raw data graphs for the 4 sets of data to focus on
 ```{r}
-#| label: wanding_yearByYear
+#| label: sppYearTrib
+
 #| cache: true
 
 # Tribs - focus on a year
@@ -213,6 +208,8 @@ for (s in c("bkt", "bnt") ) {
 ### Movement  
 Counts of observations by month, river, year
 ```{r}
+#| label: table monthYearRiver
+
 table(cdWB_wandingTribs3$month, cdWB_wandingTribs3$river, cdWB_wandingTribs3$year)
 
  ggplot(cdWB_wandingTribs3, aes(moveRate, color = species)) +
@@ -221,6 +218,8 @@ table(cdWB_wandingTribs3$month, cdWB_wandingTribs3$river, cdWB_wandingTribs3$yea
 ```
 Frequency distribution of movement rates
 ```{r}
+#| label: moverRate
+#| 
 ggplot(cdWB_wandingTribs3, aes(moveRate, linetype = species)) +
   geom_freqpoly(binwidth=5, boundary = min(cdWB_wandingTribs3$moveRate)) +
   scale_x_continuous("Movement rate (m/week)") +
@@ -235,6 +234,7 @@ ggplot(cdWB_wandingTribs3, aes(moveRate, linetype = species)) +
 ```
 ### Intervals
 ```{r}
+#| label: intervals
 # #Cut moveTime into intervals to make sure patterns look same for recaptures of different intervals
 
 # ggplot(cdWB_wandingTribs4_target, aes( moveRate, color=interval ) ) +
@@ -251,6 +251,7 @@ ggplot(cdWB_wandingTribs3, aes(moveRate, linetype = species)) +
 
 ### Random effect models
 ```{r}
+#| label: REModels
 # RE model for individual movement variation
 # 
  mod0 <- lmer(abs(moveRate) ~ (1|tag), data = cdWB_wandingTribs3)
@@ -288,6 +289,7 @@ ggplot(cdWB_wandingTribs3, aes(moveRate, linetype = species)) +
 
 ### Young-of-year fish
 ```{r}
+#| label: YOY
 ggplot(cdWB_wandingTribs3, aes(moveRate, linetype = species)) +
   geom_freqpoly() +
   scale_x_continuous("Movement rate (m/week)") +
@@ -304,6 +306,7 @@ Did not filter by moveTime > 1 because there were within-day samples in the WB (
 ### West brook wanding data  
 Calculate and plot movement
 ```{r}
+#| label: moveWB
 #| cache: true
 # Loop over species
 for (s in unique(cdWB_wanding$species)) {
