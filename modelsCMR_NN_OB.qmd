@@ -439,7 +439,7 @@ viewof selectInd_ss = Inputs.select([...Array(numTags_ss_OJS).keys()], {
 
 summary_ss_z_OJS_T = transpose(summary_ss_z_OJS)
 summary_ss_z_OJS_T_selected = summary_ss_z_OJS_T.filter((d) =>
-  selectInd.includes(d.ind)
+  selectInd_ss.includes(d.ind)
 )
 ```
 
