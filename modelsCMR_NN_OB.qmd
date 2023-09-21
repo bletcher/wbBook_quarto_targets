@@ -274,17 +274,18 @@ Plot.plot({
 
 #################################################################################
 
-## \[s, s\] model
+## \[s,s\] model
 
-Model with phi and p for each season combination. Season is hierarchical over time.
+Model with phi and p for each season_isYOY (YOY = young-of-year, isYOY = juvenile or adult) combination. Season is hierarchical over time.
+There are no data for the isYOY = TRUE, season = 2 state.
 
 Probability of survival (phi) model structure:
 
-phi\[s\] \<- betaInt\[s\]
+phi\[yoy, s\] \<- betaInt\[yoy, s\]
 
 Probability of capture (p) model structure:
 
-p\[s\] \<- betaP\[s\]
+p\[yoy, s\] \<- betaP\[yoy, s\]
 
 
 Model code is in `./models/cmrNN_OB/ss/modelCMR_ss_NN_OB_functionsToSource.R`\
@@ -310,12 +311,12 @@ ss_NN_OB_2023-06-15 08.RData: tracing phi and p and z \[most recent\] -->
 
 ### Model code
 
-In the model code, a value of `1` for `z` or in *gamma* or *omega* signifies the individual is alive and a value of `2` signifies the individual is dead. `y[i,j]` is the observed data (encounter history file).
+In the model code, a value of `1` for `z` or in *gamma* or *omega* signifies the individual is alive and a value of `2` signifies the individual is dead. `y[i,j]` is the observed data (encounter history file). isYOY = 1 signifies YOY = TRUE (juvenile), and isYOY = 2 signifies YOY = FALSE (adult)
 
 ```{r}
 #| label: OB_ss_NN_code
 
-  out_ss_NN_OB$modelCode
+out_ss_NN_OB$modelCode
 
 ```
 
