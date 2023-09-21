@@ -175,24 +175,24 @@ Add other variables to summary values
 
 ```{r}
 #| cache: FALSE
-ojs_define(numTags_ss_OJS = dim(eh$tags)[1])
-ojs_define(summary_ss_z_OJS = (summary_tt_z))
+ojs_define(numTags_tt_OJS = dim(eh$tags)[1])
+ojs_define(summary_tt_z_OJS = (summary_tt_z))
 ```
 
 ### Plot the probability of survival (z) for selected individuals  
 Select one or more individuals :  
 ```{ojs}
 
-viewof selectInd = Inputs.select([...Array(numTags_ss_OJS).keys()], {
+viewof selectInd_tt = Inputs.select([...Array(numTags_tt_OJS).keys()], {
   label: "Which fish?",
   value: 1,
   step: 1,
   multiple: true
 })
 
-summary_ss_z_OJS_T = transpose(summary_ss_z_OJS)
-summary_ss_z_OJS_T_selected = summary_ss_z_OJS_T.filter((d) =>
-  selectInd.includes(d.ind)
+summary_tt_z_OJS_T = transpose(summary_tt_z_OJS)
+summary_tt_z_OJS_T_selected = summary_tt_z_OJS_T.filter((d) =>
+  selectInd_tt.includes(d.ind)
 )
 ```
 
@@ -209,31 +209,31 @@ Plot.plot({
   y: { label: "Probability of survival" },
   marks: [
     Plot.frame(),
-    Plot.dot(summary_ss_z_OJS_T_selected, {
+    Plot.dot(summary_tt_z_OJS_T_selected, {
       x: "t",
       y: "pSurv"
     }),
-    Plot.dot(summary_ss_z_OJS_T_selected, {
+    Plot.dot(summary_tt_z_OJS_T_selected, {
       x: "t",
       y: "enc8",
       fill: "orange"
     }),
-    Plot.line(summary_ss_z_OJS_T_selected, {
+    Plot.line(summary_tt_z_OJS_T_selected, {
       x: "t",
       y: "pSurv"
     }),
-    Plot.ruleX(summary_ss_z_OJS_T_selected, {
+    Plot.ruleX(summary_tt_z_OJS_T_selected, {
       x: "first",
       y: 1,
       "stroke": "green"
     }),
-    Plot.ruleX(summary_ss_z_OJS_T_selected, {
+    Plot.ruleX(summary_tt_z_OJS_T_selected, {
       x: "last",
       y: 1,
       "stroke": "red"
     })
     ,
-    Plot.text(summary_ss_z_OJS_T_selected, 
+    Plot.text(summary_tt_z_OJS_T_selected, 
       Plot.selectFirst({
         x: 11,
         y: 1,
