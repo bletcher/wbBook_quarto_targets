@@ -316,13 +316,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./modelsCMR_NN_OB.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">CJS [t,t] model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">CJS model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./modelsCMR_Growth_NN_OB.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">CJS [t,t] - growth model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">CJS - growth model</span></span></a>
   </div>
 </li>
       </ul>
@@ -6438,7 +6438,7 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 </section>
 <section id="tributaries" class="level2" data-number="6.3">
 <h2 data-number="6.3" class="anchored" data-anchor-id="tributaries"><span class="header-section-number">6.3</span> Tributaries</h2>
-<div class="cell" data-hash="getDataWanding_cache/html/unnamed-chunk-11_5d172684ce58ec7b9a7c9b3f37372cfe">
+<div class="cell" data-hash="getDataWanding_cache/html/tribs_dc8241fe8503122140c42b2eb1301f25">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tribs</span></span>
@@ -6457,80 +6457,82 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 <span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<p><img src="getDataWanding_files/figure-html/tribs-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/unnamed-chunk-11-2.png" class="img-fluid" width="672"></p>
+<p><img src="getDataWanding_files/figure-html/tribs-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <section id="which-species_year_tributary" class="level3" data-number="6.3.1">
 <h3 data-number="6.3.1" class="anchored" data-anchor-id="which-species_year_tributary"><span class="header-section-number">6.3.1</span> Which species_year_tributary?</h3>
 <p>Raw data graphs for the 4 sets of data to focus on</p>
-<div class="cell" data-hash="getDataWanding_cache/html/wanding_yearByYear_be28e0e39a4411116ea3e17cfc76b648">
+<div class="cell" data-hash="getDataWanding_cache/html/sppYearTrib_0077c027d57b61f417e8e1198ac435ec">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tribs - focus on a year</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (s <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"bkt"</span>, <span class="st">"bnt"</span>) ) {</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (y <span class="cf">in</span> <span class="fu">c</span>(<span class="dv">2009</span>, <span class="dv">2010</span>) ) {</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (r <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"wb mitchell"</span>, <span class="st">"wb jimmy"</span>, <span class="st">"wb obear"</span>)) {</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>      tmp <span class="ot">&lt;-</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggplot</span>(<span class="fu">filter</span>(cdWB_wanding, river <span class="sc">==</span> r <span class="sc">&amp;</span> species <span class="sc">==</span> s <span class="sc">&amp;</span> year <span class="sc">==</span> y <span class="sc">&amp;</span> aliveOrDead <span class="sc">!=</span> <span class="st">'dead'</span>), </span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>               <span class="fu">aes</span>(detectionDate,sectionWQuarter, <span class="at">color =</span> tag))<span class="sc">+</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape=</span>aliveOrDead),<span class="at">size=</span><span class="dv">2</span>)<span class="sc">+</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>        <span class="co">#  scale_y_continuous(limits=c(0,15))+</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)<span class="sc">+</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggtitle</span>(<span class="fu">paste</span>(<span class="st">"Tribs"</span>, s, y, r, <span class="st">"not dead"</span>))</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>      <span class="co">#  facet_grid(species~year,scales='free')</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span>(tmp)</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Tribs - focus on a year</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (s <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"bkt"</span>, <span class="st">"bnt"</span>) ) {</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (y <span class="cf">in</span> <span class="fu">c</span>(<span class="dv">2009</span>, <span class="dv">2010</span>) ) {</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (r <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"wb mitchell"</span>, <span class="st">"wb jimmy"</span>, <span class="st">"wb obear"</span>)) {</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>      tmp <span class="ot">&lt;-</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggplot</span>(<span class="fu">filter</span>(cdWB_wanding, river <span class="sc">==</span> r <span class="sc">&amp;</span> species <span class="sc">==</span> s <span class="sc">&amp;</span> year <span class="sc">==</span> y <span class="sc">&amp;</span> aliveOrDead <span class="sc">!=</span> <span class="st">'dead'</span>), </span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>               <span class="fu">aes</span>(detectionDate,sectionWQuarter, <span class="at">color =</span> tag))<span class="sc">+</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape=</span>aliveOrDead),<span class="at">size=</span><span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>        <span class="co">#  scale_y_continuous(limits=c(0,15))+</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)<span class="sc">+</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggtitle</span>(<span class="fu">paste</span>(<span class="st">"Tribs"</span>, s, y, r, <span class="st">"not dead"</span>))</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>      <span class="co">#  facet_grid(species~year,scales='free')</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span>(tmp)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/wanding_yearByYear-1.png" class="img-fluid" width="672"></p>
+<p><img src="getDataWanding_files/figure-html/sppYearTrib-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/wanding_yearByYear-2.png" class="img-fluid" width="672"></p>
+<p><img src="getDataWanding_files/figure-html/sppYearTrib-2.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/wanding_yearByYear-3.png" class="img-fluid" width="672"></p>
+<p><img src="getDataWanding_files/figure-html/sppYearTrib-3.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/wanding_yearByYear-4.png" class="img-fluid" width="672"></p>
+<p><img src="getDataWanding_files/figure-html/sppYearTrib-4.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/wanding_yearByYear-5.png" class="img-fluid" width="672"></p>
+<p><img src="getDataWanding_files/figure-html/sppYearTrib-5.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/wanding_yearByYear-6.png" class="img-fluid" width="672"></p>
+<p><img src="getDataWanding_files/figure-html/sppYearTrib-6.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/wanding_yearByYear-7.png" class="img-fluid" width="672"></p>
+<p><img src="getDataWanding_files/figure-html/sppYearTrib-7.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/wanding_yearByYear-8.png" class="img-fluid" width="672"></p>
+<p><img src="getDataWanding_files/figure-html/sppYearTrib-8.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/wanding_yearByYear-9.png" class="img-fluid" width="672"></p>
+<p><img src="getDataWanding_files/figure-html/sppYearTrib-9.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/wanding_yearByYear-10.png" class="img-fluid" width="672"></p>
+<p><img src="getDataWanding_files/figure-html/sppYearTrib-10.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/wanding_yearByYear-11.png" class="img-fluid" width="672"></p>
+<p><img src="getDataWanding_files/figure-html/sppYearTrib-11.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/wanding_yearByYear-12.png" class="img-fluid" width="672"></p>
+<p><img src="getDataWanding_files/figure-html/sppYearTrib-12.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
 <section id="movement" class="level3" data-number="6.3.2">
 <h3 data-number="6.3.2" class="anchored" data-anchor-id="movement"><span class="header-section-number">6.3.2</span> Movement</h3>
 <p>Counts of observations by month, river, year</p>
-<div class="cell" data-hash="getDataWanding_cache/html/unnamed-chunk-13_e5c2af4e2672a6dc017229517b1db8cf">
+<div class="cell" data-hash="getDataWanding_cache/html/table monthYearRiver_a2c8badfbbee354a7c77bd1e623d2f87">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdWB_wandingTribs3<span class="sc">$</span>month, cdWB_wandingTribs3<span class="sc">$</span>river, cdWB_wandingTribs3<span class="sc">$</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -6559,11 +6561,11 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">facet_grid</span>(river <span class="sc">~</span> year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+<p><img src="getDataWanding_files/figure-html/table monthYearRiver-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Frequency distribution of movement rates</p>
-<div class="cell" data-hash="getDataWanding_cache/html/unnamed-chunk-14_ad9245334ee62aeecffbca783b169180">
+<div class="cell" data-hash="getDataWanding_cache/html/moverRate_8e7cdc75b45c4eed0593813cdde2903e">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cdWB_wandingTribs3, <span class="fu">aes</span>(moveRate, <span class="at">linetype =</span> species)) <span class="sc">+</span></span>
@@ -6578,13 +6580,13 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 <span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> river)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+<p><img src="getDataWanding_files/figure-html/moverRate-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
 <section id="intervals" class="level3" data-number="6.3.3">
 <h3 data-number="6.3.3" class="anchored" data-anchor-id="intervals"><span class="header-section-number">6.3.3</span> Intervals</h3>
-<div class="cell" data-hash="getDataWanding_cache/html/unnamed-chunk-15_93e4a8c09ecbb3a1e2e1da7650055b77">
+<div class="cell" data-hash="getDataWanding_cache/html/intervals_15768fb94e116bad461ab18fbf283b86">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># #Cut moveTime into intervals to make sure patterns look same for recaptures of different intervals</span></span>
@@ -6600,13 +6602,13 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 <span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>   <span class="fu">facet_grid</span>(river<span class="sc">~</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+<p><img src="getDataWanding_files/figure-html/intervals-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
 <section id="random-effect-models" class="level3" data-number="6.3.4">
 <h3 data-number="6.3.4" class="anchored" data-anchor-id="random-effect-models"><span class="header-section-number">6.3.4</span> Random effect models</h3>
-<div class="cell" data-hash="getDataWanding_cache/html/unnamed-chunk-16_d2412db9884821c2a7cdb677045e9755">
+<div class="cell" data-hash="getDataWanding_cache/html/REModels_1774bec0831567b96438310476b6a7a1">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># RE model for individual movement variation</span></span>
@@ -6702,7 +6704,7 @@ f():()11:() -0.134 -0.231  0.789   </code></pre>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">plotREsim</span>(randoms)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+<p><img src="getDataWanding_files/figure-html/REModels-1.png" class="img-fluid" width="672"></p>
 </div>
 <details>
 <summary>Code</summary>
@@ -6715,7 +6717,7 @@ f():()11:() -0.134 -0.231  0.789   </code></pre>
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/unnamed-chunk-16-2.png" class="img-fluid" width="672"></p>
+<p><img src="getDataWanding_files/figure-html/REModels-2.png" class="img-fluid" width="672"></p>
 </div>
 <details>
 <summary>Code</summary>
@@ -6733,7 +6735,7 @@ f():()11:() -0.134 -0.231  0.789   </code></pre>
 </section>
 <section id="young-of-year-fish" class="level3" data-number="6.3.5">
 <h3 data-number="6.3.5" class="anchored" data-anchor-id="young-of-year-fish"><span class="header-section-number">6.3.5</span> Young-of-year fish</h3>
-<div class="cell" data-hash="getDataWanding_cache/html/unnamed-chunk-17_d207c01a3e0f4e392f6d5d658ccc547f">
+<div class="cell" data-hash="getDataWanding_cache/html/YOY_e1909ee69b0ec06ded312f657acfa4e3">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cdWB_wandingTribs3, <span class="fu">aes</span>(moveRate, <span class="at">linetype =</span> species)) <span class="sc">+</span></span>
@@ -6744,7 +6746,7 @@ f():()11:() -0.134 -0.231  0.789   </code></pre>
 <span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(month <span class="sc">~</span> yoy <span class="sc">+</span> river)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+<p><img src="getDataWanding_files/figure-html/YOY-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -6755,7 +6757,7 @@ f():()11:() -0.134 -0.231  0.789   </code></pre>
 <section id="west-brook-wanding-data" class="level3" data-number="6.4.1">
 <h3 data-number="6.4.1" class="anchored" data-anchor-id="west-brook-wanding-data"><span class="header-section-number">6.4.1</span> West brook wanding data</h3>
 <p>Calculate and plot movement</p>
-<div class="cell" data-hash="getDataWanding_cache/html/unnamed-chunk-18_a8d1a38e9e6d1d67a1d285249ae69177">
+<div class="cell" data-hash="getDataWanding_cache/html/moveWB_8561dcc6b0285cf57a78f6fdaaf3349f">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop over species</span></span>
@@ -6773,13 +6775,13 @@ f():()11:() -0.134 -0.231  0.789   </code></pre>
 <span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+<p><img src="getDataWanding_files/figure-html/moveWB-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/unnamed-chunk-18-2.png" class="img-fluid" width="672"></p>
+<p><img src="getDataWanding_files/figure-html/moveWB-2.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/unnamed-chunk-18-3.png" class="img-fluid" width="672"></p>
+<p><img src="getDataWanding_files/figure-html/moveWB-3.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -7496,166 +7498,168 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb42-144"><a href="#cb42-144" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb42-145"><a href="#cb42-145" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb42-146"><a href="#cb42-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-147"><a href="#cb42-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-150"><a href="#cb42-150" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb42-151"><a href="#cb42-151" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-wanding</span></span>
-<span id="cb42-152"><a href="#cb42-152" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "graph"</span></span>
-<span id="cb42-153"><a href="#cb42-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-147"><a href="#cb42-147" aria-hidden="true" tabindex="-1"></a><span class="fu">## All wanding data  </span></span>
+<span id="cb42-148"><a href="#cb42-148" aria-hidden="true" tabindex="-1"></a>Based on the following, looks like best data for analysis are trout in the tribs in 2009 2010. Need to decide what to do for salmon</span>
+<span id="cb42-151"><a href="#cb42-151" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-152"><a href="#cb42-152" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: rawWandingDataGraphs</span></span>
+<span id="cb42-153"><a href="#cb42-153" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
 <span id="cb42-154"><a href="#cb42-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-155"><a href="#cb42-155" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb42-156"><a href="#cb42-156" aria-hidden="true" tabindex="-1"></a><span class="fu">## All wanding data  </span></span>
-<span id="cb42-157"><a href="#cb42-157" aria-hidden="true" tabindex="-1"></a>Based on the following, looks like best data for analysis are trout in the tribs in 2009 2010. Need to decide what to do for salmon</span>
-<span id="cb42-160"><a href="#cb42-160" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb42-161"><a href="#cb42-161" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: rawWandingDataGraphs</span></span>
-<span id="cb42-162"><a href="#cb42-162" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
+<span id="cb42-155"><a href="#cb42-155" aria-hidden="true" tabindex="-1"></a><span class="co">#everything</span></span>
+<span id="cb42-156"><a href="#cb42-156" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cdWB_wanding, <span class="fu">aes</span>(j, sectionWQuarter, <span class="at">color =</span> tag) )<span class="sc">+</span></span>
+<span id="cb42-157"><a href="#cb42-157" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb42-158"><a href="#cb42-158" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb42-159"><a href="#cb42-159" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">50</span>))<span class="sc">+</span></span>
+<span id="cb42-160"><a href="#cb42-160" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)<span class="sc">+</span></span>
+<span id="cb42-161"><a href="#cb42-161" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Everything"</span>) <span class="sc">+</span></span>
+<span id="cb42-162"><a href="#cb42-162" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(riverOrdered <span class="sc">~</span> year)</span>
 <span id="cb42-163"><a href="#cb42-163" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb42-164"><a href="#cb42-164" aria-hidden="true" tabindex="-1"></a><span class="co">#everything</span></span>
-<span id="cb42-165"><a href="#cb42-165" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cdWB_wanding, <span class="fu">aes</span>(j, sectionWQuarter, <span class="at">color =</span> tag) )<span class="sc">+</span></span>
+<span id="cb42-165"><a href="#cb42-165" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">filter</span>(cdWB_wanding, aliveOrDead <span class="sc">!=</span> <span class="st">'dead'</span>), <span class="fu">aes</span>(j, sectionWQuarter, <span class="at">color =</span> tag) )<span class="sc">+</span></span>
 <span id="cb42-166"><a href="#cb42-166" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
 <span id="cb42-167"><a href="#cb42-167" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb42-168"><a href="#cb42-168" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">50</span>))<span class="sc">+</span></span>
+<span id="cb42-168"><a href="#cb42-168" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>))<span class="sc">+</span></span>
 <span id="cb42-169"><a href="#cb42-169" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)<span class="sc">+</span></span>
-<span id="cb42-170"><a href="#cb42-170" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Everything"</span>) <span class="sc">+</span></span>
-<span id="cb42-171"><a href="#cb42-171" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(riverOrdered <span class="sc">~</span> year)</span>
+<span id="cb42-170"><a href="#cb42-170" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Not dead"</span>) <span class="sc">+</span></span>
+<span id="cb42-171"><a href="#cb42-171" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(river<span class="sc">~</span>year)</span>
 <span id="cb42-172"><a href="#cb42-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-173"><a href="#cb42-173" aria-hidden="true" tabindex="-1"></a><span class="co">#everything</span></span>
-<span id="cb42-174"><a href="#cb42-174" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">filter</span>(cdWB_wanding, aliveOrDead <span class="sc">!=</span> <span class="st">'dead'</span>), <span class="fu">aes</span>(j, sectionWQuarter, <span class="at">color =</span> tag) )<span class="sc">+</span></span>
-<span id="cb42-175"><a href="#cb42-175" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb42-176"><a href="#cb42-176" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb42-177"><a href="#cb42-177" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>))<span class="sc">+</span></span>
-<span id="cb42-178"><a href="#cb42-178" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)<span class="sc">+</span></span>
-<span id="cb42-179"><a href="#cb42-179" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Not dead"</span>) <span class="sc">+</span></span>
-<span id="cb42-180"><a href="#cb42-180" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(river<span class="sc">~</span>year)</span>
-<span id="cb42-181"><a href="#cb42-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-182"><a href="#cb42-182" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb42-183"><a href="#cb42-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-184"><a href="#cb42-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-185"><a href="#cb42-185" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tributaries</span></span>
-<span id="cb42-188"><a href="#cb42-188" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb42-189"><a href="#cb42-189" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
-<span id="cb42-190"><a href="#cb42-190" aria-hidden="true" tabindex="-1"></a><span class="co"># Tribs</span></span>
-<span id="cb42-191"><a href="#cb42-191" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop over species</span></span>
-<span id="cb42-192"><a href="#cb42-192" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (s <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"bkt"</span>,<span class="st">"bnt"</span>) ) {</span>
-<span id="cb42-193"><a href="#cb42-193" aria-hidden="true" tabindex="-1"></a>  tmp2 <span class="ot">&lt;-</span></span>
-<span id="cb42-194"><a href="#cb42-194" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">filter</span>(cdWB_wanding, river<span class="sc">!=</span><span class="st">"west brook"</span> <span class="sc">&amp;</span> species <span class="sc">==</span> s <span class="sc">&amp;</span> aliveOrDead <span class="sc">!=</span> <span class="st">'dead'</span>), </span>
-<span id="cb42-195"><a href="#cb42-195" aria-hidden="true" tabindex="-1"></a>           <span class="fu">aes</span>(detectionDate,sectionWQuarter, <span class="at">group =</span> tag))<span class="sc">+</span></span>
-<span id="cb42-196"><a href="#cb42-196" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape =</span> aliveOrDead), <span class="at">size =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
-<span id="cb42-197"><a href="#cb42-197" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb42-198"><a href="#cb42-198" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">15</span>))<span class="sc">+</span></span>
-<span id="cb42-199"><a href="#cb42-199" aria-hidden="true" tabindex="-1"></a>    <span class="co">#  theme(legend.position="none")+</span></span>
-<span id="cb42-200"><a href="#cb42-200" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="fu">paste</span>(<span class="st">"Tribs"</span>, s, <span class="st">"not dead"</span>)) <span class="sc">+</span></span>
-<span id="cb42-201"><a href="#cb42-201" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(river <span class="sc">~</span> year, <span class="at">scales =</span> <span class="st">'free'</span>)</span>
-<span id="cb42-202"><a href="#cb42-202" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(tmp2)</span>
-<span id="cb42-203"><a href="#cb42-203" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb42-204"><a href="#cb42-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-205"><a href="#cb42-205" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb42-206"><a href="#cb42-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-207"><a href="#cb42-207" aria-hidden="true" tabindex="-1"></a><span class="fu">### Which species_year_tributary?  </span></span>
-<span id="cb42-208"><a href="#cb42-208" aria-hidden="true" tabindex="-1"></a>Raw data graphs for the 4 sets of data to focus on</span>
-<span id="cb42-211"><a href="#cb42-211" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb42-212"><a href="#cb42-212" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: wanding_yearByYear</span></span>
-<span id="cb42-213"><a href="#cb42-213" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
-<span id="cb42-214"><a href="#cb42-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-215"><a href="#cb42-215" aria-hidden="true" tabindex="-1"></a><span class="co"># Tribs - focus on a year</span></span>
-<span id="cb42-216"><a href="#cb42-216" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (s <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"bkt"</span>, <span class="st">"bnt"</span>) ) {</span>
-<span id="cb42-217"><a href="#cb42-217" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (y <span class="cf">in</span> <span class="fu">c</span>(<span class="dv">2009</span>, <span class="dv">2010</span>) ) {</span>
-<span id="cb42-218"><a href="#cb42-218" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (r <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"wb mitchell"</span>, <span class="st">"wb jimmy"</span>, <span class="st">"wb obear"</span>)) {</span>
-<span id="cb42-219"><a href="#cb42-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-220"><a href="#cb42-220" aria-hidden="true" tabindex="-1"></a>      tmp <span class="ot">&lt;-</span></span>
-<span id="cb42-221"><a href="#cb42-221" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggplot</span>(<span class="fu">filter</span>(cdWB_wanding, river <span class="sc">==</span> r <span class="sc">&amp;</span> species <span class="sc">==</span> s <span class="sc">&amp;</span> year <span class="sc">==</span> y <span class="sc">&amp;</span> aliveOrDead <span class="sc">!=</span> <span class="st">'dead'</span>), </span>
-<span id="cb42-222"><a href="#cb42-222" aria-hidden="true" tabindex="-1"></a>               <span class="fu">aes</span>(detectionDate,sectionWQuarter, <span class="at">color =</span> tag))<span class="sc">+</span></span>
-<span id="cb42-223"><a href="#cb42-223" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape=</span>aliveOrDead),<span class="at">size=</span><span class="dv">2</span>)<span class="sc">+</span></span>
-<span id="cb42-224"><a href="#cb42-224" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb42-225"><a href="#cb42-225" aria-hidden="true" tabindex="-1"></a>        <span class="co">#  scale_y_continuous(limits=c(0,15))+</span></span>
-<span id="cb42-226"><a href="#cb42-226" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)<span class="sc">+</span></span>
-<span id="cb42-227"><a href="#cb42-227" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggtitle</span>(<span class="fu">paste</span>(<span class="st">"Tribs"</span>, s, y, r, <span class="st">"not dead"</span>))</span>
-<span id="cb42-228"><a href="#cb42-228" aria-hidden="true" tabindex="-1"></a>      <span class="co">#  facet_grid(species~year,scales='free')</span></span>
+<span id="cb42-173"><a href="#cb42-173" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-174"><a href="#cb42-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-175"><a href="#cb42-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-176"><a href="#cb42-176" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tributaries</span></span>
+<span id="cb42-179"><a href="#cb42-179" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-180"><a href="#cb42-180" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tribs</span></span>
+<span id="cb42-181"><a href="#cb42-181" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
+<span id="cb42-182"><a href="#cb42-182" aria-hidden="true" tabindex="-1"></a><span class="co"># Tribs</span></span>
+<span id="cb42-183"><a href="#cb42-183" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop over species</span></span>
+<span id="cb42-184"><a href="#cb42-184" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (s <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"bkt"</span>,<span class="st">"bnt"</span>) ) {</span>
+<span id="cb42-185"><a href="#cb42-185" aria-hidden="true" tabindex="-1"></a>  tmp2 <span class="ot">&lt;-</span></span>
+<span id="cb42-186"><a href="#cb42-186" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">filter</span>(cdWB_wanding, river<span class="sc">!=</span><span class="st">"west brook"</span> <span class="sc">&amp;</span> species <span class="sc">==</span> s <span class="sc">&amp;</span> aliveOrDead <span class="sc">!=</span> <span class="st">'dead'</span>), </span>
+<span id="cb42-187"><a href="#cb42-187" aria-hidden="true" tabindex="-1"></a>           <span class="fu">aes</span>(detectionDate,sectionWQuarter, <span class="at">group =</span> tag))<span class="sc">+</span></span>
+<span id="cb42-188"><a href="#cb42-188" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape =</span> aliveOrDead), <span class="at">size =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb42-189"><a href="#cb42-189" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb42-190"><a href="#cb42-190" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">15</span>))<span class="sc">+</span></span>
+<span id="cb42-191"><a href="#cb42-191" aria-hidden="true" tabindex="-1"></a>    <span class="co">#  theme(legend.position="none")+</span></span>
+<span id="cb42-192"><a href="#cb42-192" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="fu">paste</span>(<span class="st">"Tribs"</span>, s, <span class="st">"not dead"</span>)) <span class="sc">+</span></span>
+<span id="cb42-193"><a href="#cb42-193" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(river <span class="sc">~</span> year, <span class="at">scales =</span> <span class="st">'free'</span>)</span>
+<span id="cb42-194"><a href="#cb42-194" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(tmp2)</span>
+<span id="cb42-195"><a href="#cb42-195" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb42-196"><a href="#cb42-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-197"><a href="#cb42-197" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-198"><a href="#cb42-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-199"><a href="#cb42-199" aria-hidden="true" tabindex="-1"></a><span class="fu">### Which species_year_tributary?  </span></span>
+<span id="cb42-200"><a href="#cb42-200" aria-hidden="true" tabindex="-1"></a>Raw data graphs for the 4 sets of data to focus on</span>
+<span id="cb42-203"><a href="#cb42-203" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-204"><a href="#cb42-204" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: sppYearTrib</span></span>
+<span id="cb42-205"><a href="#cb42-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-206"><a href="#cb42-206" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
+<span id="cb42-207"><a href="#cb42-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-208"><a href="#cb42-208" aria-hidden="true" tabindex="-1"></a><span class="co"># Tribs - focus on a year</span></span>
+<span id="cb42-209"><a href="#cb42-209" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (s <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"bkt"</span>, <span class="st">"bnt"</span>) ) {</span>
+<span id="cb42-210"><a href="#cb42-210" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (y <span class="cf">in</span> <span class="fu">c</span>(<span class="dv">2009</span>, <span class="dv">2010</span>) ) {</span>
+<span id="cb42-211"><a href="#cb42-211" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (r <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"wb mitchell"</span>, <span class="st">"wb jimmy"</span>, <span class="st">"wb obear"</span>)) {</span>
+<span id="cb42-212"><a href="#cb42-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-213"><a href="#cb42-213" aria-hidden="true" tabindex="-1"></a>      tmp <span class="ot">&lt;-</span></span>
+<span id="cb42-214"><a href="#cb42-214" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggplot</span>(<span class="fu">filter</span>(cdWB_wanding, river <span class="sc">==</span> r <span class="sc">&amp;</span> species <span class="sc">==</span> s <span class="sc">&amp;</span> year <span class="sc">==</span> y <span class="sc">&amp;</span> aliveOrDead <span class="sc">!=</span> <span class="st">'dead'</span>), </span>
+<span id="cb42-215"><a href="#cb42-215" aria-hidden="true" tabindex="-1"></a>               <span class="fu">aes</span>(detectionDate,sectionWQuarter, <span class="at">color =</span> tag))<span class="sc">+</span></span>
+<span id="cb42-216"><a href="#cb42-216" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape=</span>aliveOrDead),<span class="at">size=</span><span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb42-217"><a href="#cb42-217" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb42-218"><a href="#cb42-218" aria-hidden="true" tabindex="-1"></a>        <span class="co">#  scale_y_continuous(limits=c(0,15))+</span></span>
+<span id="cb42-219"><a href="#cb42-219" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)<span class="sc">+</span></span>
+<span id="cb42-220"><a href="#cb42-220" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggtitle</span>(<span class="fu">paste</span>(<span class="st">"Tribs"</span>, s, y, r, <span class="st">"not dead"</span>))</span>
+<span id="cb42-221"><a href="#cb42-221" aria-hidden="true" tabindex="-1"></a>      <span class="co">#  facet_grid(species~year,scales='free')</span></span>
+<span id="cb42-222"><a href="#cb42-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-223"><a href="#cb42-223" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span>(tmp)</span>
+<span id="cb42-224"><a href="#cb42-224" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb42-225"><a href="#cb42-225" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb42-226"><a href="#cb42-226" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb42-227"><a href="#cb42-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-228"><a href="#cb42-228" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb42-229"><a href="#cb42-229" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-230"><a href="#cb42-230" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span>(tmp)</span>
-<span id="cb42-231"><a href="#cb42-231" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb42-232"><a href="#cb42-232" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb42-233"><a href="#cb42-233" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb42-234"><a href="#cb42-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-235"><a href="#cb42-235" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-230"><a href="#cb42-230" aria-hidden="true" tabindex="-1"></a><span class="fu">### Movement  </span></span>
+<span id="cb42-231"><a href="#cb42-231" aria-hidden="true" tabindex="-1"></a>Counts of observations by month, river, year</span>
+<span id="cb42-234"><a href="#cb42-234" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-235"><a href="#cb42-235" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: table monthYearRiver</span></span>
 <span id="cb42-236"><a href="#cb42-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-237"><a href="#cb42-237" aria-hidden="true" tabindex="-1"></a><span class="fu">### Movement  </span></span>
-<span id="cb42-238"><a href="#cb42-238" aria-hidden="true" tabindex="-1"></a>Counts of observations by month, river, year</span>
-<span id="cb42-241"><a href="#cb42-241" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb42-242"><a href="#cb42-242" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdWB_wandingTribs3<span class="sc">$</span>month, cdWB_wandingTribs3<span class="sc">$</span>river, cdWB_wandingTribs3<span class="sc">$</span>year)</span>
-<span id="cb42-243"><a href="#cb42-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-244"><a href="#cb42-244" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(cdWB_wandingTribs3, <span class="fu">aes</span>(moveRate, <span class="at">color =</span> species)) <span class="sc">+</span></span>
-<span id="cb42-245"><a href="#cb42-245" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_freqpoly</span>() <span class="sc">+</span></span>
-<span id="cb42-246"><a href="#cb42-246" aria-hidden="true" tabindex="-1"></a>   <span class="fu">facet_grid</span>(river <span class="sc">~</span> year)</span>
-<span id="cb42-247"><a href="#cb42-247" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb42-248"><a href="#cb42-248" aria-hidden="true" tabindex="-1"></a>Frequency distribution of movement rates</span>
-<span id="cb42-251"><a href="#cb42-251" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb42-252"><a href="#cb42-252" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cdWB_wandingTribs3, <span class="fu">aes</span>(moveRate, <span class="at">linetype =</span> species)) <span class="sc">+</span></span>
-<span id="cb42-253"><a href="#cb42-253" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_freqpoly</span>(<span class="at">binwidth=</span><span class="dv">5</span>, <span class="at">boundary =</span> <span class="fu">min</span>(cdWB_wandingTribs3<span class="sc">$</span>moveRate)) <span class="sc">+</span></span>
-<span id="cb42-254"><a href="#cb42-254" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Movement rate (m/week)"</span>) <span class="sc">+</span></span>
-<span id="cb42-255"><a href="#cb42-255" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Frequency"</span>) <span class="sc">+</span></span>
-<span id="cb42-256"><a href="#cb42-256" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size=</span><span class="dv">25</span>)<span class="sc">+</span></span>
-<span id="cb42-257"><a href="#cb42-257" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>( <span class="at">strip.background =</span> <span class="fu">element_blank</span>()</span>
-<span id="cb42-258"><a href="#cb42-258" aria-hidden="true" tabindex="-1"></a>         <span class="co">#strip.text = element_blank()</span></span>
-<span id="cb42-259"><a href="#cb42-259" aria-hidden="true" tabindex="-1"></a>         <span class="co">#legend.position = "none"</span></span>
-<span id="cb42-260"><a href="#cb42-260" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
-<span id="cb42-261"><a href="#cb42-261" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> river)</span>
-<span id="cb42-262"><a href="#cb42-262" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-263"><a href="#cb42-263" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb42-264"><a href="#cb42-264" aria-hidden="true" tabindex="-1"></a><span class="fu">### Intervals</span></span>
-<span id="cb42-267"><a href="#cb42-267" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb42-268"><a href="#cb42-268" aria-hidden="true" tabindex="-1"></a><span class="co"># #Cut moveTime into intervals to make sure patterns look same for recaptures of different intervals</span></span>
-<span id="cb42-269"><a href="#cb42-269" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-270"><a href="#cb42-270" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot(cdWB_wandingTribs4_target, aes( moveRate, color=interval ) ) +</span></span>
-<span id="cb42-271"><a href="#cb42-271" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_freqpoly() +</span></span>
-<span id="cb42-272"><a href="#cb42-272" aria-hidden="true" tabindex="-1"></a><span class="co">#   facet_grid(river~year+species)</span></span>
-<span id="cb42-273"><a href="#cb42-273" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-274"><a href="#cb42-274" aria-hidden="true" tabindex="-1"></a> <span class="co">#Try a boxplot</span></span>
-<span id="cb42-275"><a href="#cb42-275" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>( cdWB_wandingTribs3 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(month <span class="sc">%in%</span> <span class="dv">9</span><span class="sc">:</span><span class="dv">11</span>), </span>
-<span id="cb42-276"><a href="#cb42-276" aria-hidden="true" tabindex="-1"></a>         <span class="fu">aes</span>( <span class="fu">factor</span>(month),moveRate, <span class="at">color =</span> species ) ) <span class="sc">+</span></span>
-<span id="cb42-277"><a href="#cb42-277" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb42-278"><a href="#cb42-278" aria-hidden="true" tabindex="-1"></a>   <span class="fu">facet_grid</span>(river<span class="sc">~</span>year)</span>
+<span id="cb42-237"><a href="#cb42-237" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdWB_wandingTribs3<span class="sc">$</span>month, cdWB_wandingTribs3<span class="sc">$</span>river, cdWB_wandingTribs3<span class="sc">$</span>year)</span>
+<span id="cb42-238"><a href="#cb42-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-239"><a href="#cb42-239" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(cdWB_wandingTribs3, <span class="fu">aes</span>(moveRate, <span class="at">color =</span> species)) <span class="sc">+</span></span>
+<span id="cb42-240"><a href="#cb42-240" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_freqpoly</span>() <span class="sc">+</span></span>
+<span id="cb42-241"><a href="#cb42-241" aria-hidden="true" tabindex="-1"></a>   <span class="fu">facet_grid</span>(river <span class="sc">~</span> year)</span>
+<span id="cb42-242"><a href="#cb42-242" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-243"><a href="#cb42-243" aria-hidden="true" tabindex="-1"></a>Frequency distribution of movement rates</span>
+<span id="cb42-246"><a href="#cb42-246" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-247"><a href="#cb42-247" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: moverRate</span></span>
+<span id="cb42-248"><a href="#cb42-248" aria-hidden="true" tabindex="-1"></a><span class="co">#| </span></span>
+<span id="cb42-249"><a href="#cb42-249" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cdWB_wandingTribs3, <span class="fu">aes</span>(moveRate, <span class="at">linetype =</span> species)) <span class="sc">+</span></span>
+<span id="cb42-250"><a href="#cb42-250" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_freqpoly</span>(<span class="at">binwidth=</span><span class="dv">5</span>, <span class="at">boundary =</span> <span class="fu">min</span>(cdWB_wandingTribs3<span class="sc">$</span>moveRate)) <span class="sc">+</span></span>
+<span id="cb42-251"><a href="#cb42-251" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Movement rate (m/week)"</span>) <span class="sc">+</span></span>
+<span id="cb42-252"><a href="#cb42-252" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Frequency"</span>) <span class="sc">+</span></span>
+<span id="cb42-253"><a href="#cb42-253" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size=</span><span class="dv">25</span>)<span class="sc">+</span></span>
+<span id="cb42-254"><a href="#cb42-254" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>( <span class="at">strip.background =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb42-255"><a href="#cb42-255" aria-hidden="true" tabindex="-1"></a>         <span class="co">#strip.text = element_blank()</span></span>
+<span id="cb42-256"><a href="#cb42-256" aria-hidden="true" tabindex="-1"></a>         <span class="co">#legend.position = "none"</span></span>
+<span id="cb42-257"><a href="#cb42-257" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb42-258"><a href="#cb42-258" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> river)</span>
+<span id="cb42-259"><a href="#cb42-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-260"><a href="#cb42-260" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-261"><a href="#cb42-261" aria-hidden="true" tabindex="-1"></a><span class="fu">### Intervals</span></span>
+<span id="cb42-264"><a href="#cb42-264" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-265"><a href="#cb42-265" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: intervals</span></span>
+<span id="cb42-266"><a href="#cb42-266" aria-hidden="true" tabindex="-1"></a><span class="co"># #Cut moveTime into intervals to make sure patterns look same for recaptures of different intervals</span></span>
+<span id="cb42-267"><a href="#cb42-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-268"><a href="#cb42-268" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot(cdWB_wandingTribs4_target, aes( moveRate, color=interval ) ) +</span></span>
+<span id="cb42-269"><a href="#cb42-269" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_freqpoly() +</span></span>
+<span id="cb42-270"><a href="#cb42-270" aria-hidden="true" tabindex="-1"></a><span class="co">#   facet_grid(river~year+species)</span></span>
+<span id="cb42-271"><a href="#cb42-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-272"><a href="#cb42-272" aria-hidden="true" tabindex="-1"></a> <span class="co">#Try a boxplot</span></span>
+<span id="cb42-273"><a href="#cb42-273" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>( cdWB_wandingTribs3 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(month <span class="sc">%in%</span> <span class="dv">9</span><span class="sc">:</span><span class="dv">11</span>), </span>
+<span id="cb42-274"><a href="#cb42-274" aria-hidden="true" tabindex="-1"></a>         <span class="fu">aes</span>( <span class="fu">factor</span>(month),moveRate, <span class="at">color =</span> species ) ) <span class="sc">+</span></span>
+<span id="cb42-275"><a href="#cb42-275" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb42-276"><a href="#cb42-276" aria-hidden="true" tabindex="-1"></a>   <span class="fu">facet_grid</span>(river<span class="sc">~</span>year)</span>
+<span id="cb42-277"><a href="#cb42-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-278"><a href="#cb42-278" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb42-279"><a href="#cb42-279" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-280"><a href="#cb42-280" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb42-281"><a href="#cb42-281" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-282"><a href="#cb42-282" aria-hidden="true" tabindex="-1"></a><span class="fu">### Random effect models</span></span>
-<span id="cb42-285"><a href="#cb42-285" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb42-286"><a href="#cb42-286" aria-hidden="true" tabindex="-1"></a><span class="co"># RE model for individual movement variation</span></span>
-<span id="cb42-287"><a href="#cb42-287" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb42-288"><a href="#cb42-288" aria-hidden="true" tabindex="-1"></a> mod0 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(<span class="fu">abs</span>(moveRate) <span class="sc">~</span> (<span class="dv">1</span><span class="sc">|</span>tag), <span class="at">data =</span> cdWB_wandingTribs3)</span>
-<span id="cb42-289"><a href="#cb42-289" aria-hidden="true" tabindex="-1"></a><span class="co"># ####</span></span>
-<span id="cb42-290"><a href="#cb42-290" aria-hidden="true" tabindex="-1"></a> mod1 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(<span class="fu">abs</span>(moveRate) <span class="sc">~</span> <span class="fu">factor</span>(species) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>tag), <span class="at">data =</span> cdWB_wandingTribs3)</span>
-<span id="cb42-291"><a href="#cb42-291" aria-hidden="true" tabindex="-1"></a><span class="co"># ####</span></span>
-<span id="cb42-292"><a href="#cb42-292" aria-hidden="true" tabindex="-1"></a> mod2 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(<span class="fu">abs</span>(moveRate) <span class="sc">~</span> <span class="fu">factor</span>(species) <span class="sc">*</span> <span class="fu">factor</span>(month) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>tag), <span class="at">data =</span> cdWB_wandingTribs3)</span>
-<span id="cb42-293"><a href="#cb42-293" aria-hidden="true" tabindex="-1"></a><span class="co"># ####</span></span>
-<span id="cb42-294"><a href="#cb42-294" aria-hidden="true" tabindex="-1"></a> mod3 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(<span class="fu">abs</span>(moveRate) <span class="sc">~</span> <span class="fu">factor</span>(species) <span class="sc">+</span> <span class="fu">factor</span>(month) <span class="sc">+</span> <span class="fu">factor</span>(year) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>tag), <span class="at">data =</span> cdWB_wandingTribs3)</span>
-<span id="cb42-295"><a href="#cb42-295" aria-hidden="true" tabindex="-1"></a><span class="co"># ####</span></span>
-<span id="cb42-296"><a href="#cb42-296" aria-hidden="true" tabindex="-1"></a> mod4 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(<span class="fu">abs</span>(moveRate) <span class="sc">~</span> <span class="fu">factor</span>(species) <span class="sc">*</span> <span class="fu">factor</span>(month) <span class="sc">*</span> <span class="fu">factor</span>(year) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>tag), <span class="at">data =</span> cdWB_wandingTribs3)</span>
-<span id="cb42-297"><a href="#cb42-297" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb42-298"><a href="#cb42-298" aria-hidden="true" tabindex="-1"></a> <span class="fu">AIC</span>(mod0,mod1,mod2,mod3,mod4) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(AIC)</span>
-<span id="cb42-299"><a href="#cb42-299" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb42-300"><a href="#cb42-300" aria-hidden="true" tabindex="-1"></a> <span class="fu">summary</span>(mod4)</span>
-<span id="cb42-301"><a href="#cb42-301" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb42-302"><a href="#cb42-302" aria-hidden="true" tabindex="-1"></a> randoms <span class="ot">&lt;-</span> <span class="fu">REsim</span>( mod4, <span class="at">n.sims =</span> <span class="dv">1000</span> )</span>
-<span id="cb42-303"><a href="#cb42-303" aria-hidden="true" tabindex="-1"></a> <span class="fu">plotREsim</span>(randoms)</span>
-<span id="cb42-304"><a href="#cb42-304" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb42-305"><a href="#cb42-305" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-306"><a href="#cb42-306" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(randoms, <span class="fu">aes</span>(mean)) <span class="sc">+</span> </span>
-<span id="cb42-307"><a href="#cb42-307" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.75</span>, <span class="at">boundary =</span> <span class="fu">min</span>(randoms<span class="sc">$</span>mean)) <span class="sc">+</span></span>
-<span id="cb42-308"><a href="#cb42-308" aria-hidden="true" tabindex="-1"></a>   <span class="fu">scale_x_continuous</span>(<span class="st">"Indivdual random effect for movement rate (m/week)"</span>) <span class="sc">+</span></span>
-<span id="cb42-309"><a href="#cb42-309" aria-hidden="true" tabindex="-1"></a>   <span class="fu">scale_y_continuous</span>(<span class="st">"Frequency"</span>) <span class="sc">+</span></span>
-<span id="cb42-310"><a href="#cb42-310" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">25</span>)</span>
-<span id="cb42-311"><a href="#cb42-311" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-312"><a href="#cb42-312" aria-hidden="true" tabindex="-1"></a><span class="co"># # % of fish with CI that don't overlap 0</span></span>
-<span id="cb42-313"><a href="#cb42-313" aria-hidden="true" tabindex="-1"></a> randoms<span class="sc">$</span>lCI <span class="ot">&lt;-</span> randoms<span class="sc">$</span>mean <span class="sc">-</span> randoms<span class="sc">$</span>sd <span class="sc">*</span> <span class="fl">1.96</span></span>
-<span id="cb42-314"><a href="#cb42-314" aria-hidden="true" tabindex="-1"></a> randoms<span class="sc">$</span>uCI <span class="ot">&lt;-</span> randoms<span class="sc">$</span>mean <span class="sc">+</span> randoms<span class="sc">$</span>sd <span class="sc">*</span> <span class="fl">1.96</span></span>
-<span id="cb42-315"><a href="#cb42-315" aria-hidden="true" tabindex="-1"></a> randoms<span class="sc">$</span>sig <span class="ot">&lt;-</span> (randoms<span class="sc">$</span>uCI <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">|</span> randoms<span class="sc">$</span>lCI <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
-<span id="cb42-316"><a href="#cb42-316" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb42-317"><a href="#cb42-317" aria-hidden="true" tabindex="-1"></a> <span class="fu">count</span>(randoms, sig)<span class="sc">$</span>n<span class="sc">/</span><span class="fu">nrow</span>(randoms)</span>
-<span id="cb42-318"><a href="#cb42-318" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-319"><a href="#cb42-319" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb42-320"><a href="#cb42-320" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-321"><a href="#cb42-321" aria-hidden="true" tabindex="-1"></a><span class="fu">### Young-of-year fish</span></span>
-<span id="cb42-324"><a href="#cb42-324" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-280"><a href="#cb42-280" aria-hidden="true" tabindex="-1"></a><span class="fu">### Random effect models</span></span>
+<span id="cb42-283"><a href="#cb42-283" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-284"><a href="#cb42-284" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: REModels</span></span>
+<span id="cb42-285"><a href="#cb42-285" aria-hidden="true" tabindex="-1"></a><span class="co"># RE model for individual movement variation</span></span>
+<span id="cb42-286"><a href="#cb42-286" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb42-287"><a href="#cb42-287" aria-hidden="true" tabindex="-1"></a> mod0 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(<span class="fu">abs</span>(moveRate) <span class="sc">~</span> (<span class="dv">1</span><span class="sc">|</span>tag), <span class="at">data =</span> cdWB_wandingTribs3)</span>
+<span id="cb42-288"><a href="#cb42-288" aria-hidden="true" tabindex="-1"></a><span class="co"># ####</span></span>
+<span id="cb42-289"><a href="#cb42-289" aria-hidden="true" tabindex="-1"></a> mod1 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(<span class="fu">abs</span>(moveRate) <span class="sc">~</span> <span class="fu">factor</span>(species) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>tag), <span class="at">data =</span> cdWB_wandingTribs3)</span>
+<span id="cb42-290"><a href="#cb42-290" aria-hidden="true" tabindex="-1"></a><span class="co"># ####</span></span>
+<span id="cb42-291"><a href="#cb42-291" aria-hidden="true" tabindex="-1"></a> mod2 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(<span class="fu">abs</span>(moveRate) <span class="sc">~</span> <span class="fu">factor</span>(species) <span class="sc">*</span> <span class="fu">factor</span>(month) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>tag), <span class="at">data =</span> cdWB_wandingTribs3)</span>
+<span id="cb42-292"><a href="#cb42-292" aria-hidden="true" tabindex="-1"></a><span class="co"># ####</span></span>
+<span id="cb42-293"><a href="#cb42-293" aria-hidden="true" tabindex="-1"></a> mod3 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(<span class="fu">abs</span>(moveRate) <span class="sc">~</span> <span class="fu">factor</span>(species) <span class="sc">+</span> <span class="fu">factor</span>(month) <span class="sc">+</span> <span class="fu">factor</span>(year) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>tag), <span class="at">data =</span> cdWB_wandingTribs3)</span>
+<span id="cb42-294"><a href="#cb42-294" aria-hidden="true" tabindex="-1"></a><span class="co"># ####</span></span>
+<span id="cb42-295"><a href="#cb42-295" aria-hidden="true" tabindex="-1"></a> mod4 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(<span class="fu">abs</span>(moveRate) <span class="sc">~</span> <span class="fu">factor</span>(species) <span class="sc">*</span> <span class="fu">factor</span>(month) <span class="sc">*</span> <span class="fu">factor</span>(year) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>tag), <span class="at">data =</span> cdWB_wandingTribs3)</span>
+<span id="cb42-296"><a href="#cb42-296" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb42-297"><a href="#cb42-297" aria-hidden="true" tabindex="-1"></a> <span class="fu">AIC</span>(mod0,mod1,mod2,mod3,mod4) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(AIC)</span>
+<span id="cb42-298"><a href="#cb42-298" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb42-299"><a href="#cb42-299" aria-hidden="true" tabindex="-1"></a> <span class="fu">summary</span>(mod4)</span>
+<span id="cb42-300"><a href="#cb42-300" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb42-301"><a href="#cb42-301" aria-hidden="true" tabindex="-1"></a> randoms <span class="ot">&lt;-</span> <span class="fu">REsim</span>( mod4, <span class="at">n.sims =</span> <span class="dv">1000</span> )</span>
+<span id="cb42-302"><a href="#cb42-302" aria-hidden="true" tabindex="-1"></a> <span class="fu">plotREsim</span>(randoms)</span>
+<span id="cb42-303"><a href="#cb42-303" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb42-304"><a href="#cb42-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-305"><a href="#cb42-305" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(randoms, <span class="fu">aes</span>(mean)) <span class="sc">+</span> </span>
+<span id="cb42-306"><a href="#cb42-306" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.75</span>, <span class="at">boundary =</span> <span class="fu">min</span>(randoms<span class="sc">$</span>mean)) <span class="sc">+</span></span>
+<span id="cb42-307"><a href="#cb42-307" aria-hidden="true" tabindex="-1"></a>   <span class="fu">scale_x_continuous</span>(<span class="st">"Indivdual random effect for movement rate (m/week)"</span>) <span class="sc">+</span></span>
+<span id="cb42-308"><a href="#cb42-308" aria-hidden="true" tabindex="-1"></a>   <span class="fu">scale_y_continuous</span>(<span class="st">"Frequency"</span>) <span class="sc">+</span></span>
+<span id="cb42-309"><a href="#cb42-309" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">25</span>)</span>
+<span id="cb42-310"><a href="#cb42-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-311"><a href="#cb42-311" aria-hidden="true" tabindex="-1"></a><span class="co"># # % of fish with CI that don't overlap 0</span></span>
+<span id="cb42-312"><a href="#cb42-312" aria-hidden="true" tabindex="-1"></a> randoms<span class="sc">$</span>lCI <span class="ot">&lt;-</span> randoms<span class="sc">$</span>mean <span class="sc">-</span> randoms<span class="sc">$</span>sd <span class="sc">*</span> <span class="fl">1.96</span></span>
+<span id="cb42-313"><a href="#cb42-313" aria-hidden="true" tabindex="-1"></a> randoms<span class="sc">$</span>uCI <span class="ot">&lt;-</span> randoms<span class="sc">$</span>mean <span class="sc">+</span> randoms<span class="sc">$</span>sd <span class="sc">*</span> <span class="fl">1.96</span></span>
+<span id="cb42-314"><a href="#cb42-314" aria-hidden="true" tabindex="-1"></a> randoms<span class="sc">$</span>sig <span class="ot">&lt;-</span> (randoms<span class="sc">$</span>uCI <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">|</span> randoms<span class="sc">$</span>lCI <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb42-315"><a href="#cb42-315" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb42-316"><a href="#cb42-316" aria-hidden="true" tabindex="-1"></a> <span class="fu">count</span>(randoms, sig)<span class="sc">$</span>n<span class="sc">/</span><span class="fu">nrow</span>(randoms)</span>
+<span id="cb42-317"><a href="#cb42-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-318"><a href="#cb42-318" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-319"><a href="#cb42-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-320"><a href="#cb42-320" aria-hidden="true" tabindex="-1"></a><span class="fu">### Young-of-year fish</span></span>
+<span id="cb42-323"><a href="#cb42-323" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-324"><a href="#cb42-324" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: YOY</span></span>
 <span id="cb42-325"><a href="#cb42-325" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cdWB_wandingTribs3, <span class="fu">aes</span>(moveRate, <span class="at">linetype =</span> species)) <span class="sc">+</span></span>
 <span id="cb42-326"><a href="#cb42-326" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_freqpoly</span>() <span class="sc">+</span></span>
 <span id="cb42-327"><a href="#cb42-327" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Movement rate (m/week)"</span>) <span class="sc">+</span></span>
@@ -7672,91 +7676,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb42-338"><a href="#cb42-338" aria-hidden="true" tabindex="-1"></a><span class="fu">### West brook wanding data  </span></span>
 <span id="cb42-339"><a href="#cb42-339" aria-hidden="true" tabindex="-1"></a>Calculate and plot movement</span>
 <span id="cb42-342"><a href="#cb42-342" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb42-343"><a href="#cb42-343" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
-<span id="cb42-344"><a href="#cb42-344" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop over species</span></span>
-<span id="cb42-345"><a href="#cb42-345" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (s <span class="cf">in</span> <span class="fu">unique</span>(cdWB_wanding<span class="sc">$</span>species)) {</span>
-<span id="cb42-346"><a href="#cb42-346" aria-hidden="true" tabindex="-1"></a>  tmp <span class="ot">&lt;-</span></span>
-<span id="cb42-347"><a href="#cb42-347" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">filter</span>(cdWB_wanding, river <span class="sc">==</span> <span class="st">"west brook"</span> <span class="sc">&amp;</span> species<span class="sc">==</span>s <span class="sc">&amp;</span> aliveOrDead <span class="sc">!=</span> <span class="st">'dead'</span>), </span>
-<span id="cb42-348"><a href="#cb42-348" aria-hidden="true" tabindex="-1"></a>           <span class="fu">aes</span>(detectionDate,sectionWQuarter, <span class="at">color =</span> tag))<span class="sc">+</span></span>
-<span id="cb42-349"><a href="#cb42-349" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">2</span>)<span class="sc">+</span></span>
-<span id="cb42-350"><a href="#cb42-350" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb42-351"><a href="#cb42-351" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">30</span>,<span class="dv">35</span>))<span class="sc">+</span></span>
-<span id="cb42-352"><a href="#cb42-352" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)<span class="sc">+</span></span>
-<span id="cb42-353"><a href="#cb42-353" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="fu">paste</span>(<span class="st">"WB"</span>, s, <span class="st">"not dead"</span>)) <span class="sc">+</span></span>
-<span id="cb42-354"><a href="#cb42-354" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span> year, <span class="at">scales =</span> <span class="st">'free'</span>)</span>
-<span id="cb42-355"><a href="#cb42-355" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(tmp)</span>
-<span id="cb42-356"><a href="#cb42-356" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb42-357"><a href="#cb42-357" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb42-358"><a href="#cb42-358" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-359"><a href="#cb42-359" aria-hidden="true" tabindex="-1"></a><span class="fu">### Movement</span></span>
-<span id="cb42-362"><a href="#cb42-362" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb42-363"><a href="#cb42-363" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: wb</span></span>
-<span id="cb42-364"><a href="#cb42-364" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
-<span id="cb42-365"><a href="#cb42-365" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-366"><a href="#cb42-366" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdWB_wandingWB3<span class="sc">$</span>species, cdWB_wandingWB3<span class="sc">$</span>month, cdWB_wandingWB3<span class="sc">$</span>river, cdWB_wandingWB3<span class="sc">$</span>year)</span>
-<span id="cb42-367"><a href="#cb42-367" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb42-368"><a href="#cb42-368" aria-hidden="true" tabindex="-1"></a><span class="co"># # raw</span></span>
-<span id="cb42-369"><a href="#cb42-369" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(cdWB_wandingWB3, <span class="fu">aes</span>(j, sectionWQuarter, <span class="at">color =</span> tag)) <span class="sc">+</span></span>
-<span id="cb42-370"><a href="#cb42-370" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb42-371"><a href="#cb42-371" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb42-372"><a href="#cb42-372" aria-hidden="true" tabindex="-1"></a>   <span class="co">#  scale_y_continuous(limits=c(0,50))+</span></span>
-<span id="cb42-373"><a href="#cb42-373" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)<span class="sc">+</span></span>
-<span id="cb42-374"><a href="#cb42-374" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggtitle</span>(<span class="st">"Not dead"</span>) <span class="sc">+</span></span>
-<span id="cb42-375"><a href="#cb42-375" aria-hidden="true" tabindex="-1"></a>   <span class="fu">facet_grid</span>(river<span class="sc">~</span>year)</span>
-<span id="cb42-376"><a href="#cb42-376" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-377"><a href="#cb42-377" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(cdWB_wandingWB3, <span class="fu">aes</span>(moveRate, <span class="at">color =</span> species)) <span class="sc">+</span></span>
-<span id="cb42-378"><a href="#cb42-378" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_freqpoly</span>() <span class="sc">+</span></span>
-<span id="cb42-379"><a href="#cb42-379" aria-hidden="true" tabindex="-1"></a>   <span class="fu">facet_grid</span>(river <span class="sc">~</span> year)</span>
-<span id="cb42-380"><a href="#cb42-380" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-381"><a href="#cb42-381" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(cdWB_wandingWB3, <span class="fu">aes</span>(moveRate, <span class="at">linetype=</span>species)) <span class="sc">+</span></span>
-<span id="cb42-382"><a href="#cb42-382" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_freqpoly</span>(<span class="at">binwidth =</span> <span class="dv">5</span>, <span class="at">boundary =</span> <span class="fu">min</span>(cdWB_wandingWB3<span class="sc">$</span>moveRate, <span class="at">na.rm=</span>T)) <span class="sc">+</span></span>
-<span id="cb42-383"><a href="#cb42-383" aria-hidden="true" tabindex="-1"></a>   <span class="fu">scale_x_continuous</span>(<span class="st">"Movement rate (m/week)"</span>) <span class="sc">+</span></span>
-<span id="cb42-384"><a href="#cb42-384" aria-hidden="true" tabindex="-1"></a>   <span class="fu">scale_y_continuous</span>(<span class="st">"Frequency"</span>) <span class="sc">+</span></span>
-<span id="cb42-385"><a href="#cb42-385" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme_bw</span>(<span class="at">base_size=</span><span class="dv">25</span>)<span class="sc">+</span></span>
-<span id="cb42-386"><a href="#cb42-386" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme</span>( <span class="at">strip.background =</span> <span class="fu">element_blank</span>()</span>
-<span id="cb42-387"><a href="#cb42-387" aria-hidden="true" tabindex="-1"></a>          <span class="co">#strip.text = element_blank(),</span></span>
-<span id="cb42-388"><a href="#cb42-388" aria-hidden="true" tabindex="-1"></a>          <span class="co">#legend.position = "none"</span></span>
-<span id="cb42-389"><a href="#cb42-389" aria-hidden="true" tabindex="-1"></a>          ) </span>
-<span id="cb42-390"><a href="#cb42-390" aria-hidden="true" tabindex="-1"></a><span class="co"># #ats is solid line</span></span>
-<span id="cb42-391"><a href="#cb42-391" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-392"><a href="#cb42-392" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb42-393"><a href="#cb42-393" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb42-394"><a href="#cb42-394" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-395"><a href="#cb42-395" aria-hidden="true" tabindex="-1"></a><span class="fu">### Random effects models</span></span>
-<span id="cb42-398"><a href="#cb42-398" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb42-399"><a href="#cb42-399" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: RE model for individual movement variation WB</span></span>
-<span id="cb42-400"><a href="#cb42-400" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb42-401"><a href="#cb42-401" aria-hidden="true" tabindex="-1"></a>  mod0WB <span class="ot">&lt;-</span> <span class="fu">lmer</span>( <span class="fu">abs</span>(moveRate) <span class="sc">~</span> (<span class="dv">1</span><span class="sc">|</span>tag), <span class="at">data=</span>cdWB_wandingWB3 )</span>
-<span id="cb42-402"><a href="#cb42-402" aria-hidden="true" tabindex="-1"></a>  <span class="do">####</span></span>
-<span id="cb42-403"><a href="#cb42-403" aria-hidden="true" tabindex="-1"></a>  mod1WB <span class="ot">&lt;-</span> <span class="fu">lmer</span>( <span class="fu">abs</span>(moveRate) <span class="sc">~</span> <span class="fu">factor</span>(species) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>tag), <span class="at">data=</span>cdWB_wandingWB3 )</span>
-<span id="cb42-404"><a href="#cb42-404" aria-hidden="true" tabindex="-1"></a>  <span class="do">####</span></span>
-<span id="cb42-405"><a href="#cb42-405" aria-hidden="true" tabindex="-1"></a>  mod2WB <span class="ot">&lt;-</span> <span class="fu">lmer</span>( <span class="fu">abs</span>(moveRate) <span class="sc">~</span> <span class="fu">factor</span>(species) <span class="sc">*</span> <span class="fu">factor</span>(month) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>tag), <span class="at">data=</span>cdWB_wandingWB3 )</span>
-<span id="cb42-406"><a href="#cb42-406" aria-hidden="true" tabindex="-1"></a>  <span class="do">####</span></span>
-<span id="cb42-407"><a href="#cb42-407" aria-hidden="true" tabindex="-1"></a>  mod3WB <span class="ot">&lt;-</span> <span class="fu">lmer</span>( <span class="fu">abs</span>(moveRate) <span class="sc">~</span> <span class="fu">factor</span>(species) <span class="sc">+</span> <span class="fu">factor</span>(month) <span class="sc">+</span> <span class="fu">factor</span>(year) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>tag), <span class="at">data=</span>cdWB_wandingWB3 )</span>
-<span id="cb42-408"><a href="#cb42-408" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb42-343"><a href="#cb42-343" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: moveWB</span></span>
+<span id="cb42-344"><a href="#cb42-344" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
+<span id="cb42-345"><a href="#cb42-345" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop over species</span></span>
+<span id="cb42-346"><a href="#cb42-346" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (s <span class="cf">in</span> <span class="fu">unique</span>(cdWB_wanding<span class="sc">$</span>species)) {</span>
+<span id="cb42-347"><a href="#cb42-347" aria-hidden="true" tabindex="-1"></a>  tmp <span class="ot">&lt;-</span></span>
+<span id="cb42-348"><a href="#cb42-348" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">filter</span>(cdWB_wanding, river <span class="sc">==</span> <span class="st">"west brook"</span> <span class="sc">&amp;</span> species<span class="sc">==</span>s <span class="sc">&amp;</span> aliveOrDead <span class="sc">!=</span> <span class="st">'dead'</span>), </span>
+<span id="cb42-349"><a href="#cb42-349" aria-hidden="true" tabindex="-1"></a>           <span class="fu">aes</span>(detectionDate,sectionWQuarter, <span class="at">color =</span> tag))<span class="sc">+</span></span>
+<span id="cb42-350"><a href="#cb42-350" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb42-351"><a href="#cb42-351" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb42-352"><a href="#cb42-352" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">30</span>,<span class="dv">35</span>))<span class="sc">+</span></span>
+<span id="cb42-353"><a href="#cb42-353" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)<span class="sc">+</span></span>
+<span id="cb42-354"><a href="#cb42-354" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="fu">paste</span>(<span class="st">"WB"</span>, s, <span class="st">"not dead"</span>)) <span class="sc">+</span></span>
+<span id="cb42-355"><a href="#cb42-355" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span> year, <span class="at">scales =</span> <span class="st">'free'</span>)</span>
+<span id="cb42-356"><a href="#cb42-356" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(tmp)</span>
+<span id="cb42-357"><a href="#cb42-357" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb42-358"><a href="#cb42-358" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-359"><a href="#cb42-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-360"><a href="#cb42-360" aria-hidden="true" tabindex="-1"></a><span class="fu">### Movement</span></span>
+<span id="cb42-363"><a href="#cb42-363" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-364"><a href="#cb42-364" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: wb</span></span>
+<span id="cb42-365"><a href="#cb42-365" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
+<span id="cb42-366"><a href="#cb42-366" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-367"><a href="#cb42-367" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdWB_wandingWB3<span class="sc">$</span>species, cdWB_wandingWB3<span class="sc">$</span>month, cdWB_wandingWB3<span class="sc">$</span>river, cdWB_wandingWB3<span class="sc">$</span>year)</span>
+<span id="cb42-368"><a href="#cb42-368" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb42-369"><a href="#cb42-369" aria-hidden="true" tabindex="-1"></a><span class="co"># # raw</span></span>
+<span id="cb42-370"><a href="#cb42-370" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(cdWB_wandingWB3, <span class="fu">aes</span>(j, sectionWQuarter, <span class="at">color =</span> tag)) <span class="sc">+</span></span>
+<span id="cb42-371"><a href="#cb42-371" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb42-372"><a href="#cb42-372" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb42-373"><a href="#cb42-373" aria-hidden="true" tabindex="-1"></a>   <span class="co">#  scale_y_continuous(limits=c(0,50))+</span></span>
+<span id="cb42-374"><a href="#cb42-374" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)<span class="sc">+</span></span>
+<span id="cb42-375"><a href="#cb42-375" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggtitle</span>(<span class="st">"Not dead"</span>) <span class="sc">+</span></span>
+<span id="cb42-376"><a href="#cb42-376" aria-hidden="true" tabindex="-1"></a>   <span class="fu">facet_grid</span>(river<span class="sc">~</span>year)</span>
+<span id="cb42-377"><a href="#cb42-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-378"><a href="#cb42-378" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(cdWB_wandingWB3, <span class="fu">aes</span>(moveRate, <span class="at">color =</span> species)) <span class="sc">+</span></span>
+<span id="cb42-379"><a href="#cb42-379" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_freqpoly</span>() <span class="sc">+</span></span>
+<span id="cb42-380"><a href="#cb42-380" aria-hidden="true" tabindex="-1"></a>   <span class="fu">facet_grid</span>(river <span class="sc">~</span> year)</span>
+<span id="cb42-381"><a href="#cb42-381" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-382"><a href="#cb42-382" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(cdWB_wandingWB3, <span class="fu">aes</span>(moveRate, <span class="at">linetype=</span>species)) <span class="sc">+</span></span>
+<span id="cb42-383"><a href="#cb42-383" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_freqpoly</span>(<span class="at">binwidth =</span> <span class="dv">5</span>, <span class="at">boundary =</span> <span class="fu">min</span>(cdWB_wandingWB3<span class="sc">$</span>moveRate, <span class="at">na.rm=</span>T)) <span class="sc">+</span></span>
+<span id="cb42-384"><a href="#cb42-384" aria-hidden="true" tabindex="-1"></a>   <span class="fu">scale_x_continuous</span>(<span class="st">"Movement rate (m/week)"</span>) <span class="sc">+</span></span>
+<span id="cb42-385"><a href="#cb42-385" aria-hidden="true" tabindex="-1"></a>   <span class="fu">scale_y_continuous</span>(<span class="st">"Frequency"</span>) <span class="sc">+</span></span>
+<span id="cb42-386"><a href="#cb42-386" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme_bw</span>(<span class="at">base_size=</span><span class="dv">25</span>)<span class="sc">+</span></span>
+<span id="cb42-387"><a href="#cb42-387" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme</span>( <span class="at">strip.background =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb42-388"><a href="#cb42-388" aria-hidden="true" tabindex="-1"></a>          <span class="co">#strip.text = element_blank(),</span></span>
+<span id="cb42-389"><a href="#cb42-389" aria-hidden="true" tabindex="-1"></a>          <span class="co">#legend.position = "none"</span></span>
+<span id="cb42-390"><a href="#cb42-390" aria-hidden="true" tabindex="-1"></a>          ) </span>
+<span id="cb42-391"><a href="#cb42-391" aria-hidden="true" tabindex="-1"></a><span class="co"># #ats is solid line</span></span>
+<span id="cb42-392"><a href="#cb42-392" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-393"><a href="#cb42-393" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb42-394"><a href="#cb42-394" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-395"><a href="#cb42-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-396"><a href="#cb42-396" aria-hidden="true" tabindex="-1"></a><span class="fu">### Random effects models</span></span>
+<span id="cb42-399"><a href="#cb42-399" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-400"><a href="#cb42-400" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: RE model for individual movement variation WB</span></span>
+<span id="cb42-401"><a href="#cb42-401" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb42-402"><a href="#cb42-402" aria-hidden="true" tabindex="-1"></a>  mod0WB <span class="ot">&lt;-</span> <span class="fu">lmer</span>( <span class="fu">abs</span>(moveRate) <span class="sc">~</span> (<span class="dv">1</span><span class="sc">|</span>tag), <span class="at">data=</span>cdWB_wandingWB3 )</span>
+<span id="cb42-403"><a href="#cb42-403" aria-hidden="true" tabindex="-1"></a>  <span class="do">####</span></span>
+<span id="cb42-404"><a href="#cb42-404" aria-hidden="true" tabindex="-1"></a>  mod1WB <span class="ot">&lt;-</span> <span class="fu">lmer</span>( <span class="fu">abs</span>(moveRate) <span class="sc">~</span> <span class="fu">factor</span>(species) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>tag), <span class="at">data=</span>cdWB_wandingWB3 )</span>
+<span id="cb42-405"><a href="#cb42-405" aria-hidden="true" tabindex="-1"></a>  <span class="do">####</span></span>
+<span id="cb42-406"><a href="#cb42-406" aria-hidden="true" tabindex="-1"></a>  mod2WB <span class="ot">&lt;-</span> <span class="fu">lmer</span>( <span class="fu">abs</span>(moveRate) <span class="sc">~</span> <span class="fu">factor</span>(species) <span class="sc">*</span> <span class="fu">factor</span>(month) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>tag), <span class="at">data=</span>cdWB_wandingWB3 )</span>
+<span id="cb42-407"><a href="#cb42-407" aria-hidden="true" tabindex="-1"></a>  <span class="do">####</span></span>
+<span id="cb42-408"><a href="#cb42-408" aria-hidden="true" tabindex="-1"></a>  mod3WB <span class="ot">&lt;-</span> <span class="fu">lmer</span>( <span class="fu">abs</span>(moveRate) <span class="sc">~</span> <span class="fu">factor</span>(species) <span class="sc">+</span> <span class="fu">factor</span>(month) <span class="sc">+</span> <span class="fu">factor</span>(year) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>tag), <span class="at">data=</span>cdWB_wandingWB3 )</span>
 <span id="cb42-409"><a href="#cb42-409" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb42-410"><a href="#cb42-410" aria-hidden="true" tabindex="-1"></a>  <span class="fu">AIC</span>(mod0WB,mod1WB,mod2WB,mod3WB) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(AIC)</span>
-<span id="cb42-411"><a href="#cb42-411" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb42-412"><a href="#cb42-412" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(mod2WB)</span>
-<span id="cb42-413"><a href="#cb42-413" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb42-414"><a href="#cb42-414" aria-hidden="true" tabindex="-1"></a>  randomsWB <span class="ot">&lt;-</span> <span class="fu">REsim</span>(mod2WB, <span class="at">n.sims =</span> <span class="dv">1000</span>)</span>
-<span id="cb42-415"><a href="#cb42-415" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plotREsim</span>(randomsWB)</span>
-<span id="cb42-416"><a href="#cb42-416" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb42-417"><a href="#cb42-417" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-418"><a href="#cb42-418" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(randomsWB, <span class="fu">aes</span>(mean)) <span class="sc">+</span></span>
-<span id="cb42-419"><a href="#cb42-419" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">4.75</span>, <span class="at">boundary =</span> <span class="fu">min</span>(randomsWB<span class="sc">$</span>mean)) <span class="sc">+</span></span>
-<span id="cb42-420"><a href="#cb42-420" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="st">"Indivdual random effect for movement rate (m/week)"</span>) <span class="sc">+</span></span>
-<span id="cb42-421"><a href="#cb42-421" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="st">"Frequency"</span>) <span class="sc">+</span></span>
-<span id="cb42-422"><a href="#cb42-422" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">25</span>)</span>
-<span id="cb42-423"><a href="#cb42-423" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-424"><a href="#cb42-424" aria-hidden="true" tabindex="-1"></a>  <span class="co"># % of fish with CI that don't overlap 0</span></span>
-<span id="cb42-425"><a href="#cb42-425" aria-hidden="true" tabindex="-1"></a>  randomsWB<span class="sc">$</span>lCI <span class="ot">&lt;-</span> randomsWB<span class="sc">$</span>mean <span class="sc">-</span> randomsWB<span class="sc">$</span>sd <span class="sc">*</span> <span class="fl">1.96</span></span>
-<span id="cb42-426"><a href="#cb42-426" aria-hidden="true" tabindex="-1"></a>  randomsWB<span class="sc">$</span>uCI <span class="ot">&lt;-</span> randomsWB<span class="sc">$</span>mean <span class="sc">+</span> randomsWB<span class="sc">$</span>sd <span class="sc">*</span> <span class="fl">1.96</span></span>
-<span id="cb42-427"><a href="#cb42-427" aria-hidden="true" tabindex="-1"></a>  randomsWB<span class="sc">$</span>sig <span class="ot">&lt;-</span> (randomsWB<span class="sc">$</span>uCI <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">|</span> randomsWB<span class="sc">$</span>lCI <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
-<span id="cb42-428"><a href="#cb42-428" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb42-429"><a href="#cb42-429" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(randomsWB,sig)<span class="sc">$</span>n<span class="sc">/</span><span class="fu">nrow</span>(randomsWB)</span>
-<span id="cb42-430"><a href="#cb42-430" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-431"><a href="#cb42-431" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-410"><a href="#cb42-410" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb42-411"><a href="#cb42-411" aria-hidden="true" tabindex="-1"></a>  <span class="fu">AIC</span>(mod0WB,mod1WB,mod2WB,mod3WB) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(AIC)</span>
+<span id="cb42-412"><a href="#cb42-412" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb42-413"><a href="#cb42-413" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(mod2WB)</span>
+<span id="cb42-414"><a href="#cb42-414" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb42-415"><a href="#cb42-415" aria-hidden="true" tabindex="-1"></a>  randomsWB <span class="ot">&lt;-</span> <span class="fu">REsim</span>(mod2WB, <span class="at">n.sims =</span> <span class="dv">1000</span>)</span>
+<span id="cb42-416"><a href="#cb42-416" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plotREsim</span>(randomsWB)</span>
+<span id="cb42-417"><a href="#cb42-417" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb42-418"><a href="#cb42-418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-419"><a href="#cb42-419" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(randomsWB, <span class="fu">aes</span>(mean)) <span class="sc">+</span></span>
+<span id="cb42-420"><a href="#cb42-420" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">4.75</span>, <span class="at">boundary =</span> <span class="fu">min</span>(randomsWB<span class="sc">$</span>mean)) <span class="sc">+</span></span>
+<span id="cb42-421"><a href="#cb42-421" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="st">"Indivdual random effect for movement rate (m/week)"</span>) <span class="sc">+</span></span>
+<span id="cb42-422"><a href="#cb42-422" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="st">"Frequency"</span>) <span class="sc">+</span></span>
+<span id="cb42-423"><a href="#cb42-423" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">25</span>)</span>
+<span id="cb42-424"><a href="#cb42-424" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-425"><a href="#cb42-425" aria-hidden="true" tabindex="-1"></a>  <span class="co"># % of fish with CI that don't overlap 0</span></span>
+<span id="cb42-426"><a href="#cb42-426" aria-hidden="true" tabindex="-1"></a>  randomsWB<span class="sc">$</span>lCI <span class="ot">&lt;-</span> randomsWB<span class="sc">$</span>mean <span class="sc">-</span> randomsWB<span class="sc">$</span>sd <span class="sc">*</span> <span class="fl">1.96</span></span>
+<span id="cb42-427"><a href="#cb42-427" aria-hidden="true" tabindex="-1"></a>  randomsWB<span class="sc">$</span>uCI <span class="ot">&lt;-</span> randomsWB<span class="sc">$</span>mean <span class="sc">+</span> randomsWB<span class="sc">$</span>sd <span class="sc">*</span> <span class="fl">1.96</span></span>
+<span id="cb42-428"><a href="#cb42-428" aria-hidden="true" tabindex="-1"></a>  randomsWB<span class="sc">$</span>sig <span class="ot">&lt;-</span> (randomsWB<span class="sc">$</span>uCI <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">|</span> randomsWB<span class="sc">$</span>lCI <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb42-429"><a href="#cb42-429" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb42-430"><a href="#cb42-430" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(randomsWB,sig)<span class="sc">$</span>n<span class="sc">/</span><span class="fu">nrow</span>(randomsWB)</span>
+<span id="cb42-431"><a href="#cb42-431" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-432"><a href="#cb42-432" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
