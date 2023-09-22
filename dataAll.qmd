@@ -54,6 +54,7 @@ str(all)
 ```
 
 ```{r}
+#| label: tagsAllDefineN
 #| cache: false
 
 tags <- all %>%
@@ -110,8 +111,10 @@ tagsToPlot = allOJS.filter((d) => selectTag.includes(d.tag))
 
 tagsOverTime = Plot.plot({
   marks: [
-    Plot.dot(tagsToPlot, { x: "detectionDate", y: "section", stroke: "tag", symbol: "survey" }),
-    Plot.line(tagsToPlot, { x: "detectionDate", y: "section", stroke: "tag" })
+    //Plot.dot(tagsToPlot, { x: "detectionDate", y: "section", stroke: "tag", symbol: "survey" }),
+    //Plot.line(tagsToPlot, { x: "detectionDate", y: "section", stroke: "tag" })
+    Plot.dot(tagsToPlot, { x: "detectionDate", y: "riverMeter", stroke: "tag", symbol: "survey" }),
+    Plot.line(tagsToPlot, { x: "detectionDate", y: "riverMeter", stroke: "tag" })
   ],
   facet: {
     data: tagsToPlot, x: "river"
