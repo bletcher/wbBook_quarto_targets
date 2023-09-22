@@ -109,14 +109,27 @@ Facet by river, symbol identifies survey type
 
 tagsToPlot = allOJS.filter((d) => selectTag.includes(d.tag))
 
+tidy(
+  tagsToPlot,
+  mutate({
+    newDate: (d) => new Date(d.detectionDate)
+  })
+)
 
 tagsOverTime = Plot.plot({
   marks: [
-    //Plot.dot(tagsToPlot, { x: "detectionDate", y: "section", stroke: "tag", symbol: "survey" }),
-    //Plot.line(tagsToPlot, { x: "detectionDate", y: "section", stroke: "tag" })
-    Plot.dot(tagsToPlot, { x: "detectionDate", y: "riverMeter", stroke: "tag", symbol: "survey" }),
-    Plot.line(tagsToPlot, { x: "detectionDate", y: "riverMeter", stroke: "tag" }),
-    Plot.axisX({ticks: "3 months"})
+    Plot.dot(tagsToPlot, {
+      x: "newDate",
+      y: "riverMeter",
+      stroke: "tag",
+      symbol: "survey"
+    }),
+    Plot.line(tagsToPlot, {
+      x: "newDate",
+      y: "riverMeter",
+      stroke: "tag"
+    }),
+    Plot.axisX({ ticks: "3 months" })
   ],
   
   facet: {
@@ -134,21 +147,23 @@ tagsOverTime = Plot.plot({
 
 One panel, symbol identifies river
 ```{ojs}
+
 tagsOverTimeRiver = Plot.plot({
   marks: [
     Plot.dot(tagsToPlot, {
-      x: "detectionDate",
-      y: "section",
+      x: "newDate",
+      y: "riverMeter",
       stroke: "tag",
       symbol: "river"
     }),
-    Plot.line(tagsToPlot, { x: "detectionDate", y: "section", stroke: "tag" })
+    Plot.line(tagsToPlot, { x: "newDate", y: "riverMeter", stroke: "tag" }),
+    Plot.axisX({ ticks: "3 months" })
   ],
   // Include a legend for the color channel
   color: {
     legend: true
   },
-    symbol: {
+  symbol: {
     legend: true
   }
 })
