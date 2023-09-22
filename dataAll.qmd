@@ -67,7 +67,8 @@ all <- all %>%
   left_join(tags)
 
 allGT1500 <- all %>%
-  filter(n > 1500, n < 15000)
+  filter(n > 500, n < 10000) |> 
+  dplyr::select(tag, detectionDate, riverMeter, section, survey)
 
 
 ojs_define(allOJS0 = allGT1500)
