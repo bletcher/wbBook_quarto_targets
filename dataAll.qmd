@@ -107,10 +107,10 @@ viewof selectTag = Inputs.select(
 Facet by river, symbol identifies survey type
 ```{ojs}
 
-tagsToPlot = allOJS.filter((d) => selectTag.includes(d.tag))
+tagsToPlot0 = allOJS.filter((d) => selectTag.includes(d.tag))
 
-tidy(
-  tagsToPlot,
+tagsToPlot = tidy(
+  tagsToPlot0,
   mutate({
     newDate: (d) => new Date(d.detectionDate)
   })

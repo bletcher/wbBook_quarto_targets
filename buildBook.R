@@ -24,7 +24,7 @@ tar_make_future(workers = 2)
 quarto::quarto_render(output_format = "html")
 
 
-quarto::quarto_render("modelsCMR_NN_OB.qmd", 
+quarto::quarto_render("dataAll.qmd", 
                       #cache_refresh = TRUE, # default is FALSE
                       output_format = "html")
 
