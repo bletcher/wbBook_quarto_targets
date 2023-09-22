@@ -115,8 +115,10 @@ tagsOverTime = Plot.plot({
     //Plot.dot(tagsToPlot, { x: "detectionDate", y: "section", stroke: "tag", symbol: "survey" }),
     //Plot.line(tagsToPlot, { x: "detectionDate", y: "section", stroke: "tag" })
     Plot.dot(tagsToPlot, { x: "detectionDate", y: "riverMeter", stroke: "tag", symbol: "survey" }),
-    Plot.line(tagsToPlot, { x: "detectionDate", y: "riverMeter", stroke: "tag" })
+    Plot.line(tagsToPlot, { x: "detectionDate", y: "riverMeter", stroke: "tag" }),
+    Plot.axisX({ticks: "3 months"})
   ],
+  
   facet: {
     data: tagsToPlot, x: "river"
   },
