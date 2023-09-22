@@ -85,6 +85,7 @@ ojs_define(allOJS0 = allGT1500)
 ```
 
 ```{ojs}
+
 allOJS = transpose(allOJS0)
 
 tags = tidy(allOJS, groupBy("tag", [summarize({ n: n() })]), arrange([desc("n")]))
@@ -179,6 +180,8 @@ allOJS
 
 ```{ojs}
 import {tidy, max, nDistinct, groupBy, mutate, filter, summarize, first, last, distinct, count, n, arrange, mutateWithSummary, desc, debug, sum, slice, mean, deviation, variance, meanRate, median, min, total, sliceMax, innerJoin, leftJoin, pivotLonger, pivotWider, select, rename, complete, contains, when} from "@pbeshai/tidyjs"
+
+Plot = import("https://esm.sh/@observablehq/plot")
 
 ```
 
