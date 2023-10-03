@@ -181,6 +181,7 @@ allOJS
 ```{ojs}
 import {tidy, max, nDistinct, groupBy, mutate, filter, summarize, first, last, distinct, count, n, arrange, mutateWithSummary, desc, debug, sum, slice, mean, deviation, variance, meanRate, median, min, total, sliceMax, innerJoin, leftJoin, pivotLonger, pivotWider, select, rename, complete, contains, when} from "@pbeshai/tidyjs"
 
+// Gets most recent version of Plot
 Plot = import("https://esm.sh/@observablehq/plot")
 
 ```
