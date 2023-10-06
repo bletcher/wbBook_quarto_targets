@@ -469,7 +469,8 @@ Add other variables to summary values
     left_join(cohortLong)
 ```
 
-### Retrieve Xiaowei results 
+### Retrieve ML model results  
+ML model result are from Xioawei and Erhu at PITT
 
 ```{r}
 #| label: OB_sy_Xioawei
@@ -504,7 +505,7 @@ xPhi <- xPhi0 |>
 
 ```
 
-Plot Xiaowei's results
+Plot ML model results
 ```{r}
 #| label: plotXiaowei
 
@@ -514,12 +515,28 @@ ggplot(xP, aes(t, xP)) +
 ggplot(xP, aes(t, xP)) +
   geom_jitter(alpha = 0.01)
 
+ggplot(xP, aes(t, xP, group = ind)) +
+  geom_line()
+
 ggplot(xPhi, aes(t, xPhi)) +
   geom_jitter(alpha = 0.01)
 
+ggplot(xPhi, aes(t, xPhi, group = ind)) +
+  geom_line()
 ```
 
-### Merge Xioawei results
+Group by individual
+```{r}
+#| label: plotXiaowei_ind
+
+ggplot(xP, aes(t, xP, group = ind)) +
+  geom_line()
+
+ggplot(xPhi, aes(t, xPhi, group = ind)) +
+  geom_line()
+```
+
+### Merge ML model results
 ```{r}
 #| label: OB_sy_XioaweiSummary
 
@@ -544,6 +561,9 @@ summary_xP <- xP |>
 summary_ss_phi_x <- summary_ss_phi0 |> 
   left_join(xPhi)
 
+summary_ss_p_x <- summary_ss_p0 |> 
+  left_join(xP)
+
 ```
 
 
@@ -554,6 +574,8 @@ ojs_define(numTags_ss_OJS = dim(eh$tags)[1])
 ojs_define(summary_ss_z_OJS = (summary_ss_z))
 
 ojs_define(summary_ss_phi_x_OJS = (summary_ss_phi_x))
+ojs_define(summary_ss_p_x_OJS = (summary_ss_p_x))
+
 ```
 
 ### Plot the probability of survival (z) for selected individuals
@@ -574,6 +596,11 @@ summary_ss_z_OJS_T_selected = summary_ss_z_OJS_T.filter((d) =>
 
 summary_ss_phi_x_OJS_T = transpose(summary_ss_phi_x_OJS)
 summary_ss_phi_x_OJS_T_selected = summary_ss_phi_x_OJS_T.filter((d) =>
+  selectInd_ss.includes(d.ind)
+)
+
+summary_ss_p_x_OJS_T = transpose(summary_ss_p_x_OJS)
+summary_ss_p_x_OJS_T_selected = summary_ss_p_x_OJS_T.filter((d) =>
   selectInd_ss.includes(d.ind)
 )
 ```
@@ -607,12 +634,12 @@ Plot.plot({
     Plot.ruleX(summary_ss_z_OJS_T_selected, {
       x: "first",
       y: 1,
-      "stroke": "green"
+      stroke: "green"
     }),
     Plot.ruleX(summary_ss_z_OJS_T_selected, {
       x: "last",
       y: 1,
-      "stroke": "red"
+      stroke: "red"
     })
     ,
     Plot.text(summary_ss_z_OJS_T_selected,
@@ -630,7 +657,8 @@ Plot.plot({
 })
 ```
 
-### Compare survival with Xioawei's survival estimates
+### Compare survival with ML survival estimates  
+ML estimates are in orange
 ```{ojs}
 
 Plot.plot({
@@ -650,8 +678,7 @@ Plot.plot({
     }),
     Plot.dot(summary_ss_phi_x_OJS_T_selected, {
       x: "t",
-      y: "enc8",
-      fill: "orange"
+      y: "enc8"
     }),
     Plot.line(summary_ss_phi_x_OJS_T_selected, {
       x: "t",
@@ -660,22 +687,24 @@ Plot.plot({
     
     Plot.dot(summary_ss_phi_x_OJS_T_selected, {
       x: "t",
-      y: "xPhi"
+      y: "xPhi",
+      stroke: "orange"
     }),
     Plot.line(summary_ss_phi_x_OJS_T_selected, {
       x: "t",
-      y: "xPhi"
+      y: "xPhi",
+      stroke: "orange"
     }),
     
     Plot.ruleX(summary_ss_phi_x_OJS_T_selected, {
       x: "first",
       y: 1,
-      "stroke": "green"
+      stroke: "green"
     }),
     Plot.ruleX(summary_ss_phi_x_OJS_T_selected, {
       x: "last",
       y: 1,
-      "stroke": "red"
+      stroke: "red"
     })
     ,
     Plot.text(summary_ss_phi_x_OJS_T_selected,
@@ -693,10 +722,75 @@ Plot.plot({
 })
 ```
 
+### Compare probability of capture with ML survival estimates  
+ML estimates are in orange
+```{ojs}
+
+Plot.plot({
+  width: width,
+  height: 350,
+  inset: 10,
+  color: {
+    scheme: "greys"
+  },
+  x: { label: "Age/season combination" },
+  y: { label: "Probability of survival" },
+  marks: [
+    Plot.frame(),
+    Plot.dot(summary_ss_p_x_OJS_T_selected, {
+      x: "t",
+      y: "mean"
+    }),
+    Plot.dot(summary_ss_p_x_OJS_T_selected, {
+      x: "t",
+      y: "enc8"
+    }),
+    Plot.line(summary_ss_p_x_OJS_T_selected, {
+      x: "t",
+      y: "mean"
+    }),
+    
+    Plot.dot(summary_ss_p_x_OJS_T_selected, {
+      x: "t",
+      y: "xPhi",
+      stroke: "orange"
+    }),
+    Plot.line(summary_ss_p_x_OJS_T_selected, {
+      x: "t",
+      y: "xPhi",
+      stroke: "orange"
+    }),
+    
+    Plot.ruleX(summary_ss_p_x_OJS_T_selected, {
+      x: "first",
+      y: 1,
+      stroke: "green"
+    }),
+    Plot.ruleX(summary_ss_p_x_OJS_T_selected, {
+      x: "last",
+      y: 1,
+      stroke: "red"
+    })
+    ,
+    Plot.text(summary_ss_p_x_OJS_T_selected,
+      Plot.selectFirst({
+        x: 11,
+        y: 1,
+        text: d => d.cohort
+      })
+    )
+  ],
+  facet: {
+    data: summary_ss_p_x_OJS_T_selected,
+    x: "ind"
+  }
+})
+```
 
 
 
-### Output model summary data for Xiaowei
+
+### Output model summary data for ML model
 
 ```{r}
 #| label: OB_ss_NN_xioawei
