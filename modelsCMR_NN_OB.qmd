@@ -584,7 +584,13 @@ ojs_define(summary_ss_z_OJS = (summary_ss_z))
 ojs_define(summary_ss_phi_x_OJS = (summary_ss_phi_x))
 ojs_define(summary_ss_p_x_OJS = (summary_ss_p_x))
 
+
 ```
+
+```{ojs}
+summary_ss_phi_x_OJS
+```
+
 
 ### Plot the probabilities for selected individuals  
 Probabilities are: alive (z), survival (phi), and detection (p) 
