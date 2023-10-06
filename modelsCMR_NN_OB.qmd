@@ -227,12 +227,12 @@ Plot.plot({
     Plot.ruleX(summary_tt_z_OJS_T_selected, {
       x: "first",
       y: 1,
-      "stroke": "green"
+      stroke: "green"
     }),
     Plot.ruleX(summary_tt_z_OJS_T_selected, {
       x: "last",
       y: 1,
-      "stroke": "red"
+      stroke: "red"
     })
     ,
     Plot.text(summary_tt_z_OJS_T_selected, 
@@ -566,10 +566,10 @@ summary_xP <- xP |>
 ```{r}
 #| label: OB_sy_XioaweiMerge
 
-summary_ss_phi_x <- summary_ss_phi0 |> 
+summary_ss_phi_x <- summary_ss_phi |> 
   left_join(xPhi)
 
-summary_ss_p_x <- summary_ss_p0 |> 
+summary_ss_p_x <- summary_ss_p |> 
   left_join(xP)
 
 ```
