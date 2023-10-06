@@ -612,6 +612,10 @@ summary_ss_p_x_OJS_T = transpose(summary_ss_p_x_OJS)
 summary_ss_p_x_OJS_T_selected = summary_ss_p_x_OJS_T.filter((d) =>
   selectInd_ss.includes(d.ind)
 )
+
+summary_ss_z_OJS_T_selected
+summary_ss_phi_x_OJS_T_selected
+summary_ss_p_x_OJS_T_selected
 ```
 
 Black dots/line is estimated probability of being alive and orange dots are encountered yes (y = 0.8)/no (y = 0). The green line is the first observation and the red line is the last possible observation. The number in the upper right corner of each panel is the fish's cohort.
