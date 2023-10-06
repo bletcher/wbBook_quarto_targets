@@ -298,7 +298,7 @@ Model runs:\
 <!-- ss_NN_OB_2023-06-14 23.RData: preliminary run only tracing phi and p\
 ss_NN_OB_2023-06-15 08.RData: tracing phi and p and z \[most recent\] -->
 
-### Retrieve model results 
+### Retrieve Bayesian model results 
 
 ```{r}
 #| label: OB_sy_NN
@@ -362,9 +362,10 @@ Summary values
 #| label: OB_ss_NN_SummaryZ
 #|
   (summary_ss <- MCMCsummary(object = out_ss_NN_OB$mcmc, params = c("phiInt", "pInt"), round = 3) %>%
-    rownames_to_column(var = "var"))
+    rownames_to_column(var = "var") |> 
+     mutate(mean_01 = exp(mean)/(1+exp(mean))))
 
-  # To get the mMCMCSummaryRMNA funcion which I adapted to deal with NAs
+  # To get the mMCMCSummaryRMNA function which I adapted to deal with NAs
   source('./models/cmrNN_OB/ss/modelCMR_ss_NN_OB_functionsToSource.R')
 
   summary_ss_z0 <- MCMCSummaryRMNA(object = out_ss_NN_OB$mcmc, params = c("z"), round = 3) %>%
@@ -377,7 +378,8 @@ Summary values
     ) |>
     dplyr::select(-c(t0, ind0))
   
-  summary_ss_phi0 <- MCMCSummaryRMNA(object = out_ss_NN_OB$mcmc, params = c("phiInt"), round = 3) %>%
+  # 'phi' has each individual, 'phiInt' does not
+  summary_ss_phi0 <- MCMCSummaryRMNA(object = out_ss_NN_OB$mcmc, params = c("phi"), round = 3) %>%
     rownames_to_column(var = "var") |>
     mutate(
       ind0 = str_match(var, "([0-9]+), ([0-9]+)")[,2],
@@ -387,7 +389,7 @@ Summary values
     ) |>
     dplyr::select(-c(t0, ind0))
   
-  summary_ss_p0 <- MCMCSummaryRMNA(object = out_ss_NN_OB$mcmc, params = c("pInt"), round = 3) %>%
+  summary_ss_p0 <- MCMCSummaryRMNA(object = out_ss_NN_OB$mcmc, params = c("p"), round = 3) %>%
     rownames_to_column(var = "var") |>
     mutate(
       ind0 = str_match(var, "([0-9]+), ([0-9]+)")[,2],
@@ -512,17 +514,23 @@ Plot ML model results
 ggplot(xP, aes(t, xP)) +
   geom_point(alpha = 0.01)
 
+ggplot(xPhi, aes(t, xPhi)) +
+  geom_point(alpha = 0.01)
+
+```
+
+
+Plot ML model results - jittered
+```{r}
+#| label: plotXiaoweiJitter
+
 ggplot(xP, aes(t, xP)) +
   geom_jitter(alpha = 0.01)
 
-ggplot(xP, aes(t, xP, group = ind)) +
-  geom_line()
 
 ggplot(xPhi, aes(t, xPhi)) +
   geom_jitter(alpha = 0.01)
 
-ggplot(xPhi, aes(t, xPhi, group = ind)) +
-  geom_line()
 ```
 
 Group by individual
@@ -536,7 +544,7 @@ ggplot(xPhi, aes(t, xPhi, group = ind)) +
   geom_line()
 ```
 
-### Merge ML model results
+### Summarize ML model results
 ```{r}
 #| label: OB_sy_XioaweiSummary
 
@@ -554,7 +562,7 @@ summary_xP <- xP |>
 
 ```
 
-### Merge Xioawei results
+### Merge ML model results with Bayesian results
 ```{r}
 #| label: OB_sy_XioaweiMerge
 
@@ -578,8 +586,9 @@ ojs_define(summary_ss_p_x_OJS = (summary_ss_p_x))
 
 ```
 
-### Plot the probability of survival (z) for selected individuals
-Select one or more individuals :
+### Plot the probabilities for selected individuals  
+Probabilities are: alive (z), survival (phi), and detection (p) 
+
 ```{ojs}
 
 viewof selectInd_ss = Inputs.select([...Array(numTags_ss_OJS).keys()], {
