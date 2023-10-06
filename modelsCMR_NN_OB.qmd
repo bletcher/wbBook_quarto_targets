@@ -16,6 +16,7 @@ library(nimble)
 library(nimbleEcology)
 library(MCMCvis)
 library(reticulate)
+library(tidyr)
 library(tidyverse)
 library(targets)
 ```
@@ -376,7 +377,17 @@ Summary values
     ) |>
     dplyr::select(-c(t0, ind0))
   
-  summary_ss_phi0 <- MCMCSummaryRMNA(object = out_ss_NN_OB$mcmc, params = c("phi"), round = 3) %>%
+  summary_ss_phi0 <- MCMCSummaryRMNA(object = out_ss_NN_OB$mcmc, params = c("phiInt"), round = 3) %>%
+    rownames_to_column(var = "var") |>
+    mutate(
+      ind0 = str_match(var, "([0-9]+), ([0-9]+)")[,2],
+      t0 =   str_match(var, "([0-9]+), ([0-9]+)")[,3],
+      ind = as.numeric(ind0),
+      t = as.numeric(t0)
+    ) |>
+    dplyr::select(-c(t0, ind0))
+  
+  summary_ss_p0 <- MCMCSummaryRMNA(object = out_ss_NN_OB$mcmc, params = c("pInt"), round = 3) %>%
     rownames_to_column(var = "var") |>
     mutate(
       ind0 = str_match(var, "([0-9]+), ([0-9]+)")[,2],
@@ -421,7 +432,32 @@ Add other variables to summary values
     rownames_to_column("ind") |>
     mutate(ind = as.numeric(ind))
 
+  #### z
   summary_ss_z <- summary_ss_z0 |>
+    left_join(ehLong) |>
+    mutate(
+      meanM1 = mean - 1,
+      pSurv = ifelse(meanM1 == 0, 1, 1 - meanM1),
+      enc8 = ifelse(enc == 1, 0.8, 0)
+    ) |>
+    left_join(firstLong) |>
+    left_join(lastLong) |>
+    left_join(cohortLong)
+  
+  ##### p
+  summary_ss_p <- summary_ss_p0 |>
+    left_join(ehLong) |>
+    mutate(
+      meanM1 = mean - 1,
+      pSurv = ifelse(meanM1 == 0, 1, 1 - meanM1),
+      enc8 = ifelse(enc == 1, 0.8, 0)
+    ) |>
+    left_join(firstLong) |>
+    left_join(lastLong) |>
+    left_join(cohortLong)
+  
+  #### phi
+  summary_ss_phi <- summary_ss_phi0 |>
     left_join(ehLong) |>
     mutate(
       meanM1 = mean - 1,
@@ -438,7 +474,9 @@ Add other variables to summary values
 ```{r}
 #| label: OB_sy_Xioawei
 
-np <- import("numpy")
+if(!exists("np")) {
+  np <-import("numpy")
+}
 
 xP0 <- np$load("./data/in/fromXioawei/p_est.npy")
 
@@ -470,14 +508,33 @@ Plot Xiaowei's results
 ```{r}
 #| label: plotXiaowei
 
-# ggplot(xP |> filter(ind %in% 1:100), aes(t, xP, color = factor(ind))) +
-#   geom_line()
-# 
-# ggplot(xPhi |> filter(ind %in% 1:nrow(xPhi)), aes(t, xPhi)) +
-#   geom_jitter(alpha = 0.33)
-# 
-# ggplot(xPhi |> filter(ind %in% 1000:1100), aes(t, xPhi, color = factor(ind))) +
-#   geom_line()
+ggplot(xP, aes(t, xP)) +
+  geom_point(alpha = 0.01)
+
+ggplot(xP, aes(t, xP)) +
+  geom_jitter(alpha = 0.01)
+
+ggplot(xPhi, aes(t, xPhi)) +
+  geom_jitter(alpha = 0.01)
+
+```
+
+### Merge Xioawei results
+```{r}
+#| label: OB_sy_XioaweiSummary
+
+summary_xPhi <- xPhi |> 
+  summarize(
+    meanPhi = mean(xPhi),
+    sdPhi = sd(xPhi)
+  )
+
+summary_xP <- xP |> 
+  summarize(
+    meanP = mean(xP),
+    sdP = sd(xP)
+  )
+
 ```
 
 ### Merge Xioawei results
