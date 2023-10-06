@@ -452,7 +452,7 @@ Add other variables to summary values
     mutate(
       meanM1 = mean - 1,
       pSurv = ifelse(meanM1 == 0, 1, 1 - meanM1),
-      enc8 = ifelse(enc == 1, 0.8, 0)
+      enc8 = ifelse(enc == 1, 0.2, 0)
     ) |>
     left_join(firstLong) |>
     left_join(lastLong) |>
@@ -464,7 +464,7 @@ Add other variables to summary values
     mutate(
       meanM1 = mean - 1,
       pSurv = ifelse(meanM1 == 0, 1, 1 - meanM1),
-      enc8 = ifelse(enc == 1, 0.8, 0)
+      enc8 = ifelse(enc == 1, 0.2, 0)
     ) |>
     left_join(firstLong) |>
     left_join(lastLong) |>
