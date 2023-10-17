@@ -771,12 +771,12 @@ Plot.plot({
     
     Plot.dot(summary_ss_p_x_OJS_T_selected, {
       x: "t",
-      y: "xPhi",
+      y: "xP",
       stroke: "orange"
     }),
     Plot.line(summary_ss_p_x_OJS_T_selected, {
       x: "t",
-      y: "xPhi",
+      y: "xP",
       stroke: "orange"
     }),
     
