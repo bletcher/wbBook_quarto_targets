@@ -360,115 +360,136 @@ paste0('Run time = ', round(out_ss_NN_OB$runTime, 3), ' ',  attr(out_ss_NN_OB$ru
 Summary values
 ```{r}
 #| label: OB_ss_NN_SummaryZ
-#|
-  (summary_ss <- MCMCsummary(object = out_ss_NN_OB$mcmc, params = c("phiInt", "pInt"), round = 3) %>%
-    rownames_to_column(var = "var") |> 
-     mutate(mean_01 = exp(mean)/(1+exp(mean))))
 
-  # To get the mMCMCSummaryRMNA function which I adapted to deal with NAs
-  source('./models/cmrNN_OB/ss/modelCMR_ss_NN_OB_functionsToSource.R')
+(summary_ss <- tar_read(summary_ss_target))
+summary_ss_z0 <- tar_read(summary_ss_z0_target)
+summary_ss_phi0 <- tar_read(summary_ss_phi0_target)
+summary_ss_p0 <- tar_read(summary_ss_p0_target)
 
-  summary_ss_z0 <- MCMCSummaryRMNA(object = out_ss_NN_OB$mcmc, params = c("z"), round = 3) %>%
-    rownames_to_column(var = "var") |>
-    mutate(
-      ind0 = str_match(var, "([0-9]+), ([0-9]+)")[,2],
-      t0 =   str_match(var, "([0-9]+), ([0-9]+)")[,3],
-      ind = as.numeric(ind0),
-      t = as.numeric(t0)
-    ) |>
-    dplyr::select(-c(t0, ind0))
-  
-  # 'phi' has each individual, 'phiInt' does not
-  summary_ss_phi0 <- MCMCSummaryRMNA(object = out_ss_NN_OB$mcmc, params = c("phi"), round = 3) %>%
-    rownames_to_column(var = "var") |>
-    mutate(
-      ind0 = str_match(var, "([0-9]+), ([0-9]+)")[,2],
-      t0 =   str_match(var, "([0-9]+), ([0-9]+)")[,3],
-      ind = as.numeric(ind0),
-      t = as.numeric(t0)
-    ) |>
-    dplyr::select(-c(t0, ind0))
-  
-  summary_ss_p0 <- MCMCSummaryRMNA(object = out_ss_NN_OB$mcmc, params = c("p"), round = 3) %>%
-    rownames_to_column(var = "var") |>
-    mutate(
-      ind0 = str_match(var, "([0-9]+), ([0-9]+)")[,2],
-      t0 =   str_match(var, "([0-9]+), ([0-9]+)")[,3],
-      ind = as.numeric(ind0),
-      t = as.numeric(t0)
-    ) |>
-    dplyr::select(-c(t0, ind0))
+  # (summary_ss <- MCMCsummary(object = out_ss_NN_OB$mcmc, params = c("phiInt", "pInt"), round = 3) %>%
+  #   rownames_to_column(var = "var") |> 
+  #    mutate(mean_01 = exp(mean)/(1+exp(mean))))
+  # 
+  # # To get the mMCMCSummaryRMNA function which I adapted to deal with NAs
+  # source('./models/cmrNN_OB/ss/modelCMR_ss_NN_OB_functionsToSource.R')
+  # 
+  # summary_ss_z0 <- MCMCSummaryRMNA(object = out_ss_NN_OB$mcmc, params = c("z"), round = 3) %>%
+  #   rownames_to_column(var = "var") |>
+  #   mutate(
+  #     ind0 = str_match(var, "([0-9]+), ([0-9]+)")[,2],
+  #     t0 =   str_match(var, "([0-9]+), ([0-9]+)")[,3],
+  #     ind = as.numeric(ind0),
+  #     t = as.numeric(t0)
+  #   ) |>
+  #   dplyr::select(-c(t0, ind0))
+  # 
+  # # 'phi' has each individual, 'phiInt' does not
+  # summary_ss_phi0 <- MCMCSummaryRMNA(object = out_ss_NN_OB$mcmc, params = c("phi"), round = 3) %>%
+  #   rownames_to_column(var = "var") |>
+  #   mutate(
+  #     ind0 = str_match(var, "([0-9]+), ([0-9]+)")[,2],
+  #     t0 =   str_match(var, "([0-9]+), ([0-9]+)")[,3],
+  #     ind = as.numeric(ind0),
+  #     t = as.numeric(t0)
+  #   ) |>
+  #   dplyr::select(-c(t0, ind0))
+  # 
+  # summary_ss_p0 <- MCMCSummaryRMNA(object = out_ss_NN_OB$mcmc, params = c("p"), round = 3) %>%
+  #   rownames_to_column(var = "var") |>
+  #   mutate(
+  #     ind0 = str_match(var, "([0-9]+), ([0-9]+)")[,2],
+  #     t0 =   str_match(var, "([0-9]+), ([0-9]+)")[,3],
+  #     ind = as.numeric(ind0),
+  #     t = as.numeric(t0)
+  #   ) |>
+  #   dplyr::select(-c(t0, ind0))
 ```
 
 
 Add other variables to summary values
 ```{r}
 #| label: OB_ss_NN_Summary2
-#|
-  ehLong <-
-    eh$eh |>
-    as.data.frame() |>
-    rownames_to_column("ind0") |>
-    pivot_longer(starts_with("ais")) |>
-    mutate(
-      t = as.numeric(str_match(name, "([0-9]+)")[,1]),
-      enc = value,
-      ind = as.numeric(ind0)
-    ) |>
-    dplyr::select(-c(name, value, ind0))
 
-  firstLong <- eh$first |>
-    as_tibble() |>
-    rownames_to_column("ind") |>
-    mutate(ind = as.numeric(ind)) |>
-    rename(first = value)
+  ehLong <- tar_read(ehLong_target)
+  firstLong <-tar_read(firstLong_target)
 
-  lastLong <- eh$last |>
-    as_tibble() |>
-    rownames_to_column("ind") |>
-    mutate(ind = as.numeric(ind)) |>
-    rename(last = value)
+  lastLong <- tar_read(lastLong_target)
 
-  cohortLong <- eh$cohort |>
-    as_tibble() |>
-    rownames_to_column("ind") |>
-    mutate(ind = as.numeric(ind))
-
+  cohortLong <- tar_read(cohortLong_target)
   #### z
-  summary_ss_z <- summary_ss_z0 |>
-    left_join(ehLong) |>
-    mutate(
-      meanM1 = mean - 1,
-      pSurv = ifelse(meanM1 == 0, 1, 1 - meanM1),
-      enc8 = ifelse(enc == 1, 0.8, 0)
-    ) |>
-    left_join(firstLong) |>
-    left_join(lastLong) |>
-    left_join(cohortLong)
+  summary_ss_z <- tar_read(summary_ss_z_target)
   
   ##### p
-  summary_ss_p <- summary_ss_p0 |>
-    left_join(ehLong) |>
-    mutate(
-      meanM1 = mean - 1,
-      pSurv = ifelse(meanM1 == 0, 1, 1 - meanM1),
-      enc8 = ifelse(enc == 1, 0.2, 0)
-    ) |>
-    left_join(firstLong) |>
-    left_join(lastLong) |>
-    left_join(cohortLong)
+  summary_ss_p <- tar_read(summary_ss_p_target)
   
   #### phi
-  summary_ss_phi <- summary_ss_phi0 |>
-    left_join(ehLong) |>
-    mutate(
-      meanM1 = mean - 1,
-      pSurv = ifelse(meanM1 == 0, 1, 1 - meanM1),
-      enc8 = ifelse(enc == 1, 0.2, 0)
-    ) |>
-    left_join(firstLong) |>
-    left_join(lastLong) |>
-    left_join(cohortLong)
+  summary_ss_phi <- tar_read(summary_ss_phi_target)
+
+
+  # ehLong <-
+  #   eh$eh |>
+  #   as.data.frame() |>
+  #   rownames_to_column("ind0") |>
+  #   pivot_longer(starts_with("ais")) |>
+  #   mutate(
+  #     t = as.numeric(str_match(name, "([0-9]+)")[,1]),
+  #     enc = value,
+  #     ind = as.numeric(ind0)
+  #   ) |>
+  #   dplyr::select(-c(name, value, ind0))
+  # 
+  # firstLong <- eh$first |>
+  #   as_tibble() |>
+  #   rownames_to_column("ind") |>
+  #   mutate(ind = as.numeric(ind)) |>
+  #   rename(first = value)
+  # 
+  # lastLong <- eh$last |>
+  #   as_tibble() |>
+  #   rownames_to_column("ind") |>
+  #   mutate(ind = as.numeric(ind)) |>
+  #   rename(last = value)
+  # 
+  # cohortLong <- eh$cohort |>
+  #   as_tibble() |>
+  #   rownames_to_column("ind") |>
+  #   mutate(ind = as.numeric(ind))
+  # 
+  # #### z
+  # summary_ss_z <- summary_ss_z0 |>
+  #   left_join(ehLong) |>
+  #   mutate(
+  #     meanM1 = mean - 1,
+  #     pSurv = ifelse(meanM1 == 0, 1, 1 - meanM1),
+  #     enc8 = ifelse(enc == 1, 0.8, 0)
+  #   ) |>
+  #   left_join(firstLong) |>
+  #   left_join(lastLong) |>
+  #   left_join(cohortLong)
+  # 
+  # ##### p
+  # summary_ss_p <- summary_ss_p0 |>
+  #   left_join(ehLong) |>
+  #   mutate(
+  #     meanM1 = mean - 1,
+  #     pSurv = ifelse(meanM1 == 0, 1, 1 - meanM1),
+  #     enc8 = ifelse(enc == 1, 0.2, 0)
+  #   ) |>
+  #   left_join(firstLong) |>
+  #   left_join(lastLong) |>
+  #   left_join(cohortLong)
+  # 
+  # #### phi
+  # summary_ss_phi <- summary_ss_phi0 |>
+  #   left_join(ehLong) |>
+  #   mutate(
+  #     meanM1 = mean - 1,
+  #     pSurv = ifelse(meanM1 == 0, 1, 1 - meanM1),
+  #     enc8 = ifelse(enc == 1, 0.2, 0)
+  #   ) |>
+  #   left_join(firstLong) |>
+  #   left_join(lastLong) |>
+  #   left_join(cohortLong)
 ```
 
 ### Retrieve ML model results  
@@ -578,11 +599,11 @@ Plot Bayes and ML model results for individual fish
 ```{r}
 #| label: plotBayesXiaowei
 
-ggplot(summary_ss_phi_x, aes(mean, xPhi, color = t)) +
+ggplot(summary_ss_phi_x, aes(mean, xPhi, color = factor(t))) +
   geom_jitter(alpha = 0.01)
 
 
-ggplot(summary_ss_p_x, aes(mean, xP)) +
+ggplot(summary_ss_p_x, aes(mean, xP, color = factor(t))) +
   geom_jitter(alpha = 0.01)
 
 ```

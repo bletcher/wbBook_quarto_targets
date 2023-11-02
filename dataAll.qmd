@@ -43,7 +43,7 @@ Variables in the `all data` dataset
 #| label: dataAll
 #| cache: false
 
-all <- tar_read(cdWB_all)
+all <- tar_read(cdWB_all_target)
   
 str(all)
 #ojs_define(allOJS0 = all) can't use whole dataset, html file gets too big

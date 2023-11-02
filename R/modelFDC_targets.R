@@ -1,5 +1,10 @@
 tar_option_set(packages = c("tidyverse", "lubridate", "hydroTSM"))
 
+# if (!require(devtools)) install.packages("devtools")
+# library(devtools)
+# install_github("hzambran/hydroTSM")
+
+
 modelFDC_target <-
   tar_plan(
     flowVars_target = c("flowByArea_ByRiver", "flowByArea_flowExt", "flowByRiver"),

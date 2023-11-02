@@ -9,7 +9,7 @@ dataAntenna_target <-
           "river",
           "riverMeter",
           "survey",
-          #"section",
+      #"section",
           "readerID",
           "comments"
         )
@@ -27,7 +27,7 @@ dataAntenna_target <-
       mutate(riverOrdered = factor(river, levels = c('west brook', 'wb jimmy', 'wb mitchell',"wb obear"),
                                          labels = c("West Brook", "WB Jimmy", "WB Mitchell", "WB OBear"), ordered = T)
       ) %>%
-      updateAntennaData(sites_target),
+      updateAntennaData(sites_target), # not updating with sites_target for now
     
     sites_target = data.frame(tbl(conDplyr,"data_sites")) %>%
       filter(is.na(quarter) & !is.na(quarter_length) & drainage == 'west') %>% 
@@ -42,28 +42,28 @@ dataAntenna_target <-
 
 updateAntennaData <- function(d0, s) {
 
-  d <- left_join(d0, s)
+  d <- d0 #left_join(d0, s) # need to make this work with section...
   
   # some formatting fixes
-  d$sectionOriginal <- as.character(d$section)
-  d$section <- as.numeric(d$section)
-  d$inside <- ifelse(d$section %in% 1:47 | d$survey == "stationaryAntenna", T, F)
+  #d$sectionOriginal <- as.character(d$section)
+  #d$section <- as.numeric(d$section)
+  #d$inside <- ifelse(d$section %in% 1:47 | d$survey == "stationaryAntenna", T, F)
 
   d$year <- year(d$detectionDate)
   d$yday <- yday(d$detectionDate)
   d$date <- date(d$detectionDate)
 
-  d <- d %>%
-    group_by(tag) %>%
-    # arrange(tag,sampleNumber) %>%
-    mutate(lagSection = lead(section),
-           distMoved = section - lagSection
-           #minSample = min(sampleNumber),
-           #maxSample = max(sampleNumber)
-           ) %>%
-    ungroup()
-
-  d$moveDir <- ifelse(d$section == d$lagSection, 0, ifelse(d$section > d$lagSection, 1, -1))
+  # d <- d %>%
+  #   group_by(tag) %>%
+  #   # arrange(tag,sampleNumber) %>%
+  #   mutate(lagSection = lead(section),
+  #          distMoved = section - lagSection
+  #          #minSample = min(sampleNumber),
+  #          #maxSample = max(sampleNumber)
+  #          ) %>%
+  #   ungroup()
+  # 
+  # d$moveDir <- ifelse(d$section == d$lagSection, 0, ifelse(d$section > d$lagSection, 1, -1))
 
   d$drainage <- "west"
 

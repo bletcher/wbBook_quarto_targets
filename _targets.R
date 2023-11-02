@@ -63,7 +63,8 @@ list(
   modelConditionFactor_target,
   modelGrowthInMass_target,
 
-  modelXGBoost_target
+  modelXGBoost_target,
+  modelCMR_NN_OB_target
   
 
   # 

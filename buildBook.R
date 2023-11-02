@@ -12,6 +12,8 @@ library(getWBData)
 # to convert markdown headers to quarto in-body chunk options
 #convert_chunk_header("dataAll.qmd", output = identity)
 
+# may need to do this if packages don't load
+# install.packages("xxxx", dependencies=TRUE, repos='http://cran.rstudio.com/')
 tar_make()
 
 
