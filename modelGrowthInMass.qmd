@@ -7,7 +7,7 @@ editor:
 # Growth in mass
 
 ```{r}
-#| label: dataModelFlowOptions
+#| label: dataModelGrowthInMassOptions
 #| include: false
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ```
@@ -1053,6 +1053,71 @@ ggplot(propNegSRsN |> filter(n > 15, seasonGG == "Summer", speciesGG == "Brook t
   scale_color_discrete() +
   theme_publication()
 ```
+
+## Negative growth by individual
+
+```{r}
+#| label: plotNegGrInd
+
+plotIndNegGrowth <- function(sppIn){
+  ggplot(
+    cd1 |> 
+      filter(
+        species == sppIn, 
+        cohort >= 2000, cohort <= 2013, 
+        !is.na(negGrowth), 
+        ageInSamples > 0,
+        propNegGrowthByInd > 0,
+        ageInSamples < 15
+        ), 
+    aes(ageInSamples, reorder(tag, propNegGrowthByInd))
+  ) +
+  geom_tile(
+    aes(fill = negGrowth)#, colour = "grey50", linewidth = 0.2
+  ) +
+  scale_y_discrete("Individual fish") +
+  scale_x_continuous(
+    "Season and age",
+    breaks = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15),
+    labels = c("F0", "W0", "S1", "S1", "F1", "W1", "S2", "S2","F2", "W2", "S3", "S3","F3", "W3", "S4")) +
+  scale_fill_manual(values = c("#E66100", "#5D3A9B")) +
+  theme(
+    axis.text.y=element_blank(),
+    axis.ticks.y=element_blank()
+  ) +
+  facet_wrap(~cohort, scales = "free")
+}
+
+
+```
+
+::: panel-tabset
+#### Brook trout
+
+```{r}
+#| label: propIndNegWB_bkt
+
+plotIndNegGrowth("bkt")
+```
+
+#### Brown trout
+
+```{r}
+#| label: propIndNegWB_bnt
+
+plotIndNegGrowth("bnt")
+```
+
+#### Atlantic salmon
+
+```{r}
+#| label: propIndNegWB_ats
+
+plotIndNegGrowth("ats")
+```
+:::
+
+
 
 ## Environmental effects on Proportion of observations with negative growth
 ### Models for proportions  
@@ -4583,22 +4648,22 @@ ggplot(cd1, aes(grLength, grWeightS)) +
 modSpecies <- c("bkt", "ats", "bnt")
 cd1Mod <- cd1 |> filter(species == modSpecies)
 
-modFT0 <- glm(negGrowth ~ meanFlowByRiverZ * meanTempZ * river * species, family = "binomial", data = cd1Mod)
-modFT1 <- glm(negGrowth ~ meanFlowByRiverZ * meanTempZ * river + species, family = "binomial", data = cd1Mod)
-modFT2 <- glm(negGrowth ~ meanFlowByRiverZ * meanTempZ + river + species, family = "binomial", data = cd1Mod)
-modFT3 <- glm(negGrowth ~ meanFlowByRiverZ + meanTempZ + river + species, family = "binomial", data = cd1Mod)
-modFT4 <- glm(negGrowth ~ meanFlowByRiverZ * meanTempZ + river , family = "binomial", data = cd1Mod)
-modFT5 <- glm(negGrowth ~ meanFlowByRiverZ * meanTempZ + river , family = "binomial", data = cd1Mod)
-modFT6 <- glm(negGrowth ~ meanFlowByRiverZ * meanTempZ + species , family = "binomial", data = cd1Mod)
-modFT7 <- glm(negGrowth ~ meanFlowByRiverZ * meanTempZ, family = "binomial", data = cd1Mod)
+modFT0 <- glm(negGrowth ~ meanFlowByRiverScaledBySeason * meanTemperatureScaledBySeason * river * species, family = "binomial", data = cd1Mod)
+modFT1 <- glm(negGrowth ~ meanFlowByRiverScaledBySeason * meanTemperatureScaledBySeason * river + species, family = "binomial", data = cd1Mod)
+modFT2 <- glm(negGrowth ~ meanFlowByRiverScaledBySeason * meanTemperatureScaledBySeason + river + species, family = "binomial", data = cd1Mod)
+modFT3 <- glm(negGrowth ~ meanFlowByRiverScaledBySeason + meanTemperatureScaledBySeason + river + species, family = "binomial", data = cd1Mod)
+modFT4 <- glm(negGrowth ~ meanFlowByRiverScaledBySeason * meanTemperatureScaledBySeason + river , family = "binomial", data = cd1Mod)
+modFT5 <- glm(negGrowth ~ meanFlowByRiverScaledBySeason * meanTemperatureScaledBySeason + river , family = "binomial", data = cd1Mod)
+modFT6 <- glm(negGrowth ~ meanFlowByRiverScaledBySeason * meanTemperatureScaledBySeason + species , family = "binomial", data = cd1Mod)
+modFT7 <- glm(negGrowth ~ meanFlowByRiverScaledBySeason * meanTemperatureScaledBySeason, family = "binomial", data = cd1Mod)
 
 
-modFT8 <- glm(negGrowth ~ meanFlowByRiverZ * meanTempZ * river * factor(season) + species, family = "binomial", data = cd1Mod)
-modFT9 <- glm(negGrowth ~ meanFlowByRiverZ * meanTempZ * river * factor(season) * species, family = "binomial", data = cd1Mod)
-modFT10 <- glm(negGrowth ~ meanFlowByRiverZ + meanTempZ * river * factor(season) * species, family = "binomial", data = cd1Mod)
+modFT8 <- glm(negGrowth ~ meanFlowByRiverScaledBySeason * meanTemperatureScaledBySeason * river * factor(season) + species, family = "binomial", data = cd1Mod)
+modFT9 <- glm(negGrowth ~ meanFlowByRiverScaledBySeason * meanTemperatureScaledBySeason * river * factor(season) * species, family = "binomial", data = cd1Mod)
+modFT10 <- glm(negGrowth ~ meanFlowByRiverScaledBySeason + meanTemperatureScaledBySeason * river * factor(season) * species, family = "binomial", data = cd1Mod)
 
-modFT11 <- glm(negGrowth ~ meanFlowByRiverZ * meanTempZ * river * factor(season) * observedWeight + species, family = "binomial", data = cd1Mod)
-modFT12 <- glm(negGrowth ~ meanFlowByRiverZ * meanTempZ * river * factor(season) * species * observedWeight, family = "binomial", data = cd1Mod)
+modFT11 <- glm(negGrowth ~ meanFlowByRiverScaledBySeason * meanTemperatureScaledBySeason * river * factor(season) * observedWeight + species, family = "binomial", data = cd1Mod)
+modFT12 <- glm(negGrowth ~ meanFlowByRiverScaledBySeason * meanTemperatureScaledBySeason * river * factor(season) * species * observedWeight, family = "binomial", data = cd1Mod)
 
 AIC(modFT0, modFT1,modFT2, modFT3,modFT4,modFT5, modFT6,modFT7,modFT8,modFT9,modFT10, modFT11, modFT12) |> arrange(AIC)
 ```
@@ -4636,8 +4701,8 @@ caret::varImp(modFT11) |> arrange(desc(Overall))
 #| label: predictFull
 #| 
 predD <- expand.grid(
-  meanFlowByRiverZ = seq(-1.5,1.5,0.25), 
-  meanTempZ = seq(-1.5,1.5,0.25), 
+  meanFlowByRiverScaledBySeason = seq(-1.5,1.5,0.25), 
+  meanTemperatureScaledBySeason = seq(-1.5,1.5,0.25), 
   river = unique(cd1$river), 
   species = unique(cd1$species), 
   season = unique(cd1$season),
@@ -4647,8 +4712,8 @@ predD <- expand.grid(
 
 pred <- add_column(predD, 
                    pred = predict.glm(modFT11, predD, type = "response")) |> 
-        mutate(groupT = paste(river, species, season, meanTempZ, sep = "_"),
-               groupF = paste(river, species, season, meanFlowByRiverZ, sep = "_"))
+        mutate(groupT = paste(river, species, season, meanTemperatureScaledBySeason, sep = "_"),
+               groupF = paste(river, species, season, meanFlowByRiverScaledBySeason, sep = "_"))
                    
 ```
 
@@ -4657,8 +4722,8 @@ pred <- add_column(predD,
 ```{r}
 #| label: plotPred
 
-ggplot(pred |> filter(meanTempZ %in% c(-1.5,0,1.5), observedWeight == 161.3), aes(meanFlowByRiverZ, pred, group= groupT)) +
-  geom_line(aes(color = factor(meanTempZ))) +
+ggplot(pred |> filter(meanTemperatureScaledBySeason %in% c(-1.5,0,1.5), observedWeight == 161.3), aes(meanFlowByRiverScaledBySeason, pred, group= groupT)) +
+  geom_line(aes(color = factor(meanTemperatureScaledBySeason))) +
   labs(y = "Probability of negative growth in mass", x = "Mean flow") +
   theme_publication() +    
   facet_grid(season~species+river)

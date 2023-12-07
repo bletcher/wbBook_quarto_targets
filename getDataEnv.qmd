@@ -39,6 +39,9 @@ Flow data in envDataWB:
 envDataWB <- tar_read(envDataWB_target)
 str(envDataWB)
 
+# Save rData file for downloading
+# save(envDataWB, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/envDataWB.RData")
+
 ojs_define(envDataWB_OJS = transpose(envDataWB))
 ```
 

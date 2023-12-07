@@ -15,6 +15,9 @@ modelGrowthInMass_target <-
       ) |> 
       mutate(
         samplesBeforeLast = lastObserved - sampleNumber
+      ) |> 
+      left_join(
+        propNegByInd_target
       ),
     
     # cd1Wide_observedWeight_target = cd1_target |> 
@@ -56,6 +59,15 @@ modelGrowthInMass_target <-
         names_sort = TRUE 
       ),
     
+    
+    propNegByInd_target = cdWB_electro_target |> 
+      mutate(negGrowth = grWeight < 0) |> 
+      group_by(tag) |> 
+      summarize(
+        propNegGrowthByInd = 
+          sum(negGrowth, na.rm = T) / n()
+      ),
+  
     
     firstLast_target = cdWB_CMR0_target |> 
       dplyr::select(tag, firstObserved, lastObserved) |> 
