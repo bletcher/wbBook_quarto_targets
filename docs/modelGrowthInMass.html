@@ -1939,7 +1939,8 @@ Proportions for Table 1</p>
 </section>
 <section id="negative-growth-by-individual" class="level2" data-number="16.6">
 <h2 data-number="16.6" class="anchored" data-anchor-id="negative-growth-by-individual"><span class="header-section-number">16.6</span> Negative growth by individual</h2>
-<div class="cell" data-hash="modelGrowthInMass_cache/html/plotNegGrInd_0e4ce024dc77f5d91066ff1e40a8550c">
+<p>Plot growth negative/positive for individual fish that lost mass. Order the individuals on the y-axis by proportion of observations that were negative.</p>
+<div class="cell" data-hash="modelGrowthInMass_cache/html/plotNegGrInd_8bc98c69275b8db1a94ef94f8a41a4ab">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a>plotIndNegGrowth <span class="ot">&lt;-</span> <span class="cf">function</span>(sppIn){</span>
@@ -1951,7 +1952,7 @@ Proportions for Table 1</p>
 <span id="cb114-7"><a href="#cb114-7" aria-hidden="true" tabindex="-1"></a>        <span class="sc">!</span><span class="fu">is.na</span>(negGrowth), </span>
 <span id="cb114-8"><a href="#cb114-8" aria-hidden="true" tabindex="-1"></a>        ageInSamples <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
 <span id="cb114-9"><a href="#cb114-9" aria-hidden="true" tabindex="-1"></a>        propNegGrowthByInd <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
-<span id="cb114-10"><a href="#cb114-10" aria-hidden="true" tabindex="-1"></a>        ageInSamples <span class="sc">&lt;</span> <span class="dv">15</span></span>
+<span id="cb114-10"><a href="#cb114-10" aria-hidden="true" tabindex="-1"></a>        ageInSamples <span class="sc">&lt;</span> <span class="dv">12</span></span>
 <span id="cb114-11"><a href="#cb114-11" aria-hidden="true" tabindex="-1"></a>        ), </span>
 <span id="cb114-12"><a href="#cb114-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(ageInSamples, <span class="fu">reorder</span>(tag, propNegGrowthByInd))</span>
 <span id="cb114-13"><a href="#cb114-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
@@ -9524,7 +9525,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb480-1185"><a href="#cb480-1185" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb480-1186"><a href="#cb480-1186" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb480-1187"><a href="#cb480-1187" aria-hidden="true" tabindex="-1"></a><span class="fu">## Negative growth by individual</span></span>
-<span id="cb480-1188"><a href="#cb480-1188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb480-1188"><a href="#cb480-1188" aria-hidden="true" tabindex="-1"></a>Plot growth negative/positive for individual fish that lost mass. Order the individuals on the y-axis by proportion of observations that were negative.</span>
 <span id="cb480-1191"><a href="#cb480-1191" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb480-1192"><a href="#cb480-1192" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: plotNegGrInd</span></span>
 <span id="cb480-1193"><a href="#cb480-1193" aria-hidden="true" tabindex="-1"></a></span>
@@ -9537,7 +9538,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb480-1200"><a href="#cb480-1200" aria-hidden="true" tabindex="-1"></a>        <span class="sc">!</span><span class="fu">is.na</span>(negGrowth), </span>
 <span id="cb480-1201"><a href="#cb480-1201" aria-hidden="true" tabindex="-1"></a>        ageInSamples <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
 <span id="cb480-1202"><a href="#cb480-1202" aria-hidden="true" tabindex="-1"></a>        propNegGrowthByInd <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
-<span id="cb480-1203"><a href="#cb480-1203" aria-hidden="true" tabindex="-1"></a>        ageInSamples <span class="sc">&lt;</span> <span class="dv">15</span></span>
+<span id="cb480-1203"><a href="#cb480-1203" aria-hidden="true" tabindex="-1"></a>        ageInSamples <span class="sc">&lt;</span> <span class="dv">12</span></span>
 <span id="cb480-1204"><a href="#cb480-1204" aria-hidden="true" tabindex="-1"></a>        ), </span>
 <span id="cb480-1205"><a href="#cb480-1205" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(ageInSamples, <span class="fu">reorder</span>(tag, propNegGrowthByInd))</span>
 <span id="cb480-1206"><a href="#cb480-1206" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>

@@ -1055,7 +1055,7 @@ ggplot(propNegSRsN |> filter(n > 15, seasonGG == "Summer", speciesGG == "Brook t
 ```
 
 ## Negative growth by individual
-
+Plot growth negative/positive for individual fish that lost mass. Order the individuals on the y-axis by proportion of observations that were negative.
 ```{r}
 #| label: plotNegGrInd
 
@@ -1068,7 +1068,7 @@ plotIndNegGrowth <- function(sppIn){
         !is.na(negGrowth), 
         ageInSamples > 0,
         propNegGrowthByInd > 0,
-        ageInSamples < 15
+        ageInSamples < 12
         ), 
     aes(ageInSamples, reorder(tag, propNegGrowthByInd))
   ) +
