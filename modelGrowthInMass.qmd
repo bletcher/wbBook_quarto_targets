@@ -830,7 +830,7 @@ plotTempGR(cd1, "Winter")
 ```
 :::
 
-## Proportion of fish with **negative growth**  
+## Proportion of observations with **negative growth**  
 
 Counts/proportions of negative growth  
 Proportions for Table 1
@@ -1054,12 +1054,25 @@ ggplot(propNegSRsN |> filter(n > 15, seasonGG == "Summer", speciesGG == "Brook t
   theme_publication()
 ```
 
+Trends across years
+```{r}
+
+ggplot(propNegSRsN |> filter(n > 15, year > 2001), aes(year, propNeg, color = riverGG)) +
+  geom_point(aes(size = n)) +
+  geom_smooth(method = "lm", se=FALSE) +
+  labs(x = "Year", y = "Proportion of observations with negative growth in mass") +
+  scale_color_discrete() +
+  theme_publication() +
+  facet_grid(seasonGG~speciesGG)
+
+```
+
 ## Negative growth by individual
 Plot growth negative/positive for individual fish that lost mass. Order the individuals on the y-axis by proportion of observations that were negative.
 ```{r}
 #| label: plotNegGrInd
 
-plotIndNegGrowth <- function(sppIn){
+plotIndNegGrowth <- function(sppIn, maxGr = 0){
   ggplot(
     cd1 |> 
       filter(
@@ -1067,7 +1080,7 @@ plotIndNegGrowth <- function(sppIn){
         cohort >= 2000, cohort <= 2013, 
         !is.na(negGrowth), 
         ageInSamples > 0,
-        propNegGrowthByInd > 0,
+        propNegGrowthByInd > maxGr,
         ageInSamples < 12
         ), 
     aes(ageInSamples, reorder(tag, propNegGrowthByInd))
@@ -1088,7 +1101,6 @@ plotIndNegGrowth <- function(sppIn){
   facet_wrap(~cohort, scales = "free")
 }
 
-
 ```
 
 ::: panel-tabset
@@ -1097,7 +1109,7 @@ plotIndNegGrowth <- function(sppIn){
 ```{r}
 #| label: propIndNegWB_bkt
 
-plotIndNegGrowth("bkt")
+plotIndNegGrowth("bkt", -1)
 ```
 
 #### Brown trout
@@ -1117,6 +1129,55 @@ plotIndNegGrowth("ats")
 ```
 :::
 
+```{r}
+#| label: histNegGr
+
+distinctIndNegGrowth <- 
+  cd1 |> 
+    filter(
+      #species == "bkt", 
+      cohort >= 2000, cohort <= 2013, 
+      !is.na(negGrowth), 
+      ageInSamples > 0,
+      #propNegGrowthByInd > maxGr,
+      ageInSamples < 12
+    ) |> 
+  dplyr::select(tag, speciesGG, propNegGrowthByInd, nPerInd) |> 
+  distinct() |> 
+  mutate(numNegIntervals = as.integer(propNegGrowthByInd * nPerInd))
+  
+  ggplot(
+    distinctIndNegGrowth,
+    aes(numNegIntervals)
+  ) +
+  geom_bar(aes(fill = speciesGG), position = "dodge") +
+  scale_fill_grey() +
+  theme_publication() +
+  labs(
+    x = "Number of intervals with negative growth", 
+    y = "Count"
+  ) +
+  xlim(c(-0.5, 5))
+  
+  distinctIndNegGrowth |> 
+    group_by(speciesGG, numNegIntervals) |> 
+    summarize(
+      nNegGrowthIntervals = n()
+    )
+
+  distinctIndNegGrowth |> 
+  group_by(speciesGG) |> 
+  summarize(
+    nNegGrowthIntervals = n()
+  )
+  
+  #bkt
+  (propBKTNegGr <- 1 - 3872/5072)
+    #bnt
+  (propBNTNegGr <- 1 - 2320/2516)
+    #bnt
+  (propATSNegGr <- 1 - 1403/2388)
+```
 
 
 ## Environmental effects on Proportion of observations with negative growth
@@ -1188,6 +1249,16 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(mF, propNeg, 
   ggtitle("Tributaries") +
   theme_publication() +  
   facet_grid(seasonGG~speciesGG)
+
+ggplot(propNegSRsN |> filter(n > 10, speciesGG == "Brook trout"), aes(mF, propNeg, color = riverGG)) +
+  geom_point(aes(size = n)) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_y_continuous("Proportion of observations with negative growth in mass") +
+  scale_x_log10(bquote("Mean flow " ~ (m^3 ~ "·" ~ s^{-1}))) + #alt-250 for dot
+  scale_color_discrete(drop = FALSE) +
+  ggtitle("Brook trout") +
+  theme_publication() +  
+  facet_grid(seasonGG~riverGG, scales = "free")
 ```
 
 ### Proportion of observations with negative growth by **temperature**
