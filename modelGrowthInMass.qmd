@@ -664,7 +664,7 @@ ggplot(meanNegSRsNWide, aes(`FALSE`, `TRUE`)) +
   facet_grid(seasonGG~riverGG)
 ```
 
-## Body size effect on prop neg growth
+## Body size effect on probability of negative growth
 ```{r}
 #| label: propNegSize
 
