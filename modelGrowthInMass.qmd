@@ -671,6 +671,16 @@ ggplot(meanNegSRsNWide, aes(`FALSE`, `TRUE`)) +
 ggplot(cd1 |> filter(!is.na(negGrowth), species == "bkt", seasonGG != "Spring"), aes(observedWeight, negGrowth*1)) +
   #geom_point(alpha = 0.1, ) +
   geom_jitter(alpha = 0.1, width = 0.0, height = 0.1) +
+  #geom_smooth() +
+  geom_smooth(method = "glm", 
+              method.args = list(family = "binomial"),
+              se = FALSE) +
+  theme_publication() +  
+  facet_grid(seasonGG~riverGG)
+
+ggplot(cd1 |> filter(!is.na(negGrowth), species == "bkt", seasonGG != "Spring"), aes(observedWeight, negGrowth*1)) +
+  #geom_point(alpha = 0.1, ) +
+  geom_jitter(alpha = 0.1, width = 0.0, height = 0.1) +
   geom_smooth() +
   geom_smooth(method = "lm") +
   theme_publication() +  
@@ -1065,6 +1075,12 @@ ggplot(propNegSRsN |> filter(n > 15, year > 2001), aes(year, propNeg, color = ri
   theme_publication() +
   facet_grid(seasonGG~speciesGG)
 
+
+# Regression
+propNegYear =lm(propNeg~year*riverGG, data = propNegSRsN |> filter(n > 15, year > 2001, seasonGG == "Summer", speciesGG == "Brook trout"))
+
+summary(propNegYear)
+anova(propNegYear)
 ```
 
 ## Negative growth by individual
