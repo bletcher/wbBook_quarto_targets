@@ -668,13 +668,52 @@ ggplot(meanNegSRsNWide, aes(`FALSE`, `TRUE`)) +
 ```{r}
 #| label: propNegSize
 
-ggplot(cd1 |> filter(!is.na(negGrowth), species == "bkt", seasonGG != "Spring"), aes(observedWeight, negGrowth*1)) +
+
+
+ggplot(cd1 |> filter(!is.na(negGrowth), riverGG == "West Brook", seasonGG %in% c("Summer", "Autumn")), aes(observedWeight, negGrowth*1, color = speciesGG, fill = speciesGG)) +
+  #geom_point(alpha = 0.1, ) +
+  geom_jitter(alpha = 0.1, width = 0.0, height = 0.1) +
+  #geom_dotplot(x = observedWeight, y = negGrowth*1, fill = speciesGG) +
+  #geom_smooth() +
+  geom_smooth(method = "glm", 
+              method.args = list(family = "binomial")
+              
+              #se = FALSE
+              ) +
+  theme_publication() +  
+  labs(x = "Fish mass (mg)", y = "Probability of negative growth") +
+  scale_color_grey() +
+  scale_fill_grey() +
+  xlim(c(0,200)) +
+  facet_wrap(~seasonGG)
+
+
+ggplot(cd1 |> filter(!is.na(negGrowth), species == "bkt", seasonGG %in% c("Summer", "Autumn")), aes(observedWeight, negGrowth*1)) +
   #geom_point(alpha = 0.1, ) +
   geom_jitter(alpha = 0.1, width = 0.0, height = 0.1) +
   #geom_smooth() +
   geom_smooth(method = "glm", 
               method.args = list(family = "binomial"),
-              se = FALSE) +
+              color = "black"
+              #se = FALSE
+              ) +
+  theme_publication() +  
+  labs(x = "Fish mass (mg)", y = "Probability of negative growth") +
+  facet_grid(seasonGG~riverGG)
+
+
+
+
+
+ggplot(cd1 |> filter(!is.na(negGrowth), seasonGG != "Spring"), aes(observedWeight, negGrowth*1, color = speciesGG)) +
+  #geom_point(alpha = 0.1, ) +
+  geom_jitter(alpha = 0.1, width = 0.0, height = 0.1) +
+  #geom_smooth() +
+  geom_smooth(method = "glm", 
+              method.args = list(family = "binomial")
+              
+              #se = FALSE
+              ) +
   theme_publication() +  
   facet_grid(seasonGG~riverGG)
 
