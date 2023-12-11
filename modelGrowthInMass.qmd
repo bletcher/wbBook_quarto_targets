@@ -693,19 +693,39 @@ ggplot(cd1 |> filter(!is.na(negGrowth), riverGG == "West Brook", seasonGG %in% c
 dfPlot <- cd1 |> filter(!is.na(negGrowth), riverGG == "West Brook", seasonGG %in% c("Summer", "Autumn"))
 
 ggplot(dfPlot) +
-  geom_point(aes(observedWeight, negGrowth*1, colour = speciesGG, fill = speciesGG),alpha = 0) +
+  geom_point(
+    aes(observedWeight, negGrowth*1, colour = speciesGG, fill = speciesGG),
+    alpha = 0
+  ) +
   
-  geom_density(aes(x = observedWeight, y = (-..density..* 4 + 1) , color = speciesGG, linetype = speciesGG), data = dfPlot |> filter(negGrowth == TRUE)) +
+  geom_density(
+    aes(x = observedWeight, y = (-..density..* 4 + 1) , 
+        linetype = speciesGG),
+    color = "grey15", 
+    data = dfPlot |> 
+      filter(negGrowth == TRUE)
+  ) +
   
-  geom_density(aes(x = observedWeight, ..density..* 4, color = speciesGG, linetype = speciesGG), data = dfPlot |> filter(negGrowth == FALSE)) +
+  geom_density(
+    aes(x = observedWeight, ..density..* 4, 
+        linetype = speciesGG
+        ),
+    color = "grey15", 
+    data = dfPlot |>
+      filter(negGrowth == FALSE)
+  ) +
 
-  geom_smooth(aes(observedWeight, negGrowth*1, color = speciesGG, fill = speciesGG, linetype = speciesGG),
-              method = "glm", 
-              method.args = list(family = "binomial")
-              ) +
+  geom_smooth(
+    aes(observedWeight, negGrowth*1, 
+        color = speciesGG, 
+        fill = speciesGG, 
+        linetype = speciesGG),
+      method = "glm", 
+      method.args = list(family = "binomial")
+  ) +
   theme_publication() +  
   labs(x = "Fish mass (mg)", y = "Probability of negative growth") +
-  scale_color_grey() +
+  scale_color_manual(values = c("black","black","black")) +
   scale_fill_grey() +
   #scale_fill_brewer() +
   xlim(c(0,200)) +
@@ -728,10 +748,22 @@ ggplot(cd1 |> filter(!is.na(negGrowth), species == "bkt", seasonGG %in% c("Summe
   facet_grid(seasonGG~riverGG)
 ####
 dataPlotBKT <- cd1 |> filter(!is.na(negGrowth), species == "bkt", seasonGG %in% c("Summer", "Autumn"))
-ggplot(dataPlotBKT, aes(observedWeight, negGrowth*1)) +
-  geom_density(aes(x = observedWeight, y = (-..density..* 4 + 1) ), data = dataPlotBKT |> filter(negGrowth == TRUE)) +
+ggplot(
+  dataPlotBKT, 
+    aes(observedWeight, negGrowth*1)
+  ) +
+  geom_density(
+    aes(x = observedWeight, y = (-..density..* 4 + 1) ),
+    data = dataPlotBKT |> 
+      filter(negGrowth == TRUE), color = "grey15"
+    ) +
   
-  geom_density(aes(x = observedWeight, ..density..* 4), data = dataPlotBKT |> filter(negGrowth == FALSE)) +
+  geom_density(
+    aes(x = observedWeight, ..density..* 4), 
+    data = dataPlotBKT |> 
+      filter(negGrowth == FALSE), color = "grey15"
+    ) +
+  
   geom_smooth(method = "glm", 
               method.args = list(family = "binomial"),
               color = "black"
