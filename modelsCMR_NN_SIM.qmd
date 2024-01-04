@@ -1,0 +1,85 @@
+# Simulation - CJS model
+
+Simple CJS models to get phi and p estimates to compare with Neural Network CMR
+
+In all the models below, 1 = not observed and 2 = observed in the input *encounter data*.  
+Encounter data are available [here](https://drive.google.com/drive/folders/1Bth4jdH6vZuE3t7ETL3MMxPo2oxmakZs).  
+
+```{r}
+#| label: librariesModelsNimbleRiverNN
+#| echo: false
+library(getWBData)
+library(lubridate)
+library(kableExtra)
+library(GGally)
+library(nimble)
+library(nimbleEcology)
+library(MCMCvis)
+library(reticulate)
+library(tidyr)
+library(tidyverse)
+library(targets)
+```
+
+```{r}
+#| label: globalModelsNimbleRiverCohortNN
+#| include: false
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+
+## \[t,t\] model
+
+Model with phi and p for each age-in-samples (column in the encounter history file)
+
+Probability of survival (phi) model structure:
+
+phi\[t\] \<- betaInt\[t\]
+
+Probability of capture (p) model structure:
+
+p\[t\] \<- betaP\[t\]
+
+
+
+Model code is in `./models/cmrNN_OB/tt/modelCMR_tt_NN_OB_functionsToSource.R`\
+Model is run 'by hand' in `./models/cmrNN_OB/tt/modelCMR_tt_NN_OB_makeFile.R`\
+*Not* using this: Targets are loaded in `R/modelCMR_tt_NN_OB.R` and saved as `modelCMR_tt_NN_OB_target`
+
+Model runs:\
+tt_NN_OB_2023-06-14 23.RData: preliminary run only tracing phi and p\
+tt_NN_OB_2023-06-15 08.RData: tracing phi and p and z \[most recent\]
+
+### Retrieve model results
+
+```{r}
+#| label: OB_tt_NN
+# Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
+# 
+  load('./models/cmrNN_OB/tt/runsOut/tt_NN_OB_mostRecent.RData')
+  out_NN_OB <- d
+  
+  #Input data
+  eh <- tar_read(eh_OB_2002_2014_target)
+```
+
+### Model code
+
+In the model code, a value of `1` for `z` or in *gamma* or *omega* signifies the individual is alive and a value of `2` signifies the individual is dead. `y[i,j]` is the observed data (encounter history file).
+
+```{r}
+#| label: OB_tt_NN_code
+
+  out_NN_OB$modelCode
+
+```
+
+### Model statistics
+
+```{r, echo=FALSE, results='asis'}
+#| label: OB_tt_NN_statsTable
+
+kable(as_tibble(out_NN_OB$runData), caption = "Run statistics")
+
+paste0('Run time = ', round(out_NN_OB$runTime, 3), ' ',  attr(out_NN_OB$runTime, "units"))
+```

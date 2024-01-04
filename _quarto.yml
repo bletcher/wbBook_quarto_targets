@@ -43,8 +43,9 @@ book:
         - modelFlow.qmd
         - modelConditionFactor.qmd
         - modelGrowthInMass.qmd
-    - part: "Neural network/CMR model comparison - river 4 (IS) only"
+    - part: "Neural network/CMR model comparison"
       chapters: 
+        - modelsCMR_NN_SIM.qmd
         - modelsCMR_NN_OB.qmd
         - modelsCMR_Growth_NN_OB.qmd
     - references.qmd

@@ -1,4 +1,4 @@
-# CJS model
+# River 4 (IS) - CJS model
 
 Simple CJS models to get phi and p estimates to compare with Neural Network CMR
 
