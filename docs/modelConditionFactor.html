@@ -304,7 +304,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
- <span class="menu-text">Neural network/CMR model comparison - river 4 (IS) only</span></a>
+ <span class="menu-text">Neural network/CMR model comparison</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -312,14 +312,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./modelsCMR_NN_SIM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Simulation - CJS model</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./modelsCMR_NN_OB.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">CJS model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">River 4 (IS) - CJS model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./modelsCMR_Growth_NN_OB.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">CJS - growth model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">River 4 (IS) - CJS - growth model</span></span></a>
   </div>
 </li>
       </ul>
@@ -393,7 +399,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="plot-raw-lengthsmass" class="level3" data-number="15.1.2">
 <h3 data-number="15.1.2" class="anchored" data-anchor-id="plot-raw-lengthsmass"><span class="header-section-number">15.1.2</span> Plot raw lengths/mass</h3>
-<div class="cell" data-hash="modelConditionFactor_cache/html/lwAll_f4dd07bec9e57991476ddc4c63c49f10">
+<div class="cell" data-hash="modelConditionFactor_cache/html/lwAll_bc4836ab18cd9158386ebe63da6cb5ca">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(observedLength, observedWeight, <span class="at">color =</span> speciesGG)) <span class="sc">+</span></span>
@@ -505,7 +511,7 @@ F-statistic: 4.22e+05 on 5 and 24249 DF,  p-value: &lt; 2.2e-16</code></pre>
 </section>
 <section id="relative-condition-factor-by-species" class="level3" data-number="15.1.4">
 <h3 data-number="15.1.4" class="anchored" data-anchor-id="relative-condition-factor-by-species"><span class="header-section-number">15.1.4</span> Relative condition factor by species</h3>
-<div class="cell" data-hash="modelConditionFactor_cache/html/relCF_8723e5f564b6509488ec48a819947f8c">
+<div class="cell" data-hash="modelConditionFactor_cache/html/relCF_a482222b303b8c03816df09be30ecadc">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(relCF, <span class="at">color =</span> speciesGG)) <span class="sc">+</span></span>
@@ -521,7 +527,7 @@ F-statistic: 4.22e+05 on 5 and 24249 DF,  p-value: &lt; 2.2e-16</code></pre>
 </section>
 <section id="relative-condition-factor-by-species-across-years" class="level3" data-number="15.1.5">
 <h3 data-number="15.1.5" class="anchored" data-anchor-id="relative-condition-factor-by-species-across-years"><span class="header-section-number">15.1.5</span> Relative condition factor by species across years</h3>
-<div class="cell" data-hash="modelConditionFactor_cache/html/relCF_years_b3df87bba897fa9a7c3e6e6c01b65302">
+<div class="cell" data-hash="modelConditionFactor_cache/html/relCF_years_af33fbea255c3a7a61c91a968e96944c">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(relCF_byYear, <span class="fu">aes</span>(year, mRCF, <span class="at">color =</span> speciesGG)) <span class="sc">+</span></span>
@@ -539,7 +545,7 @@ F-statistic: 4.22e+05 on 5 and 24249 DF,  p-value: &lt; 2.2e-16</code></pre>
 <section id="relative-condition-factor-species-comparison" class="level3" data-number="15.1.6">
 <h3 data-number="15.1.6" class="anchored" data-anchor-id="relative-condition-factor-species-comparison"><span class="header-section-number">15.1.6</span> Relative condition factor species comparison</h3>
 <p>Do relative condition factors covary between species?</p>
-<div class="cell" data-hash="modelConditionFactor_cache/html/relCF_yearsWide_fd6dba0d0ea4cfc4541b88a3cebd57c0">
+<div class="cell" data-hash="modelConditionFactor_cache/html/relCF_yearsWide_4c828699717f385f240e0e33b9a7cf0b">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(relCF_byYearWide <span class="sc">|&gt;</span> <span class="fu">filter</span>(riverGG <span class="sc">!=</span> <span class="st">"Isolated Small"</span>), <span class="fu">aes</span>(<span class="st">`</span><span class="at">Brook trout</span><span class="st">`</span>, <span class="st">`</span><span class="at">Brown trout</span><span class="st">`</span>)) <span class="sc">+</span></span>

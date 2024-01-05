@@ -304,7 +304,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
- <span class="menu-text">Neural network/CMR model comparison - river 4 (IS) only</span></a>
+ <span class="menu-text">Neural network/CMR model comparison</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -312,14 +312,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./modelsCMR_NN_SIM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Simulation - CJS model</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./modelsCMR_NN_OB.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">CJS model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">River 4 (IS) - CJS model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./modelsCMR_Growth_NN_OB.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">CJS - growth model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">River 4 (IS) - CJS - growth model</span></span></a>
   </div>
 </li>
       </ul>
@@ -388,7 +394,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="10.1" class="anchored" data-anchor-id="growth-models"><span class="header-section-number">10.1</span> Growth models</h2>
 <section id="environmentgrowth-raw-data-graphs" class="level4" data-number="10.1.0.1">
 <h4 data-number="10.1.0.1" class="anchored" data-anchor-id="environmentgrowth-raw-data-graphs"><span class="header-section-number">10.1.0.1</span> Environment/growth raw data graphs</h4>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiver_8095e05f379739d209c5764753511f93">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiver_27a4ca878325a5cfb6b753d98a2f3e32">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>plotFlowGR_byRiver <span class="ot">&lt;-</span> <span class="cf">function</span>(d, r){</span>
@@ -434,7 +440,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">West Brook</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Open Large</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Open Small</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Isolated small</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiver_wb_d30c85aa33f5ca4b6ee24c3efa67642f">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiver_wb_82e4647911240de6add1d6a482ac5d26">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFlowGR_byRiver</span>(dGAM, <span class="st">"West Brook"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -452,7 +458,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiver_ol_eb59fc9d95de3aa9e17b7580eaa106fc">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiver_ol_a10dbbe1ad196b13b7ff13954b124c57">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFlowGR_byRiver</span>(dGAM, <span class="st">"Open Large"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -470,7 +476,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiver_os_8138cb97757aaed82b828f9c6e1dfe67">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiver_os_eb9cfd28b30c563fa289a2e08d7fde39">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFlowGR_byRiver</span>(dGAM, <span class="st">"Open Small"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -488,7 +494,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiver_is_873d212114e10b79ad484e0a67e96949">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiver_is_0af9ea8126e28ca967bc92ac6255c432">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFlowGR_byRiver</span>(dGAM, <span class="st">"Isolated Small"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -510,11 +516,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="flow-duration-curve-data" class="level3" data-number="10.1.1">
 <h3 data-number="10.1.1" class="anchored" data-anchor-id="flow-duration-curve-data"><span class="header-section-number">10.1.1</span> Flow duration curve data</h3>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/fdc_growthByRiver_bf4e0bc2b2a7b70539885de774394b98">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/fdc_growthByRiver_48a7452736bb94bf4eec3a0dc070e6b7">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>plotFDC_GR_byRiver <span class="ot">&lt;-</span> <span class="cf">function</span>(d, r){</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  fig1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d <span class="sc">|&gt;</span> <span class="fu">filter</span>(riverGG <span class="sc">==</span> r), <span class="fu">aes</span>(propBelowLoFlowThreshByRiverRiver, grWeight)) <span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  fig1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d <span class="sc">|&gt;</span> <span class="fu">filter</span>(riverGG <span class="sc">==</span> r), <span class="fu">aes</span>(propBelowLoFlowThreshByRiver, grWeight)) <span class="sc">+</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.05</span>)  <span class="sc">+</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">#geom_smooth(se = FALSE) +</span></span>
@@ -524,7 +530,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">"Flow by river"</span>) <span class="sc">+</span></span>
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(seasonGG<span class="sc">~</span>speciesGG)<span class="co">#, scales = 'free')</span></span>
 <span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  fig2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d <span class="sc">|&gt;</span> <span class="fu">filter</span>(riverGG <span class="sc">==</span> r), <span class="fu">aes</span>(propAboveHiFlowThreshByRiverRiver, grWeight)) <span class="sc">+</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  fig2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d <span class="sc">|&gt;</span> <span class="fu">filter</span>(riverGG <span class="sc">==</span> r), <span class="fu">aes</span>(propAboveHiFlowThreshByRiver, grWeight)) <span class="sc">+</span></span>
 <span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.05</span>)  <span class="sc">+</span></span>
 <span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
 <span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">#geom_smooth(se = FALSE) +</span></span>
@@ -537,8 +543,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grid.arrange</span>(fig1, fig2, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
 <span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>plotFDC_GR_byArea <span class="ot">&lt;-</span> <span class="cf">function</span>(d, r){</span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>  fig1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d <span class="sc">|&gt;</span> <span class="fu">filter</span>(riverGG <span class="sc">==</span> r), <span class="fu">aes</span>(propBelowLoFlowThreshByRiverArea_flowExt, grWeight)) <span class="sc">+</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>plotFDC_GR_byArea <span class="ot">&lt;-</span> <span class="cf">function</span>(d, r){            </span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>  fig1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d <span class="sc">|&gt;</span> <span class="fu">filter</span>(riverGG <span class="sc">==</span> r), <span class="fu">aes</span>(propBelowLoFlowThreshByArea_flowExt, grWeight)) <span class="sc">+</span></span>
 <span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.05</span>)  <span class="sc">+</span></span>
 <span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
 <span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>    <span class="co">#geom_smooth(se = FALSE) +</span></span>
@@ -548,7 +554,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">"Flow by area"</span>) <span class="sc">+</span></span>
 <span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(seasonGG<span class="sc">~</span>speciesGG)<span class="co">#, scales = 'free')</span></span>
 <span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>  fig2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d <span class="sc">|&gt;</span> <span class="fu">filter</span>(riverGG <span class="sc">==</span> r), <span class="fu">aes</span>(propAboveHiFlowThreshByRiverArea_flowExt, grWeight)) <span class="sc">+</span></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>  fig2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d <span class="sc">|&gt;</span> <span class="fu">filter</span>(riverGG <span class="sc">==</span> r), <span class="fu">aes</span>(propAboveHiFlowThreshByArea_flowExt, grWeight)) <span class="sc">+</span></span>
 <span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.05</span>)  <span class="sc">+</span></span>
 <span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
 <span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>    <span class="co">#geom_smooth(se = FALSE) +</span></span>
@@ -581,7 +587,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">West Brook</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Open Large</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Open Small</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false">Isolated small</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/fdc_growthByRiver_wb_9c4fb8e5fe19c637ed813bdd29b465e9">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/fdc_growthByRiver_wb_4f11f1179e668f8144ae7b4911b45a6b">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFDC_GR_byRiver</span>(dGAM, <span class="st">"West Brook"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -599,7 +605,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/fdc_growthByRiver_ol_2198419f2f3f6cee87f5a8a75f7c87e8">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/fdc_growthByRiver_ol_3ff1c39e24c91ec2c0e9f793efcdb2f0">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFDC_GR_byRiver</span>(dGAM, <span class="st">"Open Large"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -617,7 +623,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/fdc_growthByRiver_os_ebc23ac00b60760dc7efead533c36bd6">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/fdc_growthByRiver_os_2e43252643c175a76a0e077cb6040465">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFDC_GR_byRiver</span>(dGAM, <span class="st">"Open Small"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -635,7 +641,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div id="tabset-2-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-4-tab">
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/fdc_growthByRiver_is_17ab8dfa65debd544f8450f912e66aca">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/fdc_growthByRiver_is_e44aae4e90b8db98ea243a4af8cababc">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFDC_GR_byRiver</span>(dGAM, <span class="st">"Isolated Small"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -656,7 +662,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="flow-compared-with-flow-duration-curve-metrics" class="level4" data-number="10.1.1.1">
 <h4 data-number="10.1.1.1" class="anchored" data-anchor-id="flow-compared-with-flow-duration-curve-metrics"><span class="header-section-number">10.1.1.1</span> Flow compared with flow duration curve metrics</h4>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/fdcBelow_meanFlow_c7199126ab809ccaf566d954d41320e8">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/fdcBelow_meanFlow_dbb968ef1488885e2972e512994c1961">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(dGAM, <span class="fu">aes</span>(flowByRiverS, propBelowLoFlowThreshByRiver)) <span class="sc">+</span></span>
@@ -673,7 +679,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/fdcAbove_meanFlow_fa6846d93273bf04470a2190c87a3e3d">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/fdcAbove_meanFlow_3349f1b82c1b871bdf5028eddcd83f02">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(dGAM, <span class="fu">aes</span>(flowByRiverS, propAboveHiFlowThreshByRiver)) <span class="sc">+</span></span>
@@ -1048,7 +1054,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="brook-trout---flow-by-area" class="level4" data-number="10.1.2.2">
 <h4 data-number="10.1.2.2" class="anchored" data-anchor-id="brook-trout---flow-by-area"><span class="header-section-number">10.1.2.2</span> Brook trout - flow by area</h4>
 <p>redo models</p>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/lmByArea_40844b11676982432b9cb170bcd94cdf">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/lmByArea_f8d6af71c0574ac5c88a03845ca04426">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>lmS1ByArea <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
@@ -1068,15 +1074,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>           df       AIC
-lmS2ByArea 71 -86683.73
-lmS1ByArea 62 -86486.14</code></pre>
+lmS2ByArea 71 -86696.71
+lmS1ByArea 62 -86590.70</code></pre>
 </div>
 </div>
 </section>
 <section id="brook-trout---flow-by-river" class="level4" data-number="10.1.2.3">
 <h4 data-number="10.1.2.3" class="anchored" data-anchor-id="brook-trout---flow-by-river"><span class="header-section-number">10.1.2.3</span> Brook trout - flow by river</h4>
 <p>redo models</p>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/lmByRiver_0b9744b77aa5d74180ea02046ab5ec49">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/lmByRiver_c8f6a3310ac83ffc3bcbfe181c0529ff">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>lmS1ByRiver <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
@@ -1111,16 +1117,16 @@ lmS1ByArea 62 -86486.14</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>            df       AIC
-lmS2ByRiver 71 -86808.62
-lmS4ByRiver 59 -86667.15
-lmS1ByRiver 62 -86534.56
-lmS3ByRiver 56 -86412.23</code></pre>
+lmS2ByRiver 71 -86945.42
+lmS4ByRiver 59 -86729.02
+lmS1ByRiver 62 -86559.57
+lmS3ByRiver 56 -86505.21</code></pre>
 </div>
 </div>
 </section>
 <section id="brook-trout---compare-flow-byarea-and-flow-byriver-gams" class="level4" data-number="10.1.2.4">
 <h4 data-number="10.1.2.4" class="anchored" data-anchor-id="brook-trout---compare-flow-byarea-and-flow-byriver-gams"><span class="header-section-number">10.1.2.4</span> Brook trout - compare flow byArea and flow byRiver gams</h4>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/gamModsCompare_468a125393b35104f5c8478e4e499a7b">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/gamModsCompare_be014565e6ee3e281a3d5c8e42ff938d">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>predictBKTlmS <span class="ot">&lt;-</span> <span class="cf">function</span>(dIn, modInFlowByArea, modInFlowByRiver){</span>
@@ -1188,7 +1194,7 @@ lmS3ByRiver 56 -86412.23</code></pre>
 </section>
 <section id="west-brook-2" class="level4" data-number="10.1.2.6">
 <h4 data-number="10.1.2.6" class="anchored" data-anchor-id="west-brook-2"><span class="header-section-number">10.1.2.6</span> West brook</h4>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/graphGAMPredictionsByRiverSmallFishTalkTWB_00032584241daa87c254718d54673f47">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/graphGAMPredictionsByRiverSmallFishTalkTWB_078778534c2c88336ea2f2c6dc5113bc">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
@@ -1244,7 +1250,7 @@ lmS3ByRiver 56 -86412.23</code></pre>
 </div>
 </div>
 <p>WB alpha</p>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/alphaonThreshWB_e7822583a03ac0eba764843744545f4b">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/alphaonThreshWB_78183a67dc2f1f4484d9bec78c195c8b">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
@@ -1303,7 +1309,7 @@ lmS3ByRiver 56 -86412.23</code></pre>
 </section>
 <section id="open-large-2" class="level4" data-number="10.1.2.7">
 <h4 data-number="10.1.2.7" class="anchored" data-anchor-id="open-large-2"><span class="header-section-number">10.1.2.7</span> Open Large</h4>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/graphGAMPredictionsByRiverSmallFishTalkTOL_c0cc27b5859e42c363d343c5a935f71c">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/graphGAMPredictionsByRiverSmallFishTalkTOL_bde6a4ba889f662c081284c2c091899f">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
@@ -1363,7 +1369,7 @@ lmS3ByRiver 56 -86412.23</code></pre>
 </div>
 </div>
 <p>OL alpha</p>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/alphaonThreshOL_6c737d7f823c7b59c0909f53df0ca6f1">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/alphaonThreshOL_703f65c170cba6ea2daf6a495c68a7db">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
@@ -1422,7 +1428,7 @@ lmS3ByRiver 56 -86412.23</code></pre>
 </section>
 <section id="open-small-2" class="level4" data-number="10.1.2.8">
 <h4 data-number="10.1.2.8" class="anchored" data-anchor-id="open-small-2"><span class="header-section-number">10.1.2.8</span> Open Small</h4>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/graphGAMPredictionsByRiverSmallFishTalkTOS_280b7de17a87fb28379dfcec5719b314">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/graphGAMPredictionsByRiverSmallFishTalkTOS_ab97fa581aaf23de7a185a0115d5ac3f">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
@@ -1457,7 +1463,7 @@ lmS3ByRiver 56 -86412.23</code></pre>
 </section>
 <section id="isolated-small-2" class="level4" data-number="10.1.2.9">
 <h4 data-number="10.1.2.9" class="anchored" data-anchor-id="isolated-small-2"><span class="header-section-number">10.1.2.9</span> Isolated Small</h4>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/graphGAMPredictionsByRiverSmallFishTalkTIS_6943f9b784cae8fe94a4215398921f4e">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/graphGAMPredictionsByRiverSmallFishTalkTIS_f00ded4393a2161dd5d09600071ae7fb">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
@@ -1517,7 +1523,7 @@ lmS3ByRiver 56 -86412.23</code></pre>
 </div>
 </div>
 <p>IS alpha</p>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/alphaonThreshIS_330814755fa4c73b5d252a9d79930ff5">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/alphaonThreshIS_fda6ec6fd2f794787477f6eb10b7a969">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
@@ -1577,7 +1583,7 @@ lmS3ByRiver 56 -86412.23</code></pre>
 </section>
 <section id="flow-std-by-seasonriver-not-used" class="level3" data-number="10.1.3">
 <h3 data-number="10.1.3" class="anchored" data-anchor-id="flow-std-by-seasonriver-not-used"><span class="header-section-number">10.1.3</span> Flow std by season/river (not used)</h3>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiverSR_69ebf311c48d8607ba59774adc4d0216">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiverSR_0e5d05aedc6f0ac320c1470008057f5a">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>plotFlowGR_SR_byRiver <span class="ot">&lt;-</span> <span class="cf">function</span>(d, r){</span>
@@ -1623,7 +1629,7 @@ lmS3ByRiver 56 -86412.23</code></pre>
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">West Brook</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Open Large</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">Open Small</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-4" role="tab" aria-controls="tabset-3-4" aria-selected="false">Isolated small</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiverSR_wb_29074dd21dd69f6d5a73e3e1b2e35379">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiverSR_wb_efcb82c030f92ccd60eab0f57fde9914">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFlowGR_SR_byRiver</span>(dGAM, <span class="st">"West Brook"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1641,7 +1647,7 @@ lmS3ByRiver 56 -86412.23</code></pre>
 </div>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiverSR_ol_9998aa482d106cf34d6f9837c8b53bdb">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiverSR_ol_caf608cb280485445b681222e29d38d5">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFlowGR_SR_byRiver</span>(dGAM, <span class="st">"Open Large"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1659,7 +1665,7 @@ lmS3ByRiver 56 -86412.23</code></pre>
 </div>
 </div>
 <div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiverSR_os_c8e74f65d918743b7b5d3cbc17644399">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiverSR_os_e7c3d6a11b6cabf55c3469a92c82ac6c">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFlowGR_SR_byRiver</span>(dGAM, <span class="st">"Open Small"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1677,7 +1683,7 @@ lmS3ByRiver 56 -86412.23</code></pre>
 </div>
 </div>
 <div id="tabset-3-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-4-tab">
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiverSR_is_edc29c36a2289c0aef21a0dac5dd5a3c">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiverSR_is_aae150cecaa4043b1a6eb0c97dbaa416">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFlowGR_SR_byRiver</span>(dGAM, <span class="st">"Isolated Small"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1699,7 +1705,7 @@ lmS3ByRiver 56 -86412.23</code></pre>
 <section id="brook-trout---flow" class="level4" data-number="10.1.3.1">
 <h4 data-number="10.1.3.1" class="anchored" data-anchor-id="brook-trout---flow"><span class="header-section-number">10.1.3.1</span> Brook trout - flow</h4>
 <p>use scale(temperature) instead of tempSR?</p>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/gamModsBKT2_d28b9c720baef41692353222b2a366ad">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/gamModsBKT2_8bf0eecc296a499fa757b8ff51e985e8">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>kIn <span class="ot">=</span> <span class="dv">4</span></span>
@@ -1741,16 +1747,16 @@ lmS3ByRiver 56 -86412.23</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>              df       AIC
-gamSR0 118.69693 -87324.21
-gamSR1  68.72459 -86378.09
-gamSR2 109.59850 -85805.33
-gamSR3 102.43371 -85526.74</code></pre>
+gamSR0 118.63321 -87435.05
+gamSR1  70.75463 -86603.50
+gamSR2 108.81196 -85899.61
+gamSR3 100.34986 -85672.15</code></pre>
 </div>
 </div>
 </section>
 <section id="brook-trout---flow-by-river-1" class="level4" data-number="10.1.3.2">
 <h4 data-number="10.1.3.2" class="anchored" data-anchor-id="brook-trout---flow-by-river-1"><span class="header-section-number">10.1.3.2</span> Brook trout - flow by river</h4>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/gamSRModsBKTFBR2_3fe6879255d3c4f622c0a095be76be4a">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/gamSRModsBKTFBR2_2f81a75296b629d44909141b8f4b2ae1">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>gamSR0ByRiver <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempSR <span class="sc">+</span> flowByRiverSR)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
@@ -1789,16 +1795,16 @@ gamSR3 102.43371 -85526.74</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                     df       AIC
-gamSR0ByRiver 120.02873 -87218.68
-gamSR1ByRiver  71.79121 -86264.17
-gamSR2ByRiver 110.84119 -85736.95
-gamSR3ByRiver 102.51579 -85461.99</code></pre>
+gamSR0ByRiver 116.89094 -87224.07
+gamSR1ByRiver  70.59026 -86375.49
+gamSR2ByRiver 105.40682 -85711.79
+gamSR3ByRiver 102.06380 -85375.03</code></pre>
 </div>
 </div>
 </section>
 <section id="brook-trout---flow-by-area-1" class="level4" data-number="10.1.3.3">
 <h4 data-number="10.1.3.3" class="anchored" data-anchor-id="brook-trout---flow-by-area-1"><span class="header-section-number">10.1.3.3</span> Brook trout - flow by area</h4>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/gamSRModsBKTFBA2_83a1bd922d683a83b8e74db67a1bf8fa">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/gamSRModsBKTFBA2_e3137cd2ffd95848ff66417205e31bb7">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>gamSR0ByArea <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempSR <span class="sc">+</span> flowByAreaSR)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
@@ -1836,14 +1842,14 @@ gamSR3ByRiver 102.51579 -85461.99</code></pre>
 <span id="cb53-33"><a href="#cb53-33" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(gamSR0ByArea, gamSR1ByArea, gamSR2ByArea, gamSR3ByArea) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(AIC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>                    df       AIC
-gamSR0ByArea 118.69694 -87324.21
-gamSR1ByArea  68.72378 -86378.10
-gamSR2ByArea 109.59850 -85805.33
-gamSR3ByArea 102.43371 -85526.74</code></pre>
+<pre><code>                   df       AIC
+gamSR0ByArea 118.8198 -87442.36
+gamSR1ByArea  70.7452 -86610.01
+gamSR2ByArea 108.9753 -85905.42
+gamSR3ByArea 100.2851 -85675.76</code></pre>
 </div>
 </div>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/gamSRModsCompareSR_3f5bc4ac2c32df7429d13b433d6665ff">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/gamSRModsCompareSR_73dd77d7c1cbd7eedecab317dd461329">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>predictBKTgamSR <span class="ot">&lt;-</span> <span class="cf">function</span>(dIn, modInFlowByRiver, modInFlowByArea){</span>
@@ -1893,7 +1899,7 @@ gamSR3ByArea 102.43371 -85526.74</code></pre>
 <section id="graph-predictions" class="level4" data-number="10.1.3.4">
 <h4 data-number="10.1.3.4" class="anchored" data-anchor-id="graph-predictions"><span class="header-section-number">10.1.3.4</span> Graph predictions</h4>
 <p>Across cohorts, small fish</p>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/graphGAMSRPredictionsByRiverSmallFish_315f6ff993415525781292899362a77b">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/graphGAMSRPredictionsByRiverSmallFish_7bdbdf9a3f3a50fd25e12055a8f98fe9">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
@@ -1916,7 +1922,7 @@ gamSR3ByArea 102.43371 -85526.74</code></pre>
 </div>
 </div>
 <p>Across cohorts, large fish</p>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/graphGAMSRPredictionsByRiverBigFish_35bdd668d58ce185bea686025275bb9b">
+<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/graphGAMSRPredictionsByRiverBigFish_af0efed3f53411bf0712f61b8343c3a9">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
@@ -2532,7 +2538,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb58-194"><a href="#cb58-194" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fdc_growthByRiver</span></span>
 <span id="cb58-195"><a href="#cb58-195" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb58-196"><a href="#cb58-196" aria-hidden="true" tabindex="-1"></a>plotFDC_GR_byRiver <span class="ot">&lt;-</span> <span class="cf">function</span>(d, r){</span>
-<span id="cb58-197"><a href="#cb58-197" aria-hidden="true" tabindex="-1"></a>  fig1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d <span class="sc">|&gt;</span> <span class="fu">filter</span>(riverGG <span class="sc">==</span> r), <span class="fu">aes</span>(propBelowLoFlowThreshByRiverRiver, grWeight)) <span class="sc">+</span></span>
+<span id="cb58-197"><a href="#cb58-197" aria-hidden="true" tabindex="-1"></a>  fig1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d <span class="sc">|&gt;</span> <span class="fu">filter</span>(riverGG <span class="sc">==</span> r), <span class="fu">aes</span>(propBelowLoFlowThreshByRiver, grWeight)) <span class="sc">+</span></span>
 <span id="cb58-198"><a href="#cb58-198" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.05</span>)  <span class="sc">+</span></span>
 <span id="cb58-199"><a href="#cb58-199" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
 <span id="cb58-200"><a href="#cb58-200" aria-hidden="true" tabindex="-1"></a>    <span class="co">#geom_smooth(se = FALSE) +</span></span>
@@ -2542,7 +2548,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb58-204"><a href="#cb58-204" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">"Flow by river"</span>) <span class="sc">+</span></span>
 <span id="cb58-205"><a href="#cb58-205" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(seasonGG<span class="sc">~</span>speciesGG)<span class="co">#, scales = 'free')</span></span>
 <span id="cb58-206"><a href="#cb58-206" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb58-207"><a href="#cb58-207" aria-hidden="true" tabindex="-1"></a>  fig2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d <span class="sc">|&gt;</span> <span class="fu">filter</span>(riverGG <span class="sc">==</span> r), <span class="fu">aes</span>(propAboveHiFlowThreshByRiverRiver, grWeight)) <span class="sc">+</span></span>
+<span id="cb58-207"><a href="#cb58-207" aria-hidden="true" tabindex="-1"></a>  fig2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d <span class="sc">|&gt;</span> <span class="fu">filter</span>(riverGG <span class="sc">==</span> r), <span class="fu">aes</span>(propAboveHiFlowThreshByRiver, grWeight)) <span class="sc">+</span></span>
 <span id="cb58-208"><a href="#cb58-208" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.05</span>)  <span class="sc">+</span></span>
 <span id="cb58-209"><a href="#cb58-209" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
 <span id="cb58-210"><a href="#cb58-210" aria-hidden="true" tabindex="-1"></a>    <span class="co">#geom_smooth(se = FALSE) +</span></span>
@@ -2555,8 +2561,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb58-217"><a href="#cb58-217" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grid.arrange</span>(fig1, fig2, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
 <span id="cb58-218"><a href="#cb58-218" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb58-219"><a href="#cb58-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-220"><a href="#cb58-220" aria-hidden="true" tabindex="-1"></a>plotFDC_GR_byArea <span class="ot">&lt;-</span> <span class="cf">function</span>(d, r){</span>
-<span id="cb58-221"><a href="#cb58-221" aria-hidden="true" tabindex="-1"></a>  fig1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d <span class="sc">|&gt;</span> <span class="fu">filter</span>(riverGG <span class="sc">==</span> r), <span class="fu">aes</span>(propBelowLoFlowThreshByRiverArea_flowExt, grWeight)) <span class="sc">+</span></span>
+<span id="cb58-220"><a href="#cb58-220" aria-hidden="true" tabindex="-1"></a>plotFDC_GR_byArea <span class="ot">&lt;-</span> <span class="cf">function</span>(d, r){            </span>
+<span id="cb58-221"><a href="#cb58-221" aria-hidden="true" tabindex="-1"></a>  fig1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d <span class="sc">|&gt;</span> <span class="fu">filter</span>(riverGG <span class="sc">==</span> r), <span class="fu">aes</span>(propBelowLoFlowThreshByArea_flowExt, grWeight)) <span class="sc">+</span></span>
 <span id="cb58-222"><a href="#cb58-222" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.05</span>)  <span class="sc">+</span></span>
 <span id="cb58-223"><a href="#cb58-223" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
 <span id="cb58-224"><a href="#cb58-224" aria-hidden="true" tabindex="-1"></a>    <span class="co">#geom_smooth(se = FALSE) +</span></span>
@@ -2566,7 +2572,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb58-228"><a href="#cb58-228" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">"Flow by area"</span>) <span class="sc">+</span></span>
 <span id="cb58-229"><a href="#cb58-229" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(seasonGG<span class="sc">~</span>speciesGG)<span class="co">#, scales = 'free')</span></span>
 <span id="cb58-230"><a href="#cb58-230" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb58-231"><a href="#cb58-231" aria-hidden="true" tabindex="-1"></a>  fig2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d <span class="sc">|&gt;</span> <span class="fu">filter</span>(riverGG <span class="sc">==</span> r), <span class="fu">aes</span>(propAboveHiFlowThreshByRiverArea_flowExt, grWeight)) <span class="sc">+</span></span>
+<span id="cb58-231"><a href="#cb58-231" aria-hidden="true" tabindex="-1"></a>  fig2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d <span class="sc">|&gt;</span> <span class="fu">filter</span>(riverGG <span class="sc">==</span> r), <span class="fu">aes</span>(propAboveHiFlowThreshByArea_flowExt, grWeight)) <span class="sc">+</span></span>
 <span id="cb58-232"><a href="#cb58-232" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.05</span>)  <span class="sc">+</span></span>
 <span id="cb58-233"><a href="#cb58-233" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
 <span id="cb58-234"><a href="#cb58-234" aria-hidden="true" tabindex="-1"></a>    <span class="co">#geom_smooth(se = FALSE) +</span></span>

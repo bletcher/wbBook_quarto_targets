@@ -304,7 +304,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
- <span class="menu-text">Neural network/CMR model comparison - river 4 (IS) only</span></a>
+ <span class="menu-text">Neural network/CMR model comparison</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -312,14 +312,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./modelsCMR_NN_SIM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Simulation - CJS model</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./modelsCMR_NN_OB.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">CJS model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">River 4 (IS) - CJS model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./modelsCMR_Growth_NN_OB.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">CJS - growth model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">River 4 (IS) - CJS - growth model</span></span></a>
   </div>
 </li>
       </ul>
@@ -487,7 +493,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="counts-by-species" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="counts-by-species"><span class="header-section-number">4.2</span> Counts by species</h2>
 <p>What are the counts by species for <em>tagged</em> fish?</p>
-<div class="cell" data-hash="getDataElectro_cache/html/lwDistsTagged_bcdbfae36d2d7228c95c4ba9b69b2a25">
+<div class="cell" data-hash="getDataElectro_cache/html/lwDistsTagged_37af02f6fca37d1cbaed38a84d7ceb1f">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # off tagged individuals/species</span></span>
@@ -509,7 +515,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>What are the counts by species for <em>untagged</em> fish?</p>
-<div class="cell" data-hash="getDataElectro_cache/html/lwDistsUntagged_0c20a6d559b154fbc09181425acbb8fb">
+<div class="cell" data-hash="getDataElectro_cache/html/lwDistsUntagged_64bf1154856721e5e37c6866e36da5b9">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">#####</span></span>
@@ -530,7 +536,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Plot length distributions of tagged and untagged fish</p>
-<div class="cell" data-hash="getDataElectro_cache/html/lwDists_24dc649f662e7916b0465023d7772576">
+<div class="cell" data-hash="getDataElectro_cache/html/lwDists_42e949e1d04e6a41404a29ff86d79441">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">######</span></span>
@@ -546,7 +552,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="mortality-comments" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="mortality-comments"><span class="header-section-number">4.3</span> Mortality comments</h2>
 <p>Show comments related to mortalities</p>
-<div class="cell" data-hash="getDataElectro_cache/html/MortComments_8e3c6ddbd06f4a3129bea6e5ced4725a">
+<div class="cell" data-hash="getDataElectro_cache/html/MortComments_4a146a6671e704bad371e5baf4b80b89">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cdWB_electro <span class="sc">%&gt;%</span></span>
@@ -616,7 +622,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="length-weight-graph" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="length-weight-graph"><span class="header-section-number">4.4</span> Length-weight graph</h2>
-<div class="cell" data-hash="getDataElectro_cache/html/fig-electroLM_55d35a8254a62af905993e7c20bce89d">
+<div class="cell" data-hash="getDataElectro_cache/html/fig-electroLM_92d1cdc3ecfc45799a5c24f08e299634">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cdWB_electro, <span class="fu">aes</span>(observedLength, observedWeight, <span class="at">color =</span> species)) <span class="sc">+</span></span>
@@ -638,7 +644,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="cumulative-mass-curves" class="level2" data-number="4.5">
 <h2 data-number="4.5" class="anchored" data-anchor-id="cumulative-mass-curves"><span class="header-section-number">4.5</span> Cumulative mass curves</h2>
-<div class="cell" data-hash="getDataElectro_cache/html/fig-electroCumulMass_c1f3860a123453e90df114643062c5c2">
+<div class="cell" data-hash="getDataElectro_cache/html/fig-electroCumulMass_c2ceda856b15610a102388059bec61a4">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cdWB_electro <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(observedWeight)), <span class="fu">aes</span>(observedWeight, <span class="at">color =</span> species)) <span class="sc">+</span></span>
@@ -660,7 +666,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="length-weight-regression" class="level2" data-number="4.6">
 <h2 data-number="4.6" class="anchored" data-anchor-id="length-weight-regression"><span class="header-section-number">4.6</span> Length-weight regression</h2>
 <p>Simple linear regression statistics</p>
-<div class="cell" data-hash="getDataElectro_cache/html/lwReg_1ba1b11c3c8497f53f7e29abb0031cc0">
+<div class="cell" data-hash="getDataElectro_cache/html/lwReg_da76d8d9114d072b857a74a59173408b">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>lwReg <span class="ot">&lt;-</span> cdWB_electro <span class="sc">%&gt;%</span></span>

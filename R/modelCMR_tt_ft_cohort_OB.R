@@ -116,34 +116,34 @@ modelCMR_tt_ft_cohort_OB_flow_target <-
       }
       ## 
     
-      for (y in 1:2) {
+      for (yy in 1:2) {
         for (s in 1:nSeasons){
           for (c in 1:nCohorts){
-            betaInt[y,s,c] ~ dnorm(betaIntYOYSeason[y,s],1)
+            betaInt[yy,s,c] ~ dnorm(betaIntYOYSeason[yy,s],1)
             #betaPhi[y,s,c] ~ dnorm(betaPhiYOYSeason[y,s],1)
-            betaP[y,s,c] ~ dnorm(betaPYOYSeason[y,s],1)
+            betaP[yy,s,c] ~ dnorm(betaPYOYSeason[yy,s],1)
           }
           
-          betaIntYOYSeason[y,s] ~ dnorm(betaIntYOY[y],1)
+          betaIntYOYSeason[yy,s] ~ dnorm(betaIntYOY[yy],1)
           #betaPhiYOYSeason[y,s] ~ dnorm(betaPhiYOY[y],1)
-          betaPYOYSeason[y,s] ~ dnorm(betaPYOY[y],1)
+          betaPYOYSeason[yy,s] ~ dnorm(betaPYOY[yy],1)
           
-          betaFlow[1,y,s] ~ dnorm(betaFlowYOY[1,y],1)
-          betaFlow[2,y,s] ~ dnorm(betaFlowYOY[2,y],1)
-          betaFlow[3,y,s] ~ dnorm(betaFlowYOY[3,y],1)
+          betaFlow[1,yy,s] ~ dnorm(betaFlowYOY[1,yy],1)
+          betaFlow[2,yy,s] ~ dnorm(betaFlowYOY[2,yy],1)
+          betaFlow[3,yy,s] ~ dnorm(betaFlowYOY[3,yy],1)
           
         }
       }
           
-      for (y in 1:2) {
+      for (yy in 1:2) {
         
-        betaIntYOY[y] ~ dnorm(betaIntTop,1)
+        betaIntYOY[yy] ~ dnorm(betaIntTop,1)
         #betaPhiYOY[y] ~ dnorm(betaPhiTop,1)
-        betaFlowYOY[1,y] ~ dnorm(betaFlowTop[1],1)
-        betaFlowYOY[2,y] ~ dnorm(betaFlowTop[2],1)
-        betaFlowYOY[3,y] ~ dnorm(betaFlowTop[3],1)
+        betaFlowYOY[1,yy] ~ dnorm(betaFlowTop[1],1)
+        betaFlowYOY[2,yy] ~ dnorm(betaFlowTop[2],1)
+        betaFlowYOY[3,yy] ~ dnorm(betaFlowTop[3],1)
         
-        betaPYOY[y] ~ dnorm(0,1)
+        betaPYOY[yy] ~ dnorm(0,1)
       }
       
       betaIntTop ~ dnorm(0,1)
@@ -157,17 +157,17 @@ modelCMR_tt_ft_cohort_OB_flow_target <-
       ##    
       # back-transform for examining output
       ##
-      for (y in 1:2) {
-        betaIntYOYOut[y] <- 1/(1 + exp(-betaIntYOY[y]))
-        betaPYOYOut[y] <- 1/(1 + exp(-betaPYOY[y]))
+      for (yy in 1:2) {
+        betaIntYOYOut[yy] <- 1/(1 + exp(-betaIntYOY[yy]))
+        betaPYOYOut[yy] <- 1/(1 + exp(-betaPYOY[yy]))
         
         for (s in 1:nSeasons) {
-            betaIntYOYSeasonOut[y,s] <- 1/(1 + exp(-betaIntYOYSeason[y,s]))
-            betaPYOYSeasonOut[y,s] <- 1/(1 + exp(-betaPYOYSeason[y,s]))
+            betaIntYOYSeasonOut[yy,s] <- 1/(1 + exp(-betaIntYOYSeason[yy,s]))
+            betaPYOYSeasonOut[yy,s] <- 1/(1 + exp(-betaPYOYSeason[yy,s]))
             
             for (c in 1:nCohorts) {
-              betaIntOut[y,s,c] <- 1/(1 + exp(-betaInt[y,s,c]))
-              betaPOut[y,s,c] <- 1/(1 + exp(-betaP[y,s,c]))
+              betaIntOut[yy,s,c] <- 1/(1 + exp(-betaInt[yy,s,c]))
+              betaPOut[yy,s,c] <- 1/(1 + exp(-betaP[yy,s,c]))
           }
         }
       }
@@ -362,34 +362,34 @@ modelCMR_tt_ft_cohort_OB_flowByRiver_target <-
       #   }
       # }
       
-      for (y in 1:2) {
+      for (yy in 1:2) {
         for (s in 1:nSeasons){
           for (c in 1:nCohorts){
-            betaInt[y,s,c] ~ dnorm(betaIntYOYSeason[y,s],1)
+            betaInt[yy,s,c] ~ dnorm(betaIntYOYSeason[yy,s],1)
             #betaPhi[y,s,c] ~ dnorm(betaPhiYOYSeason[y,s],1)
-            betaP[y,s,c] ~ dnorm(betaPYOYSeason[y,s],1)
+            betaP[yy,s,c] ~ dnorm(betaPYOYSeason[yy,s],1)
           }
           
-          betaIntYOYSeason[y,s] ~ dnorm(betaIntYOY[y],1)
+          betaIntYOYSeason[yy,s] ~ dnorm(betaIntYOY[yy],1)
           #betaPhiYOYSeason[y,s] ~ dnorm(betaPhiYOY[y],1)
-          betaPYOYSeason[y,s] ~ dnorm(betaPYOY[y],1)
+          betaPYOYSeason[yy,s] ~ dnorm(betaPYOY[yy],1)
           
-          betaFlow[1,y,s] ~ dnorm(betaFlowYOY[1,y],1)
-          betaFlow[2,y,s] ~ dnorm(betaFlowYOY[2,y],1)
-          betaFlow[3,y,s] ~ dnorm(betaFlowYOY[3,y],1)
+          betaFlow[1,yy,s] ~ dnorm(betaFlowYOY[1,yy],1)
+          betaFlow[2,yy,s] ~ dnorm(betaFlowYOY[2,yy],1)
+          betaFlow[3,yy,s] ~ dnorm(betaFlowYOY[3,yy],1)
           
         }
       }
       
-      for (y in 1:2) {
+      for (yy in 1:2) {
         
-        betaIntYOY[y] ~ dnorm(betaIntTop,1)
+        betaIntYOY[yy] ~ dnorm(betaIntTop,1)
         #betaPhiYOY[y] ~ dnorm(betaPhiTop,1)
-        betaFlowYOY[1,y] ~ dnorm(betaFlowTop[1],1)
-        betaFlowYOY[2,y] ~ dnorm(betaFlowTop[2],1)
-        betaFlowYOY[3,y] ~ dnorm(betaFlowTop[3],1)
+        betaFlowYOY[1,yy] ~ dnorm(betaFlowTop[1],1)
+        betaFlowYOY[2,yy] ~ dnorm(betaFlowTop[2],1)
+        betaFlowYOY[3,yy] ~ dnorm(betaFlowTop[3],1)
         
-        betaPYOY[y] ~ dnorm(0,1)
+        betaPYOY[yy] ~ dnorm(0,1)
       }
       
       betaIntTop ~ dnorm(0,1)
@@ -403,17 +403,17 @@ modelCMR_tt_ft_cohort_OB_flowByRiver_target <-
       ##    
       # back-transform for examining output
       ##
-      for (y in 1:2) {
-        betaIntYOYOut[y] <- 1/(1 + exp(-betaIntYOY[y]))
-        betaPYOYOut[y] <- 1/(1 + exp(-betaPYOY[y]))
+      for (yy in 1:2) {
+        betaIntYOYOut[yy] <- 1/(1 + exp(-betaIntYOY[yy]))
+        betaPYOYOut[yy] <- 1/(1 + exp(-betaPYOY[yy]))
         
         for (s in 1:nSeasons) {
-          betaIntYOYSeasonOut[y,s] <- 1/(1 + exp(-betaIntYOYSeason[y,s]))
-          betaPYOYSeasonOut[y,s] <- 1/(1 + exp(-betaPYOYSeason[y,s]))
+          betaIntYOYSeasonOut[yy,s] <- 1/(1 + exp(-betaIntYOYSeason[yy,s]))
+          betaPYOYSeasonOut[yy,s] <- 1/(1 + exp(-betaPYOYSeason[yy,s]))
           
           for (c in 1:nCohorts) {
-            betaIntOut[y,s,c] <- 1/(1 + exp(-betaInt[y,s,c]))
-            betaPOut[y,s,c] <- 1/(1 + exp(-betaP[y,s,c]))
+            betaIntOut[yy,s,c] <- 1/(1 + exp(-betaInt[yy,s,c]))
+            betaPOut[yy,s,c] <- 1/(1 + exp(-betaP[yy,s,c]))
           }
         }
       }
@@ -433,7 +433,7 @@ modelCMR_tt_ft_cohort_OB_flowByRiver_target <-
       constants = tt_myConstants_ft_cohort_OB_flowByRiver,
       data = tt_myData_ft_cohort_OB_flowByRiver,
       inits = tt_initialValues_ft_cohort_OB_flow(tt_myConstants_ft_cohort_OB_flowByRiver$T, tt_myConstants_ft_cohort_OB_flowByRiver$nCohorts, 
-                                          tt_inputData_ft_cohort_OB_flowByRiver$y, tt_inputData_ft_cohort_OB_flowByRiver$zInitsNA),
+                                                 tt_inputData_ft_cohort_OB_flowByRiver$y, tt_inputData_ft_cohort_OB_flowByRiver$zInitsNA),
       calculate = FALSE
     ),
     

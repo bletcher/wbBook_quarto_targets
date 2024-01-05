@@ -51,7 +51,7 @@ Model is run using targets in R/modelCMR_tt_ft_cohort_OB.R
 #| label: OB_tt_flow
 # Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
 # 
-  out_flow <- tar_read(tt_modelOut_ft_cohort_OB_flow )
+  out_flow <- tar_read(tt_modelOut_ft_cohort_OB_flow)
 
   MCMCplot(object = out_flow$mcmc)
   summary_flow <- MCMCsummary(object = out_flow$mcmc, round = 3) %>%

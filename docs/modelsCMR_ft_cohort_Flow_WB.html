@@ -304,7 +304,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
- <span class="menu-text">Neural network/CMR model comparison - river 4 (IS) only</span></a>
+ <span class="menu-text">Neural network/CMR model comparison</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -312,14 +312,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./modelsCMR_NN_SIM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Simulation - CJS model</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./modelsCMR_NN_OB.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">CJS model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">River 4 (IS) - CJS model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./modelsCMR_Growth_NN_OB.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">CJS - growth model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">River 4 (IS) - CJS - growth model</span></span></a>
   </div>
 </li>
       </ul>
@@ -440,7 +446,7 @@ betaFlow[3,isYOY[i,t],season[t]] * temp[i,t] * <strong>flow</strong>[i,t]</p>
 <section id="retrieve-model-results" class="level4" data-number="12.2.1.1">
 <h4 data-number="12.2.1.1" class="anchored" data-anchor-id="retrieve-model-results"><span class="header-section-number">12.2.1.1</span> Retrieve model results</h4>
 <p>Model is run using this file <code>wbBook_quarto_targets/models/cmrFlowWB/modelCMR_ttt_ft_cohort_WB_makeFile.R</code></p>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/wb_ttt_flow_a07ec8cbb6a171be358492dcfd59f9d1">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/wb_ttt_flow_9973a3c24a9851e14caf94bc4a7a4a76">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html</span></span>
@@ -544,7 +550,7 @@ betaFlow[3,isYOY[i,t],season[t]] * temp[i,t] * <strong>flow</strong>[i,t]</p>
 <section id="retrieve-model-results-1" class="level4" data-number="12.2.2.1">
 <h4 data-number="12.2.2.1" class="anchored" data-anchor-id="retrieve-model-results-1"><span class="header-section-number">12.2.2.1</span> Retrieve model results</h4>
 <p>Model is run using this file <code>wbBook_quarto_targets/models/cmrFlowWB/modelCMR_ttt_ft_cohort_WB_makeFile.R</code></p>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/OB_tt_flowByRiver_3147b194782d0b6391ca5022609e446d">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/OB_tt_flowByRiver_e33319fc9021c3b75db60fb00792f217">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html</span></span>
@@ -613,7 +619,7 @@ betaFlow[3,isYOY[i,t],season[t]] * temp[i,t] * <strong>flow</strong>[i,t]</p>
 </section>
 <section id="compare-parameter-estimates-of-models-with-flowbyarea-and-flowbyriver" class="level3" data-number="12.2.3">
 <h3 data-number="12.2.3" class="anchored" data-anchor-id="compare-parameter-estimates-of-models-with-flowbyarea-and-flowbyriver"><span class="header-section-number">12.2.3</span> Compare parameter estimates of models with flowByArea and flowByRiver</h3>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/ggBoth_afff49ec2ad164322254326b92e5c25a">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/ggBoth_b031cbd4642f54377bce93caf421d230">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># both &lt;- bind_rows(summary_flowByArea, summary_flowByRiver) %&gt;%</span></span>
@@ -779,7 +785,7 @@ betaFlow[3,isYOY[i,t],season[t]] * temp[i,t] * <strong>flow</strong>[i,t]</p>
 </section>
 <section id="survival-comparisons" class="level3" data-number="12.2.4">
 <h3 data-number="12.2.4" class="anchored" data-anchor-id="survival-comparisons"><span class="header-section-number">12.2.4</span> Survival comparisons</h3>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/getBetas_a30e423cd1c6747bd36eeade7599ac9d">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/getBetas_eb422f3260a95da80f85078d95cfceb2">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>getBetas <span class="ot">&lt;-</span> <span class="cf">function</span>(d) {</span>
@@ -878,7 +884,7 @@ betaFlow[3,isYOY[i,t],season[t]] * temp[i,t] * <strong>flow</strong>[i,t]</p>
 </div>
 <section id="get-betaintout-estimates" class="level4" data-number="12.2.4.1">
 <h4 data-number="12.2.4.1" class="anchored" data-anchor-id="get-betaintout-estimates"><span class="header-section-number">12.2.4.1</span> Get betaIntOut estimates</h4>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/getBetaInts_b35b616f1af836ffcb0181a43f57ccb8">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/getBetaInts_a0b2ea15cadf32f1f4a5fda443d1bcec">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>betaIntFlowByArea <span class="ot">&lt;-</span> <span class="fu">getBetaIntOuts</span>(summary_flowByArea, <span class="st">"flowByArea"</span>)</span>
@@ -888,7 +894,7 @@ betaFlow[3,isYOY[i,t],season[t]] * temp[i,t] * <strong>flow</strong>[i,t]</p>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">lo =</span> <span class="st">'2.5%'</span>, <span class="at">hi =</span> <span class="st">'97.5%'</span>, <span class="at">median =</span> <span class="st">'50%'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/facetLabellerFunction_83557531bc026343ad7d658f79c3cd36">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/facetLabellerFunction_a32f0b27017202543224feab899e7fac">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(betaInts <span class="sc">%&gt;%</span> <span class="fu">filter</span>(varName <span class="sc">==</span> <span class="st">"betaIntOut"</span>), <span class="fu">aes</span>(cohort, mean, <span class="at">color =</span> flowData)) <span class="sc">+</span></span>
@@ -940,7 +946,7 @@ betaFlow[3,isYOY[i,t],season[t]] * temp[i,t] * <strong>flow</strong>[i,t]</p>
 </section>
 <section id="flow-effect-predictions" class="level3" data-number="12.2.5">
 <h3 data-number="12.2.5" class="anchored" data-anchor-id="flow-effect-predictions"><span class="header-section-number">12.2.5</span> Flow effect predictions</h3>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/getPredictions_FlowYOYSeasonCohort_c233544b896b092b178d5e881f4eec7d">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/getPredictions_FlowYOYSeasonCohort_75283c0e3541bb41d94c36fed926e1cb">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Has not been updated to new mcmc model</span></span>
@@ -1032,7 +1038,7 @@ betaFlow[3,isYOY[i,t],season[t]] * temp[i,t] * <strong>flow</strong>[i,t]</p>
 <span id="cb23-87"><a href="#cb23-87" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/getPredictions_FlowRiverYOYSeason_603acd8c83dea11914c9f5074a9097ce">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/getPredictions_FlowRiverYOYSeason_f3dd63fae1b516b4bebc6c3482b043f5">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>getPredictions_FlowRiverYOYSeason <span class="ot">&lt;-</span> <span class="cf">function</span>(toSave, <span class="at">everyNIters =</span> <span class="dv">10</span>, <span class="at">flowStep =</span> <span class="fl">0.5</span>){</span>
@@ -1154,7 +1160,7 @@ betaFlow[3,isYOY[i,t],season[t]] * temp[i,t] * <strong>flow</strong>[i,t]</p>
 <span id="cb24-117"><a href="#cb24-117" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/predsBoth_311c06225de52937f44120d71dc7fed4">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/predsBoth_8e54cd5ce743cb14b16f2398f57a3fd8">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>predFlowByAreaRiverYOYSeason <span class="ot">&lt;-</span> <span class="fu">getPredictions_FlowRiverYOYSeason</span>(out_flowByArea, <span class="at">everyNIters =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
@@ -1169,7 +1175,7 @@ betaFlow[3,isYOY[i,t],season[t]] * temp[i,t] * <strong>flow</strong>[i,t]</p>
 <section id="graph-flow-predictions" class="level4" data-number="12.2.5.1">
 <h4 data-number="12.2.5.1" class="anchored" data-anchor-id="graph-flow-predictions"><span class="header-section-number">12.2.5.1</span> Graph flow predictions</h4>
 <p>Predictions based on flow from the flow extension curve (flowByArea) - original approach</p>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/predsflow_fd994b2137c973ba9b74af7a4fd1f89c">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/predsflow_11aaba8c7da6167423749d82d5a74a27">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"green"</span>, <span class="st">"red"</span>)</span>
@@ -1185,7 +1191,7 @@ betaFlow[3,isYOY[i,t],season[t]] * temp[i,t] * <strong>flow</strong>[i,t]</p>
 </div>
 </div>
 <p>Predictions based on flow from flowByRiver</p>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/predsflowByRiver_f27df8f15fe17d7410dd8d2ba36a2d40">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/predsflowByRiver_c4caeefbf72edab9e8ce2c7fec06838a">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(predFlowByRiverRiverYOYSeason <span class="sc">%&gt;%</span> <span class="fu">filter</span>(temp <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>)), <span class="fu">aes</span>(flow, predPhi, <span class="at">group =</span> ((<span class="fu">paste0</span>(iter,temp, <span class="at">sep =</span> <span class="st">"_"</span>))))) <span class="sc">+</span></span>
@@ -1202,7 +1208,7 @@ betaFlow[3,isYOY[i,t],season[t]] * temp[i,t] * <strong>flow</strong>[i,t]</p>
 <section id="figures-for-talk" class="level4" data-number="12.2.5.2">
 <h4 data-number="12.2.5.2" class="anchored" data-anchor-id="figures-for-talk"><span class="header-section-number">12.2.5.2</span> Figures for talk</h4>
 <p>byArea</p>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/predsflowByAreaTalk_b724e5b536ccba351a21b6137d84f331">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/predsflowByAreaTalk_b0b3dc62f58e7a36fffee3095fc31d7a">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(predFlowByAreaRiverYOYSeason <span class="sc">%&gt;%</span> <span class="fu">filter</span>(temp <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>), isYOY <span class="sc">==</span> <span class="dv">1</span>), <span class="fu">aes</span>(flow, predPhi, <span class="at">group =</span> ((<span class="fu">paste0</span>(iter,temp, <span class="at">sep =</span> <span class="st">"_"</span>))))) <span class="sc">+</span></span>
@@ -1260,7 +1266,7 @@ betaFlow[3,isYOY[i,t],season[t]] * temp[i,t] * <strong>flow</strong>[i,t]</p>
 </div>
 </div>
 <p>By river</p>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/predsflowByRiverTalk_fd118151bafaefd54f27a9cd1648694a">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/predsflowByRiverTalk_a3d9550b4fa8515d6da48a6e0f08de49">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(predFlowByRiverRiverYOYSeason <span class="sc">%&gt;%</span> <span class="fu">filter</span>(temp <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>), isYOY <span class="sc">==</span> <span class="dv">1</span>), <span class="fu">aes</span>(flow, predPhi, <span class="at">group =</span> ((<span class="fu">paste0</span>(iter,temp, <span class="at">sep =</span> <span class="st">"_"</span>))))) <span class="sc">+</span></span>
@@ -1319,7 +1325,7 @@ betaFlow[3,isYOY[i,t],season[t]] * temp[i,t] * <strong>flow</strong>[i,t]</p>
 </div>
 <p>Similar format to to the 2015 paper<br>
 flowByArea</p>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/preds2015Area_5ab8b3e098330295c5871eef3a3d73db">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/preds2015Area_8bf3329e1de473c2ddfc879bfb434752">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>colors2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"blue"</span>)</span>
@@ -1335,7 +1341,7 @@ flowByArea</p>
 </div>
 </div>
 <p>flowByRiver</p>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/preds2015River_f5495ff224f53d21cc73eeeaa312089d">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/preds2015River_1d484cf7971e23e2edfa68e9fa5ff84c">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(predFlowByRiverRiverYOYSeason <span class="sc">%&gt;%</span> <span class="fu">filter</span>(flow <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>)), <span class="fu">aes</span>(temp, predPhi, <span class="at">group =</span> ((<span class="fu">paste0</span>(iter,flow, <span class="at">sep =</span> <span class="st">"_"</span>))))) <span class="sc">+</span></span>
@@ -1398,7 +1404,7 @@ flowByArea</p>
 | <code>cdWB_CMR0_target</code> feeds into getEH_AIS() to create <code>eh_WB_2002_2014_target</code><br>
 | <code>eh_WB_2002_2014_target$data</code> contains filtered data that created the components of eh_WB_2002_2014_target that are used for CMR analysis.<br>
 We can use <code>eh_WB_2002_2014_target$data</code> to get summary flow and temp data</p>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/betaIntsandeh_WB_2002_2014_target_f544c11f8c98052798f756e7ebb5e67b">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/betaIntsandeh_WB_2002_2014_target_e0ffc56c19a7ad9e038ce4d118296e63">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>eh_WB_2002_2014_target <span class="ot">=</span> <span class="fu">tar_read</span>(eh_WB_2002_2014_target)</span>
@@ -1422,7 +1428,7 @@ We can use <code>eh_WB_2002_2014_target$data</code> to get summary flow and temp
 <h4 data-number="12.2.6.1" class="anchored" data-anchor-id="environmental-variables"><span class="header-section-number">12.2.6.1</span> Environmental variables</h4>
 <p>How do the flow metrics (byArea, byRiver) compare to each other?<br>
 These are based on the individual fish flow metrics</p>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/ggFT_301846cbc0abb68405374dfe644fb91b">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/ggFT_0cf7a36077dce294facd238937a62582">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(betaIntsFT <span class="sc">%&gt;%</span> <span class="fu">filter</span>(varName <span class="sc">==</span> <span class="st">"betaIntOut"</span>), <span class="fu">aes</span>(mFlowByArea, mFlowByRiver, <span class="at">color =</span> season)) <span class="sc">+</span></span>
@@ -1468,7 +1474,7 @@ These are based on the individual fish flow metrics</p>
 </div>
 </div>
 <p>How do flowByArea/flowByRiver compare to temperature?</p>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/ggFT_Temp_757fe921f6b00f241d20797e5b9a6ff5">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/ggFT_Temp_b91897561117d7ade135528c3bfacb78">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(betaIntsFT <span class="sc">%&gt;%</span> <span class="fu">filter</span>(varName <span class="sc">==</span> <span class="st">"betaIntOut"</span>), <span class="fu">aes</span>(mFlowByArea, mTemp)) <span class="sc">+</span></span>
@@ -1496,7 +1502,7 @@ These are based on the individual fish flow metrics</p>
 <section id="survival-variables" class="level4" data-number="12.2.6.2">
 <h4 data-number="12.2.6.2" class="anchored" data-anchor-id="survival-variables"><span class="header-section-number">12.2.6.2</span> Survival variables</h4>
 <p>How do the flow metrics (byArea, byRiver) compare to survival estimates?</p>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/ggFT_phi_2d97eaa32ff9c6bf9a6f22b2663e76dc">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/ggFT_phi_7b85804db7dfd31ce0c7305b5267b59b">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(betaIntsFT <span class="sc">%&gt;%</span> <span class="fu">filter</span>(varName <span class="sc">==</span> <span class="st">"betaIntOut"</span>), <span class="fu">aes</span>(mFlowByArea, mean)) <span class="sc">+</span></span>
@@ -1532,7 +1538,7 @@ These are based on the individual fish flow metrics</p>
 </div>
 </div>
 <p>How do mean survival estimates compare to flowByArea and flowByriver on the same graph?</p>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/ggFT_phi_sameGraph_04cf1572eae90fd714f353c5ce3d7c98">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/ggFT_phi_sameGraph_577cc7bbd1e1f2536d0f0e5d512f554d">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(betaIntsFT <span class="sc">%&gt;%</span> <span class="fu">filter</span>(varName <span class="sc">==</span> <span class="st">"betaIntOut"</span>, flowData <span class="sc">==</span> <span class="st">"flowByRiver"</span>), <span class="fu">aes</span>(mFlowByRiver, mean)) <span class="sc">+</span></span>
@@ -1568,7 +1574,7 @@ These are based on the individual fish flow metrics</p>
 </div>
 </div>
 <p>Figures for talk</p>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/ggFT_phi_forTalk_e0d7067f62274a5d450ce3fbaeba2c23">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/ggFT_phi_forTalk_8f5a10023771cd4cebe273cee869e408">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(betaIntsFT <span class="sc">%&gt;%</span> <span class="fu">filter</span>(varName <span class="sc">==</span> <span class="st">"betaIntOut"</span>, flowData <span class="sc">==</span> <span class="st">"flowByRiver"</span>, isYOY <span class="sc">==</span> <span class="dv">1</span>), <span class="fu">aes</span>(mFlowByRiver, mean)) <span class="sc">+</span></span>
@@ -1605,7 +1611,7 @@ These are based on the individual fish flow metrics</p>
 </div>
 </div>
 <p>How do mean survival estimates compare to flowByArea and flowByriver on the same graph without points?</p>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/ggFT_phi_sameGraphNoPoints_a620c568c2819f750a51550e68a139ac">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/ggFT_phi_sameGraphNoPoints_02747b3db83272922544257c9f3a61cc">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(betaIntsFT <span class="sc">%&gt;%</span> <span class="fu">filter</span>(varName <span class="sc">==</span> <span class="st">"betaIntOut"</span>, flowData <span class="sc">==</span> <span class="st">"flowByRiver"</span>), <span class="fu">aes</span>(mFlowByRiver, mean)) <span class="sc">+</span></span>
@@ -1714,7 +1720,7 @@ Note: these are grabbing the summarized values - may want to get individual iter
 </details>
 </div>
 <p>Get projection parameters</p>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/getParamsProj_0de485c2ac7a85eef304c7d453d9e473">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/getParamsProj_3826d9b33b3dbdae8222d23312bcd855">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co">#both %&gt;% filter(grepl("betaIntRiverYOYSeasonOut", var))</span></span>
@@ -1726,7 +1732,7 @@ Note: these are grabbing the summarized values - may want to get individual iter
 <span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>betaPsiProj <span class="ot">&lt;-</span> <span class="fu">getPsiProj</span>(<span class="fu">getPsiProjAll</span>(both))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/createProj_f8d8b32d53e5ab9818ed16346dd50295">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/createProj_9f107e2abf8728fe4a9c8bba364c9099">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>bInt <span class="ot">&lt;-</span> betaIntProj <span class="sc">|&gt;</span> <span class="fu">filter</span>(season <span class="sc">==</span> <span class="dv">1</span>, flowData <span class="sc">==</span> <span class="st">"flowByArea"</span>)</span>
@@ -1807,7 +1813,7 @@ Note: these are grabbing the summarized values - may want to get individual iter
       betaFlow[3,r,isYOYK[k],seasonK[k]           ] * tempK[k] * flowK[k]</code></pre>
 <p>####Spring<br>
 YOY (isYOY= 1) transition to adult (isYOY = 2)</p>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/springProj_d2e9a29ec3922531d74b3c2db965203b">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/springProj_126fd2fe130e26f82c724cd4dff63b3a">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>getA1 <span class="ot">&lt;-</span> <span class="cf">function</span>(flowType, fIn, tIn) {</span>
@@ -1877,7 +1883,7 @@ YOY (isYOY= 1) transition to adult (isYOY = 2)</p>
 <section id="summer" class="level4" data-number="12.3.0.1">
 <h4 data-number="12.3.0.1" class="anchored" data-anchor-id="summer"><span class="header-section-number">12.3.0.1</span> Summer</h4>
 <p>No transitions from isYOY or reproduction. No yoy data.</p>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/summerProj_30f061e242b8fd3a91c46a04963a65ca">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/summerProj_86725a57fd6ad249504388a8abffb999">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>getA2 <span class="ot">&lt;-</span> <span class="cf">function</span>(flowType, fIn, tIn){</span>
@@ -1942,7 +1948,7 @@ YOY (isYOY= 1) transition to adult (isYOY = 2)</p>
 <section id="autumn" class="level4" data-number="12.3.0.2">
 <h4 data-number="12.3.0.2" class="anchored" data-anchor-id="autumn"><span class="header-section-number">12.3.0.2</span> Autumn</h4>
 <p>Reproduction</p>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/autumnProj_e697a714850bf6d7b552b8cad28ee83b">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/autumnProj_626fd9a6b9af4dff3651d90b464753cb">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>getA3 <span class="ot">&lt;-</span> <span class="cf">function</span>(flowType, <span class="at">numEggs =</span> <span class="dv">10</span>, fIn, tIn) {</span>
@@ -2013,7 +2019,7 @@ YOY (isYOY= 1) transition to adult (isYOY = 2)</p>
 <section id="winter" class="level4" data-number="12.3.0.3">
 <h4 data-number="12.3.0.3" class="anchored" data-anchor-id="winter"><span class="header-section-number">12.3.0.3</span> Winter</h4>
 <p>Early survival</p>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/winterProj_2905d2bdec190b242814eff6e26099f5">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/winterProj_011408afb15a4a0c1c51a2a9fe312192">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>getA4 <span class="ot">&lt;-</span> <span class="cf">function</span>(flowType, <span class="at">earlySurvival =</span> <span class="fl">0.1</span>, fIn, tIn) {</span>
@@ -2081,7 +2087,7 @@ YOY (isYOY= 1) transition to adult (isYOY = 2)</p>
 </section>
 <section id="simulations" class="level3" data-number="12.3.1">
 <h3 data-number="12.3.1" class="anchored" data-anchor-id="simulations"><span class="header-section-number">12.3.1</span> Simulations</h3>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/fullyearProj_3c5cfe40b8282ed1e889bb7365d55edf">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/fullyearProj_58a5a9fca76276af542f970266ab88b3">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>getEigen <span class="ot">&lt;-</span> <span class="cf">function</span>(flowType, numEggs, earlySurvival, fIn1, fIn2, fIn3, fIn4, tIn){</span>
@@ -2138,7 +2144,7 @@ YOY (isYOY= 1) transition to adult (isYOY = 2)</p>
 <span id="cb61-52"><a href="#cb61-52" aria-hidden="true" tabindex="-1"></a><span class="co">#   facet_grid(fIn4~fIn1~fIn2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/sensAnova_4741fbf371b2f843ef7e9ab399fd3693">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/sensAnova_1c6e9aec5f7a086d476f578d013bb298">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>sensLM_byArea <span class="ot">&lt;-</span> (<span class="fu">lm</span>(lambda<span class="sc">~</span>(fIn1<span class="sc">+</span>fIn2<span class="sc">+</span>fIn3<span class="sc">+</span>fIn4<span class="sc">+</span>tIn), <span class="at">data =</span> sens <span class="sc">|&gt;</span> <span class="fu">filter</span>(flowType <span class="sc">==</span> <span class="st">"flowByArea"</span>)))</span>
@@ -2200,7 +2206,7 @@ Multiple R-squared:  0.9174,    Adjusted R-squared:  0.9157
 F-statistic: 526.6 on 5 and 237 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeason_4859405e78003dbf9756402484cf0122">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeason_5e7b928e40a29ec233ec7b75bcf05f03">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>ggFlowSeason <span class="ot">&lt;-</span> <span class="cf">function</span>(d, var, title) {</span>
@@ -2221,7 +2227,7 @@ F-statistic: 526.6 on 5 and 237 DF,  p-value: &lt; 2.2e-16</code></pre>
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">Spring</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Summer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Autumm</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Winter</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeason1_fda5158c4af673b2b86f3a0f1a3e7a97">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeason1_1d3d7933c27d6879912a677859d2066b">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggFlowSeason</span>(sens <span class="sc">|&gt;</span> <span class="fu">filter</span>(fIn2<span class="sc">==</span><span class="dv">0</span>, fIn3<span class="sc">==</span><span class="dv">0</span>, fIn4<span class="sc">==</span><span class="dv">0</span>, tIn<span class="sc">==</span><span class="dv">0</span>), <span class="st">"fIn1"</span>, <span class="st">"Spring"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2232,7 +2238,7 @@ F-statistic: 526.6 on 5 and 237 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeason2_d9005b3d2f2ed98769c365bc28709e43">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeason2_8cdb0f89c6f752439d6cdde2746ecaa4">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggFlowSeason</span>(sens <span class="sc">|&gt;</span> <span class="fu">filter</span>(fIn1<span class="sc">==</span><span class="dv">0</span>, fIn3<span class="sc">==</span><span class="dv">0</span>, fIn4<span class="sc">==</span><span class="dv">0</span>, tIn<span class="sc">==</span><span class="dv">0</span>), <span class="st">"fIn2"</span>, <span class="st">"Summer"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2243,7 +2249,7 @@ F-statistic: 526.6 on 5 and 237 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeason3_4896e8fcbd3419510aaf7571d3b60972">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeason3_5a41a95ef76f19ea256b2583a40a5112">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggFlowSeason</span>(sens <span class="sc">|&gt;</span> <span class="fu">filter</span>(fIn1<span class="sc">==</span><span class="dv">0</span>, fIn2<span class="sc">==</span><span class="dv">0</span>, fIn4<span class="sc">==</span><span class="dv">0</span>, tIn<span class="sc">==</span><span class="dv">0</span>), <span class="st">"fIn3"</span>, <span class="st">"Autumn"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2254,7 +2260,7 @@ F-statistic: 526.6 on 5 and 237 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeason4_8e2012fdba85006f4c02803c22bbfb38">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeason4_a59af412ba074398bfea14d6013c589f">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggFlowSeason</span>(sens <span class="sc">|&gt;</span> <span class="fu">filter</span>(fIn1<span class="sc">==</span><span class="dv">0</span>, fIn2<span class="sc">==</span><span class="dv">0</span>, fIn3<span class="sc">==</span><span class="dv">0</span>, tIn<span class="sc">==</span><span class="dv">0</span>), <span class="st">"fIn4"</span>, <span class="st">"Winter"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2267,7 +2273,7 @@ F-statistic: 526.6 on 5 and 237 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <p>Hotter</p>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeasonHot_f33af47437c91b02a1d6515c8e9f48b6">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeasonHot_b4545a95e936c38a5756dda43f7c18fc">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>ggFlowSeasonHot <span class="ot">&lt;-</span> <span class="cf">function</span>(d, var, title) {</span>
@@ -2288,7 +2294,7 @@ F-statistic: 526.6 on 5 and 237 DF,  p-value: &lt; 2.2e-16</code></pre>
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Spring</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Summer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Autumm</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false">Winter</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeason1Hot_a22bca0391691f90c6b58049c28f3ec8">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeason1Hot_7e68eb084cc810baa31aaffe87d3161f">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggFlowSeasonHot</span>(sens <span class="sc">|&gt;</span> <span class="fu">filter</span>(fIn2<span class="sc">==</span><span class="dv">0</span>, fIn3<span class="sc">==</span><span class="dv">0</span>, fIn4<span class="sc">==</span><span class="dv">0</span>, tIn<span class="sc">==</span><span class="fl">0.1</span>), <span class="st">"fIn1"</span>, <span class="st">"Spring"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2299,7 +2305,7 @@ F-statistic: 526.6 on 5 and 237 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeason2Hot_01719ecd8468589a5a545f810cc1b78d">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeason2Hot_971656ab3b675fa8ade6fb047f1161f9">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggFlowSeasonHot</span>(sens <span class="sc">|&gt;</span> <span class="fu">filter</span>(fIn1<span class="sc">==</span><span class="dv">0</span>, fIn3<span class="sc">==</span><span class="dv">0</span>, fIn4<span class="sc">==</span><span class="dv">0</span>, tIn<span class="sc">==</span><span class="fl">0.1</span>), <span class="st">"fIn2"</span>, <span class="st">"Summer"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2310,7 +2316,7 @@ F-statistic: 526.6 on 5 and 237 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeason3Hot_8056559e63d47949a244b2c4bda97e3d">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeason3Hot_f3c7c2b934c6e9e4076ef22f1d40508a">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggFlowSeasonHot</span>(sens <span class="sc">|&gt;</span> <span class="fu">filter</span>(fIn1<span class="sc">==</span><span class="dv">0</span>, fIn2<span class="sc">==</span><span class="dv">0</span>, fIn4<span class="sc">==</span><span class="dv">0</span>, tIn<span class="sc">==</span><span class="fl">0.1</span>), <span class="st">"fIn3"</span>, <span class="st">"Autumn"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2321,7 +2327,7 @@ F-statistic: 526.6 on 5 and 237 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <div id="tabset-2-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-4-tab">
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeason4Hot_b17703c023655ce7c654e1cf16ee9f9d">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeason4Hot_b1741864c5c3017576e9712c4cf0bff4">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggFlowSeasonHot</span>(sens <span class="sc">|&gt;</span> <span class="fu">filter</span>(fIn1<span class="sc">==</span><span class="dv">0</span>, fIn2<span class="sc">==</span><span class="dv">0</span>, fIn3<span class="sc">==</span><span class="dv">0</span>, tIn<span class="sc">==</span><span class="fl">0.1</span>), <span class="st">"fIn4"</span>, <span class="st">"Winter"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2334,7 +2340,7 @@ F-statistic: 526.6 on 5 and 237 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <p>Colder</p>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeasonCold_6ae5d6717152730b9bd62184dd2df646">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeasonCold_17e4423def49fdb578b7fee456db4087">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>ggFlowSeasonCold <span class="ot">&lt;-</span> <span class="cf">function</span>(d, var, title) {</span>
@@ -2355,7 +2361,7 @@ F-statistic: 526.6 on 5 and 237 DF,  p-value: &lt; 2.2e-16</code></pre>
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Spring</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Summer</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">Autumm</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-4" role="tab" aria-controls="tabset-3-4" aria-selected="false">Winter</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-5" role="tab" aria-controls="tabset-3-5" aria-selected="false">All</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeason1Cold_92dc7bdf3dbca36b4ab6f073c8031660">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeason1Cold_a34098d747118e8e6a48cde8cd3f49e8">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggFlowSeasonCold</span>(sens <span class="sc">|&gt;</span> <span class="fu">filter</span>(fIn2<span class="sc">==</span><span class="dv">0</span>, fIn3<span class="sc">==</span><span class="dv">0</span>, fIn4<span class="sc">==</span><span class="dv">0</span>, tIn<span class="sc">==</span> <span class="sc">-</span><span class="fl">0.1</span>), <span class="st">"fIn1"</span>, <span class="st">"Spring"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2366,7 +2372,7 @@ F-statistic: 526.6 on 5 and 237 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeason2Cold_9a84eaff9832a1ac89ee0d689c17f894">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeason2Cold_4e445d4ae28f2c13e6f63e7fa57e5158">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggFlowSeasonCold</span>(sens <span class="sc">|&gt;</span> <span class="fu">filter</span>(fIn1<span class="sc">==</span><span class="dv">0</span>, fIn3<span class="sc">==</span><span class="dv">0</span>, fIn4<span class="sc">==</span><span class="dv">0</span>, tIn<span class="sc">==</span> <span class="sc">-</span><span class="fl">0.1</span>), <span class="st">"fIn2"</span>, <span class="st">"Summer"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2377,7 +2383,7 @@ F-statistic: 526.6 on 5 and 237 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeason3Cold_9b3d32b4b590b3e0bbc44f91ef5f7357">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeason3Cold_98d795f02ace97f0ae7fa0dae0e630d1">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggFlowSeasonCold</span>(sens <span class="sc">|&gt;</span> <span class="fu">filter</span>(fIn1<span class="sc">==</span><span class="dv">0</span>, fIn2<span class="sc">==</span><span class="dv">0</span>, fIn4<span class="sc">==</span><span class="dv">0</span>, tIn<span class="sc">==</span> <span class="sc">-</span><span class="fl">0.1</span>), <span class="st">"fIn3"</span>, <span class="st">"Autumn"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2388,7 +2394,7 @@ F-statistic: 526.6 on 5 and 237 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <div id="tabset-3-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-4-tab">
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeason4Cold_002271b91714d5a9d102b0f0f0e077f8">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGSeason4Cold_adb16e6105168cc11d7259520fd4ab05">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggFlowSeasonCold</span>(sens <span class="sc">|&gt;</span> <span class="fu">filter</span>(fIn1<span class="sc">==</span><span class="dv">0</span>, fIn2<span class="sc">==</span><span class="dv">0</span>, fIn3<span class="sc">==</span><span class="dv">0</span>, tIn<span class="sc">==</span> <span class="sc">-</span><span class="fl">0.1</span>), <span class="st">"fIn4"</span>, <span class="st">"Winter"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2399,7 +2405,7 @@ F-statistic: 526.6 on 5 and 237 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <div id="tabset-3-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-5-tab">
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGCold_0ef15f342fb3fca424efbdf9aec29344">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/plotGGCold_bbe62051ac65f749a1e0f9b834360a84">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggFlowSeasonCold</span>(sens <span class="sc">|&gt;</span> <span class="fu">filter</span>(fIn1<span class="sc">==</span><span class="dv">0</span>, fIn2<span class="sc">==</span><span class="dv">0</span>, fIn3<span class="sc">==</span><span class="dv">0</span>, tIn<span class="sc">==</span> <span class="sc">-</span><span class="fl">0.1</span>), <span class="st">"fIn4"</span>, <span class="st">"Winter"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2414,7 +2420,7 @@ F-statistic: 526.6 on 5 and 237 DF,  p-value: &lt; 2.2e-16</code></pre>
 </section>
 <section id="projections" class="level3" data-number="12.3.2">
 <h3 data-number="12.3.2" class="anchored" data-anchor-id="projections"><span class="header-section-number">12.3.2</span> Projections</h3>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/projections_dc53169e9d4a75ab0283b34fffb6b1e5">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/projections_8cce7d48cfbe7e2305892a8508d9d893">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>initPop <span class="ot">&lt;-</span> <span class="dv">200</span></span>
@@ -2574,7 +2580,7 @@ F-statistic: 526.6 on 5 and 237 DF,  p-value: &lt; 2.2e-16</code></pre>
 <section id="aiml-models" class="level2" data-number="12.4">
 <h2 data-number="12.4" class="anchored" data-anchor-id="aiml-models"><span class="header-section-number">12.4</span> AI/ML models</h2>
 <p>Model runs from Xiaowei</p>
-<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/AIMLmodelLoad_ebf3eac76bba2113068e17f46745337a">
+<div class="cell" data-hash="modelsCMR_ft_cohort_Flow_WB_cache/html/AIMLmodelLoad_8b3111cc1a93ee930f7a6646465e934d">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="co"># np &lt;- import("numpy")</span></span>

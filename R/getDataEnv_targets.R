@@ -53,7 +53,7 @@ getDaymet <- function(lat, lon, start_year, end_year) {
 getFlowByRiver <- function(){
   load('./dataIn/wbFlow/WBFlow_fromJenn.RData')
   wbFlow2 <- WBFlow %>%
-    select(date, ETmm, Pmm, OB_Flow_cfs, WL_Flow_cfs, MB_Flow_cfs, JB_Flow_cfs) %>%
+    dplyr::select(date, ETmm, Pmm, OB_Flow_cfs, WL_Flow_cfs, MB_Flow_cfs, JB_Flow_cfs) %>%
     pivot_longer(
       cols = ends_with("_Flow_cfs"),
       names_to = c("river", "flow", "cfs"),
@@ -66,7 +66,7 @@ getFlowByRiver <- function(){
       riverOrdered = factor(river, levels = c('west brook','wb jimmy','wb mitchell',"wb obear"),
                                    labels = c("West Brook","WB Jimmy","WB Mitchell","WB OBear"), ordered = T)
     ) %>%
-    select(!c("flow", "cfs", "date")) 
+    dplyr::select(!c("flow", "cfs", "date")) 
   return(wbFlow2)
 }
 

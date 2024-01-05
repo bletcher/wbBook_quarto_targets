@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ben Letcher">
-<meta name="dcterms.date" content="2023-09-21">
+<meta name="dcterms.date" content="2024-01-05">
 
 <title>West Brook story</title>
 <style>
@@ -305,7 +305,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
- <span class="menu-text">Neural network/CMR model comparison - river 4 (IS) only</span></a>
+ <span class="menu-text">Neural network/CMR model comparison</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -313,14 +313,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./modelsCMR_NN_SIM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Simulation - CJS model</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./modelsCMR_NN_OB.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">CJS model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">River 4 (IS) - CJS model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./modelsCMR_Growth_NN_OB.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">CJS - growth model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">River 4 (IS) - CJS - growth model</span></span></a>
   </div>
 </li>
       </ul>
@@ -371,7 +377,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 21, 2023</p>
+      <p class="date">January 5, 2024</p>
     </div>
   </div>
   
@@ -387,9 +393,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="the-west-brook-stream-network" class="level2">
 <h2 class="anchored" data-anchor-id="the-west-brook-stream-network">The West Brook stream network</h2>
 <p>The Ecology Section at the USGS Conte Laboratory has studied fish in the West Brook (MA, USA) since 1997. The goal is to understand the strength and direction of drivers on fish growth, movement, reproduction and survival in a small stream network. We hope to provide a comprehensive understanding of fish population dynamics and ultimately individual fitness (natural selection and evolution) in the study area.</p>
-<p>See below or <a href="https://pitdata.ecosheds.org/">here</a> for interactive applications to explore the raw data.</p>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-1_8d5e98a64803a3139499e9b1637e199b">
-<iframe src="https://pitdata.ecosheds.org/" width="672" height="850px" data-external="1">
+<p>See below or <a href="https://www.usgs.gov/apps/ecosheds/pitdata/">here</a> for interactive applications to explore the raw data.</p>
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-1_a1f1e70b2bde9b4175a236d1d5759f36">
+<iframe src="https://www.usgs.gov/apps/ecosheds/pitdata/" width="672" height="850px" data-external="1">
 </iframe>
 </div>
 <p>Data extraction and manipulation and models are run using targets from the R package <code>targets</code>. Run the following code to rebuild all the targets.<br>
@@ -872,10 +878,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>The Ecology Section at the USGS Conte Laboratory has studied fish in the West Brook (MA, USA) since 1997. The goal is to understand the strength and direction of drivers on fish growth, movement, reproduction and survival in a small stream network. We hope to provide a comprehensive understanding of fish population dynamics and ultimately individual fitness (natural selection and evolution) in the study area.</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>See below or <span class="co">[</span><span class="ot">here</span><span class="co">](https://pitdata.ecosheds.org/)</span> for interactive applications to explore the raw data.</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>See below or <span class="co">[</span><span class="ot">here</span><span class="co">](https://www.usgs.gov/apps/ecosheds/pitdata/)</span> for interactive applications to explore the raw data.</span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo = FALSE}</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_url</span>(<span class="st">"https://pitdata.ecosheds.org/"</span>, <span class="at">height =</span> <span class="st">"850px"</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_url</span>(<span class="st">"https://www.usgs.gov/apps/ecosheds/pitdata/"</span>, <span class="at">height =</span> <span class="st">"850px"</span>)</span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>Data extraction and manipulation and models are run using targets from the R package <span class="in">`targets`</span>.</span>

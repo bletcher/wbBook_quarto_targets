@@ -172,7 +172,7 @@ plotFlowGR_byRiverOverlay(dGAM, "Isolated Small")
 #| label: fdc_growthByRiver
 
 plotFDC_GR_byRiver <- function(d, r){
-  fig1 <- ggplot(d |> filter(riverGG == r), aes(propBelowLoFlowThreshByRiverRiver, grWeight)) +
+  fig1 <- ggplot(d |> filter(riverGG == r), aes(propBelowLoFlowThreshByRiver, grWeight)) +
     geom_point(alpha = 0.05)  +
     geom_smooth(method = "lm", se = FALSE) +
     #geom_smooth(se = FALSE) +
@@ -182,7 +182,7 @@ plotFDC_GR_byRiver <- function(d, r){
     ggtitle("Flow by river") +
     facet_grid(seasonGG~speciesGG)#, scales = 'free')
   
-  fig2 <- ggplot(d |> filter(riverGG == r), aes(propAboveHiFlowThreshByRiverRiver, grWeight)) +
+  fig2 <- ggplot(d |> filter(riverGG == r), aes(propAboveHiFlowThreshByRiver, grWeight)) +
     geom_point(alpha = 0.05)  +
     geom_smooth(method = "lm", se = FALSE) +
     #geom_smooth(se = FALSE) +
@@ -195,8 +195,8 @@ plotFDC_GR_byRiver <- function(d, r){
   grid.arrange(fig1, fig2, ncol = 2)
 }
 
-plotFDC_GR_byArea <- function(d, r){
-  fig1 <- ggplot(d |> filter(riverGG == r), aes(propBelowLoFlowThreshByRiverArea_flowExt, grWeight)) +
+plotFDC_GR_byArea <- function(d, r){            
+  fig1 <- ggplot(d |> filter(riverGG == r), aes(propBelowLoFlowThreshByArea_flowExt, grWeight)) +
     geom_point(alpha = 0.05)  +
     geom_smooth(method = "lm", se = FALSE) +
     #geom_smooth(se = FALSE) +
@@ -206,7 +206,7 @@ plotFDC_GR_byArea <- function(d, r){
     ggtitle("Flow by area") +
     facet_grid(seasonGG~speciesGG)#, scales = 'free')
   
-  fig2 <- ggplot(d |> filter(riverGG == r), aes(propAboveHiFlowThreshByRiverArea_flowExt, grWeight)) +
+  fig2 <- ggplot(d |> filter(riverGG == r), aes(propAboveHiFlowThreshByArea_flowExt, grWeight)) +
     geom_point(alpha = 0.05)  +
     geom_smooth(method = "lm", se = FALSE) +
     #geom_smooth(se = FALSE) +

@@ -7,10 +7,10 @@
 
 The Ecology Section at the USGS Conte Laboratory has studied fish in the West Brook (MA, USA) since 1997. The goal is to understand the strength and direction of drivers on fish growth, movement, reproduction and survival in a small stream network. We hope to provide a comprehensive understanding of fish population dynamics and ultimately individual fitness (natural selection and evolution) in the study area.
 
-See below or [here](https://pitdata.ecosheds.org/) for interactive applications to explore the raw data.
+See below or [here](https://www.usgs.gov/apps/ecosheds/pitdata/) for interactive applications to explore the raw data.
 
 ```{r, echo = FALSE}
-knitr::include_url("https://pitdata.ecosheds.org/", height = "850px")
+knitr::include_url("https://www.usgs.gov/apps/ecosheds/pitdata/", height = "850px")
 ```
 
 Data extraction and manipulation and models are run using targets from the R package `targets`.

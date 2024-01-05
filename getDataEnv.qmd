@@ -26,10 +26,17 @@ Data are generated in `R/getDataEnv-targets.R` [file](https://github.com/bletche
 
 ## Get environmental data target and show data frame structure
 
-Flow data in envDataWB:  
-  flow = flow extension estimates (WB only)  
-  flowByArea = flow extension estimates scaled by watershed area  
-  flowByRiver = Jenn's hindcasted flow based on tributary-specific flow estimates
+Flow data in `envDataWB`:  
+`flow` = original flow extension estimates (WB only)  
+`flowWithTribs` = original flow estimates added to the tribs (not adjusted for area)    
+
+`flowByRiver` = Jenn's hindcasted flow based on tributary-specific flow estimates  
+`flowByRiverCFS` = Jenn's hindcasted flow in CFS based on tributary-specific flow estimates  
+
+`flowByRiverWB_WithTribs` = flowByRiver estimates from WB added to the tribs (for scaling in `flowByArea_ByRiver`)  
+
+`flowByArea_flowExt` = flow extension estimates (flowWithTribs * propRiverArea)  
+`flowByArea_ByRiver` = flow extension estimates scaled by watershed area (flowByRiverWB_WithTribs * propRiverArea)  
 
 
 ```{r}
@@ -76,9 +83,9 @@ ggplot(envDataWB, aes(yday, flow)) +
 #| label: fig-envFlowByArea
 #| fig-cap: "Stream flow (m3/s) scaled by watershed area"
 
-table(envDataWB$river, is.na(envDataWB$flowByArea))
+table(envDataWB$river, is.na(envDataWB$flowByArea_ByRiver))
 
-ggplot(envDataWB, aes(yday, flowByArea, color = river)) +
+ggplot(envDataWB, aes(yday, flowByArea_ByRiver, color = river)) +
   geom_point(size = 0.1) +
   #geom_point(size = 0.1, color = "blue", aes(yday, flowByRiver)) +
   #geom_line() +
@@ -126,14 +133,14 @@ ggplot(envDataWB %>% filter(year %in% (1998:2021)), aes(flow, flowByRiver, color
 ```{r}
 #| label: fig-envFlowByRiver_byArea
 #| fig-cap: "Stream flow (m3/s) for the West Brook with Jenn's model predictions"
-ggplot(envDataWB %>% filter(year %in% (1998:2021)), aes(flowByArea, flowByRiver, color = river)) +
+ggplot(envDataWB %>% filter(year %in% (1998:2021)), aes(flowByArea_ByRiver, flowByRiver, color = river)) +
   geom_point(size = 0.1) +
   geom_abline(slope = 1) +
   scale_x_continuous("Stream flow (m^3/s) by area") +
   scale_y_continuous("Stream flow (m^3/s) by river") +
   facet_wrap(~year(date))
 
-ggplot(envDataWB %>% filter(year %in% (1998:2021)), aes(flowByArea, flowByRiver, color = river)) +
+ggplot(envDataWB %>% filter(year %in% (1998:2021)), aes(flowByArea_ByRiver, flowByRiver, color = river)) +
   geom_point(size = 0.1) +
   #geom_abline(slope = 1) +
   scale_x_continuous("Stream flow (m^3/s) by area") +

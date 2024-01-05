@@ -304,7 +304,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
- <span class="menu-text">Neural network/CMR model comparison - river 4 (IS) only</span></a>
+ <span class="menu-text">Neural network/CMR model comparison</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -312,14 +312,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./modelsCMR_NN_SIM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Simulation - CJS model</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./modelsCMR_NN_OB.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">CJS model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">River 4 (IS) - CJS model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./modelsCMR_Growth_NN_OB.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">CJS - growth model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">River 4 (IS) - CJS - growth model</span></span></a>
   </div>
 </li>
       </ul>
@@ -358,7 +364,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<div class="cell" data-hash="modelFlow_cache/html/readInFlowData_9943337d8fae47b3d6fc2b538339e5a2">
+<div class="cell" data-hash="modelFlow_cache/html/readInFlowData_7431fa84ef862e251fca536109f907b9">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>dataFlow <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(dataFlow_target)</span>
@@ -366,28 +372,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>dFlowWide <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(dFlowWide_target)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-hash="modelFlow_cache/html/filterDataFlow_8cc15aa4b89fbfe64c37010649f0c83c">
+<div class="cell" data-hash="modelFlow_cache/html/filterDataFlow_202dfbc2438ffb23fe2cbbb20aafbca7">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(dataFlow)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 582,388 × 9
-   Station_No Site_Name   DateTi…¹ GageH…² Disch…³ Water…⁴ AirPr…⁵ AirTe…⁶ X    
-        &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;lgl&gt;
- 1    1171000 Avery Brook 2/20/20…    4.17    5.37    32.0      NA      NA NA   
- 2    1171000 Avery Brook 2/20/20…    4.17    5.3     32.0      NA      NA NA   
- 3    1171000 Avery Brook 2/20/20…    4.16    5.17    32.0      NA      NA NA   
- 4    1171000 Avery Brook 2/20/20…    4.17    5.27    32.0      NA      NA NA   
- 5    1171000 Avery Brook 2/20/20…    4.17    5.3     32.0      NA      NA NA   
- 6    1171000 Avery Brook 2/20/20…    4.15    4.94    31.9      NA      NA NA   
- 7    1171000 Avery Brook 2/20/20…    4.13    4.56    31.9      NA      NA NA   
- 8    1171000 Avery Brook 2/20/20…    4.1     4.14    31.9      NA      NA NA   
- 9    1171000 Avery Brook 2/20/20…    4.08    3.84    31.9      NA      NA NA   
-10    1171000 Avery Brook 2/20/20…    4.09    4.02    31.9      NA      NA NA   
-# … with 582,378 more rows, and abbreviated variable names ¹​DateTime_EST,
-#   ²​GageHeight_Hobo_ft, ³​Discharge_Hobo_cfs, ⁴​WaterTemperature_HOBO_DegF,
-#   ⁵​AirPressure_PSI, ⁶​AirTemperature_HOBO_degF</code></pre>
+   Station_No Site_Name   DateTime_EST   GageHeight_Hobo_ft Discharge_Hobo_cfs
+        &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;                       &lt;dbl&gt;              &lt;dbl&gt;
+ 1    1171000 Avery Brook 2/20/2020 0:00               4.17               5.37
+ 2    1171000 Avery Brook 2/20/2020 0:15               4.17               5.3 
+ 3    1171000 Avery Brook 2/20/2020 0:30               4.16               5.17
+ 4    1171000 Avery Brook 2/20/2020 0:45               4.17               5.27
+ 5    1171000 Avery Brook 2/20/2020 1:00               4.17               5.3 
+ 6    1171000 Avery Brook 2/20/2020 1:15               4.15               4.94
+ 7    1171000 Avery Brook 2/20/2020 1:30               4.13               4.56
+ 8    1171000 Avery Brook 2/20/2020 1:45               4.1                4.14
+ 9    1171000 Avery Brook 2/20/2020 2:00               4.08               3.84
+10    1171000 Avery Brook 2/20/2020 2:15               4.09               4.02
+# ℹ 582,378 more rows
+# ℹ 4 more variables: WaterTemperature_HOBO_DegF &lt;dbl&gt;, AirPressure_PSI &lt;dbl&gt;,
+#   AirTemperature_HOBO_degF &lt;dbl&gt;, X &lt;lgl&gt;</code></pre>
 </div>
 <details>
 <summary>Code</summary>
@@ -419,7 +425,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 &lt;0 rows&gt; (or 0-length row.names)</code></pre>
 </div>
 </div>
-<div class="cell" data-hash="modelFlow_cache/html/flowPlots_620c64f8fc0004a03ebc5145519859a3">
+<div class="cell" data-hash="modelFlow_cache/html/flowPlots_b2e7fe02617ca237695543a74c62749a">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dFlow, <span class="fu">aes</span>(date, dischargeLog, <span class="at">color =</span> Site_Name)) <span class="sc">+</span></span>
