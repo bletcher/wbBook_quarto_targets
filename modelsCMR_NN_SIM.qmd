@@ -42,25 +42,138 @@ p\[t\] \<- betaP\[t\]
 
 
 
-Model code is in `./models/cmrNN_OB/tt/modelCMR_tt_NN_OB_functionsToSource.R`\
-Model is run 'by hand' in `./models/cmrNN_OB/tt/modelCMR_tt_NN_OB_makeFile.R`\
-*Not* using this: Targets are loaded in `R/modelCMR_tt_NN_OB.R` and saved as `modelCMR_tt_NN_OB_target`
+Model code is in `./models/cmrNN_SIM/tt/modelCMR_tt_NN_SIM_functionsToSource.R`\
+Model is run 'by hand' in `./models/cmrNN_SIM/tt/modelCMR_tt_NN_SIM_makeFile.R`\  
+Model run output is stored in `./models/cmrNN_SIM/tt/runsOut/localSimData/`  
+
+Simulated data were created for 12 time steps (occasions), across a range of number of fish (n, 40, 200, 1000, 5000), simulated probability of capture (p, 0.2, 0.5 0.8) and probability of survival (phi, 0.2, 0.5 0.8, true) [may need to add replicates for a paper]. p's and phi's are constant across time, except When phi == `true` when phi's follow this pattern (0.812,0.810,0.749,0.647,0.640,0.691,0.830,0.330,0.669,0.560,0.684), which is average survival across time in our long-term study area, the West Brook. The number of fish entering the simulations at each time step start at n/2 and are reduced by 1/2 for each subsequent time step. With this approach, the total number of fish entering approximates n, but the entering fish are spread over time in a way that is similar to what happens in the field.
+
+For each set of simulation conditions, an encounter history (eh) file is created with the file name = `eh_px.x_phixx_nxxxx.csv` where `x`s are the values for each variable. Each row is a fish and each column is an occasion.  
+
+Simulation output is stored in .RData files named as `tt_NN_SIM__px.x_phixx_nxxxx.RData` and model run summaries are stored in a cumulative .csv file `local_summary_out_all.csv` for all runs and `local_summary_out_phi_sim.csv` for runs with phi = (0.2, 0.5, 0.8) and   `local_summary_out_phi_sim.csv` for runs with phi = `true`.  
+
+In the summary files, the variables are:   
+X     var  mean    sd X2.5.  X50. X97.5. Rhat n.eff   p phi    n variable time phi_num,   
+where:  
+X = row number  
+var = the variable name(phi or p) combined with the time step  
+mean = mean estimate across MCMC iterations  
+sd = sd estimate across MCMC iterations   
+X2.5. = 2.5 percentile estimate across MCMC iterations   
+X50. = median estimate across MCMC iterations   
+X97.5. = 97.5 percentile estimate across MCMC iterations   
+Rhat = indicator of model convergence for the variable. < 1.05 is good.
+n.eff = effective number of observations in the estimate. Bigger is better
+p = the `p` value used in the simulation  
+phi = the `phi` value used in the simulation. This is a character to accommodate the `true` possibility.   
+n = the `n` value used in the simulation
+variable = the variable alone without the time step (as in var)  
+time = time step [1:12]
+phi_num = the `phi` value used in the simulation. This value is numeric.  
+
+
+## Simulations  
+### Get data  
+Simulation data without phi == `true`
+```{r}
+#| label: get_sim_data
+
+ summary <- read.csv('./models/cmrNN_SIM/tt/runsOut/localSimData/local_summary_out_phi_sim.csv') |> 
+  mutate(median = X50.)
+
+ summary_over_t <- summary |> 
+   group_by(variable, p, phi_num, n) |> 
+   summarize(
+     mean = mean(median),
+     sd = sd(median),
+     count = n()
+   ) |> 
+   ungroup()
+ 
+  summary_over_t_time_lt_5 <- summary |>
+    filter(time < 5) |> 
+   group_by(variable, p, phi_num, n) |> 
+   summarize(
+     mean = mean(median),
+     sd = sd(median),
+     count = n()
+   ) |> 
+   ungroup()
+
+```
+
+### Plot results  
+#### Phi  
+With poor data, estimates trend towards 0.5, the mean of the prior on the variable.
+```{r}
+#| label: plot_sim_data_phi
+
+ggplot(summary |> filter(variable == "phi"), aes(time, mean, color = factor(p))) +
+  geom_point() +
+  geom_line() +
+  geom_hline(aes(yintercept = phi_num)) +
+  labs(x = "Time (age)", y = "Phi estimate") +
+  facet_grid(phi_num ~ n)
+
+ggplot(summary_over_t |> filter(variable == "phi"), aes(p, mean, color = factor(phi_num))) +
+  geom_point() +
+  geom_line() +
+  geom_hline(aes(yintercept = phi_num, color = factor(phi_num))) +
+  labs(x = "Probability of capture (p)", y = "Phi estimate (mean across all occasions)") +
+  ggtitle("All occasions") +
+  facet_grid(~ n)
+
+ggplot(summary_over_t_time_lt_5 |> filter(variable == "phi"), aes(p, mean, color = factor(phi_num))) +
+  geom_point() +
+  geom_line() +
+  geom_hline(aes(yintercept = phi_num, color = factor(phi_num))) +
+  labs(x = "Probability of capture (p)", y = "Phi estimate (mean across first four occasions)") +
+  ggtitle("First four occasions") +
+  facet_grid(~ n)
+
+```
+
+#### P
+```{r}
+#| label: plot_sim_data_p
+
+ggplot(summary |> filter(variable == "p"), aes(time, mean, color = factor(phi_num))) +
+  geom_point() +
+  geom_line() +
+  geom_hline(aes(yintercept = p)) +
+  labs(x = "Time (age)", y = "P estimate") +
+  facet_grid(p ~ n)
+
+ggplot(summary_over_t |> filter(variable == "p"), aes(phi_num, mean, color = factor(p))) +
+  geom_point() +
+  geom_line() +
+  geom_hline(aes(yintercept = p, color = factor(p))) +
+  labs(x = "Probability of survival (phi)", y = "P estimate (mean across occasions)") +
+  facet_grid(~ n)
+
+ggplot(summary_over_t_time_lt_5 |> filter(variable == "p"), aes(phi_num, mean, color = factor(p))) +
+  geom_point() +
+  geom_line() +
+  geom_hline(aes(yintercept = p, color = factor(p))) +
+  labs(x = "Probability of survival (phi)", y = "P estimate (mean across fisrt four occasions)") +
+  ggtitle("First four occasions") +
+  facet_grid(~ n)
+
+```
 
 Model runs:\
-tt_NN_OB_2023-06-14 23.RData: preliminary run only tracing phi and p\
-tt_NN_OB_2023-06-15 08.RData: tracing phi and p and z \[most recent\]
 
-### Retrieve model results
+### Retrieve model results from a random simulation run
 
 ```{r}
 #| label: OB_tt_NN
 # Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
 # 
-  load('./models/cmrNN_OB/tt/runsOut/tt_NN_OB_mostRecent.RData')
-  out_NN_OB <- d
+  load('./models/cmrNN_SIM/tt/runsOut/localSimData/tt_NN_SIM__p0.5_phi05_n5000.RData')
+  out_NN_SIM <- d
   
   #Input data
-  eh <- tar_read(eh_OB_2002_2014_target)
+  eh <- read.csv('./models/cmrNN_SIM/tt/runsOut/localSimData/eh_p0.5_phi05_n5000.csv')
 ```
 
 ### Model code
@@ -70,7 +183,7 @@ In the model code, a value of `1` for `z` or in *gamma* or *omega* signifies the
 ```{r}
 #| label: OB_tt_NN_code
 
-  out_NN_OB$modelCode
+  out_NN_SIM$modelCode
 
 ```
 
@@ -79,7 +192,19 @@ In the model code, a value of `1` for `z` or in *gamma* or *omega* signifies the
 ```{r, echo=FALSE, results='asis'}
 #| label: OB_tt_NN_statsTable
 
-kable(as_tibble(out_NN_OB$runData), caption = "Run statistics")
+kable(as_tibble(out_NN_SIM$runData), caption = "Run statistics")
 
-paste0('Run time = ', round(out_NN_OB$runTime, 3), ' ',  attr(out_NN_OB$runTime, "units"))
+paste0('Run time = ', round(out_NN_SIM$runTime, 3), ' ',  attr(out_NN_SIM$runTime, "units"))
 ```
+
+
+## Simulation data from Xioawei
+Decided to use the simulations above, as these files have > 50 time steps (cohorts are spread across time) and it is easier to interpret results with an age-based encounter history with 12 time steps.  
+
+Xiaowei and students created simulation files [here](https://drive.google.com/drive/folders/1Bth4jdH6vZuE3t7ETL3MMxPo2oxmakZs) that were downloaded into `C:\Users\bletcher\OneDrive - DOI\projects\wbBook_quarto_targets\data\in\fromXioawei` as `synthetic_data-20240124T150938Z-001.zip` and extracted into `./synthetic_data-20240124T150938Z-001`. These .npy files are read into R and run using `./models/cmrNN_SIM/tt/modelCMR_tt_NN_SIM_makeFile.R` to loop over all the files. Model output goes into `C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/models/cmrNN_SIM/tt/runsOut/` using the input file name concatenated between `tt_NN_SIM` and the date.
+
+
+
+
+
+

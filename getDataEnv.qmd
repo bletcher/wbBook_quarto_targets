@@ -48,6 +48,7 @@ str(envDataWB)
 
 # Save rData file for downloading
 # save(envDataWB, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/envDataWB.RData")
+# write.csv(envDataWB, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/envDataWB.csv")
 
 ojs_define(envDataWB_OJS = transpose(envDataWB))
 ```

@@ -24,6 +24,9 @@ West brook and 3 tributaries
 
 cdWB_CMR0_WB <- tar_read(eh_WB_2002_2014_target)
 str(cdWB_CMR0_WB)
+
+#save(cdWB_CMR0_WB, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_CMR0_WB.RDATA")
+#write.csv(cdWB_CMR0_WB$data, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_CMR0_WB.csv")
 ```
 
 ```{r}

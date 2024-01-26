@@ -64,7 +64,7 @@ list(
   modelGrowthInMass_target,
 
   modelXGBoost_target,
-  modelCMR_NN_OB_target
+  modelCMR_NN_OB_target,
   
 
   # 
@@ -73,11 +73,11 @@ list(
   # modelCMR_ttt_WB_target
   
   # turn off for now
-  # modelCMR_tt_ft_OB_flow_target,
-  # modelCMR_tt_ft_OB_flowByRiver_target,
+  #modelCMR_tt_ft_OB_flow_target,
+  #modelCMR_tt_ft_OB_flowByRiver_target,
   # 
-  # modelCMR_tt_ft_cohort_OB_flow_target,
-  # modelCMR_tt_ft_cohort_OB_flowByRiver_target
+  modelCMR_tt_ft_cohort_OB_flow_target,
+  modelCMR_tt_ft_cohort_OB_flowByRiver_target
   
   # old models
   # modelCMR_tt_OB_target

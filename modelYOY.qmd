@@ -316,21 +316,23 @@ d_BKT_BNT <- firstObsUnnested %>% filter(species != "ats", year %in% minYear:max
 ```
 
 Mean model functions
-
+d_WB_BKT_BNT, "oneMonth_sumTScaled", "oneMonth_sumFScaled"
+means1R <- getMeansDataByRiver(d_BKT_BNT, "oneMonth_sumTScaled", "oneMonth_sumFScaled")
 ```{r}
 #| label: meanModelFunctions
 
 getMeansData <- function(d, t, f) {
   means <- d %>% 
     group_by(species, year) %>% 
-    summarize(meanLength = mean(observedLength, na.rm = TRUE), 
-              meanEmerge_detect_sumTScaled = mean(emerge_detect_sumTScaled, na.rm = TRUE),
-              meanEmerge_detect_sumFScaled = mean(emerge_detect_sumTScaled, na.rm = TRUE),
-              meanTTime_sumTScaled = mean(get(t), na.rm = TRUE),
-              meanFTime_sumFScaled = mean(get(f), na.rm = TRUE),
-              meanYdayScaled = mean(ydayScaled, na.rm = TRUE),
-              meanCount_Scaled = mean(count_Scaled, na.rm = TRUE)
-              )
+    summarize(
+      meanLength = mean(observedLength, na.rm = TRUE), 
+      meanEmerge_detect_sumTScaled = mean(emerge_detect_sumTScaled, na.rm = TRUE),
+      meanEmerge_detect_sumFScaled = mean(emerge_detect_sumTScaled, na.rm = TRUE),
+      meanTTime_sumTScaled = mean(get(t), na.rm = TRUE),
+      meanFTime_sumFScaled = mean(get(f), na.rm = TRUE),
+      meanYdayScaled = mean(ydayScaled, na.rm = TRUE),
+      meanCount_Scaled = mean(count_Scaled, na.rm = TRUE)
+    )
   return(means)
 }
 
@@ -378,10 +380,11 @@ Mean lengths by river. This is information only. Using the WB data only shown he
 #| label: meanLengthsR
 #| echo: false
 means1R <- getMeansDataByRiver(d_BKT_BNT, "oneMonth_sumTScaled", "oneMonth_sumFScaled")
-  ggplot(means1R, aes(year, meanLength, shape = species, color = species)) + 
-    geom_point() +
-    geom_line() +
-    facet_wrap(~river)
+
+ggplot(means1R, aes(year, meanLength, shape = species, color = species)) + 
+  geom_point() +
+  geom_line() +
+  facet_wrap(~river)
 ```
 
 Mean lengths for the mean length model.
@@ -390,9 +393,10 @@ Mean lengths for the mean length model.
 #| label: meanLengths
 #| echo: false
 means1 <- getMeansData(d_WB_BKT_BNT, "oneMonth_sumTScaled", "oneMonth_sumFScaled")
-  ggplot(means1, aes(year, meanLength, color = species)) + 
-    geom_point() +
-    geom_line()
+
+ggplot(means1, aes(year, meanLength, color = species)) + 
+  geom_point() +
+  geom_line()
 ```
 
 Graphs for variables that do not depend on number of months
@@ -411,7 +415,8 @@ Graphs for variables that do not depend on number of months
 ```
 
 #### Models with flow and temperature from previous *one* month
-
+These models don't run now (Jan 2024) because there is no vaiability in these variables `meanFTime_sumFScaled` + `meanTTime_sumTScaled`. Tried to track this down in `modelYOY.R`, but couldn't
+find the reason - needs more digging.
 ```{r}
 #| label: means1Month
 #| echo: false
@@ -422,9 +427,9 @@ mod1 <- runMeanModels(means1)
 AIC(mod1[[1]], mod1[[2]], mod1[[3]]) %>% arrange(AIC)
 
 summary(mod1[[1]])
-rI1 <- relaimpo::calc.relimp(mod1[[1]])
+#rI1 <- relaimpo::calc.relimp(mod1[[1]])
 
-save(means1, mod1, file = "models/YOY/mod1LMMeans.Rdata")
+#save(means1, mod1, file = "models/YOY/mod1LMMeans.Rdata")
 ```
 
 Relative importance for main effects model
@@ -432,7 +437,7 @@ Relative importance for main effects model
 ```{r}
 #| label: rI1
 #| echo: false
-rI1$lmg
+#rI1$lmg
 ```
 
 #### Models with flow and temperature from previous *three* months
@@ -448,9 +453,9 @@ AIC(mod3[[1]], mod3[[2]], mod3[[3]]) %>% arrange(AIC)
 
 summary(mod3[[1]])
 
-rI3 <- relaimpo::calc.relimp(mod3[[1]])
+#rI3 <- relaimpo::calc.relimp(mod3[[1]])
 
-save(means3, mod3, file = "models/mod3LMMeans.Rdata")
+#save(means3, mod3, file = "models/mod3LMMeans.Rdata")
 ```
 
 Relative importance for main effects model
@@ -458,7 +463,7 @@ Relative importance for main effects model
 ```{r}
 #| label: rI3
 #| echo: false
-rI3$lmg
+#rI3$lmg
 ```
 
 #### Models with flow and temperature from previous *five* months
@@ -474,9 +479,9 @@ AIC(mod5[[1]], mod5[[2]], mod5[[3]]) %>% arrange(AIC)
 
 summary(mod5[[1]])
 
-rI5 <- relaimpo::calc.relimp(mod5[[1]])
+#rI5 <- relaimpo::calc.relimp(mod5[[1]])
 
-save(means5, mod5, file = "models/mod5LMMeans.Rdata")
+#save(means5, mod5, file = "models/mod5LMMeans.Rdata")
 ```
 
 Relative importance for main effects model
@@ -484,7 +489,7 @@ Relative importance for main effects model
 ```{r}
 #| label: rI5
 #| echo: false
-rI5$lmg
+#rI5$lmg
 ```
 
 r-squared values and AICs for 1st, 2nd (2-way interactions) and 3rd (3-way interactions) order models
@@ -492,43 +497,43 @@ r-squared values and AICs for 1st, 2nd (2-way interactions) and 3rd (3-way inter
 ```{r}
 #| label: r2
 #| echo: false
-knitr::kable(
- tibble(Order = c(1,2,3),r2 = c(summary(mod1[[1]])$r.squared, summary(mod1[[2]])$r.squared, summary(mod1[[3]])$r.squared)) %>% add_column(numMonths = 1),
- digits = 3
-) %>%
-  kable_styling(full_width = FALSE)
-
-knitr::kable(
- tibble(Order = c(1,2,3),r2 = c(summary(mod3[[1]])$r.squared, summary(mod3[[2]])$r.squared, summary(mod3[[3]])$r.squared)) %>% add_column(numMonths = 3),
- digits = 3
-) %>%
-  kable_styling(full_width = FALSE)
-
-knitr::kable(
- tibble(Order = c(1,2,3),r2 = c(summary(mod5[[1]])$r.squared, summary(mod5[[2]])$r.squared, summary(mod5[[3]])$r.squared)) %>% add_column(numMonths = 5),
- digits = 3
-) %>%
-  kable_styling(full_width = FALSE)
-
-# AIC
-knitr::kable(
-  format = 'html',
-  AIC(mod1[[1]], mod1[[2]], mod1[[3]]) %>% arrange(AIC) %>% add_column(numMonths = 1),
-  digits = 3
-) %>%
-  kable_styling(full_width = FALSE)
-
-knitr::kable(
-  AIC(mod3[[1]], mod3[[2]], mod3[[3]]) %>% arrange(AIC) %>% add_column(numMonths = 3),
-  digits = 3
-) %>%
-  kable_styling(full_width = FALSE)
-
-knitr::kable(
-  AIC(mod5[[1]], mod5[[2]], mod5[[3]]) %>% arrange(AIC) %>% add_column(numMonths = 5),
-  digits = 3
-) %>%
-  kable_styling(full_width = FALSE)
+# knitr::kable(
+#  tibble(Order = c(1,2,3),r2 = c(summary(mod1[[1]])$r.squared, summary(mod1[[2]])$r.squared, summary(mod1[[3]])$r.squared)) %>% add_column(numMonths = 1),
+#  digits = 3
+# ) %>%
+#   kable_styling(full_width = FALSE)
+# 
+# knitr::kable(
+#  tibble(Order = c(1,2,3),r2 = c(summary(mod3[[1]])$r.squared, summary(mod3[[2]])$r.squared, summary(mod3[[3]])$r.squared)) %>% add_column(numMonths = 3),
+#  digits = 3
+# ) %>%
+#   kable_styling(full_width = FALSE)
+# 
+# knitr::kable(
+#  tibble(Order = c(1,2,3),r2 = c(summary(mod5[[1]])$r.squared, summary(mod5[[2]])$r.squared, summary(mod5[[3]])$r.squared)) %>% add_column(numMonths = 5),
+#  digits = 3
+# ) %>%
+#   kable_styling(full_width = FALSE)
+# 
+# # AIC
+# knitr::kable(
+#   format = 'html',
+#   AIC(mod1[[1]], mod1[[2]], mod1[[3]]) %>% arrange(AIC) %>% add_column(numMonths = 1),
+#   digits = 3
+# ) %>%
+#   kable_styling(full_width = FALSE)
+# 
+# knitr::kable(
+#   AIC(mod3[[1]], mod3[[2]], mod3[[3]]) %>% arrange(AIC) %>% add_column(numMonths = 3),
+#   digits = 3
+# ) %>%
+#   kable_styling(full_width = FALSE)
+# 
+# knitr::kable(
+#   AIC(mod5[[1]], mod5[[2]], mod5[[3]]) %>% arrange(AIC) %>% add_column(numMonths = 5),
+#   digits = 3
+# ) %>%
+#   kable_styling(full_width = FALSE)
 
 ```
 
@@ -540,23 +545,23 @@ Relative importance of main effects models (repeat of above, but all in one plac
 library("kableExtra")
 
 # Relative Importance
-knitr::kable(
- tibble(var = names(rI1$lmg), relImp = rI1$lmg) %>% add_column(numMonths = 1),
- digits = 3
-) %>%
-  kable_styling(full_width = FALSE)
-
-knitr::kable(
- tibble(var = names(rI3$lmg), relImp = rI3$lmg) %>% add_column(numMonths = 3),
- digits = 3
-) %>%
-  kable_styling(full_width = FALSE)
-
-knitr::kable(
- tibble(var = names(rI5$lmg), relImp = rI5$lmg) %>% add_column(numMonths = 5),
- digits = 3
-) %>%
-  kable_styling(full_width = FALSE)
+# knitr::kable(
+#  tibble(var = names(rI1$lmg), relImp = rI1$lmg) %>% add_column(numMonths = 1),
+#  digits = 3
+# ) %>%
+#   kable_styling(full_width = FALSE)
+# 
+# knitr::kable(
+#  tibble(var = names(rI3$lmg), relImp = rI3$lmg) %>% add_column(numMonths = 3),
+#  digits = 3
+# ) %>%
+#   kable_styling(full_width = FALSE)
+# 
+# knitr::kable(
+#  tibble(var = names(rI5$lmg), relImp = rI5$lmg) %>% add_column(numMonths = 5),
+#  digits = 3
+# ) %>%
+#   kable_styling(full_width = FALSE)
 ```
 
 ### Models with extreme flow events (droughts)
