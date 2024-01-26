@@ -351,11 +351,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#get-data" id="toc-get-data" class="nav-link" data-scroll-target="#get-data"><span class="header-section-number">17.2.1</span> Get data</a></li>
   <li><a href="#plot-results" id="toc-plot-results" class="nav-link" data-scroll-target="#plot-results"><span class="header-section-number">17.2.2</span> Plot results</a></li>
-  <li><a href="#retrieve-model-results-from-a-random-simulation-run" id="toc-retrieve-model-results-from-a-random-simulation-run" class="nav-link" data-scroll-target="#retrieve-model-results-from-a-random-simulation-run"><span class="header-section-number">17.2.3</span> Retrieve model results from a random simulation run</a></li>
-  <li><a href="#model-code" id="toc-model-code" class="nav-link" data-scroll-target="#model-code"><span class="header-section-number">17.2.4</span> Model code</a></li>
-  <li><a href="#model-statistics" id="toc-model-statistics" class="nav-link" data-scroll-target="#model-statistics"><span class="header-section-number">17.2.5</span> Model statistics</a></li>
   </ul></li>
-  <li><a href="#simulation-data-from-xioawei" id="toc-simulation-data-from-xioawei" class="nav-link" data-scroll-target="#simulation-data-from-xioawei"><span class="header-section-number">17.3</span> Simulation data from Xioawei</a></li>
+  <li><a href="#retrieve-model-results-from-a-random-simulation-run" id="toc-retrieve-model-results-from-a-random-simulation-run" class="nav-link" data-scroll-target="#retrieve-model-results-from-a-random-simulation-run"><span class="header-section-number">17.3</span> Retrieve model results from a random simulation run</a>
+  <ul class="collapse">
+  <li><a href="#model-code" id="toc-model-code" class="nav-link" data-scroll-target="#model-code"><span class="header-section-number">17.3.1</span> Model code</a></li>
+  <li><a href="#model-statistics" id="toc-model-statistics" class="nav-link" data-scroll-target="#model-statistics"><span class="header-section-number">17.3.2</span> Model statistics</a></li>
+  </ul></li>
+  <li><a href="#simulation-data-from-xioawei" id="toc-simulation-data-from-xioawei" class="nav-link" data-scroll-target="#simulation-data-from-xioawei"><span class="header-section-number">17.4</span> Simulation data from Xioawei</a></li>
   </ul>
 </nav>
     </div>
@@ -390,24 +392,27 @@ Encounter data are available <a href="https://drive.google.com/drive/folders/1Bt
 <p>Probability of capture (p) model structure:</p>
 <p>p[t] &lt;- betaP[t]</p>
 <p>Model code is in <code>./models/cmrNN_SIM/tt/modelCMR_tt_NN_SIM_functionsToSource.R</code><br>
-Model is run ‘by hand’ in <code>./models/cmrNN_SIM/tt/modelCMR_tt_NN_SIM_makeFile.R</code>&nbsp; Model run output is stored in <code>./models/cmrNN_SIM/tt/runsOut/localSimData/</code></p>
-<p>Simulated data were created for 12 time steps (occasions), across a range of number of fish (n, 40, 200, 1000, 5000), simulated probability of capture (p, 0.2, 0.5 0.8) and probability of survival (phi, 0.2, 0.5 0.8, true) [may need to add replicates for a paper]. p’s and phi’s are constant across time, except When phi == <code>true</code> when phi’s follow this pattern (0.812,0.810,0.749,0.647,0.640,0.691,0.830,0.330,0.669,0.560,0.684), which is average survival across time in our long-term study area, the West Brook. The number of fish entering the simulations at each time step start at n/2 and are reduced by 1/2 for each subsequent time step. With this approach, the total number of fish entering approximates n, but the entering fish are spread over time in a way that is similar to what happens in the field.</p>
+Model is run ‘by hand’ in <code>./models/cmrNN_SIM/tt/modelCMR_tt_NN_SIM_makeFile.R</code><br>
+Model run output is stored in <code>./models/cmrNN_SIM/tt/runsOut/localSimData/</code></p>
+<p>Simulated data were created for 12 time steps (occasions), across a range of number of fish (n, 40, 200, 1000, 5000), simulated probability of capture (p, 0.2, 0.5 0.8) and probability of survival (phi, 0.2, 0.5 0.8, true) [may need to add replicates for a paper].</p>
+<p>p’s and phi’s are constant across time, except When phi == <code>true</code> when phi’s follow this pattern (0.812,0.810,0.749,0.647,0.640,0.691,0.830,0.330,0.669,0.560,0.684), which is average survival across time in our long-term study area, the West Brook.</p>
+<p>The number of fish entering the simulations at each time step start at n/2 and are reduced by 1/2 for each subsequent time step. With this approach, the total number of fish entering approximates n, but the entering fish are spread over time in a way that is similar to what happens in the field.</p>
 <p>For each set of simulation conditions, an encounter history (eh) file is created with the file name = <code>eh_px.x_phixx_nxxxx.csv</code> where <code>x</code>s are the values for each variable. Each row is a fish and each column is an occasion.</p>
 <p>Simulation output is stored in .RData files named as <code>tt_NN_SIM__px.x_phixx_nxxxx.RData</code> and model run summaries are stored in a cumulative .csv file <code>local_summary_out_all.csv</code> for all runs and <code>local_summary_out_phi_sim.csv</code> for runs with phi = (0.2, 0.5, 0.8) and <code>local_summary_out_phi_sim.csv</code> for runs with phi = <code>true</code>.</p>
 <p>In the summary files, the variables are:<br>
-X var mean sd X2.5. X50. X97.5. Rhat n.eff p phi n variable time phi_num,<br>
-where:<br>
-X = row number<br>
-var = the variable name(phi or p) combined with the time step<br>
-mean = mean estimate across MCMC iterations<br>
-sd = sd estimate across MCMC iterations<br>
-X2.5. = 2.5 percentile estimate across MCMC iterations<br>
-X50. = median estimate across MCMC iterations<br>
-X97.5. = 97.5 percentile estimate across MCMC iterations<br>
-Rhat = indicator of model convergence for the variable. &lt; 1.05 is good. n.eff = effective number of observations in the estimate. Bigger is better p = the <code>p</code> value used in the simulation<br>
-phi = the <code>phi</code> value used in the simulation. This is a character to accommodate the <code>true</code> possibility.<br>
-n = the <code>n</code> value used in the simulation variable = the variable alone without the time step (as in var)<br>
-time = time step [1:12] phi_num = the <code>phi</code> value used in the simulation. This value is numeric.</p>
+X, var, mean, sd, X2.5., X50., X97.5., Rhat, n.eff, p, phi, n, variable, time, phi_num,</p>
+<p>where:</p>
+<p><em>X</em> = row number<br>
+<em>var</em> = the variable name(phi or p) combined with the time step<br>
+<em>mean</em> = mean estimate across MCMC iterations<br>
+<em>sd</em> = sd estimate across MCMC iterations<br>
+<em>X2.5.</em> = 2.5 percentile estimate across MCMC iterations<br>
+<em>X50.</em> = median estimate across MCMC iterations<br>
+<em>X97.5.</em> = 97.5 percentile estimate across MCMC iterations<br>
+<em>Rhat</em> = indicator of model convergence for the variable. &lt; 1.05 is good. <em>n.eff</em> = effective number of observations in the estimate. Bigger is better <em>p</em> = the <code>p</code> value used in the simulation<br>
+<em>phi</em> = the <code>phi</code> value used in the simulation. This is a character to accommodate the <code>true</code> possibility.<br>
+<em>n</em> = the <code>n</code> value used in the simulation <em>variable</em> = the variable alone without the time step (as in var)<br>
+<em>time</em> = time step [1:12] <em>phi_num</em> = the <code>phi</code> value used in the simulation. This value is numeric.</p>
 </section>
 <section id="simulations" class="level2" data-number="17.2">
 <h2 data-number="17.2" class="anchored" data-anchor-id="simulations"><span class="header-section-number">17.2</span> Simulations</h2>
@@ -528,12 +533,11 @@ time = time step [1:12] phi_num = the <code>phi</code> value used in the simulat
 <p><img src="modelsCMR_NN_SIM_files/figure-html/plot_sim_data_p-3.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Model runs:<br>
-</p>
 </section>
 </section>
-<section id="retrieve-model-results-from-a-random-simulation-run" class="level3" data-number="17.2.3">
-<h3 data-number="17.2.3" class="anchored" data-anchor-id="retrieve-model-results-from-a-random-simulation-run"><span class="header-section-number">17.2.3</span> Retrieve model results from a random simulation run</h3>
+</section>
+<section id="retrieve-model-results-from-a-random-simulation-run" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="retrieve-model-results-from-a-random-simulation-run"><span class="header-section-number">17.3</span> Retrieve model results from a random simulation run</h2>
 <div class="cell" data-hash="modelsCMR_NN_SIM_cache/html/OB_tt_NN_9ad2fbd28c1456425a2bc1bb63208d57">
 <details>
 <summary>Code</summary>
@@ -546,9 +550,8 @@ time = time step [1:12] phi_num = the <code>phi</code> value used in the simulat
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  eh <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'./models/cmrNN_SIM/tt/runsOut/localSimData/eh_p0.5_phi05_n5000.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section>
-<section id="model-code" class="level3" data-number="17.2.4">
-<h3 data-number="17.2.4" class="anchored" data-anchor-id="model-code"><span class="header-section-number">17.2.4</span> Model code</h3>
+<section id="model-code" class="level3" data-number="17.3.1">
+<h3 data-number="17.3.1" class="anchored" data-anchor-id="model-code"><span class="header-section-number">17.3.1</span> Model code</h3>
 <p>In the model code, a value of <code>1</code> for <code>z</code> or in <em>gamma</em> or <em>omega</em> signifies the individual is alive and a value of <code>2</code> signifies the individual is dead. <code>y[i,j]</code> is the observed data (encounter history file).</p>
 <div class="cell" data-hash="modelsCMR_NN_SIM_cache/html/OB_tt_NN_code_c6e4a29f74014cdffc3fe26127f4c24e">
 <details>
@@ -582,8 +585,8 @@ time = time step [1:12] phi_num = the <code>phi</code> value used in the simulat
 </div>
 </div>
 </section>
-<section id="model-statistics" class="level3" data-number="17.2.5">
-<h3 data-number="17.2.5" class="anchored" data-anchor-id="model-statistics"><span class="header-section-number">17.2.5</span> Model statistics</h3>
+<section id="model-statistics" class="level3" data-number="17.3.2">
+<h3 data-number="17.3.2" class="anchored" data-anchor-id="model-statistics"><span class="header-section-number">17.3.2</span> Model statistics</h3>
 <div class="cell" data-hash="modelsCMR_NN_SIM_cache/html/OB_tt_NN_statsTable_f12af95e152c62a0027ece09d2b22eb9">
 <div class="cell-output-display">
 <table data-quarto-postprocess="true" class="table table-sm table-striped small">
@@ -612,8 +615,8 @@ time = time step [1:12] phi_num = the <code>phi</code> value used in the simulat
 </div>
 </section>
 </section>
-<section id="simulation-data-from-xioawei" class="level2" data-number="17.3">
-<h2 data-number="17.3" class="anchored" data-anchor-id="simulation-data-from-xioawei"><span class="header-section-number">17.3</span> Simulation data from Xioawei</h2>
+<section id="simulation-data-from-xioawei" class="level2" data-number="17.4">
+<h2 data-number="17.4" class="anchored" data-anchor-id="simulation-data-from-xioawei"><span class="header-section-number">17.4</span> Simulation data from Xioawei</h2>
 <p>Decided to use the simulations above, as these files have &gt; 50 time steps (cohorts are spread across time) and it is easier to interpret results with an age-based encounter history with 12 time steps.</p>
 <p>Xiaowei and students created simulation files <a href="https://drive.google.com/drive/folders/1Bth4jdH6vZuE3t7ETL3MMxPo2oxmakZs">here</a> that were downloaded into <code>C:\Users\bletcher\OneDrive - DOI\projects\wbBook_quarto_targets\data\in\fromXioawei</code> as <code>synthetic_data-20240124T150938Z-001.zip</code> and extracted into <code>./synthetic_data-20240124T150938Z-001</code>. These .npy files are read into R and run using <code>./models/cmrNN_SIM/tt/modelCMR_tt_NN_SIM_makeFile.R</code> to loop over all the files. Model output goes into <code>C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/models/cmrNN_SIM/tt/runsOut/</code> using the input file name concatenated between <code>tt_NN_SIM</code> and the date.</p>
 
@@ -1058,7 +1061,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: globalModelsNimbleRiverCohortNN</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: modelsCMR_NN_SIM_opts</span></span>
 <span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
 <span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">warning =</span> <span class="cn">FALSE</span>, <span class="at">message =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
@@ -1079,170 +1082,175 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>Model code is in <span class="in">`./models/cmrNN_SIM/tt/modelCMR_tt_NN_SIM_functionsToSource.R`</span>\</span>
-<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>Model is run 'by hand' in <span class="in">`./models/cmrNN_SIM/tt/modelCMR_tt_NN_SIM_makeFile.R`</span>\  </span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>Model is run 'by hand' in <span class="in">`./models/cmrNN_SIM/tt/modelCMR_tt_NN_SIM_makeFile.R`</span>\</span>
 <span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a>Model run output is stored in <span class="in">`./models/cmrNN_SIM/tt/runsOut/localSimData/`</span>  </span>
 <span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a>Simulated data were created for 12 time steps (occasions), across a range of number of fish (n, 40, 200, 1000, 5000), simulated probability of capture (p, 0.2, 0.5 0.8) and probability of survival (phi, 0.2, 0.5 0.8, true) <span class="co">[</span><span class="ot">may need to add replicates for a paper</span><span class="co">]</span>. p's and phi's are constant across time, except When phi == <span class="in">`true`</span> when phi's follow this pattern (0.812,0.810,0.749,0.647,0.640,0.691,0.830,0.330,0.669,0.560,0.684), which is average survival across time in our long-term study area, the West Brook. The number of fish entering the simulations at each time step start at n/2 and are reduced by 1/2 for each subsequent time step. With this approach, the total number of fish entering approximates n, but the entering fish are spread over time in a way that is similar to what happens in the field.</span>
+<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a>Simulated data were created for 12 time steps (occasions), across a range of number of fish (n, 40, 200, 1000, 5000), simulated probability of capture (p, 0.2, 0.5 0.8) and probability of survival (phi, 0.2, 0.5 0.8, true) <span class="co">[</span><span class="ot">may need to add replicates for a paper</span><span class="co">]</span>.  </span>
 <span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>For each set of simulation conditions, an encounter history (eh) file is created with the file name = <span class="in">`eh_px.x_phixx_nxxxx.csv`</span> where <span class="in">`x`</span>s are the values for each variable. Each row is a fish and each column is an occasion.  </span>
+<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>p's and phi's are constant across time, except When phi == <span class="in">`true`</span> when phi's follow this pattern (0.812,0.810,0.749,0.647,0.640,0.691,0.830,0.330,0.669,0.560,0.684), which is average survival across time in our long-term study area, the West Brook.  </span>
 <span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a>Simulation output is stored in .RData files named as <span class="in">`tt_NN_SIM__px.x_phixx_nxxxx.RData`</span> and model run summaries are stored in a cumulative .csv file <span class="in">`local_summary_out_all.csv`</span> for all runs and <span class="in">`local_summary_out_phi_sim.csv`</span> for runs with phi = (0.2, 0.5, 0.8) and   <span class="in">`local_summary_out_phi_sim.csv`</span> for runs with phi = <span class="in">`true`</span>.  </span>
+<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a>The number of fish entering the simulations at each time step start at n/2 and are reduced by 1/2 for each subsequent time step. With this approach, the total number of fish entering approximates n, but the entering fish are spread over time in a way that is similar to what happens in the field.</span>
 <span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a>In the summary files, the variables are:   </span>
-<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a>X     var  mean    sd X2.5.  X50. X97.5. Rhat n.eff   p phi    n variable time phi_num,   </span>
-<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a>where:  </span>
-<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a>X = row number  </span>
-<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a>var = the variable name(phi or p) combined with the time step  </span>
-<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a>mean = mean estimate across MCMC iterations  </span>
-<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a>sd = sd estimate across MCMC iterations   </span>
-<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a>X2.5. = 2.5 percentile estimate across MCMC iterations   </span>
-<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a>X50. = median estimate across MCMC iterations   </span>
-<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a>X97.5. = 97.5 percentile estimate across MCMC iterations   </span>
-<span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a>Rhat = indicator of model convergence for the variable. &lt; 1.05 is good.</span>
-<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a>n.eff = effective number of observations in the estimate. Bigger is better</span>
-<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a>p = the <span class="in">`p`</span> value used in the simulation  </span>
-<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a>phi = the <span class="in">`phi`</span> value used in the simulation. This is a character to accommodate the <span class="in">`true`</span> possibility.   </span>
-<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a>n = the <span class="in">`n`</span> value used in the simulation</span>
-<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a>variable = the variable alone without the time step (as in var)  </span>
-<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a>time = time step <span class="co">[</span><span class="ot">1:12</span><span class="co">]</span></span>
-<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a>phi_num = the <span class="in">`phi`</span> value used in the simulation. This value is numeric.  </span>
-<span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a><span class="fu">## Simulations  </span></span>
-<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a><span class="fu">### Get data  </span></span>
-<span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a>Simulation data without phi == <span class="in">`true`</span></span>
-<span id="cb11-84"><a href="#cb11-84" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-85"><a href="#cb11-85" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: get_sim_data</span></span>
-<span id="cb11-86"><a href="#cb11-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-87"><a href="#cb11-87" aria-hidden="true" tabindex="-1"></a> summary <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'./models/cmrNN_SIM/tt/runsOut/localSimData/local_summary_out_phi_sim.csv'</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb11-88"><a href="#cb11-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">median =</span> X50.)</span>
-<span id="cb11-89"><a href="#cb11-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-90"><a href="#cb11-90" aria-hidden="true" tabindex="-1"></a> summary_over_t <span class="ot">&lt;-</span> summary <span class="sc">|&gt;</span> </span>
-<span id="cb11-91"><a href="#cb11-91" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(variable, p, phi_num, n) <span class="sc">|&gt;</span> </span>
-<span id="cb11-92"><a href="#cb11-92" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarize</span>(</span>
-<span id="cb11-93"><a href="#cb11-93" aria-hidden="true" tabindex="-1"></a>     <span class="at">mean =</span> <span class="fu">mean</span>(median),</span>
-<span id="cb11-94"><a href="#cb11-94" aria-hidden="true" tabindex="-1"></a>     <span class="at">sd =</span> <span class="fu">sd</span>(median),</span>
-<span id="cb11-95"><a href="#cb11-95" aria-hidden="true" tabindex="-1"></a>     <span class="at">count =</span> <span class="fu">n</span>()</span>
-<span id="cb11-96"><a href="#cb11-96" aria-hidden="true" tabindex="-1"></a>   ) <span class="sc">|&gt;</span> </span>
-<span id="cb11-97"><a href="#cb11-97" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ungroup</span>()</span>
-<span id="cb11-98"><a href="#cb11-98" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb11-99"><a href="#cb11-99" aria-hidden="true" tabindex="-1"></a>  summary_over_t_time_lt_5 <span class="ot">&lt;-</span> summary <span class="sc">|&gt;</span></span>
-<span id="cb11-100"><a href="#cb11-100" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(time <span class="sc">&lt;</span> <span class="dv">5</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb11-101"><a href="#cb11-101" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(variable, p, phi_num, n) <span class="sc">|&gt;</span> </span>
-<span id="cb11-102"><a href="#cb11-102" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarize</span>(</span>
-<span id="cb11-103"><a href="#cb11-103" aria-hidden="true" tabindex="-1"></a>     <span class="at">mean =</span> <span class="fu">mean</span>(median),</span>
-<span id="cb11-104"><a href="#cb11-104" aria-hidden="true" tabindex="-1"></a>     <span class="at">sd =</span> <span class="fu">sd</span>(median),</span>
-<span id="cb11-105"><a href="#cb11-105" aria-hidden="true" tabindex="-1"></a>     <span class="at">count =</span> <span class="fu">n</span>()</span>
-<span id="cb11-106"><a href="#cb11-106" aria-hidden="true" tabindex="-1"></a>   ) <span class="sc">|&gt;</span> </span>
-<span id="cb11-107"><a href="#cb11-107" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ungroup</span>()</span>
-<span id="cb11-108"><a href="#cb11-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-109"><a href="#cb11-109" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-110"><a href="#cb11-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-111"><a href="#cb11-111" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plot results  </span></span>
-<span id="cb11-112"><a href="#cb11-112" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Phi  </span></span>
-<span id="cb11-113"><a href="#cb11-113" aria-hidden="true" tabindex="-1"></a>With poor data, estimates trend towards 0.5, the mean of the prior on the variable.</span>
-<span id="cb11-116"><a href="#cb11-116" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-117"><a href="#cb11-117" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: plot_sim_data_phi</span></span>
-<span id="cb11-118"><a href="#cb11-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-119"><a href="#cb11-119" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summary <span class="sc">|&gt;</span> <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"phi"</span>), <span class="fu">aes</span>(time, mean, <span class="at">color =</span> <span class="fu">factor</span>(p))) <span class="sc">+</span></span>
-<span id="cb11-120"><a href="#cb11-120" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb11-121"><a href="#cb11-121" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb11-122"><a href="#cb11-122" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> phi_num)) <span class="sc">+</span></span>
-<span id="cb11-123"><a href="#cb11-123" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Time (age)"</span>, <span class="at">y =</span> <span class="st">"Phi estimate"</span>) <span class="sc">+</span></span>
-<span id="cb11-124"><a href="#cb11-124" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(phi_num <span class="sc">~</span> n)</span>
-<span id="cb11-125"><a href="#cb11-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-126"><a href="#cb11-126" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summary_over_t <span class="sc">|&gt;</span> <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"phi"</span>), <span class="fu">aes</span>(p, mean, <span class="at">color =</span> <span class="fu">factor</span>(phi_num))) <span class="sc">+</span></span>
-<span id="cb11-127"><a href="#cb11-127" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb11-128"><a href="#cb11-128" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb11-129"><a href="#cb11-129" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> phi_num, <span class="at">color =</span> <span class="fu">factor</span>(phi_num))) <span class="sc">+</span></span>
-<span id="cb11-130"><a href="#cb11-130" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Probability of capture (p)"</span>, <span class="at">y =</span> <span class="st">"Phi estimate (mean across all occasions)"</span>) <span class="sc">+</span></span>
-<span id="cb11-131"><a href="#cb11-131" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"All occasions"</span>) <span class="sc">+</span></span>
-<span id="cb11-132"><a href="#cb11-132" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> n)</span>
-<span id="cb11-133"><a href="#cb11-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-134"><a href="#cb11-134" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summary_over_t_time_lt_5 <span class="sc">|&gt;</span> <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"phi"</span>), <span class="fu">aes</span>(p, mean, <span class="at">color =</span> <span class="fu">factor</span>(phi_num))) <span class="sc">+</span></span>
-<span id="cb11-135"><a href="#cb11-135" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb11-136"><a href="#cb11-136" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb11-137"><a href="#cb11-137" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> phi_num, <span class="at">color =</span> <span class="fu">factor</span>(phi_num))) <span class="sc">+</span></span>
-<span id="cb11-138"><a href="#cb11-138" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Probability of capture (p)"</span>, <span class="at">y =</span> <span class="st">"Phi estimate (mean across first four occasions)"</span>) <span class="sc">+</span></span>
-<span id="cb11-139"><a href="#cb11-139" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"First four occasions"</span>) <span class="sc">+</span></span>
-<span id="cb11-140"><a href="#cb11-140" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> n)</span>
-<span id="cb11-141"><a href="#cb11-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-142"><a href="#cb11-142" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-143"><a href="#cb11-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-144"><a href="#cb11-144" aria-hidden="true" tabindex="-1"></a><span class="fu">#### P</span></span>
-<span id="cb11-147"><a href="#cb11-147" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-148"><a href="#cb11-148" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: plot_sim_data_p</span></span>
+<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a>For each set of simulation conditions, an encounter history (eh) file is created with the file name = <span class="in">`eh_px.x_phixx_nxxxx.csv`</span> where <span class="in">`x`</span>s are the values for each variable. Each row is a fish and each column is an occasion.  </span>
+<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a>Simulation output is stored in .RData files named as <span class="in">`tt_NN_SIM__px.x_phixx_nxxxx.RData`</span> and model run summaries are stored in a cumulative .csv file <span class="in">`local_summary_out_all.csv`</span> for all runs and <span class="in">`local_summary_out_phi_sim.csv`</span> for runs with phi = (0.2, 0.5, 0.8) and   <span class="in">`local_summary_out_phi_sim.csv`</span> for runs with phi = <span class="in">`true`</span>.  </span>
+<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a>In the summary files, the variables are:   </span>
+<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a>X,     var,  mean,    sd, X2.5.,  X50., X97.5., Rhat, n.eff,   p, phi,    n, variable, time, phi_num,  </span>
+<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a>where:  </span>
+<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a>*X* = row number  </span>
+<span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a>*var* = the variable name(phi or p) combined with the time step  </span>
+<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a>*mean* = mean estimate across MCMC iterations  </span>
+<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a>*sd* = sd estimate across MCMC iterations   </span>
+<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a>*X2.5.* = 2.5 percentile estimate across MCMC iterations   </span>
+<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a>*X50.* = median estimate across MCMC iterations   </span>
+<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a>*X97.5.* = 97.5 percentile estimate across MCMC iterations   </span>
+<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a>*Rhat* = indicator of model convergence for the variable. &lt; 1.05 is good.</span>
+<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a>*n.eff* = effective number of observations in the estimate. Bigger is better</span>
+<span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a>*p* = the <span class="in">`p`</span> value used in the simulation  </span>
+<span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a>*phi* = the <span class="in">`phi`</span> value used in the simulation. This is a character to accommodate the <span class="in">`true`</span> possibility.   </span>
+<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a>*n* = the <span class="in">`n`</span> value used in the simulation</span>
+<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a>*variable* = the variable alone without the time step (as in var)  </span>
+<span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a>*time* = time step <span class="co">[</span><span class="ot">1:12</span><span class="co">]</span></span>
+<span id="cb11-82"><a href="#cb11-82" aria-hidden="true" tabindex="-1"></a>*phi_num* = the <span class="in">`phi`</span> value used in the simulation. This value is numeric.  </span>
+<span id="cb11-83"><a href="#cb11-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-84"><a href="#cb11-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-85"><a href="#cb11-85" aria-hidden="true" tabindex="-1"></a><span class="fu">## Simulations  </span></span>
+<span id="cb11-86"><a href="#cb11-86" aria-hidden="true" tabindex="-1"></a><span class="fu">### Get data  </span></span>
+<span id="cb11-87"><a href="#cb11-87" aria-hidden="true" tabindex="-1"></a>Simulation data without phi == <span class="in">`true`</span></span>
+<span id="cb11-90"><a href="#cb11-90" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-91"><a href="#cb11-91" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: get_sim_data</span></span>
+<span id="cb11-92"><a href="#cb11-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-93"><a href="#cb11-93" aria-hidden="true" tabindex="-1"></a> summary <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'./models/cmrNN_SIM/tt/runsOut/localSimData/local_summary_out_phi_sim.csv'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb11-94"><a href="#cb11-94" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">median =</span> X50.)</span>
+<span id="cb11-95"><a href="#cb11-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-96"><a href="#cb11-96" aria-hidden="true" tabindex="-1"></a> summary_over_t <span class="ot">&lt;-</span> summary <span class="sc">|&gt;</span> </span>
+<span id="cb11-97"><a href="#cb11-97" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(variable, p, phi_num, n) <span class="sc">|&gt;</span> </span>
+<span id="cb11-98"><a href="#cb11-98" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarize</span>(</span>
+<span id="cb11-99"><a href="#cb11-99" aria-hidden="true" tabindex="-1"></a>     <span class="at">mean =</span> <span class="fu">mean</span>(median),</span>
+<span id="cb11-100"><a href="#cb11-100" aria-hidden="true" tabindex="-1"></a>     <span class="at">sd =</span> <span class="fu">sd</span>(median),</span>
+<span id="cb11-101"><a href="#cb11-101" aria-hidden="true" tabindex="-1"></a>     <span class="at">count =</span> <span class="fu">n</span>()</span>
+<span id="cb11-102"><a href="#cb11-102" aria-hidden="true" tabindex="-1"></a>   ) <span class="sc">|&gt;</span> </span>
+<span id="cb11-103"><a href="#cb11-103" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ungroup</span>()</span>
+<span id="cb11-104"><a href="#cb11-104" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb11-105"><a href="#cb11-105" aria-hidden="true" tabindex="-1"></a>  summary_over_t_time_lt_5 <span class="ot">&lt;-</span> summary <span class="sc">|&gt;</span></span>
+<span id="cb11-106"><a href="#cb11-106" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(time <span class="sc">&lt;</span> <span class="dv">5</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb11-107"><a href="#cb11-107" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(variable, p, phi_num, n) <span class="sc">|&gt;</span> </span>
+<span id="cb11-108"><a href="#cb11-108" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarize</span>(</span>
+<span id="cb11-109"><a href="#cb11-109" aria-hidden="true" tabindex="-1"></a>     <span class="at">mean =</span> <span class="fu">mean</span>(median),</span>
+<span id="cb11-110"><a href="#cb11-110" aria-hidden="true" tabindex="-1"></a>     <span class="at">sd =</span> <span class="fu">sd</span>(median),</span>
+<span id="cb11-111"><a href="#cb11-111" aria-hidden="true" tabindex="-1"></a>     <span class="at">count =</span> <span class="fu">n</span>()</span>
+<span id="cb11-112"><a href="#cb11-112" aria-hidden="true" tabindex="-1"></a>   ) <span class="sc">|&gt;</span> </span>
+<span id="cb11-113"><a href="#cb11-113" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ungroup</span>()</span>
+<span id="cb11-114"><a href="#cb11-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-115"><a href="#cb11-115" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-116"><a href="#cb11-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-117"><a href="#cb11-117" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plot results  </span></span>
+<span id="cb11-118"><a href="#cb11-118" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Phi  </span></span>
+<span id="cb11-119"><a href="#cb11-119" aria-hidden="true" tabindex="-1"></a>With poor data, estimates trend towards 0.5, the mean of the prior on the variable.</span>
+<span id="cb11-122"><a href="#cb11-122" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-123"><a href="#cb11-123" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: plot_sim_data_phi</span></span>
+<span id="cb11-124"><a href="#cb11-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-125"><a href="#cb11-125" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summary <span class="sc">|&gt;</span> <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"phi"</span>), <span class="fu">aes</span>(time, mean, <span class="at">color =</span> <span class="fu">factor</span>(p))) <span class="sc">+</span></span>
+<span id="cb11-126"><a href="#cb11-126" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb11-127"><a href="#cb11-127" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb11-128"><a href="#cb11-128" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> phi_num)) <span class="sc">+</span></span>
+<span id="cb11-129"><a href="#cb11-129" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Time (age)"</span>, <span class="at">y =</span> <span class="st">"Phi estimate"</span>) <span class="sc">+</span></span>
+<span id="cb11-130"><a href="#cb11-130" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(phi_num <span class="sc">~</span> n)</span>
+<span id="cb11-131"><a href="#cb11-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-132"><a href="#cb11-132" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summary_over_t <span class="sc">|&gt;</span> <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"phi"</span>), <span class="fu">aes</span>(p, mean, <span class="at">color =</span> <span class="fu">factor</span>(phi_num))) <span class="sc">+</span></span>
+<span id="cb11-133"><a href="#cb11-133" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb11-134"><a href="#cb11-134" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb11-135"><a href="#cb11-135" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> phi_num, <span class="at">color =</span> <span class="fu">factor</span>(phi_num))) <span class="sc">+</span></span>
+<span id="cb11-136"><a href="#cb11-136" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Probability of capture (p)"</span>, <span class="at">y =</span> <span class="st">"Phi estimate (mean across all occasions)"</span>) <span class="sc">+</span></span>
+<span id="cb11-137"><a href="#cb11-137" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"All occasions"</span>) <span class="sc">+</span></span>
+<span id="cb11-138"><a href="#cb11-138" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> n)</span>
+<span id="cb11-139"><a href="#cb11-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-140"><a href="#cb11-140" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summary_over_t_time_lt_5 <span class="sc">|&gt;</span> <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"phi"</span>), <span class="fu">aes</span>(p, mean, <span class="at">color =</span> <span class="fu">factor</span>(phi_num))) <span class="sc">+</span></span>
+<span id="cb11-141"><a href="#cb11-141" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb11-142"><a href="#cb11-142" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb11-143"><a href="#cb11-143" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> phi_num, <span class="at">color =</span> <span class="fu">factor</span>(phi_num))) <span class="sc">+</span></span>
+<span id="cb11-144"><a href="#cb11-144" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Probability of capture (p)"</span>, <span class="at">y =</span> <span class="st">"Phi estimate (mean across first four occasions)"</span>) <span class="sc">+</span></span>
+<span id="cb11-145"><a href="#cb11-145" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"First four occasions"</span>) <span class="sc">+</span></span>
+<span id="cb11-146"><a href="#cb11-146" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> n)</span>
+<span id="cb11-147"><a href="#cb11-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-148"><a href="#cb11-148" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb11-149"><a href="#cb11-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-150"><a href="#cb11-150" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summary <span class="sc">|&gt;</span> <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"p"</span>), <span class="fu">aes</span>(time, mean, <span class="at">color =</span> <span class="fu">factor</span>(phi_num))) <span class="sc">+</span></span>
-<span id="cb11-151"><a href="#cb11-151" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb11-152"><a href="#cb11-152" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb11-153"><a href="#cb11-153" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> p)) <span class="sc">+</span></span>
-<span id="cb11-154"><a href="#cb11-154" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Time (age)"</span>, <span class="at">y =</span> <span class="st">"P estimate"</span>) <span class="sc">+</span></span>
-<span id="cb11-155"><a href="#cb11-155" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(p <span class="sc">~</span> n)</span>
-<span id="cb11-156"><a href="#cb11-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-157"><a href="#cb11-157" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summary_over_t <span class="sc">|&gt;</span> <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"p"</span>), <span class="fu">aes</span>(phi_num, mean, <span class="at">color =</span> <span class="fu">factor</span>(p))) <span class="sc">+</span></span>
-<span id="cb11-158"><a href="#cb11-158" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb11-159"><a href="#cb11-159" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb11-160"><a href="#cb11-160" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> p, <span class="at">color =</span> <span class="fu">factor</span>(p))) <span class="sc">+</span></span>
-<span id="cb11-161"><a href="#cb11-161" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Probability of survival (phi)"</span>, <span class="at">y =</span> <span class="st">"P estimate (mean across occasions)"</span>) <span class="sc">+</span></span>
-<span id="cb11-162"><a href="#cb11-162" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> n)</span>
-<span id="cb11-163"><a href="#cb11-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-164"><a href="#cb11-164" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summary_over_t_time_lt_5 <span class="sc">|&gt;</span> <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"p"</span>), <span class="fu">aes</span>(phi_num, mean, <span class="at">color =</span> <span class="fu">factor</span>(p))) <span class="sc">+</span></span>
-<span id="cb11-165"><a href="#cb11-165" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb11-166"><a href="#cb11-166" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb11-167"><a href="#cb11-167" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> p, <span class="at">color =</span> <span class="fu">factor</span>(p))) <span class="sc">+</span></span>
-<span id="cb11-168"><a href="#cb11-168" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Probability of survival (phi)"</span>, <span class="at">y =</span> <span class="st">"P estimate (mean across fisrt four occasions)"</span>) <span class="sc">+</span></span>
-<span id="cb11-169"><a href="#cb11-169" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"First four occasions"</span>) <span class="sc">+</span></span>
-<span id="cb11-170"><a href="#cb11-170" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> n)</span>
-<span id="cb11-171"><a href="#cb11-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-172"><a href="#cb11-172" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-173"><a href="#cb11-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-174"><a href="#cb11-174" aria-hidden="true" tabindex="-1"></a>Model runs:\</span>
-<span id="cb11-175"><a href="#cb11-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-176"><a href="#cb11-176" aria-hidden="true" tabindex="-1"></a><span class="fu">### Retrieve model results from a random simulation run</span></span>
+<span id="cb11-150"><a href="#cb11-150" aria-hidden="true" tabindex="-1"></a><span class="fu">#### P</span></span>
+<span id="cb11-153"><a href="#cb11-153" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-154"><a href="#cb11-154" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: plot_sim_data_p</span></span>
+<span id="cb11-155"><a href="#cb11-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-156"><a href="#cb11-156" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summary <span class="sc">|&gt;</span> <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"p"</span>), <span class="fu">aes</span>(time, mean, <span class="at">color =</span> <span class="fu">factor</span>(phi_num))) <span class="sc">+</span></span>
+<span id="cb11-157"><a href="#cb11-157" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb11-158"><a href="#cb11-158" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb11-159"><a href="#cb11-159" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> p)) <span class="sc">+</span></span>
+<span id="cb11-160"><a href="#cb11-160" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Time (age)"</span>, <span class="at">y =</span> <span class="st">"P estimate"</span>) <span class="sc">+</span></span>
+<span id="cb11-161"><a href="#cb11-161" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(p <span class="sc">~</span> n)</span>
+<span id="cb11-162"><a href="#cb11-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-163"><a href="#cb11-163" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summary_over_t <span class="sc">|&gt;</span> <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"p"</span>), <span class="fu">aes</span>(phi_num, mean, <span class="at">color =</span> <span class="fu">factor</span>(p))) <span class="sc">+</span></span>
+<span id="cb11-164"><a href="#cb11-164" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb11-165"><a href="#cb11-165" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb11-166"><a href="#cb11-166" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> p, <span class="at">color =</span> <span class="fu">factor</span>(p))) <span class="sc">+</span></span>
+<span id="cb11-167"><a href="#cb11-167" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Probability of survival (phi)"</span>, <span class="at">y =</span> <span class="st">"P estimate (mean across occasions)"</span>) <span class="sc">+</span></span>
+<span id="cb11-168"><a href="#cb11-168" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> n)</span>
+<span id="cb11-169"><a href="#cb11-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-170"><a href="#cb11-170" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summary_over_t_time_lt_5 <span class="sc">|&gt;</span> <span class="fu">filter</span>(variable <span class="sc">==</span> <span class="st">"p"</span>), <span class="fu">aes</span>(phi_num, mean, <span class="at">color =</span> <span class="fu">factor</span>(p))) <span class="sc">+</span></span>
+<span id="cb11-171"><a href="#cb11-171" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb11-172"><a href="#cb11-172" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb11-173"><a href="#cb11-173" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> p, <span class="at">color =</span> <span class="fu">factor</span>(p))) <span class="sc">+</span></span>
+<span id="cb11-174"><a href="#cb11-174" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Probability of survival (phi)"</span>, <span class="at">y =</span> <span class="st">"P estimate (mean across fisrt four occasions)"</span>) <span class="sc">+</span></span>
+<span id="cb11-175"><a href="#cb11-175" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"First four occasions"</span>) <span class="sc">+</span></span>
+<span id="cb11-176"><a href="#cb11-176" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> n)</span>
 <span id="cb11-177"><a href="#cb11-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-180"><a href="#cb11-180" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-181"><a href="#cb11-181" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: OB_tt_NN</span></span>
-<span id="cb11-182"><a href="#cb11-182" aria-hidden="true" tabindex="-1"></a><span class="co"># Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html</span></span>
-<span id="cb11-183"><a href="#cb11-183" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb11-184"><a href="#cb11-184" aria-hidden="true" tabindex="-1"></a>  <span class="fu">load</span>(<span class="st">'./models/cmrNN_SIM/tt/runsOut/localSimData/tt_NN_SIM__p0.5_phi05_n5000.RData'</span>)</span>
-<span id="cb11-185"><a href="#cb11-185" aria-hidden="true" tabindex="-1"></a>  out_NN_SIM <span class="ot">&lt;-</span> d</span>
-<span id="cb11-186"><a href="#cb11-186" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb11-187"><a href="#cb11-187" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Input data</span></span>
-<span id="cb11-188"><a href="#cb11-188" aria-hidden="true" tabindex="-1"></a>  eh <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'./models/cmrNN_SIM/tt/runsOut/localSimData/eh_p0.5_phi05_n5000.csv'</span>)</span>
-<span id="cb11-189"><a href="#cb11-189" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-190"><a href="#cb11-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-191"><a href="#cb11-191" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model code</span></span>
-<span id="cb11-192"><a href="#cb11-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-193"><a href="#cb11-193" aria-hidden="true" tabindex="-1"></a>In the model code, a value of <span class="in">`1`</span> for <span class="in">`z`</span> or in *gamma* or *omega* signifies the individual is alive and a value of <span class="in">`2`</span> signifies the individual is dead. <span class="in">`y[i,j]`</span> is the observed data (encounter history file).</span>
-<span id="cb11-194"><a href="#cb11-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-197"><a href="#cb11-197" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-198"><a href="#cb11-198" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: OB_tt_NN_code</span></span>
+<span id="cb11-178"><a href="#cb11-178" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-179"><a href="#cb11-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-180"><a href="#cb11-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-181"><a href="#cb11-181" aria-hidden="true" tabindex="-1"></a><span class="fu">## Retrieve model results from a random simulation run</span></span>
+<span id="cb11-182"><a href="#cb11-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-185"><a href="#cb11-185" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-186"><a href="#cb11-186" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: OB_tt_NN</span></span>
+<span id="cb11-187"><a href="#cb11-187" aria-hidden="true" tabindex="-1"></a><span class="co"># Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html</span></span>
+<span id="cb11-188"><a href="#cb11-188" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb11-189"><a href="#cb11-189" aria-hidden="true" tabindex="-1"></a>  <span class="fu">load</span>(<span class="st">'./models/cmrNN_SIM/tt/runsOut/localSimData/tt_NN_SIM__p0.5_phi05_n5000.RData'</span>)</span>
+<span id="cb11-190"><a href="#cb11-190" aria-hidden="true" tabindex="-1"></a>  out_NN_SIM <span class="ot">&lt;-</span> d</span>
+<span id="cb11-191"><a href="#cb11-191" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-192"><a href="#cb11-192" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Input data</span></span>
+<span id="cb11-193"><a href="#cb11-193" aria-hidden="true" tabindex="-1"></a>  eh <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'./models/cmrNN_SIM/tt/runsOut/localSimData/eh_p0.5_phi05_n5000.csv'</span>)</span>
+<span id="cb11-194"><a href="#cb11-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-195"><a href="#cb11-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-196"><a href="#cb11-196" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model code</span></span>
+<span id="cb11-197"><a href="#cb11-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-198"><a href="#cb11-198" aria-hidden="true" tabindex="-1"></a>In the model code, a value of <span class="in">`1`</span> for <span class="in">`z`</span> or in *gamma* or *omega* signifies the individual is alive and a value of <span class="in">`2`</span> signifies the individual is dead. <span class="in">`y[i,j]`</span> is the observed data (encounter history file).</span>
 <span id="cb11-199"><a href="#cb11-199" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-200"><a href="#cb11-200" aria-hidden="true" tabindex="-1"></a>  out_NN_SIM<span class="sc">$</span>modelCode</span>
-<span id="cb11-201"><a href="#cb11-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-202"><a href="#cb11-202" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-203"><a href="#cb11-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-204"><a href="#cb11-204" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model statistics</span></span>
-<span id="cb11-205"><a href="#cb11-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-206"><a href="#cb11-206" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=FALSE, results='asis'}</span></span>
-<span id="cb11-207"><a href="#cb11-207" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: OB_tt_NN_statsTable</span></span>
+<span id="cb11-202"><a href="#cb11-202" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-203"><a href="#cb11-203" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: OB_tt_NN_code</span></span>
+<span id="cb11-204"><a href="#cb11-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-205"><a href="#cb11-205" aria-hidden="true" tabindex="-1"></a>  out_NN_SIM<span class="sc">$</span>modelCode</span>
+<span id="cb11-206"><a href="#cb11-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-207"><a href="#cb11-207" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb11-208"><a href="#cb11-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-209"><a href="#cb11-209" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">as_tibble</span>(out_NN_SIM<span class="sc">$</span>runData), <span class="at">caption =</span> <span class="st">"Run statistics"</span>)</span>
+<span id="cb11-209"><a href="#cb11-209" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model statistics</span></span>
 <span id="cb11-210"><a href="#cb11-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-211"><a href="#cb11-211" aria-hidden="true" tabindex="-1"></a><span class="fu">paste0</span>(<span class="st">'Run time = '</span>, <span class="fu">round</span>(out_NN_SIM<span class="sc">$</span>runTime, <span class="dv">3</span>), <span class="st">' '</span>,  <span class="fu">attr</span>(out_NN_SIM<span class="sc">$</span>runTime, <span class="st">"units"</span>))</span>
-<span id="cb11-212"><a href="#cb11-212" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-211"><a href="#cb11-211" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=FALSE, results='asis'}</span></span>
+<span id="cb11-212"><a href="#cb11-212" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: OB_tt_NN_statsTable</span></span>
 <span id="cb11-213"><a href="#cb11-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-214"><a href="#cb11-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-215"><a href="#cb11-215" aria-hidden="true" tabindex="-1"></a><span class="fu">## Simulation data from Xioawei</span></span>
-<span id="cb11-216"><a href="#cb11-216" aria-hidden="true" tabindex="-1"></a>Decided to use the simulations above, as these files have &gt; 50 time steps (cohorts are spread across time) and it is easier to interpret results with an age-based encounter history with 12 time steps.  </span>
-<span id="cb11-217"><a href="#cb11-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-218"><a href="#cb11-218" aria-hidden="true" tabindex="-1"></a>Xiaowei and students created simulation files <span class="co">[</span><span class="ot">here</span><span class="co">](https://drive.google.com/drive/folders/1Bth4jdH6vZuE3t7ETL3MMxPo2oxmakZs)</span> that were downloaded into <span class="in">`C:\Users\bletcher\OneDrive - DOI\projects\wbBook_quarto_targets\data\in\fromXioawei`</span> as <span class="in">`synthetic_data-20240124T150938Z-001.zip`</span> and extracted into <span class="in">`./synthetic_data-20240124T150938Z-001`</span>. These .npy files are read into R and run using <span class="in">`./models/cmrNN_SIM/tt/modelCMR_tt_NN_SIM_makeFile.R`</span> to loop over all the files. Model output goes into <span class="in">`C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/models/cmrNN_SIM/tt/runsOut/`</span> using the input file name concatenated between <span class="in">`tt_NN_SIM`</span> and the date.</span>
+<span id="cb11-214"><a href="#cb11-214" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">as_tibble</span>(out_NN_SIM<span class="sc">$</span>runData), <span class="at">caption =</span> <span class="st">"Run statistics"</span>)</span>
+<span id="cb11-215"><a href="#cb11-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-216"><a href="#cb11-216" aria-hidden="true" tabindex="-1"></a><span class="fu">paste0</span>(<span class="st">'Run time = '</span>, <span class="fu">round</span>(out_NN_SIM<span class="sc">$</span>runTime, <span class="dv">3</span>), <span class="st">' '</span>,  <span class="fu">attr</span>(out_NN_SIM<span class="sc">$</span>runTime, <span class="st">"units"</span>))</span>
+<span id="cb11-217"><a href="#cb11-217" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-218"><a href="#cb11-218" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-219"><a href="#cb11-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-220"><a href="#cb11-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-221"><a href="#cb11-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-220"><a href="#cb11-220" aria-hidden="true" tabindex="-1"></a><span class="fu">## Simulation data from Xioawei</span></span>
+<span id="cb11-221"><a href="#cb11-221" aria-hidden="true" tabindex="-1"></a>Decided to use the simulations above, as these files have &gt; 50 time steps (cohorts are spread across time) and it is easier to interpret results with an age-based encounter history with 12 time steps.  </span>
 <span id="cb11-222"><a href="#cb11-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-223"><a href="#cb11-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-223"><a href="#cb11-223" aria-hidden="true" tabindex="-1"></a>Xiaowei and students created simulation files <span class="co">[</span><span class="ot">here</span><span class="co">](https://drive.google.com/drive/folders/1Bth4jdH6vZuE3t7ETL3MMxPo2oxmakZs)</span> that were downloaded into <span class="in">`C:\Users\bletcher\OneDrive - DOI\projects\wbBook_quarto_targets\data\in\fromXioawei`</span> as <span class="in">`synthetic_data-20240124T150938Z-001.zip`</span> and extracted into <span class="in">`./synthetic_data-20240124T150938Z-001`</span>. These .npy files are read into R and run using <span class="in">`./models/cmrNN_SIM/tt/modelCMR_tt_NN_SIM_makeFile.R`</span> to loop over all the files. Model output goes into <span class="in">`C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/models/cmrNN_SIM/tt/runsOut/`</span> using the input file name concatenated between <span class="in">`tt_NN_SIM`</span> and the date.</span>
+<span id="cb11-224"><a href="#cb11-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-225"><a href="#cb11-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-226"><a href="#cb11-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-227"><a href="#cb11-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-228"><a href="#cb11-228" aria-hidden="true" tabindex="-1"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

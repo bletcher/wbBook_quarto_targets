@@ -22,7 +22,7 @@ library(targets)
 ```
 
 ```{r}
-#| label: globalModelsNimbleRiverCohortNN
+#| label: modelsCMR_NN_SIM_opts
 #| include: false
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
@@ -43,33 +43,39 @@ p\[t\] \<- betaP\[t\]
 
 
 Model code is in `./models/cmrNN_SIM/tt/modelCMR_tt_NN_SIM_functionsToSource.R`\
-Model is run 'by hand' in `./models/cmrNN_SIM/tt/modelCMR_tt_NN_SIM_makeFile.R`\  
+Model is run 'by hand' in `./models/cmrNN_SIM/tt/modelCMR_tt_NN_SIM_makeFile.R`\
 Model run output is stored in `./models/cmrNN_SIM/tt/runsOut/localSimData/`  
 
-Simulated data were created for 12 time steps (occasions), across a range of number of fish (n, 40, 200, 1000, 5000), simulated probability of capture (p, 0.2, 0.5 0.8) and probability of survival (phi, 0.2, 0.5 0.8, true) [may need to add replicates for a paper]. p's and phi's are constant across time, except When phi == `true` when phi's follow this pattern (0.812,0.810,0.749,0.647,0.640,0.691,0.830,0.330,0.669,0.560,0.684), which is average survival across time in our long-term study area, the West Brook. The number of fish entering the simulations at each time step start at n/2 and are reduced by 1/2 for each subsequent time step. With this approach, the total number of fish entering approximates n, but the entering fish are spread over time in a way that is similar to what happens in the field.
+Simulated data were created for 12 time steps (occasions), across a range of number of fish (n, 40, 200, 1000, 5000), simulated probability of capture (p, 0.2, 0.5 0.8) and probability of survival (phi, 0.2, 0.5 0.8, true) [may need to add replicates for a paper].  
+
+p's and phi's are constant across time, except When phi == `true` when phi's follow this pattern (0.812,0.810,0.749,0.647,0.640,0.691,0.830,0.330,0.669,0.560,0.684), which is average survival across time in our long-term study area, the West Brook.  
+
+The number of fish entering the simulations at each time step start at n/2 and are reduced by 1/2 for each subsequent time step. With this approach, the total number of fish entering approximates n, but the entering fish are spread over time in a way that is similar to what happens in the field.
 
 For each set of simulation conditions, an encounter history (eh) file is created with the file name = `eh_px.x_phixx_nxxxx.csv` where `x`s are the values for each variable. Each row is a fish and each column is an occasion.  
 
 Simulation output is stored in .RData files named as `tt_NN_SIM__px.x_phixx_nxxxx.RData` and model run summaries are stored in a cumulative .csv file `local_summary_out_all.csv` for all runs and `local_summary_out_phi_sim.csv` for runs with phi = (0.2, 0.5, 0.8) and   `local_summary_out_phi_sim.csv` for runs with phi = `true`.  
 
 In the summary files, the variables are:   
-X     var  mean    sd X2.5.  X50. X97.5. Rhat n.eff   p phi    n variable time phi_num,   
+X,     var,  mean,    sd, X2.5.,  X50., X97.5., Rhat, n.eff,   p, phi,    n, variable, time, phi_num,  
+  
 where:  
-X = row number  
-var = the variable name(phi or p) combined with the time step  
-mean = mean estimate across MCMC iterations  
-sd = sd estimate across MCMC iterations   
-X2.5. = 2.5 percentile estimate across MCMC iterations   
-X50. = median estimate across MCMC iterations   
-X97.5. = 97.5 percentile estimate across MCMC iterations   
-Rhat = indicator of model convergence for the variable. < 1.05 is good.
-n.eff = effective number of observations in the estimate. Bigger is better
-p = the `p` value used in the simulation  
-phi = the `phi` value used in the simulation. This is a character to accommodate the `true` possibility.   
-n = the `n` value used in the simulation
-variable = the variable alone without the time step (as in var)  
-time = time step [1:12]
-phi_num = the `phi` value used in the simulation. This value is numeric.  
+  
+*X* = row number  
+*var* = the variable name(phi or p) combined with the time step  
+*mean* = mean estimate across MCMC iterations  
+*sd* = sd estimate across MCMC iterations   
+*X2.5.* = 2.5 percentile estimate across MCMC iterations   
+*X50.* = median estimate across MCMC iterations   
+*X97.5.* = 97.5 percentile estimate across MCMC iterations   
+*Rhat* = indicator of model convergence for the variable. < 1.05 is good.
+*n.eff* = effective number of observations in the estimate. Bigger is better
+*p* = the `p` value used in the simulation  
+*phi* = the `phi` value used in the simulation. This is a character to accommodate the `true` possibility.   
+*n* = the `n` value used in the simulation
+*variable* = the variable alone without the time step (as in var)  
+*time* = time step [1:12]
+*phi_num* = the `phi` value used in the simulation. This value is numeric.  
 
 
 ## Simulations  
@@ -161,9 +167,8 @@ ggplot(summary_over_t_time_lt_5 |> filter(variable == "p"), aes(phi_num, mean, c
 
 ```
 
-Model runs:\
 
-### Retrieve model results from a random simulation run
+## Retrieve model results from a random simulation run
 
 ```{r}
 #| label: OB_tt_NN
