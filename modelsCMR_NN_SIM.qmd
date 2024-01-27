@@ -109,7 +109,7 @@ Simulation data without phi == `true`
 ```
 
 ### Plot results  
-#### Phi  
+#### Probability of survival (phi)    
 With poor data, estimates trend towards 0.5, the mean of the prior on the variable.
 ```{r}
 #| label: plot_sim_data_phi
@@ -139,7 +139,7 @@ ggplot(summary_over_t_time_lt_5 |> filter(variable == "phi"), aes(p, mean, color
 
 ```
 
-#### P
+#### Probabilit of capture (p)
 ```{r}
 #| label: plot_sim_data_p
 
