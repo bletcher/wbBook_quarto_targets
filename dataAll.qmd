@@ -38,7 +38,9 @@ library(targets)
 ```
 
 ### Read merged data target
+
 Variables in the `all data` dataset
+
 ```{r}
 #| label: dataAll
 #| cache: false
@@ -50,6 +52,9 @@ str(all)
 
 # Save rData file for downloading
 # save(all, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_all.RData")
+
+# write.csv(all, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_All.csv")
+
 
 ```
 
@@ -106,6 +111,7 @@ viewof selectTag = Inputs.select(
 ```
 
 Facet by river, symbol identifies survey type
+
 ```{ojs}
 
 tagsToPlot0 = allOJS.filter((d) => selectTag.includes(d.tag))
@@ -147,6 +153,7 @@ tagsOverTime = Plot.plot({
 ```
 
 One panel, symbol identifies river
+
 ```{ojs}
 
 tagsOverTimeRiver = Plot.plot({
@@ -170,13 +177,11 @@ tagsOverTimeRiver = Plot.plot({
 })
 ```
 
-
 ```{ojs}
 selectTag
 tagsToPlot
 allOJS
 ```
-
 
 ```{ojs}
 import {tidy, max, nDistinct, groupBy, mutate, filter, summarize, first, last, distinct, count, n, arrange, mutateWithSummary, desc, debug, sum, slice, mean, deviation, variance, meanRate, median, min, total, sliceMax, innerJoin, leftJoin, pivotLonger, pivotWider, select, rename, complete, contains, when} from "@pbeshai/tidyjs"
@@ -185,4 +190,3 @@ import {tidy, max, nDistinct, groupBy, mutate, filter, summarize, first, last, d
 Plot = import("https://esm.sh/@observablehq/plot")
 
 ```
-

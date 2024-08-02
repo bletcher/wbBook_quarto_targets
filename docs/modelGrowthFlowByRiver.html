@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.361">
+<meta name="generator" content="quarto-1.4.550">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -83,7 +83,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -92,6 +98,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -103,6 +110,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </script>
 <script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
 
 
 </head>
@@ -113,12 +125,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./modelGrowthFlowByRiver.html">Flow by Area/River models</a></li><li class="breadcrumb-item"><a href="./modelGrowthFlowByRiver.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Growth in mass byRiver/byArea</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./modelGrowthFlowByRiver.html">Flow by Area/River models</a></li><li class="breadcrumb-item"><a href="./modelGrowthFlowByRiver.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Growth in mass byRiver/byArea</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -128,7 +140,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">West Brook story</a> 
@@ -339,7 +351,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -358,7 +370,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./modelGrowthFlowByRiver.html">Flow by Area/River models</a></li><li class="breadcrumb-item"><a href="./modelGrowthFlowByRiver.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Growth in mass byRiver/byArea</span></a></li></ol></nav>
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Growth in mass byRiver/byArea</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
@@ -373,11 +385,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <p>Read in fish and environmental data</p>
 <div class="cell">
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets) <span class="co">#Seems to be needed with cache: false</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -394,8 +408,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="10.1" class="anchored" data-anchor-id="growth-models"><span class="header-section-number">10.1</span> Growth models</h2>
 <section id="environmentgrowth-raw-data-graphs" class="level4" data-number="10.1.0.1">
 <h4 data-number="10.1.0.1" class="anchored" data-anchor-id="environmentgrowth-raw-data-graphs"><span class="header-section-number">10.1.0.1</span> Environment/growth raw data graphs</h4>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiver_27a4ca878325a5cfb6b753d98a2f3e32">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>plotFlowGR_byRiver <span class="ot">&lt;-</span> <span class="cf">function</span>(d, r){</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  fig1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d <span class="sc">|&gt;</span> <span class="fu">filter</span>(riverGG <span class="sc">==</span> r), <span class="fu">aes</span>(meanFlowByRiver, grWeight)) <span class="sc">+</span></span>
@@ -440,74 +454,106 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">West Brook</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Open Large</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Open Small</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Isolated small</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiver_wb_82e4647911240de6add1d6a482ac5d26">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFlowGR_byRiver</span>(dGAM, <span class="st">"West Brook"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiver_wb-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiver_wb-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFlowGR_byRiverOverlay</span>(dGAM, <span class="st">"West Brook"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiver_wb-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiver_wb-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiver_ol_a10dbbe1ad196b13b7ff13954b124c57">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFlowGR_byRiver</span>(dGAM, <span class="st">"Open Large"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiver_ol-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiver_ol-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFlowGR_byRiverOverlay</span>(dGAM, <span class="st">"Open Large"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiver_ol-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiver_ol-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiver_os_eb9cfd28b30c563fa289a2e08d7fde39">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFlowGR_byRiver</span>(dGAM, <span class="st">"Open Small"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiver_os-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiver_os-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFlowGR_byRiverOverlay</span>(dGAM, <span class="st">"Open Small"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiver_os-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiver_os-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
 <div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiver_is_0af9ea8126e28ca967bc92ac6255c432">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFlowGR_byRiver</span>(dGAM, <span class="st">"Isolated Small"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiver_is-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiver_is-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFlowGR_byRiverOverlay</span>(dGAM, <span class="st">"Isolated Small"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiver_is-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiver_is-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
@@ -516,8 +562,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="flow-duration-curve-data" class="level3" data-number="10.1.1">
 <h3 data-number="10.1.1" class="anchored" data-anchor-id="flow-duration-curve-data"><span class="header-section-number">10.1.1</span> Flow duration curve data</h3>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/fdc_growthByRiver_48a7452736bb94bf4eec3a0dc070e6b7">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>plotFDC_GR_byRiver <span class="ot">&lt;-</span> <span class="cf">function</span>(d, r){</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  fig1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d <span class="sc">|&gt;</span> <span class="fu">filter</span>(riverGG <span class="sc">==</span> r), <span class="fu">aes</span>(propBelowLoFlowThreshByRiver, grWeight)) <span class="sc">+</span></span>
@@ -587,74 +633,106 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">West Brook</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Open Large</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Open Small</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false">Isolated small</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/fdc_growthByRiver_wb_4f11f1179e668f8144ae7b4911b45a6b">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFDC_GR_byRiver</span>(dGAM, <span class="st">"West Brook"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/fdc_growthByRiver_wb-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/fdc_growthByRiver_wb-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFDC_GR_byArea</span>(dGAM, <span class="st">"West Brook"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/fdc_growthByRiver_wb-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/fdc_growthByRiver_wb-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/fdc_growthByRiver_ol_3ff1c39e24c91ec2c0e9f793efcdb2f0">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFDC_GR_byRiver</span>(dGAM, <span class="st">"Open Large"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/fdc_growthByRiver_ol-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/fdc_growthByRiver_ol-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFDC_GR_byArea</span>(dGAM, <span class="st">"Open Large"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/fdc_growthByRiver_ol-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/fdc_growthByRiver_ol-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
 <div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/fdc_growthByRiver_os_2e43252643c175a76a0e077cb6040465">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFDC_GR_byRiver</span>(dGAM, <span class="st">"Open Small"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/fdc_growthByRiver_os-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/fdc_growthByRiver_os-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFDC_GR_byArea</span>(dGAM, <span class="st">"Open Small"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/fdc_growthByRiver_os-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/fdc_growthByRiver_os-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
 <div id="tabset-2-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-4-tab">
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/fdc_growthByRiver_is_e44aae4e90b8db98ea243a4af8cababc">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFDC_GR_byRiver</span>(dGAM, <span class="st">"Isolated Small"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/fdc_growthByRiver_is-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/fdc_growthByRiver_is-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFDC_GR_byArea</span>(dGAM, <span class="st">"Isolated Small"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/fdc_growthByRiver_is-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/fdc_growthByRiver_is-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
@@ -662,8 +740,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="flow-compared-with-flow-duration-curve-metrics" class="level4" data-number="10.1.1.1">
 <h4 data-number="10.1.1.1" class="anchored" data-anchor-id="flow-compared-with-flow-duration-curve-metrics"><span class="header-section-number">10.1.1.1</span> Flow compared with flow duration curve metrics</h4>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/fdcBelow_meanFlow_dbb968ef1488885e2972e512994c1961">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(dGAM, <span class="fu">aes</span>(flowByRiverS, propBelowLoFlowThreshByRiver)) <span class="sc">+</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -674,13 +752,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="modelGrowthFlowByRiver_files/figure-html/fdcBelow_meanFlow-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">By river in black and by area in green</figcaption>
+<figcaption>By river in black and by area in green</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/fdcAbove_meanFlow_3349f1b82c1b871bdf5028eddcd83f02">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(dGAM, <span class="fu">aes</span>(flowByRiverS, propAboveHiFlowThreshByRiver)) <span class="sc">+</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -691,7 +769,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="modelGrowthFlowByRiver_files/figure-html/fdcAbove_meanFlow-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">By river in black and by area in green</figcaption>
+<figcaption>By river in black and by area in green</figcaption>
 </figure>
 </div>
 </div>
@@ -1054,8 +1132,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="brook-trout---flow-by-area" class="level4" data-number="10.1.2.2">
 <h4 data-number="10.1.2.2" class="anchored" data-anchor-id="brook-trout---flow-by-area"><span class="header-section-number">10.1.2.2</span> Brook trout - flow by area</h4>
 <p>redo models</p>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/lmByArea_f8d6af71c0574ac5c88a03845ca04426">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>lmS1ByArea <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  grWeight <span class="sc">~</span></span>
@@ -1082,8 +1160,8 @@ lmS1ByArea 62 -86590.70</code></pre>
 <section id="brook-trout---flow-by-river" class="level4" data-number="10.1.2.3">
 <h4 data-number="10.1.2.3" class="anchored" data-anchor-id="brook-trout---flow-by-river"><span class="header-section-number">10.1.2.3</span> Brook trout - flow by river</h4>
 <p>redo models</p>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/lmByRiver_c8f6a3310ac83ffc3bcbfe181c0529ff">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>lmS1ByRiver <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  grWeight <span class="sc">~</span></span>
@@ -1126,8 +1204,8 @@ lmS3ByRiver 56 -86505.21</code></pre>
 </section>
 <section id="brook-trout---compare-flow-byarea-and-flow-byriver-gams" class="level4" data-number="10.1.2.4">
 <h4 data-number="10.1.2.4" class="anchored" data-anchor-id="brook-trout---compare-flow-byarea-and-flow-byriver-gams"><span class="header-section-number">10.1.2.4</span> Brook trout - compare flow byArea and flow byRiver gams</h4>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/gamModsCompare_be014565e6ee3e281a3d5c8e42ff938d">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>predictBKTlmS <span class="ot">&lt;-</span> <span class="cf">function</span>(dIn, modInFlowByArea, modInFlowByRiver){</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    </span>
@@ -1194,8 +1272,8 @@ lmS3ByRiver 56 -86505.21</code></pre>
 </section>
 <section id="west-brook-2" class="level4" data-number="10.1.2.6">
 <h4 data-number="10.1.2.6" class="anchored" data-anchor-id="west-brook-2"><span class="header-section-number">10.1.2.6</span> West brook</h4>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/graphGAMPredictionsByRiverSmallFishTalkTWB_078778534c2c88336ea2f2c6dc5113bc">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  lmSBKTPredictions <span class="sc">|&gt;</span> </span>
@@ -1219,9 +1297,13 @@ lmS3ByRiver 56 -86505.21</code></pre>
 <span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>seasonGG)<span class="co">#, scales = 'free')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/graphGAMPredictionsByRiverSmallFishTalkTWB-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/graphGAMPredictionsByRiverSmallFishTalkTWB-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  lmSBKTPredictions <span class="sc">|&gt;</span> </span>
@@ -1246,12 +1328,16 @@ lmS3ByRiver 56 -86505.21</code></pre>
 <span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>seasonGG)<span class="co">#, scales = 'free')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/graphGAMPredictionsByRiverSmallFishTalkTWB-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/graphGAMPredictionsByRiverSmallFishTalkTWB-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>WB alpha</p>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/alphaonThreshWB_78183a67dc2f1f4484d9bec78c195c8b">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  lmSBKTPredictions <span class="sc">|&gt;</span> </span>
@@ -1276,9 +1362,13 @@ lmS3ByRiver 56 -86505.21</code></pre>
 <span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>seasonGG)<span class="co">#, scales = 'free')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/alphaonThreshWB-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/alphaonThreshWB-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  lmSBKTPredictions <span class="sc">|&gt;</span> </span>
@@ -1303,14 +1393,18 @@ lmS3ByRiver 56 -86505.21</code></pre>
 <span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>seasonGG)<span class="co">#, scales = 'free')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/alphaonThreshWB-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/alphaonThreshWB-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
 <section id="open-large-2" class="level4" data-number="10.1.2.7">
 <h4 data-number="10.1.2.7" class="anchored" data-anchor-id="open-large-2"><span class="header-section-number">10.1.2.7</span> Open Large</h4>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/graphGAMPredictionsByRiverSmallFishTalkTOL_bde6a4ba889f662c081284c2c091899f">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  lmSBKTPredictions <span class="sc">|&gt;</span> </span>
@@ -1338,9 +1432,13 @@ lmS3ByRiver 56 -86505.21</code></pre>
 <span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>seasonGG)<span class="co">#, scales = 'free')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/graphGAMPredictionsByRiverSmallFishTalkTOL-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/graphGAMPredictionsByRiverSmallFishTalkTOL-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  lmSBKTPredictions <span class="sc">|&gt;</span> </span>
@@ -1365,12 +1463,16 @@ lmS3ByRiver 56 -86505.21</code></pre>
 <span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>seasonGG)<span class="co">#, scales = 'free')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/graphGAMPredictionsByRiverSmallFishTalkTOL-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/graphGAMPredictionsByRiverSmallFishTalkTOL-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>OL alpha</p>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/alphaonThreshOL_703f65c170cba6ea2daf6a495c68a7db">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  lmSBKTPredictions <span class="sc">|&gt;</span> </span>
@@ -1395,9 +1497,13 @@ lmS3ByRiver 56 -86505.21</code></pre>
 <span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>seasonGG)<span class="co">#, scales = 'free')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/alphaonThreshOL-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/alphaonThreshOL-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  lmSBKTPredictions <span class="sc">|&gt;</span> </span>
@@ -1422,14 +1528,18 @@ lmS3ByRiver 56 -86505.21</code></pre>
 <span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>seasonGG)<span class="co">#, scales = 'free')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/alphaonThreshOL-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/alphaonThreshOL-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
 <section id="open-small-2" class="level4" data-number="10.1.2.8">
 <h4 data-number="10.1.2.8" class="anchored" data-anchor-id="open-small-2"><span class="header-section-number">10.1.2.8</span> Open Small</h4>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/graphGAMPredictionsByRiverSmallFishTalkTOS_ab97fa581aaf23de7a185a0115d5ac3f">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  lmSBKTPredictions <span class="sc">|&gt;</span> </span>
@@ -1457,14 +1567,18 @@ lmS3ByRiver 56 -86505.21</code></pre>
 <span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>seasonGG)<span class="co">#, scales = 'free')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/graphGAMPredictionsByRiverSmallFishTalkTOS-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/graphGAMPredictionsByRiverSmallFishTalkTOS-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
 <section id="isolated-small-2" class="level4" data-number="10.1.2.9">
 <h4 data-number="10.1.2.9" class="anchored" data-anchor-id="isolated-small-2"><span class="header-section-number">10.1.2.9</span> Isolated Small</h4>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/graphGAMPredictionsByRiverSmallFishTalkTIS_f00ded4393a2161dd5d09600071ae7fb">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  lmSBKTPredictions <span class="sc">|&gt;</span> </span>
@@ -1492,9 +1606,13 @@ lmS3ByRiver 56 -86505.21</code></pre>
 <span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>seasonGG)<span class="co">#, scales = 'free')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/graphGAMPredictionsByRiverSmallFishTalkTIS-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/graphGAMPredictionsByRiverSmallFishTalkTIS-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  lmSBKTPredictions <span class="sc">|&gt;</span> </span>
@@ -1519,12 +1637,16 @@ lmS3ByRiver 56 -86505.21</code></pre>
 <span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>seasonGG)<span class="co">#, scales = 'free')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/graphGAMPredictionsByRiverSmallFishTalkTIS-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/graphGAMPredictionsByRiverSmallFishTalkTIS-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>IS alpha</p>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/alphaonThreshIS_fda6ec6fd2f794787477f6eb10b7a969">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  lmSBKTPredictions <span class="sc">|&gt;</span> </span>
@@ -1549,9 +1671,13 @@ lmS3ByRiver 56 -86505.21</code></pre>
 <span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>seasonGG)<span class="co">#, scales = 'free')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/alphaonThreshIS-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/alphaonThreshIS-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  lmSBKTPredictions <span class="sc">|&gt;</span> </span>
@@ -1576,15 +1702,19 @@ lmS3ByRiver 56 -86505.21</code></pre>
 <span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>seasonGG)<span class="co">#, scales = 'free')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/alphaonThreshIS-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/alphaonThreshIS-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
 </section>
 <section id="flow-std-by-seasonriver-not-used" class="level3" data-number="10.1.3">
 <h3 data-number="10.1.3" class="anchored" data-anchor-id="flow-std-by-seasonriver-not-used"><span class="header-section-number">10.1.3</span> Flow std by season/river (not used)</h3>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiverSR_0e5d05aedc6f0ac320c1470008057f5a">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>plotFlowGR_SR_byRiver <span class="ot">&lt;-</span> <span class="cf">function</span>(d, r){</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  fig1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d <span class="sc">|&gt;</span> <span class="fu">filter</span>(riverGG <span class="sc">==</span> r), <span class="fu">aes</span>(flowByRiverSR, grWeight)) <span class="sc">+</span></span>
@@ -1629,74 +1759,106 @@ lmS3ByRiver 56 -86505.21</code></pre>
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">West Brook</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Open Large</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">Open Small</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-4" role="tab" aria-controls="tabset-3-4" aria-selected="false">Isolated small</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiverSR_wb_efcb82c030f92ccd60eab0f57fde9914">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFlowGR_SR_byRiver</span>(dGAM, <span class="st">"West Brook"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiverSR_wb-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiverSR_wb-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFlowGR_SR_byRiverOverlay</span>(dGAM, <span class="st">"West Brook"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiverSR_wb-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiverSR_wb-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiverSR_ol_caf608cb280485445b681222e29d38d5">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFlowGR_SR_byRiver</span>(dGAM, <span class="st">"Open Large"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiverSR_ol-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiverSR_ol-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFlowGR_SR_byRiverOverlay</span>(dGAM, <span class="st">"Open Large"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiverSR_ol-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiverSR_ol-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
 <div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiverSR_os_e7c3d6a11b6cabf55c3469a92c82ac6c">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFlowGR_SR_byRiver</span>(dGAM, <span class="st">"Open Small"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiverSR_os-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiverSR_os-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFlowGR_SR_byRiverOverlay</span>(dGAM, <span class="st">"Open Small"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiverSR_os-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiverSR_os-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
 <div id="tabset-3-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-4-tab">
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/flow_growthByRiverSR_is_aae150cecaa4043b1a6eb0c97dbaa416">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFlowGR_SR_byRiver</span>(dGAM, <span class="st">"Isolated Small"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiverSR_is-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiverSR_is-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFlowGR_SR_byRiverOverlay</span>(dGAM, <span class="st">"Isolated Small"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiverSR_is-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/flow_growthByRiverSR_is-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
@@ -1705,8 +1867,8 @@ lmS3ByRiver 56 -86505.21</code></pre>
 <section id="brook-trout---flow" class="level4" data-number="10.1.3.1">
 <h4 data-number="10.1.3.1" class="anchored" data-anchor-id="brook-trout---flow"><span class="header-section-number">10.1.3.1</span> Brook trout - flow</h4>
 <p>use scale(temperature) instead of tempSR?</p>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/gamModsBKT2_8bf0eecc296a499fa757b8ff51e985e8">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>kIn <span class="ot">=</span> <span class="dv">4</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>speciesIn <span class="ot">&lt;-</span> <span class="st">"Brook trout"</span></span>
@@ -1756,8 +1918,8 @@ gamSR3 100.34986 -85672.15</code></pre>
 </section>
 <section id="brook-trout---flow-by-river-1" class="level4" data-number="10.1.3.2">
 <h4 data-number="10.1.3.2" class="anchored" data-anchor-id="brook-trout---flow-by-river-1"><span class="header-section-number">10.1.3.2</span> Brook trout - flow by river</h4>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/gamSRModsBKTFBR2_2f81a75296b629d44909141b8f4b2ae1">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>gamSR0ByRiver <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempSR <span class="sc">+</span> flowByRiverSR)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByRiverSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
@@ -1804,8 +1966,8 @@ gamSR3ByRiver 102.06380 -85375.03</code></pre>
 </section>
 <section id="brook-trout---flow-by-area-1" class="level4" data-number="10.1.3.3">
 <h4 data-number="10.1.3.3" class="anchored" data-anchor-id="brook-trout---flow-by-area-1"><span class="header-section-number">10.1.3.3</span> Brook trout - flow by area</h4>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/gamSRModsBKTFBA2_e3137cd2ffd95848ff66417205e31bb7">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>gamSR0ByArea <span class="ot">&lt;-</span> <span class="fu">bam</span>(grWeight <span class="sc">~</span> (riverGG <span class="sc">+</span> seasonGG <span class="sc">+</span> observedWeight <span class="sc">+</span> tempSR <span class="sc">+</span> flowByAreaSR)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> cohortF <span class="sc">*</span> ageF <span class="sc">+</span>             </span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>               <span class="fu">s</span>(flowByAreaSR, <span class="at">bs =</span> <span class="st">"cr"</span>, <span class="at">k =</span> kIn, <span class="at">by =</span> riverGG) <span class="sc">+</span></span>
@@ -1849,8 +2011,8 @@ gamSR2ByArea 108.9753 -85905.42
 gamSR3ByArea 100.2851 -85675.76</code></pre>
 </div>
 </div>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/gamSRModsCompareSR_73dd77d7c1cbd7eedecab317dd461329">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>predictBKTgamSR <span class="ot">&lt;-</span> <span class="cf">function</span>(dIn, modInFlowByRiver, modInFlowByArea){</span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1899,8 +2061,8 @@ gamSR3ByArea 100.2851 -85675.76</code></pre>
 <section id="graph-predictions" class="level4" data-number="10.1.3.4">
 <h4 data-number="10.1.3.4" class="anchored" data-anchor-id="graph-predictions"><span class="header-section-number">10.1.3.4</span> Graph predictions</h4>
 <p>Across cohorts, small fish</p>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/graphGAMSRPredictionsByRiverSmallFish_7bdbdf9a3f3a50fd25e12055a8f98fe9">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  gamSR_BKTPredictions <span class="sc">|&gt;</span> </span>
@@ -1918,12 +2080,16 @@ gamSR3ByArea 100.2851 -85675.76</code></pre>
 <span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(seasonGG <span class="sc">~</span> riverGG <span class="sc">+</span> byRiver, <span class="at">scales =</span> <span class="st">'free'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/graphGAMSRPredictionsByRiverSmallFish-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/graphGAMSRPredictionsByRiverSmallFish-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Across cohorts, large fish</p>
-<div class="cell" data-hash="modelGrowthFlowByRiver_cache/html/graphGAMSRPredictionsByRiverBigFish_af0efed3f53411bf0712f61b8343c3a9">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  gamSR_BKTPredictions <span class="sc">|&gt;</span> </span>
@@ -1941,7 +2107,11 @@ gamSR3ByArea 100.2851 -85675.76</code></pre>
 <span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(seasonGG <span class="sc">~</span> riverGG <span class="sc">+</span> byRiver, <span class="at">scales =</span> <span class="st">'free'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelGrowthFlowByRiver_files/figure-html/graphGAMSRPredictionsByRiverBigFish-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelGrowthFlowByRiver_files/figure-html/graphGAMSRPredictionsByRiverBigFish-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 
@@ -1994,6 +2164,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -2062,13 +2259,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -2198,10 +2397,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -2211,8 +2409,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -2225,6 +2432,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -2268,6 +2594,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -2293,6 +2620,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -2354,12 +2707,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./dataFlow.html" class="pagination-link">
+      <a href="./dataFlow.html" class="pagination-link" aria-label="Flow data">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Flow data</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./modelsCMR_ft_cohort_Flow_OB.html" class="pagination-link">
+      <a href="./modelsCMR_ft_cohort_Flow_OB.html" class="pagination-link" aria-label="Flow/survival models - O'Bear (IS) only">
         <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Flow/survival models - O’Bear (IS) only</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -3816,6 +4169,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
+
 
 
 

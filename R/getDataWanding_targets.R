@@ -11,6 +11,7 @@ dataWanding_target <-
           "river", 
           "area", 
           "section", 
+          "riverMeter", #added 5/2/2024
           "survey", 
           "cohort",
           "sampleName", 

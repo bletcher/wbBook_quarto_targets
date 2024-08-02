@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.361">
+<meta name="generator" content="quarto-1.4.550">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -83,7 +83,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -92,6 +98,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -103,7 +110,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </script>
 <script async="" src="https://hypothes.is/embed.js"></script>
-
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
 <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
@@ -116,12 +127,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./getData.html">Get data</a></li><li class="breadcrumb-item"><a href="./getDataWanding.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Get wanding data</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./getData.html">Get data</a></li><li class="breadcrumb-item"><a href="./getDataWanding.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Get wanding data</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -131,7 +142,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">West Brook story</a> 
@@ -342,7 +353,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -371,7 +382,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./getData.html">Get data</a></li><li class="breadcrumb-item"><a href="./getDataWanding.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Get wanding data</span></a></li></ol></nav>
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Get wanding data</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
@@ -386,7 +397,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <p>Data are generated in <code>R/getDataWanding-targets.R</code> <a href="https://github.com/bletcher/wbBook_quarto_targets/blob/main/R/getDataWanding_targets.R">file</a></p>
 <p>Thinking about using the wanding data to evaluate whether we can use the seasonal shocking data to talk about patterns of movement. If there is a lot of movement in the wanding data, may be difficult to justify using the 4 seasonal samples to describe movemenmts. If not much movement, may be ok.<br>
@@ -394,7 +407,7 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 <section id="get-wanding-data-targets" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="get-wanding-data-targets"><span class="header-section-number">6.1</span> Get wanding data targets</h2>
 <div class="cell">
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -435,7 +448,7 @@ Also, just interesting to see movement patterns from the wanding data.</p>
  $ moveRate             : num [1:14880] -4.97 0 NA NA NA ...
  $ month                : num [1:14880] 9 10 10 12 11 11 11 9 9 8 ...</code></pre>
 </div>
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cdWB_wandingTribs3 <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cdWB_wandingTribs3_target)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -443,13 +456,13 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>cdWB_wandingWB3 <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cdWB_wandingWB3_target)</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Save csv for downloading</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#write.csv(cdWB_wanding, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_wanding.csv")</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(cdWB_wanding, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_wanding.csv")</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Save rData file for downloading</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># save(cdWB_wanding, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_wanding.RData")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-hash="getDataWanding_cache/html/tbl-wandAll_b1917cd7fa0f1c4f6dfbd00d99be0ce4">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cdWB_wanding <span class="sc">%&gt;%</span> </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(riverOrdered, cohort) <span class="sc">%&gt;%</span> </span>
@@ -459,10 +472,15 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div id="tbl-wandAll" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-wandAll-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;6.1: Count of wanding data by river
+</figcaption>
+<div aria-describedby="tbl-wandAll-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="tbl-wandAll" class="anchored">
-<table class="table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Table&nbsp;6.1: Count of wanding data by river</caption>
+<div>
+<table class="table do-not-create-environment cell table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th style="text-align: right;" data-quarto-table-cell-role="th">cohort</th>
@@ -587,17 +605,20 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 </tr>
 </tbody>
 </table>
+
+
 </div>
-
-
+</div>
+</div>
+</figure>
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">West Brook</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Jimmy (OL)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Mitchell (OS)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">O’Bear (IS)</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<div class="cell" data-hash="getDataWanding_cache/html/wandWB_7b4e50f64f046b8aa2b6ca966d03cfa1">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cdWB_wanding <span class="sc">%&gt;%</span> </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(riverOrdered <span class="sc">==</span> <span class="st">"West Brook"</span>) <span class="sc">|&gt;</span> </span>
@@ -609,6 +630,7 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
+<div>
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
@@ -1480,9 +1502,10 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 </div>
 </div>
 </div>
+</div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div class="cell" data-hash="getDataWanding_cache/html/wandJimmy_7f8afea7e83bc7721c3f3b8319ebb3e9">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>cdWB_wanding <span class="sc">%&gt;%</span> </span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(riverOrdered <span class="sc">==</span> <span class="st">"WB Jimmy"</span>) <span class="sc">|&gt;</span> </span>
@@ -1494,6 +1517,7 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
+<div>
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
@@ -3720,9 +3744,10 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 </div>
 </div>
 </div>
+</div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<div class="cell" data-hash="getDataWanding_cache/html/wandOS_3efe82eaa115e36693334df17f8c2733">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>cdWB_wanding <span class="sc">%&gt;%</span> </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(riverOrdered <span class="sc">==</span> <span class="st">"WB Mitchell"</span>) <span class="sc">|&gt;</span> </span>
@@ -3734,6 +3759,7 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
+<div>
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
@@ -5795,9 +5821,10 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 </div>
 </div>
 </div>
+</div>
 <div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
-<div class="cell" data-hash="getDataWanding_cache/html/wandOB_97d58907a1302e5fc8614f3d1b36bb5f">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>cdWB_wanding <span class="sc">%&gt;%</span> </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(riverOrdered <span class="sc">==</span> <span class="st">"WB OBear"</span>) <span class="sc">|&gt;</span> </span>
@@ -5809,6 +5836,7 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
+<div>
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
@@ -6407,12 +6435,13 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 </div>
 </div>
 </div>
+</div>
 </section>
 <section id="all-wanding-data" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="all-wanding-data"><span class="header-section-number">6.2</span> All wanding data</h2>
 <p>Based on the following, looks like best data for analysis are trout in the tribs in 2009 2010. Need to decide what to do for salmon</p>
-<div class="cell" data-hash="getDataWanding_cache/html/rawWandingDataGraphs_4bb77a82c5f2a870d0577e5948e72bd1">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#everything</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cdWB_wanding, <span class="fu">aes</span>(j, sectionWQuarter, <span class="at">color =</span> tag) )<span class="sc">+</span></span>
@@ -6424,9 +6453,13 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(riverOrdered <span class="sc">~</span> year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/rawWandingDataGraphs-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/rawWandingDataGraphs-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#everything</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">filter</span>(cdWB_wanding, aliveOrDead <span class="sc">!=</span> <span class="st">'dead'</span>), <span class="fu">aes</span>(j, sectionWQuarter, <span class="at">color =</span> tag) )<span class="sc">+</span></span>
@@ -6438,14 +6471,18 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(river<span class="sc">~</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/rawWandingDataGraphs-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/rawWandingDataGraphs-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
 <section id="tributaries" class="level2" data-number="6.3">
 <h2 data-number="6.3" class="anchored" data-anchor-id="tributaries"><span class="header-section-number">6.3</span> Tributaries</h2>
-<div class="cell" data-hash="getDataWanding_cache/html/tribs_c8311f7ebed371a2fd3c704a4e591d46">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tribs</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop over species</span></span>
@@ -6463,17 +6500,25 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 <span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/tribs-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/tribs-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/tribs-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/tribs-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <section id="which-species_year_tributary" class="level3" data-number="6.3.1">
 <h3 data-number="6.3.1" class="anchored" data-anchor-id="which-species_year_tributary"><span class="header-section-number">6.3.1</span> Which species_year_tributary?</h3>
 <p>Raw data graphs for the 4 sets of data to focus on</p>
-<div class="cell" data-hash="getDataWanding_cache/html/sppYearTrib_eff89aa8ec711b8f984a16cae8da9a1f">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: true</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -6498,48 +6543,96 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 <span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/sppYearTrib-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/sppYearTrib-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/sppYearTrib-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/sppYearTrib-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/sppYearTrib-3.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/sppYearTrib-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/sppYearTrib-4.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/sppYearTrib-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/sppYearTrib-5.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/sppYearTrib-5.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/sppYearTrib-6.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/sppYearTrib-6.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/sppYearTrib-7.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/sppYearTrib-7.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/sppYearTrib-8.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/sppYearTrib-8.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/sppYearTrib-9.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/sppYearTrib-9.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/sppYearTrib-10.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/sppYearTrib-10.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/sppYearTrib-11.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/sppYearTrib-11.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/sppYearTrib-12.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/sppYearTrib-12.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
 <section id="movement" class="level3" data-number="6.3.2">
 <h3 data-number="6.3.2" class="anchored" data-anchor-id="movement"><span class="header-section-number">6.3.2</span> Movement</h3>
 <p>Counts of observations by month, river, year</p>
-<div class="cell" data-hash="getDataWanding_cache/html/table monthYearRiver_541d45515a536e995a0f2bee113ef426">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdWB_wandingTribs3<span class="sc">$</span>month, cdWB_wandingTribs3<span class="sc">$</span>river, cdWB_wandingTribs3<span class="sc">$</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -6560,19 +6653,23 @@ Also, just interesting to see movement patterns from the wanding data.</p>
   10       46          17
   11       21          12</code></pre>
 </div>
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(cdWB_wandingTribs3, <span class="fu">aes</span>(moveRate, <span class="at">color =</span> species)) <span class="sc">+</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_freqpoly</span>() <span class="sc">+</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">facet_grid</span>(river <span class="sc">~</span> year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/table monthYearRiver-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/table monthYearRiver-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Frequency distribution of movement rates</p>
-<div class="cell" data-hash="getDataWanding_cache/html/moverRate_d04ce3f8205e224fda633b3ab987ae13">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cdWB_wandingTribs3, <span class="fu">aes</span>(moveRate, <span class="at">linetype =</span> species)) <span class="sc">+</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_freqpoly</span>(<span class="at">binwidth=</span><span class="dv">5</span>, <span class="at">boundary =</span> <span class="fu">min</span>(cdWB_wandingTribs3<span class="sc">$</span>moveRate)) <span class="sc">+</span></span>
@@ -6586,14 +6683,18 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 <span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span> river)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/moverRate-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/moverRate-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
 <section id="intervals" class="level3" data-number="6.3.3">
 <h3 data-number="6.3.3" class="anchored" data-anchor-id="intervals"><span class="header-section-number">6.3.3</span> Intervals</h3>
-<div class="cell" data-hash="getDataWanding_cache/html/intervals_7a8e56a08a15bbc4b59731933653fe2c">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># #Cut moveTime into intervals to make sure patterns look same for recaptures of different intervals</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -6608,14 +6709,18 @@ Also, just interesting to see movement patterns from the wanding data.</p>
 <span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>   <span class="fu">facet_grid</span>(river<span class="sc">~</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/intervals-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/intervals-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
 <section id="random-effect-models" class="level3" data-number="6.3.4">
 <h3 data-number="6.3.4" class="anchored" data-anchor-id="random-effect-models"><span class="header-section-number">6.3.4</span> Random effect models</h3>
-<div class="cell" data-hash="getDataWanding_cache/html/REModels_597a709e0b2f511825af6329ec0f91ea">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># RE model for individual movement variation</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
@@ -6639,7 +6744,7 @@ mod3  7 7434.280
 mod1  4 7460.786
 mod0  3 7466.674</code></pre>
 </div>
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">summary</span>(mod4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -6703,16 +6808,20 @@ f()11:()201  0.582
 f():()10:() -0.217 -0.127          
 f():()11:() -0.134 -0.231  0.789   </code></pre>
 </div>
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a> randoms <span class="ot">&lt;-</span> <span class="fu">REsim</span>( mod4, <span class="at">n.sims =</span> <span class="dv">1000</span> )</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">plotREsim</span>(randoms)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/REModels-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/REModels-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -6723,9 +6832,13 @@ f():()11:() -0.134 -0.231  0.789   </code></pre>
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/REModels-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/REModels-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # % of fish with CI that don't overlap 0</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a> randoms<span class="sc">$</span>lCI <span class="ot">&lt;-</span> randoms<span class="sc">$</span>mean <span class="sc">-</span> randoms<span class="sc">$</span>sd <span class="sc">*</span> <span class="fl">1.96</span></span>
@@ -6741,8 +6854,8 @@ f():()11:() -0.134 -0.231  0.789   </code></pre>
 </section>
 <section id="young-of-year-fish" class="level3" data-number="6.3.5">
 <h3 data-number="6.3.5" class="anchored" data-anchor-id="young-of-year-fish"><span class="header-section-number">6.3.5</span> Young-of-year fish</h3>
-<div class="cell" data-hash="getDataWanding_cache/html/YOY_12d320301784875afc9ef4330d74b4b6">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cdWB_wandingTribs3, <span class="fu">aes</span>(moveRate, <span class="at">linetype =</span> species)) <span class="sc">+</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_freqpoly</span>() <span class="sc">+</span></span>
@@ -6752,7 +6865,11 @@ f():()11:() -0.134 -0.231  0.789   </code></pre>
 <span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(month <span class="sc">~</span> yoy <span class="sc">+</span> river)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/YOY-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/YOY-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -6763,8 +6880,8 @@ f():()11:() -0.134 -0.231  0.789   </code></pre>
 <section id="west-brook-wanding-data" class="level3" data-number="6.4.1">
 <h3 data-number="6.4.1" class="anchored" data-anchor-id="west-brook-wanding-data"><span class="header-section-number">6.4.1</span> West brook wanding data</h3>
 <p>Calculate and plot movement</p>
-<div class="cell" data-hash="getDataWanding_cache/html/moveWB_fa94812ba2daeba50158476682b55d1e">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop over species</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (s <span class="cf">in</span> <span class="fu">unique</span>(cdWB_wanding<span class="sc">$</span>species)) {</span>
@@ -6781,20 +6898,32 @@ f():()11:() -0.134 -0.231  0.789   </code></pre>
 <span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/moveWB-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/moveWB-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/moveWB-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/moveWB-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/moveWB-3.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/moveWB-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
 <section id="movement-1" class="level3" data-number="6.4.2">
 <h3 data-number="6.4.2" class="anchored" data-anchor-id="movement-1"><span class="header-section-number">6.4.2</span> Movement</h3>
-<div class="cell" data-hash="getDataWanding_cache/html/wb_c26f7a0a159849fcd32183a7399fb367">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdWB_wandingWB3<span class="sc">$</span>species, cdWB_wandingWB3<span class="sc">$</span>month, cdWB_wandingWB3<span class="sc">$</span>river, cdWB_wandingWB3<span class="sc">$</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -6813,7 +6942,7 @@ f():()11:() -0.134 -0.231  0.789   </code></pre>
   ats 186 281 147   0   0   0   0   0
   bkt  90 180  93   0   0   0   0   0</code></pre>
 </div>
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co"># # raw</span></span>
@@ -6826,18 +6955,26 @@ f():()11:() -0.134 -0.231  0.789   </code></pre>
 <span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>   <span class="fu">facet_grid</span>(river<span class="sc">~</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/wb-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/wb-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(cdWB_wandingWB3, <span class="fu">aes</span>(moveRate, <span class="at">color =</span> species)) <span class="sc">+</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_freqpoly</span>() <span class="sc">+</span></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">facet_grid</span>(river <span class="sc">~</span> year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/wb-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/wb-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(cdWB_wandingWB3, <span class="fu">aes</span>(moveRate, <span class="at">linetype=</span>species)) <span class="sc">+</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_freqpoly</span>(<span class="at">binwidth =</span> <span class="dv">5</span>, <span class="at">boundary =</span> <span class="fu">min</span>(cdWB_wandingWB3<span class="sc">$</span>moveRate, <span class="at">na.rm=</span>T)) <span class="sc">+</span></span>
@@ -6850,9 +6987,13 @@ f():()11:() -0.134 -0.231  0.789   </code></pre>
 <span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>          ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/wb-3.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/wb-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># #ats is solid line</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -6862,8 +7003,8 @@ f():()11:() -0.134 -0.231  0.789   </code></pre>
 </section>
 <section id="random-effects-models" class="level3" data-number="6.4.3">
 <h3 data-number="6.4.3" class="anchored" data-anchor-id="random-effects-models"><span class="header-section-number">6.4.3</span> Random effects models</h3>
-<div class="cell" data-hash="getDataWanding_cache/html/RE model for individual movement variation WB_c8093b447c8d378c072c0739ccc6ae68">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>  mod0WB <span class="ot">&lt;-</span> <span class="fu">lmer</span>( <span class="fu">abs</span>(moveRate) <span class="sc">~</span> (<span class="dv">1</span><span class="sc">|</span>tag), <span class="at">data=</span>cdWB_wandingWB3 )</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="do">####</span></span>
@@ -6883,7 +7024,7 @@ mod3WB 11 13001.44
 mod1WB  4 13052.68
 mod0WB  3 13060.72</code></pre>
 </div>
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(mod2WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -6923,15 +7064,19 @@ factor(species)bkt:factor(month)10   59.008     25.208   2.341
 factor(species)bkt:factor(month)11   -8.667      9.734  -0.890
 factor(species)bkt:factor(month)12    4.149     31.494   0.132</code></pre>
 </div>
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>  randomsWB <span class="ot">&lt;-</span> <span class="fu">REsim</span>(mod2WB, <span class="at">n.sims =</span> <span class="dv">1000</span>)</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plotREsim</span>(randomsWB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/RE model for individual movement variation WB-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/RE model for individual movement variation WB-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(randomsWB, <span class="fu">aes</span>(mean)) <span class="sc">+</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">4.75</span>, <span class="at">boundary =</span> <span class="fu">min</span>(randomsWB<span class="sc">$</span>mean)) <span class="sc">+</span></span>
@@ -6940,9 +7085,13 @@ factor(species)bkt:factor(month)12    4.149     31.494   0.132</code></pre>
 <span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="getDataWanding_files/figure-html/RE model for individual movement variation WB-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="getDataWanding_files/figure-html/RE model for individual movement variation WB-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># % of fish with CI that don't overlap 0</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  randomsWB<span class="sc">$</span>lCI <span class="ot">&lt;-</span> randomsWB<span class="sc">$</span>mean <span class="sc">-</span> randomsWB<span class="sc">$</span>sd <span class="sc">*</span> <span class="fl">1.96</span></span>
@@ -6952,7 +7101,7 @@ factor(species)bkt:factor(month)12    4.149     31.494   0.132</code></pre>
 <span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(randomsWB,sig)<span class="sc">$</span>n<span class="sc">/</span><span class="fu">nrow</span>(randomsWB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.90322581 0.09677419</code></pre>
+<pre><code>[1] 0.91129032 0.08870968</code></pre>
 </div>
 </div>
 
@@ -7004,6 +7153,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -7072,13 +7248,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -7208,10 +7386,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -7221,8 +7398,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -7235,6 +7421,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -7278,6 +7583,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -7303,6 +7609,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -7364,12 +7696,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./getDataCMR.html" class="pagination-link">
+      <a href="./getDataCMR.html" class="pagination-link" aria-label="Create Capture-Recapture data">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Create Capture-Recapture data</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./getDataAntenna.html" class="pagination-link">
+      <a href="./getDataAntenna.html" class="pagination-link" aria-label="Get antenna data">
         <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Get antenna data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -7418,7 +7750,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb42-48"><a href="#cb42-48" aria-hidden="true" tabindex="-1"></a>cdWB_wandingWB3 <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cdWB_wandingWB3_target)</span>
 <span id="cb42-49"><a href="#cb42-49" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb42-50"><a href="#cb42-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Save csv for downloading</span></span>
-<span id="cb42-51"><a href="#cb42-51" aria-hidden="true" tabindex="-1"></a><span class="co">#write.csv(cdWB_wanding, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_wanding.csv")</span></span>
+<span id="cb42-51"><a href="#cb42-51" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(cdWB_wanding, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_wanding.csv")</span></span>
 <span id="cb42-52"><a href="#cb42-52" aria-hidden="true" tabindex="-1"></a><span class="co"># Save rData file for downloading</span></span>
 <span id="cb42-53"><a href="#cb42-53" aria-hidden="true" tabindex="-1"></a><span class="co"># save(cdWB_wanding, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_wanding.RData")</span></span>
 <span id="cb42-54"><a href="#cb42-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
@@ -7771,6 +8103,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
+
 
 
 

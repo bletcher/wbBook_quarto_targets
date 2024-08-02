@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.361">
+<meta name="generator" content="quarto-1.4.550">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -83,7 +83,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -92,6 +98,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -103,6 +110,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </script>
 <script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
 
 
 </head>
@@ -113,12 +125,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./modelYOY.html">General models</a></li><li class="breadcrumb-item"><a href="./modelYOY.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Young-of-year size model</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./modelYOY.html">General models</a></li><li class="breadcrumb-item"><a href="./modelYOY.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Young-of-year size model</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -128,7 +140,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">West Brook story</a> 
@@ -339,7 +351,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -376,7 +388,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./modelYOY.html">General models</a></li><li class="breadcrumb-item"><a href="./modelYOY.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Young-of-year size model</span></a></li></ol></nav>
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Young-of-year size model</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
@@ -391,7 +403,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <p>The question here is what is driving <em>body size variation</em> across years in brook trout and brown trout in the WB?</p>
 <p>We focus on ageInSamples == 1 (age-0 fish in the fall sample) fish for growth model. This is the first sampling occasion that most fish are big enough to tag. Not all fish are big enough, however, and there is a number of untagged fish each year. We need to include both tagged and untagged fish in our age-0 size model.</p>
@@ -413,7 +427,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="13.2" class="anchored" data-anchor-id="get-data-from-targets"><span class="header-section-number">13.2</span> Get data from targets</h2>
 <p>West Brook environmental data (flow and temperature) and electrofishing data</p>
 <div class="cell">
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>envDataWB <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(envDataWB_target)</span>
@@ -427,7 +441,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Filter cdWB_electro for first observations in the autumn for age-0 fish (ageInsamples == 1). Including both tagged and untagged fish.</li>
 </ol>
 <div class="cell">
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>firstObs_noTag <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(firstObs_noTag_target)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>firstObs_tag <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(firstObs_tag_target)</span>
@@ -443,7 +457,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 5. Five months preceding capture</p>
 <p>Then merge results with firstObs0 to create firstObs.</p>
 <div class="cell">
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>firstObsDates <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(firstObsDates_target) </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    </span>
@@ -454,27 +468,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Unnest firstObs so environmental summary stats are available as data frame with the name of the time interval as the prefix to the statisticVariable name</p>
 <div class="cell">
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>firstObsUnnested <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(firstObsUnnested_target)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-hash="modelYOY_cache/html/plot1stobsUnnested_479fe413676a0844a53d6c7979d1985c">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(firstObsUnnested, <span class="fu">aes</span>(oneMonth_sumTScaled, fiveMonth_sumTScaled)) <span class="sc">+</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">facet_wrap</span>(<span class="sc">~</span>river)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/plot1stobsUnnested-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/plot1stobsUnnested-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <section id="counts-of-captured-fish" class="level3" data-number="13.3.1">
 <h3 data-number="13.3.1" class="anchored" data-anchor-id="counts-of-captured-fish"><span class="header-section-number">13.3.1</span> Counts of captured fish</h3>
 <p>Min and max years (inclusive) for standardizing counts This is in targets, not sure if needed here</p>
-<div class="cell" data-hash="modelYOY_cache/html/minMaxYear_30e971aa85c9165e97f742f16ab8af62">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>minYear <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>maxYear <span class="ot">&lt;-</span> <span class="dv">2015</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -482,13 +500,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Counts by river and species</p>
 <div class="cell">
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>countsRSY <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(countsRSY_target)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-hash="modelYOY_cache/html/plotRawcounts_caf60926e11755f58f6197b1b3cb53e7">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(countsRSY, <span class="fu">aes</span>(year, countRS_Scaled, <span class="at">color =</span> species)) <span class="sc">+</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -496,49 +514,61 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> river)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/plotRawcounts-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/plotRawcounts-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Counts by river</p>
 <div class="cell">
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>countsRY <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(countsRY_target)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-hash="modelYOY_cache/html/plotCountsRY_697114e97f24e3c0fbb811b91d66dbc8">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(countsRY, <span class="fu">aes</span>(year, countR_Scaled, <span class="at">color =</span> river)) <span class="sc">+</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/plotCountsRY-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/plotCountsRY-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Counts for the metaPopulation (WB, Jimmy, Mitchell)<br>
 Use these for modelling.</p>
-<div class="cell" data-hash="modelYOY_cache/html/countsMeta_f23141ec6e75cefe0615adf479f9a162">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>countsMetaY <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(countsMetaY_target)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-hash="modelYOY_cache/html/plotCountsMeta_9c77fde8d139eef8bf5b151751d5036c">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(countsMetaY, <span class="fu">aes</span>(year, count_Scaled)) <span class="sc">+</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/plotCountsMeta-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/plotCountsMeta-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Merge metapopulation scaled counts into firstObsUnnested</p>
 <div class="cell">
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>firstObsUnnested <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(firstObsUnnested_target)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>firstObsUnnestedWB <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(firstObsUnnestedWB_target)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -553,8 +583,8 @@ Use these for modelling.</p>
 </section>
 <section id="brook-trout-west-brook" class="level3" data-number="13.4.2">
 <h3 data-number="13.4.2" class="anchored" data-anchor-id="brook-trout-west-brook"><span class="header-section-number">13.4.2</span> Brook Trout, West brook</h3>
-<div class="cell" data-hash="modelYOY_cache/html/raw data plots1_3ecd9f5ec49c3fc9f5b3828c1dd672bc">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">#cd1 &lt;- cdWB_electro %&gt;% filter(ageInSamples == 1, species != 'ats')</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -573,55 +603,83 @@ Use these for modelling.</p>
 <span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plotSppRiv</span>(species, riverOrdered)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/raw data plots1-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/raw data plots1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
 <section id="brook-trout-wb-jimmy" class="level3" data-number="13.4.3">
 <h3 data-number="13.4.3" class="anchored" data-anchor-id="brook-trout-wb-jimmy"><span class="header-section-number">13.4.3</span> Brook Trout, wb jimmy</h3>
-<div class="cell" data-hash="modelYOY_cache/html/raw data plots2_018383d6812c632bbba4d1a87de670a1">
+<div class="cell">
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/raw data plots2-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/raw data plots2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
 <section id="brook-trout-wb-mitchell" class="level3" data-number="13.4.4">
 <h3 data-number="13.4.4" class="anchored" data-anchor-id="brook-trout-wb-mitchell"><span class="header-section-number">13.4.4</span> Brook Trout, wb mitchell</h3>
-<div class="cell" data-hash="modelYOY_cache/html/raw data plots3_42c1be73c782263fee0bc19541e8690f">
+<div class="cell">
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/raw data plots3-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/raw data plots3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
 <section id="brook-trout-wb-obear" class="level3" data-number="13.4.5">
 <h3 data-number="13.4.5" class="anchored" data-anchor-id="brook-trout-wb-obear"><span class="header-section-number">13.4.5</span> Brook Trout, wb obear</h3>
-<div class="cell" data-hash="modelYOY_cache/html/raw data plots4_262df9095333f0fa9b578956d3ae00ca">
+<div class="cell">
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/raw data plots4-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/raw data plots4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
 <section id="brown-trout-west-brook" class="level3" data-number="13.4.6">
 <h3 data-number="13.4.6" class="anchored" data-anchor-id="brown-trout-west-brook"><span class="header-section-number">13.4.6</span> Brown Trout, West brook</h3>
-<div class="cell" data-hash="modelYOY_cache/html/raw data plots5_38225dc3ea14af77fb95d90d1745e355">
+<div class="cell">
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/raw data plots5-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/raw data plots5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
 <section id="brown-trout-wb-jimmy" class="level3" data-number="13.4.7">
 <h3 data-number="13.4.7" class="anchored" data-anchor-id="brown-trout-wb-jimmy"><span class="header-section-number">13.4.7</span> Brown Trout, wb jimmy</h3>
-<div class="cell" data-hash="modelYOY_cache/html/raw data plots6_e35571b793513e75233ea1230f9eeaeb">
+<div class="cell">
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/raw data plots6-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/raw data plots6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
 <section id="brown-trout-wb-mitchell" class="level3" data-number="13.4.8">
 <h3 data-number="13.4.8" class="anchored" data-anchor-id="brown-trout-wb-mitchell"><span class="header-section-number">13.4.8</span> Brown Trout, wb mitchell</h3>
-<div class="cell" data-hash="modelYOY_cache/html/raw data plots7_4a69503c368873a9eb10604c5e350414">
+<div class="cell">
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/raw data plots7-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/raw data plots7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -630,8 +688,8 @@ Use these for modelling.</p>
 </section>
 <section id="trout-in-the-wb-mainstem-only" class="level3" data-number="13.4.10">
 <h3 data-number="13.4.10" class="anchored" data-anchor-id="trout-in-the-wb-mainstem-only"><span class="header-section-number">13.4.10</span> Trout, in the WB mainstem only</h3>
-<div class="cell" data-hash="modelYOY_cache/html/troutWB_abeb30816fcff94d6341e8cd53c11b50">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(firstObs <span class="sc">%&gt;%</span> <span class="fu">filter</span>(species <span class="sc">!=</span> <span class="st">"ats"</span>), <span class="fu">aes</span>(observedLength)) <span class="sc">+</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_freqpoly</span>() <span class="sc">+</span></span>
@@ -639,9 +697,13 @@ Use these for modelling.</p>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(species <span class="sc">~</span> year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/troutWB-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/troutWB-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(firstObs <span class="sc">%&gt;%</span> <span class="fu">filter</span>(species <span class="sc">!=</span> <span class="st">"ats"</span>), <span class="fu">aes</span>(observedLength, <span class="at">color =</span> <span class="fu">is.na</span>(tag))) <span class="sc">+</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_freqpoly</span>() <span class="sc">+</span></span>
@@ -649,15 +711,19 @@ Use these for modelling.</p>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(species <span class="sc">~</span> year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/troutWB-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/troutWB-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
 <section id="why-are-there-untagged-fish-bigger-than-60mm" class="level3" data-number="13.4.11">
 <h3 data-number="13.4.11" class="anchored" data-anchor-id="why-are-there-untagged-fish-bigger-than-60mm"><span class="header-section-number">13.4.11</span> Why are there untagged fish bigger than 60mm?</h3>
 <p>Check 2002/bkt/WB, as an example Answer: because they are outside the study area (area = ‘above’ or ‘below’) or were tagging mortalities</p>
-<div class="cell" data-hash="modelYOY_cache/html/2002 untagged_fcb842dae61bba5624a82da842d95e2c">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>  firstObs2002BKT <span class="ot">&lt;-</span> firstObs <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2002</span>, species <span class="sc">==</span> <span class="st">"bkt"</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">table</span>(<span class="fu">is.na</span>(firstObs2002BKT<span class="sc">$</span>tag))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -667,16 +733,20 @@ Use these for modelling.</p>
 FALSE  TRUE 
   295   253 </code></pre>
 </div>
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(firstObs2002BKT, <span class="fu">aes</span>(observedLength, <span class="at">color =</span> <span class="fu">is.na</span>(tag))) <span class="sc">+</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_freqpoly</span>() <span class="sc">+</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">60</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/2002 untagged-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/2002 untagged-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># looks like untagged area=inside fish wee morts, the rest were above or below</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(firstObs2002BKT, <span class="fu">aes</span>(observedLength, <span class="at">color =</span> <span class="fu">is.na</span>(tag))) <span class="sc">+</span></span>
@@ -685,9 +755,13 @@ FALSE  TRUE
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(<span class="sc">~</span>area)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/2002 untagged-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/2002 untagged-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># check 2003</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(firstObs <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2003</span>, species <span class="sc">==</span> <span class="st">"bkt"</span>), <span class="fu">aes</span>(observedLength, <span class="at">color =</span> <span class="fu">is.na</span>(tag))) <span class="sc">+</span></span>
@@ -696,9 +770,13 @@ FALSE  TRUE
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(<span class="sc">~</span>area)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/2002 untagged-3.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/2002 untagged-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># same story as 2002</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -708,8 +786,8 @@ FALSE  TRUE
 <section id="models-based-on-yearly-means" class="level2" data-number="13.5">
 <h2 data-number="13.5" class="anchored" data-anchor-id="models-based-on-yearly-means"><span class="header-section-number">13.5</span> Models based on yearly means</h2>
 <p>Filter firstObsUnnestedWB for bkt, bnt and min/maxYear</p>
-<div class="cell" data-hash="modelYOY_cache/html/filter firstObsUnnestedWB_0e8ebe0911e7e89ca07647ea7d3aefc9">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>d_WB_BKT_BNT <span class="ot">&lt;-</span> firstObsUnnestedWB <span class="sc">%&gt;%</span> <span class="fu">filter</span>(species <span class="sc">!=</span> <span class="st">"ats"</span>, year <span class="sc">%in%</span> minYear<span class="sc">:</span>maxYear) <span class="sc">%&gt;%</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species01 =</span> <span class="fu">ifelse</span>(species <span class="sc">==</span> <span class="st">"bkt"</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
@@ -717,17 +795,21 @@ FALSE  TRUE
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(d_WB_BKT_BNT<span class="sc">$</span>detectionDate, <span class="at">breaks =</span> <span class="dv">250</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/filter firstObsUnnestedWB-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/filter firstObsUnnestedWB-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>d_BKT_BNT <span class="ot">&lt;-</span> firstObsUnnested <span class="sc">%&gt;%</span> <span class="fu">filter</span>(species <span class="sc">!=</span> <span class="st">"ats"</span>, year <span class="sc">%in%</span> minYear<span class="sc">:</span>maxYear) <span class="sc">%&gt;%</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species01 =</span> <span class="fu">ifelse</span>(species <span class="sc">==</span> <span class="st">"bkt"</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Mean model functions d_WB_BKT_BNT, “oneMonth_sumTScaled”, “oneMonth_sumFScaled” means1R &lt;- getMeansDataByRiver(d_BKT_BNT, “oneMonth_sumTScaled”, “oneMonth_sumFScaled”)</p>
-<div class="cell" data-hash="modelYOY_cache/html/meanModelFunctions_93e47a26f2a4b4be4f2c05d4ddc6a9da">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>getMeansData <span class="ot">&lt;-</span> <span class="cf">function</span>(d, t, f) {</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  means <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span> </span>
@@ -783,55 +865,83 @@ FALSE  TRUE
 </details>
 </div>
 <p>Mean lengths by river. This is information only. Using the WB data only shown here and in the next graph for the models.</p>
-<div class="cell" data-hash="modelYOY_cache/html/meanLengthsR_5f5cef99bdf25215d19935c0ba0078ec">
+<div class="cell">
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/meanLengthsR-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/meanLengthsR-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Mean lengths for the mean length model.</p>
-<div class="cell" data-hash="modelYOY_cache/html/meanLengths_88466363a0162cb5599645b613216425">
+<div class="cell">
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/meanLengths-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/meanLengths-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Graphs for variables that do not depend on number of months</p>
-<div class="cell" data-hash="modelYOY_cache/html/staticGraphs_ec02badc5c51fc8404d0d39d44b586a4">
+<div class="cell">
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/staticGraphs-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/staticGraphs-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/staticGraphs-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/staticGraphs-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <section id="models-with-flow-and-temperature-from-previous-one-month" class="level4" data-number="13.5.0.1">
 <h4 data-number="13.5.0.1" class="anchored" data-anchor-id="models-with-flow-and-temperature-from-previous-one-month"><span class="header-section-number">13.5.0.1</span> Models with flow and temperature from previous <em>one</em> month</h4>
 <p>These models don’t run now (Jan 2024) because there is no vaiability in these variables <code>meanFTime_sumFScaled</code> + <code>meanTTime_sumTScaled</code>. Tried to track this down in <code>modelYOY.R</code>, but couldn’t find the reason - needs more digging.</p>
-<div class="cell" data-hash="modelYOY_cache/html/means1Month_7125776ca4ca1cf3bcd3927c772f6f8d">
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/means1Month-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/means1Month-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 [[2]]</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/means1Month-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/means1Month-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 [[3]]</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/means1Month-3.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/means1Month-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          df      AIC
-mod1[[1]]  5 203.0546
-mod1[[2]]  8 206.3338
-mod1[[3]]  9 207.9349</code></pre>
+mod1[[2]] 17 166.7302
+mod1[[3]] 27 168.9849
+mod1[[1]]  7 173.5608</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -842,54 +952,66 @@ lm(formula = meanLength ~ (factor(species) + meanFTime_sumFScaled +
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--9.6248 -1.9281 -0.5945  3.5942 12.4438 
+-5.1418 -1.5452 -0.2163  0.6176  8.6697 
 
-Coefficients: (2 not defined because of singularities)
+Coefficients:
                      Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)           70.9536     1.3330  53.229   &lt;2e-16 ***
-factor(species)bnt     0.9456     1.8744   0.504   0.6179    
-meanFTime_sumFScaled       NA         NA      NA       NA    
-meanTTime_sumTScaled       NA         NA      NA       NA    
-meanYdayScaled         3.3232     1.7043   1.950   0.0613 .  
-meanCount_Scaled      -2.6859     0.9826  -2.733   0.0107 *  
+(Intercept)           71.5616     0.9641  74.225  &lt; 2e-16 ***
+factor(species)bnt     0.6987     1.1533   0.606 0.549878    
+meanFTime_sumFScaled   2.3098     0.4069   5.676  5.7e-06 ***
+meanTTime_sumTScaled -10.0733     2.0639  -4.881  4.6e-05 ***
+meanYdayScaled        -3.5099     1.4881  -2.359 0.026137 *  
+meanCount_Scaled      -2.5990     0.6169  -4.213 0.000268 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 5.282 on 28 degrees of freedom
-Multiple R-squared:  0.3324,    Adjusted R-squared:  0.2609 
-F-statistic: 4.648 on 3 and 28 DF,  p-value: 0.009275</code></pre>
+Residual standard error: 3.248 on 26 degrees of freedom
+Multiple R-squared:  0.7656,    Adjusted R-squared:  0.7205 
+F-statistic: 16.99 on 5 and 26 DF,  p-value: 1.804e-07</code></pre>
 </div>
 </div>
 <p>Relative importance for main effects model</p>
 </section>
 <section id="models-with-flow-and-temperature-from-previous-three-months" class="level4" data-number="13.5.0.2">
 <h4 data-number="13.5.0.2" class="anchored" data-anchor-id="models-with-flow-and-temperature-from-previous-three-months"><span class="header-section-number">13.5.0.2</span> Models with flow and temperature from previous <em>three</em> months</h4>
-<div class="cell" data-hash="modelYOY_cache/html/means3Month_d8adcecac4b9a074eb34e69f7795346d">
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/means3Month-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/means3Month-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 [[2]]</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/means3Month-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/means3Month-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 [[3]]</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/means3Month-3.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/means3Month-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          df      AIC
-mod3[[1]]  5 203.0546
-mod3[[2]]  8 206.3338
-mod3[[3]]  9 207.9349</code></pre>
+mod3[[2]] 17 170.8139
+mod3[[3]] 27 171.0687
+mod3[[1]]  7 181.1604</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -900,54 +1022,66 @@ lm(formula = meanLength ~ (factor(species) + meanFTime_sumFScaled +
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--9.6248 -1.9281 -0.5945  3.5942 12.4438 
+-5.8591 -2.2750 -0.1482  1.8597  8.8874 
 
-Coefficients: (2 not defined because of singularities)
+Coefficients:
                      Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)           70.9536     1.3330  53.229   &lt;2e-16 ***
-factor(species)bnt     0.9456     1.8744   0.504   0.6179    
-meanFTime_sumFScaled       NA         NA      NA       NA    
-meanTTime_sumTScaled       NA         NA      NA       NA    
-meanYdayScaled         3.3232     1.7043   1.950   0.0613 .  
-meanCount_Scaled      -2.6859     0.9826  -2.733   0.0107 *  
+(Intercept)           73.5967     1.6917  43.505  &lt; 2e-16 ***
+factor(species)bnt     0.8862     1.2980   0.683 0.500829    
+meanFTime_sumFScaled   3.0110     0.6225   4.837 5.17e-05 ***
+meanTTime_sumTScaled -11.6202     3.3421  -3.477 0.001799 ** 
+meanYdayScaled         0.9634     1.2538   0.768 0.449180    
+meanCount_Scaled      -3.0175     0.7220  -4.179 0.000292 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 5.282 on 28 degrees of freedom
-Multiple R-squared:  0.3324,    Adjusted R-squared:  0.2609 
-F-statistic: 4.648 on 3 and 28 DF,  p-value: 0.009275</code></pre>
+Residual standard error: 3.657 on 26 degrees of freedom
+Multiple R-squared:  0.7028,    Adjusted R-squared:  0.6456 
+F-statistic:  12.3 on 5 and 26 DF,  p-value: 3.52e-06</code></pre>
 </div>
 </div>
 <p>Relative importance for main effects model</p>
 </section>
 <section id="models-with-flow-and-temperature-from-previous-five-months" class="level4" data-number="13.5.0.3">
 <h4 data-number="13.5.0.3" class="anchored" data-anchor-id="models-with-flow-and-temperature-from-previous-five-months"><span class="header-section-number">13.5.0.3</span> Models with flow and temperature from previous <em>five</em> months</h4>
-<div class="cell" data-hash="modelYOY_cache/html/means5Month_84de8acc6bc82456b81f2a2f8792deaf">
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/means5Month-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/means5Month-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 [[2]]</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/means5Month-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/means5Month-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 [[3]]</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/means5Month-3.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/means5Month-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          df      AIC
-mod5[[1]]  5 203.0546
-mod5[[2]]  8 206.3338
-mod5[[3]]  9 207.9349</code></pre>
+mod5[[3]] 27 131.3590
+mod5[[1]]  7 188.6845
+mod5[[2]] 17 194.4131</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -958,22 +1092,22 @@ lm(formula = meanLength ~ (factor(species) + meanFTime_sumFScaled +
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--9.6248 -1.9281 -0.5945  3.5942 12.4438 
+-5.9005 -2.7936 -0.4904  2.1352 10.8207 
 
-Coefficients: (2 not defined because of singularities)
+Coefficients:
                      Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)           70.9536     1.3330  53.229   &lt;2e-16 ***
-factor(species)bnt     0.9456     1.8744   0.504   0.6179    
-meanFTime_sumFScaled       NA         NA      NA       NA    
-meanTTime_sumTScaled       NA         NA      NA       NA    
-meanYdayScaled         3.3232     1.7043   1.950   0.0613 .  
-meanCount_Scaled      -2.6859     0.9826  -2.733   0.0107 *  
+(Intercept)           71.3103     1.7354  41.090  &lt; 2e-16 ***
+factor(species)bnt     0.9500     1.4599   0.651 0.520922    
+meanFTime_sumFScaled   3.3114     0.8555   3.871 0.000654 ***
+meanTTime_sumTScaled  -5.8759     2.6680  -2.202 0.036710 *  
+meanYdayScaled         4.0720     1.4063   2.895 0.007574 ** 
+meanCount_Scaled      -2.6409     0.8102  -3.260 0.003106 ** 
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 5.282 on 28 degrees of freedom
-Multiple R-squared:  0.3324,    Adjusted R-squared:  0.2609 
-F-statistic: 4.648 on 3 and 28 DF,  p-value: 0.009275</code></pre>
+Residual standard error: 4.114 on 26 degrees of freedom
+Multiple R-squared:  0.624, Adjusted R-squared:  0.5517 
+F-statistic:  8.63 on 5 and 26 DF,  p-value: 6.379e-05</code></pre>
 </div>
 </div>
 <p>Relative importance for main effects model</p>
@@ -984,22 +1118,22 @@ F-statistic: 4.648 on 3 and 28 DF,  p-value: 0.009275</code></pre>
 <h3 data-number="13.5.1" class="anchored" data-anchor-id="models-with-extreme-flow-events-droughts"><span class="header-section-number">13.5.1</span> Models with extreme flow events (droughts)</h3>
 <p>We get negative cumulFlows because we have some negative flows from the flow extension model</p>
 <div class="cell">
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># put some of these calculations into envDataWB</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>envDataWBFlow <span class="ot">=</span> <span class="fu">tar_read</span>(envDataWBFlow_target)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-hash="modelYOY_cache/html/firstObsYears_e79b6306f12a72c3e8e181349b2e421c">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>firstObsYears <span class="ot">&lt;-</span> firstObs <span class="sc">%&gt;%</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">%in%</span> minYear<span class="sc">:</span>maxYear, </span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>           yday <span class="sc">&gt;</span> <span class="dv">100</span>, yday <span class="sc">&lt;</span> <span class="dv">300</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-hash="modelYOY_cache/html/plotDrought_a94a2905b096316ba8de996aba09deb8">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envDataWBFlow, <span class="fu">aes</span>(yday, flow)) <span class="sc">+</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(yday, observedLength<span class="sc">/</span><span class="dv">20</span>), <span class="at">size =</span> <span class="fl">0.75</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">color =</span> <span class="st">'lightblue'</span>, <span class="at">data =</span> firstObsYears) <span class="sc">+</span></span>
@@ -1008,9 +1142,13 @@ F-statistic: 4.648 on 3 and 28 DF,  p-value: 0.009275</code></pre>
 <span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/plotDrought-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/plotDrought-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envDataWBFlow, <span class="fu">aes</span>(yday, cumulFlow <span class="sc">/</span> <span class="dv">10</span>)) <span class="sc">+</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(yday, observedLength <span class="sc">/</span> <span class="dv">20</span>), <span class="at">size =</span> <span class="fl">0.75</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">color =</span> <span class="st">'lightblue'</span>, <span class="at">data =</span> firstObsYears) <span class="sc">+</span></span>
@@ -1022,18 +1160,26 @@ F-statistic: 4.648 on 3 and 28 DF,  p-value: 0.009275</code></pre>
 <span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/plotDrought-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/plotDrought-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envDataWBFlow, <span class="fu">aes</span>(yday, cumulFlow, <span class="at">color =</span> (year))) <span class="sc">+</span></span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">300</span>, <span class="dv">30</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/plotDrought-3.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/plotDrought-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envDataWBFlow, <span class="fu">aes</span>(yday, cumulTemp, <span class="at">color =</span> (year))) <span class="sc">+</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -1041,13 +1187,17 @@ F-statistic: 4.648 on 3 and 28 DF,  p-value: 0.009275</code></pre>
 <span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">300</span>, <span class="dv">30</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/plotDrought-4.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/plotDrought-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Is there a sampling section effect?</p>
 <p>Note: there are fish in sections &gt; 50 for years 2002 and 2003, need to filter out early</p>
-<div class="cell" data-hash="modelYOY_cache/html/unnamed-chunk-41_216252a6c6bb94be2c627366e37d8020">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d_WB_BKT_BNT <span class="sc">%&gt;%</span> <span class="fu">filter</span>( section <span class="sc">&lt;=</span> <span class="dv">47</span>), <span class="fu">aes</span>(<span class="fu">factor</span>(section), observedLength)) <span class="sc">+</span></span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
@@ -1055,9 +1205,13 @@ F-statistic: 4.648 on 3 and 28 DF,  p-value: 0.009275</code></pre>
 <span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d_WB_BKT_BNT <span class="sc">%&gt;%</span> <span class="fu">filter</span>( section <span class="sc">&lt;=</span> <span class="dv">47</span>), <span class="fu">aes</span>(<span class="fu">factor</span>(year), observedLength)) <span class="sc">+</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
@@ -1065,7 +1219,11 @@ F-statistic: 4.648 on 3 and 28 DF,  p-value: 0.009275</code></pre>
 <span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>section)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="modelYOY_files/figure-html/unnamed-chunk-41-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="modelYOY_files/figure-html/unnamed-chunk-41-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 
@@ -1117,6 +1275,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -1185,13 +1370,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -1321,10 +1508,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1334,8 +1520,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1348,6 +1543,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1391,6 +1705,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1416,6 +1731,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1477,12 +1818,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./modelsCMR_ft_cohort_Flow_WB.html" class="pagination-link">
+      <a href="./modelsCMR_ft_cohort_Flow_WB.html" class="pagination-link" aria-label="Survival by river/area">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Survival by river/area</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./modelFlow.html" class="pagination-link">
+      <a href="./modelFlow.html" class="pagination-link" aria-label="Flow model">
         <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Flow model</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1904,222 +2245,224 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb49-473"><a href="#cb49-473" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb49-474"><a href="#cb49-474" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb49-475"><a href="#cb49-475" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Models with flow and temperature from previous *one* month</span></span>
-<span id="cb49-476"><a href="#cb49-476" aria-hidden="true" tabindex="-1"></a>These models don't run now (Jan 2024) because there is no vaiability in these variables <span class="in">`meanFTime_sumFScaled`</span> + <span class="in">`meanTTime_sumTScaled`</span>. Tried to track this down in <span class="in">`modelYOY.R`</span>, but couldn't find the reason - needs more digging.</span>
-<span id="cb49-479"><a href="#cb49-479" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb49-480"><a href="#cb49-480" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: means1Month</span></span>
-<span id="cb49-481"><a href="#cb49-481" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb49-482"><a href="#cb49-482" aria-hidden="true" tabindex="-1"></a><span class="co">#means1 calculated above</span></span>
-<span id="cb49-483"><a href="#cb49-483" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMeans</span>(means1)</span>
-<span id="cb49-484"><a href="#cb49-484" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">runMeanModels</span>(means1)</span>
-<span id="cb49-485"><a href="#cb49-485" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-486"><a href="#cb49-486" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod1[[<span class="dv">1</span>]], mod1[[<span class="dv">2</span>]], mod1[[<span class="dv">3</span>]]) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(AIC)</span>
-<span id="cb49-487"><a href="#cb49-487" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-488"><a href="#cb49-488" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1[[<span class="dv">1</span>]])</span>
-<span id="cb49-489"><a href="#cb49-489" aria-hidden="true" tabindex="-1"></a><span class="co">#rI1 &lt;- relaimpo::calc.relimp(mod1[[1]])</span></span>
-<span id="cb49-490"><a href="#cb49-490" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-491"><a href="#cb49-491" aria-hidden="true" tabindex="-1"></a><span class="co">#save(means1, mod1, file = "models/YOY/mod1LMMeans.Rdata")</span></span>
-<span id="cb49-492"><a href="#cb49-492" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb49-493"><a href="#cb49-493" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-494"><a href="#cb49-494" aria-hidden="true" tabindex="-1"></a>Relative importance for main effects model</span>
-<span id="cb49-495"><a href="#cb49-495" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-498"><a href="#cb49-498" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb49-499"><a href="#cb49-499" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: rI1</span></span>
-<span id="cb49-500"><a href="#cb49-500" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb49-501"><a href="#cb49-501" aria-hidden="true" tabindex="-1"></a><span class="co">#rI1$lmg</span></span>
-<span id="cb49-502"><a href="#cb49-502" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb49-503"><a href="#cb49-503" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-504"><a href="#cb49-504" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Models with flow and temperature from previous *three* months</span></span>
-<span id="cb49-505"><a href="#cb49-505" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-508"><a href="#cb49-508" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb49-509"><a href="#cb49-509" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: means3Month</span></span>
-<span id="cb49-510"><a href="#cb49-510" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb49-511"><a href="#cb49-511" aria-hidden="true" tabindex="-1"></a>means3 <span class="ot">&lt;-</span> <span class="fu">getMeansData</span>(d_WB_BKT_BNT, <span class="st">"threeMonth_sumTScaled"</span>, <span class="st">"threeMonth_sumFScaled"</span>)</span>
-<span id="cb49-512"><a href="#cb49-512" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMeans</span>(means3)</span>
-<span id="cb49-513"><a href="#cb49-513" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">runMeanModels</span>(means3)</span>
-<span id="cb49-514"><a href="#cb49-514" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-515"><a href="#cb49-515" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod3[[<span class="dv">1</span>]], mod3[[<span class="dv">2</span>]], mod3[[<span class="dv">3</span>]]) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(AIC)</span>
-<span id="cb49-516"><a href="#cb49-516" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-517"><a href="#cb49-517" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod3[[<span class="dv">1</span>]])</span>
-<span id="cb49-518"><a href="#cb49-518" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-519"><a href="#cb49-519" aria-hidden="true" tabindex="-1"></a><span class="co">#rI3 &lt;- relaimpo::calc.relimp(mod3[[1]])</span></span>
-<span id="cb49-520"><a href="#cb49-520" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-521"><a href="#cb49-521" aria-hidden="true" tabindex="-1"></a><span class="co">#save(means3, mod3, file = "models/mod3LMMeans.Rdata")</span></span>
-<span id="cb49-522"><a href="#cb49-522" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb49-523"><a href="#cb49-523" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-524"><a href="#cb49-524" aria-hidden="true" tabindex="-1"></a>Relative importance for main effects model</span>
-<span id="cb49-525"><a href="#cb49-525" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-528"><a href="#cb49-528" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb49-529"><a href="#cb49-529" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: rI3</span></span>
-<span id="cb49-530"><a href="#cb49-530" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb49-531"><a href="#cb49-531" aria-hidden="true" tabindex="-1"></a><span class="co">#rI3$lmg</span></span>
-<span id="cb49-532"><a href="#cb49-532" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb49-533"><a href="#cb49-533" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-534"><a href="#cb49-534" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Models with flow and temperature from previous *five* months</span></span>
-<span id="cb49-535"><a href="#cb49-535" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-538"><a href="#cb49-538" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb49-539"><a href="#cb49-539" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: means5Month</span></span>
-<span id="cb49-540"><a href="#cb49-540" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb49-541"><a href="#cb49-541" aria-hidden="true" tabindex="-1"></a>means5 <span class="ot">&lt;-</span> <span class="fu">getMeansData</span>(d_WB_BKT_BNT, <span class="st">"fiveMonth_sumTScaled"</span>, <span class="st">"fiveMonth_sumFScaled"</span>)</span>
-<span id="cb49-542"><a href="#cb49-542" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMeans</span>(means5)</span>
-<span id="cb49-543"><a href="#cb49-543" aria-hidden="true" tabindex="-1"></a>mod5 <span class="ot">&lt;-</span> <span class="fu">runMeanModels</span>(means5)</span>
-<span id="cb49-544"><a href="#cb49-544" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-545"><a href="#cb49-545" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod5[[<span class="dv">1</span>]], mod5[[<span class="dv">2</span>]], mod5[[<span class="dv">3</span>]]) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(AIC)</span>
-<span id="cb49-546"><a href="#cb49-546" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-547"><a href="#cb49-547" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod5[[<span class="dv">1</span>]])</span>
-<span id="cb49-548"><a href="#cb49-548" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-549"><a href="#cb49-549" aria-hidden="true" tabindex="-1"></a><span class="co">#rI5 &lt;- relaimpo::calc.relimp(mod5[[1]])</span></span>
-<span id="cb49-550"><a href="#cb49-550" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-551"><a href="#cb49-551" aria-hidden="true" tabindex="-1"></a><span class="co">#save(means5, mod5, file = "models/mod5LMMeans.Rdata")</span></span>
-<span id="cb49-552"><a href="#cb49-552" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb49-553"><a href="#cb49-553" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-554"><a href="#cb49-554" aria-hidden="true" tabindex="-1"></a>Relative importance for main effects model</span>
-<span id="cb49-555"><a href="#cb49-555" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-558"><a href="#cb49-558" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb49-559"><a href="#cb49-559" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: rI5</span></span>
-<span id="cb49-560"><a href="#cb49-560" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb49-561"><a href="#cb49-561" aria-hidden="true" tabindex="-1"></a><span class="co">#rI5$lmg</span></span>
-<span id="cb49-562"><a href="#cb49-562" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb49-563"><a href="#cb49-563" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-564"><a href="#cb49-564" aria-hidden="true" tabindex="-1"></a>r-squared values and AICs for 1st, 2nd (2-way interactions) and 3rd (3-way interactions) order models</span>
-<span id="cb49-565"><a href="#cb49-565" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-568"><a href="#cb49-568" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb49-569"><a href="#cb49-569" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: r2</span></span>
-<span id="cb49-570"><a href="#cb49-570" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb49-571"><a href="#cb49-571" aria-hidden="true" tabindex="-1"></a><span class="co"># knitr::kable(</span></span>
-<span id="cb49-572"><a href="#cb49-572" aria-hidden="true" tabindex="-1"></a><span class="co">#  tibble(Order = c(1,2,3),r2 = c(summary(mod1[[1]])$r.squared, summary(mod1[[2]])$r.squared, summary(mod1[[3]])$r.squared)) %&gt;% add_column(numMonths = 1),</span></span>
-<span id="cb49-573"><a href="#cb49-573" aria-hidden="true" tabindex="-1"></a><span class="co">#  digits = 3</span></span>
-<span id="cb49-574"><a href="#cb49-574" aria-hidden="true" tabindex="-1"></a><span class="co"># ) %&gt;%</span></span>
-<span id="cb49-575"><a href="#cb49-575" aria-hidden="true" tabindex="-1"></a><span class="co">#   kable_styling(full_width = FALSE)</span></span>
-<span id="cb49-576"><a href="#cb49-576" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb49-577"><a href="#cb49-577" aria-hidden="true" tabindex="-1"></a><span class="co"># knitr::kable(</span></span>
-<span id="cb49-578"><a href="#cb49-578" aria-hidden="true" tabindex="-1"></a><span class="co">#  tibble(Order = c(1,2,3),r2 = c(summary(mod3[[1]])$r.squared, summary(mod3[[2]])$r.squared, summary(mod3[[3]])$r.squared)) %&gt;% add_column(numMonths = 3),</span></span>
-<span id="cb49-579"><a href="#cb49-579" aria-hidden="true" tabindex="-1"></a><span class="co">#  digits = 3</span></span>
-<span id="cb49-580"><a href="#cb49-580" aria-hidden="true" tabindex="-1"></a><span class="co"># ) %&gt;%</span></span>
-<span id="cb49-581"><a href="#cb49-581" aria-hidden="true" tabindex="-1"></a><span class="co">#   kable_styling(full_width = FALSE)</span></span>
-<span id="cb49-582"><a href="#cb49-582" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb49-583"><a href="#cb49-583" aria-hidden="true" tabindex="-1"></a><span class="co"># knitr::kable(</span></span>
-<span id="cb49-584"><a href="#cb49-584" aria-hidden="true" tabindex="-1"></a><span class="co">#  tibble(Order = c(1,2,3),r2 = c(summary(mod5[[1]])$r.squared, summary(mod5[[2]])$r.squared, summary(mod5[[3]])$r.squared)) %&gt;% add_column(numMonths = 5),</span></span>
-<span id="cb49-585"><a href="#cb49-585" aria-hidden="true" tabindex="-1"></a><span class="co">#  digits = 3</span></span>
-<span id="cb49-586"><a href="#cb49-586" aria-hidden="true" tabindex="-1"></a><span class="co"># ) %&gt;%</span></span>
-<span id="cb49-587"><a href="#cb49-587" aria-hidden="true" tabindex="-1"></a><span class="co">#   kable_styling(full_width = FALSE)</span></span>
-<span id="cb49-588"><a href="#cb49-588" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb49-589"><a href="#cb49-589" aria-hidden="true" tabindex="-1"></a><span class="co"># # AIC</span></span>
-<span id="cb49-590"><a href="#cb49-590" aria-hidden="true" tabindex="-1"></a><span class="co"># knitr::kable(</span></span>
-<span id="cb49-591"><a href="#cb49-591" aria-hidden="true" tabindex="-1"></a><span class="co">#   format = 'html',</span></span>
-<span id="cb49-592"><a href="#cb49-592" aria-hidden="true" tabindex="-1"></a><span class="co">#   AIC(mod1[[1]], mod1[[2]], mod1[[3]]) %&gt;% arrange(AIC) %&gt;% add_column(numMonths = 1),</span></span>
-<span id="cb49-593"><a href="#cb49-593" aria-hidden="true" tabindex="-1"></a><span class="co">#   digits = 3</span></span>
-<span id="cb49-594"><a href="#cb49-594" aria-hidden="true" tabindex="-1"></a><span class="co"># ) %&gt;%</span></span>
-<span id="cb49-595"><a href="#cb49-595" aria-hidden="true" tabindex="-1"></a><span class="co">#   kable_styling(full_width = FALSE)</span></span>
-<span id="cb49-596"><a href="#cb49-596" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb49-597"><a href="#cb49-597" aria-hidden="true" tabindex="-1"></a><span class="co"># knitr::kable(</span></span>
-<span id="cb49-598"><a href="#cb49-598" aria-hidden="true" tabindex="-1"></a><span class="co">#   AIC(mod3[[1]], mod3[[2]], mod3[[3]]) %&gt;% arrange(AIC) %&gt;% add_column(numMonths = 3),</span></span>
-<span id="cb49-599"><a href="#cb49-599" aria-hidden="true" tabindex="-1"></a><span class="co">#   digits = 3</span></span>
-<span id="cb49-600"><a href="#cb49-600" aria-hidden="true" tabindex="-1"></a><span class="co"># ) %&gt;%</span></span>
-<span id="cb49-601"><a href="#cb49-601" aria-hidden="true" tabindex="-1"></a><span class="co">#   kable_styling(full_width = FALSE)</span></span>
-<span id="cb49-602"><a href="#cb49-602" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb49-603"><a href="#cb49-603" aria-hidden="true" tabindex="-1"></a><span class="co"># knitr::kable(</span></span>
-<span id="cb49-604"><a href="#cb49-604" aria-hidden="true" tabindex="-1"></a><span class="co">#   AIC(mod5[[1]], mod5[[2]], mod5[[3]]) %&gt;% arrange(AIC) %&gt;% add_column(numMonths = 5),</span></span>
-<span id="cb49-605"><a href="#cb49-605" aria-hidden="true" tabindex="-1"></a><span class="co">#   digits = 3</span></span>
-<span id="cb49-606"><a href="#cb49-606" aria-hidden="true" tabindex="-1"></a><span class="co"># ) %&gt;%</span></span>
-<span id="cb49-607"><a href="#cb49-607" aria-hidden="true" tabindex="-1"></a><span class="co">#   kable_styling(full_width = FALSE)</span></span>
-<span id="cb49-608"><a href="#cb49-608" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-609"><a href="#cb49-609" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb49-610"><a href="#cb49-610" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-611"><a href="#cb49-611" aria-hidden="true" tabindex="-1"></a>Relative importance of main effects models (repeat of above, but all in one place here)</span>
-<span id="cb49-612"><a href="#cb49-612" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-615"><a href="#cb49-615" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb49-616"><a href="#cb49-616" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: rIKable</span></span>
-<span id="cb49-617"><a href="#cb49-617" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb49-618"><a href="#cb49-618" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"kableExtra"</span>)</span>
-<span id="cb49-619"><a href="#cb49-619" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-620"><a href="#cb49-620" aria-hidden="true" tabindex="-1"></a><span class="co"># Relative Importance</span></span>
-<span id="cb49-621"><a href="#cb49-621" aria-hidden="true" tabindex="-1"></a><span class="co"># knitr::kable(</span></span>
-<span id="cb49-622"><a href="#cb49-622" aria-hidden="true" tabindex="-1"></a><span class="co">#  tibble(var = names(rI1$lmg), relImp = rI1$lmg) %&gt;% add_column(numMonths = 1),</span></span>
-<span id="cb49-623"><a href="#cb49-623" aria-hidden="true" tabindex="-1"></a><span class="co">#  digits = 3</span></span>
-<span id="cb49-624"><a href="#cb49-624" aria-hidden="true" tabindex="-1"></a><span class="co"># ) %&gt;%</span></span>
-<span id="cb49-625"><a href="#cb49-625" aria-hidden="true" tabindex="-1"></a><span class="co">#   kable_styling(full_width = FALSE)</span></span>
-<span id="cb49-626"><a href="#cb49-626" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb49-627"><a href="#cb49-627" aria-hidden="true" tabindex="-1"></a><span class="co"># knitr::kable(</span></span>
-<span id="cb49-628"><a href="#cb49-628" aria-hidden="true" tabindex="-1"></a><span class="co">#  tibble(var = names(rI3$lmg), relImp = rI3$lmg) %&gt;% add_column(numMonths = 3),</span></span>
-<span id="cb49-629"><a href="#cb49-629" aria-hidden="true" tabindex="-1"></a><span class="co">#  digits = 3</span></span>
-<span id="cb49-630"><a href="#cb49-630" aria-hidden="true" tabindex="-1"></a><span class="co"># ) %&gt;%</span></span>
-<span id="cb49-631"><a href="#cb49-631" aria-hidden="true" tabindex="-1"></a><span class="co">#   kable_styling(full_width = FALSE)</span></span>
-<span id="cb49-632"><a href="#cb49-632" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb49-633"><a href="#cb49-633" aria-hidden="true" tabindex="-1"></a><span class="co"># knitr::kable(</span></span>
-<span id="cb49-634"><a href="#cb49-634" aria-hidden="true" tabindex="-1"></a><span class="co">#  tibble(var = names(rI5$lmg), relImp = rI5$lmg) %&gt;% add_column(numMonths = 5),</span></span>
-<span id="cb49-635"><a href="#cb49-635" aria-hidden="true" tabindex="-1"></a><span class="co">#  digits = 3</span></span>
-<span id="cb49-636"><a href="#cb49-636" aria-hidden="true" tabindex="-1"></a><span class="co"># ) %&gt;%</span></span>
-<span id="cb49-637"><a href="#cb49-637" aria-hidden="true" tabindex="-1"></a><span class="co">#   kable_styling(full_width = FALSE)</span></span>
-<span id="cb49-638"><a href="#cb49-638" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb49-639"><a href="#cb49-639" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-640"><a href="#cb49-640" aria-hidden="true" tabindex="-1"></a><span class="fu">### Models with extreme flow events (droughts)</span></span>
-<span id="cb49-641"><a href="#cb49-641" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-642"><a href="#cb49-642" aria-hidden="true" tabindex="-1"></a>We get negative cumulFlows because we have some negative flows from the flow extension model</span>
-<span id="cb49-643"><a href="#cb49-643" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-646"><a href="#cb49-646" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb49-647"><a href="#cb49-647" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: drought</span></span>
-<span id="cb49-648"><a href="#cb49-648" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: false</span></span>
-<span id="cb49-649"><a href="#cb49-649" aria-hidden="true" tabindex="-1"></a><span class="co"># put some of these calculations into envDataWB</span></span>
-<span id="cb49-650"><a href="#cb49-650" aria-hidden="true" tabindex="-1"></a>envDataWBFlow <span class="ot">=</span> <span class="fu">tar_read</span>(envDataWBFlow_target)</span>
-<span id="cb49-651"><a href="#cb49-651" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-652"><a href="#cb49-652" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb49-653"><a href="#cb49-653" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-656"><a href="#cb49-656" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb49-657"><a href="#cb49-657" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: firstObsYears</span></span>
-<span id="cb49-658"><a href="#cb49-658" aria-hidden="true" tabindex="-1"></a>firstObsYears <span class="ot">&lt;-</span> firstObs <span class="sc">%&gt;%</span></span>
-<span id="cb49-659"><a href="#cb49-659" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">%in%</span> minYear<span class="sc">:</span>maxYear, </span>
-<span id="cb49-660"><a href="#cb49-660" aria-hidden="true" tabindex="-1"></a>           yday <span class="sc">&gt;</span> <span class="dv">100</span>, yday <span class="sc">&lt;</span> <span class="dv">300</span>)</span>
-<span id="cb49-661"><a href="#cb49-661" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb49-662"><a href="#cb49-662" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-665"><a href="#cb49-665" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb49-666"><a href="#cb49-666" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: plotDrought</span></span>
-<span id="cb49-667"><a href="#cb49-667" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envDataWBFlow, <span class="fu">aes</span>(yday, flow)) <span class="sc">+</span></span>
-<span id="cb49-668"><a href="#cb49-668" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(yday, observedLength<span class="sc">/</span><span class="dv">20</span>), <span class="at">size =</span> <span class="fl">0.75</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">color =</span> <span class="st">'lightblue'</span>, <span class="at">data =</span> firstObsYears) <span class="sc">+</span></span>
-<span id="cb49-669"><a href="#cb49-669" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb49-670"><a href="#cb49-670" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">300</span>, <span class="dv">30</span>)) <span class="sc">+</span></span>
-<span id="cb49-671"><a href="#cb49-671" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>year)</span>
-<span id="cb49-672"><a href="#cb49-672" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-673"><a href="#cb49-673" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envDataWBFlow, <span class="fu">aes</span>(yday, cumulFlow <span class="sc">/</span> <span class="dv">10</span>)) <span class="sc">+</span></span>
-<span id="cb49-674"><a href="#cb49-674" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(yday, observedLength <span class="sc">/</span> <span class="dv">20</span>), <span class="at">size =</span> <span class="fl">0.75</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">color =</span> <span class="st">'lightblue'</span>, <span class="at">data =</span> firstObsYears) <span class="sc">+</span></span>
-<span id="cb49-675"><a href="#cb49-675" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">'darkgrey'</span>) <span class="sc">+</span></span>
-<span id="cb49-676"><a href="#cb49-676" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(yday, cumulTemp <span class="sc">/</span> <span class="dv">800</span>), <span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">"orange"</span>, <span class="at">data =</span> envDataWBFlow) <span class="sc">+</span></span>
-<span id="cb49-677"><a href="#cb49-677" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(yday, flow), <span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">data =</span> envDataWBFlow) <span class="sc">+</span></span>
-<span id="cb49-678"><a href="#cb49-678" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">300</span>, <span class="dv">30</span>)) <span class="sc">+</span></span>
-<span id="cb49-679"><a href="#cb49-679" aria-hidden="true" tabindex="-1"></a>  <span class="co">#theme_publication() +</span></span>
-<span id="cb49-680"><a href="#cb49-680" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>year)</span>
-<span id="cb49-681"><a href="#cb49-681" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-682"><a href="#cb49-682" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envDataWBFlow, <span class="fu">aes</span>(yday, cumulFlow, <span class="at">color =</span> (year))) <span class="sc">+</span></span>
-<span id="cb49-683"><a href="#cb49-683" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb49-684"><a href="#cb49-684" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">300</span>, <span class="dv">30</span>)) </span>
-<span id="cb49-685"><a href="#cb49-685" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-686"><a href="#cb49-686" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envDataWBFlow, <span class="fu">aes</span>(yday, cumulTemp, <span class="at">color =</span> (year))) <span class="sc">+</span></span>
-<span id="cb49-687"><a href="#cb49-687" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb49-688"><a href="#cb49-688" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_point(aes(yday, cumulTemp / 800, color = factor(year)), data = tmp) +</span></span>
-<span id="cb49-689"><a href="#cb49-689" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">300</span>, <span class="dv">30</span>))</span>
-<span id="cb49-690"><a href="#cb49-690" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-691"><a href="#cb49-691" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb49-692"><a href="#cb49-692" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-693"><a href="#cb49-693" aria-hidden="true" tabindex="-1"></a>Is there a sampling section effect?</span>
-<span id="cb49-694"><a href="#cb49-694" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-695"><a href="#cb49-695" aria-hidden="true" tabindex="-1"></a>Note: there are fish in sections <span class="sc">\&gt;</span> 50 for years 2002 and 2003, need to filter out early</span>
-<span id="cb49-696"><a href="#cb49-696" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-699"><a href="#cb49-699" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb49-700"><a href="#cb49-700" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d_WB_BKT_BNT <span class="sc">%&gt;%</span> <span class="fu">filter</span>( section <span class="sc">&lt;=</span> <span class="dv">47</span>), <span class="fu">aes</span>(<span class="fu">factor</span>(section), observedLength)) <span class="sc">+</span></span>
-<span id="cb49-701"><a href="#cb49-701" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb49-702"><a href="#cb49-702" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
-<span id="cb49-703"><a href="#cb49-703" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>year)</span>
-<span id="cb49-704"><a href="#cb49-704" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-705"><a href="#cb49-705" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d_WB_BKT_BNT <span class="sc">%&gt;%</span> <span class="fu">filter</span>( section <span class="sc">&lt;=</span> <span class="dv">47</span>), <span class="fu">aes</span>(<span class="fu">factor</span>(year), observedLength)) <span class="sc">+</span></span>
-<span id="cb49-706"><a href="#cb49-706" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb49-707"><a href="#cb49-707" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
-<span id="cb49-708"><a href="#cb49-708" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>section)</span>
-<span id="cb49-709"><a href="#cb49-709" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb49-710"><a href="#cb49-710" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-713"><a href="#cb49-713" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb49-714"><a href="#cb49-714" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-476"><a href="#cb49-476" aria-hidden="true" tabindex="-1"></a>These models don't run now (Jan 2024) because there is no vaiability in these variables <span class="in">`meanFTime_sumFScaled`</span> + <span class="in">`meanTTime_sumTScaled`</span>. Tried to track this down in <span class="in">`modelYOY.R`</span>, but couldn't</span>
+<span id="cb49-477"><a href="#cb49-477" aria-hidden="true" tabindex="-1"></a>find the reason - needs more digging.</span>
+<span id="cb49-480"><a href="#cb49-480" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb49-481"><a href="#cb49-481" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: means1Month</span></span>
+<span id="cb49-482"><a href="#cb49-482" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb49-483"><a href="#cb49-483" aria-hidden="true" tabindex="-1"></a><span class="co">#means1 calculated above</span></span>
+<span id="cb49-484"><a href="#cb49-484" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMeans</span>(means1)</span>
+<span id="cb49-485"><a href="#cb49-485" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">runMeanModels</span>(means1)</span>
+<span id="cb49-486"><a href="#cb49-486" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-487"><a href="#cb49-487" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod1[[<span class="dv">1</span>]], mod1[[<span class="dv">2</span>]], mod1[[<span class="dv">3</span>]]) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(AIC)</span>
+<span id="cb49-488"><a href="#cb49-488" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-489"><a href="#cb49-489" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1[[<span class="dv">1</span>]])</span>
+<span id="cb49-490"><a href="#cb49-490" aria-hidden="true" tabindex="-1"></a><span class="co">#rI1 &lt;- relaimpo::calc.relimp(mod1[[1]])</span></span>
+<span id="cb49-491"><a href="#cb49-491" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-492"><a href="#cb49-492" aria-hidden="true" tabindex="-1"></a><span class="co">#save(means1, mod1, file = "models/YOY/mod1LMMeans.Rdata")</span></span>
+<span id="cb49-493"><a href="#cb49-493" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-494"><a href="#cb49-494" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-495"><a href="#cb49-495" aria-hidden="true" tabindex="-1"></a>Relative importance for main effects model</span>
+<span id="cb49-496"><a href="#cb49-496" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-499"><a href="#cb49-499" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb49-500"><a href="#cb49-500" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: rI1</span></span>
+<span id="cb49-501"><a href="#cb49-501" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb49-502"><a href="#cb49-502" aria-hidden="true" tabindex="-1"></a><span class="co">#rI1$lmg</span></span>
+<span id="cb49-503"><a href="#cb49-503" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-504"><a href="#cb49-504" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-505"><a href="#cb49-505" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Models with flow and temperature from previous *three* months</span></span>
+<span id="cb49-506"><a href="#cb49-506" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-509"><a href="#cb49-509" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb49-510"><a href="#cb49-510" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: means3Month</span></span>
+<span id="cb49-511"><a href="#cb49-511" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb49-512"><a href="#cb49-512" aria-hidden="true" tabindex="-1"></a>means3 <span class="ot">&lt;-</span> <span class="fu">getMeansData</span>(d_WB_BKT_BNT, <span class="st">"threeMonth_sumTScaled"</span>, <span class="st">"threeMonth_sumFScaled"</span>)</span>
+<span id="cb49-513"><a href="#cb49-513" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMeans</span>(means3)</span>
+<span id="cb49-514"><a href="#cb49-514" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">runMeanModels</span>(means3)</span>
+<span id="cb49-515"><a href="#cb49-515" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-516"><a href="#cb49-516" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod3[[<span class="dv">1</span>]], mod3[[<span class="dv">2</span>]], mod3[[<span class="dv">3</span>]]) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(AIC)</span>
+<span id="cb49-517"><a href="#cb49-517" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-518"><a href="#cb49-518" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod3[[<span class="dv">1</span>]])</span>
+<span id="cb49-519"><a href="#cb49-519" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-520"><a href="#cb49-520" aria-hidden="true" tabindex="-1"></a><span class="co">#rI3 &lt;- relaimpo::calc.relimp(mod3[[1]])</span></span>
+<span id="cb49-521"><a href="#cb49-521" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-522"><a href="#cb49-522" aria-hidden="true" tabindex="-1"></a><span class="co">#save(means3, mod3, file = "models/mod3LMMeans.Rdata")</span></span>
+<span id="cb49-523"><a href="#cb49-523" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-524"><a href="#cb49-524" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-525"><a href="#cb49-525" aria-hidden="true" tabindex="-1"></a>Relative importance for main effects model</span>
+<span id="cb49-526"><a href="#cb49-526" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-529"><a href="#cb49-529" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb49-530"><a href="#cb49-530" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: rI3</span></span>
+<span id="cb49-531"><a href="#cb49-531" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb49-532"><a href="#cb49-532" aria-hidden="true" tabindex="-1"></a><span class="co">#rI3$lmg</span></span>
+<span id="cb49-533"><a href="#cb49-533" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-534"><a href="#cb49-534" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-535"><a href="#cb49-535" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Models with flow and temperature from previous *five* months</span></span>
+<span id="cb49-536"><a href="#cb49-536" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-539"><a href="#cb49-539" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb49-540"><a href="#cb49-540" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: means5Month</span></span>
+<span id="cb49-541"><a href="#cb49-541" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb49-542"><a href="#cb49-542" aria-hidden="true" tabindex="-1"></a>means5 <span class="ot">&lt;-</span> <span class="fu">getMeansData</span>(d_WB_BKT_BNT, <span class="st">"fiveMonth_sumTScaled"</span>, <span class="st">"fiveMonth_sumFScaled"</span>)</span>
+<span id="cb49-543"><a href="#cb49-543" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMeans</span>(means5)</span>
+<span id="cb49-544"><a href="#cb49-544" aria-hidden="true" tabindex="-1"></a>mod5 <span class="ot">&lt;-</span> <span class="fu">runMeanModels</span>(means5)</span>
+<span id="cb49-545"><a href="#cb49-545" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-546"><a href="#cb49-546" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod5[[<span class="dv">1</span>]], mod5[[<span class="dv">2</span>]], mod5[[<span class="dv">3</span>]]) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(AIC)</span>
+<span id="cb49-547"><a href="#cb49-547" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-548"><a href="#cb49-548" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod5[[<span class="dv">1</span>]])</span>
+<span id="cb49-549"><a href="#cb49-549" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-550"><a href="#cb49-550" aria-hidden="true" tabindex="-1"></a><span class="co">#rI5 &lt;- relaimpo::calc.relimp(mod5[[1]])</span></span>
+<span id="cb49-551"><a href="#cb49-551" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-552"><a href="#cb49-552" aria-hidden="true" tabindex="-1"></a><span class="co">#save(means5, mod5, file = "models/mod5LMMeans.Rdata")</span></span>
+<span id="cb49-553"><a href="#cb49-553" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-554"><a href="#cb49-554" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-555"><a href="#cb49-555" aria-hidden="true" tabindex="-1"></a>Relative importance for main effects model</span>
+<span id="cb49-556"><a href="#cb49-556" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-559"><a href="#cb49-559" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb49-560"><a href="#cb49-560" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: rI5</span></span>
+<span id="cb49-561"><a href="#cb49-561" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb49-562"><a href="#cb49-562" aria-hidden="true" tabindex="-1"></a><span class="co">#rI5$lmg</span></span>
+<span id="cb49-563"><a href="#cb49-563" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-564"><a href="#cb49-564" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-565"><a href="#cb49-565" aria-hidden="true" tabindex="-1"></a>r-squared values and AICs for 1st, 2nd (2-way interactions) and 3rd (3-way interactions) order models</span>
+<span id="cb49-566"><a href="#cb49-566" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-569"><a href="#cb49-569" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb49-570"><a href="#cb49-570" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: r2</span></span>
+<span id="cb49-571"><a href="#cb49-571" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb49-572"><a href="#cb49-572" aria-hidden="true" tabindex="-1"></a><span class="co"># knitr::kable(</span></span>
+<span id="cb49-573"><a href="#cb49-573" aria-hidden="true" tabindex="-1"></a><span class="co">#  tibble(Order = c(1,2,3),r2 = c(summary(mod1[[1]])$r.squared, summary(mod1[[2]])$r.squared, summary(mod1[[3]])$r.squared)) %&gt;% add_column(numMonths = 1),</span></span>
+<span id="cb49-574"><a href="#cb49-574" aria-hidden="true" tabindex="-1"></a><span class="co">#  digits = 3</span></span>
+<span id="cb49-575"><a href="#cb49-575" aria-hidden="true" tabindex="-1"></a><span class="co"># ) %&gt;%</span></span>
+<span id="cb49-576"><a href="#cb49-576" aria-hidden="true" tabindex="-1"></a><span class="co">#   kable_styling(full_width = FALSE)</span></span>
+<span id="cb49-577"><a href="#cb49-577" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb49-578"><a href="#cb49-578" aria-hidden="true" tabindex="-1"></a><span class="co"># knitr::kable(</span></span>
+<span id="cb49-579"><a href="#cb49-579" aria-hidden="true" tabindex="-1"></a><span class="co">#  tibble(Order = c(1,2,3),r2 = c(summary(mod3[[1]])$r.squared, summary(mod3[[2]])$r.squared, summary(mod3[[3]])$r.squared)) %&gt;% add_column(numMonths = 3),</span></span>
+<span id="cb49-580"><a href="#cb49-580" aria-hidden="true" tabindex="-1"></a><span class="co">#  digits = 3</span></span>
+<span id="cb49-581"><a href="#cb49-581" aria-hidden="true" tabindex="-1"></a><span class="co"># ) %&gt;%</span></span>
+<span id="cb49-582"><a href="#cb49-582" aria-hidden="true" tabindex="-1"></a><span class="co">#   kable_styling(full_width = FALSE)</span></span>
+<span id="cb49-583"><a href="#cb49-583" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb49-584"><a href="#cb49-584" aria-hidden="true" tabindex="-1"></a><span class="co"># knitr::kable(</span></span>
+<span id="cb49-585"><a href="#cb49-585" aria-hidden="true" tabindex="-1"></a><span class="co">#  tibble(Order = c(1,2,3),r2 = c(summary(mod5[[1]])$r.squared, summary(mod5[[2]])$r.squared, summary(mod5[[3]])$r.squared)) %&gt;% add_column(numMonths = 5),</span></span>
+<span id="cb49-586"><a href="#cb49-586" aria-hidden="true" tabindex="-1"></a><span class="co">#  digits = 3</span></span>
+<span id="cb49-587"><a href="#cb49-587" aria-hidden="true" tabindex="-1"></a><span class="co"># ) %&gt;%</span></span>
+<span id="cb49-588"><a href="#cb49-588" aria-hidden="true" tabindex="-1"></a><span class="co">#   kable_styling(full_width = FALSE)</span></span>
+<span id="cb49-589"><a href="#cb49-589" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb49-590"><a href="#cb49-590" aria-hidden="true" tabindex="-1"></a><span class="co"># # AIC</span></span>
+<span id="cb49-591"><a href="#cb49-591" aria-hidden="true" tabindex="-1"></a><span class="co"># knitr::kable(</span></span>
+<span id="cb49-592"><a href="#cb49-592" aria-hidden="true" tabindex="-1"></a><span class="co">#   format = 'html',</span></span>
+<span id="cb49-593"><a href="#cb49-593" aria-hidden="true" tabindex="-1"></a><span class="co">#   AIC(mod1[[1]], mod1[[2]], mod1[[3]]) %&gt;% arrange(AIC) %&gt;% add_column(numMonths = 1),</span></span>
+<span id="cb49-594"><a href="#cb49-594" aria-hidden="true" tabindex="-1"></a><span class="co">#   digits = 3</span></span>
+<span id="cb49-595"><a href="#cb49-595" aria-hidden="true" tabindex="-1"></a><span class="co"># ) %&gt;%</span></span>
+<span id="cb49-596"><a href="#cb49-596" aria-hidden="true" tabindex="-1"></a><span class="co">#   kable_styling(full_width = FALSE)</span></span>
+<span id="cb49-597"><a href="#cb49-597" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb49-598"><a href="#cb49-598" aria-hidden="true" tabindex="-1"></a><span class="co"># knitr::kable(</span></span>
+<span id="cb49-599"><a href="#cb49-599" aria-hidden="true" tabindex="-1"></a><span class="co">#   AIC(mod3[[1]], mod3[[2]], mod3[[3]]) %&gt;% arrange(AIC) %&gt;% add_column(numMonths = 3),</span></span>
+<span id="cb49-600"><a href="#cb49-600" aria-hidden="true" tabindex="-1"></a><span class="co">#   digits = 3</span></span>
+<span id="cb49-601"><a href="#cb49-601" aria-hidden="true" tabindex="-1"></a><span class="co"># ) %&gt;%</span></span>
+<span id="cb49-602"><a href="#cb49-602" aria-hidden="true" tabindex="-1"></a><span class="co">#   kable_styling(full_width = FALSE)</span></span>
+<span id="cb49-603"><a href="#cb49-603" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb49-604"><a href="#cb49-604" aria-hidden="true" tabindex="-1"></a><span class="co"># knitr::kable(</span></span>
+<span id="cb49-605"><a href="#cb49-605" aria-hidden="true" tabindex="-1"></a><span class="co">#   AIC(mod5[[1]], mod5[[2]], mod5[[3]]) %&gt;% arrange(AIC) %&gt;% add_column(numMonths = 5),</span></span>
+<span id="cb49-606"><a href="#cb49-606" aria-hidden="true" tabindex="-1"></a><span class="co">#   digits = 3</span></span>
+<span id="cb49-607"><a href="#cb49-607" aria-hidden="true" tabindex="-1"></a><span class="co"># ) %&gt;%</span></span>
+<span id="cb49-608"><a href="#cb49-608" aria-hidden="true" tabindex="-1"></a><span class="co">#   kable_styling(full_width = FALSE)</span></span>
+<span id="cb49-609"><a href="#cb49-609" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-610"><a href="#cb49-610" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-611"><a href="#cb49-611" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-612"><a href="#cb49-612" aria-hidden="true" tabindex="-1"></a>Relative importance of main effects models (repeat of above, but all in one place here)</span>
+<span id="cb49-613"><a href="#cb49-613" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-616"><a href="#cb49-616" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb49-617"><a href="#cb49-617" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: rIKable</span></span>
+<span id="cb49-618"><a href="#cb49-618" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb49-619"><a href="#cb49-619" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"kableExtra"</span>)</span>
+<span id="cb49-620"><a href="#cb49-620" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-621"><a href="#cb49-621" aria-hidden="true" tabindex="-1"></a><span class="co"># Relative Importance</span></span>
+<span id="cb49-622"><a href="#cb49-622" aria-hidden="true" tabindex="-1"></a><span class="co"># knitr::kable(</span></span>
+<span id="cb49-623"><a href="#cb49-623" aria-hidden="true" tabindex="-1"></a><span class="co">#  tibble(var = names(rI1$lmg), relImp = rI1$lmg) %&gt;% add_column(numMonths = 1),</span></span>
+<span id="cb49-624"><a href="#cb49-624" aria-hidden="true" tabindex="-1"></a><span class="co">#  digits = 3</span></span>
+<span id="cb49-625"><a href="#cb49-625" aria-hidden="true" tabindex="-1"></a><span class="co"># ) %&gt;%</span></span>
+<span id="cb49-626"><a href="#cb49-626" aria-hidden="true" tabindex="-1"></a><span class="co">#   kable_styling(full_width = FALSE)</span></span>
+<span id="cb49-627"><a href="#cb49-627" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb49-628"><a href="#cb49-628" aria-hidden="true" tabindex="-1"></a><span class="co"># knitr::kable(</span></span>
+<span id="cb49-629"><a href="#cb49-629" aria-hidden="true" tabindex="-1"></a><span class="co">#  tibble(var = names(rI3$lmg), relImp = rI3$lmg) %&gt;% add_column(numMonths = 3),</span></span>
+<span id="cb49-630"><a href="#cb49-630" aria-hidden="true" tabindex="-1"></a><span class="co">#  digits = 3</span></span>
+<span id="cb49-631"><a href="#cb49-631" aria-hidden="true" tabindex="-1"></a><span class="co"># ) %&gt;%</span></span>
+<span id="cb49-632"><a href="#cb49-632" aria-hidden="true" tabindex="-1"></a><span class="co">#   kable_styling(full_width = FALSE)</span></span>
+<span id="cb49-633"><a href="#cb49-633" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb49-634"><a href="#cb49-634" aria-hidden="true" tabindex="-1"></a><span class="co"># knitr::kable(</span></span>
+<span id="cb49-635"><a href="#cb49-635" aria-hidden="true" tabindex="-1"></a><span class="co">#  tibble(var = names(rI5$lmg), relImp = rI5$lmg) %&gt;% add_column(numMonths = 5),</span></span>
+<span id="cb49-636"><a href="#cb49-636" aria-hidden="true" tabindex="-1"></a><span class="co">#  digits = 3</span></span>
+<span id="cb49-637"><a href="#cb49-637" aria-hidden="true" tabindex="-1"></a><span class="co"># ) %&gt;%</span></span>
+<span id="cb49-638"><a href="#cb49-638" aria-hidden="true" tabindex="-1"></a><span class="co">#   kable_styling(full_width = FALSE)</span></span>
+<span id="cb49-639"><a href="#cb49-639" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-640"><a href="#cb49-640" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-641"><a href="#cb49-641" aria-hidden="true" tabindex="-1"></a><span class="fu">### Models with extreme flow events (droughts)</span></span>
+<span id="cb49-642"><a href="#cb49-642" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-643"><a href="#cb49-643" aria-hidden="true" tabindex="-1"></a>We get negative cumulFlows because we have some negative flows from the flow extension model</span>
+<span id="cb49-644"><a href="#cb49-644" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-647"><a href="#cb49-647" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb49-648"><a href="#cb49-648" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: drought</span></span>
+<span id="cb49-649"><a href="#cb49-649" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: false</span></span>
+<span id="cb49-650"><a href="#cb49-650" aria-hidden="true" tabindex="-1"></a><span class="co"># put some of these calculations into envDataWB</span></span>
+<span id="cb49-651"><a href="#cb49-651" aria-hidden="true" tabindex="-1"></a>envDataWBFlow <span class="ot">=</span> <span class="fu">tar_read</span>(envDataWBFlow_target)</span>
+<span id="cb49-652"><a href="#cb49-652" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-653"><a href="#cb49-653" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-654"><a href="#cb49-654" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-657"><a href="#cb49-657" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb49-658"><a href="#cb49-658" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: firstObsYears</span></span>
+<span id="cb49-659"><a href="#cb49-659" aria-hidden="true" tabindex="-1"></a>firstObsYears <span class="ot">&lt;-</span> firstObs <span class="sc">%&gt;%</span></span>
+<span id="cb49-660"><a href="#cb49-660" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">%in%</span> minYear<span class="sc">:</span>maxYear, </span>
+<span id="cb49-661"><a href="#cb49-661" aria-hidden="true" tabindex="-1"></a>           yday <span class="sc">&gt;</span> <span class="dv">100</span>, yday <span class="sc">&lt;</span> <span class="dv">300</span>)</span>
+<span id="cb49-662"><a href="#cb49-662" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-663"><a href="#cb49-663" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-666"><a href="#cb49-666" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb49-667"><a href="#cb49-667" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: plotDrought</span></span>
+<span id="cb49-668"><a href="#cb49-668" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envDataWBFlow, <span class="fu">aes</span>(yday, flow)) <span class="sc">+</span></span>
+<span id="cb49-669"><a href="#cb49-669" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(yday, observedLength<span class="sc">/</span><span class="dv">20</span>), <span class="at">size =</span> <span class="fl">0.75</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">color =</span> <span class="st">'lightblue'</span>, <span class="at">data =</span> firstObsYears) <span class="sc">+</span></span>
+<span id="cb49-670"><a href="#cb49-670" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb49-671"><a href="#cb49-671" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">300</span>, <span class="dv">30</span>)) <span class="sc">+</span></span>
+<span id="cb49-672"><a href="#cb49-672" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>year)</span>
+<span id="cb49-673"><a href="#cb49-673" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-674"><a href="#cb49-674" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envDataWBFlow, <span class="fu">aes</span>(yday, cumulFlow <span class="sc">/</span> <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb49-675"><a href="#cb49-675" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(yday, observedLength <span class="sc">/</span> <span class="dv">20</span>), <span class="at">size =</span> <span class="fl">0.75</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">color =</span> <span class="st">'lightblue'</span>, <span class="at">data =</span> firstObsYears) <span class="sc">+</span></span>
+<span id="cb49-676"><a href="#cb49-676" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">'darkgrey'</span>) <span class="sc">+</span></span>
+<span id="cb49-677"><a href="#cb49-677" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(yday, cumulTemp <span class="sc">/</span> <span class="dv">800</span>), <span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">"orange"</span>, <span class="at">data =</span> envDataWBFlow) <span class="sc">+</span></span>
+<span id="cb49-678"><a href="#cb49-678" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(yday, flow), <span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">data =</span> envDataWBFlow) <span class="sc">+</span></span>
+<span id="cb49-679"><a href="#cb49-679" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">300</span>, <span class="dv">30</span>)) <span class="sc">+</span></span>
+<span id="cb49-680"><a href="#cb49-680" aria-hidden="true" tabindex="-1"></a>  <span class="co">#theme_publication() +</span></span>
+<span id="cb49-681"><a href="#cb49-681" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>year)</span>
+<span id="cb49-682"><a href="#cb49-682" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-683"><a href="#cb49-683" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envDataWBFlow, <span class="fu">aes</span>(yday, cumulFlow, <span class="at">color =</span> (year))) <span class="sc">+</span></span>
+<span id="cb49-684"><a href="#cb49-684" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb49-685"><a href="#cb49-685" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">300</span>, <span class="dv">30</span>)) </span>
+<span id="cb49-686"><a href="#cb49-686" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-687"><a href="#cb49-687" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envDataWBFlow, <span class="fu">aes</span>(yday, cumulTemp, <span class="at">color =</span> (year))) <span class="sc">+</span></span>
+<span id="cb49-688"><a href="#cb49-688" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb49-689"><a href="#cb49-689" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_point(aes(yday, cumulTemp / 800, color = factor(year)), data = tmp) +</span></span>
+<span id="cb49-690"><a href="#cb49-690" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">300</span>, <span class="dv">30</span>))</span>
+<span id="cb49-691"><a href="#cb49-691" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-692"><a href="#cb49-692" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-693"><a href="#cb49-693" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-694"><a href="#cb49-694" aria-hidden="true" tabindex="-1"></a>Is there a sampling section effect?</span>
+<span id="cb49-695"><a href="#cb49-695" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-696"><a href="#cb49-696" aria-hidden="true" tabindex="-1"></a>Note: there are fish in sections <span class="sc">\&gt;</span> 50 for years 2002 and 2003, need to filter out early</span>
+<span id="cb49-697"><a href="#cb49-697" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-700"><a href="#cb49-700" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb49-701"><a href="#cb49-701" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d_WB_BKT_BNT <span class="sc">%&gt;%</span> <span class="fu">filter</span>( section <span class="sc">&lt;=</span> <span class="dv">47</span>), <span class="fu">aes</span>(<span class="fu">factor</span>(section), observedLength)) <span class="sc">+</span></span>
+<span id="cb49-702"><a href="#cb49-702" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb49-703"><a href="#cb49-703" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb49-704"><a href="#cb49-704" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>year)</span>
+<span id="cb49-705"><a href="#cb49-705" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-706"><a href="#cb49-706" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d_WB_BKT_BNT <span class="sc">%&gt;%</span> <span class="fu">filter</span>( section <span class="sc">&lt;=</span> <span class="dv">47</span>), <span class="fu">aes</span>(<span class="fu">factor</span>(year), observedLength)) <span class="sc">+</span></span>
+<span id="cb49-707"><a href="#cb49-707" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb49-708"><a href="#cb49-708" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb49-709"><a href="#cb49-709" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>section)</span>
+<span id="cb49-710"><a href="#cb49-710" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-711"><a href="#cb49-711" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-714"><a href="#cb49-714" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb49-715"><a href="#cb49-715" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
+
 
 
 

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.361">
+<meta name="generator" content="quarto-1.4.550">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -83,7 +83,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -92,6 +98,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -103,6 +110,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </script>
 <script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
 
 
 </head>
@@ -113,12 +125,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./dataAll.html">Data</a></li><li class="breadcrumb-item"><a href="./dataFlow.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Flow data</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./dataAll.html">Data</a></li><li class="breadcrumb-item"><a href="./dataFlow.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Flow data</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -128,7 +140,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">West Brook story</a> 
@@ -339,7 +351,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -366,7 +378,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./dataAll.html">Data</a></li><li class="breadcrumb-item"><a href="./dataFlow.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Flow data</span></a></li></ol></nav>
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Flow data</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
@@ -381,11 +393,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <p>Read in fish and environmental data</p>
 <div class="cell">
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets) <span class="co">#Seems to be needed with cache: false</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -401,7 +415,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Read in flow duration curve data</p>
 <div class="cell">
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets) <span class="co">#Seems to be needed with cache: false</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -428,8 +442,8 @@ Additional flow data types<br>
 - <em>FlowByArea_ByRiver</em> (orange), flow from the West Brook from Jenn’s models scaled to tributaries based on relative tributary area.</p>
 <section id="frequency-plots-of-flow-data-types" class="level3" data-number="9.1.1">
 <h3 data-number="9.1.1" class="anchored" data-anchor-id="frequency-plots-of-flow-data-types"><span class="header-section-number">9.1.1</span> Frequency plots of flow data types</h3>
-<div class="cell" data-hash="dataFlow_cache/html/flow_envFlowFreq_c99123afe97bc5fa460dffee69f2a9a5">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envData <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(season)), <span class="fu">aes</span>(flow)) <span class="sc">+</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_density(color = viridis(10)[1], adjust = 2.5) +</span></span>
@@ -445,7 +459,7 @@ Additional flow data types<br>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="dataFlow_files/figure-html/flow_envFlowFreq-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Stream flow distributions, type (red = flow, black = flowByRiver, orange = flowByArea_flowExt, green = FlowByArea_ByRiver)</figcaption>
+<figcaption>Stream flow distributions, type (red = flow, black = flowByRiver, orange = flowByArea_flowExt, green = FlowByArea_ByRiver)</figcaption>
 </figure>
 </div>
 </div>
@@ -455,8 +469,8 @@ Additional flow data types<br>
 <h3 data-number="9.1.2" class="anchored" data-anchor-id="time-series"><span class="header-section-number">9.1.2</span> Time series</h3>
 <section id="for-talk" class="level4" data-number="9.1.2.1">
 <h4 data-number="9.1.2.1" class="anchored" data-anchor-id="for-talk"><span class="header-section-number">9.1.2.1</span> For talk</h4>
-<div class="cell" data-hash="dataFlow_cache/html/flowRawTalkbounds_457fb0d10add5c38a3e1e481a322636a">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>lo <span class="ot">=</span> <span class="dv">2008</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>hi <span class="ot">=</span> <span class="dv">2010</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -466,8 +480,8 @@ Additional flow data types<br>
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">West Brook</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Open Large</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Open Small</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Isolated Small</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<div class="cell" data-hash="dataFlow_cache/html/flowRawTalkWB_9323df32143027684d85412747ea179d">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envData <span class="sc">|&gt;</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"west brook"</span>, year <span class="sc">&gt;</span> lo, year <span class="sc">&lt;=</span> hi)) <span class="sc">+</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_point(color = "red3") +</span></span>
@@ -488,15 +502,15 @@ Additional flow data types<br>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="dataFlow_files/figure-html/flowRawTalkWB-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Stream flow distributions, type (black = flowByRiver, orange = flowByArea_flowExt, green = FlowByArea_ByRiver)</figcaption>
+<figcaption>Stream flow distributions, type (black = flowByRiver, orange = flowByArea_flowExt, green = FlowByArea_ByRiver)</figcaption>
 </figure>
 </div>
 </div>
 </div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div class="cell" data-hash="dataFlow_cache/html/flowRawTalkOL_d976406e1edffbd82e334dcd6da19d25">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envData <span class="sc">|&gt;</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"wb jimmy"</span>, year <span class="sc">&gt;</span> lo, year <span class="sc">&lt;=</span> hi)) <span class="sc">+</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_point(color = "red3") +</span></span>
@@ -517,15 +531,15 @@ Additional flow data types<br>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="dataFlow_files/figure-html/flowRawTalkOL-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Stream flow distributions, type (black = flowByRiver, orange = flowByArea_flowExt, green = FlowByArea_ByRiver)</figcaption>
+<figcaption>Stream flow distributions, type (black = flowByRiver, orange = flowByArea_flowExt, green = FlowByArea_ByRiver)</figcaption>
 </figure>
 </div>
 </div>
 </div>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<div class="cell" data-hash="dataFlow_cache/html/flowRawTalkOS_28664fbd00f361389466074713c3af8a">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envData <span class="sc">|&gt;</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"wb mitchell"</span>, year <span class="sc">&gt;</span> lo, year <span class="sc">&lt;=</span> hi)) <span class="sc">+</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_point(color = "red3") +</span></span>
@@ -546,15 +560,15 @@ Additional flow data types<br>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="dataFlow_files/figure-html/flowRawTalkOS-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Stream flow distributions, type (black = flowByRiver, orange = flowByArea_flowExt, green = FlowByArea_ByRiver)</figcaption>
+<figcaption>Stream flow distributions, type (black = flowByRiver, orange = flowByArea_flowExt, green = FlowByArea_ByRiver)</figcaption>
 </figure>
 </div>
 </div>
 </div>
 </div>
 <div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
-<div class="cell" data-hash="dataFlow_cache/html/flowRawTalkIS_a74ab8061e189a59dd7e867af55cf580">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envData <span class="sc">|&gt;</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"wb obear"</span>, year <span class="sc">&gt;</span> lo, year <span class="sc">&lt;=</span> hi)) <span class="sc">+</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_point(color = "red3") +</span></span>
@@ -575,7 +589,7 @@ Additional flow data types<br>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="dataFlow_files/figure-html/flowRawTalkIS-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Stream flow distributions, type (black = flowByRiver, orange = flowByArea_flowExt, green = FlowByArea_ByRiver)</figcaption>
+<figcaption>Stream flow distributions, type (black = flowByRiver, orange = flowByArea_flowExt, green = FlowByArea_ByRiver)</figcaption>
 </figure>
 </div>
 </div>
@@ -590,8 +604,8 @@ Additional flow data types<br>
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">West Brook</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Open Large</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Open Small</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false">Isolated Small</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<div class="cell" data-hash="dataFlow_cache/html/flowRawWB_758978bd5932cab4da938f6ea81b3f0e">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envData <span class="sc">|&gt;</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"west brook"</span>, year <span class="sc">&gt;</span> <span class="dv">1999</span>), <span class="fu">aes</span>(yday, flow)) <span class="sc">+</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_point(color = "red3") +</span></span>
@@ -605,15 +619,15 @@ Additional flow data types<br>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="dataFlow_files/figure-html/flowRawWB-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Stream flow distributions, type (black = flowByRiver, orange = flowByArea_flowExt, green = FlowByArea_ByRiver)</figcaption>
+<figcaption>Stream flow distributions, type (black = flowByRiver, orange = flowByArea_flowExt, green = FlowByArea_ByRiver)</figcaption>
 </figure>
 </div>
 </div>
 </div>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<div class="cell" data-hash="dataFlow_cache/html/flowRawOL_644b0513e7c3d9db9b6ea481965af2d9">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envData <span class="sc">|&gt;</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"wb jimmy"</span>, year <span class="sc">&gt;</span> <span class="dv">1999</span>), <span class="fu">aes</span>(yday, flow)) <span class="sc">+</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_line(color = "red3") +</span></span>
@@ -627,15 +641,15 @@ Additional flow data types<br>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="dataFlow_files/figure-html/flowRawOL-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Stream flow distributions, type (black = flowByRiver, orange = flowByArea_flowExt, green = FlowByArea_ByRiver)</figcaption>
+<figcaption>Stream flow distributions, type (black = flowByRiver, orange = flowByArea_flowExt, green = FlowByArea_ByRiver)</figcaption>
 </figure>
 </div>
 </div>
 </div>
 </div>
 <div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
-<div class="cell" data-hash="dataFlow_cache/html/flowRawOS_ed845765fc2c4ef2a1ac2091d1ede1a0">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envData <span class="sc">|&gt;</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"wb mitchell"</span>, year <span class="sc">&gt;</span> <span class="dv">1999</span>), <span class="fu">aes</span>(date, flow)) <span class="sc">+</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_line(color = "red3") +</span></span>
@@ -649,15 +663,15 @@ Additional flow data types<br>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="dataFlow_files/figure-html/flowRawOS-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Stream flow distributions, type (black = flowByRiver, orange = flowByArea_flowExt, green = FlowByArea_ByRiver)</figcaption>
+<figcaption>Stream flow distributions, type (black = flowByRiver, orange = flowByArea_flowExt, green = FlowByArea_ByRiver)</figcaption>
 </figure>
 </div>
 </div>
 </div>
 </div>
 <div id="tabset-2-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-4-tab">
-<div class="cell" data-hash="dataFlow_cache/html/flowRawIS_db9b40da08626092bd69c908a29c1c04">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(envData <span class="sc">|&gt;</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"wb obear"</span>, year <span class="sc">&gt;</span> <span class="dv">1999</span>), <span class="fu">aes</span>(date, flow)) <span class="sc">+</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_line(color = "red3") +</span></span>
@@ -671,7 +685,7 @@ Additional flow data types<br>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="dataFlow_files/figure-html/flowRawIS-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Stream flow distributions, type (black = flowByRiver, orange = flowByArea_flowExt, green = FlowByArea_ByRiver)</figcaption>
+<figcaption>Stream flow distributions, type (black = flowByRiver, orange = flowByArea_flowExt, green = FlowByArea_ByRiver)</figcaption>
 </figure>
 </div>
 </div>
@@ -683,8 +697,8 @@ Additional flow data types<br>
 </section>
 <section id="summary-stats" class="level3" data-number="9.1.3">
 <h3 data-number="9.1.3" class="anchored" data-anchor-id="summary-stats"><span class="header-section-number">9.1.3</span> Summary stats</h3>
-<div class="cell" data-hash="dataFlow_cache/html/timeSeriesFlwoStats_f9578f75bcf2b0af1a9f0f271e7663a0">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>summaryStats <span class="ot">&lt;-</span> envData <span class="sc">|&gt;</span> </span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(season)) <span class="sc">|&gt;</span> </span>
@@ -713,9 +727,13 @@ Additional flow data types<br>
 <span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>riverGG, <span class="at">scales =</span> <span class="st">"free"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/timeSeriesFlwoStats-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/timeSeriesFlwoStats-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#talk</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summaryStatsLong <span class="sc">|&gt;</span> <span class="fu">filter</span>(flowType <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'meanFlowByArea'</span>, <span class="st">'meanFlowByRiver'</span>)), <span class="fu">aes</span>(seasonGG, value, <span class="at">color =</span> flowType)) <span class="sc">+</span></span>
@@ -729,7 +747,11 @@ Additional flow data types<br>
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>riverGG, <span class="at">scales =</span> <span class="st">"free"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/timeSeriesFlwoStats-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/timeSeriesFlwoStats-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -739,8 +761,8 @@ Additional flow data types<br>
 <h4 data-number="9.1.4.1" class="anchored" data-anchor-id="across-all-years-and-seasons"><span class="header-section-number">9.1.4.1</span> Across all years and seasons</h4>
 <p>90% for low flow - look for inflection point</p>
 <p>Peak flow analysis for spring</p>
-<div class="cell" data-hash="dataFlow_cache/html/flowDurationCurves_16b390a760bb9dfb9b9e47b52072f91e">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fdcStats, <span class="fu">aes</span>(stat, perc, <span class="at">color =</span> variable)) <span class="sc">+</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
@@ -752,7 +774,11 @@ Additional flow data types<br>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>river, <span class="at">scales =</span> <span class="st">"free"</span>, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/flowDurationCurves-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/flowDurationCurves-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -762,8 +788,8 @@ Additional flow data types<br>
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">West Brook</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Open Large</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">Open Small</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-4" role="tab" aria-controls="tabset-3-4" aria-selected="false">Isolated Small</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
-<div class="cell" data-hash="dataFlow_cache/html/fdcWB_0ef3f8ba5fdb0056c9929584e6fecd3e">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fdcStatsY <span class="sc">|&gt;</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"west brook"</span>), <span class="fu">aes</span>(stat, perc, <span class="at">color =</span> year, <span class="at">group =</span> year)) <span class="sc">+</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
@@ -774,13 +800,17 @@ Additional flow data types<br>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>variable, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/fdcWB-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/fdcWB-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<div class="cell" data-hash="dataFlow_cache/html/fdcOL_972a77d8f563a2af74253b855c5526dc">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fdcStatsY <span class="sc">|&gt;</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"wb jimmy"</span>), <span class="fu">aes</span>(stat, perc, <span class="at">color =</span> year, <span class="at">group =</span> year)) <span class="sc">+</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
@@ -791,13 +821,17 @@ Additional flow data types<br>
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>variable, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/fdcOL-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/fdcOL-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
 <div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
-<div class="cell" data-hash="dataFlow_cache/html/fdcOS_c0404bb864f8418fa64e20bb7bc155e6">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fdcStatsY <span class="sc">|&gt;</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"wb mitchell"</span>), <span class="fu">aes</span>(stat, perc, <span class="at">color =</span> year, <span class="at">group =</span> year)) <span class="sc">+</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
@@ -808,13 +842,17 @@ Additional flow data types<br>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>variable, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/fdcOS-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/fdcOS-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
 <div id="tabset-3-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-4-tab">
-<div class="cell" data-hash="dataFlow_cache/html/fdcIS_eea09c228bab5ea0803abca19e45be81">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fdcStatsY <span class="sc">|&gt;</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"wb obear"</span>), <span class="fu">aes</span>(stat, perc, <span class="at">color =</span> year, <span class="at">group =</span> year)) <span class="sc">+</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
@@ -825,7 +863,11 @@ Additional flow data types<br>
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>variable, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/fdcIS-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/fdcIS-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
@@ -838,8 +880,8 @@ Additional flow data types<br>
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">West Brook</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Open Large</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false">Open Small</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-4" role="tab" aria-controls="tabset-4-4" aria-selected="false">Isolated Small</a></li></ul>
 <div class="tab-content">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
-<div class="cell" data-hash="dataFlow_cache/html/fdcSWB_b9215c65c4d5d44c94e9555bfd85efc7">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fdcStatsS <span class="sc">|&gt;</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"west brook"</span>, <span class="sc">!</span><span class="fu">is.na</span>(season)), <span class="fu">aes</span>(stat, perc<span class="fl">+0.1</span>, <span class="at">color =</span> <span class="fu">factor</span>(season))) <span class="sc">+</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
@@ -853,9 +895,13 @@ Additional flow data types<br>
 <span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>variable, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/fdcSWB-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/fdcSWB-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fdcStatsS <span class="sc">|&gt;</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"west brook"</span>, <span class="sc">!</span><span class="fu">is.na</span>(season)), <span class="fu">aes</span>(stat, perc<span class="fl">+0.1</span>, <span class="at">color =</span> (variable))) <span class="sc">+</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
@@ -869,13 +915,17 @@ Additional flow data types<br>
 <span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>season, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/fdcSWB-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/fdcSWB-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
-<div class="cell" data-hash="dataFlow_cache/html/fdcSOL_82ac8e1a8bffb7ecd634294beada7939">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fdcStatsS <span class="sc">|&gt;</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"wb jimmy"</span>, <span class="sc">!</span><span class="fu">is.na</span>(season)), <span class="fu">aes</span>(stat, perc<span class="fl">+0.1</span>, <span class="at">color =</span> <span class="fu">factor</span>(season))) <span class="sc">+</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
@@ -889,9 +939,13 @@ Additional flow data types<br>
 <span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>variable, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/fdcSOL-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/fdcSOL-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fdcStatsS <span class="sc">|&gt;</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"wb jimmy"</span>, <span class="sc">!</span><span class="fu">is.na</span>(season)), <span class="fu">aes</span>(stat, perc<span class="fl">+0.1</span>, <span class="at">color =</span> (variable))) <span class="sc">+</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
@@ -905,13 +959,17 @@ Additional flow data types<br>
 <span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>season, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/fdcSOL-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/fdcSOL-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
 <div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
-<div class="cell" data-hash="dataFlow_cache/html/fdcSOS_d25b6d01406e8ac75c6a112e58fcb00b">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fdcStatsS <span class="sc">|&gt;</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"wb mitchell"</span>, <span class="sc">!</span><span class="fu">is.na</span>(season)), <span class="fu">aes</span>(stat, perc<span class="fl">+0.1</span>, <span class="at">color =</span> <span class="fu">factor</span>(season))) <span class="sc">+</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
@@ -925,9 +983,13 @@ Additional flow data types<br>
 <span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>variable, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/fdcSOS-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/fdcSOS-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fdcStatsS <span class="sc">|&gt;</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"wb mitchell"</span>, <span class="sc">!</span><span class="fu">is.na</span>(season)), <span class="fu">aes</span>(stat, perc<span class="fl">+0.1</span>, <span class="at">color =</span> (variable))) <span class="sc">+</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
@@ -941,13 +1003,17 @@ Additional flow data types<br>
 <span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>season, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/fdcSOS-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/fdcSOS-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
 <div id="tabset-4-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-4-tab">
-<div class="cell" data-hash="dataFlow_cache/html/fdcSIS_c6734ae20ca5281b3772577a39705c60">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fdcStatsS <span class="sc">|&gt;</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"wb obear"</span>, <span class="sc">!</span><span class="fu">is.na</span>(season)), <span class="fu">aes</span>(stat, perc<span class="fl">+0.1</span>, <span class="at">color =</span> <span class="fu">factor</span>(season))) <span class="sc">+</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
@@ -961,9 +1027,13 @@ Additional flow data types<br>
 <span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>variable, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/fdcSIS-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/fdcSIS-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fdcStatsS <span class="sc">|&gt;</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"wb obear"</span>, <span class="sc">!</span><span class="fu">is.na</span>(season)), <span class="fu">aes</span>(stat, perc<span class="fl">+0.1</span>, <span class="at">color =</span> (variable))) <span class="sc">+</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
@@ -977,7 +1047,11 @@ Additional flow data types<br>
 <span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>season, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/fdcSIS-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/fdcSIS-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
@@ -990,8 +1064,8 @@ Additional flow data types<br>
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">West Brook</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Open Large</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-3" role="tab" aria-controls="tabset-5-3" aria-selected="false">Open Small</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-4" role="tab" aria-controls="tabset-5-4" aria-selected="false">Isolated small</a></li></ul>
 <div class="tab-content">
 <div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
-<div class="cell" data-hash="dataFlow_cache/html/flowDurationCurvesYearSeasonWB_c39053bf6d8fbcd25102b13f6fb85d2e">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fdcStatsYS <span class="sc">|&gt;</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"west brook"</span>), <span class="fu">aes</span>(stat, perc, <span class="at">color =</span> year, <span class="at">group =</span> year)) <span class="sc">+</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
@@ -1002,13 +1076,17 @@ Additional flow data types<br>
 <span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(season<span class="sc">~</span>variable, <span class="at">scales =</span> <span class="st">"free"</span>, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/flowDurationCurvesYearSeasonWB-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/flowDurationCurvesYearSeasonWB-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
 <div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
-<div class="cell" data-hash="dataFlow_cache/html/flowDurationCurvesYearSeasonOL_e9b6b6c550652113ba9f1f760dc97192">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fdcStatsYS <span class="sc">|&gt;</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"wb jimmy"</span>), <span class="fu">aes</span>(stat, perc, <span class="at">color =</span> year, <span class="at">group =</span> year)) <span class="sc">+</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
@@ -1019,13 +1097,17 @@ Additional flow data types<br>
 <span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(season<span class="sc">~</span>variable, <span class="at">scales =</span> <span class="st">"free"</span>, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/flowDurationCurvesYearSeasonOL-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/flowDurationCurvesYearSeasonOL-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
 <div id="tabset-5-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-3-tab">
-<div class="cell" data-hash="dataFlow_cache/html/flowDurationCurvesYearSeasonOS_5f35944fdfe0ab5b9728247495d99eec">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fdcStatsYS <span class="sc">|&gt;</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"wb mitchell"</span>), <span class="fu">aes</span>(stat, perc, <span class="at">color =</span> year, <span class="at">group =</span> year)) <span class="sc">+</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
@@ -1036,13 +1118,17 @@ Additional flow data types<br>
 <span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(season<span class="sc">~</span>variable, <span class="at">scales =</span> <span class="st">"free"</span>, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/flowDurationCurvesYearSeasonOS-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/flowDurationCurvesYearSeasonOS-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
 <div id="tabset-5-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-4-tab">
-<div class="cell" data-hash="dataFlow_cache/html/flowDurationCurvesYearSeasonIS_af9bbb4a798d7c1513aa19558bdb3eb6">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fdcStatsYS <span class="sc">|&gt;</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"wb obear"</span>), <span class="fu">aes</span>(stat, perc, <span class="at">color =</span> year, <span class="at">group =</span> year)) <span class="sc">+</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
@@ -1053,7 +1139,11 @@ Additional flow data types<br>
 <span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(season<span class="sc">~</span>variable, <span class="at">scales =</span> <span class="st">"free"</span>, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/flowDurationCurvesYearSeasonIS-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/flowDurationCurvesYearSeasonIS-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
@@ -1067,8 +1157,8 @@ Additional flow data types<br>
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">By river, high flows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">By river, low flows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-3" role="tab" aria-controls="tabset-6-3" aria-selected="false">By area, high flows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-4" role="tab" aria-controls="tabset-6-4" aria-selected="false">By area, low flows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-5" role="tab" aria-controls="tabset-6-5" aria-selected="false">By area_byRiver, high flows</a></li></ul>
 <div class="tab-content">
 <div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
-<div class="cell" data-hash="dataFlow_cache/html/flowDurationCurvesBelowByRiver_43e51ce1a1822d18fd82857db4933a0e">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(propFDC_aboveBelow <span class="sc">|&gt;</span> <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">1999</span>), <span class="fu">aes</span>(year, propBelowLoFlowThreshByRiver, <span class="at">color =</span> riverGG)) <span class="sc">+</span> </span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -1078,13 +1168,17 @@ Additional flow data types<br>
 <span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>season, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/flowDurationCurvesBelowByRiver-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/flowDurationCurvesBelowByRiver-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
 <div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
-<div class="cell" data-hash="dataFlow_cache/html/flowDurationCurvesAboveByRiver_cab4dc76ebe5ebeb5e761482ac30bfa0">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(propFDC_aboveBelow <span class="sc">|&gt;</span> <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">1999</span>), <span class="fu">aes</span>(year, propAboveHiFlowThreshRiver, <span class="at">color =</span> riverGG)) <span class="sc">+</span> </span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -1094,13 +1188,17 @@ Additional flow data types<br>
 <span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>season, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/flowDurationCurvesAboveByRiver-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/flowDurationCurvesAboveByRiver-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
 <div id="tabset-6-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-3-tab">
-<div class="cell" data-hash="dataFlow_cache/html/flowDurationCurvesBelowByArea_c0249dbe4f44c349048b52b59910edc1">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(propFDC_aboveBelow <span class="sc">|&gt;</span> <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">1999</span>), <span class="fu">aes</span>(year, propBelowLoFlowThreshByArea_flowExt, <span class="at">color =</span> riverGG)) <span class="sc">+</span> </span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -1110,13 +1208,17 @@ Additional flow data types<br>
 <span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>season, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/flowDurationCurvesBelowByArea-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/flowDurationCurvesBelowByArea-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
 <div id="tabset-6-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-4-tab">
-<div class="cell" data-hash="dataFlow_cache/html/flowDurationCurvesAboveByArea_flowExt_22fb0f402f112ca844ab7ff80bcf3e93">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(propFDC_aboveBelow <span class="sc">|&gt;</span> <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">1999</span>), <span class="fu">aes</span>(year, propAboveHiFlowThreshByArea_flowExt, <span class="at">color =</span> riverGG)) <span class="sc">+</span> </span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -1126,13 +1228,17 @@ Additional flow data types<br>
 <span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>season, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/flowDurationCurvesAboveByArea_flowExt-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/flowDurationCurvesAboveByArea_flowExt-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
 <div id="tabset-6-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-5-tab">
-<div class="cell" data-hash="dataFlow_cache/html/flowDurationCurvesBelowByAreaByArea_1fcb90ce3638c863daa3b0e294f31414">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot(propFDC_aboveBelow |&gt; filter(year &gt; 1999), aes(year, propBelowLoFlowThreshByArea_byArea, color = riverGG)) + </span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_point() +</span></span>
@@ -1152,8 +1258,8 @@ This series of figures confirms that values from <code>cd1</code> are similar to
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">By river, high flows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">By river, low flows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-3" role="tab" aria-controls="tabset-7-3" aria-selected="false">By area, high flows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-4" role="tab" aria-controls="tabset-7-4" aria-selected="false">By area, low flows</a></li></ul>
 <div class="tab-content">
 <div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
-<div class="cell" data-hash="dataFlow_cache/html/flowDurationCurvescd1BelowByRiver_63e4be2d95f209458e58677421232844">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1 <span class="sc">|&gt;</span> <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">1999</span>), <span class="fu">aes</span>(year, propBelowLoFlowThreshByRiver, <span class="at">color =</span> riverGG)) <span class="sc">+</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -1163,13 +1269,17 @@ This series of figures confirms that values from <code>cd1</code> are similar to
 <span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>season, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/flowDurationCurvescd1BelowByRiver-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/flowDurationCurvescd1BelowByRiver-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
 <div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
-<div class="cell" data-hash="dataFlow_cache/html/flowDurationCurvescd1AboveByRiver_6822b55e04e68a3bf4c4fcc0becf9b4d">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1 <span class="sc">|&gt;</span> <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">1999</span>), <span class="fu">aes</span>(year, propAboveHiFlowThreshByRiver, <span class="at">color =</span> riverGG)) <span class="sc">+</span> </span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -1179,13 +1289,17 @@ This series of figures confirms that values from <code>cd1</code> are similar to
 <span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>season, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/flowDurationCurvescd1AboveByRiver-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/flowDurationCurvescd1AboveByRiver-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
 <div id="tabset-7-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-3-tab">
-<div class="cell" data-hash="dataFlow_cache/html/flowDurationCurvescd1BelowByArea_25e1d019df53a0e67b03a93491a097c7">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1 <span class="sc">|&gt;</span> <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">1999</span>), <span class="fu">aes</span>(year, propBelowLoFlowThreshByArea_flowExt, <span class="at">color =</span> riverGG)) <span class="sc">+</span> </span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -1195,13 +1309,17 @@ This series of figures confirms that values from <code>cd1</code> are similar to
 <span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>season, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/flowDurationCurvescd1BelowByArea-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/flowDurationCurvescd1BelowByArea-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
 <div id="tabset-7-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-4-tab">
-<div class="cell" data-hash="dataFlow_cache/html/flowDurationCurvescd1AboveByArea_cb94f13cc8a1cc38665d0d69fd07dda9">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1 <span class="sc">|&gt;</span> <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">1999</span>), <span class="fu">aes</span>(year, propAboveHiFlowThreshByArea_flowExt, <span class="at">color =</span> riverGG)) <span class="sc">+</span> </span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -1211,7 +1329,11 @@ This series of figures confirms that values from <code>cd1</code> are similar to
 <span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>season, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/flowDurationCurvescd1AboveByArea-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/flowDurationCurvescd1AboveByArea-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
@@ -1223,8 +1345,8 @@ This series of figures confirms that values from <code>cd1</code> are similar to
 <h3 data-number="9.1.5" class="anchored" data-anchor-id="raw-mean-flow-data"><span class="header-section-number">9.1.5</span> Raw <em>mean</em> flow data</h3>
 <p>Mean flow data that go into models as independent data. Calculated for each fish based on dates of capture for each interval.<br>
 #### Mean flow data types plotted against each other</p>
-<div class="cell" data-hash="dataFlow_cache/html/flow_flowByRiverRaw1_9e6d4b409e45e9a88bccf2a760a3231f">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(meanFlow, meanFlowByRiver)) <span class="sc">+</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -1235,13 +1357,13 @@ This series of figures confirms that values from <code>cd1</code> are similar to
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="dataFlow_files/figure-html/flow_flowByRiverRaw1-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Stream flow (m3/s) for the West Brook against stream flow by river</figcaption>
+<figcaption>Stream flow (m3/s) for the West Brook against stream flow by river</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<div class="cell" data-hash="dataFlow_cache/html/flow_flowByRiverRaw2_0829ec0f73934dd766f229131511a45d">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(meanFlow, meanFlowByArea_flowExt)) <span class="sc">+</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -1252,13 +1374,13 @@ This series of figures confirms that values from <code>cd1</code> are similar to
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="dataFlow_files/figure-html/flow_flowByRiverRaw2-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Stream flow (m3/s) against stream flow by area</figcaption>
+<figcaption>Stream flow (m3/s) against stream flow by area</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<div class="cell" data-hash="dataFlow_cache/html/flow_flowByRiverRaw3_8e65e3ebbd395a69dfb053be1111edbc">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(meanFlowByRiver, meanFlowByArea_flowExt)) <span class="sc">+</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -1269,15 +1391,15 @@ This series of figures confirms that values from <code>cd1</code> are similar to
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="dataFlow_files/figure-html/flow_flowByRiverRaw3-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Stream flow by river (m3/s) against stream flow by area</figcaption>
+<figcaption>Stream flow by river (m3/s) against stream flow by area</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <section id="frequency-plots-of-mean-flow-data-types" class="level4" data-number="9.1.5.1">
 <h4 data-number="9.1.5.1" class="anchored" data-anchor-id="frequency-plots-of-mean-flow-data-types"><span class="header-section-number">9.1.5.1</span> Frequency plots of mean flow data types</h4>
-<div class="cell" data-hash="dataFlow_cache/html/flow_flowByRiverRawFreqs3_31bbf453bb0921fbdeee2c954fa96c8d">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(meanFlow)) <span class="sc">+</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_density(color = viridis(10)[1], adjust = 2.5) +</span></span>
@@ -1291,7 +1413,7 @@ This series of figures confirms that values from <code>cd1</code> are similar to
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="dataFlow_files/figure-html/flow_flowByRiverRawFreqs3-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Stream flow distributions, type (red = flow, blue = flowByRiver, green = flowByArea_flowExt)</figcaption>
+<figcaption>Stream flow distributions, type (red = flow, blue = flowByRiver, green = flowByArea_flowExt)</figcaption>
 </figure>
 </div>
 </div>
@@ -1299,8 +1421,8 @@ This series of figures confirms that values from <code>cd1</code> are similar to
 </section>
 <section id="time-series-plots-of-flow-data-types" class="level4" data-number="9.1.5.2">
 <h4 data-number="9.1.5.2" class="anchored" data-anchor-id="time-series-plots-of-flow-data-types"><span class="header-section-number">9.1.5.2</span> Time series plots of flow data types</h4>
-<div class="cell" data-hash="dataFlow_cache/html/flow_flowByRiverRawTimeSeries_8085947bcb80b70e192567486fe84604">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1) <span class="sc">+</span></span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_point(aes(date, meanFlowByRiver), color = "blue3") +</span></span>
@@ -1313,7 +1435,7 @@ This series of figures confirms that values from <code>cd1</code> are similar to
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="dataFlow_files/figure-html/flow_flowByRiverRawTimeSeries-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Stream flow time series, flow type (blue = flowByRiver, green = flowByArea_flowExt)</figcaption>
+<figcaption>Stream flow time series, flow type (blue = flowByRiver, green = flowByArea_flowExt)</figcaption>
 </figure>
 </div>
 </div>
@@ -1322,8 +1444,8 @@ This series of figures confirms that values from <code>cd1</code> are similar to
 </section>
 <section id="raw-sd-flow-data" class="level3" data-number="9.1.6">
 <h3 data-number="9.1.6" class="anchored" data-anchor-id="raw-sd-flow-data"><span class="header-section-number">9.1.6</span> Raw <em>sd</em> flow data</h3>
-<div class="cell" data-hash="dataFlow_cache/html/flow_sdflowByRiverRaw1_0333cd561ffdf7b7243e2b2a666b334e">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(sdFlowByArea_flowExt, sdFlowByRiver)) <span class="sc">+</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -1334,15 +1456,15 @@ This series of figures confirms that values from <code>cd1</code> are similar to
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="dataFlow_files/figure-html/flow_sdflowByRiverRaw1-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Standard deviation of stream flow (m3/s) for the West Brook against stream flow by river</figcaption>
+<figcaption>Standard deviation of stream flow (m3/s) for the West Brook against stream flow by river</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <section id="frequency-plots-of-sd-flow-data-types" class="level4" data-number="9.1.6.1">
 <h4 data-number="9.1.6.1" class="anchored" data-anchor-id="frequency-plots-of-sd-flow-data-types"><span class="header-section-number">9.1.6.1</span> Frequency plots of sd flow data types</h4>
-<div class="cell" data-hash="dataFlow_cache/html/flow_sdflowSDByRiverRawFreqs3_282e0e055f049addfbbc0ab77bc47d5f">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(sdFlow)) <span class="sc">+</span></span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_density(color = viridis(10)[1], adjust = 2.5) +</span></span>
@@ -1357,7 +1479,7 @@ This series of figures confirms that values from <code>cd1</code> are similar to
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="dataFlow_files/figure-html/flow_sdflowSDByRiverRawFreqs3-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Standard deviation in stream flow distributions, type (red = flow, blue = flowByRiver, green = flowByArea_flowExt)</figcaption>
+<figcaption>Standard deviation in stream flow distributions, type (red = flow, blue = flowByRiver, green = flowByArea_flowExt)</figcaption>
 </figure>
 </div>
 </div>
@@ -1365,8 +1487,8 @@ This series of figures confirms that values from <code>cd1</code> are similar to
 </section>
 <section id="time-series-plots-of-standard-deviation-of-flow-data-types" class="level4" data-number="9.1.6.2">
 <h4 data-number="9.1.6.2" class="anchored" data-anchor-id="time-series-plots-of-standard-deviation-of-flow-data-types"><span class="header-section-number">9.1.6.2</span> Time series plots of standard deviation of flow data types</h4>
-<div class="cell" data-hash="dataFlow_cache/html/flow_sdflowByRiverRawTimeSeries_ffa3456e74f1a6c28ef44b2c510d8afe">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1) <span class="sc">+</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_point(aes(date, meanFlowByRiver), color = "blue3") +</span></span>
@@ -1380,7 +1502,7 @@ This series of figures confirms that values from <code>cd1</code> are similar to
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="dataFlow_files/figure-html/flow_sdflowByRiverRawTimeSeries-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Stream flow time series, flow type (blue = flowByRiver, green = flowByArea_flowExt)</figcaption>
+<figcaption>Stream flow time series, flow type (blue = flowByRiver, green = flowByArea_flowExt)</figcaption>
 </figure>
 </div>
 </div>
@@ -1392,8 +1514,8 @@ This series of figures confirms that values from <code>cd1</code> are similar to
 <h2 data-number="9.2" class="anchored" data-anchor-id="scaled-mean-flow-data"><span class="header-section-number">9.2</span> Scaled mean flow data</h2>
 <section id="scaled-by-season" class="level3" data-number="9.2.1">
 <h3 data-number="9.2.1" class="anchored" data-anchor-id="scaled-by-season"><span class="header-section-number">9.2.1</span> Scaled by season</h3>
-<div class="cell" data-hash="dataFlow_cache/html/flow_flowByRiverBySeason_c2c325aa9b84552f137bd17f65613426">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(meanFlowByArea_flowExtScaledBySeason, meanFlowByRiverScaledBySeason, <span class="at">color =</span> cohort)) <span class="sc">+</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -1401,9 +1523,13 @@ This series of figures confirms that values from <code>cd1</code> are similar to
 <span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(river<span class="sc">~</span>season, <span class="at">scales =</span> <span class="st">'free'</span>, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/flow_flowByRiverBySeason-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/flow_flowByRiverBySeason-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(meanFlowScaledBySeason)) <span class="sc">+</span></span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"red3"</span>, <span class="at">adjust =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
@@ -1413,9 +1539,13 @@ This series of figures confirms that values from <code>cd1</code> are similar to
 <span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(river<span class="sc">~</span>season, <span class="at">scales =</span> <span class="st">'free'</span>, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/flow_flowByRiverBySeason-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/flow_flowByRiverBySeason-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(meanTemperatureScaledBySeason)) <span class="sc">+</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"red3"</span>, <span class="at">adjust =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
@@ -1423,13 +1553,17 @@ This series of figures confirms that values from <code>cd1</code> are similar to
 <span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(river<span class="sc">~</span>season, <span class="at">scales =</span> <span class="st">'free'</span>, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/flow_flowByRiverBySeason-3.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/flow_flowByRiverBySeason-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <section id="time-series-plots-of-flow-data-types-scaled-by-season" class="level4" data-number="9.2.1.1">
 <h4 data-number="9.2.1.1" class="anchored" data-anchor-id="time-series-plots-of-flow-data-types-scaled-by-season"><span class="header-section-number">9.2.1.1</span> Time series plots of flow data types scaled by season</h4>
-<div class="cell" data-hash="dataFlow_cache/html/flow_flowByRiverRawTimeSeriesScaledbyS_2ed16d738abe5afe7cbe635975fc69ac">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1) <span class="sc">+</span></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_point(aes(date, meanFlowByRiver), color = "blue3") +</span></span>
@@ -1442,7 +1576,7 @@ This series of figures confirms that values from <code>cd1</code> are similar to
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="dataFlow_files/figure-html/flow_flowByRiverRawTimeSeriesScaledbyS-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Stream flow time series, flow type (blue = flowByRiver, green = flowByArea_flowExt)</figcaption>
+<figcaption>Stream flow time series, flow type (blue = flowByRiver, green = flowByArea_flowExt)</figcaption>
 </figure>
 </div>
 </div>
@@ -1451,8 +1585,8 @@ This series of figures confirms that values from <code>cd1</code> are similar to
 </section>
 <section id="scaled-by-season-and-river" class="level3" data-number="9.2.2">
 <h3 data-number="9.2.2" class="anchored" data-anchor-id="scaled-by-season-and-river"><span class="header-section-number">9.2.2</span> Scaled by season and river</h3>
-<div class="cell" data-hash="dataFlow_cache/html/flow_flowByRiverBySeasonRiver_46dbf5025ce3afba1dd3fefdf690cca1">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(meanFlowScaledBySeasonRiver, meanFlowByRiverScaledBySeasonRiver, <span class="at">color =</span> cohort)) <span class="sc">+</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -1460,9 +1594,13 @@ This series of figures confirms that values from <code>cd1</code> are similar to
 <span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(river<span class="sc">~</span>season, <span class="at">scales =</span> <span class="st">'free'</span>, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/flow_flowByRiverBySeasonRiver-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/flow_flowByRiverBySeasonRiver-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1, <span class="fu">aes</span>(meanFlowScaledBySeasonRiver)) <span class="sc">+</span></span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"red3"</span>, <span class="at">adjust =</span> <span class="fl">2.5</span>, <span class="at">linewidth =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
@@ -1472,13 +1610,17 @@ This series of figures confirms that values from <code>cd1</code> are similar to
 <span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(river<span class="sc">~</span>season, <span class="at">labeller =</span> global_labellerRiverSeasonInt_WB)<span class="co">#, scales = 'free')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="dataFlow_files/figure-html/flow_flowByRiverBySeasonRiver-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="dataFlow_files/figure-html/flow_flowByRiverBySeasonRiver-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <section id="time-series-plots-of-flow-data-types-scaled-by-season-and-river" class="level4" data-number="9.2.2.1">
 <h4 data-number="9.2.2.1" class="anchored" data-anchor-id="time-series-plots-of-flow-data-types-scaled-by-season-and-river"><span class="header-section-number">9.2.2.1</span> Time series plots of flow data types scaled by season and river</h4>
-<div class="cell" data-hash="dataFlow_cache/html/flow_flowByRiverRawTimeSeriesScaledbySR_f969ead27e3d3c71ca8be67119c6e4e7">
-<details>
+<div class="cell">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cd1) <span class="sc">+</span></span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_point(aes(date, meanFlowByRiver), color = "blue3") +</span></span>
@@ -1491,7 +1633,7 @@ This series of figures confirms that values from <code>cd1</code> are similar to
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="dataFlow_files/figure-html/flow_flowByRiverRawTimeSeriesScaledbySR-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Stream flow time series, flow type (blue = flowByRiver, green = flowByArea_flowExt)</figcaption>
+<figcaption>Stream flow time series, flow type (blue = flowByRiver, green = flowByArea_flowExt)</figcaption>
 </figure>
 </div>
 </div>
@@ -1548,6 +1690,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -1616,13 +1785,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -1752,10 +1923,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1765,8 +1935,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1779,6 +1958,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1822,6 +2120,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1847,6 +2146,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1908,12 +2233,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./dataAll.html" class="pagination-link">
+      <a href="./dataAll.html" class="pagination-link" aria-label="All fish data">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">All fish data</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./modelGrowthFlowByRiver.html" class="pagination-link">
+      <a href="./modelGrowthFlowByRiver.html" class="pagination-link" aria-label="Growth in mass byRiver/byArea">
         <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Growth in mass byRiver/byArea</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -2822,6 +3147,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
+
 
 
 

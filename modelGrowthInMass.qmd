@@ -414,13 +414,15 @@ plotPairs(cd1Wide_grWeight, "Atlantic salmon", 2000:2015, 1, 8) # missing data i
 Row and column labels are 'age'\_'season'\
 Color by river - make new function
 
+There's an error in plotPairs(), commenting out for now 4/5/2024
+
 ::: panel-tabset
 #### 2000
 
 ```{r}
 #| label: pairs_bkt2000
 
-plotPairs(cd1Wide_grWeight, "Brook trout", 2000, 1, 8, upperBlank = TRUE)
+#plotPairs(cd1Wide_grWeight, "Brook trout", 2000, 1, 8, upperBlank = TRUE)
 ```
 
 #### 2001
@@ -428,7 +430,7 @@ plotPairs(cd1Wide_grWeight, "Brook trout", 2000, 1, 8, upperBlank = TRUE)
 ```{r}
 #| label: pairs_bkt2001
 
-plotPairs(cd1Wide_grWeight, "Brook trout", 2001, upperBlank = TRUE)
+#plotPairs(cd1Wide_grWeight, "Brook trout", 2001, 1, 8, upperBlank = TRUE)
 ```
 
 #### 2002
@@ -436,7 +438,7 @@ plotPairs(cd1Wide_grWeight, "Brook trout", 2001, upperBlank = TRUE)
 ```{r}
 #| label: pairs_bkt2002
 
-plotPairs(cd1Wide_grWeight, "Brook trout", 2002, 1, 9, upperBlank = TRUE)
+#plotPairs(cd1Wide_grWeight, "Brook trout", 2002, 1, 9, upperBlank = TRUE)
 ```
 
 #### 2003
@@ -444,7 +446,7 @@ plotPairs(cd1Wide_grWeight, "Brook trout", 2002, 1, 9, upperBlank = TRUE)
 ```{r}
 #| label: pairs_bkt2003
 
-plotPairs(cd1Wide_grWeight, "Brook trout", 2003, upperBlank = TRUE)
+#plotPairs(cd1Wide_grWeight, "Brook trout", 2003, upperBlank = TRUE)
 ```
 
 #### 2004
@@ -452,7 +454,7 @@ plotPairs(cd1Wide_grWeight, "Brook trout", 2003, upperBlank = TRUE)
 ```{r}
 #| label: pairs_bkt2004
 
-plotPairs(cd1Wide_grWeight, "Brook trout", 2004, upperBlank = TRUE)
+#plotPairs(cd1Wide_grWeight, "Brook trout", 2004, upperBlank = TRUE)
 ```
 
 #### 2005
@@ -460,7 +462,7 @@ plotPairs(cd1Wide_grWeight, "Brook trout", 2004, upperBlank = TRUE)
 ```{r}
 #| label: pairs_bkt2005
 
-plotPairs(cd1Wide_grWeight, "Brook trout", 2005, upperBlank = TRUE)
+#plotPairs(cd1Wide_grWeight, "Brook trout", 2005, upperBlank = TRUE)
 ```
 
 #### 2006
@@ -468,7 +470,7 @@ plotPairs(cd1Wide_grWeight, "Brook trout", 2005, upperBlank = TRUE)
 ```{r}
 #| label: pairs_bkt2006
 
-plotPairs(cd1Wide_grWeight, "Brook trout", 2006, upperBlank = TRUE)
+#plotPairs(cd1Wide_grWeight, "Brook trout", 2006, upperBlank = TRUE)
 ```
 
 #### 2007
@@ -476,7 +478,7 @@ plotPairs(cd1Wide_grWeight, "Brook trout", 2006, upperBlank = TRUE)
 ```{r}
 #| label: pairs_bkt2007
 
-plotPairs(cd1Wide_grWeight, "Brook trout", 2007, upperBlank = TRUE)
+#plotPairs(cd1Wide_grWeight, "Brook trout", 2007, upperBlank = TRUE)
 ```
 
 #### 2008
@@ -484,7 +486,7 @@ plotPairs(cd1Wide_grWeight, "Brook trout", 2007, upperBlank = TRUE)
 ```{r}
 #| label: pairs_bkt2008
 
-plotPairs(cd1Wide_grWeight, "Brook trout", 2008, upperBlank = TRUE)
+#plotPairs(cd1Wide_grWeight, "Brook trout", 2008, upperBlank = TRUE)
 ```
 
 #### 2009
@@ -492,7 +494,7 @@ plotPairs(cd1Wide_grWeight, "Brook trout", 2008, upperBlank = TRUE)
 ```{r}
 #| label: pairs_bkt2009
 
-plotPairs(cd1Wide_grWeight, "Brook trout", 2009, upperBlank = TRUE)
+#plotPairs(cd1Wide_grWeight, "Brook trout", 2009, upperBlank = TRUE)
 ```
 
 #### 2010
@@ -500,7 +502,7 @@ plotPairs(cd1Wide_grWeight, "Brook trout", 2009, upperBlank = TRUE)
 ```{r}
 #| label: pairs_bkt2010
 
-plotPairs(cd1Wide_grWeight, "Brook trout", 2010, 1, 8, upperBlank = TRUE)
+#plotPairs(cd1Wide_grWeight, "Brook trout", 2010, 1, 8, upperBlank = TRUE)
 ```
 
 #### 2011
@@ -508,7 +510,7 @@ plotPairs(cd1Wide_grWeight, "Brook trout", 2010, 1, 8, upperBlank = TRUE)
 ```{r}
 #| label: pairs_bkt2011
 
-plotPairs(cd1Wide_grWeight, "Brook trout", 2011, 1, 7, upperBlank = TRUE)
+#plotPairs(cd1Wide_grWeight, "Brook trout", 2011, 1, 7, upperBlank = TRUE)
 ```
 
 #### 2012
@@ -516,7 +518,7 @@ plotPairs(cd1Wide_grWeight, "Brook trout", 2011, 1, 7, upperBlank = TRUE)
 ```{r}
 #| label: pairs_bkt2012
 
-plotPairs(cd1Wide_grWeight, "Brook trout", 2012, upperBlank = TRUE)
+#plotPairs(cd1Wide_grWeight, "Brook trout", 2012, upperBlank = TRUE)
 ```
 
 #### 2013
@@ -524,7 +526,7 @@ plotPairs(cd1Wide_grWeight, "Brook trout", 2012, upperBlank = TRUE)
 ```{r}
 #| label: pairs_bkt2013
 
-plotPairs(cd1Wide_grWeight, "Brook trout", 2013, upperBlank = TRUE)
+#plotPairs(cd1Wide_grWeight, "Brook trout", 2013, upperBlank = TRUE)
 ```
 
 #### 2014
@@ -532,7 +534,7 @@ plotPairs(cd1Wide_grWeight, "Brook trout", 2013, upperBlank = TRUE)
 ```{r}
 #| label: pairs_bkt2014
 
-plotPairs(cd1Wide_grWeight, "Brook trout", 2014, 1, 5, upperBlank = TRUE)
+#plotPairs(cd1Wide_grWeight, "Brook trout", 2014, 1, 5, upperBlank = TRUE)
 ```
 :::
 
@@ -690,7 +692,11 @@ ggplot(cd1 |> filter(!is.na(negGrowth), riverGG == "West Brook", seasonGG %in% c
   facet_wrap(~seasonGG)
 
 
-dfPlot <- cd1 |> filter(!is.na(negGrowth), riverGG == "West Brook", seasonGG %in% c("Summer", "Autumn"))
+dfPlot <- cd1 |> filter(
+  !is.na(negGrowth), 
+  riverGG == "West Brook", 
+  seasonGG %in% c("Summer", "Autumn", "Winter")
+)
 
 ggplot(dfPlot) +
   geom_point(
@@ -723,9 +729,10 @@ ggplot(dfPlot) +
       method = "glm", 
       method.args = list(family = "binomial")
   ) +
-  theme_publication() +  
+  theme_publication(base_size = 20) +  
   labs(x = "Fish mass (mg)", y = "Probability of negative growth") +
-  scale_color_manual(values = c("black","black","black")) +
+  #scale_color_manual(values = c("black","black","black")) +
+  scale_color_grey() +
   scale_fill_grey() +
   #scale_fill_brewer() +
   xlim(c(0,200)) +
@@ -1096,12 +1103,12 @@ ggplot(cd1 |> filter(!is.na(negGrowth)), aes(negGrowth)) +
 ```{r}
 #| label: propNegBySeason
 
-ggplot(propNegSRS |> filter(n > 50), aes(seasonGG, propNeg, color = riverGG, group = riverGG)) +
+ggplot(propNegSRS |> filter(n > 50), aes(seasonGG, propNeg, color = riverGG, group = riverGG, shape = riverGG)) +
   geom_point(aes(size = n)) +
   geom_line() +
-  labs(x = "Season", y = "Proportion of observations with negative growth in mass") +
+  labs(x = "Season", y = "Prop. of obs. with negative growth in mass") +
   scale_color_discrete() +
-  theme_publication() +  
+  theme_publication(base_size = 20) +  
   theme(axis.text.x = element_text(angle = 360-45, vjust = 0, hjust = 0.5)) +
   facet_wrap(~speciesGG)
 
@@ -1165,13 +1172,16 @@ ggplot(propNegSRsN |> filter(n > 10), aes(year, propNeg, color = riverGG)) +
   scale_color_discrete() +
   theme_publication() +  
   facet_grid(seasonGG~speciesGG)
+```
 
-ggplot(propNegSRsN |> filter(n > 15, seasonGG == "Summer", speciesGG == "Brook trout", year > 2001), aes(year, propNeg, color = riverGG)) +
+Figure 5
+```{r}
+ggplot(propNegSRsN |> filter(n > 15, seasonGG == "Summer", speciesGG == "Brook trout", year > 2001), aes(year, propNeg, color = riverGG, shape = riverGG)) +
   geom_point(aes(size = n)) +
   geom_line() +
   labs(x = "Year", y = "Proportion of observations with negative growth in mass") +
   scale_color_discrete() +
-  theme_publication()
+  theme_publication(base_size = 17)
 ```
 
 Trends across years
@@ -1191,6 +1201,16 @@ propNegYear =lm(propNeg~year*riverGG, data = propNegSRsN |> filter(n > 15, year 
 
 summary(propNegYear)
 anova(propNegYear)
+
+propNegYearBNT =lm(propNeg~year, data = propNegSRsN |> filter(n > 15, year > 2001, seasonGG == "Summer", speciesGG == "Brown trout", riverGG == "West Brook"))
+
+summary(propNegYearBNT)
+anova(propNegYearBNT)
+
+propNegYearATS =lm(propNeg~year, data = propNegSRsN |> filter(n > 15, year > 2001, seasonGG == "Summer", speciesGG == "Atlantic salmon", riverGG == "West Brook"))
+
+summary(propNegYearBNT)
+anova(propNegYearBNT)
 ```
 
 ## Negative growth by individual
@@ -1305,54 +1325,240 @@ distinctIndNegGrowth <-
   (propATSNegGr <- 1 - 1403/2388)
 ```
 
+## Mean growth rates losers_gainers
+### Overall
+```{r}
+#| label: losers_gainers
+
+cd1 |> 
+  filter(!is.na(negGrowth)) |> 
+  group_by(negGrowth) |> 
+  summarize(
+    n = n(),
+    meanGrowth = mean(grWeight),
+    sdGrowth = sd(grWeight) 
+  )
+
+
+```
+
+### By species
+```{r}
+#| label: losers_gainers_species
+
+cd1 |> 
+  filter(!is.na(negGrowth)) |> 
+  group_by(species, negGrowth) |> 
+  summarize(
+    n = n(),
+    meanGrowth = mean(grWeight),
+    sdGrowth = sd(grWeight) 
+  )
+
+
+```
+
+### By Season/species
+```{r}
+#| label: losers_gainers_season_species
+
+cd1 |> 
+  filter(!is.na(negGrowth)) |> 
+  group_by(season, species, negGrowth) |> 
+  summarize(
+    n = n(),
+    meanGrowth = mean(grWeight),
+    sdGrowth = sd(grWeight)  
+  ) |> 
+  print(n = 25)
+
+
+```
+
 
 ## Environmental effects on Proportion of observations with negative growth
 ### Models for proportions  
-#### Brool trout
-Probably delete this section
+
+```{r}
+#| label: propModBKTData
+
+propNegSRsN <- propNegSRsN |>
+  mutate(
+    mFZ = (mF - mean(mF, na.rm = TRUE))/sd(mF, na.rm = TRUE), 
+    mF_log10Z = (mF_log10 - mean(mF_log10, na.rm = TRUE))/sd(mF_log10, na.rm = TRUE),  
+    mTZ = (mT - mean(mT, na.rm = TRUE))/sd(mT, na.rm = TRUE),
+    nIndZ = (nInd - mean(nInd, na.rm = TRUE))/sd(nInd, na.rm = TRUE)
+  )
+
+```
+
+#### Brook trout
 ```{r}
 #| label: propModBKT
 
-propModBKT1 <- lm(propNeg ~ (mT + mF_log10 + nInd + seasonGG + riverGG)^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
+# turn this code chunk into a function that accepts speciesGG as input and returns the model with the lowest AIC
 
-propModBKT2 <- lm(propNeg ~ (mT + mF_log10 + nInd + seasonGG)^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
+propModBKT1 <- lm(propNeg ~ (mTZ + mF_log10Z + nIndZ + seasonGG + riverGG)^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
 
-propModBKT3 <- lm(propNeg ~ (mT + mF_log10 + nInd )^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
+propModBKT2 <- lm(propNeg ~ (mTZ + mF_log10Z + nIndZ + seasonGG)^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
 
-propModBKT4 <- lm(propNeg ~ (mT + mF_log10  + seasonGG)^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
+propModBKT3 <- lm(propNeg ~ (mTZ + mF_log10Z + nIndZ )^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
 
-propModBKT5 <- lm(propNeg ~ (mT  + nInd + seasonGG)^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
+propModBKT4 <- lm(propNeg ~ (mTZ + mF_log10Z  + seasonGG)^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
 
-propModBKT6 <- lm(propNeg ~ (mT + mF_log10 + nInd )^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
+propModBKT5 <- lm(propNeg ~ (mTZ  + nIndZ + seasonGG)^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
 
-propModBKT7 <- lm(propNeg ~ (mT + mF_log10  + riverGG)^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
+propModBKT6 <- lm(propNeg ~ (mTZ + mF_log10Z + nIndZ )^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
 
-propModBKT8 <- lm(propNeg ~ (mT + seasonGG + riverGG)^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
+propModBKT7 <- lm(propNeg ~ (mTZ + mF_log10Z  + riverGG)^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
 
-propModBKT9 <- lm(propNeg ~ (nInd + seasonGG + riverGG)^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
+propModBKT8 <- lm(propNeg ~ (mTZ + seasonGG + riverGG)^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
 
-propModBKT10 <- lm(propNeg ~ (mF_log10 + seasonGG + riverGG)^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
+propModBKT9 <- lm(propNeg ~ (nIndZ + seasonGG + riverGG)^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
+
+propModBKT10 <- lm(propNeg ~ (mF_log10Z + seasonGG + riverGG)^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
 
 propModBKT11 <- lm(propNeg ~ (riverGG)^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
 
 propModBKT12<- lm(propNeg ~ (seasonGG)^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
 
-propModBKT13 <- lm(propNeg ~ (nInd)^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
+propModBKT13 <- lm(propNeg ~ (nIndZ)^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
 
-propModBKT14 <- lm(propNeg ~ (mF_log10)^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
+propModBKT14 <- lm(propNeg ~ (mF_log10Z)^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
 
-propModBKT15 <- lm(propNeg ~ (mT)^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
+propModBKT15 <- lm(propNeg ~ (mTZ)^2, data = propNegSRsN |> filter(speciesGG == "Brook trout"))
 
 propModAIC <- AIC(propModBKT1, propModBKT2, propModBKT3, propModBKT4, propModBKT5, propModBKT6, propModBKT7, propModBKT8, propModBKT9, propModBKT10, propModBKT11, propModBKT12, propModBKT13, propModBKT14, propModBKT15) |>  arrange(AIC)
 
-summary(rownames(propModAIC)[1])
+# q: return the model with the lowest AIC? 
+
+#summary(rownames(propModAIC)[1])
+summary(propModBKT10)
+anova(propModBKT10)
 get(rownames(propModAIC)[1])
+
+
+predPropNeg0 <- 
+  expand.grid(
+    mF_log10Z = seq(-1.5,1.5,0.25), 
+    #mTZ = seq(-1.5,1.5,0.25), 
+    #nIndZ = seq(-1.5,1.5,0.25),
+    riverGG = unique(propNegSRsN$riverGG), 
+    seasonGG= unique(propNegSRsN$seasonGG)
+  ) |>
+  mutate(speciesGG = "Brook trout")
+
+predPropNeg <- 
+  add_column(
+    pred = predict(propModBKT10, predPropNeg0),
+    predPropNeg0
+  )
+
+#
+ggplot(predPropNeg, aes(mF_log10Z, pred, color = seasonGG)) +
+  geom_line() +
+  facet_grid(~riverGG)
+
+# 
+```
+
+#### Brown trout
+```{r}
+#| label: propModBNT
+
+# turn this code chunk into a function that accepts speciesGG as input and returns the model with the lowest AIC
+
+propModBNT1 <- lm(propNeg ~ (mTZ + mF_log10Z + nIndZ + seasonGG + riverGG)^2, data = propNegSRsN |> filter(speciesGG == "Brown trout"))
+
+propModBNT2 <- lm(propNeg ~ (mTZ + mF_log10Z + nIndZ + seasonGG)^2, data = propNegSRsN |> filter(speciesGG == "Brown trout"))
+
+propModBNT3 <- lm(propNeg ~ (mTZ + mF_log10Z + nIndZ )^2, data = propNegSRsN |> filter(speciesGG == "Brown trout"))
+
+propModBNT4 <- lm(propNeg ~ (mTZ + mF_log10Z  + seasonGG)^2, data = propNegSRsN |> filter(speciesGG == "Brown trout"))
+
+propModBNT5 <- lm(propNeg ~ (mTZ  + nIndZ + seasonGG)^2, data = propNegSRsN |> filter(speciesGG == "Brown trout"))
+
+propModBNT6 <- lm(propNeg ~ (mTZ + mF_log10Z + nIndZ )^2, data = propNegSRsN |> filter(speciesGG == "Brown trout"))
+
+propModBNT7 <- lm(propNeg ~ (mTZ + mF_log10Z  + riverGG)^2, data = propNegSRsN |> filter(speciesGG == "Brown trout"))
+
+propModBNT8 <- lm(propNeg ~ (mTZ + seasonGG + riverGG)^2, data = propNegSRsN |> filter(speciesGG == "Brown trout"))
+
+propModBNT9 <- lm(propNeg ~ (nIndZ + seasonGG + riverGG)^2, data = propNegSRsN |> filter(speciesGG == "Brown trout"))
+
+propModBNT10 <- lm(propNeg ~ (mF_log10Z + seasonGG + riverGG)^2, data = propNegSRsN |> filter(speciesGG == "Brown trout"))
+
+propModBNT11 <- lm(propNeg ~ (riverGG)^2, data = propNegSRsN |> filter(speciesGG == "Brown trout"))
+
+propModBNT12<- lm(propNeg ~ (seasonGG), data = propNegSRsN |> filter(speciesGG == "Brown trout"))
+
+propModBNT13 <- lm(propNeg ~ (nIndZ)^2, data = propNegSRsN |> filter(speciesGG == "Brown trout"))
+
+propModBNT14 <- lm(propNeg ~ (mF_log10Z)^2, data = propNegSRsN |> filter(speciesGG == "Brown trout"))
+
+propModBNT15 <- lm(propNeg ~ (mTZ)^2, data = propNegSRsN |> filter(speciesGG == "Brown trout"))
+
+propModAIC <- AIC(propModBNT1, propModBNT2, propModBNT3, propModBNT4, propModBNT5, propModBNT6, propModBNT7, propModBNT8, propModBNT9, propModBNT10, propModBNT11, propModBNT12, propModBNT13, propModBNT14, propModBNT15) |>  arrange(AIC)
+
+# q: return the model with the lowest AIC? 
+
+#summary(rownames(propModAIC)[1])
+summary(propModBNT12)
+anova(propModBNT12)
+get(rownames(propModAIC)[1])
+
 ```
 
 
+#### Atlantic salmon
+```{r}
+#| label: propModATS
+
+# turn this code chunk into a function that accepts speciesGG as input and returns the model with the lowest AIC
+
+propModATS1 <- lm(propNeg ~ (mTZ + mF_log10Z + nIndZ + seasonGG)^2, data = propNegSRsN |> filter(speciesGG == "Atlantic salmon"))
+
+propModATS2 <- lm(propNeg ~ (mTZ + mF_log10Z + nIndZ + seasonGG)^2, data = propNegSRsN |> filter(speciesGG == "Atlantic salmon"))
+
+propModATS3 <- lm(propNeg ~ (mTZ + mF_log10Z + nIndZ )^2, data = propNegSRsN |> filter(speciesGG == "Atlantic salmon"))
+
+propModATS4 <- lm(propNeg ~ (mTZ + mF_log10Z  + seasonGG)^2, data = propNegSRsN |> filter(speciesGG == "Atlantic salmon"))
+
+propModATS5 <- lm(propNeg ~ (mTZ  + nIndZ + seasonGG)^2, data = propNegSRsN |> filter(speciesGG == "Atlantic salmon"))
+
+propModATS6 <- lm(propNeg ~ (mTZ + mF_log10Z + nIndZ )^2, data = propNegSRsN |> filter(speciesGG == "Atlantic salmon"))
+
+propModATS7 <- lm(propNeg ~ (mTZ + mF_log10Z)^2, data = propNegSRsN |> filter(speciesGG == "Atlantic salmon"))
+
+propModATS8 <- lm(propNeg ~ (mTZ + seasonGG )^2, data = propNegSRsN |> filter(speciesGG == "Atlantic salmon"))
+
+propModATS9 <- lm(propNeg ~ (nIndZ + seasonGG )^2, data = propNegSRsN |> filter(speciesGG == "Atlantic salmon"))
+
+propModATS10 <- lm(propNeg ~ (mF_log10Z + seasonGG)^2, data = propNegSRsN |> filter(speciesGG == "Atlantic salmon"))
+
+propModATS11 <- lm(propNeg ~ (riverGG)^2, data = propNegSRsN |> filter(speciesGG == "Atlantic salmon"))
+
+propModATS12<- lm(propNeg ~ (seasonGG), data = propNegSRsN |> filter(speciesGG == "Atlantic salmon"))
+
+propModATS13 <- lm(propNeg ~ (nIndZ)^2, data = propNegSRsN |> filter(speciesGG == "Atlantic salmon"))
+
+propModATS14 <- lm(propNeg ~ (mF_log10Z)^2, data = propNegSRsN |> filter(speciesGG == "Atlantic salmon"))
+
+propModATS15 <- lm(propNeg ~ (mTZ)^2, data = propNegSRsN |> filter(speciesGG == "Atlantic salmon"))
+
+propModAIC <- AIC(propModATS1, propModATS2, propModATS3, propModATS4, propModATS5, propModATS6, propModATS7, propModATS8, propModATS9, propModATS10, propModATS11, propModATS12, propModATS13, propModATS14, propModATS15) |>  arrange(AIC)
+
+# q: return the model with the lowest AIC? 
+
+#summary(rownames(propModAIC)[1])
+summary(propModATS12)
+anova(propModATS12)
+get(rownames(propModAIC)[1])
+
+```
 
 ### Proportion of observations with negative growth by **flow**
-
+Figure 6
 ```{r}
 #| label: negGrowth_flow
 
@@ -1366,7 +1572,7 @@ ggplot(propNegSRsN |> filter(n > 10, riverGG == "West Brook"), aes(mF, propNeg, 
   theme_publication() +  
   facet_grid(seasonGG~speciesGG)
 
-ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(mF, propNeg, color = riverGG)) +
+ggplot(propNegSRsN |> filter(n > 10, riverGG != "West Brook"), aes(mF, propNeg, color = riverGG, shape = riverGG)) +
   geom_point(aes(size = n)) +
   geom_smooth(method = "lm", se = FALSE) +
   scale_y_continuous("Proportion of observations with negative growth in mass") +
