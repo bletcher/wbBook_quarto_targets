@@ -2806,7 +2806,9 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Isolated Small", "
 
 ### Growth and seen again or not
 
-By year - cd which includes all observations not just consecutive captures
+Compare number of fish not seen again or seen again after each growth interval for fish that gained weight or lost weight. Plot average ratios for for numbers not see/seen again for fish that lost or gained weight for species river and season. 
+
+By year - `cd` which includes all observations not just consecutive captures
 ```{r}
 #| label: negGrowth_seenAgainYear_cd
 
