@@ -2806,42 +2806,11 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Isolated Small", "
 
 ### Growth and seen again or not
 
-```{r}
-#| label: negGrowth_seenAgain
-
-
-negGr_seenNotSeen = cd1 |> 
-  filter(samplesBeforeLast > 0) |>
-  group_by(speciesGG, riverGG, seasonGG, lastObs = samplesBeforeLast <= 1, negGrowth) |> 
-  summarize(
-    meanGR = mean(grWeight, na.rm = TRUE),
-    n = n()
-  ) |> 
-  filter(!is.na(negGrowth), n > 10)
-
-ggplot(negGr_seenNotSeen |> filter(!is.na(negGrowth), riverGG == "West Brook"), aes(negGrowth, n, fill = lastObs)) +
-  geom_col(position = "dodge") +
-  theme_publication() +    
-  facet_grid(speciesGG~seasonGG)
-
-
-negGr_seenNotSeen_wide <- negGr_seenNotSeen |> ungroup() |> select(-meanGR) |> spread(lastObs, n, fill = 0) |>
-  mutate(ratio = `TRUE`/`FALSE`)
-
-ggplot(negGr_seenNotSeen_wide |> filter(!is.na(negGrowth), seasonGG != "Spring"), aes(speciesGG, ratio, fill = negGrowth)) +
-  geom_col(position = "dodge") +
-  scale_y_continuous("Ratio of number of fish not seen again to seen again") +
-  scale_x_discrete("Species") +
-  theme_publication(base_size = 17) +    
-  facet_grid(riverGG ~ seasonGG)
-
-```
-
 By year - cd which includes all observations not just consecutive captures
 ```{r}
 #| label: negGrowth_seenAgainYear_cd
 
-cd |> mutate(lastInterval = maxSample == sampleNumber + 1) |> filter(nPerInd >7) |> select(tag, sampleNumber, maxSample, observedWeight, grWeight, lastInterval) 
+#cd |> mutate(lastInterval = maxSample == sampleNumber + 1) |> filter(nPerInd >7) |> select(tag, sampleNumber, maxSample, observedWeight, grWeight, lastInterval) 
 
 
 negGr_seenNotSeenYearCD = cd |> 
@@ -2870,30 +2839,12 @@ negGr_seenNotSeenYearCD = cd |>
     meanGR = mean(grWeight, na.rm = TRUE),
     n = n()
   ) |> 
-  filter(!is.na(negGrowth), n > 10)
-
-ggplot(negGr_seenNotSeenYearCD |> filter(!is.na(negGrowth), riverGG == "West Brook", year > 2001, year < 2008, seasonGG == "Summer"), aes(negGrowth, n, fill = lastInterval)) +
-  geom_col(position = "dodge") +
-  theme_publication() +    
-  facet_grid(speciesGG ~ seasonGG + year)
-
-ggplot(negGr_seenNotSeenYearCD |> filter(!is.na(negGrowth), riverGG == "West Brook", year >= 2008, year < 2014, seasonGG == "Summer"), aes(negGrowth, n, fill = lastInterval)) +
-  geom_col(position = "dodge") +
-  theme_publication() +    
-  facet_grid(speciesGG ~ seasonGG + year)
+  filter(!is.na(negGrowth), n > 5)
 
 
 negGr_seenNotSeenYearCD_wide <- negGr_seenNotSeenYearCD |> ungroup() |> select(-meanGR) |> spread(lastInterval, n, fill = 0) |>
   mutate(ratio = `TRUE`/`FALSE`)
 
-
-
-ggplot(negGr_seenNotSeenYearCD_wide |> filter(!is.na(negGrowth), riverGG == "West Brook", year > 2001, year < 2014, seasonGG == "Summer", speciesGG == "Brook trout", is.finite(ratio)), aes(speciesGG, ratio, fill = negGrowth)) +
-  geom_col(position = "dodge") +
-  scale_y_continuous("Ratio of number of fish not seen again to seen again") +
-  scale_x_discrete("Species") +
-  theme_publication(base_size = 17) +    
-  facet_grid(riverGG ~ seasonGG + year)
 
 ggplot(negGr_seenNotSeenYearCD_wide |> filter(!is.na(negGrowth), speciesGG == "Brook trout", seasonGG == "Summer"), 
        aes(year, `FALSE`, color = negGrowth)) +
@@ -2903,9 +2854,9 @@ ggplot(negGr_seenNotSeenYearCD_wide |> filter(!is.na(negGrowth), speciesGG == "B
   geom_line(aes(year, `TRUE`, color = negGrowth)) +
   scale_y_continuous("Number of fish seen again (triangle) and number of fish not seen again (circle)") +
   scale_x_continuous("Year") +
-  theme_publication(base_size = 17) + 
+  theme_publication(base_size = 14) + 
   ggtitle("Brook trout") +
-  facet_wrap(riverGG ~ seasonGG)
+  facet_wrap(~riverGG)
 
 ggplot(negGr_seenNotSeenYearCD_wide |> filter(!is.na(negGrowth), speciesGG == "Brown trout", seasonGG == "Summer"), 
        aes(year, `FALSE`, color = negGrowth)) +
@@ -2915,9 +2866,9 @@ ggplot(negGr_seenNotSeenYearCD_wide |> filter(!is.na(negGrowth), speciesGG == "B
   geom_line(aes(year, `TRUE`, color = negGrowth)) +
   scale_y_continuous("Number of fish seen again (triangle) and number of fish not seen again (circle)") +
   scale_x_continuous("Year") +
-  theme_publication(base_size = 17) + 
+  theme_publication(base_size = 14) + 
   ggtitle("Brown trout") +
-  facet_wrap(riverGG ~ seasonGG)
+  facet_wrap(~riverGG)
 
 ggplot(negGr_seenNotSeenYearCD_wide |> filter(!is.na(negGrowth), speciesGG == "Atlantic salmon", seasonGG == "Summer"), 
        aes(year, `FALSE`, color = negGrowth)) +
@@ -2927,9 +2878,9 @@ ggplot(negGr_seenNotSeenYearCD_wide |> filter(!is.na(negGrowth), speciesGG == "A
   geom_line(aes(year, `TRUE`, color = negGrowth)) +
   scale_y_continuous("Number of fish seen again (triangle) and number of fish not seen again (circle)") +
   scale_x_continuous("Year") +
-  theme_publication(base_size = 17) + 
+  theme_publication(base_size = 14) + 
   ggtitle("Atlantic salmon") +
-  facet_wrap(riverGG ~ seasonGG)
+  facet_wrap(~riverGG)
 
 ############# means
 negGr_seenNotSeenYearCD_wideMeans <- negGr_seenNotSeenYearCD_wide |> 
