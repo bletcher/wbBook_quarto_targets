@@ -2895,15 +2895,26 @@ negGr_seenNotSeenYearCD_wideMeans <- negGr_seenNotSeenYearCD_wide |>
   ) |>
   mutate(
     ymax = meanRatio + sdRatio,
-    ymin = meanRatio - sdRatio 
-  )
+    ymin = meanRatio - sdRatio,
+    gainedLost = ifelse(negGrowth, "Lost", "Gained")
+  ) 
 
-# add error bars ymax and ymin
-ggplot(negGr_seenNotSeenYearCD_wideMeans |> filter(seasonGG == "Summer"), aes(negGrowth, meanRatio, fill = negGrowth)) +
+
+ggplot(negGr_seenNotSeenYearCD_wideMeans |> filter(seasonGG == "Summer", riverGG == "West Brook"), aes(gainedLost, meanRatio)) +
   geom_col(position = "dodge") +
   geom_errorbar(aes(ymin = ymin, ymax = ymax), position = position_dodge(0.9), width = 0.2) +
+  geom_hline(yintercept = 1, linetype = "dashed") +
+  labs(y = "Ratio of fish not seen again to fish seen again", x = "Growth in mass") +
   theme_publication() +    
-  facet_grid(speciesGG~riverGG)
+  facet_grid(~speciesGG)
+
+ggplot(negGr_seenNotSeenYearCD_wideMeans |> filter(speciesGG == "Brook trout"), aes(gainedLost, meanRatio)) +
+  geom_col(position = "dodge") +
+  geom_errorbar(aes(ymin = ymin, ymax = ymax), position = position_dodge(0.9), width = 0.2) +
+  geom_hline(yintercept = 1, linetype = "dashed") +
+  labs(y = "Ratio of fish not seen again to fish seen again", x = "Growth in mass") +
+  theme_publication() +    
+  facet_grid(seasonGG~riverGG)
 
 
 ```
