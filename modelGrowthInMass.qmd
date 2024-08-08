@@ -3246,8 +3246,6 @@ plotGrowthKnownZByYear(cd1, "Brook trout", "Open Small")
 plotGrowthKnownZByYear(cd1, "Brook trout", "Isolated Small")
 
 
-
-
 ```
 
 ### Growth and movement distance
@@ -3255,26 +3253,37 @@ plotGrowthKnownZByYear(cd1, "Brook trout", "Isolated Small")
 TO add: break avg move into negGR/not negGR
 
 ```{r}
+#| label: growthModelNegPos
 
-ggplot(cd1 |> filter(seasonGG == "Summer", !is.na(negGrowth)), aes(distMoved, color = negGrowth)) +
-  geom_density(adjust = 8) +
-  ggtitle("All species, summer") +
-  theme_publication() +    
-  facet_wrap(~speciesGG)#, scales = "free")
+ggplot(cd1 |> filter(seasonGG %in% c("Summer", "Autumn"), !is.na(negGrowth)), aes(distMoved, linetype = negGrowth)) +
+  geom_density(linewidth = 1.5, adjust = 8) +
+  #ggtitle("All species, summer") +
+  labs(x = "Distance moved (m)", y = "Frequency") +
+  theme_publication(base_size=18) +    
+  facet_grid(seasonGG ~ speciesGG)#, scales = "free")
 
 modSummer <- (lm(distMoved ~ negGrowth * species, data = cd1 |> filter(seasonGG == "Summer", !is.na(negGrowth))))
 summary(modSummer)
 anova(modSummer)
 
-ggplot(cd1 |> filter(seasonGG == "Autumn", !is.na(negGrowth)), aes(distMoved, color = negGrowth)) +
-  geom_density(adjust = 8) +
-  ggtitle("All species, autumn") +
-  theme_publication() +    
-  facet_wrap(~speciesGG)#, scales = "free")
+lmerSummer <- lmer(distMoved ~  negGrowth * species + (1 | year), data = cd1 |> filter(seasonGG == "Summer", !is.na(negGrowth), year>=2000, year <= 2015))
+summary(lmerSummer)
+anova(lmerSummer)
+#fixef(lmerSummer)
+confint(lmerSummer)
 
-modAutumn <- (lm(distMoved ~ negGrowth * species, data = cd1 |> filter(seasonGG == "Autumn", !is.na(negGrowth))))
+# Autumn
+# 
+modAutumn <- (lm(distMoved ~ negGrowth * species, data = cd1 |> filter(seasonGG == "Autumn", !is.na(negGrowth), year >= 2000, year <= 2015)))
 summary(modAutumn)
 anova(modAutumn)
+
+
+lmerAutumn <- lmer(distMoved ~ negGrowth * species + (1 | year), data = cd1 |> filter(seasonGG == "Autumn", !is.na(negGrowth), year >= 2000, year <= 2015))
+summary(lmerAutumn)
+anova(lmerAutumn)
+#fixef(lmerAutumn)
+confint(lmerAutumn)
 
 ```
 
