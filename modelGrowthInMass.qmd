@@ -3108,7 +3108,7 @@ ggplot(negGr_seenNotSeenYearAgeCD_wideMeans |> filter(seasonGG == "Autumn", rive
   facet_grid(age~speciesGG)
 
 
-ggplot(negGr_seenNotSeenYearAgeCD_wideMeans |> filter(seasonGG %in% c("Summer","Autumn"), riverGG == "West Brook"), aes(gainedLost, meanRatio, fill = factor(age), color = factor(age))) +
+ggplot(negGr_seenNotSeenYearAgeCD_wideMeans |> filter(seasonGG %in% c("Summer","Autumn"), riverGG == "West Brook", age < 3), aes(gainedLost, meanRatio, fill = factor(age), color = factor(age))) +
   geom_col(position = "dodge") +
   geom_errorbar(aes(ymin = ymin, ymax = ymax), position = position_dodge(0.9), width = 0.2) +
   geom_hline(yintercept = 1, linetype = "dashed") +
@@ -3121,15 +3121,15 @@ ggplot(negGr_seenNotSeenYearAgeCD_wideMeans |> filter(seasonGG %in% c("Summer","
 
 #####
 
-ggplot(negGr_seenNotSeenYearAgeCD_wideMeans |> filter(speciesGG == "Brook trout"), aes(gainedLost, meanRatio, fill = age)) +
-  geom_col(position = "dodge") +
-  geom_errorbar(aes(ymin = ymin, ymax = ymax), position = position_dodge(0.9), width = 0.2) +
-  geom_hline(yintercept = 1, linetype = "dashed") +
-  #labs(y = "Ratio of fish not seen again to fish seen again", x = "Growth in mass") +
-  labs(y = "Number of fish not seen again / number of fish seen again", x = "Growth in mass") +
-  #ggtitle("Brook trout") +
-  theme_publication(base_size = 18) +    
-  facet_grid(seasonGG~riverGG + age)
+# ggplot(negGr_seenNotSeenYearAgeCD_wideMeans |> filter(speciesGG == "Brook trout"), aes(gainedLost, meanRatio, fill = age)) +
+#   geom_col(position = "dodge") +
+#   geom_errorbar(aes(ymin = ymin, ymax = ymax), position = position_dodge(0.9), width = 0.2) +
+#   geom_hline(yintercept = 1, linetype = "dashed") +
+#   #labs(y = "Ratio of fish not seen again to fish seen again", x = "Growth in mass") +
+#   labs(y = "Number of fish not seen again / number of fish seen again", x = "Growth in mass") +
+#   #ggtitle("Brook trout") +
+#   theme_publication(base_size = 18) +    
+#   facet_grid(seasonGG~riverGG + age)
 
 # ggplot(negGr_seenNotSeenYearAgeCD_wideMeans |> filter(speciesGG == "Brown  trout"), aes(gainedLost, meanRatio, fill = age)) +
 #   geom_col(position = "dodge") +
