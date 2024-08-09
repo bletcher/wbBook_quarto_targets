@@ -2854,6 +2854,53 @@ ggplot(negGr_seenNotSeenAgeCD_wide |> filter(riverGG == "West Brook", age %in% c
 ```
 
 
+#### By age only, not year for fish LENGTH
+```{r}
+#| label: negGrowthLen_seenAgainAge_cd
+
+negGrLen_seenNotSeenAgeCD = cd |> 
+  mutate(age = year - cohort) |>
+  addGG() |>
+ # filter(samplesBeforeLast > 0) |>
+  group_by(speciesGG, riverGG, seasonGG, lastInterval = maxSample == sampleNumber + 1, negGrowth = grLength < 0, age) |> 
+  summarize(
+    meanGR = mean(grWeight, na.rm = TRUE),
+    n = n()
+  ) |> 
+  filter(!is.na(negGrowth), n > 5)
+
+
+negGrLen_seenNotSeenAgeCD_wide <- negGrLen_seenNotSeenAgeCD |> ungroup() |> select(-meanGR) |> spread(lastInterval, n, fill = 0) |>
+  mutate(
+    ratio = `TRUE`/`FALSE`,     
+    gainedLost = ifelse(negGrowth, "Lost", "Gained")
+  )
+
+
+ggplot(negGrLen_seenNotSeenAgeCD_wide |> filter(speciesGG == "Brook trout", age %in% c(1,2), seasonGG %in% c("Summer", "Autumn")), aes(gainedLost, ratio)) +
+  geom_col(position = "dodge") +
+  #geom_errorbar(aes(ymin = ymin, ymax = ymax), position = position_dodge(0.9), width = 0.2) +
+  geom_hline(yintercept = 1, linetype = "dashed") +
+  #labs(y = "Ratio of fish not seen again to fish seen again", x = "Growth in mass") +
+  labs(y = "Number of fish not seen again / number of fish seen again", x = "Growth in mass") +
+  #ggtitle("Brook trout") +
+  theme_publication(base_size = 18) +    
+  facet_grid(seasonGG~riverGG + age)
+
+ggplot(negGrLen_seenNotSeenAgeCD_wide |> filter(riverGG == "West Brook", age %in% c(1,2), seasonGG %in% c("Summer", "Autumn")), aes(gainedLost, ratio)) +
+  geom_col(position = "dodge") +
+  #geom_errorbar(aes(ymin = ymin, ymax = ymax), position = position_dodge(0.9), width = 0.2) +
+  geom_hline(yintercept = 1, linetype = "dashed") +
+  #labs(y = "Ratio of fish not seen again to fish seen again", x = "Growth in mass") +
+  labs(y = "Number of fish not seen again / number of fish seen again", x = "Growth in mass") +
+  #ggtitle("Brook trout") +
+  theme_publication(base_size = 18) +    
+  facet_grid(seasonGG~speciesGG + age)
+
+```
+
+
+
 By year - `cd` which includes all observations not just consecutive captures
 ```{r}
 #| label: negGrowth_seenAgainYear_cd
