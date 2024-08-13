@@ -31,7 +31,7 @@ quarto::quarto_render("modelsCMR_NN_SIM.qmd",
                       output_format = "html")
 
 
-quarto::quarto_render("getDataWanding.qmd", output_format = "html")#, cache_refresh = TRUE)
+quarto::quarto_render("getDataElectroDataRelease.qmd", output_format = "html")#, cache_refresh = TRUE)
 
 quarto::quarto_render("getDataElectro.qmd", 
                       cache_refresh = TRUE,

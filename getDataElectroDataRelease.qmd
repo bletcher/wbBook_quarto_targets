@@ -1,0 +1,203 @@
+
+## Electrofishing data
+```{r}
+#| label: getElectroDataOptionsDataRelease
+#| include: false
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
+```{r}
+#| label: librariesGetElectroDataDataRelease
+#| echo: false
+#library(devtools)
+#options(download.file.method = "wininet") or turn off VPN
+#devtools::install_github('Conte-Ecology/westBrookData/getWBData')
+library(getWBData)
+library(tidyverse)
+library(lubridate)
+library(targets)
+
+# devtools::install_github('bletcher/getPrepareWBData')
+# use this if command above doesn't work: options(download.file.method = "wininet")
+#library(getPrepareWBData)
+```
+
+Data are generated in `R/getDataElectro-targets.R` [file](https://github.com/bletcher/wbBook_quarto_targets/blob/main/R/getDataElectro_targets.R)  
+
+## Get electrofishing data target  
+Select variables for data release
+```{r}
+#| label: getElectroDataDataRelease
+#| cache: false
+
+library(targets)
+cdWB_electro <- tar_read(cdWB_electro_target)
+
+#str(cdWB_electro)
+
+# Left over variables
+   #                                 <dbl>,  <dbl>,  <dbl>, sdFlow <dbl>, sdFlowByRiver <dbl>, sdFlowByArea_flowExt <dbl>, sdFlowByArea_ByRiver <dbl>, propBelowLoFlowThreshByRiver <dbl>,
+   # propAboveHiFlowThreshByRiver <dbl>, propBelowLoFlowThreshByArea_flowExt <dbl>, propAboveHiFlowThreshByArea_flowExt <dbl>,  <ord>, readerId <lgl>,  <dbl>,  <chr>, instance <lgl>,  <lgl>,
+   # leftOrRight <lgl>, habitat <lgl>, cover <lgl>, justification <lgl>,  <lgl>, <lgl>,  <date>,  <dbl>,  <chr>,  <lgl>,    <dbl>,  <lgl>,  <dbl>,
+   #   <dbl>,  <dbl>, minYear <dbl>,  <dbl>,  <dbl>,
+   # 
+   # 
+
+
+# select vars and order for data release
+cdWB_electro_DR <- cdWB_electro |>
+  dplyr::select(
+    drainage, species, cohort, river, riverOrdered, 
+    tag, nPerInd, survey, pass, nPasses, proportionSampled, 
+    section, lagSection, riverMeter, sectionOriginal, area, distMoved, moveDir,
+    detectionDate, lagDetectionDate, year, season, yday, sampleName, sampleNumber, observedLength, observedWeight, 
+    lagObservedLength, lagObservedWeight, lagSampleNumber, sampleNumberDiff, sampleInterval, grWeight, grLength, minSample, maxSample,
+    ageInSamples, isYOY, sex,
+    cf, relCF, 
+    dateEmigrated,
+    meanTemperature, meanFlow, meanFlowByRiver, meanFlowByArea_flowExt, meanFlowByArea_ByRiver,
+    meanTemperatureScaledBySeason, meanFlowScaledBySeason, meanFlowByRiverScaledBySeason, meanFlowByArea_flowExtScaledBySeason, meanFlowByArea_ByRiverScaledBySeason,
+    comments
+  )
+
+str(cdWB_electro_DR)
+
+# Save csv for downloading
+#write.csv(cdWB_electro_DR, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/out/dataRelease/cdWB_electro_DR.csv")
+
+# Save rData file for downloading
+# save(cdWB_electro, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_electro.RData")
+```
+
+## Electrofishing data metadata
+### adapted from https://github.com/Conte-Ecology/westBrookData/blob/master/getWBData/vignettes/westBrookDataIntro.Rmd
+
+#### Column explanations
+__drainage__ "west" = West Brook drainage.  
+
+__species__  
+"bkt" = brook trout (*Salvelinus fontinalis*, native, self-sustaining population)  
+"bnt" = brown trout (*Salmo trutta*, non-native, self-sustaining population)  
+"ats" = Atlantic salmon (*Salmo salar*, stocked as fry through 2005, no reproduction)   
+
+__cohort__ Year the fish emerged from gravel in the spring (spawning occurred previous autumn), assigned based on size at initial capture and size distributions of fish of known age.  
+
+__river__ River the fish was observed in. NA if the fish was not observed.  
+
+  "west brook" The mainstem ("West Brook" from Letcher et al 2015).  
+
+  "wb jimmy" Larger tributary that fish can move back and forth into from WB section 31 ("Open Large" from Letcher et al 2015).  
+
+  "wb mitchell" Smaller tributary that fish can move back and forth into from WB section 35 ("Open Small" from Letcher et al 2015).  
+
+  "wb obear" Smaller tributary that has a waterfall at its mouth, so fish can only move downstream into WB section 20 ("Isolated Small" from Letcher et al 2015).  
+
+__riverOrdered__ River the fish was observed in, ordered as a factor and renamed. NA if the fish was not observed.  
+  
+  - "West Brook" The mainstem ("West Brook" from Letcher et al 2015).  
+
+  - "Open Large" Larger tributary that fish can move back and forth into from WB section 31 ("Open Large" from Letcher et al 2015).  
+
+  - "Open Small" Smaller tributary that fish can move back and forth into from WB section 35 ("Open Small" from Letcher et al 2015).  
+  
+  - "Isolated Small" Smaller tributary that has a waterfall at its mouth, so fish can only move downstream into WB section 20 ("Isolated Small" from Letcher et al 2015).  
+
+
+__tag__ PIT tag number, unique identifier, character. Tags are 12-mm, full duplex. Biomark tags were used until **2002 (check this)**, and then replaced with Destron-fearing tags.  
+
+__nPerInd__ Number of electrofishing occasion observations per individual.  
+
+__survey__ "shock" = electroshocking survey. Retained here for compatibility with other data sets.  
+
+__pass__ Electrofishing pass. 1 or 2 in the west brook (inside), 1 in tribs.  
+
+__nPasses__ Number of electrofishing passes for the section where the fish was captured. 1 or 2 in the west brook (inside), 1 in tributaries.  
+
+__proportionSampled__ Occasionally the sample was not complete (e.g., skipped west brook but did the tributaries). This is the proportion of sections in the river of capture that were sampled for the given sampling occasion.  
+
+__section__ Identifier for the 20m section where the fish was captured. This is ordered from downstream to upstream ranging from 1-47 for the `inside` study area for the West Brook and from 1-14 or 1-15 for the `trib` area of the tributaries (river `wb mitchell` starts a -1 to accommodate the downstream PIT tag antenna). Above and below the `inside` study area in the West Brook, section numbers indicate the number of meters from the downstream or upstream end of the study area.     
+
+__lagSection__ Section number lagged forward one sampling occasion.  
+
+__riverMeter__ River meter from the confluence of the West Brook with the Mill River.  
+
+__sectionOriginal__ Original section number before renumbering. Maintained for compatibility with early data sets.  
+
+__area__ inside = section 1:47 in the west brook, trib = tributary (not west brook), below = sections below inside sections, above = sections above the inside sections.  
+
+__distMoved__ Meters between locations for consecutive capture occasions.  
+
+__moveDir__ Direction of movement between locations for consecutive capture occasions, -1 = downstream, 0 = same section, 1 = upstream.  
+
+__detectionDate__ Date the fish was observed. POSIXct format.  
+
+__lagDetectionDate__ Detection date lagged forward one observation for consecutive capture occasions.  
+
+__year__ Year of observation.  
+
+__season__ 1 = spring, 2 = summer, 3 = fall, 4 = winter.  
+
+__yday__ Day of the year of observation [1-366].  
+
+__sampleName__ original sample name before renumbering. Maintained for consistency with early data sets.  
+
+__sampleNumber__ A tidier identifier for samples that strictly increases by one for each season (4/yr) and starts at 1.  
+
+__observedLength__ Fish fork length in mm (+/-1 mm).  
+
+__observedWeight__ Fish wet weight in g (+/- 0.1 g).  
+
+__lagObservedLength__ Observed length lagged forward one observation for consecutive capture occasions. NA if not observed.  
+
+__lagObservedWeight__ Observed weight lagged forward one observation for consecutive capture occasions. NA if not observed.  
+
+__lagSampleNumber__ Sample number lagged forward one observation for consecutive capture occasions.  
+
+__sampleNumberDiff__ Difference in sample numbers between consecutive capture occasions.  
+
+__sampleInterval__ Number of days between consecutive capture occasions.  
+
+__grWeight__ 'Instantaneous' growth rate in mass. ln(lagObservedWeight - observedWeight) / sampleInterval.  
+
+__grLength__ Growth rate in length. (lagObservedLength - observedLength) / sampleInterval.  
+
+__minSample__ Minimum (first) sample number for the individual.  
+
+__maxSample__ Maximum (last) sample number for the individual.  
+
+__ageInSamples__ Number of seasons since summer of the year of birth (1st summer = 0, 1st autumn = 1, etc.).  
+
+__isYOY__ Logical, is the fish a young-of-year (YOY)? YOY here are age-0 fish and age-1 fish in the spring. Age-1 fish are included because there is a very rapid growth in spring and we group smaller fish before rapid growht and older, larger fish.  
+
+__sex__ NA = unknown, f = female, m = male, p = precocious male (salmon only).  
+
+__cf__ Condition factor. (observedWeight / observedLength^3) * 100.  
+
+__relCF__ Relative condition factor. (observedWeight / expectedWeight) * 100. Expected weight is calculated from the length-weight relationship for the species.  
+
+__dateEmigrated__ Date of emigration from the West Brook if observed to emigrate. Coded as emigrated if last observation was on PIT antenna at the top or the bottom of the West Brook or captured in `area` = below or above.
+
+__meanTemperature__ Mean temperature between observation dates. If individual was not observed, median observation date for the sampling occasion was used.  
+
+__meanFlow__ Mean flow between observation dates. If individual was not observed, median observation date for the sampling occasion was used.  
+
+__meanFlowByRiver__ Mean flow by river between observation dates hindcast from Jenn Fair’s model based on flow estimates from each tributary. If individual was not observed, median observation date for the sampling occasion was used.  
+
+__meanFlowByArea_flowExt__ Mean flow by area (flow extension) between observation dates. Flow is from the flow extension model scaled by watershed area as a proportion of WB area. This is the flow value used in most West Brook papers before 2022. If individual was not observed, median observation date for the sampling occasion was used.  
+
+__meanFlowByArea_ByRiver__ Mean flow by area (by river) between observation dates. Flow from the West Brook from Jenn Fair’s model scaled to tributaries based on relative tributary area. If individual was not observed, median observation date for the sampling occasion was used.  
+
+__meanTemperatureScaledBySeason__ Mean temperature between observation dates scaled within season. If individual was not observed, median observation date for the sampling occasion was used.  
+
+__meanFlowScaledBySeason__ Mean flow between observation dates scaled within season. If individual was not observed, median observation date for the sampling occasion was used.  
+
+__meanFlowByRiverScaledBySeason__ Mean flow by river between observation dates scaled within season. If individual was not observed, median observation date for the sampling occasion was used.  
+
+__meanFlowByArea_flowExtScaledBySeason__ Mean flow by area (flow extension) between observation dates scaled within season. If individual was not observed, median observation date for the sampling occasion was used.  
+
+__meanFlowByArea_ByRiverScaledBySeason__ Mean flow by area (by river) between observation dates scaled within season. If individual was not observed, median observation date for the sampling occasion was used.  
+
+__comments__ Comments from the field crew during sampling.
+
+
+
