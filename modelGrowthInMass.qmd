@@ -5606,6 +5606,19 @@ ggplot(cd1, aes(grLength, grWeightS)) +
   scale_color_discrete() +
   theme_publication() +    
   facet_grid(seasonGG~speciesGG)
+
+ggplot(cd1 |> mutate(age = year - cohort) |> filter(age < 3), aes(grLength, grWeight)) +
+  geom_vline(xintercept = 0, linetype = 2, color = "grey") +
+  geom_hline(yintercept = 0, linetype = 2, color = "grey") +
+  geom_point(aes(
+    #size = observedWeight
+    ), alpha = 0.03) +
+  #guides(size = guide_legend(override.aes = list(alpha = 1))) +
+  labs(x = "Growth in length", y = "Instantaneous growth in mass") +
+  scale_color_discrete() +
+  theme_publication() +    
+  facet_grid(seasonGG~speciesGG + age)
+
 ```
 
 ## **Deprecated** logistic models below

@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.550">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>West Brook story - 8&nbsp; Electrofishing data for data release</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./dataAll.html" rel="next">
+<link href="./getDataAntenna.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="application/json" class="js-hypothesis-config">
+{
+  "theme": "clean"
+}
+</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./getDataElectroDataRelease.html">Data releases</a></li><li class="breadcrumb-item"><a href="./getDataElectroDataRelease.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Electrofishing data for data release</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">West Brook story</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Targets</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vizTargets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Visualize targets</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Get data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Get data info</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getDataEnv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Get environmental data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getDataElectro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Get electrofishing data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getDataCMR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Create Capture-Recapture data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getDataWanding.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Get wanding data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getDataAntenna.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Get antenna data</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Data releases</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getDataElectroDataRelease.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Electrofishing data for data release</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dataAll.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">All fish data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dataFlow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Flow data</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">Flow by Area/River models</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelGrowthFlowByRiver.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Growth in mass byRiver/byArea</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelsCMR_ft_cohort_Flow_OB.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Flow/survival models - O’Bear (IS) only</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelsCMR_ft_cohort_Flow_WB.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Survival by river/area</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+ <span class="menu-text">General models</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelYOY.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Young-of-year size model</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelFlow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Flow model</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelConditionFactor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Condition factor</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelGrowthInMass.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Growth in mass</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+ <span class="menu-text">Neural network/CMR model comparison</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelsCMR_NN_SIM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Simulation - CJS model</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelsCMR_NN_OB.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">River 4 (IS) - CJS model</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelsCMR_Growth_NN_OB.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">River 4 (IS) - CJS - growth model</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#get-electrofishing-data-target" id="toc-get-electrofishing-data-target" class="nav-link active" data-scroll-target="#get-electrofishing-data-target"><span class="header-section-number">8.1</span> Get electrofishing data target</a></li>
+  <li><a href="#electrofishing-data-metadata" id="toc-electrofishing-data-metadata" class="nav-link" data-scroll-target="#electrofishing-data-metadata"><span class="header-section-number">8.2</span> Electrofishing data metadata</a>
+  <ul class="collapse">
+  <li><a href="#adapted-from-httpsgithub.comconte-ecologywestbrookdatablobmastergetwbdatavignetteswestbrookdataintro.rmd" id="toc-adapted-from-httpsgithub.comconte-ecologywestbrookdatablobmastergetwbdatavignetteswestbrookdataintro.rmd" class="nav-link" data-scroll-target="#adapted-from-httpsgithub.comconte-ecologywestbrookdatablobmastergetwbdatavignetteswestbrookdataintro.rmd"><span class="header-section-number">8.2.1</span> adapted from https://github.com/Conte-Ecology/westBrookData/blob/master/getWBData/vignettes/westBrookDataIntro.Rmd</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./getDataElectroDataRelease.html">Data releases</a></li><li class="breadcrumb-item"><a href="./getDataElectroDataRelease.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Electrofishing data for data release</span></a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Electrofishing data for data release</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Data are generated in <code>R/getDataElectro-targets.R</code> <a href="https://github.com/bletcher/wbBook_quarto_targets/blob/main/R/getDataElectro_targets.R">file</a></p>
+<section id="get-electrofishing-data-target" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="get-electrofishing-data-target"><span class="header-section-number">8.1</span> Get electrofishing data target</h2>
+<p>Select variables for data release</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>cdWB_electro <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cdWB_electro_target)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cdWB_electro)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [91,103 × 88] (S3: tbl_df/tbl/data.frame)
+ $ tag                                      : chr [1:91103] "00088cbed0" "00088cbed3" "00088cbed4" "00088cbed4" ...
+ $ detectionDate                            : POSIXct[1:91103], format: "2013-03-25 04:00:00" "2012-06-07 13:03:00" ...
+ $ sampleName                               : chr [1:91103] "84" "81" "84" "85" ...
+ $ sampleNumber                             : num [1:91103] 73 70 73 74 70 71 73 79 80 71 ...
+ $ river                                    : chr [1:91103] "wb obear" "west brook" "west brook" "west brook" ...
+ $ section                                  : num [1:91103] 7 1 40 44 25 32 32 3 3 23 ...
+ $ area                                     : chr [1:91103] "trib" "inside" "inside" "inside" ...
+ $ observedLength                           : num [1:91103] 62 62 109 154 113 120 147 70 74 86 ...
+ $ survey                                   : chr [1:91103] "shock" "shock" "shock" "shock" ...
+ $ pass                                     : num [1:91103] 1 1 1 1 1 1 1 1 1 1 ...
+ $ observedWeight                           : num [1:91103] 1.9 2.7 12.6 41.3 15.5 18.3 30.4 3.5 4.8 6.7 ...
+ $ comments                                 : chr [1:91103] "additional genetic sample" NA NA NA ...
+ $ cohort                                   : num [1:91103] 2012 2012 2012 2012 2011 ...
+ $ species                                  : chr [1:91103] "bkt" "bkt" "bkt" "bkt" ...
+ $ dateEmigrated                            : Date[1:91103], format: NA NA ...
+ $ sex                                      : chr [1:91103] NA NA NA NA ...
+ $ year                                     : int [1:91103] 2013 2012 2013 2013 2012 2012 2013 2014 2014 2012 ...
+ $ season                                   : num [1:91103] 1 2 1 2 2 3 1 3 4 3 ...
+ $ proportionSampled                        : num [1:91103] 1 1 1 1 1 1 1 1 1 1 ...
+ $ lagDetectionDate                         : POSIXct[1:91103], format: NA NA ...
+ $ meanTemperature                          : num [1:91103] NaN NaN 10.7 NaN 16.5 ...
+ $ meanFlow                                 : num [1:91103] NaN NaN 0.5247 NaN 0.0338 ...
+ $ meanFlowByRiver                          : num [1:91103] NaN NaN 0.598 NaN 0.135 ...
+ $ meanFlowByArea_flowExt                   : num [1:91103] NaN NaN 0.5247 NaN 0.0338 ...
+ $ meanFlowByArea_ByRiver                   : num [1:91103] NaN NaN 0.598 NaN 0.135 ...
+ $ sdFlow                                   : num [1:91103] NA NA 0.58 NA 0.181 ...
+ $ sdFlowByRiver                            : num [1:91103] NA NA 0.4467 NA 0.0767 ...
+ $ sdFlowByArea_flowExt                     : num [1:91103] NA NA 0.58 NA 0.181 ...
+ $ sdFlowByArea_ByRiver                     : num [1:91103] NA NA 0.4467 NA 0.0767 ...
+ $ propBelowLoFlowThreshByRiver             : num [1:91103] NaN NaN 0 NaN 0 ...
+ $ propAboveHiFlowThreshByRiver             : num [1:91103] NaN NaN 0.182 NaN 0 ...
+ $ propBelowLoFlowThreshByArea_flowExt      : num [1:91103] NaN NaN 0.0682 NaN 0.0901 ...
+ $ propAboveHiFlowThreshByArea_flowExt      : num [1:91103] NaN NaN 0.148 NaN 0.018 ...
+ $ riverOrdered                             : Ord.factor w/ 4 levels "west brook"&lt;"wb jimmy"&lt;..: 4 1 1 1 1 1 1 4 4 1 ...
+ $ readerId                                 : logi [1:91103] NA NA NA NA NA NA ...
+ $ sectionN                                 : num [1:91103] 7 1 40 44 25 32 32 3 3 23 ...
+ $ aliveOrDead                              : chr [1:91103] "alive" "alive" "alive" "alive" ...
+ $ instance                                 : logi [1:91103] NA NA NA NA NA NA ...
+ $ quarter                                  : logi [1:91103] NA NA NA NA NA NA ...
+ $ leftOrRight                              : logi [1:91103] NA NA NA NA NA NA ...
+ $ habitat                                  : logi [1:91103] NA NA NA NA NA NA ...
+ $ cover                                    : logi [1:91103] NA NA NA NA NA NA ...
+ $ justification                            : logi [1:91103] NA NA NA NA NA NA ...
+ $ sectionWQuarter                          : logi [1:91103] NA NA NA NA NA NA ...
+ $ j                                        : logi [1:91103] NA NA NA NA NA NA ...
+ $ date                                     : Date[1:91103], format: "2013-03-25" "2012-06-07" ...
+ $ dummy                                    : num [1:91103] 1 1 1 1 1 1 1 1 1 1 ...
+ $ sectionOriginal                          : chr [1:91103] "7" "1" "40" "44" ...
+ $ inside                                   : logi [1:91103] TRUE TRUE TRUE TRUE TRUE TRUE ...
+ $ yday                                     : int [1:91103] 84 159 88 176 160 271 87 260 335 270 ...
+ $ ageInSamples                             : num [1:91103] 3 0 3 4 4 5 7 1 2 1 ...
+ $ isYOY                                    : logi [1:91103] TRUE TRUE TRUE FALSE FALSE FALSE ...
+ $ lagSection                               : num [1:91103] NA NA 44 NA 32 32 NA 3 NA 24 ...
+ $ distMoved                                : num [1:91103] NA NA -4 NA -7 0 NA 0 NA -1 ...
+ $ lagObservedWeight                        : num [1:91103] NA NA 41.3 NA 18.3 30.4 NA 4.8 NA 12.7 ...
+ $ lagObservedLength                        : num [1:91103] NA NA 154 NA 120 147 NA 74 NA 108 ...
+ $ lagSampleNumber                          : num [1:91103] NA NA 74 NA 71 73 NA 80 NA 73 ...
+ $ sampleNumberDiff                         : num [1:91103] NA NA 1 NA 1 2 NA 1 NA 2 ...
+ $ grWeight                                 : num [1:91103] NA NA 0.0135 NA 0.0015 ...
+ $ grLength                                 : num [1:91103] NA NA 0.5102 NA 0.0631 ...
+ $ minSample                                : num [1:91103] 73 70 73 73 70 70 70 79 79 71 ...
+ $ maxSample                                : num [1:91103] 73 70 74 74 73 73 73 80 80 74 ...
+ $ minYear                                  : num [1:91103] 1997 1997 1997 1997 1997 ...
+ $ moveDir                                  : num [1:91103] NA NA -1 NA -1 0 NA 0 NA -1 ...
+ $ sampleInterval                           : num [1:91103] NA NA 88.2 NA 110.9 ...
+ $ drainage                                 : chr [1:91103] "west" "west" "west" "west" ...
+ $ quarter_length                           : num [1:91103] 5 5.2 5.03 4.83 4.75 ...
+ $ river_meter                              : num [1:91103] 5252 4394 5208 5292 4903 ...
+ $ confluence_river_meter                   : num [1:91103] 5114 0 0 0 0 ...
+ $ riverMeter                               : num [1:91103] 5252 4394 5208 5292 4903 ...
+ $ nPasses                                  : num [1:91103] 1 2 1 2 2 2 1 1 1 2 ...
+ $ wGR_Slope                                : num [1:91103] -0.397 -0.535 -0.367 -0.535 -0.278 ...
+ $ grWeightS                                : num [1:91103] NA NA 4.98e-08 NA 7.90e-09 ...
+ $ lw_intercept                             : num [1:91103] -5.02 -5.02 -5.02 -5.02 -4.98 ...
+ $ lw_slope                                 : num [1:91103] 3.02 3.02 3.02 3.02 3.01 ...
+ $ cf                                       : num [1:91103] 0.0797 0.1133 0.0973 0.1131 0.1074 ...
+ $ relCF                                    : num [1:91103] 0.0734 0.1043 0.0886 0.1022 0.102 ...
+ $ nPerInd                                  : int [1:91103] 1 1 2 2 3 3 3 2 2 3 ...
+ $ meanTemperatureScaledBySeason            : num [1:91103] NaN NaN 0.393 NaN 0.819 ...
+ $ meanFlowScaledBySeason                   : num [1:91103] NaN NaN 0.526 NaN -0.736 ...
+ $ meanFlowByRiverScaledBySeason            : num [1:91103] NaN NaN 0.881 NaN -0.225 ...
+ $ meanFlowByArea_flowExtScaledBySeason     : num [1:91103] NaN NaN 0.822 NaN -0.608 ...
+ $ meanFlowByArea_ByRiverScaledBySeason     : num [1:91103] NaN NaN 0.881 NaN -0.225 ...
+ $ meanTemperatureScaledBySeasonRiver       : num [1:91103] NaN NaN 0.429 NaN 0.771 ...
+ $ meanFlowScaledBySeasonRiver              : num [1:91103] NaN NaN 0.609 NaN -0.832 ...
+ $ meanFlowByRiverScaledBySeasonRiver       : num [1:91103] NaN NaN 0.667 NaN -0.713 ...
+ $ meanFlowByArea_flowExtScaledBySeasonRiver: num [1:91103] NaN NaN 0.609 NaN -0.832 ...
+ $ meanFlowByArea_ByRiverScaledBySeasonRiver: num [1:91103] NaN NaN 0.667 NaN -0.713 ...</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>   <span class="co">#                                 &lt;dbl&gt;,  &lt;dbl&gt;,  &lt;dbl&gt;, sdFlow &lt;dbl&gt;, sdFlowByRiver &lt;dbl&gt;, sdFlowByArea_flowExt &lt;dbl&gt;, sdFlowByArea_ByRiver &lt;dbl&gt;, propBelowLoFlowThreshByRiver &lt;dbl&gt;,</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>   <span class="co"># propAboveHiFlowThreshByRiver &lt;dbl&gt;, propBelowLoFlowThreshByArea_flowExt &lt;dbl&gt;, propAboveHiFlowThreshByArea_flowExt &lt;dbl&gt;,  &lt;ord&gt;, readerId &lt;lgl&gt;,  &lt;dbl&gt;,  &lt;chr&gt;, instance &lt;lgl&gt;,  &lt;lgl&gt;,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>   <span class="co"># leftOrRight &lt;lgl&gt;, habitat &lt;lgl&gt;, cover &lt;lgl&gt;, justification &lt;lgl&gt;,  &lt;lgl&gt;, &lt;lgl&gt;,  &lt;date&gt;,  &lt;dbl&gt;,  &lt;chr&gt;,  &lt;lgl&gt;,    &lt;dbl&gt;,  &lt;lgl&gt;,  &lt;dbl&gt;,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>   <span class="co">#   &lt;dbl&gt;,  &lt;dbl&gt;, minYear &lt;dbl&gt;,  &lt;dbl&gt;,  &lt;dbl&gt;,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>   <span class="co"># </span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>   <span class="co"># </span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># select vars and order for data release</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>cdWB_electro_DR <span class="ot">&lt;-</span> cdWB_electro <span class="sc">|&gt;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    drainage, species, cohort, river, riverOrdered, </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    tag, nPerInd, survey, pass, nPasses, proportionSampled, aliveOrDead,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    section, sectionN, lagSection, riverMeter, sectionOriginal, quarter, area, distMoved, moveDir,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    detectionDate, lagDetectionDate, year, season, yday, sampleName, sampleNumber, observedLength, observedWeight, </span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    lagObservedWeight, lagObservedLength, lagSampleNumber, sampleNumberDiff, sampleInterval, grWeight, grLength, minSample, maxSample,</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    ageInSamples, isYOY, sex,</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    cf, relCF, </span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    dateEmigrated,</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    meanTemperature, meanFlow, meanFlowByRiver, meanFlowByArea_flowExt, meanFlowByArea_ByRiver,</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    meanTemperatureScaledBySeason, meanFlowScaledBySeason, meanFlowByRiverScaledBySeason, meanFlowByArea_flowExtScaledBySeason, meanFlowByArea_ByRiverScaledBySeason,</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    comments</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cdWB_electro_DR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [91,103 × 56] (S3: tbl_df/tbl/data.frame)
+ $ drainage                            : chr [1:91103] "west" "west" "west" "west" ...
+ $ species                             : chr [1:91103] "bkt" "bkt" "bkt" "bkt" ...
+ $ cohort                              : num [1:91103] 2012 2012 2012 2012 2011 ...
+ $ river                               : chr [1:91103] "wb obear" "west brook" "west brook" "west brook" ...
+ $ riverOrdered                        : Ord.factor w/ 4 levels "west brook"&lt;"wb jimmy"&lt;..: 4 1 1 1 1 1 1 4 4 1 ...
+ $ tag                                 : chr [1:91103] "00088cbed0" "00088cbed3" "00088cbed4" "00088cbed4" ...
+ $ nPerInd                             : int [1:91103] 1 1 2 2 3 3 3 2 2 3 ...
+ $ survey                              : chr [1:91103] "shock" "shock" "shock" "shock" ...
+ $ pass                                : num [1:91103] 1 1 1 1 1 1 1 1 1 1 ...
+ $ nPasses                             : num [1:91103] 1 2 1 2 2 2 1 1 1 2 ...
+ $ proportionSampled                   : num [1:91103] 1 1 1 1 1 1 1 1 1 1 ...
+ $ aliveOrDead                         : chr [1:91103] "alive" "alive" "alive" "alive" ...
+ $ section                             : num [1:91103] 7 1 40 44 25 32 32 3 3 23 ...
+ $ sectionN                            : num [1:91103] 7 1 40 44 25 32 32 3 3 23 ...
+ $ lagSection                          : num [1:91103] NA NA 44 NA 32 32 NA 3 NA 24 ...
+ $ riverMeter                          : num [1:91103] 5252 4394 5208 5292 4903 ...
+ $ sectionOriginal                     : chr [1:91103] "7" "1" "40" "44" ...
+ $ quarter                             : logi [1:91103] NA NA NA NA NA NA ...
+ $ area                                : chr [1:91103] "trib" "inside" "inside" "inside" ...
+ $ distMoved                           : num [1:91103] NA NA -4 NA -7 0 NA 0 NA -1 ...
+ $ moveDir                             : num [1:91103] NA NA -1 NA -1 0 NA 0 NA -1 ...
+ $ detectionDate                       : POSIXct[1:91103], format: "2013-03-25 04:00:00" "2012-06-07 13:03:00" ...
+ $ lagDetectionDate                    : POSIXct[1:91103], format: NA NA ...
+ $ year                                : int [1:91103] 2013 2012 2013 2013 2012 2012 2013 2014 2014 2012 ...
+ $ season                              : num [1:91103] 1 2 1 2 2 3 1 3 4 3 ...
+ $ yday                                : int [1:91103] 84 159 88 176 160 271 87 260 335 270 ...
+ $ sampleName                          : chr [1:91103] "84" "81" "84" "85" ...
+ $ sampleNumber                        : num [1:91103] 73 70 73 74 70 71 73 79 80 71 ...
+ $ observedLength                      : num [1:91103] 62 62 109 154 113 120 147 70 74 86 ...
+ $ observedWeight                      : num [1:91103] 1.9 2.7 12.6 41.3 15.5 18.3 30.4 3.5 4.8 6.7 ...
+ $ lagObservedWeight                   : num [1:91103] NA NA 41.3 NA 18.3 30.4 NA 4.8 NA 12.7 ...
+ $ lagObservedLength                   : num [1:91103] NA NA 154 NA 120 147 NA 74 NA 108 ...
+ $ lagSampleNumber                     : num [1:91103] NA NA 74 NA 71 73 NA 80 NA 73 ...
+ $ sampleNumberDiff                    : num [1:91103] NA NA 1 NA 1 2 NA 1 NA 2 ...
+ $ sampleInterval                      : num [1:91103] NA NA 88.2 NA 110.9 ...
+ $ grWeight                            : num [1:91103] NA NA 0.0135 NA 0.0015 ...
+ $ grLength                            : num [1:91103] NA NA 0.5102 NA 0.0631 ...
+ $ minSample                           : num [1:91103] 73 70 73 73 70 70 70 79 79 71 ...
+ $ maxSample                           : num [1:91103] 73 70 74 74 73 73 73 80 80 74 ...
+ $ ageInSamples                        : num [1:91103] 3 0 3 4 4 5 7 1 2 1 ...
+ $ isYOY                               : logi [1:91103] TRUE TRUE TRUE FALSE FALSE FALSE ...
+ $ sex                                 : chr [1:91103] NA NA NA NA ...
+ $ cf                                  : num [1:91103] 0.0797 0.1133 0.0973 0.1131 0.1074 ...
+ $ relCF                               : num [1:91103] 0.0734 0.1043 0.0886 0.1022 0.102 ...
+ $ dateEmigrated                       : Date[1:91103], format: NA NA ...
+ $ meanTemperature                     : num [1:91103] NaN NaN 10.7 NaN 16.5 ...
+ $ meanFlow                            : num [1:91103] NaN NaN 0.5247 NaN 0.0338 ...
+ $ meanFlowByRiver                     : num [1:91103] NaN NaN 0.598 NaN 0.135 ...
+ $ meanFlowByArea_flowExt              : num [1:91103] NaN NaN 0.5247 NaN 0.0338 ...
+ $ meanFlowByArea_ByRiver              : num [1:91103] NaN NaN 0.598 NaN 0.135 ...
+ $ meanTemperatureScaledBySeason       : num [1:91103] NaN NaN 0.393 NaN 0.819 ...
+ $ meanFlowScaledBySeason              : num [1:91103] NaN NaN 0.526 NaN -0.736 ...
+ $ meanFlowByRiverScaledBySeason       : num [1:91103] NaN NaN 0.881 NaN -0.225 ...
+ $ meanFlowByArea_flowExtScaledBySeason: num [1:91103] NaN NaN 0.822 NaN -0.608 ...
+ $ meanFlowByArea_ByRiverScaledBySeason: num [1:91103] NaN NaN 0.881 NaN -0.225 ...
+ $ comments                            : chr [1:91103] "additional genetic sample" NA NA NA ...</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save csv for downloading</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#write.csv(cdWB_electro_DR, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/out/dataRelease/cdWB_electro_DR.csv")</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Save rData file for downloading</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># save(cdWB_electro, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_electro.RData")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="electrofishing-data-metadata" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="electrofishing-data-metadata"><span class="header-section-number">8.2</span> Electrofishing data metadata</h2>
+<section id="adapted-from-httpsgithub.comconte-ecologywestbrookdatablobmastergetwbdatavignetteswestbrookdataintro.rmd" class="level3" data-number="8.2.1">
+<h3 data-number="8.2.1" class="anchored" data-anchor-id="adapted-from-httpsgithub.comconte-ecologywestbrookdatablobmastergetwbdatavignetteswestbrookdataintro.rmd"><span class="header-section-number">8.2.1</span> adapted from https://github.com/Conte-Ecology/westBrookData/blob/master/getWBData/vignettes/westBrookDataIntro.Rmd</h3>
+<section id="column-explanations" class="level4" data-number="8.2.1.1">
+<h4 data-number="8.2.1.1" class="anchored" data-anchor-id="column-explanations"><span class="header-section-number">8.2.1.1</span> Column explanations</h4>
+<p><strong>drainage</strong> “west” = West Brook drainage.</p>
+<p><strong>species</strong><br>
+“bkt” = brook trout (<em>Salvelinus fontinalis</em>, native, self-sustaining population)<br>
+“bnt” = brown trout (<em>Salmo trutta</em>, non-native, self-sustaining population)<br>
+“ats” = Atlantic salmon (<em>Salmo salar</em>, stocked as fry through 2005, no reproduction)</p>
+<p><strong>cohort</strong> Year the fish emerged from gravel in the spring (spawning occurred previous autumn), assigned based on size at initial capture and size distributions of fish of known age.</p>
+<p><strong>river</strong> River the fish was observed in. NA if the fish was not observed.</p>
+<p>“west brook” The mainstem (“West Brook” from Letcher et al 2015).</p>
+<p>“wb jimmy” Larger tributary that fish can move back and forth into from WB section 31 (“Open Large” from Letcher et al 2015).</p>
+<p>“wb mitchell” Smaller tributary that fish can move back and forth into from WB section 35 (“Open Small” from Letcher et al 2015).</p>
+<p>“wb obear” Smaller tributary that has a waterfall at its mouth, so fish can only move downstream into WB section 20 (“Isolated Small” from Letcher et al 2015).</p>
+<p><strong>riverOrdered</strong> River the fish was observed in, ordered as a factor and renamed. NA if the fish was not observed.</p>
+<p>“West Brook” The mainstem (“West Brook” from Letcher et al 2015).</p>
+<p>“Open Large” Larger tributary that fish can move back and forth into from WB section 31 (“Open Large” from Letcher et al 2015).</p>
+<p>“Open Small” Smaller tributary that fish can move back and forth into from WB section 35 (“Open Small” from Letcher et al 2015).</p>
+<p>“Isolated Small” Smaller tributary that has a waterfall at its mouth, so fish can only move downstream into WB section 20 (“Isolated Small” from Letcher et al 2015).</p>
+<p><strong>tag</strong> PIT tag number, unique identifier, character. Tags are 12-mm, full duplex. Biomark tags were used until <strong>2002 (check this)</strong>, and then replaced with Destron-fearing tags.</p>
+<p><strong>nPerInd</strong> Number of electrofishing occasion observations per individual.</p>
+<p><strong>survey</strong> “shock” = electroshocking survey.</p>
+<p><strong>detectionDate</strong> mostly self explanatory, but filled in for unobserved fish as the median capture date for all observed fish.</p>
+<p><strong>sampleName</strong> An ordered identifier for sampling mostly for recognition by people who did the sampling. This is not very clean because early in the study samples were not taken at strictly seasonal intervals. sampleNumber is probably more useful and intuitive.</p>
+<p><strong>sampleNumber</strong> A tidier identifier for samples that strictly increases by one for each season (4/yr)</p>
+<p><strong>section</strong> Identifier for the 20m section that the fish was captured in. This is ordered from downstream to upstream starting at 1 within each river.</p>
+<p><strong>area</strong> inside = section 1:47 in the west brook, trib = tributary (not west brook), below = sections below inside sections, above = sections above the inside sections</p>
+<p><strong>observedLength</strong> in mm</p>
+<p><strong>pass</strong> electrofishing pass. 1 or 2 in the west brook (inside), 1 in tribs</p>
+<p><strong>observedWeight</strong> in g wet weight</p>
+<p><strong>dateEmigrated</strong> date of emigration from inside/tribs if observed to emigrate. Coded as emigrated if last observation was on PIT antenna or captured below or above</p>
+<p><strong>sex</strong> NA = unknown, f = female, m = male, p = precocious male (salmon only)</p>
+<p><strong>enc</strong><br>
+Logical, was the fish observed? (1 = yes, 0 = no)</p>
+<p><strong>ageInSamples</strong> number of seasons since summer of the year of birth (1st summer = 0)</p>
+<p><strong>sampleIndex</strong> sampleNumber rescaled to start at 1 and end at length(unique(sampleNumber)) for ease of looping in JAGS</p>
+<p><strong>tagIndex</strong> ordered, unique individual identifier 1:N</p>
+<p><strong>year</strong> of sample</p>
+<p><strong>season</strong> 1 = spring, 2 = summer, 3 = fall, 4 = winter</p>
+<p><strong>proportionSampled</strong> Occasionally the sample was not complete (e.g., skipped west brook but did the tributaries). This is the proportion of sections in the river of capture that were sampled.</p>
+<p><strong>lagDetectionDate</strong> detection date lagged back one observation</p>
+<p><strong>meanTemperature</strong> mean temperature between observation dates. If individual was not observed, median observation date for the sampling occasion was used.</p>
+<p><strong>meanFlow</strong> mean flow between observation dates. If individual was not observed, median observation date for the sampling occasion was used.</p>
+<p><strong>knownZ</strong> z is alive state, so this is ‘1’ between first and last capture, and NA otherwise, unless the fish was known to be dead (e.g.&nbsp;tagging mortality or observed dead) in which case the value is set to ‘2’. There is also an option in the addKnownZ() function to useAntenna. This is useAntenna = FALSE by default, but could be set to TRUE to set knownZ to 1 up to the last antenna observation.</p>
+
+
+<!-- -->
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./getDataAntenna.html" class="pagination-link" aria-label="Get antenna data">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Get antenna data</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./dataAll.html" class="pagination-link" aria-label="All fish data">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">All fish data</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Electrofishing data for data release</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: getElectroDataOptionsDataRelease</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">message =</span> <span class="cn">FALSE</span>, <span class="at">warning =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: librariesGetElectroDataDataRelease</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">#library(devtools)</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">#options(download.file.method = "wininet") or turn off VPN</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">#devtools::install_github('Conte-Ecology/westBrookData/getWBData')</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(getWBData)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co"># devtools::install_github('bletcher/getPrepareWBData')</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="co"># use this if command above doesn't work: options(download.file.method = "wininet")</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co">#library(getPrepareWBData)</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>Data are generated in <span class="in">`R/getDataElectro-targets.R`</span> <span class="co">[</span><span class="ot">file</span><span class="co">](https://github.com/bletcher/wbBook_quarto_targets/blob/main/R/getDataElectro_targets.R)</span>  </span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## Get electrofishing data target  </span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>Select variables for data release</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: getElectroDataDataRelease</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: false</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>cdWB_electro <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cdWB_electro_target)</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cdWB_electro)</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>   <span class="co">#                                 &lt;dbl&gt;,  &lt;dbl&gt;,  &lt;dbl&gt;, sdFlow &lt;dbl&gt;, sdFlowByRiver &lt;dbl&gt;, sdFlowByArea_flowExt &lt;dbl&gt;, sdFlowByArea_ByRiver &lt;dbl&gt;, propBelowLoFlowThreshByRiver &lt;dbl&gt;,</span></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>   <span class="co"># propAboveHiFlowThreshByRiver &lt;dbl&gt;, propBelowLoFlowThreshByArea_flowExt &lt;dbl&gt;, propAboveHiFlowThreshByArea_flowExt &lt;dbl&gt;,  &lt;ord&gt;, readerId &lt;lgl&gt;,  &lt;dbl&gt;,  &lt;chr&gt;, instance &lt;lgl&gt;,  &lt;lgl&gt;,</span></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>   <span class="co"># leftOrRight &lt;lgl&gt;, habitat &lt;lgl&gt;, cover &lt;lgl&gt;, justification &lt;lgl&gt;,  &lt;lgl&gt;, &lt;lgl&gt;,  &lt;date&gt;,  &lt;dbl&gt;,  &lt;chr&gt;,  &lt;lgl&gt;,    &lt;dbl&gt;,  &lt;lgl&gt;,  &lt;dbl&gt;,</span></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>   <span class="co">#   &lt;dbl&gt;,  &lt;dbl&gt;, minYear &lt;dbl&gt;,  &lt;dbl&gt;,  &lt;dbl&gt;,</span></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>   <span class="co"># </span></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>   <span class="co"># </span></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="co"># select vars and order for data release</span></span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>cdWB_electro_DR <span class="ot">&lt;-</span> cdWB_electro <span class="sc">|&gt;</span></span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(</span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>    drainage, species, cohort, river, riverOrdered, </span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>    tag, nPerInd, survey, pass, nPasses, proportionSampled, aliveOrDead,</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>    section, sectionN, lagSection, riverMeter, sectionOriginal, quarter, area, distMoved, moveDir,</span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>    detectionDate, lagDetectionDate, year, season, yday, sampleName, sampleNumber, observedLength, observedWeight, </span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>    lagObservedWeight, lagObservedLength, lagSampleNumber, sampleNumberDiff, sampleInterval, grWeight, grLength, minSample, maxSample,</span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>    ageInSamples, isYOY, sex,</span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>    cf, relCF, </span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>    dateEmigrated,</span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>    meanTemperature, meanFlow, meanFlowByRiver, meanFlowByArea_flowExt, meanFlowByArea_ByRiver,</span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>    meanTemperatureScaledBySeason, meanFlowScaledBySeason, meanFlowByRiverScaledBySeason, meanFlowByArea_flowExtScaledBySeason, meanFlowByArea_ByRiverScaledBySeason,</span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>    comments</span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cdWB_electro_DR)</span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a><span class="co"># Save csv for downloading</span></span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a><span class="co">#write.csv(cdWB_electro_DR, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/out/dataRelease/cdWB_electro_DR.csv")</span></span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a><span class="co"># Save rData file for downloading</span></span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a><span class="co"># save(cdWB_electro, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_electro.RData")</span></span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a><span class="fu">## Electrofishing data metadata</span></span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a><span class="fu">### adapted from https://github.com/Conte-Ecology/westBrookData/blob/master/getWBData/vignettes/westBrookDataIntro.Rmd</span></span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Column explanations</span></span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a>__drainage__ "west" = West Brook drainage.  </span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a>__species__  </span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a>"bkt" = brook trout (*Salvelinus fontinalis*, native, self-sustaining population)  </span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a>"bnt" = brown trout (*Salmo trutta*, non-native, self-sustaining population)  </span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a>"ats" = Atlantic salmon (*Salmo salar*, stocked as fry through 2005, no reproduction)   </span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a>__cohort__ Year the fish emerged from gravel in the spring (spawning occurred previous autumn), assigned based on size at initial capture and size distributions of fish of known age.  </span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>__river__ River the fish was observed in. NA if the fish was not observed.  </span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a>  "west brook" The mainstem ("West Brook" from Letcher et al 2015).  </span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a>  "wb jimmy" Larger tributary that fish can move back and forth into from WB section 31 ("Open Large" from Letcher et al 2015).  </span>
+<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a>  "wb mitchell" Smaller tributary that fish can move back and forth into from WB section 35 ("Open Small" from Letcher et al 2015).  </span>
+<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a>  "wb obear" Smaller tributary that has a waterfall at its mouth, so fish can only move downstream into WB section 20 ("Isolated Small" from Letcher et al 2015).  </span>
+<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a>__riverOrdered__ River the fish was observed in, ordered as a factor and renamed. NA if the fish was not observed.  </span>
+<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a>  "West Brook" The mainstem ("West Brook" from Letcher et al 2015).  </span>
+<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a>  "Open Large" Larger tributary that fish can move back and forth into from WB section 31 ("Open Large" from Letcher et al 2015).  </span>
+<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a>  "Open Small" Smaller tributary that fish can move back and forth into from WB section 35 ("Open Small" from Letcher et al 2015).  </span>
+<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a>  "Isolated Small" Smaller tributary that has a waterfall at its mouth, so fish can only move downstream into WB section 20 ("Isolated Small" from Letcher et al 2015).  </span>
+<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a>__tag__ PIT tag number, unique identifier, character. Tags are 12-mm, full duplex. Biomark tags were used until **2002 (check this)**, and then replaced with Destron-fearing tags.  </span>
+<span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a>__nPerInd__ Number of electrofishing occasion observations per individual.  </span>
+<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a>__survey__ "shock" = electroshocking survey. </span>
+<span id="cb6-116"><a href="#cb6-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-117"><a href="#cb6-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-118"><a href="#cb6-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-119"><a href="#cb6-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-120"><a href="#cb6-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-121"><a href="#cb6-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-123"><a href="#cb6-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-124"><a href="#cb6-124" aria-hidden="true" tabindex="-1"></a>__detectionDate__ mostly self explanatory, but filled in for unobserved fish as the median capture date for all observed fish.</span>
+<span id="cb6-125"><a href="#cb6-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-126"><a href="#cb6-126" aria-hidden="true" tabindex="-1"></a>__sampleName__ An ordered identifier for sampling mostly for recognition by people who did the sampling. This is not very clean because early in the study samples were not taken at strictly seasonal intervals. sampleNumber is probably more useful and intuitive.</span>
+<span id="cb6-127"><a href="#cb6-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-128"><a href="#cb6-128" aria-hidden="true" tabindex="-1"></a>__sampleNumber__ A tidier identifier for samples that strictly increases by one for each season (4/yr)</span>
+<span id="cb6-129"><a href="#cb6-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-130"><a href="#cb6-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-131"><a href="#cb6-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-132"><a href="#cb6-132" aria-hidden="true" tabindex="-1"></a>__section__ Identifier for the 20m section that the fish was captured in. This is ordered from downstream to upstream starting at 1 within each river. </span>
+<span id="cb6-133"><a href="#cb6-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-134"><a href="#cb6-134" aria-hidden="true" tabindex="-1"></a>__area__ inside = section 1:47 in the west brook, trib = tributary (not west brook), below = sections below inside sections, above = sections above the inside sections</span>
+<span id="cb6-135"><a href="#cb6-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-136"><a href="#cb6-136" aria-hidden="true" tabindex="-1"></a>__observedLength__ in mm</span>
+<span id="cb6-137"><a href="#cb6-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-138"><a href="#cb6-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-139"><a href="#cb6-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-140"><a href="#cb6-140" aria-hidden="true" tabindex="-1"></a>__pass__ electrofishing pass. 1 or 2 in the west brook (inside), 1 in tribs</span>
+<span id="cb6-141"><a href="#cb6-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-142"><a href="#cb6-142" aria-hidden="true" tabindex="-1"></a>__observedWeight__ in g wet weight</span>
+<span id="cb6-143"><a href="#cb6-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-144"><a href="#cb6-144" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb6-145"><a href="#cb6-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-146"><a href="#cb6-146" aria-hidden="true" tabindex="-1"></a>__dateEmigrated__ date of emigration from inside/tribs if observed to emigrate. Coded as emigrated if last observation was on PIT antenna or captured below or above </span>
+<span id="cb6-147"><a href="#cb6-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-148"><a href="#cb6-148" aria-hidden="true" tabindex="-1"></a>__sex__ NA = unknown, f = female, m = male, p = precocious male (salmon only)</span>
+<span id="cb6-149"><a href="#cb6-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-150"><a href="#cb6-150" aria-hidden="true" tabindex="-1"></a>__enc__  </span>
+<span id="cb6-151"><a href="#cb6-151" aria-hidden="true" tabindex="-1"></a>Logical, was the fish observed? (1 = yes, 0 = no)</span>
+<span id="cb6-152"><a href="#cb6-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-153"><a href="#cb6-153" aria-hidden="true" tabindex="-1"></a>__ageInSamples__ number of seasons since summer of the year of birth (1st summer = 0)</span>
+<span id="cb6-154"><a href="#cb6-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-155"><a href="#cb6-155" aria-hidden="true" tabindex="-1"></a>__sampleIndex__ sampleNumber rescaled to start at 1 and end at length(unique(sampleNumber)) for ease of looping in JAGS</span>
+<span id="cb6-156"><a href="#cb6-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-157"><a href="#cb6-157" aria-hidden="true" tabindex="-1"></a>__tagIndex__ ordered, unique individual identifier 1:N</span>
+<span id="cb6-158"><a href="#cb6-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-159"><a href="#cb6-159" aria-hidden="true" tabindex="-1"></a>__year__ of sample</span>
+<span id="cb6-160"><a href="#cb6-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-161"><a href="#cb6-161" aria-hidden="true" tabindex="-1"></a>__season__ 1 = spring, 2 = summer, 3 = fall, 4 = winter</span>
+<span id="cb6-162"><a href="#cb6-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-163"><a href="#cb6-163" aria-hidden="true" tabindex="-1"></a>__proportionSampled__ Occasionally the sample was not complete (e.g., skipped west brook but did the tributaries). This is the proportion of sections in the river of capture that were sampled.</span>
+<span id="cb6-164"><a href="#cb6-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-165"><a href="#cb6-165" aria-hidden="true" tabindex="-1"></a>__lagDetectionDate__ detection date lagged back one observation</span>
+<span id="cb6-166"><a href="#cb6-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-167"><a href="#cb6-167" aria-hidden="true" tabindex="-1"></a>__meanTemperature__ mean temperature between observation dates. If individual was not observed, median observation date for the sampling occasion was used.</span>
+<span id="cb6-168"><a href="#cb6-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-169"><a href="#cb6-169" aria-hidden="true" tabindex="-1"></a>__meanFlow__ mean flow between observation dates. If individual was not observed, median observation date for the sampling occasion was used.</span>
+<span id="cb6-170"><a href="#cb6-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-171"><a href="#cb6-171" aria-hidden="true" tabindex="-1"></a>__knownZ__ z is alive state, so this is '1' between first and last capture, and NA otherwise, unless the fish was known to be dead (e.g. tagging mortality or observed dead) in which case the value is set to '2'. There is also an option in the addKnownZ() function to useAntenna. This is useAntenna = FALSE by default, but could be set to TRUE to set knownZ to 1 up to the last antenna observation.</span>
+<span id="cb6-172"><a href="#cb6-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-173"><a href="#cb6-173" aria-hidden="true" tabindex="-1"></a></span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

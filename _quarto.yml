@@ -28,6 +28,9 @@ book:
         - getDataCMR.qmd
         - getDataWanding.qmd
         - getDataAntenna.qmd
+    - part: "Data releases"
+      chapters: 
+        - getDataElectroDataRelease.qmd
     - part: "Data"
       chapters: 
         - dataAll.qmd
