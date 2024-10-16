@@ -113,7 +113,9 @@ __pass__ Electrofishing pass. 1 or 2 in the west brook (inside), 1 in tribs.
 
 __nPasses__ Number of electrofishing passes for the section where the fish was captured. 1 or 2 in the west brook (inside), 1 in tributaries.  
 
-__proportionSampled__ Occasionally the sample was not complete (e.g., skipped west brook but did the tributaries). This is the proportion of sections in the river of capture that were sampled for the given sampling occasion.  
+__proportionSampled__ Occasionally the sample was not complete (e.g., skipped west brook but did the tributaries). This is the proportion of sections in the river of capture that were sampled for the given sampling occasion. 
+
+__aliveOrDead__ Fish know to be dead or alive on capture.  
 
 __section__ Identifier for the 20m section where the fish was captured. This is ordered from downstream to upstream ranging from 1-47 for the `inside` study area for the West Brook and from 1-14 or 1-15 for the `trib` area of the tributaries (river `wb mitchell` starts a -1 to accommodate the downstream PIT tag antenna). Above and below the `inside` study area in the West Brook, section numbers indicate the number of meters from the downstream or upstream end of the study area.     
 
@@ -123,7 +125,9 @@ __riverMeter__ River meter from the confluence of the West Brook with the Mill R
 
 __sectionOriginal__ Original section number before renumbering. Maintained for compatibility with early data sets.  
 
-__area__ inside = section 1:47 in the west brook, trib = tributary (not west brook), below = sections below inside sections, above = sections above the inside sections.  
+__quarter__ Early in the study, salmon were also assigned to a quarter within each section, from the bottom of the section to the top.
+
+__area__ inside = section 1:47 in the west brook, trib = tributary (not west brook), below = sections below inside sections (decreasing numbers in meters from the bottom of the inside area), above = sections above the inside sections (increasing numbers in meters from the top of the inside area).   
 
 __distMoved__ Meters between locations for consecutive capture occasions.  
 
@@ -139,7 +143,7 @@ __season__ 1 = spring, 2 = summer, 3 = fall, 4 = winter.
 
 __yday__ Day of the year of observation [1-366].  
 
-__sampleName__ original sample name before renumbering. Maintained for consistency with early data sets.  
+__sampleName__ Original sample name before renumbering. Maintained for consistency with early data sets.  
 
 __sampleNumber__ A tidier identifier for samples that strictly increases by one for each season (4/yr) and starts at 1.  
 
