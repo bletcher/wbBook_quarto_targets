@@ -29,12 +29,14 @@ Raw antenna data from the WB database (see [get data info chapter](https://bletc
 
 ### Deployment details
 ```{r}
-tar_read(antennaDeployment_target)
+deploy <- tar_read(antennaDeployment_target)
+str(deploy)
 ```
 
 ### Antenna log
 ```{r}
-tar_read(antennaLog_target)
+log <- tar_read(antennaLog_target)
+str(log)
 ```
 
 Data are generated in `R/getDataAntenna-targets.R` [file](https://github.com/bletcher/wbBook_quarto_targets/blob/main/R/getDataAntenna_targets.R)  
