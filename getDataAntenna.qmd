@@ -23,10 +23,24 @@ library(targets)
 # use this if command above doesn't work: options(download.file.method = "wininet")
 # library(getPrepareWBData)
 ```
+
+## Raw data
+Raw antenna data from the WB database (see [get data info chapter](https://bletcher.github.io/wbBook_quarto_targets/getData.html) for details) include these data frames:
+
+### Deployment details
+```{r}
+tar_read(antennaDeployment_target)
+```
+
+### Antenna log
+```{r}
+tar_read(antennaLog_target)
+```
+
 Data are generated in `R/getDataAntenna-targets.R` [file](https://github.com/bletcher/wbBook_quarto_targets/blob/main/R/getDataAntenna_targets.R)  
 
 
-## Get antenna data target
+### Get antenna data observations target
 
 ```{r}
 #| label: dataAntenna
@@ -41,4 +55,4 @@ str(cdWB_antenna0)
 # save(cdWB_antenna0, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_antenna0.RData")
 
 ```
- Need to find previous antanna analysis - lower left drawer in office desk.
+

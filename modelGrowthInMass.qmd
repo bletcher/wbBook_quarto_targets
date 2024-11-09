@@ -299,6 +299,20 @@ ggplot(cd1 |> filter(speciesGG == "Brook trout", seasonGG == "Summer", riverGG =
   theme(axis.text.x = element_text(vjust = 0.5, angle = 45)) +
   labs(x = "Instantaneous growth rate in mass (mg/d)", y = "Frequency") +
   facet_grid(seasonGG~riverGG)
+
+# compare with Josie's negative growth rates
+# 
+josie <- data.frame(gr = c(-0.002189076,0.001439023,0.000927903,-0.001256159,-0.003833329,-0.003333316,-0.002460802))
+
+ggplot(cd1 |> filter(speciesGG == "Brook trout", seasonGG == "Summer", riverGG == "West Brook", grWeight < 0), aes(grWeight)) +
+  geom_freqpoly(aes(group = factor(year), color = factor(year)), bins = 10) +
+  #geom_freqpoly(data = josie, aes(gr), bins = 10, color = "black", linewidth = 3) +
+  geom_dotplot(data = josie, aes(x = gr), bins = 10, color = "black") +
+  theme_publication() + 
+  theme(axis.text.x = element_text(vjust = 0.5, angle = 45), legend.key = none) +
+  labs(x = "Instantaneous growth rate in mass (mg/d)", y = "Frequency") +
+  facet_grid(seasonGG~riverGG)
+
 ```
 
 ### Length vs weight by species
@@ -739,7 +753,7 @@ ggplot(cd1 |> filter(!is.na(negGrowth), riverGG == "West Brook", seasonGG %in% c
               #se = FALSE
               ) +
   theme_publication() +  
-  labs(x = "Fish mass (mg)", y = "Probability of negative growth") +
+  labs(x = "Fish mass (g)", y = "Probability of negative growth") +
   scale_color_grey() +
   scale_fill_grey() +
   xlim(c(0,200)) +
@@ -784,7 +798,7 @@ ggplot(dfPlot) +
       method.args = list(family = "binomial")
   ) +
   theme_publication(base_size = 20) +  
-  labs(x = "Fish mass (mg)", y = "Probability of negative growth") +
+  labs(x = "Fish mass (g)", y = "Probability of negative growth") +
   #scale_color_manual(values = c("black","black","black")) +
   scale_color_grey() +
   scale_fill_grey() +
@@ -805,7 +819,7 @@ ggplot(cd1 |> filter(!is.na(negGrowth), species == "bkt", seasonGG %in% c("Summe
               #se = FALSE
               ) +
   theme_publication() +  
-  labs(x = "Fish mass (mg)", y = "Probability of negative growth") +
+  labs(x = "Fish mass (g)", y = "Probability of negative growth") +
   facet_grid(seasonGG~riverGG)
 ####
 dataPlotBKT <- cd1 |> filter(!is.na(negGrowth), species == "bkt", seasonGG %in% c("Summer", "Autumn"))
@@ -831,7 +845,7 @@ ggplot(
               #se = FALSE
               ) +
   theme_publication() +  
-  labs(x = "Fish mass (mg)", y = "Probability of negative growth") +
+  labs(x = "Fish mass (g)", y = "Probability of negative growth") +
   facet_grid(seasonGG~riverGG)
 
 
@@ -2863,6 +2877,92 @@ plotMergedBySeasonByEverything(envIn_propNeg, propNegLabels, "Isolated Small", "
 Compare number of fish not seen again or seen again after each growth interval for fish that gained weight or lost weight. Plot average ratios for numbers not seen/seen again for fish that lost or gained weight for species, river and season. 
 
 #### By age only, not year
+
+```{r}
+#| label: negGrowth_seenAgainAgeBoth_cd
+
+# grouped by age
+negGr_seenNotSeenAgeBothCD = cd |> 
+  mutate(age = year - cohort) |>
+  addGG() |>
+ # filter(samplesBeforeLast > 0) |>
+  group_by(speciesGG, riverGG, seasonGG, lastInterval = maxSample == sampleNumber + 1, age, isYOY) |> 
+  summarize(
+    meanGR = mean(grWeight, na.rm = TRUE),
+    n = n()
+  ) |> 
+  filter(n > 5)
+
+
+negGr_seenNotSeenAgeBothCD_wide <- negGr_seenNotSeenAgeBothCD |> ungroup() |> select(-meanGR) |> spread(lastInterval, n, fill = 0) |>
+  mutate(
+    ratio = `TRUE`/`FALSE`,    
+    propNotSeenAgain = `TRUE`/(`FALSE` + `TRUE`),
+    #gainedLost = ifelse(negGrowth, "Lost", "Gained"),
+    growthYear = ifelse(isYOY, "0/1", "1+"),
+    n = `FALSE` + `TRUE`
+  )
+
+ggplot(negGr_seenNotSeenAgeBothCD_wide |> filter(speciesGG == "Brook trout", age %in% c(0,1,2), 
+                                                 #seasonGG %in% c("Summer", "Autumn")
+                                                 ), aes(age, propNotSeenAgain)) +
+  geom_col(position = "dodge") +
+  #geom_hline(yintercept = 1, linetype = "dashed") +
+  geom_text(aes(label = n), vjust = 0, nudge_y = +0.075, check_overlap = TRUE, size = 4) +
+  labs(y = "Number of fish not seen again / number of fish seen again", x = "Age") +
+  theme_publication(base_size = 18) +    
+  facet_grid(seasonGG~riverGG)
+
+
+#Not grouped by age/isYOY
+
+negGr_seenNotSeenAgeBothNoAgeCD = cd |> 
+  mutate(age = year - cohort) |>
+  addGG() |>
+ # filter(samplesBeforeLast > 0) |>
+  group_by(speciesGG, riverGG, seasonGG, lastInterval = maxSample == sampleNumber + 1) |> 
+  summarize(
+    meanGR = mean(grWeight, na.rm = TRUE),
+    n = n()
+  ) |> 
+  filter(n > 5)
+
+
+negGr_seenNotSeenAgeBothNoAgeCD_wide <- negGr_seenNotSeenAgeBothNoAgeCD |> ungroup() |> select(-meanGR) |> spread(lastInterval, n, fill = 0) |>
+  mutate(
+    ratio = `TRUE`/`FALSE`, 
+    n = `FALSE` + `TRUE`,
+    propNotSeenAgain = `TRUE`/n,
+    #gainedLost = ifelse(negGrowth, "Lost", "Gained"),
+    #growthYear = ifelse(isYOY, "0/1", "1+"),
+    
+  )
+
+ggplot(negGr_seenNotSeenAgeBothNoAgeCD_wide |> filter(
+  #speciesGG == "Brook trout", 
+  #seasonGG %in% c("Summer", "Autumn")
+  ), aes(seasonGG, propNotSeenAgain, group = speciesGG, fill = speciesGG)) +
+  geom_col(position = "dodge") +
+  #geom_hline(yintercept = 1, linetype = "dashed") +
+  geom_text(aes(label = n), vjust = 0, nudge_y = +0.075, check_overlap = TRUE, size = 4) +
+  labs(y = "Number of fish not seen again / number of fish seen again", x = "Age") +
+  theme_publication(base_size = 18) + 
+  scale_fill_grey() +
+  facet_wrap(~riverGG)
+
+ggplot(negGr_seenNotSeenAgeBothNoAgeCD_wide |> filter(
+  #speciesGG == "Brook trout", 
+  #seasonGG %in% c("Summer", "Autumn")
+  ), aes(speciesGG, propNotSeenAgain, group = riverGG, fill = riverGG)) +
+  geom_col(position = "dodge") +
+  #geom_hline(yintercept = 1, linetype = "dashed") +
+  geom_text(aes(label = n), vjust = 0, nudge_y = +0.075, check_overlap = TRUE, size = 4) +
+  labs(y = "Number of fish not seen again / number of fish seen again", x = "Age") +
+  theme_publication(base_size = 18) + 
+  scale_fill_grey() +
+  facet_grid(seasonGG~speciesGG)
+```
+By negGrowth
 ```{r}
 #| label: negGrowth_seenAgainAge_cd
 
@@ -2880,7 +2980,8 @@ negGr_seenNotSeenAgeCD = cd |>
 
 negGr_seenNotSeenAgeCD_wide <- negGr_seenNotSeenAgeCD |> ungroup() |> select(-meanGR) |> spread(lastInterval, n, fill = 0) |>
   mutate(
-    ratio = `TRUE`/`FALSE`,     
+    ratio = `TRUE`/`FALSE`, 
+    propNotSeenAgain = `TRUE`/(`FALSE` + `TRUE`),
     gainedLost = ifelse(negGrowth, "Lost", "Gained"),
     growthYear = ifelse(isYOY, "0/1", "1+"),
     n = `FALSE` + `TRUE`
@@ -2940,6 +3041,48 @@ ggplot(negGr_seenNotSeenAgeCD_wide |> filter(age %in% c(0,1,2), seasonGG %in% c(
 
 ```
 
+Not grouping by age
+```{r}
+
+negGr_seenNotSeenCD = cd |>
+  mutate(age = year - cohort) |>
+  filter(age < 3) |>
+  addGG() |>
+ # filter(samplesBeforeLast > 0) |>
+  group_by(speciesGG, riverGG, seasonGG, lastInterval = maxSample == sampleNumber + 1, negGrowth = grWeight < 0) |> 
+  summarize(
+    meanGR = mean(grWeight, na.rm = TRUE),
+    n = n()
+  ) |> 
+  filter(!is.na(negGrowth), n > 5)
+
+
+negGr_seenNotSeenCD_wide <- negGr_seenNotSeenCD |> ungroup() |> select(-meanGR) |> spread(lastInterval, n, fill = 0) |>
+  mutate(
+    ratio = `TRUE`/`FALSE`, 
+    propNotSeenAgain = `TRUE`/(`FALSE` + `TRUE`),
+    gainedLost = ifelse(negGrowth, "Negative", "Positive"),
+    #growthYear = ifelse(isYOY, "0/1", "1+"),
+    n = `FALSE` + `TRUE`
+  )
+
+# Figure 7 in the MS
+ggplot(negGr_seenNotSeenCD_wide |> filter(speciesGG == "Brook trout", seasonGG %in% c("Summer", "Autumn")), aes(gainedLost, ratio)) +
+  geom_col(position = "dodge") +
+  geom_hline(yintercept = 1, linetype = "dashed") +
+  geom_text(aes(label = n), vjust = 0, nudge_y = +0.075, check_overlap = TRUE, size = 4) +
+  labs(y = "Number of fish not seen again / number of fish seen again", x = "Growth in mass") +
+  theme_publication(base_size = 18) +    
+  facet_grid(seasonGG~riverGG )
+
+ggplot(negGr_seenNotSeenCD_wide |> filter(seasonGG %in% c("Summer","Autumn"), riverGG == "West Brook"), aes(gainedLost, ratio)) +
+  geom_col(position = "dodge") +
+  geom_hline(yintercept = 1, linetype = "dashed") +
+  geom_text(aes(label = n), vjust = 0, nudge_y = +0.075, check_overlap = TRUE, size = 4) +
+  labs(y = "PNumber of fish not seen again / number of fish seen again", x = "Growth in mass") +
+  theme_publication(base_size = 18) +    
+  facet_grid(seasonGG~speciesGG)
+```
 
 #### By age only, not year for fish LENGTH
 ```{r}

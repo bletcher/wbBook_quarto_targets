@@ -229,5 +229,16 @@
       "General models",
       "<span class='chapter-number'>17</span>  <span class='chapter-title'>Growth in mass</span>"
     ]
+  },
+  {
+    "objectID": "getData.html",
+    "href": "getData.html",
+    "title": "2  Get data info",
+    "section": "",
+    "text": "2.1 Databases\nWe have two types of databases: Environmental and Fish\nThe environmental database contains daily mean temperature and flow data. Flow data are of 2 types 1) from a flow extension model - not tributary-specific and 2) hindcasted based on tributarty-specific flows from 2021 on (these flow variables are labelled ‘…byRiver’). Temperature data are from tributary-specific loggers.\nThere are four main fish databases we want to create:\n1. cdWB_electro West Brook electrofishing data, 3 species (brook trout, brown trout and Atlantic salmon), tagged and untagged fish\n2. cdWB_CMR West Brook electrofishing data formatted for Capture-Mark-Recapture (CMR) analysis for tagged individuals\n3. cdWB_wanding West Brook wanding (portable antenna) data, all tagged salmonids\n4. cdWB_antenna West Brook stationary antenna data, all tagged salmonids\n“cd” stands for “core data”.",
+    "crumbs": [
+      "Get data",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Get data info</span>"
+    ]
   }
 ]

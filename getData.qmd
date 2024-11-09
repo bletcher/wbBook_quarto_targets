@@ -1,7 +1,32 @@
 # Get data info
 
 The database is now (as of 6/14/2022) on AWS. It can be accessed using functions in the 'getWBData' R package. Use `devtools::install_github('Conte-Ecology/westBrookData/getWBData')` (with VPN **off**) to install. Most of the functions will run reconnect() to connect to the server with your username and password (which you won't need if you have set up a .Rprofile file).\
-Run `source("~/.Rprofile")` (with VPN **on**) and then `reconnect()` from the console to connect if necessary. Use `DBI::dbListTables(con)` to see the list of available tables on the server. Use `tbl(conDplyr, "table_name") |> collect(n=Inf)` to connect to a table.  Details about the 'getWBData' package are [here](https://github.com/Conte-Ecology/westBrookData/blob/master/getWBData/vignettes/getWBDataTutorial.pdf).
+
+`.RProfile` file is located in the home directory. Here are the values that need to be set in the .RProfile file to link to AWS:\  
+Sys.setenv(
+  WESTBROOK_HOST = "ecosheds.cagtxtkoqhxj.us-west-2.rds.amazonaws.com",
+  WESTBROOK_PORT = "5432",
+  WESTBROOK_DBNAME = "westbrook",
+  WESTBROOK_USER = "westbrook",
+  WESTBROOK_PASSWORD = "xxxxxxxxxx"
+)
+
+
+Run `source("~/.Rprofile")` (with VPN **on**) and then `reconnect()` from the console to connect if necessary. Use `DBI::dbListTables(con)` to see the list of available tables on the server. Use `tbl(conDplyr, "table_name") |> collect(n=Inf)` to connect to a table.  Details about the 'getWBData' package are [here](https://github.com/Conte-Ecology/westBrookData/blob/master/getWBData/vignettes/getWBDataTutorial.pdf).  
+Use ` tbl(conDplyr,"table_name")` to connect to a table.\
+
+Tables in the database on the server are:\
+```{r}
+library(getWBData)
+library(tidyverse)
+
+reconnect()
+DBI::dbListTables(con)
+```
+
+
+
+
 
 ## Databases
 

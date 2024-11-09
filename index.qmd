@@ -18,7 +18,7 @@ Run the following code to rebuild all the targets.
 `library(targets) library(quarto)`  
 `tar_make()`   
 Run this code to rebuild the book.  
-`quarto::quarto_render(output_format = "html")`
+`quarto::quarto_render(output_format = "html")`, and then commit to git and push to GitHub.
 
 
 ## Mainstem and tributary names

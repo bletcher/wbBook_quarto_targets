@@ -33,7 +33,28 @@ dataAntenna_target <-
       filter(is.na(quarter) & !is.na(quarter_length) & drainage == 'west') %>% 
       select(-quarter) %>%
       #mutate(section = as.numeric(section)) %>%
-      rename(riverMeter = river_meter)
+      rename(riverMeter = river_meter),
+    
+    antennaDeployment_target = data.frame(tbl(conDplyr,"antenna_deployment")) %>%
+      rename(riverMeter = river_meter) %>%
+      mutate(
+        riverOrdered = factor(river, levels = c('west brook', 'wb jimmy', 'wb mitchell',"wb obear"),
+                               labels = c("West Brook", "WB Jimmy", "WB Mitchell", "WB OBear"), ordered = T
+        )),
+    
+    antennaLog_target = data.frame(tbl(conDplyr,"data_antenna_log")) %>%
+      rename(riverMeter = river_meter) %>%
+      mutate(
+        riverOrdered = factor(river, levels = c('west brook', 'wb jimmy', 'wb mitchell',"wb obear"),
+                              labels = c("West Brook", "WB Jimmy", "WB Mitchell", "WB OBear"), ordered = T
+        )),
+    
+    antennaStatus_target = data.frame(tbl(conDplyr,"data_antenna_status")) %>%
+      rename(riverMeter = river_meter) %>%
+      mutate(
+        riverOrdered = factor(river, levels = c('west brook', 'wb jimmy', 'wb mitchell',"wb obear"),
+                              labels = c("West Brook", "WB Jimmy", "WB Mitchell", "WB OBear"), ordered = T
+        ))
   )
 
 #################################

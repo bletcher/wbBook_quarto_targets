@@ -238,7 +238,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./getDataElectroDataRelease.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Electrofishing data for data release</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Electrofishing data</span></span></a>
   </div>
 </li>
       </ul>
@@ -384,7 +384,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./getData.html">Get data</a></li><li class="breadcrumb-item"><a href="./getData.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Get data info</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Get data info</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Get data info</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -402,7 +402,59 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>The database is now (as of 6/14/2022) on AWS. It can be accessed using functions in the ‘getWBData’ R package. Use <code>devtools::install_github('Conte-Ecology/westBrookData/getWBData')</code> (with VPN <strong>off</strong>) to install. Most of the functions will run reconnect() to connect to the server with your username and password (which you won’t need if you have set up a .Rprofile file).<br>
-Run <code>source("~/.Rprofile")</code> (with VPN <strong>on</strong>) and then <code>reconnect()</code> from the console to connect if necessary. Use <code>DBI::dbListTables(con)</code> to see the list of available tables on the server. Details about the ‘getWBData’ package are <a href="https://github.com/Conte-Ecology/westBrookData/blob/master/getWBData/vignettes/getWBDataTutorial.pdf">here</a>.</p>
+</p>
+<p><code>.RProfile</code> file is located in the home directory. Here are the values that need to be set in the .RProfile file to link to AWS:&nbsp; Sys.setenv( WESTBROOK_HOST = “ecosheds.cagtxtkoqhxj.us-west-2.rds.amazonaws.com”, WESTBROOK_PORT = “5432”, WESTBROOK_DBNAME = “westbrook”, WESTBROOK_USER = “westbrook”, WESTBROOK_PASSWORD = “xxxxxxxxxx” )</p>
+<p>Run <code>source("~/.Rprofile")</code> (with VPN <strong>on</strong>) and then <code>reconnect()</code> from the console to connect if necessary. Use <code>DBI::dbListTables(con)</code> to see the list of available tables on the server. Use <code>tbl(conDplyr, "table_name") |&gt; collect(n=Inf)</code> to connect to a table. Details about the ‘getWBData’ package are <a href="https://github.com/Conte-Ecology/westBrookData/blob/master/getWBData/vignettes/getWBDataTutorial.pdf">here</a>.<br>
+Use <code>tbl(conDplyr,"table_name")</code> to connect to a table.<br>
+</p>
+<p>Tables in the database on the server are:<br>
+</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(getWBData)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">reconnect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div style="page-break-after: always;"></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbListTables</span>(con)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "antenna_deployment"        "antenna_status"           
+ [3] "data_acoustic"             "data_antenna_log"         
+ [5] "data_antenna_status"       "data_boundary_detections" 
+ [7] "data_by_tag"               "data_daily_discharge"     
+ [9] "data_daily_temperature"    "data_family"              
+[11] "data_flow_extension"       "data_habitat"             
+[13] "data_hourly_temperature"   "data_portable_antenna"    
+[15] "data_season"               "data_seasonal_sampling"   
+[17] "data_sites"                "data_smolts"              
+[19] "data_stationary_antenna"   "data_tagged_captures"     
+[21] "data_trap_captures"        "data_untagged_captures"   
+[23] "data_yoy_bins"             "family"                   
+[25] "import_dates"              "last_data_import"         
+[27] "last_imports"              "raw_antenna_log"          
+[29] "raw_captures"              "raw_depth"                
+[31] "raw_family"                "raw_habitat_stanley"      
+[33] "raw_habitat_west_brook"    "raw_sites"                
+[35] "raw_stanley_acoustic_data" "raw_stanley_antenna"      
+[37] "raw_stanley_cohorts"       "raw_stanley_dead_tags"    
+[39] "raw_stanley_fyke_net"      "raw_stanley_sites"        
+[41] "raw_stanley_tags"          "raw_tags_antenna"         
+[43] "raw_tags_dead"             "raw_tags_salmon_wb"       
+[45] "raw_tags_tribs_wb"         "raw_tags_trout_wb"        
+[47] "raw_temps"                 "raw_yoy_bins"             
+[49] "season_map"                "stanley_environmental"    
+[51] "stanley_raw_sites"         "tags_acoustic"            
+[53] "tags_allflex_to_2011"      "tags_antenna"             
+[55] "tags_antenna_2011_2015"    "tags_captures"            
+[57] "tags_dead"                 "untagged_captures"        
+[59] "yoy_bins"                 </code></pre>
+</div>
+</div>
 <section id="databases" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="databases"><span class="header-section-number">2.1</span> Databases</h2>
 <p>We have two types of databases: <em>Environmental</em> and <em>Fish</em></p>
@@ -1014,24 +1066,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Get data info</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>The database is now (as of 6/14/2022) on AWS. It can be accessed using functions in the 'getWBData' R package. Use <span class="in">`devtools::install_github('Conte-Ecology/westBrookData/getWBData')`</span> (with VPN **off**) to install. Most of the functions will run reconnect() to connect to the server with your username and password (which you won't need if you have set up a .Rprofile file).\</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>Run <span class="in">`source("~/.Rprofile")`</span> (with VPN **on**) and then <span class="in">`reconnect()`</span> from the console to connect if necessary. Use <span class="in">`DBI::dbListTables(con)`</span> to see the list of available tables on the server. Details about the 'getWBData' package are <span class="co">[</span><span class="ot">here</span><span class="co">](https://github.com/Conte-Ecology/westBrookData/blob/master/getWBData/vignettes/getWBDataTutorial.pdf)</span>.</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## Databases</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>We have two types of databases: *Environmental* and *Fish*</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>The *environmental* database contains daily mean temperature and flow data. Flow data are of 2 types 1) from a flow extension model - not tributary-specific and 2) hindcasted based on tributarty-specific flows from 2021 on (these flow variables are labelled '...byRiver'). Temperature data are from tributary-specific loggers.</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>There are four main *fish* databases we want to create:\</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**cdWB_electro** West Brook electrofishing data, 3 species (brook trout, brown trout and Atlantic salmon), tagged and untagged fish\</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**cdWB_CMR** West Brook electrofishing data formatted for Capture-Mark-Recapture (CMR) analysis for tagged individuals\</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**cdWB_wanding** West Brook wanding (portable antenna) data, all tagged salmonids\</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**cdWB_antenna** West Brook stationary antenna data, all tagged salmonids</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>"cd" stands for "core data".  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Get data info</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>The database is now (as of 6/14/2022) on AWS. It can be accessed using functions in the 'getWBData' R package. Use <span class="in">`devtools::install_github('Conte-Ecology/westBrookData/getWBData')`</span> (with VPN **off**) to install. Most of the functions will run reconnect() to connect to the server with your username and password (which you won't need if you have set up a .Rprofile file).\</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="in">`.RProfile`</span> file is located in the home directory. Here are the values that need to be set in the .RProfile file to link to AWS:\  </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>Sys.setenv(</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  WESTBROOK_HOST = "ecosheds.cagtxtkoqhxj.us-west-2.rds.amazonaws.com",</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  WESTBROOK_PORT = "5432",</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  WESTBROOK_DBNAME = "westbrook",</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  WESTBROOK_USER = "westbrook",</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  WESTBROOK_PASSWORD = "xxxxxxxxxx"</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>Run <span class="in">`source("~/.Rprofile")`</span> (with VPN **on**) and then <span class="in">`reconnect()`</span> from the console to connect if necessary. Use <span class="in">`DBI::dbListTables(con)`</span> to see the list of available tables on the server. Use <span class="in">`tbl(conDplyr, "table_name") |&gt; collect(n=Inf)`</span> to connect to a table.  Details about the 'getWBData' package are <span class="co">[</span><span class="ot">here</span><span class="co">](https://github.com/Conte-Ecology/westBrookData/blob/master/getWBData/vignettes/getWBDataTutorial.pdf)</span>.  </span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>Use <span class="in">` tbl(conDplyr,"table_name")`</span> to connect to a table.\</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>Tables in the database on the server are:\</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(getWBData)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="fu">reconnect</span>()</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbListTables</span>(con)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="fu">## Databases</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>We have two types of databases: *Environmental* and *Fish*</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>The *environmental* database contains daily mean temperature and flow data. Flow data are of 2 types 1) from a flow extension model - not tributary-specific and 2) hindcasted based on tributarty-specific flows from 2021 on (these flow variables are labelled '...byRiver'). Temperature data are from tributary-specific loggers.</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>There are four main *fish* databases we want to create:\</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**cdWB_electro** West Brook electrofishing data, 3 species (brook trout, brown trout and Atlantic salmon), tagged and untagged fish\</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**cdWB_CMR** West Brook electrofishing data formatted for Capture-Mark-Recapture (CMR) analysis for tagged individuals\</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**cdWB_wanding** West Brook wanding (portable antenna) data, all tagged salmonids\</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**cdWB_antenna** West Brook stationary antenna data, all tagged salmonids</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>"cd" stands for "core data".  </span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
