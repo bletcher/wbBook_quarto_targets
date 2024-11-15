@@ -30,6 +30,8 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 ## \[t,t\] model
 
+**t** equals age-in-samples, e.g. 1 = Autumn, age0, 2 = Winter, age0, 3 = Spring age1... 
+
 Model with phi and p for each age-in-samples (column in the encounter history file)
 
 Probability of survival (phi) model structure:
