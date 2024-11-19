@@ -55,6 +55,11 @@ list(
   dataCMR_WBbkt_2002_2014_target,
   dataCMR_WBbnt_2002_2014_target,
   dataCMR_OB_2002_2014_target,
+  
+  dataCMR_bkt_target,
+  dataCMR_bnt_target,
+  dataCMR_ats_target,
+  
   dataWanding_target,
   dataAntenna_target,
   dataAll_target,

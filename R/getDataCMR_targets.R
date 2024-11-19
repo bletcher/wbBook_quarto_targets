@@ -3,6 +3,7 @@ tar_option_set(packages = c("tidyverse", "lubridate", "getWBData", "data.table",
 
 # maximum ageInSamples for both createCmrData and getEH
 maxAgeInSamples <- 12
+maxAgeInSamples2 <- 12 + 8
 
 # https://stackoverflow.com/questions/69583424/using-tidy-eval-for-multiple-arbitrary-filter-conditions
 # Assumes LHS is the name of a variable and OP is
@@ -63,9 +64,63 @@ dataCMR_WB_2002_2014_target <-
                                      labels = c("West Brook","WB Jimmy","WB Mitchell","WB OBear"), ordered = T),
         sampleInterval = as.numeric(lagDetectionDate - detectionDate)
       ),
+    
+    #@ with longer maxAgeinSamples
+    cdWB_CMR0_2_target = 
+      createCoreData(
+        sampleType = "electrofishing", #"stationaryAntenna","portableAntenna"),
+        whichDrainage = "west",
+        columnsToAdd =
+          c("sampleNumber",
+            "river",
+            "riverMeter",
+            "survey",
+            "pass",
+            'observedLength',
+            'observedWeight')
+      ) %>%
+      addTagProperties(
+        columnsToAdd =
+          c("cohort",
+            "species",
+            "dateEmigrated",
+            "sex",
+            "species")
+      ) %>%
+      dplyr::filter(!is.na(tag),
+                    area %in% c("trib","inside","below","above"),
+                    !is.na(sampleNumber)
+      ) %>%
+      createCmrData(maxAgeInSamples = maxAgeInSamples2 + 1, # +1 so we get env data for the last interval
+                    inside = F,
+                    censorDead = F,
+                    censorEmigrated = F) %>% # may want to change censorEmigrated = T to = F
+      # sample 83 is the last tagging sample
+      
+      filter(sampleNumber <= 83) %>%
+      addSampleProperties() %>%
+      arrange(tag, ageInSamples) |> # so we get correct lagDetectionDate in addEnvironmental3
+      addEnvironmental3(envDataWBIn = envDataWB_target, envDataWB_fdcThreshIn = envDataWB_fdcThresh_target) %>%
+      # these commented functions below do not work for CMR data - they separate out shock and non-shock samples
+      #addEnvironmentalDaily() %>%
+      #addEnvironmentalInterval() %>%
+      addKnownZ2() %>%
+      addFirstLast() %>%
+      fillRiver() %>%
+      addRiverTagged() %>%
+      scaleEnvData() %>%
+      addIsYOY() %>%
+      addRiverN() %>%
+      addRiverAbbrev() |>
+      mutate(
+        riverOrdered = factor(river, levels = c('west brook', 'wb jimmy', 'wb mitchell',"wb obear"),
+                              labels = c("West Brook","WB Jimmy","WB Mitchell","WB OBear"), ordered = T),
+        sampleInterval = as.numeric(lagDetectionDate - detectionDate)
+      ),
 
-   eh_WB_2002_2014_target = getEH_AIS(cdWB_CMR0_target, cols, ops, vals, maxAgeInSamples)#, maxIndexByCohort = 100)
-  )  
+   eh_WB_2002_2014_target = getEH_AIS(cdWB_CMR0_target, cols, ops, vals, maxAgeInSamples),#, maxIndexByCohort = 100)
+   eh_WB_1997_2014_target = getEH_AIS(cdWB_CMR0_target, cols, ops, 1997:2014, maxAgeInSamples)
+   )  
 
 ###############################################################
 ## WB - BKT fish
@@ -75,10 +130,38 @@ ops_wBbkt <-  list("%in%",    "==")
 vals_wBbkt <- list(2002:2014, "bkt")
 ######################################  
 
+
 dataCMR_WBbkt_2002_2014_target <-
   tar_plan(
-    eh_WBbkt_2002_2014_target = getEH_AIS(cdWB_CMR0_target, cols_wBbkt, ops_wBbkt, vals_wBbkt, maxAgeInSamples)#, maxIndexByCohort = 100)
+    eh_WBbkt_2002_2014_target = getEH_AIS(cdWB_CMR0_target, cols_wBbkt, ops_wBbkt, vals_wBbkt, maxAgeInSamples)
   )
+
+###############################################################
+###############################################################
+## Loop over river and cohorts - BKT fish
+# read down through the cols, ops, vals variables for filter conditions
+cols_bkt <- list("cohort",  "species", "riverAbbrev")
+ops_bkt <-  list("%in%",    "==",      "%in%")
+vals_bkt <- list(2002:2015, "bkt",     c("WB", "OL", "OS", "IS"))
+
+######################################
+# Loop over cohorts and rivers
+dataCMR_bkt_target <- tar_map(
+  values = tidyr::crossing(
+    riverAbbrev = c("WB", "OL", "OS", "IS"), 
+    cohort = 2002:2015
+  ),
+  tar_target(
+    name = eh_bkt,#paste0("dataCMR_bkt_river", riverN, "_cohort", cohort),
+    getEH_AIS(
+      cdWB_CMR0_2_target, 
+      cols_bkt, 
+      ops_bkt, 
+      list(cohort, "bkt", riverAbbrev),
+      maxAgeInSamples2
+    )
+  )
+)
 
 ################################################################
 ## WB - BNT fish
@@ -88,13 +171,83 @@ ops_wBbnt <-  list("%in%",    "==")
 vals_wBbnt <- list(2002:2014, "bnt")
 ######################################  
 
+
 dataCMR_WBbnt_2002_2014_target <-
   tar_plan(
     eh_WBbnt_2002_2014_target = getEH_AIS(cdWB_CMR0_target, cols_wBbnt, ops_wBbnt, vals_wBbnt, maxAgeInSamples)#, maxIndexByCohort = 100)
   )
 
+###############################################################
+###############################################################
+## Loop over river and cohorts - BNT fish
+# read down through the cols, ops, vals variables for filter conditions
+cols_bnt <- list("cohort",  "species", "riverAbbrev")
+ops_bnt <-  list("%in%",    "==",      "%in%")
+vals_bnt <- list(2002:2015, "bnt",     c("WB", "OL", "OS"))
 
+######################################
+# Loop over cohorts and rivers
+dataCMR_bnt_target <- tar_map(
+  values = tidyr::crossing(
+    riverAbbrev = c("WB", "OL", "OS"), 
+    cohort = 2002:2015
+  ),
+  tar_target(
+    name = eh_bnt,#paste0("dataCMR_bkt_river", riverN, "_cohort", cohort),
+    getEH_AIS(
+      cdWB_CMR0_2_target, 
+      cols_bnt, 
+      ops_bnt, 
+      list(cohort, "bnt", riverAbbrev),
+      maxAgeInSamples2
+    )
+  )
+)
 
+################################################################
+## WB - ATS fish
+# read down through the cols, ops, vals variables for filter conditions
+cols_wBats <- list("cohort",  "species")
+ops_wBats <-  list("%in%",    "==")
+vals_wBats <- list(1997:2004, "ats")
+######################################  
+
+#tmp = tar_read(cdWB_CMR0_target) |> filter(species == "ats")
+#table(tmp$cohort)
+
+dataCMR_WBats_1997_2004_target <-
+  tar_plan(
+    eh_WBats_1997_2004_target = getEH_AIS(cdWB_CMR0_target, cols_wBats, ops_wBats, vals_wBats, maxAgeInSamples)#, maxIndexByCohort = 100)
+  )
+
+###############################################################
+###############################################################
+## Loop over river and cohorts - ATS fish
+# read down through the cols, ops, vals variables for filter conditions
+cols_ats <- list("cohort",  "species", "riverAbbrev")
+ops_ats <-  list("%in%",    "==",      "%in%")
+vals_ats <- list(1997:2004, "ats",     c("WB", "OL", "OS"))
+
+######################################
+# Loop over cohorts and rivers
+dataCMR_ats_target <- tar_map(
+  values = tidyr::crossing(
+    riverAbbrev = c("WB", "OL", "OS"), 
+    cohort = 1997:2004
+  ),
+  tar_target(
+    name = eh_ats,#paste0("dataCMR_bkt_river", riverN, "_cohort", cohort),
+    getEH_AIS(
+      cdWB_CMR0_2_target, 
+      cols_ats, 
+      ops_ats, 
+      list(cohort, "ats", riverAbbrev),
+      maxAgeInSamples2
+    )
+  )
+)
+
+#################################################################################
 ## OB fish
 
 # #########################################
@@ -239,6 +392,12 @@ addRiverN <- function(d){
   level_key <- c("west brook" = 1, "wb jimmy" = 2, "wb mitchell" = 3, "wb obear" = 4)
   d %>% 
     mutate(riverN = recode(river, !!!level_key))
+}
+
+addRiverAbbrev <- function(d){
+  level_key <- c("west brook" = "WB", "wb jimmy" = "OL", "wb mitchell" = "OS", "wb obear" = "IS")
+  d %>% 
+    mutate(riverAbbrev = recode(river, !!!level_key))
 }
 
 `%notin%` <- Negate(`%in%`)

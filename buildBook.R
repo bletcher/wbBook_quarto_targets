@@ -38,12 +38,12 @@ quarto::quarto_render("getDataElectro.qmd",
                       output_format = "html")
 
 # working chapter
-quarto::quarto_render("modelGrowthInMass.qmd", 
+quarto::quarto_render("getDataAntenna.qmd", 
                       #cache_refresh = TRUE, # default is FALSE
                       output_format = "html")
 
 
-quarto::quarto_render("modelsCMR_NN_SIM.qmd", 
+quarto::quarto_render("modelsCMR_Growth_NN_OB.qmd", 
                       #cache_refresh = TRUE, # default is FALSE
                       output_format = "html")
 
