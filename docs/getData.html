@@ -328,6 +328,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Growth in mass</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelsProduction_OB.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">River 4 (IS) - Production model</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -342,19 +348,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./modelsCMR_NN_SIM.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Simulation - CJS model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Simulation - CJS model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./modelsCMR_NN_OB.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">River 4 (IS) - CJS model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">River 4 (IS) - CJS model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./modelsCMR_Growth_NN_OB.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">River 4 (IS) - CJS - growth model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">River 4 (IS) - CJS - growth model</span></span></a>
   </div>
 </li>
       </ul>
@@ -403,7 +409,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>The database is now (as of 6/14/2022) on AWS. It can be accessed using functions in the ‘getWBData’ R package. Use <code>devtools::install_github('Conte-Ecology/westBrookData/getWBData')</code> (with VPN <strong>off</strong>) to install. Most of the functions will run reconnect() to connect to the server with your username and password (which you won’t need if you have set up a .Rprofile file).<br>
 </p>
-<p><code>.RProfile</code> file is located in the home directory. Here are the values that need to be set in the .RProfile file to link to AWS:&nbsp; Sys.setenv( WESTBROOK_HOST = “ecosheds.cagtxtkoqhxj.us-west-2.rds.amazonaws.com”, WESTBROOK_PORT = “5432”, WESTBROOK_DBNAME = “westbrook”, WESTBROOK_USER = “westbrook”, WESTBROOK_PASSWORD = “xxxxxxxxxx” )</p>
+<p><code>.RProfile</code> file is located in the home directory (<code>/documents</code>). Here are the values that need to be set in the .RProfile file to link to AWS:&nbsp; Sys.setenv(<br>
+WESTBROOK_HOST = “ecosheds.cagtxtkoqhxj.us-west-2.rds.amazonaws.com”,<br>
+WESTBROOK_PORT = “5432”,<br>
+WESTBROOK_DBNAME = “westbrook”,<br>
+WESTBROOK_USER = “westbrook”,<br>
+WESTBROOK_PASSWORD = “xxxxxxxxxx”<br>
+)</p>
 <p>Run <code>source("~/.Rprofile")</code> (with VPN <strong>on</strong>) and then <code>reconnect()</code> from the console to connect if necessary. Use <code>DBI::dbListTables(con)</code> to see the list of available tables on the server. Use <code>tbl(conDplyr, "table_name") |&gt; collect(n=Inf)</code> to connect to a table. Details about the ‘getWBData’ package are <a href="https://github.com/Conte-Ecology/westBrookData/blob/master/getWBData/vignettes/getWBDataTutorial.pdf">here</a>.<br>
 Use <code>tbl(conDplyr,"table_name")</code> to connect to a table.<br>
 </p>
@@ -1070,14 +1082,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>The database is now (as of 6/14/2022) on AWS. It can be accessed using functions in the 'getWBData' R package. Use <span class="in">`devtools::install_github('Conte-Ecology/westBrookData/getWBData')`</span> (with VPN **off**) to install. Most of the functions will run reconnect() to connect to the server with your username and password (which you won't need if you have set up a .Rprofile file).\</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="in">`.RProfile`</span> file is located in the home directory. Here are the values that need to be set in the .RProfile file to link to AWS:\  </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>Sys.setenv(</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  WESTBROOK_HOST = "ecosheds.cagtxtkoqhxj.us-west-2.rds.amazonaws.com",</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  WESTBROOK_PORT = "5432",</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  WESTBROOK_DBNAME = "westbrook",</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  WESTBROOK_USER = "westbrook",</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  WESTBROOK_PASSWORD = "xxxxxxxxxx"</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="in">`.RProfile`</span> file is located in the home directory (<span class="in">`/documents`</span>). Here are the values that need to be set in the .RProfile file to link to AWS:\  </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>Sys.setenv(  </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  WESTBROOK_HOST = "ecosheds.cagtxtkoqhxj.us-west-2.rds.amazonaws.com",  </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  WESTBROOK_PORT = "5432",  </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  WESTBROOK_DBNAME = "westbrook",  </span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  WESTBROOK_USER = "westbrook",  </span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  WESTBROOK_PASSWORD = "xxxxxxxxxx"  </span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>)  </span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>Run <span class="in">`source("~/.Rprofile")`</span> (with VPN **on**) and then <span class="in">`reconnect()`</span> from the console to connect if necessary. Use <span class="in">`DBI::dbListTables(con)`</span> to see the list of available tables on the server. Use <span class="in">`tbl(conDplyr, "table_name") |&gt; collect(n=Inf)`</span> to connect to a table.  Details about the 'getWBData' package are <span class="co">[</span><span class="ot">here</span><span class="co">](https://github.com/Conte-Ecology/westBrookData/blob/master/getWBData/vignettes/getWBDataTutorial.pdf)</span>.  </span>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>West Brook story - 18&nbsp; Simulation - CJS model</title>
+<title>West Brook story - 19&nbsp; Simulation - CJS model</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./modelsCMR_NN_OB.html" rel="next">
-<link href="./modelGrowthInMass.html" rel="prev">
+<link href="./modelsProduction_OB.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -128,7 +128,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./modelsCMR_NN_SIM.html">Neural network/CMR model comparison</a></li><li class="breadcrumb-item"><a href="./modelsCMR_NN_SIM.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Simulation - CJS model</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./modelsCMR_NN_SIM.html">Neural network/CMR model comparison</a></li><li class="breadcrumb-item"><a href="./modelsCMR_NN_SIM.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Simulation - CJS model</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -238,7 +238,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./getDataElectroDataRelease.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Electrofishing data for data release</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Electrofishing data</span></span></a>
   </div>
 </li>
       </ul>
@@ -328,6 +328,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Growth in mass</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelsProduction_OB.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">River 4 (IS) - Production model</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -342,19 +348,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./modelsCMR_NN_SIM.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Simulation - CJS model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Simulation - CJS model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./modelsCMR_NN_OB.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">River 4 (IS) - CJS model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">River 4 (IS) - CJS model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./modelsCMR_Growth_NN_OB.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">River 4 (IS) - CJS - growth model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">River 4 (IS) - CJS - growth model</span></span></a>
   </div>
 </li>
       </ul>
@@ -375,27 +381,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#tt-model" id="toc-tt-model" class="nav-link active" data-scroll-target="#tt-model"><span class="header-section-number">18.1</span> [t,t] model</a></li>
-  <li><a href="#simulations" id="toc-simulations" class="nav-link" data-scroll-target="#simulations"><span class="header-section-number">18.2</span> Simulations</a>
+  <li><a href="#tt-model" id="toc-tt-model" class="nav-link active" data-scroll-target="#tt-model"><span class="header-section-number">19.1</span> [t,t] model</a></li>
+  <li><a href="#simulations" id="toc-simulations" class="nav-link" data-scroll-target="#simulations"><span class="header-section-number">19.2</span> Simulations</a>
   <ul class="collapse">
-  <li><a href="#get-data" id="toc-get-data" class="nav-link" data-scroll-target="#get-data"><span class="header-section-number">18.2.1</span> Get data</a></li>
-  <li><a href="#plot-results" id="toc-plot-results" class="nav-link" data-scroll-target="#plot-results"><span class="header-section-number">18.2.2</span> Plot results</a></li>
+  <li><a href="#get-data" id="toc-get-data" class="nav-link" data-scroll-target="#get-data"><span class="header-section-number">19.2.1</span> Get data</a></li>
+  <li><a href="#plot-results" id="toc-plot-results" class="nav-link" data-scroll-target="#plot-results"><span class="header-section-number">19.2.2</span> Plot results</a></li>
   </ul></li>
-  <li><a href="#retrieve-model-results-from-a-random-simulation-run" id="toc-retrieve-model-results-from-a-random-simulation-run" class="nav-link" data-scroll-target="#retrieve-model-results-from-a-random-simulation-run"><span class="header-section-number">18.3</span> Retrieve model results from a random simulation run</a>
+  <li><a href="#retrieve-model-results-from-a-random-simulation-run" id="toc-retrieve-model-results-from-a-random-simulation-run" class="nav-link" data-scroll-target="#retrieve-model-results-from-a-random-simulation-run"><span class="header-section-number">19.3</span> Retrieve model results from a random simulation run</a>
   <ul class="collapse">
-  <li><a href="#model-code" id="toc-model-code" class="nav-link" data-scroll-target="#model-code"><span class="header-section-number">18.3.1</span> Model code</a></li>
-  <li><a href="#model-statistics" id="toc-model-statistics" class="nav-link" data-scroll-target="#model-statistics"><span class="header-section-number">18.3.2</span> Model statistics</a></li>
+  <li><a href="#model-code" id="toc-model-code" class="nav-link" data-scroll-target="#model-code"><span class="header-section-number">19.3.1</span> Model code</a></li>
+  <li><a href="#model-statistics" id="toc-model-statistics" class="nav-link" data-scroll-target="#model-statistics"><span class="header-section-number">19.3.2</span> Model statistics</a></li>
   </ul></li>
-  <li><a href="#simulation-data-from-xioawei" id="toc-simulation-data-from-xioawei" class="nav-link" data-scroll-target="#simulation-data-from-xioawei"><span class="header-section-number">18.4</span> Simulation data from Xioawei</a></li>
+  <li><a href="#simulation-data-from-xioawei" id="toc-simulation-data-from-xioawei" class="nav-link" data-scroll-target="#simulation-data-from-xioawei"><span class="header-section-number">19.4</span> Simulation data from Xioawei</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./modelsCMR_NN_SIM.html">Neural network/CMR model comparison</a></li><li class="breadcrumb-item"><a href="./modelsCMR_NN_SIM.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Simulation - CJS model</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./modelsCMR_NN_SIM.html">Neural network/CMR model comparison</a></li><li class="breadcrumb-item"><a href="./modelsCMR_NN_SIM.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Simulation - CJS model</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Simulation - CJS model</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Simulation - CJS model</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -415,8 +421,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Simple CJS models to get phi and p estimates to compare with Neural Network CMR</p>
 <p>In all the models below, 1 = not observed and 2 = observed in the input <em>encounter data</em>.<br>
 Encounter data are available <a href="https://drive.google.com/drive/folders/1Bth4jdH6vZuE3t7ETL3MMxPo2oxmakZs">here</a>.</p>
-<section id="tt-model" class="level2" data-number="18.1">
-<h2 data-number="18.1" class="anchored" data-anchor-id="tt-model"><span class="header-section-number">18.1</span> [t,t] model</h2>
+<section id="tt-model" class="level2" data-number="19.1">
+<h2 data-number="19.1" class="anchored" data-anchor-id="tt-model"><span class="header-section-number">19.1</span> [t,t] model</h2>
 <p>Model with phi and p for each age-in-samples (column in the encounter history file)</p>
 <p>Probability of survival (phi) model structure:</p>
 <p>phi[t] &lt;- betaInt[t]</p>
@@ -445,10 +451,10 @@ X, var, mean, sd, X2.5., X50., X97.5., Rhat, n.eff, p, phi, n, variable, time, p
 <em>n</em> = the <code>n</code> value used in the simulation <em>variable</em> = the variable alone without the time step (as in var)<br>
 <em>time</em> = time step [1:12] <em>phi_num</em> = the <code>phi</code> value used in the simulation. This value is numeric.</p>
 </section>
-<section id="simulations" class="level2" data-number="18.2">
-<h2 data-number="18.2" class="anchored" data-anchor-id="simulations"><span class="header-section-number">18.2</span> Simulations</h2>
-<section id="get-data" class="level3" data-number="18.2.1">
-<h3 data-number="18.2.1" class="anchored" data-anchor-id="get-data"><span class="header-section-number">18.2.1</span> Get data</h3>
+<section id="simulations" class="level2" data-number="19.2">
+<h2 data-number="19.2" class="anchored" data-anchor-id="simulations"><span class="header-section-number">19.2</span> Simulations</h2>
+<section id="get-data" class="level3" data-number="19.2.1">
+<h3 data-number="19.2.1" class="anchored" data-anchor-id="get-data"><span class="header-section-number">19.2.1</span> Get data</h3>
 <p>Simulation data without phi == <code>true</code></p>
 <div class="cell">
 <details class="code-fold">
@@ -477,10 +483,10 @@ X, var, mean, sd, X2.5., X50., X97.5., Rhat, n.eff, p, phi, n, variable, time, p
 </details>
 </div>
 </section>
-<section id="plot-results" class="level3" data-number="18.2.2">
-<h3 data-number="18.2.2" class="anchored" data-anchor-id="plot-results"><span class="header-section-number">18.2.2</span> Plot results</h3>
-<section id="probability-of-survival-phi" class="level4" data-number="18.2.2.1">
-<h4 data-number="18.2.2.1" class="anchored" data-anchor-id="probability-of-survival-phi"><span class="header-section-number">18.2.2.1</span> Probability of survival (phi)</h4>
+<section id="plot-results" class="level3" data-number="19.2.2">
+<h3 data-number="19.2.2" class="anchored" data-anchor-id="plot-results"><span class="header-section-number">19.2.2</span> Plot results</h3>
+<section id="probability-of-survival-phi" class="level4" data-number="19.2.2.1">
+<h4 data-number="19.2.2.1" class="anchored" data-anchor-id="probability-of-survival-phi"><span class="header-section-number">19.2.2.1</span> Probability of survival (phi)</h4>
 <p>With poor data, estimates trend towards 0.5, the mean of the prior on the variable.</p>
 <div class="cell">
 <details class="code-fold">
@@ -535,8 +541,8 @@ X, var, mean, sd, X2.5., X50., X97.5., Rhat, n.eff, p, phi, n, variable, time, p
 </div>
 </div>
 </section>
-<section id="probabilit-of-capture-p" class="level4" data-number="18.2.2.2">
-<h4 data-number="18.2.2.2" class="anchored" data-anchor-id="probabilit-of-capture-p"><span class="header-section-number">18.2.2.2</span> Probabilit of capture (p)</h4>
+<section id="probabilit-of-capture-p" class="level4" data-number="19.2.2.2">
+<h4 data-number="19.2.2.2" class="anchored" data-anchor-id="probabilit-of-capture-p"><span class="header-section-number">19.2.2.2</span> Probabilit of capture (p)</h4>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -591,8 +597,8 @@ X, var, mean, sd, X2.5., X50., X97.5., Rhat, n.eff, p, phi, n, variable, time, p
 </section>
 </section>
 </section>
-<section id="retrieve-model-results-from-a-random-simulation-run" class="level2" data-number="18.3">
-<h2 data-number="18.3" class="anchored" data-anchor-id="retrieve-model-results-from-a-random-simulation-run"><span class="header-section-number">18.3</span> Retrieve model results from a random simulation run</h2>
+<section id="retrieve-model-results-from-a-random-simulation-run" class="level2" data-number="19.3">
+<h2 data-number="19.3" class="anchored" data-anchor-id="retrieve-model-results-from-a-random-simulation-run"><span class="header-section-number">19.3</span> Retrieve model results from a random simulation run</h2>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -605,8 +611,8 @@ X, var, mean, sd, X2.5., X50., X97.5., Rhat, n.eff, p, phi, n, variable, time, p
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  eh <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'./models/cmrNN_SIM/tt/runsOut/localSimData/eh_p0.5_phi05_n5000.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<section id="model-code" class="level3" data-number="18.3.1">
-<h3 data-number="18.3.1" class="anchored" data-anchor-id="model-code"><span class="header-section-number">18.3.1</span> Model code</h3>
+<section id="model-code" class="level3" data-number="19.3.1">
+<h3 data-number="19.3.1" class="anchored" data-anchor-id="model-code"><span class="header-section-number">19.3.1</span> Model code</h3>
 <p>In the model code, a value of <code>1</code> for <code>z</code> or in <em>gamma</em> or <em>omega</em> signifies the individual is alive and a value of <code>2</code> signifies the individual is dead. <code>y[i,j]</code> is the observed data (encounter history file).</p>
 <div class="cell">
 <details class="code-fold">
@@ -640,8 +646,8 @@ X, var, mean, sd, X2.5., X50., X97.5., Rhat, n.eff, p, phi, n, variable, time, p
 </div>
 </div>
 </section>
-<section id="model-statistics" class="level3" data-number="18.3.2">
-<h3 data-number="18.3.2" class="anchored" data-anchor-id="model-statistics"><span class="header-section-number">18.3.2</span> Model statistics</h3>
+<section id="model-statistics" class="level3" data-number="19.3.2">
+<h3 data-number="19.3.2" class="anchored" data-anchor-id="model-statistics"><span class="header-section-number">19.3.2</span> Model statistics</h3>
 <table>
 <caption>
 Run statistics
@@ -682,8 +688,8 @@ thinRate
 <p>`````[1] “Run time = 1.393 hours”</p>
 </section>
 </section>
-<section id="simulation-data-from-xioawei" class="level2" data-number="18.4">
-<h2 data-number="18.4" class="anchored" data-anchor-id="simulation-data-from-xioawei"><span class="header-section-number">18.4</span> Simulation data from Xioawei</h2>
+<section id="simulation-data-from-xioawei" class="level2" data-number="19.4">
+<h2 data-number="19.4" class="anchored" data-anchor-id="simulation-data-from-xioawei"><span class="header-section-number">19.4</span> Simulation data from Xioawei</h2>
 <p>Decided to use the simulations above, as these files have &gt; 50 time steps (cohorts are spread across time) and it is easier to interpret results with an age-based encounter history with 12 time steps.</p>
 <p>Xiaowei and students created simulation files <a href="https://drive.google.com/drive/folders/1Bth4jdH6vZuE3t7ETL3MMxPo2oxmakZs">here</a> that were downloaded into <code>C:\Users\bletcher\OneDrive - DOI\projects\wbBook_quarto_targets\data\in\fromXioawei</code> as <code>synthetic_data-20240124T150938Z-001.zip</code> and extracted into <code>./synthetic_data-20240124T150938Z-001</code>. These .npy files are read into R and run using <code>./models/cmrNN_SIM/tt/modelCMR_tt_NN_SIM_makeFile.R</code> to loop over all the files. Model output goes into <code>C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/models/cmrNN_SIM/tt/runsOut/</code> using the input file name concatenated between <code>tt_NN_SIM</code> and the date.</p>
 
@@ -1277,13 +1283,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./modelGrowthInMass.html" class="pagination-link" aria-label="Growth in mass">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Growth in mass</span></span>
+      <a href="./modelsProduction_OB.html" class="pagination-link" aria-label="River 4 (IS) - Production model">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">River 4 (IS) - Production model</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./modelsCMR_NN_OB.html" class="pagination-link" aria-label="River 4 (IS) - CJS model">
-        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">River 4 (IS) - CJS model</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">River 4 (IS) - CJS model</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">

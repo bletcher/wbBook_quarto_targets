@@ -302,16 +302,16 @@ ggplot(cd1 |> filter(speciesGG == "Brook trout", seasonGG == "Summer", riverGG =
 
 # compare with Josie's negative growth rates
 # 
-josie <- data.frame(gr = c(-0.002189076,0.001439023,0.000927903,-0.001256159,-0.003833329,-0.003333316,-0.002460802))
-
-ggplot(cd1 |> filter(speciesGG == "Brook trout", seasonGG == "Summer", riverGG == "West Brook", grWeight < 0), aes(grWeight)) +
-  geom_freqpoly(aes(group = factor(year), color = factor(year)), bins = 10) +
-  #geom_freqpoly(data = josie, aes(gr), bins = 10, color = "black", linewidth = 3) +
-  geom_dotplot(data = josie, aes(x = gr), bins = 10, color = "black") +
-  theme_publication() + 
-  theme(axis.text.x = element_text(vjust = 0.5, angle = 45), legend.key = none) +
-  labs(x = "Instantaneous growth rate in mass (mg/d)", y = "Frequency") +
-  facet_grid(seasonGG~riverGG)
+# josie <- data.frame(gr = c(-0.002189076,0.001439023,0.000927903,-0.001256159,-0.003833329,-0.003333316,-0.002460802))
+# 
+# ggplot(cd1 |> filter(speciesGG == "Brook trout", seasonGG == "Summer", riverGG == "West Brook", grWeight < 0), aes(grWeight)) +
+#   geom_freqpoly(aes(group = factor(year), color = factor(year)), bins = 10) +
+#   #geom_freqpoly(data = josie, aes(gr), bins = 10, color = "black", linewidth = 3) +
+#   geom_dotplot(data = josie, aes(x = gr), bins = 10, color = "black") +
+#   theme_publication() + 
+#   theme(axis.text.x = element_text(vjust = 0.5, angle = 45), legend.key = none) +
+#   labs(x = "Instantaneous growth rate in mass (mg/d)", y = "Frequency") +
+#   facet_grid(seasonGG~riverGG)
 
 ```
 
