@@ -136,8 +136,8 @@ summary_OB <- get_summary_OB(d, eh)
 
 ```{r}
 #| cache: FALSE
-ojs_define(numTags_OJS_mod3 = dim(eh$tags)[1])
-ojs_define(summary_OB_OJS = (summary_OB))
+ojs_define(numTags_OJS_mod3_2002 = dim(eh$tags)[1])
+ojs_define(summary_OB_OJS_2002 = (summary_OB))
 #ojs_define(summary_tt_z_OJS = (summary_tt_z_mod3))
 ```
 
@@ -147,14 +147,14 @@ Select one or more individuals:
 
 ```{ojs}
 
-viewof selectInd_mod3 = Inputs.select([...Array(numTags_OJS_mod3).keys()], {
+viewof selectInd_mod3 = Inputs.select([...Array(numTags_OJS_mod3_2002).keys()], {
   label: "Which fish?",
   value: 1,
   step: 1,
   multiple: true
 })
 
-summary_OB_OJS_T = transpose(summary_OB_OJS)
+summary_OB_OJS_T = transpose(summary_OB_OJS_2002)
 summary_OB_OJS_T_selected = summary_OB_OJS_T.filter((d) =>
   selectInd_mod3.includes(d.ind)
 )
@@ -209,8 +209,8 @@ summary_OB <- get_summary_OB(d, eh)
 
 ```{r}
 #| cache: FALSE
-ojs_define(numTags_OJS_mod3 = dim(eh$tags)[1])
-ojs_define(summary_OB_OJS = (summary_OB))
+ojs_define(numTags_OJS_mod3_2003 = dim(eh$tags)[1])
+ojs_define(summary_OB_OJS_2003 = (summary_OB))
 #ojs_define(summary_tt_z_OJS = (summary_tt_z_mod3))
 ```
 
@@ -220,14 +220,14 @@ Select one or more individuals:
 
 ```{ojs}
 
-viewof selectInd_mod3 = Inputs.select([...Array(numTags_OJS_mod3).keys()], {
+viewof selectInd_mod3 = Inputs.select([...Array(numTags_OJS_mod3_2003).keys()], {
   label: "Which fish?",
   value: 1,
   step: 1,
   multiple: true
 })
 
-summary_OB_OJS_T = transpose(summary_OB_OJS)
+summary_OB_OJS_T = transpose(summary_OB_OJS_2003)
 summary_OB_OJS_T_selected = summary_OB_OJS_T.filter((d) =>
   selectInd_mod3.includes(d.ind)
 )
