@@ -1,4 +1,4 @@
-# River 4 (IS) - Production model
+# Production model - river 4 (IS)
 
 Simple CJS model integrated with a growth in weight model to get phi, p, and growth estimates to develop a production model.
 
@@ -92,6 +92,16 @@ source('./models/production/qmdProduction_OB_functionsToSource.R')
 modelNum <- 3 # phi * growth
 ```
 
+### Model code
+```{r}
+
+# all cohorts have the same code. show here
+load('./models/production/runsOut/production_OB_model_3_2002__mostRecent.RData')
+d$modelCode
+
+```
+
+
 ::: panel-tabset
 #### 2002
 
@@ -106,7 +116,6 @@ load(paste0('./models/production/runsOut/production_OB_model', '_', modelNum, '_
 #Input data
 eh <- tar_read_raw(paste0('eh_OB_', cohort, '_target'))
 
-d$modelCode
 
 kable(as_tibble(d$runData), caption = "Run statistics")
 paste0('Run time = ', round(d$runTime, 3), ' ',  attr(d$runTime, "units"))
@@ -122,7 +131,7 @@ MCMCplot(object = d$mcmc, params = c("grIntT"))
     rownames_to_column(var = "var"))
 
 summary_OB <- get_summary_OB(d, eh)
-
+#s=summary_OB[, order(summary_OB$ind, summary_OB$t)]
 ```
 
 ```{r}
@@ -138,15 +147,15 @@ Select one or more individuals:
 
 ```{ojs}
 
-viewof selectInd_mod3 = Inputs.select([...Array(numTags_OJS).keys()], {
+viewof selectInd_mod3 = Inputs.select([...Array(numTags_OJS_mod3).keys()], {
   label: "Which fish?",
   value: 1,
   step: 1,
   multiple: true
 })
 
-summaryMod3_tt_zR_OJS_T = transpose(summaryMod3_tt_zR_OJS)
-summaryMod3_tt_zR_OJS_T_selected = summaryMod3_tt_zR_OJS_T.filter((d) =>
+summary_OB_OJS_T = transpose(summary_OB_OJS)
+summary_OB_OJS_T_selected = summary_OB_OJS_T.filter((d) =>
   selectInd_mod3.includes(d.ind)
 )
 
@@ -163,8 +172,82 @@ Black dots/line is estimated probability of survival and orange dots are encount
 
 {{get_z_plot}}
 
-plot_z(summaryMod3_tt_zR_OJS_T_selected)
+plot_z(summary_OB_OJS_T_selected)
 
 ```
+
+#### 2003
+
+```{r}
+#| label: production2003
+
+cohort = 2003
+
+# loads `d`
+load(paste0('./models/production/runsOut/production_OB_model', '_', modelNum, '_', cohort, '__mostRecent.RData')) # will need to fix double _
+
+#Input data
+eh <- tar_read_raw(paste0('eh_OB_', cohort, '_target'))
+
+
+kable(as_tibble(d$runData), caption = "Run statistics")
+paste0('Run time = ', round(d$runTime, 3), ' ',  attr(d$runTime, "units"))
+
+get_MCMCTrace_OB(d)
+
+MCMCplot(object = d$mcmc, params = c("phiIntTOut"))
+MCMCplot(object = d$mcmc, params = c("phiBetaT"))
+MCMCplot(object = d$mcmc, params = c("p"))
+MCMCplot(object = d$mcmc, params = c("grIntT"))
+
+(summaryMod3_tt_growth <- MCMCsummary(object = d$mcmc, params = c("phiIntTOut", "p", "grIntT", "phiBetaT"), round = 3) %>%
+    rownames_to_column(var = "var"))
+
+summary_OB <- get_summary_OB(d, eh)
+#s=summary_OB[, order(summary_OB$ind, summary_OB$t)]
+```
+
+```{r}
+#| cache: FALSE
+ojs_define(numTags_OJS_mod3 = dim(eh$tags)[1])
+ojs_define(summary_OB_OJS = (summary_OB))
+#ojs_define(summary_tt_z_OJS = (summary_tt_z_mod3))
+```
+
+### Plot predicted and observed masses for selected individuals
+
+Select one or more individuals:
+
+```{ojs}
+
+viewof selectInd_mod3 = Inputs.select([...Array(numTags_OJS_mod3).keys()], {
+  label: "Which fish?",
+  value: 1,
+  step: 1,
+  multiple: true
+})
+
+summary_OB_OJS_T = transpose(summary_OB_OJS)
+summary_OB_OJS_T_selected = summary_OB_OJS_T.filter((d) =>
+  selectInd_mod3.includes(d.ind)
+)
+
+```
+
+Black dots/line is estimated mass and orange dots are observed masses. The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort.
+
+
+### Plot survival
+
+Black dots/line is estimated probability of survival and orange dots are encountered yes (y = 0.8)/no (y = 0). The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort.
+
+```{ojs}
+
+{{get_z_plot}}
+
+plot_z(summary_OB_OJS_T_selected)
+
+```
+
 
 :::
