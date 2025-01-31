@@ -261,8 +261,36 @@ vals_OB <- list(2002:2014, "wb obear")
 
 dataCMR_OB_2002_2014_target <-
   tar_plan(
-    eh_OB_2002_2014_target = getEH_AIS(cdWB_CMR0_target, cols_OB, ops_OB, vals_OB, maxAgeInSamples)#, maxIndexByCohort = 100)
+    eh_OB_2002_2014_target = getEH_AIS(cdWB_CMR0_target, cols_OB, ops_OB, vals_OB, maxAgeInSamples),#, maxIndexByCohort = 100)
+    eh_OB_2002_2014_AISall_target = getEH_AIS(cdWB_CMR0_2_target, cols_OB, ops_OB, vals_OB, maxAgeInSamples2)
   )  
+
+
+# #########################################
+# # specific cohorts from O'Bear 2002:2014
+
+# read down through the cols, ops, vals variables for filter conditions
+cols_OB <- list("cohort",  "riverTagged")
+ops_OB <-  list("%in%",    "==")
+#vals_OB <- list(2010, "wb obear")
+######################################  
+
+dataCMR_OB_singleCohorts_target <-
+  tar_plan(
+    eh_OB_2002_target = getEH_AIS(cdWB_CMR0_target, cols_OB, ops_OB, list(2002, "wb obear"), maxAgeInSamples),
+    eh_OB_2003_target = getEH_AIS(cdWB_CMR0_target, cols_OB, ops_OB, list(2003, "wb obear"), maxAgeInSamples),
+    eh_OB_2004_target = getEH_AIS(cdWB_CMR0_target, cols_OB, ops_OB, list(2004, "wb obear"), maxAgeInSamples),
+    eh_OB_2005_target = getEH_AIS(cdWB_CMR0_target, cols_OB, ops_OB, list(2005, "wb obear"), maxAgeInSamples),
+    eh_OB_2006_target = getEH_AIS(cdWB_CMR0_target, cols_OB, ops_OB, list(2006, "wb obear"), maxAgeInSamples),
+    eh_OB_2007_target = getEH_AIS(cdWB_CMR0_target, cols_OB, ops_OB, list(2007, "wb obear"), maxAgeInSamples),
+    eh_OB_2008_target = getEH_AIS(cdWB_CMR0_target, cols_OB, ops_OB, list(2008, "wb obear"), maxAgeInSamples),
+    eh_OB_2009_target = getEH_AIS(cdWB_CMR0_target, cols_OB, ops_OB, list(2009, "wb obear"), maxAgeInSamples),
+    eh_OB_2010_target = getEH_AIS(cdWB_CMR0_target, cols_OB, ops_OB, list(2010, "wb obear"), maxAgeInSamples),
+    eh_OB_2011_target = getEH_AIS(cdWB_CMR0_target, cols_OB, ops_OB, list(2011, "wb obear"), maxAgeInSamples),
+    eh_OB_2012_target = getEH_AIS(cdWB_CMR0_target, cols_OB, ops_OB, list(2012, "wb obear"), maxAgeInSamples),
+    eh_OB_2013_target = getEH_AIS(cdWB_CMR0_target, cols_OB, ops_OB, list(2013, "wb obear"), maxAgeInSamples),
+    eh_OB_2014_target = getEH_AIS(cdWB_CMR0_target, cols_OB, ops_OB, list(2014, "wb obear"), maxAgeInSamples)
+  ) 
 
 
 

@@ -1,0 +1,170 @@
+# River 4 (IS) - Production model
+
+Simple CJS model integrated with a growth in weight model to get phi, p, and growth estimates to develop a production model.
+
+In all the models below, 1 = not observed and 2 = observed in the input *encounter data*.\
+Encounter data are available [here](https://drive.google.com/drive/folders/1UmPv49xL-mzUBndqjRISylNO3q3Zs-cm) in the `eh.csv` file. Weight data are in `weight.csv`
+
+```{r}
+#| label: librariesModelsNimbleProduction
+#| echo: false
+library(getWBData)
+library(lubridate)
+library(kableExtra)
+library(GGally)
+library(nimble)
+library(nimbleEcology)
+library(MCMCvis)
+library(tidyverse)
+library(targets)
+
+library(tibble)
+```
+
+```{r}
+#| label: globalModelsNimbleProduction
+#| include: false
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+Using model #3 from `modelsCMR_Growth_NN_OB.qmd` as a staring point for the models, but adapting the model by\
+Prob not 1) Extending AgeInSamples from 1-11 to 1-x to allow bigger fish to be present for the production estimates. Prob not 2) Loop over first\[i\]:lastAIS so fish have the chance to survive to large size.\
+3) Add sample random effect structured by cohort to allow cohort effects on growth.
+
+## By Cohort, modelNum 3: phi(i,t) \* g(i,t), p(i,t) model
+
+Model with phi and p for each age-in-samples (t = column in the encounter history file) and individual (i)
+
+Probability of survival (phi) model structure:
+
+```         
+      logit(phi[i,t]) <- 
+        phiInt[i,t] + 
+        phiBeta[1,i,t] * weight[i,t] + 
+        phiBeta[2,i,t] * weight[i,t] * weight[i,t] +
+        phiBetaCohort[cohort[i]] 
+```
+
+Probability of capture (p) model structure:
+
+p(t,i) \<- pInt(t,i)
+
+Growth rate (gr) model structure:
+
+gr(t,i) \<- grInt(t) + cohort(i)
+
+Survival/growth rate interaction:
+
+Multiplicative
+
+Model code is in `./models/production/modelProduction_OB_functionsToSource.R`\
+Model is run 'by hand' in `./models/modelProduction_OB_makeFile.R`\
+Functions for this qmd file in `./models/qmdProduction_OB_functionsToSource.R`\
+
+Model runs:\
+
+### How many ageInSamples to include?
+
+```{r}
+#| label: production
+
+all <- tar_read(cdWB_electro_target)
+table(all %>% filter(river == "wb obear")|> select(ageInSamples))
+
+cohorts <- 2002:2014
+
+```
+
+### Retrieve model results
+
+```{r}
+#| label: productionSource
+#| cache: false
+library(targets)
+# Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
+# 
+# 
+
+# To get the mMCMCSummaryRMNA funcion which I adapted to deal with NAs
+source('./models/production/modelProduction_OB_functionsToSource.R')
+source('./models/production/qmdProduction_OB_functionsToSource.R')
+
+modelNum <- 3 # phi * growth
+```
+
+::: panel-tabset
+#### 2002
+
+```{r}
+#| label: production2002
+
+cohort = 2002
+
+# loads `d`
+load(paste0('./models/production/runsOut/production_OB_model', '_', modelNum, '_', cohort, '__mostRecent.RData')) # will need to fix double _
+
+#Input data
+eh <- tar_read_raw(paste0('eh_OB_', cohort, '_target'))
+
+d$modelCode
+
+kable(as_tibble(d$runData), caption = "Run statistics")
+paste0('Run time = ', round(d$runTime, 3), ' ',  attr(d$runTime, "units"))
+
+get_MCMCTrace_OB(d)
+
+MCMCplot(object = d$mcmc, params = c("phiIntTOut"))
+MCMCplot(object = d$mcmc, params = c("phiBetaT"))
+MCMCplot(object = d$mcmc, params = c("p"))
+MCMCplot(object = d$mcmc, params = c("grIntT"))
+
+(summaryMod3_tt_growth <- MCMCsummary(object = d$mcmc, params = c("phiIntTOut", "p", "grIntT", "phiBetaT"), round = 3) %>%
+    rownames_to_column(var = "var"))
+
+summary_OB <- get_summary_OB(d, eh)
+
+```
+
+```{r}
+#| cache: FALSE
+ojs_define(numTags_OJS_mod3 = dim(eh$tags)[1])
+ojs_define(summary_OB_OJS = (summary_OB))
+#ojs_define(summary_tt_z_OJS = (summary_tt_z_mod3))
+```
+
+### Plot predicted and observed masses for selected individuals
+
+Select one or more individuals:
+
+```{ojs}
+
+viewof selectInd_mod3 = Inputs.select([...Array(numTags_OJS).keys()], {
+  label: "Which fish?",
+  value: 1,
+  step: 1,
+  multiple: true
+})
+
+summaryMod3_tt_zR_OJS_T = transpose(summaryMod3_tt_zR_OJS)
+summaryMod3_tt_zR_OJS_T_selected = summaryMod3_tt_zR_OJS_T.filter((d) =>
+  selectInd_mod3.includes(d.ind)
+)
+
+```
+
+Black dots/line is estimated mass and orange dots are observed masses. The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort.
+
+
+### Plot survival
+
+Black dots/line is estimated probability of survival and orange dots are encountered yes (y = 0.8)/no (y = 0). The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort.
+
+```{ojs}
+
+{{get_z_plot}}
+
+plot_z(summaryMod3_tt_zR_OJS_T_selected)
+
+```
+
+:::

@@ -55,10 +55,11 @@ list(
   dataCMR_WBbkt_2002_2014_target,
   dataCMR_WBbnt_2002_2014_target,
   dataCMR_OB_2002_2014_target,
+  dataCMR_OB_singleCohorts_target,
   
-  dataCMR_bkt_target,
-  dataCMR_bnt_target,
-  dataCMR_ats_target,
+  dataCMR_bkt_target, # dataCMR_bkt_targets for each combo of cohort and river
+  dataCMR_bnt_target, # dataCMR_bnt_targets for each combo of cohort and river
+  dataCMR_ats_target, # dataCMR_ats_targets for each combo of cohort and river
   
   dataWanding_target,
   dataAntenna_target,

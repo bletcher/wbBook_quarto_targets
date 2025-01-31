@@ -25,7 +25,8 @@ library(targets)
 ```
 
 ## Raw data
-Raw antenna data from the WB database (see [get data info chapter](https://bletcher.github.io/wbBook_quarto_targets/getData.html) for details) include these data frames:
+Data are generated in `R/getDataAntenna-targets.R` [file](https://github.com/bletcher/wbBook_quarto_targets/blob/main/R/getDataAntenna_targets.R) 
+Raw antenna data from the WB database (see [get data info chapter](https://bletcher.github.io/wbBook_quarto_targets/getData.html) for details) include these data frames:  
 
 ### Deployment details
 ```{r}
@@ -41,7 +42,20 @@ str(log)
 #write.csv(log, file = "./data/outForDownload/antenna/log.csv")
 ```
 
-Data are generated in `R/getDataAntenna-targets.R` [file](https://github.com/bletcher/wbBook_quarto_targets/blob/main/R/getDataAntenna_targets.R)  
+
+### Antenna status
+Only dates
+```{r}
+status <- tar_read(antennaStatus_target)
+str(status)
+```
+
+### Sites
+Only dates
+```{r}
+sites <- tar_read(sites_target)
+str(sites)
+```
 
 
 ### Get antenna data observations target
@@ -57,6 +71,6 @@ str(cdWB_antenna0)
 # write.csv(cdWB_antenna0, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_antenna0.csv")
 # Save rData file for downloading
 # save(cdWB_antenna0, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_antenna0.RData")
-
+table(cdWB_antenna0$riverMeter, cdWB_antenna0$river, cdWB_antenna0$survey)
 ```
 
