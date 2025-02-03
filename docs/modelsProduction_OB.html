@@ -863,11 +863,22 @@ Functions for this qmd file in <code>./models/qmdProduction_OB_functionsToSource
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb22" data-startfrom="184" data-source-offset="-17"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 183;"><span id="cb22-184"><a href="#cb22-184" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_z</span>(summary_OB_OJS_T_2002_selected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22" data-startfrom="184" data-source-offset="-17"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 183;"><span id="cb22-184"><a href="#cb22-184" aria-hidden="true" tabindex="-1"></a><span class="pp">eval</span>(get_z_plot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-2-2" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23" data-startfrom="186" data-source-offset="-35"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 185;"><span id="cb23-186"><a href="#cb23-186" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_z</span>(summary_OB_OJS_T_2002_selected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-3" data-nodetype="expression">
 
 </div>
 </div>
@@ -879,16 +890,16 @@ Functions for this qmd file in <code>./models/qmdProduction_OB_functionsToSource
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>cohort <span class="ot">=</span> <span class="dv">2003</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># loads `d`</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">paste0</span>(<span class="st">'./models/production/runsOut/production_OB_model'</span>, <span class="st">'_'</span>, modelNum, <span class="st">'_'</span>, cohort, <span class="st">'__mostRecent.RData'</span>)) <span class="co"># will need to fix double _</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Input data</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>eh <span class="ot">&lt;-</span> <span class="fu">tar_read_raw</span>(<span class="fu">paste0</span>(<span class="st">'eh_OB_'</span>, cohort, <span class="st">'_target'</span>))</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">as_tibble</span>(d<span class="sc">$</span>runData), <span class="at">caption =</span> <span class="st">"Run statistics"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>cohort <span class="ot">=</span> <span class="dv">2003</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># loads `d`</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">paste0</span>(<span class="st">'./models/production/runsOut/production_OB_model'</span>, <span class="st">'_'</span>, modelNum, <span class="st">'_'</span>, cohort, <span class="st">'__mostRecent.RData'</span>)) <span class="co"># will need to fix double _</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Input data</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>eh <span class="ot">&lt;-</span> <span class="fu">tar_read_raw</span>(<span class="fu">paste0</span>(<span class="st">'eh_OB_'</span>, cohort, <span class="st">'_target'</span>))</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">as_tibble</span>(d<span class="sc">$</span>runData), <span class="at">caption =</span> <span class="st">"Run statistics"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
@@ -913,14 +924,14 @@ Functions for this qmd file in <code>./models/qmdProduction_OB_functionsToSource
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste0</span>(<span class="st">'Run time = '</span>, <span class="fu">round</span>(d<span class="sc">$</span>runTime, <span class="dv">3</span>), <span class="st">' '</span>,  <span class="fu">attr</span>(d<span class="sc">$</span>runTime, <span class="st">"units"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste0</span>(<span class="st">'Run time = '</span>, <span class="fu">round</span>(d<span class="sc">$</span>runTime, <span class="dv">3</span>), <span class="st">' '</span>,  <span class="fu">attr</span>(d<span class="sc">$</span>runTime, <span class="st">"units"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Run time = 44.531 mins"</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_MCMCTrace_OB</span>(d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_MCMCTrace_OB</span>(d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -980,7 +991,7 @@ Functions for this qmd file in <code>./models/qmdProduction_OB_functionsToSource
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">MCMCplot</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"phiIntTOut"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">MCMCplot</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"phiIntTOut"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -991,7 +1002,7 @@ Functions for this qmd file in <code>./models/qmdProduction_OB_functionsToSource
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">MCMCplot</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"phiBetaT"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">MCMCplot</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"phiBetaT"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -1002,7 +1013,7 @@ Functions for this qmd file in <code>./models/qmdProduction_OB_functionsToSource
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">MCMCplot</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"p"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">MCMCplot</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"p"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -1013,7 +1024,7 @@ Functions for this qmd file in <code>./models/qmdProduction_OB_functionsToSource
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">MCMCplot</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"grIntT"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">MCMCplot</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"grIntT"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -1024,8 +1035,8 @@ Functions for this qmd file in <code>./models/qmdProduction_OB_functionsToSource
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>(summaryMod3_tt_growth <span class="ot">&lt;-</span> <span class="fu">MCMCsummary</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"phiIntTOut"</span>, <span class="st">"p"</span>, <span class="st">"grIntT"</span>, <span class="st">"phiBetaT"</span>), <span class="at">round =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">"var"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>(summaryMod3_tt_growth <span class="ot">&lt;-</span> <span class="fu">MCMCsummary</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"phiIntTOut"</span>, <span class="st">"p"</span>, <span class="st">"grIntT"</span>, <span class="st">"phiBetaT"</span>), <span class="at">round =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">"var"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>               var   mean    sd   2.5%    50%  97.5% Rhat n.eff
@@ -1087,16 +1098,16 @@ Functions for this qmd file in <code>./models/qmdProduction_OB_functionsToSource
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>summary_OB <span class="ot">&lt;-</span> <span class="fu">get_summary_OB</span>(d, eh)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co">#s=summary_OB[, order(summary_OB$ind, summary_OB$t)]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>summary_OB <span class="ot">&lt;-</span> <span class="fu">get_summary_OB</span>(d, eh)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co">#s=summary_OB[, order(summary_OB$ind, summary_OB$t)]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ojs_define</span>(<span class="at">numTags_OJS_mod3_2003 =</span> <span class="fu">dim</span>(eh<span class="sc">$</span>tags)[<span class="dv">1</span>])</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ojs_define</span>(<span class="at">summary_OB_OJS_2003 =</span> (summary_OB))</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co">#ojs_define(summary_tt_z_OJS = (summary_tt_z_mod3))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ojs_define</span>(<span class="at">numTags_OJS_mod3_2003 =</span> <span class="fu">dim</span>(eh<span class="sc">$</span>tags)[<span class="dv">1</span>])</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ojs_define</span>(<span class="at">summary_OB_OJS_2003 =</span> (summary_OB))</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co">#ojs_define(summary_tt_z_OJS = (summary_tt_z_mod3))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <section id="plot-predicted-and-observed-masses-for-selected-individuals-1" class="level3" data-number="18.1.6">
@@ -1105,17 +1116,17 @@ Functions for this qmd file in <code>./models/qmdProduction_OB_functionsToSource
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb35" data-startfrom="232" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 231;"><span id="cb35-232"><a href="#cb35-232" aria-hidden="true" tabindex="-1"></a>viewof selectInd_mod3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>([<span class="op">...</span><span class="bu">Array</span>(numTags_OJS_mod3_2003)<span class="op">.</span><span class="fu">keys</span>()]<span class="op">,</span> {</span>
-<span id="cb35-233"><a href="#cb35-233" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Which fish?"</span><span class="op">,</span></span>
-<span id="cb35-234"><a href="#cb35-234" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb35-235"><a href="#cb35-235" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb35-236"><a href="#cb35-236" aria-hidden="true" tabindex="-1"></a>  <span class="dt">multiple</span><span class="op">:</span> <span class="kw">true</span></span>
-<span id="cb35-237"><a href="#cb35-237" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb35-238"><a href="#cb35-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-239"><a href="#cb35-239" aria-hidden="true" tabindex="-1"></a>summary_OB_OJS_T <span class="op">=</span> <span class="fu">transpose</span>(summary_OB_OJS_2003)</span>
-<span id="cb35-240"><a href="#cb35-240" aria-hidden="true" tabindex="-1"></a>summary_OB_OJS_T_selected <span class="op">=</span> summary_OB_OJS_T<span class="op">.</span><span class="fu">filter</span>((d) <span class="kw">=&gt;</span></span>
-<span id="cb35-241"><a href="#cb35-241" aria-hidden="true" tabindex="-1"></a>  selectInd_mod3<span class="op">.</span><span class="fu">includes</span>(d<span class="op">.</span><span class="at">ind</span>)</span>
-<span id="cb35-242"><a href="#cb35-242" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36" data-startfrom="234" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 233;"><span id="cb36-234"><a href="#cb36-234" aria-hidden="true" tabindex="-1"></a>viewof selectInd_mod3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>([<span class="op">...</span><span class="bu">Array</span>(numTags_OJS_mod3_2003)<span class="op">.</span><span class="fu">keys</span>()]<span class="op">,</span> {</span>
+<span id="cb36-235"><a href="#cb36-235" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Which fish?"</span><span class="op">,</span></span>
+<span id="cb36-236"><a href="#cb36-236" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb36-237"><a href="#cb36-237" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb36-238"><a href="#cb36-238" aria-hidden="true" tabindex="-1"></a>  <span class="dt">multiple</span><span class="op">:</span> <span class="kw">true</span></span>
+<span id="cb36-239"><a href="#cb36-239" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb36-240"><a href="#cb36-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-241"><a href="#cb36-241" aria-hidden="true" tabindex="-1"></a>summary_OB_OJS_T <span class="op">=</span> <span class="fu">transpose</span>(summary_OB_OJS_2003)</span>
+<span id="cb36-242"><a href="#cb36-242" aria-hidden="true" tabindex="-1"></a>summary_OB_OJS_T_selected <span class="op">=</span> summary_OB_OJS_T<span class="op">.</span><span class="fu">filter</span>((d) <span class="kw">=&gt;</span></span>
+<span id="cb36-243"><a href="#cb36-243" aria-hidden="true" tabindex="-1"></a>  selectInd_mod3<span class="op">.</span><span class="fu">includes</span>(d<span class="op">.</span><span class="at">ind</span>)</span>
+<span id="cb36-244"><a href="#cb36-244" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -1147,7 +1158,7 @@ Functions for this qmd file in <code>./models/qmdProduction_OB_functionsToSource
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb36" data-startfrom="255" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 254;"><span id="cb36-255"><a href="#cb36-255" aria-hidden="true" tabindex="-1"></a>{{get_z_plot}}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37" data-startfrom="257" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 256;"><span id="cb37-257"><a href="#cb37-257" aria-hidden="true" tabindex="-1"></a>{{get_z_plot}}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -1158,7 +1169,7 @@ Functions for this qmd file in <code>./models/qmdProduction_OB_functionsToSource
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb37" data-startfrom="257" data-source-offset="-17"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 256;"><span id="cb37-257"><a href="#cb37-257" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_z</span>(summary_OB_OJS_T_selected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38" data-startfrom="259" data-source-offset="-17"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 258;"><span id="cb38-259"><a href="#cb38-259" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_z</span>(summary_OB_OJS_T_selected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -1181,7 +1192,7 @@ Functions for this qmd file in <code>./models/qmdProduction_OB_functionsToSource
 
 </main> <!-- /main -->
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ilxudmlld29mIHNlbGVjdEluZF9tb2QzXzIwMDIgPSBJbnB1dHMuc2VsZWN0KFsuLi5BcnJheShudW1UYWdzX09KU19tb2QzXzIwMDIpLmtleXMoKV0sIHtcbiAgbGFiZWw6IFwiV2hpY2ggZmlzaD9cIixcbiAgdmFsdWU6IDEsXG4gIHN0ZXA6IDEsXG4gIG11bHRpcGxlOiB0cnVlXG59KVxuXG5zdW1tYXJ5X09CX09KU19UXzIwMDIgPSB0cmFuc3Bvc2Uoc3VtbWFyeV9PQl9PSlNfMjAwMilcbnN1bW1hcnlfT0JfT0pTX1RfMjAwMl9zZWxlY3RlZCA9IHN1bW1hcnlfT0JfT0pTX1RfMjAwMi5maWx0ZXIoKGQpID0+XG4gIHNlbGVjdEluZF9tb2QzXzIwMDIuaW5jbHVkZXMoZC5pbmQpXG4pXG5cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ilxue3tnZXRfel9wbG90fX1cblxucGxvdF96KHN1bW1hcnlfT0JfT0pTX1RfMjAwMl9zZWxlY3RlZClcblxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0zIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiXG52aWV3b2Ygc2VsZWN0SW5kX21vZDMgPSBJbnB1dHMuc2VsZWN0KFsuLi5BcnJheShudW1UYWdzX09KU19tb2QzXzIwMDMpLmtleXMoKV0sIHtcbiAgbGFiZWw6IFwiV2hpY2ggZmlzaD9cIixcbiAgdmFsdWU6IDEsXG4gIHN0ZXA6IDEsXG4gIG11bHRpcGxlOiB0cnVlXG59KVxuXG5zdW1tYXJ5X09CX09KU19UID0gdHJhbnNwb3NlKHN1bW1hcnlfT0JfT0pTXzIwMDMpXG5zdW1tYXJ5X09CX09KU19UX3NlbGVjdGVkID0gc3VtbWFyeV9PQl9PSlNfVC5maWx0ZXIoKGQpID0+XG4gIHNlbGVjdEluZF9tb2QzLmluY2x1ZGVzKGQuaW5kKVxuKVxuXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcbnt7Z2V0X3pfcGxvdH19XG5cbnBsb3RfeihzdW1tYXJ5X09CX09KU19UX3NlbGVjdGVkKVxuXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3NlbGVjdEluZF9tb2QzXzIwMDInKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnc2VsZWN0SW5kX21vZDMnKSJ9XX0=
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ilxudmlld29mIHNlbGVjdEluZF9tb2QzXzIwMDIgPSBJbnB1dHMuc2VsZWN0KFsuLi5BcnJheShudW1UYWdzX09KU19tb2QzXzIwMDIpLmtleXMoKV0sIHtcbiAgbGFiZWw6IFwiV2hpY2ggZmlzaD9cIixcbiAgdmFsdWU6IDEsXG4gIHN0ZXA6IDEsXG4gIG11bHRpcGxlOiB0cnVlXG59KVxuXG5zdW1tYXJ5X09CX09KU19UXzIwMDIgPSB0cmFuc3Bvc2Uoc3VtbWFyeV9PQl9PSlNfMjAwMilcbnN1bW1hcnlfT0JfT0pTX1RfMjAwMl9zZWxlY3RlZCA9IHN1bW1hcnlfT0JfT0pTX1RfMjAwMi5maWx0ZXIoKGQpID0+XG4gIHNlbGVjdEluZF9tb2QzXzIwMDIuaW5jbHVkZXMoZC5pbmQpXG4pXG5cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ilxue3tnZXRfel9wbG90fX1cblxuZXZhbChnZXRfel9wbG90KVxuXG5wbG90X3ooc3VtbWFyeV9PQl9PSlNfVF8yMDAyX3NlbGVjdGVkKVxuXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTMiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcbnZpZXdvZiBzZWxlY3RJbmRfbW9kMyA9IElucHV0cy5zZWxlY3QoWy4uLkFycmF5KG51bVRhZ3NfT0pTX21vZDNfMjAwMykua2V5cygpXSwge1xuICBsYWJlbDogXCJXaGljaCBmaXNoP1wiLFxuICB2YWx1ZTogMSxcbiAgc3RlcDogMSxcbiAgbXVsdGlwbGU6IHRydWVcbn0pXG5cbnN1bW1hcnlfT0JfT0pTX1QgPSB0cmFuc3Bvc2Uoc3VtbWFyeV9PQl9PSlNfMjAwMylcbnN1bW1hcnlfT0JfT0pTX1Rfc2VsZWN0ZWQgPSBzdW1tYXJ5X09CX09KU19ULmZpbHRlcigoZCkgPT5cbiAgc2VsZWN0SW5kX21vZDMuaW5jbHVkZXMoZC5pbmQpXG4pXG5cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ilxue3tnZXRfel9wbG90fX1cblxucGxvdF96KHN1bW1hcnlfT0JfT0pTX1Rfc2VsZWN0ZWQpXG5cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnc2VsZWN0SW5kX21vZDNfMjAwMicpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdzZWxlY3RJbmRfbW9kMycpIn1dfQ==
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
@@ -1785,263 +1796,265 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb38" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Production model - river 4 (IS)</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>Simple CJS model integrated with a growth in weight model to get phi, p, and growth estimates to develop a production model.</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>In all the models below, 1 = not observed and 2 = observed in the input *encounter data*.\</span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>Encounter data are available <span class="co">[</span><span class="ot">here</span><span class="co">](https://drive.google.com/drive/folders/1UmPv49xL-mzUBndqjRISylNO3q3Zs-cm)</span> in the <span class="in">`eh.csv`</span> file. Weight data are in <span class="in">`weight.csv`</span></span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: librariesModelsNimbleProduction</span></span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(getWBData)</span>
-<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
-<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
-<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nimble)</span>
-<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nimbleEcology)</span>
-<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MCMCvis)</span>
-<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
-<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
-<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: globalModelsNimbleProduction</span></span>
-<span id="cb38-30"><a href="#cb38-30" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
-<span id="cb38-31"><a href="#cb38-31" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">warning =</span> <span class="cn">FALSE</span>, <span class="at">message =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb38-32"><a href="#cb38-32" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb38-33"><a href="#cb38-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-34"><a href="#cb38-34" aria-hidden="true" tabindex="-1"></a>Using model #3 from <span class="in">`modelsCMR_Growth_NN_OB.qmd`</span> as a staring point for the models, but adapting the model by\</span>
-<span id="cb38-35"><a href="#cb38-35" aria-hidden="true" tabindex="-1"></a>Prob not 1) Extending AgeInSamples from 1-11 to 1-x to allow bigger fish to be present for the production estimates. Prob not 2) Loop over first<span class="sc">\[</span>i<span class="sc">\]</span>:lastAIS so fish have the chance to survive to large size.\</span>
-<span id="cb38-36"><a href="#cb38-36" aria-hidden="true" tabindex="-1"></a>3) Add sample random effect structured by cohort to allow cohort effects on growth.</span>
-<span id="cb38-37"><a href="#cb38-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-38"><a href="#cb38-38" aria-hidden="true" tabindex="-1"></a><span class="fu">## By Cohort, modelNum 3: phi(i,t) \* g(i,t), p(i,t) model</span></span>
-<span id="cb38-39"><a href="#cb38-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-40"><a href="#cb38-40" aria-hidden="true" tabindex="-1"></a>Model with phi and p for each age-in-samples (t = column in the encounter history file) and individual (i)</span>
-<span id="cb38-41"><a href="#cb38-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-42"><a href="#cb38-42" aria-hidden="true" tabindex="-1"></a>Probability of survival (phi) model structure:</span>
-<span id="cb38-43"><a href="#cb38-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-44"><a href="#cb38-44" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
-<span id="cb38-45"><a href="#cb38-45" aria-hidden="true" tabindex="-1"></a><span class="in">      logit(phi[i,t]) &lt;- </span></span>
-<span id="cb38-46"><a href="#cb38-46" aria-hidden="true" tabindex="-1"></a><span class="in">        phiInt[i,t] + </span></span>
-<span id="cb38-47"><a href="#cb38-47" aria-hidden="true" tabindex="-1"></a><span class="in">        phiBeta[1,i,t] * weight[i,t] + </span></span>
-<span id="cb38-48"><a href="#cb38-48" aria-hidden="true" tabindex="-1"></a><span class="in">        phiBeta[2,i,t] * weight[i,t] * weight[i,t] +</span></span>
-<span id="cb38-49"><a href="#cb38-49" aria-hidden="true" tabindex="-1"></a><span class="in">        phiBetaCohort[cohort[i]] </span></span>
-<span id="cb38-50"><a href="#cb38-50" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb38-51"><a href="#cb38-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-52"><a href="#cb38-52" aria-hidden="true" tabindex="-1"></a>Probability of capture (p) model structure:</span>
-<span id="cb38-53"><a href="#cb38-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-54"><a href="#cb38-54" aria-hidden="true" tabindex="-1"></a>p(t,i) <span class="sc">\&lt;</span>- pInt(t,i)</span>
-<span id="cb38-55"><a href="#cb38-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-56"><a href="#cb38-56" aria-hidden="true" tabindex="-1"></a>Growth rate (gr) model structure:</span>
-<span id="cb38-57"><a href="#cb38-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-58"><a href="#cb38-58" aria-hidden="true" tabindex="-1"></a>gr(t,i) <span class="sc">\&lt;</span>- grInt(t) + cohort(i)</span>
-<span id="cb38-59"><a href="#cb38-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-60"><a href="#cb38-60" aria-hidden="true" tabindex="-1"></a>Survival/growth rate interaction:</span>
-<span id="cb38-61"><a href="#cb38-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-62"><a href="#cb38-62" aria-hidden="true" tabindex="-1"></a>Multiplicative</span>
-<span id="cb38-63"><a href="#cb38-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-64"><a href="#cb38-64" aria-hidden="true" tabindex="-1"></a>Model code is in <span class="in">`./models/production/modelProduction_OB_functionsToSource.R`</span>\</span>
-<span id="cb38-65"><a href="#cb38-65" aria-hidden="true" tabindex="-1"></a>Model is run 'by hand' in <span class="in">`./models/modelProduction_OB_makeFile.R`</span>\</span>
-<span id="cb38-66"><a href="#cb38-66" aria-hidden="true" tabindex="-1"></a>Functions for this qmd file in <span class="in">`./models/qmdProduction_OB_functionsToSource.R`</span>\</span>
-<span id="cb38-67"><a href="#cb38-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-68"><a href="#cb38-68" aria-hidden="true" tabindex="-1"></a>Model runs:\</span>
-<span id="cb38-69"><a href="#cb38-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-70"><a href="#cb38-70" aria-hidden="true" tabindex="-1"></a><span class="fu">### How many ageInSamples to include?</span></span>
-<span id="cb38-71"><a href="#cb38-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-74"><a href="#cb38-74" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb38-75"><a href="#cb38-75" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: production</span></span>
-<span id="cb38-76"><a href="#cb38-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-77"><a href="#cb38-77" aria-hidden="true" tabindex="-1"></a>all <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cdWB_electro_target)</span>
-<span id="cb38-78"><a href="#cb38-78" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(all <span class="sc">%&gt;%</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"wb obear"</span>)<span class="sc">|&gt;</span> <span class="fu">select</span>(ageInSamples))</span>
-<span id="cb38-79"><a href="#cb38-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-80"><a href="#cb38-80" aria-hidden="true" tabindex="-1"></a>cohorts <span class="ot">&lt;-</span> <span class="dv">2002</span><span class="sc">:</span><span class="dv">2014</span></span>
-<span id="cb38-81"><a href="#cb38-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-82"><a href="#cb38-82" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb38-83"><a href="#cb38-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-84"><a href="#cb38-84" aria-hidden="true" tabindex="-1"></a><span class="fu">### Retrieve model results</span></span>
-<span id="cb38-85"><a href="#cb38-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-88"><a href="#cb38-88" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb38-89"><a href="#cb38-89" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: productionSource</span></span>
-<span id="cb38-90"><a href="#cb38-90" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: false</span></span>
-<span id="cb38-91"><a href="#cb38-91" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
-<span id="cb38-92"><a href="#cb38-92" aria-hidden="true" tabindex="-1"></a><span class="co"># Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html</span></span>
-<span id="cb38-93"><a href="#cb38-93" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb38-94"><a href="#cb38-94" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb38-95"><a href="#cb38-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-96"><a href="#cb38-96" aria-hidden="true" tabindex="-1"></a><span class="co"># To get the mMCMCSummaryRMNA funcion which I adapted to deal with NAs</span></span>
-<span id="cb38-97"><a href="#cb38-97" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'./models/production/modelProduction_OB_functionsToSource.R'</span>)</span>
-<span id="cb38-98"><a href="#cb38-98" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'./models/production/qmdProduction_OB_functionsToSource.R'</span>)</span>
-<span id="cb38-99"><a href="#cb38-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-100"><a href="#cb38-100" aria-hidden="true" tabindex="-1"></a>modelNum <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="co"># phi * growth</span></span>
-<span id="cb38-101"><a href="#cb38-101" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb38-102"><a href="#cb38-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-103"><a href="#cb38-103" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model code</span></span>
-<span id="cb38-106"><a href="#cb38-106" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb38-107"><a href="#cb38-107" aria-hidden="true" tabindex="-1"></a><span class="co"># all cohorts have the same code. show here</span></span>
-<span id="cb38-108"><a href="#cb38-108" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">'./models/production/runsOut/production_OB_model_3_2002__mostRecent.RData'</span>)</span>
-<span id="cb38-109"><a href="#cb38-109" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>modelCode</span>
-<span id="cb38-110"><a href="#cb38-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-111"><a href="#cb38-111" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb38-112"><a href="#cb38-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-113"><a href="#cb38-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-114"><a href="#cb38-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-115"><a href="#cb38-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-116"><a href="#cb38-116" aria-hidden="true" tabindex="-1"></a>put all the cohort summaries into one big database and then show/filter that</span>
-<span id="cb38-117"><a href="#cb38-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-118"><a href="#cb38-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-119"><a href="#cb38-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-120"><a href="#cb38-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-121"><a href="#cb38-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-122"><a href="#cb38-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-123"><a href="#cb38-123" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
-<span id="cb38-124"><a href="#cb38-124" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2002</span></span>
-<span id="cb38-125"><a href="#cb38-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-128"><a href="#cb38-128" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb38-129"><a href="#cb38-129" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: production2002</span></span>
-<span id="cb38-130"><a href="#cb38-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-131"><a href="#cb38-131" aria-hidden="true" tabindex="-1"></a>cohort <span class="ot">=</span> <span class="dv">2002</span></span>
-<span id="cb38-132"><a href="#cb38-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-133"><a href="#cb38-133" aria-hidden="true" tabindex="-1"></a><span class="co"># loads `d`</span></span>
-<span id="cb38-134"><a href="#cb38-134" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">paste0</span>(<span class="st">'./models/production/runsOut/production_OB_model'</span>, <span class="st">'_'</span>, modelNum, <span class="st">'_'</span>, cohort, <span class="st">'__mostRecent.RData'</span>)) <span class="co"># will need to fix double _</span></span>
-<span id="cb38-135"><a href="#cb38-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-136"><a href="#cb38-136" aria-hidden="true" tabindex="-1"></a><span class="co">#Input data</span></span>
-<span id="cb38-137"><a href="#cb38-137" aria-hidden="true" tabindex="-1"></a>eh <span class="ot">&lt;-</span> <span class="fu">tar_read_raw</span>(<span class="fu">paste0</span>(<span class="st">'eh_OB_'</span>, cohort, <span class="st">'_target'</span>))</span>
-<span id="cb38-138"><a href="#cb38-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-139"><a href="#cb38-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-140"><a href="#cb38-140" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">as_tibble</span>(d<span class="sc">$</span>runData), <span class="at">caption =</span> <span class="st">"Run statistics"</span>)</span>
-<span id="cb38-141"><a href="#cb38-141" aria-hidden="true" tabindex="-1"></a><span class="fu">paste0</span>(<span class="st">'Run time = '</span>, <span class="fu">round</span>(d<span class="sc">$</span>runTime, <span class="dv">3</span>), <span class="st">' '</span>,  <span class="fu">attr</span>(d<span class="sc">$</span>runTime, <span class="st">"units"</span>))</span>
-<span id="cb38-142"><a href="#cb38-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-143"><a href="#cb38-143" aria-hidden="true" tabindex="-1"></a><span class="fu">get_MCMCTrace_OB</span>(d)</span>
-<span id="cb38-144"><a href="#cb38-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-145"><a href="#cb38-145" aria-hidden="true" tabindex="-1"></a><span class="fu">MCMCplot</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"phiIntTOut"</span>))</span>
-<span id="cb38-146"><a href="#cb38-146" aria-hidden="true" tabindex="-1"></a><span class="fu">MCMCplot</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"phiBetaT"</span>))</span>
-<span id="cb38-147"><a href="#cb38-147" aria-hidden="true" tabindex="-1"></a><span class="fu">MCMCplot</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"p"</span>))</span>
-<span id="cb38-148"><a href="#cb38-148" aria-hidden="true" tabindex="-1"></a><span class="fu">MCMCplot</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"grIntT"</span>))</span>
-<span id="cb38-149"><a href="#cb38-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-150"><a href="#cb38-150" aria-hidden="true" tabindex="-1"></a>(summaryMod3_tt_growth <span class="ot">&lt;-</span> <span class="fu">MCMCsummary</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"phiIntTOut"</span>, <span class="st">"p"</span>, <span class="st">"grIntT"</span>, <span class="st">"phiBetaT"</span>), <span class="at">round =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb38-151"><a href="#cb38-151" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">"var"</span>))</span>
-<span id="cb38-152"><a href="#cb38-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-153"><a href="#cb38-153" aria-hidden="true" tabindex="-1"></a>summary_OB <span class="ot">&lt;-</span> <span class="fu">get_summary_OB</span>(d, eh)</span>
-<span id="cb38-154"><a href="#cb38-154" aria-hidden="true" tabindex="-1"></a><span class="co">#s=summary_OB[, order(summary_OB$ind, summary_OB$t)]</span></span>
-<span id="cb38-155"><a href="#cb38-155" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb38-156"><a href="#cb38-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-159"><a href="#cb38-159" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb38-160"><a href="#cb38-160" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: FALSE</span></span>
-<span id="cb38-161"><a href="#cb38-161" aria-hidden="true" tabindex="-1"></a><span class="fu">ojs_define</span>(<span class="at">numTags_OJS_mod3_2002 =</span> <span class="fu">dim</span>(eh<span class="sc">$</span>tags)[<span class="dv">1</span>])</span>
-<span id="cb38-162"><a href="#cb38-162" aria-hidden="true" tabindex="-1"></a><span class="fu">ojs_define</span>(<span class="at">summary_OB_OJS_2002 =</span> (summary_OB))</span>
-<span id="cb38-163"><a href="#cb38-163" aria-hidden="true" tabindex="-1"></a><span class="co">#ojs_define(summary_tt_z_OJS = (summary_tt_z_mod3))</span></span>
-<span id="cb38-164"><a href="#cb38-164" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb38-165"><a href="#cb38-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-166"><a href="#cb38-166" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plot predicted and observed masses for selected individuals</span></span>
-<span id="cb38-167"><a href="#cb38-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-168"><a href="#cb38-168" aria-hidden="true" tabindex="-1"></a>Select one or more individuals:</span>
-<span id="cb38-169"><a href="#cb38-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-172"><a href="#cb38-172" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
-<span id="cb38-173"><a href="#cb38-173" aria-hidden="true" tabindex="-1"></a><span class="in">viewof selectInd_mod3_2002 = Inputs.select([...Array(numTags_OJS_mod3_2002).keys()], {</span></span>
-<span id="cb38-174"><a href="#cb38-174" aria-hidden="true" tabindex="-1"></a><span class="in">  label: "Which fish?",</span></span>
-<span id="cb38-175"><a href="#cb38-175" aria-hidden="true" tabindex="-1"></a><span class="in">  value: 1,</span></span>
-<span id="cb38-176"><a href="#cb38-176" aria-hidden="true" tabindex="-1"></a><span class="in">  step: 1,</span></span>
-<span id="cb38-177"><a href="#cb38-177" aria-hidden="true" tabindex="-1"></a><span class="in">  multiple: true</span></span>
-<span id="cb38-178"><a href="#cb38-178" aria-hidden="true" tabindex="-1"></a><span class="in">})</span></span>
-<span id="cb38-179"><a href="#cb38-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-180"><a href="#cb38-180" aria-hidden="true" tabindex="-1"></a><span class="in">summary_OB_OJS_T_2002 = transpose(summary_OB_OJS_2002)</span></span>
-<span id="cb38-181"><a href="#cb38-181" aria-hidden="true" tabindex="-1"></a><span class="in">summary_OB_OJS_T_2002_selected = summary_OB_OJS_T_2002.filter((d) =&gt;</span></span>
-<span id="cb38-182"><a href="#cb38-182" aria-hidden="true" tabindex="-1"></a><span class="in">  selectInd_mod3_2002.includes(d.ind)</span></span>
-<span id="cb38-183"><a href="#cb38-183" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
-<span id="cb38-184"><a href="#cb38-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-185"><a href="#cb38-185" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb38-186"><a href="#cb38-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-187"><a href="#cb38-187" aria-hidden="true" tabindex="-1"></a>Black dots/line is estimated mass and orange dots are observed masses. The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort.</span>
-<span id="cb38-188"><a href="#cb38-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-189"><a href="#cb38-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-190"><a href="#cb38-190" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plot survival</span></span>
-<span id="cb38-191"><a href="#cb38-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-192"><a href="#cb38-192" aria-hidden="true" tabindex="-1"></a>Black dots/line is estimated probability of survival and orange dots are encountered yes (y = 0.8)/no (y = 0). The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort.</span>
-<span id="cb38-193"><a href="#cb38-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-196"><a href="#cb38-196" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
-<span id="cb38-197"><a href="#cb38-197" aria-hidden="true" tabindex="-1"></a><span class="in">{{get_z_plot}}</span></span>
-<span id="cb38-198"><a href="#cb38-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-199"><a href="#cb38-199" aria-hidden="true" tabindex="-1"></a><span class="in">plot_z(summary_OB_OJS_T_2002_selected)</span></span>
-<span id="cb38-200"><a href="#cb38-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-201"><a href="#cb38-201" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb38-202"><a href="#cb38-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-203"><a href="#cb38-203" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2003</span></span>
-<span id="cb38-204"><a href="#cb38-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-207"><a href="#cb38-207" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb38-208"><a href="#cb38-208" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: production2003</span></span>
-<span id="cb38-209"><a href="#cb38-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-210"><a href="#cb38-210" aria-hidden="true" tabindex="-1"></a>cohort <span class="ot">=</span> <span class="dv">2003</span></span>
-<span id="cb38-211"><a href="#cb38-211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-212"><a href="#cb38-212" aria-hidden="true" tabindex="-1"></a><span class="co"># loads `d`</span></span>
-<span id="cb38-213"><a href="#cb38-213" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">paste0</span>(<span class="st">'./models/production/runsOut/production_OB_model'</span>, <span class="st">'_'</span>, modelNum, <span class="st">'_'</span>, cohort, <span class="st">'__mostRecent.RData'</span>)) <span class="co"># will need to fix double _</span></span>
-<span id="cb38-214"><a href="#cb38-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-215"><a href="#cb38-215" aria-hidden="true" tabindex="-1"></a><span class="co">#Input data</span></span>
-<span id="cb38-216"><a href="#cb38-216" aria-hidden="true" tabindex="-1"></a>eh <span class="ot">&lt;-</span> <span class="fu">tar_read_raw</span>(<span class="fu">paste0</span>(<span class="st">'eh_OB_'</span>, cohort, <span class="st">'_target'</span>))</span>
-<span id="cb38-217"><a href="#cb38-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-218"><a href="#cb38-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-219"><a href="#cb38-219" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">as_tibble</span>(d<span class="sc">$</span>runData), <span class="at">caption =</span> <span class="st">"Run statistics"</span>)</span>
-<span id="cb38-220"><a href="#cb38-220" aria-hidden="true" tabindex="-1"></a><span class="fu">paste0</span>(<span class="st">'Run time = '</span>, <span class="fu">round</span>(d<span class="sc">$</span>runTime, <span class="dv">3</span>), <span class="st">' '</span>,  <span class="fu">attr</span>(d<span class="sc">$</span>runTime, <span class="st">"units"</span>))</span>
-<span id="cb38-221"><a href="#cb38-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-222"><a href="#cb38-222" aria-hidden="true" tabindex="-1"></a><span class="fu">get_MCMCTrace_OB</span>(d)</span>
-<span id="cb38-223"><a href="#cb38-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-224"><a href="#cb38-224" aria-hidden="true" tabindex="-1"></a><span class="fu">MCMCplot</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"phiIntTOut"</span>))</span>
-<span id="cb38-225"><a href="#cb38-225" aria-hidden="true" tabindex="-1"></a><span class="fu">MCMCplot</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"phiBetaT"</span>))</span>
-<span id="cb38-226"><a href="#cb38-226" aria-hidden="true" tabindex="-1"></a><span class="fu">MCMCplot</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"p"</span>))</span>
-<span id="cb38-227"><a href="#cb38-227" aria-hidden="true" tabindex="-1"></a><span class="fu">MCMCplot</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"grIntT"</span>))</span>
-<span id="cb38-228"><a href="#cb38-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-229"><a href="#cb38-229" aria-hidden="true" tabindex="-1"></a>(summaryMod3_tt_growth <span class="ot">&lt;-</span> <span class="fu">MCMCsummary</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"phiIntTOut"</span>, <span class="st">"p"</span>, <span class="st">"grIntT"</span>, <span class="st">"phiBetaT"</span>), <span class="at">round =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb38-230"><a href="#cb38-230" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">"var"</span>))</span>
-<span id="cb38-231"><a href="#cb38-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-232"><a href="#cb38-232" aria-hidden="true" tabindex="-1"></a>summary_OB <span class="ot">&lt;-</span> <span class="fu">get_summary_OB</span>(d, eh)</span>
-<span id="cb38-233"><a href="#cb38-233" aria-hidden="true" tabindex="-1"></a><span class="co">#s=summary_OB[, order(summary_OB$ind, summary_OB$t)]</span></span>
-<span id="cb38-234"><a href="#cb38-234" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb38-235"><a href="#cb38-235" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-238"><a href="#cb38-238" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb38-239"><a href="#cb38-239" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: FALSE</span></span>
-<span id="cb38-240"><a href="#cb38-240" aria-hidden="true" tabindex="-1"></a><span class="fu">ojs_define</span>(<span class="at">numTags_OJS_mod3_2003 =</span> <span class="fu">dim</span>(eh<span class="sc">$</span>tags)[<span class="dv">1</span>])</span>
-<span id="cb38-241"><a href="#cb38-241" aria-hidden="true" tabindex="-1"></a><span class="fu">ojs_define</span>(<span class="at">summary_OB_OJS_2003 =</span> (summary_OB))</span>
-<span id="cb38-242"><a href="#cb38-242" aria-hidden="true" tabindex="-1"></a><span class="co">#ojs_define(summary_tt_z_OJS = (summary_tt_z_mod3))</span></span>
-<span id="cb38-243"><a href="#cb38-243" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb38-244"><a href="#cb38-244" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-245"><a href="#cb38-245" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plot predicted and observed masses for selected individuals</span></span>
-<span id="cb38-246"><a href="#cb38-246" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-247"><a href="#cb38-247" aria-hidden="true" tabindex="-1"></a>Select one or more individuals:</span>
-<span id="cb38-248"><a href="#cb38-248" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-251"><a href="#cb38-251" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
-<span id="cb38-252"><a href="#cb38-252" aria-hidden="true" tabindex="-1"></a><span class="in">viewof selectInd_mod3 = Inputs.select([...Array(numTags_OJS_mod3_2003).keys()], {</span></span>
-<span id="cb38-253"><a href="#cb38-253" aria-hidden="true" tabindex="-1"></a><span class="in">  label: "Which fish?",</span></span>
-<span id="cb38-254"><a href="#cb38-254" aria-hidden="true" tabindex="-1"></a><span class="in">  value: 1,</span></span>
-<span id="cb38-255"><a href="#cb38-255" aria-hidden="true" tabindex="-1"></a><span class="in">  step: 1,</span></span>
-<span id="cb38-256"><a href="#cb38-256" aria-hidden="true" tabindex="-1"></a><span class="in">  multiple: true</span></span>
-<span id="cb38-257"><a href="#cb38-257" aria-hidden="true" tabindex="-1"></a><span class="in">})</span></span>
-<span id="cb38-258"><a href="#cb38-258" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-259"><a href="#cb38-259" aria-hidden="true" tabindex="-1"></a><span class="in">summary_OB_OJS_T = transpose(summary_OB_OJS_2003)</span></span>
-<span id="cb38-260"><a href="#cb38-260" aria-hidden="true" tabindex="-1"></a><span class="in">summary_OB_OJS_T_selected = summary_OB_OJS_T.filter((d) =&gt;</span></span>
-<span id="cb38-261"><a href="#cb38-261" aria-hidden="true" tabindex="-1"></a><span class="in">  selectInd_mod3.includes(d.ind)</span></span>
-<span id="cb38-262"><a href="#cb38-262" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
-<span id="cb38-263"><a href="#cb38-263" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-264"><a href="#cb38-264" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb38-265"><a href="#cb38-265" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-266"><a href="#cb38-266" aria-hidden="true" tabindex="-1"></a>Black dots/line is estimated mass and orange dots are observed masses. The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort.</span>
-<span id="cb38-267"><a href="#cb38-267" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-268"><a href="#cb38-268" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-269"><a href="#cb38-269" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plot survival</span></span>
-<span id="cb38-270"><a href="#cb38-270" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-271"><a href="#cb38-271" aria-hidden="true" tabindex="-1"></a>Black dots/line is estimated probability of survival and orange dots are encountered yes (y = 0.8)/no (y = 0). The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort.</span>
-<span id="cb38-272"><a href="#cb38-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-275"><a href="#cb38-275" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
-<span id="cb38-276"><a href="#cb38-276" aria-hidden="true" tabindex="-1"></a><span class="in">{{get_z_plot}}</span></span>
-<span id="cb38-277"><a href="#cb38-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-278"><a href="#cb38-278" aria-hidden="true" tabindex="-1"></a><span class="in">plot_z(summary_OB_OJS_T_selected)</span></span>
-<span id="cb38-279"><a href="#cb38-279" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-280"><a href="#cb38-280" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb38-281"><a href="#cb38-281" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-282"><a href="#cb38-282" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-283"><a href="#cb38-283" aria-hidden="true" tabindex="-1"></a>:::</span>
+<div class="sourceCode" id="cb39" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Production model - river 4 (IS)</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>Simple CJS model integrated with a growth in weight model to get phi, p, and growth estimates to develop a production model.</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>In all the models below, 1 = not observed and 2 = observed in the input *encounter data*.\</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>Encounter data are available <span class="co">[</span><span class="ot">here</span><span class="co">](https://drive.google.com/drive/folders/1UmPv49xL-mzUBndqjRISylNO3q3Zs-cm)</span> in the <span class="in">`eh.csv`</span> file. Weight data are in <span class="in">`weight.csv`</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: librariesModelsNimbleProduction</span></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(getWBData)</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nimble)</span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nimbleEcology)</span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MCMCvis)</span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: globalModelsNimbleProduction</span></span>
+<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb39-31"><a href="#cb39-31" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">warning =</span> <span class="cn">FALSE</span>, <span class="at">message =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb39-32"><a href="#cb39-32" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-33"><a href="#cb39-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-34"><a href="#cb39-34" aria-hidden="true" tabindex="-1"></a>Using model #3 from <span class="in">`modelsCMR_Growth_NN_OB.qmd`</span> as a staring point for the models, but adapting the model by\</span>
+<span id="cb39-35"><a href="#cb39-35" aria-hidden="true" tabindex="-1"></a>Prob not 1) Extending AgeInSamples from 1-11 to 1-x to allow bigger fish to be present for the production estimates. Prob not 2) Loop over first<span class="sc">\[</span>i<span class="sc">\]</span>:lastAIS so fish have the chance to survive to large size.\</span>
+<span id="cb39-36"><a href="#cb39-36" aria-hidden="true" tabindex="-1"></a>3) Add sample random effect structured by cohort to allow cohort effects on growth.</span>
+<span id="cb39-37"><a href="#cb39-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-38"><a href="#cb39-38" aria-hidden="true" tabindex="-1"></a><span class="fu">## By Cohort, modelNum 3: phi(i,t) \* g(i,t), p(i,t) model</span></span>
+<span id="cb39-39"><a href="#cb39-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-40"><a href="#cb39-40" aria-hidden="true" tabindex="-1"></a>Model with phi and p for each age-in-samples (t = column in the encounter history file) and individual (i)</span>
+<span id="cb39-41"><a href="#cb39-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-42"><a href="#cb39-42" aria-hidden="true" tabindex="-1"></a>Probability of survival (phi) model structure:</span>
+<span id="cb39-43"><a href="#cb39-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-44"><a href="#cb39-44" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
+<span id="cb39-45"><a href="#cb39-45" aria-hidden="true" tabindex="-1"></a><span class="in">      logit(phi[i,t]) &lt;- </span></span>
+<span id="cb39-46"><a href="#cb39-46" aria-hidden="true" tabindex="-1"></a><span class="in">        phiInt[i,t] + </span></span>
+<span id="cb39-47"><a href="#cb39-47" aria-hidden="true" tabindex="-1"></a><span class="in">        phiBeta[1,i,t] * weight[i,t] + </span></span>
+<span id="cb39-48"><a href="#cb39-48" aria-hidden="true" tabindex="-1"></a><span class="in">        phiBeta[2,i,t] * weight[i,t] * weight[i,t] +</span></span>
+<span id="cb39-49"><a href="#cb39-49" aria-hidden="true" tabindex="-1"></a><span class="in">        phiBetaCohort[cohort[i]] </span></span>
+<span id="cb39-50"><a href="#cb39-50" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-51"><a href="#cb39-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-52"><a href="#cb39-52" aria-hidden="true" tabindex="-1"></a>Probability of capture (p) model structure:</span>
+<span id="cb39-53"><a href="#cb39-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-54"><a href="#cb39-54" aria-hidden="true" tabindex="-1"></a>p(t,i) <span class="sc">\&lt;</span>- pInt(t,i)</span>
+<span id="cb39-55"><a href="#cb39-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-56"><a href="#cb39-56" aria-hidden="true" tabindex="-1"></a>Growth rate (gr) model structure:</span>
+<span id="cb39-57"><a href="#cb39-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-58"><a href="#cb39-58" aria-hidden="true" tabindex="-1"></a>gr(t,i) <span class="sc">\&lt;</span>- grInt(t) + cohort(i)</span>
+<span id="cb39-59"><a href="#cb39-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-60"><a href="#cb39-60" aria-hidden="true" tabindex="-1"></a>Survival/growth rate interaction:</span>
+<span id="cb39-61"><a href="#cb39-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-62"><a href="#cb39-62" aria-hidden="true" tabindex="-1"></a>Multiplicative</span>
+<span id="cb39-63"><a href="#cb39-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-64"><a href="#cb39-64" aria-hidden="true" tabindex="-1"></a>Model code is in <span class="in">`./models/production/modelProduction_OB_functionsToSource.R`</span>\</span>
+<span id="cb39-65"><a href="#cb39-65" aria-hidden="true" tabindex="-1"></a>Model is run 'by hand' in <span class="in">`./models/modelProduction_OB_makeFile.R`</span>\</span>
+<span id="cb39-66"><a href="#cb39-66" aria-hidden="true" tabindex="-1"></a>Functions for this qmd file in <span class="in">`./models/qmdProduction_OB_functionsToSource.R`</span>\</span>
+<span id="cb39-67"><a href="#cb39-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-68"><a href="#cb39-68" aria-hidden="true" tabindex="-1"></a>Model runs:\</span>
+<span id="cb39-69"><a href="#cb39-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-70"><a href="#cb39-70" aria-hidden="true" tabindex="-1"></a><span class="fu">### How many ageInSamples to include?</span></span>
+<span id="cb39-71"><a href="#cb39-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-74"><a href="#cb39-74" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb39-75"><a href="#cb39-75" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: production</span></span>
+<span id="cb39-76"><a href="#cb39-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-77"><a href="#cb39-77" aria-hidden="true" tabindex="-1"></a>all <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cdWB_electro_target)</span>
+<span id="cb39-78"><a href="#cb39-78" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(all <span class="sc">%&gt;%</span> <span class="fu">filter</span>(river <span class="sc">==</span> <span class="st">"wb obear"</span>)<span class="sc">|&gt;</span> <span class="fu">select</span>(ageInSamples))</span>
+<span id="cb39-79"><a href="#cb39-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-80"><a href="#cb39-80" aria-hidden="true" tabindex="-1"></a>cohorts <span class="ot">&lt;-</span> <span class="dv">2002</span><span class="sc">:</span><span class="dv">2014</span></span>
+<span id="cb39-81"><a href="#cb39-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-82"><a href="#cb39-82" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-83"><a href="#cb39-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-84"><a href="#cb39-84" aria-hidden="true" tabindex="-1"></a><span class="fu">### Retrieve model results</span></span>
+<span id="cb39-85"><a href="#cb39-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-88"><a href="#cb39-88" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb39-89"><a href="#cb39-89" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: productionSource</span></span>
+<span id="cb39-90"><a href="#cb39-90" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: false</span></span>
+<span id="cb39-91"><a href="#cb39-91" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
+<span id="cb39-92"><a href="#cb39-92" aria-hidden="true" tabindex="-1"></a><span class="co"># Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html</span></span>
+<span id="cb39-93"><a href="#cb39-93" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb39-94"><a href="#cb39-94" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb39-95"><a href="#cb39-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-96"><a href="#cb39-96" aria-hidden="true" tabindex="-1"></a><span class="co"># To get the mMCMCSummaryRMNA funcion which I adapted to deal with NAs</span></span>
+<span id="cb39-97"><a href="#cb39-97" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'./models/production/modelProduction_OB_functionsToSource.R'</span>)</span>
+<span id="cb39-98"><a href="#cb39-98" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'./models/production/qmdProduction_OB_functionsToSource.R'</span>)</span>
+<span id="cb39-99"><a href="#cb39-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-100"><a href="#cb39-100" aria-hidden="true" tabindex="-1"></a>modelNum <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="co"># phi * growth</span></span>
+<span id="cb39-101"><a href="#cb39-101" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-102"><a href="#cb39-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-103"><a href="#cb39-103" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model code</span></span>
+<span id="cb39-106"><a href="#cb39-106" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb39-107"><a href="#cb39-107" aria-hidden="true" tabindex="-1"></a><span class="co"># all cohorts have the same code. show here</span></span>
+<span id="cb39-108"><a href="#cb39-108" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">'./models/production/runsOut/production_OB_model_3_2002__mostRecent.RData'</span>)</span>
+<span id="cb39-109"><a href="#cb39-109" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>modelCode</span>
+<span id="cb39-110"><a href="#cb39-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-111"><a href="#cb39-111" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-112"><a href="#cb39-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-113"><a href="#cb39-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-114"><a href="#cb39-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-115"><a href="#cb39-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-116"><a href="#cb39-116" aria-hidden="true" tabindex="-1"></a>put all the cohort summaries into one big database and then show/filter that</span>
+<span id="cb39-117"><a href="#cb39-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-118"><a href="#cb39-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-119"><a href="#cb39-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-120"><a href="#cb39-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-121"><a href="#cb39-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-122"><a href="#cb39-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-123"><a href="#cb39-123" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
+<span id="cb39-124"><a href="#cb39-124" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2002</span></span>
+<span id="cb39-125"><a href="#cb39-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-128"><a href="#cb39-128" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb39-129"><a href="#cb39-129" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: production2002</span></span>
+<span id="cb39-130"><a href="#cb39-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-131"><a href="#cb39-131" aria-hidden="true" tabindex="-1"></a>cohort <span class="ot">=</span> <span class="dv">2002</span></span>
+<span id="cb39-132"><a href="#cb39-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-133"><a href="#cb39-133" aria-hidden="true" tabindex="-1"></a><span class="co"># loads `d`</span></span>
+<span id="cb39-134"><a href="#cb39-134" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">paste0</span>(<span class="st">'./models/production/runsOut/production_OB_model'</span>, <span class="st">'_'</span>, modelNum, <span class="st">'_'</span>, cohort, <span class="st">'__mostRecent.RData'</span>)) <span class="co"># will need to fix double _</span></span>
+<span id="cb39-135"><a href="#cb39-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-136"><a href="#cb39-136" aria-hidden="true" tabindex="-1"></a><span class="co">#Input data</span></span>
+<span id="cb39-137"><a href="#cb39-137" aria-hidden="true" tabindex="-1"></a>eh <span class="ot">&lt;-</span> <span class="fu">tar_read_raw</span>(<span class="fu">paste0</span>(<span class="st">'eh_OB_'</span>, cohort, <span class="st">'_target'</span>))</span>
+<span id="cb39-138"><a href="#cb39-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-139"><a href="#cb39-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-140"><a href="#cb39-140" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">as_tibble</span>(d<span class="sc">$</span>runData), <span class="at">caption =</span> <span class="st">"Run statistics"</span>)</span>
+<span id="cb39-141"><a href="#cb39-141" aria-hidden="true" tabindex="-1"></a><span class="fu">paste0</span>(<span class="st">'Run time = '</span>, <span class="fu">round</span>(d<span class="sc">$</span>runTime, <span class="dv">3</span>), <span class="st">' '</span>,  <span class="fu">attr</span>(d<span class="sc">$</span>runTime, <span class="st">"units"</span>))</span>
+<span id="cb39-142"><a href="#cb39-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-143"><a href="#cb39-143" aria-hidden="true" tabindex="-1"></a><span class="fu">get_MCMCTrace_OB</span>(d)</span>
+<span id="cb39-144"><a href="#cb39-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-145"><a href="#cb39-145" aria-hidden="true" tabindex="-1"></a><span class="fu">MCMCplot</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"phiIntTOut"</span>))</span>
+<span id="cb39-146"><a href="#cb39-146" aria-hidden="true" tabindex="-1"></a><span class="fu">MCMCplot</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"phiBetaT"</span>))</span>
+<span id="cb39-147"><a href="#cb39-147" aria-hidden="true" tabindex="-1"></a><span class="fu">MCMCplot</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"p"</span>))</span>
+<span id="cb39-148"><a href="#cb39-148" aria-hidden="true" tabindex="-1"></a><span class="fu">MCMCplot</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"grIntT"</span>))</span>
+<span id="cb39-149"><a href="#cb39-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-150"><a href="#cb39-150" aria-hidden="true" tabindex="-1"></a>(summaryMod3_tt_growth <span class="ot">&lt;-</span> <span class="fu">MCMCsummary</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"phiIntTOut"</span>, <span class="st">"p"</span>, <span class="st">"grIntT"</span>, <span class="st">"phiBetaT"</span>), <span class="at">round =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-151"><a href="#cb39-151" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">"var"</span>))</span>
+<span id="cb39-152"><a href="#cb39-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-153"><a href="#cb39-153" aria-hidden="true" tabindex="-1"></a>summary_OB <span class="ot">&lt;-</span> <span class="fu">get_summary_OB</span>(d, eh)</span>
+<span id="cb39-154"><a href="#cb39-154" aria-hidden="true" tabindex="-1"></a><span class="co">#s=summary_OB[, order(summary_OB$ind, summary_OB$t)]</span></span>
+<span id="cb39-155"><a href="#cb39-155" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-156"><a href="#cb39-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-159"><a href="#cb39-159" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb39-160"><a href="#cb39-160" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: FALSE</span></span>
+<span id="cb39-161"><a href="#cb39-161" aria-hidden="true" tabindex="-1"></a><span class="fu">ojs_define</span>(<span class="at">numTags_OJS_mod3_2002 =</span> <span class="fu">dim</span>(eh<span class="sc">$</span>tags)[<span class="dv">1</span>])</span>
+<span id="cb39-162"><a href="#cb39-162" aria-hidden="true" tabindex="-1"></a><span class="fu">ojs_define</span>(<span class="at">summary_OB_OJS_2002 =</span> (summary_OB))</span>
+<span id="cb39-163"><a href="#cb39-163" aria-hidden="true" tabindex="-1"></a><span class="co">#ojs_define(summary_tt_z_OJS = (summary_tt_z_mod3))</span></span>
+<span id="cb39-164"><a href="#cb39-164" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-165"><a href="#cb39-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-166"><a href="#cb39-166" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plot predicted and observed masses for selected individuals</span></span>
+<span id="cb39-167"><a href="#cb39-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-168"><a href="#cb39-168" aria-hidden="true" tabindex="-1"></a>Select one or more individuals:</span>
+<span id="cb39-169"><a href="#cb39-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-172"><a href="#cb39-172" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb39-173"><a href="#cb39-173" aria-hidden="true" tabindex="-1"></a><span class="in">viewof selectInd_mod3_2002 = Inputs.select([...Array(numTags_OJS_mod3_2002).keys()], {</span></span>
+<span id="cb39-174"><a href="#cb39-174" aria-hidden="true" tabindex="-1"></a><span class="in">  label: "Which fish?",</span></span>
+<span id="cb39-175"><a href="#cb39-175" aria-hidden="true" tabindex="-1"></a><span class="in">  value: 1,</span></span>
+<span id="cb39-176"><a href="#cb39-176" aria-hidden="true" tabindex="-1"></a><span class="in">  step: 1,</span></span>
+<span id="cb39-177"><a href="#cb39-177" aria-hidden="true" tabindex="-1"></a><span class="in">  multiple: true</span></span>
+<span id="cb39-178"><a href="#cb39-178" aria-hidden="true" tabindex="-1"></a><span class="in">})</span></span>
+<span id="cb39-179"><a href="#cb39-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-180"><a href="#cb39-180" aria-hidden="true" tabindex="-1"></a><span class="in">summary_OB_OJS_T_2002 = transpose(summary_OB_OJS_2002)</span></span>
+<span id="cb39-181"><a href="#cb39-181" aria-hidden="true" tabindex="-1"></a><span class="in">summary_OB_OJS_T_2002_selected = summary_OB_OJS_T_2002.filter((d) =&gt;</span></span>
+<span id="cb39-182"><a href="#cb39-182" aria-hidden="true" tabindex="-1"></a><span class="in">  selectInd_mod3_2002.includes(d.ind)</span></span>
+<span id="cb39-183"><a href="#cb39-183" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
+<span id="cb39-184"><a href="#cb39-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-185"><a href="#cb39-185" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-186"><a href="#cb39-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-187"><a href="#cb39-187" aria-hidden="true" tabindex="-1"></a>Black dots/line is estimated mass and orange dots are observed masses. The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort.</span>
+<span id="cb39-188"><a href="#cb39-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-189"><a href="#cb39-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-190"><a href="#cb39-190" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plot survival</span></span>
+<span id="cb39-191"><a href="#cb39-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-192"><a href="#cb39-192" aria-hidden="true" tabindex="-1"></a>Black dots/line is estimated probability of survival and orange dots are encountered yes (y = 0.8)/no (y = 0). The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort.</span>
+<span id="cb39-193"><a href="#cb39-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-196"><a href="#cb39-196" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb39-197"><a href="#cb39-197" aria-hidden="true" tabindex="-1"></a><span class="in">{{get_z_plot}}</span></span>
+<span id="cb39-198"><a href="#cb39-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-199"><a href="#cb39-199" aria-hidden="true" tabindex="-1"></a><span class="in">eval(get_z_plot)</span></span>
+<span id="cb39-200"><a href="#cb39-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-201"><a href="#cb39-201" aria-hidden="true" tabindex="-1"></a><span class="in">plot_z(summary_OB_OJS_T_2002_selected)</span></span>
+<span id="cb39-202"><a href="#cb39-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-203"><a href="#cb39-203" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-204"><a href="#cb39-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-205"><a href="#cb39-205" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2003</span></span>
+<span id="cb39-206"><a href="#cb39-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-209"><a href="#cb39-209" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb39-210"><a href="#cb39-210" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: production2003</span></span>
+<span id="cb39-211"><a href="#cb39-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-212"><a href="#cb39-212" aria-hidden="true" tabindex="-1"></a>cohort <span class="ot">=</span> <span class="dv">2003</span></span>
+<span id="cb39-213"><a href="#cb39-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-214"><a href="#cb39-214" aria-hidden="true" tabindex="-1"></a><span class="co"># loads `d`</span></span>
+<span id="cb39-215"><a href="#cb39-215" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">paste0</span>(<span class="st">'./models/production/runsOut/production_OB_model'</span>, <span class="st">'_'</span>, modelNum, <span class="st">'_'</span>, cohort, <span class="st">'__mostRecent.RData'</span>)) <span class="co"># will need to fix double _</span></span>
+<span id="cb39-216"><a href="#cb39-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-217"><a href="#cb39-217" aria-hidden="true" tabindex="-1"></a><span class="co">#Input data</span></span>
+<span id="cb39-218"><a href="#cb39-218" aria-hidden="true" tabindex="-1"></a>eh <span class="ot">&lt;-</span> <span class="fu">tar_read_raw</span>(<span class="fu">paste0</span>(<span class="st">'eh_OB_'</span>, cohort, <span class="st">'_target'</span>))</span>
+<span id="cb39-219"><a href="#cb39-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-220"><a href="#cb39-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-221"><a href="#cb39-221" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">as_tibble</span>(d<span class="sc">$</span>runData), <span class="at">caption =</span> <span class="st">"Run statistics"</span>)</span>
+<span id="cb39-222"><a href="#cb39-222" aria-hidden="true" tabindex="-1"></a><span class="fu">paste0</span>(<span class="st">'Run time = '</span>, <span class="fu">round</span>(d<span class="sc">$</span>runTime, <span class="dv">3</span>), <span class="st">' '</span>,  <span class="fu">attr</span>(d<span class="sc">$</span>runTime, <span class="st">"units"</span>))</span>
+<span id="cb39-223"><a href="#cb39-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-224"><a href="#cb39-224" aria-hidden="true" tabindex="-1"></a><span class="fu">get_MCMCTrace_OB</span>(d)</span>
+<span id="cb39-225"><a href="#cb39-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-226"><a href="#cb39-226" aria-hidden="true" tabindex="-1"></a><span class="fu">MCMCplot</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"phiIntTOut"</span>))</span>
+<span id="cb39-227"><a href="#cb39-227" aria-hidden="true" tabindex="-1"></a><span class="fu">MCMCplot</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"phiBetaT"</span>))</span>
+<span id="cb39-228"><a href="#cb39-228" aria-hidden="true" tabindex="-1"></a><span class="fu">MCMCplot</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"p"</span>))</span>
+<span id="cb39-229"><a href="#cb39-229" aria-hidden="true" tabindex="-1"></a><span class="fu">MCMCplot</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"grIntT"</span>))</span>
+<span id="cb39-230"><a href="#cb39-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-231"><a href="#cb39-231" aria-hidden="true" tabindex="-1"></a>(summaryMod3_tt_growth <span class="ot">&lt;-</span> <span class="fu">MCMCsummary</span>(<span class="at">object =</span> d<span class="sc">$</span>mcmc, <span class="at">params =</span> <span class="fu">c</span>(<span class="st">"phiIntTOut"</span>, <span class="st">"p"</span>, <span class="st">"grIntT"</span>, <span class="st">"phiBetaT"</span>), <span class="at">round =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-232"><a href="#cb39-232" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">"var"</span>))</span>
+<span id="cb39-233"><a href="#cb39-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-234"><a href="#cb39-234" aria-hidden="true" tabindex="-1"></a>summary_OB <span class="ot">&lt;-</span> <span class="fu">get_summary_OB</span>(d, eh)</span>
+<span id="cb39-235"><a href="#cb39-235" aria-hidden="true" tabindex="-1"></a><span class="co">#s=summary_OB[, order(summary_OB$ind, summary_OB$t)]</span></span>
+<span id="cb39-236"><a href="#cb39-236" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-237"><a href="#cb39-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-240"><a href="#cb39-240" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb39-241"><a href="#cb39-241" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: FALSE</span></span>
+<span id="cb39-242"><a href="#cb39-242" aria-hidden="true" tabindex="-1"></a><span class="fu">ojs_define</span>(<span class="at">numTags_OJS_mod3_2003 =</span> <span class="fu">dim</span>(eh<span class="sc">$</span>tags)[<span class="dv">1</span>])</span>
+<span id="cb39-243"><a href="#cb39-243" aria-hidden="true" tabindex="-1"></a><span class="fu">ojs_define</span>(<span class="at">summary_OB_OJS_2003 =</span> (summary_OB))</span>
+<span id="cb39-244"><a href="#cb39-244" aria-hidden="true" tabindex="-1"></a><span class="co">#ojs_define(summary_tt_z_OJS = (summary_tt_z_mod3))</span></span>
+<span id="cb39-245"><a href="#cb39-245" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-246"><a href="#cb39-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-247"><a href="#cb39-247" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plot predicted and observed masses for selected individuals</span></span>
+<span id="cb39-248"><a href="#cb39-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-249"><a href="#cb39-249" aria-hidden="true" tabindex="-1"></a>Select one or more individuals:</span>
+<span id="cb39-250"><a href="#cb39-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-253"><a href="#cb39-253" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb39-254"><a href="#cb39-254" aria-hidden="true" tabindex="-1"></a><span class="in">viewof selectInd_mod3 = Inputs.select([...Array(numTags_OJS_mod3_2003).keys()], {</span></span>
+<span id="cb39-255"><a href="#cb39-255" aria-hidden="true" tabindex="-1"></a><span class="in">  label: "Which fish?",</span></span>
+<span id="cb39-256"><a href="#cb39-256" aria-hidden="true" tabindex="-1"></a><span class="in">  value: 1,</span></span>
+<span id="cb39-257"><a href="#cb39-257" aria-hidden="true" tabindex="-1"></a><span class="in">  step: 1,</span></span>
+<span id="cb39-258"><a href="#cb39-258" aria-hidden="true" tabindex="-1"></a><span class="in">  multiple: true</span></span>
+<span id="cb39-259"><a href="#cb39-259" aria-hidden="true" tabindex="-1"></a><span class="in">})</span></span>
+<span id="cb39-260"><a href="#cb39-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-261"><a href="#cb39-261" aria-hidden="true" tabindex="-1"></a><span class="in">summary_OB_OJS_T = transpose(summary_OB_OJS_2003)</span></span>
+<span id="cb39-262"><a href="#cb39-262" aria-hidden="true" tabindex="-1"></a><span class="in">summary_OB_OJS_T_selected = summary_OB_OJS_T.filter((d) =&gt;</span></span>
+<span id="cb39-263"><a href="#cb39-263" aria-hidden="true" tabindex="-1"></a><span class="in">  selectInd_mod3.includes(d.ind)</span></span>
+<span id="cb39-264"><a href="#cb39-264" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
+<span id="cb39-265"><a href="#cb39-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-266"><a href="#cb39-266" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-267"><a href="#cb39-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-268"><a href="#cb39-268" aria-hidden="true" tabindex="-1"></a>Black dots/line is estimated mass and orange dots are observed masses. The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort.</span>
+<span id="cb39-269"><a href="#cb39-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-270"><a href="#cb39-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-271"><a href="#cb39-271" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plot survival</span></span>
+<span id="cb39-272"><a href="#cb39-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-273"><a href="#cb39-273" aria-hidden="true" tabindex="-1"></a>Black dots/line is estimated probability of survival and orange dots are encountered yes (y = 0.8)/no (y = 0). The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort.</span>
+<span id="cb39-274"><a href="#cb39-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-277"><a href="#cb39-277" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb39-278"><a href="#cb39-278" aria-hidden="true" tabindex="-1"></a><span class="in">{{get_z_plot}}</span></span>
+<span id="cb39-279"><a href="#cb39-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-280"><a href="#cb39-280" aria-hidden="true" tabindex="-1"></a><span class="in">plot_z(summary_OB_OJS_T_selected)</span></span>
+<span id="cb39-281"><a href="#cb39-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-282"><a href="#cb39-282" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-283"><a href="#cb39-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-284"><a href="#cb39-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-285"><a href="#cb39-285" aria-hidden="true" tabindex="-1"></a>:::</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

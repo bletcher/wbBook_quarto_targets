@@ -181,6 +181,8 @@ Black dots/line is estimated probability of survival and orange dots are encount
 
 {{get_z_plot}}
 
+eval(get_z_plot)
+
 plot_z(summary_OB_OJS_T_2002_selected)
 
 ```
