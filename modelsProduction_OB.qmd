@@ -102,6 +102,15 @@ d$modelCode
 ```
 
 
+
+
+put all the cohort summaries into one big database and then show/filter that
+
+
+
+
+
+
 ::: panel-tabset
 #### 2002
 
@@ -147,16 +156,16 @@ Select one or more individuals:
 
 ```{ojs}
 
-viewof selectInd_mod3 = Inputs.select([...Array(numTags_OJS_mod3_2002).keys()], {
+viewof selectInd_mod3_2002 = Inputs.select([...Array(numTags_OJS_mod3_2002).keys()], {
   label: "Which fish?",
   value: 1,
   step: 1,
   multiple: true
 })
 
-summary_OB_OJS_T = transpose(summary_OB_OJS_2002)
-summary_OB_OJS_T_selected = summary_OB_OJS_T.filter((d) =>
-  selectInd_mod3.includes(d.ind)
+summary_OB_OJS_T_2002 = transpose(summary_OB_OJS_2002)
+summary_OB_OJS_T_2002_selected = summary_OB_OJS_T_2002.filter((d) =>
+  selectInd_mod3_2002.includes(d.ind)
 )
 
 ```
@@ -172,7 +181,7 @@ Black dots/line is estimated probability of survival and orange dots are encount
 
 {{get_z_plot}}
 
-plot_z(summary_OB_OJS_T_selected)
+plot_z(summary_OB_OJS_T_2002_selected)
 
 ```
 
