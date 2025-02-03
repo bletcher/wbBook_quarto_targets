@@ -102,17 +102,22 @@ d$modelCode
 ```
 
 
+### Select a cohort
+
+```{ojs}
+
+ojs_define(cohorts = cohorts)
+
+viewof selectCohort = Inputs.select(Array.from(cohorts);, {
+  label: "Which cohort?",
+  value: 2002,
+  step: 1,
+  multiple: false
+})
+
+```
 
 
-put all the cohort summaries into one big database and then show/filter that
-
-
-
-
-
-
-::: panel-tabset
-#### 2002
 
 ```{r}
 #| label: production2002
@@ -187,78 +192,3 @@ plot_z(summary_OB_OJS_T_2002_selected)
 
 ```
 
-#### 2003
-
-```{r}
-#| label: production2003
-
-cohort = 2003
-
-# loads `d`
-load(paste0('./models/production/runsOut/production_OB_model', '_', modelNum, '_', cohort, '__mostRecent.RData')) # will need to fix double _
-
-#Input data
-eh <- tar_read_raw(paste0('eh_OB_', cohort, '_target'))
-
-
-kable(as_tibble(d$runData), caption = "Run statistics")
-paste0('Run time = ', round(d$runTime, 3), ' ',  attr(d$runTime, "units"))
-
-get_MCMCTrace_OB(d)
-
-MCMCplot(object = d$mcmc, params = c("phiIntTOut"))
-MCMCplot(object = d$mcmc, params = c("phiBetaT"))
-MCMCplot(object = d$mcmc, params = c("p"))
-MCMCplot(object = d$mcmc, params = c("grIntT"))
-
-(summaryMod3_tt_growth <- MCMCsummary(object = d$mcmc, params = c("phiIntTOut", "p", "grIntT", "phiBetaT"), round = 3) %>%
-    rownames_to_column(var = "var"))
-
-summary_OB <- get_summary_OB(d, eh)
-#s=summary_OB[, order(summary_OB$ind, summary_OB$t)]
-```
-
-```{r}
-#| cache: FALSE
-ojs_define(numTags_OJS_mod3_2003 = dim(eh$tags)[1])
-ojs_define(summary_OB_OJS_2003 = (summary_OB))
-#ojs_define(summary_tt_z_OJS = (summary_tt_z_mod3))
-```
-
-### Plot predicted and observed masses for selected individuals
-
-Select one or more individuals:
-
-```{ojs}
-
-viewof selectInd_mod3 = Inputs.select([...Array(numTags_OJS_mod3_2003).keys()], {
-  label: "Which fish?",
-  value: 1,
-  step: 1,
-  multiple: true
-})
-
-summary_OB_OJS_T = transpose(summary_OB_OJS_2003)
-summary_OB_OJS_T_selected = summary_OB_OJS_T.filter((d) =>
-  selectInd_mod3.includes(d.ind)
-)
-
-```
-
-Black dots/line is estimated mass and orange dots are observed masses. The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort.
-
-
-### Plot survival
-
-Black dots/line is estimated probability of survival and orange dots are encountered yes (y = 0.8)/no (y = 0). The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort.
-
-```{ojs}
-
-{{get_z_plot}}
-
-plot_z(summary_OB_OJS_T_selected)
-
-```
-
-
-:::
