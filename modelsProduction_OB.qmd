@@ -70,7 +70,7 @@ Model runs:\
 #| label: production
 
 all <- tar_read(cdWB_electro_target)
-table(all %>% filter(river == "wb obear")|> select(ageInSamples))
+table(all %>% filter(river == "wb obear")|> dplyr::select(ageInSamples))
 
 cohorts <- 2002:2014
 
@@ -242,8 +242,8 @@ sAll <- tibble(.rows = 0) |>
 # Fill tibble
 for (cohort in cohorts) {
   summary_obj <- get(paste0("s", cohort))$summary_OB
+  summary_obj$cohort <- cohort
   sAll <- bind_rows(sAll, summary_obj)
-  sAll$cohort <- cohort
 }
 
 sAll$cohort_ind <- paste0(sAll$cohort, "_", sAll$ind)
@@ -266,9 +266,6 @@ ojs_define(summary_OB_OJS_all = sAll)
 ```{ojs}
 //| label: summary_OB_OJS_all_T
 summary_OB_OJS_all_T = transpose(summary_OB_OJS_all)
-
-tmp = [...new Set(summary_OB_OJS_all_T.map(d => d.cohort))].sort()
-tmp
 ```
 
 ```{ojs}
@@ -291,13 +288,6 @@ summary_OB_OJS_all_T_selected_cohort = summary_OB_OJS_all_T.filter((d) =>
 )
 ```
 
-```{ojs}
-[...new Set(summary_OB_OJS_all_T_selected_cohort.map(d => d.cohort))].sort()
-selected_cohort
-summary_OB_OJS_all_T
-summary_OB_OJS_all_T_selected_cohort
-```
-
 ### Select one or more individuals:
 
 ```{ojs}
@@ -313,7 +303,7 @@ viewof selectInd_mod3 = Inputs.select(uniqueInds, {
 
 
 summary_OB_OJS_all_T_selected_cohort_ind = summary_OB_OJS_all_T_selected_cohort.filter((d) =>
-  (selectInd_mod3.includes(d.ind))
+  (selectInd_mod3.includes(d.cohort_ind))
 )
 
 ```
