@@ -18,6 +18,7 @@ library(MCMCvis)
 library(tidyverse)
 library(targets)
 
+library(shiny)
 library(tibble)
 ```
 
@@ -101,76 +102,218 @@ d$modelCode
 
 ```
 
-
-### Select a cohort
-
-```{ojs}
-
-ojs_define(cohorts = cohorts)
-
-viewof selectCohort = Inputs.select(Array.from(cohorts);, {
-  label: "Which cohort?",
-  value: 2002,
-  step: 1,
-  multiple: false
-})
-
-```
-
-
-
 ```{r}
-#| label: production2002
+#| label: productionFunction
 
-cohort = 2002
+getSummaryByCohort <- function(cohort, modelNum = 3) {
+  # Load the data
+  load(paste0('./models/production/runsOut/production_OB_model', '_', modelNum, '_', cohort, '__mostRecent.RData')) 
+  
+  # Input data
+  eh <- tar_read_raw(paste0('eh_OB_', cohort, '_target'))
+  
+  get_MCMCTrace_OB(d)
+  
+  MCMCplot(object = d$mcmc, params = c("phiIntTOut"), ref_ovl = TRUE)
+  MCMCplot(object = d$mcmc, params = c("phiBetaT"), ref_ovl = TRUE)
+  MCMCplot(object = d$mcmc, params = c("p"), ref_ovl = TRUE)
+  MCMCplot(object = d$mcmc, params = c("grIntT"), ref_ovl = TRUE)
+  
+  # Create the summary list
+  summary_list <- list(
+    eh = eh,
+    stats = kable(as_tibble(d$runData), caption = "Run statistics"),
+    runTime = paste0('Run time = ', round(d$runTime, 3), ' ', attr(d$runTime, "units")),
+    #traces = get_MCMCTrace_OB(d),
+    summaryMod3_tt_growth = MCMCsummary(object = d$mcmc, params = c("phiIntTOut", "p", "grIntT", "phiBetaT"), round = 3) %>%
+      rownames_to_column(var = "var"),
+    summary_OB = get_summary_OB(d, eh)
+  )
+  
+  return(summary_list)
+}
 
-# loads `d`
-load(paste0('./models/production/runsOut/production_OB_model', '_', modelNum, '_', cohort, '__mostRecent.RData')) # will need to fix double _
-
-#Input data
-eh <- tar_read_raw(paste0('eh_OB_', cohort, '_target'))
-
-
-kable(as_tibble(d$runData), caption = "Run statistics")
-paste0('Run time = ', round(d$runTime, 3), ' ',  attr(d$runTime, "units"))
-
-get_MCMCTrace_OB(d)
-
-MCMCplot(object = d$mcmc, params = c("phiIntTOut"))
-MCMCplot(object = d$mcmc, params = c("phiBetaT"))
-MCMCplot(object = d$mcmc, params = c("p"))
-MCMCplot(object = d$mcmc, params = c("grIntT"))
-
-(summaryMod3_tt_growth <- MCMCsummary(object = d$mcmc, params = c("phiIntTOut", "p", "grIntT", "phiBetaT"), round = 3) %>%
-    rownames_to_column(var = "var"))
-
-summary_OB <- get_summary_OB(d, eh)
 #s=summary_OB[, order(summary_OB$ind, summary_OB$t)]
 ```
 
+
+### Summaries by cohort
+
+::: {.panel-tabset}
+#### 2002
 ```{r}
+#| label: s2002
+#| cache: TRUE
+s2002 = getSummaryByCohort(2002, modelNum)
+```
+
+#### 2003
+```{r}
+#| label: s2003
+#| cache: TRUE
+s2003 = getSummaryByCohort(2003, modelNum)
+```
+
+#### 2004
+```{r}
+#| label: s2004
+#| cache: TRUE
+s2004 = getSummaryByCohort(2004, modelNum)
+```
+
+#### 2005
+```{r}
+#| label: s2005
+#| cache: TRUE
+s2005 = getSummaryByCohort(2005, modelNum)
+```
+
+#### 2006
+```{r}
+#| label: s2006
+#| cache: TRUE
+s2006 = getSummaryByCohort(2006, modelNum)
+```
+
+#### 2007
+```{r}
+#| label: s2007
+#| cache: TRUE
+s2007 = getSummaryByCohort(2007, modelNum)
+```
+
+#### 2008
+```{r}
+#| label: s2008
+#| cache: TRUE
+s2008 = getSummaryByCohort(2008, modelNum)
+```
+
+#### 2009
+```{r}
+#| label: s2009
+#| cache: TRUE
+s2009 = getSummaryByCohort(2009, modelNum)
+```
+
+#### 2010
+```{r}
+#| label: s2010
+#| cache: TRUE
+s2010 = getSummaryByCohort(2010, modelNum)
+```
+
+#### 2011
+```{r}
+#| label: s2011
+#| cache: TRUE
+s2011 = getSummaryByCohort(2011, modelNum)
+```
+
+#### 2012
+```{r}
+#| label: s2012
+#| cache: TRUE
+s2012 = getSummaryByCohort(2012, modelNum)
+```
+
+#### 2013
+```{r}
+#| label: s2013
+#| cache: TRUE
+s2013 = getSummaryByCohort(2013, modelNum)
+```
+
+#### 2014
+```{r}
+#| label: s2014
+#| cache: TRUE
+s2014 = getSummaryByCohort(2014, modelNum)
+```
+:::
+
+### Combine cohort summaries
+```{r}
+#| label: bindSummaries
+
+sAll <- tibble(.rows = 0) |>
+  add_column(!!!s2002$summary_OB[0,])
+
+# Fill tibble
+for (cohort in cohorts) {
+  summary_obj <- get(paste0("s", cohort))$summary_OB
+  sAll <- bind_rows(sAll, summary_obj)
+  sAll$cohort <- cohort
+}
+
+sAll$cohort_ind <- paste0(sAll$cohort, "_", sAll$ind)
+
+```
+
+
+
+```{r}
+#| label: ojsDefine
 #| cache: FALSE
-ojs_define(numTags_OJS_mod3_2002 = dim(eh$tags)[1])
-ojs_define(summary_OB_OJS_2002 = (summary_OB))
+
+#ojs_define(numTags_OJS_mod3 = dim(s2002$eh$tags)[1]) # all cohorts have the same eh
+ojs_define(summary_OB_OJS_all = sAll)
 #ojs_define(summary_tt_z_OJS = (summary_tt_z_mod3))
 ```
 
-### Plot predicted and observed masses for selected individuals
-
-Select one or more individuals:
+### Select cohort(s):
 
 ```{ojs}
+//| label: summary_OB_OJS_all_T
+summary_OB_OJS_all_T = transpose(summary_OB_OJS_all)
 
-viewof selectInd_mod3_2002 = Inputs.select([...Array(numTags_OJS_mod3_2002).keys()], {
+tmp = [...new Set(summary_OB_OJS_all_T.map(d => d.cohort))].sort()
+tmp
+```
+
+```{ojs}
+//| label: selectCohort
+//| 
+import { range } from "d3";
+
+viewof selected_cohort = Inputs.select(d3.range(2002, 2015), {
+  label: "Which cohort?",
+  value: 2002,
+  step: 1,
+  multiple: true
+})
+```
+
+```{ojs}
+//| label: filterCohort
+summary_OB_OJS_all_T_selected_cohort = summary_OB_OJS_all_T.filter((d) =>
+  (selected_cohort.includes(d.cohort))
+)
+```
+
+```{ojs}
+[...new Set(summary_OB_OJS_all_T_selected_cohort.map(d => d.cohort))].sort()
+selected_cohort
+summary_OB_OJS_all_T
+summary_OB_OJS_all_T_selected_cohort
+```
+
+### Select one or more individuals:
+
+```{ojs}
+//| label: selectInd
+uniqueInds = [...new Set(summary_OB_OJS_all_T_selected_cohort.map(d => d.cohort_ind))].sort();
+
+viewof selectInd_mod3 = Inputs.select(uniqueInds, {
   label: "Which fish?",
   value: 1,
   step: 1,
   multiple: true
 })
 
-summary_OB_OJS_T_2002 = transpose(summary_OB_OJS_2002)
-summary_OB_OJS_T_2002_selected = summary_OB_OJS_T_2002.filter((d) =>
-  selectInd_mod3_2002.includes(d.ind)
+
+summary_OB_OJS_all_T_selected_cohort_ind = summary_OB_OJS_all_T_selected_cohort.filter((d) =>
+  (selectInd_mod3.includes(d.ind))
 )
 
 ```
@@ -183,12 +326,122 @@ Black dots/line is estimated mass and orange dots are observed masses. The green
 Black dots/line is estimated probability of survival and orange dots are encountered yes (y = 0.8)/no (y = 0). The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort.
 
 ```{ojs}
+//| label: plotZ
 
-{{get_z_plot}}
-
-eval(get_z_plot)
-
-plot_z(summary_OB_OJS_T_2002_selected)
+ Plot.plot({
+    width: width,
+    height: 350,
+    inset: 10,
+    color: {
+      scheme: "greys"
+    },
+    x: { label: "Age/season combination" },
+    y: { label: "Probability of survival" },
+    marks: [
+      Plot.frame(),
+      Plot.dot(summary_OB_OJS_all_T_selected_cohort_ind, {
+        x: "t",
+        y: "pSurv"
+      }),
+      Plot.dot(summary_OB_OJS_all_T_selected_cohort_ind, {
+        x: "t",
+        y: "enc8",
+        fill: "orange"
+      }),
+      Plot.line(summary_OB_OJS_all_T_selected_cohort_ind, {
+        x: "t",
+        y: "pSurv"
+      }),
+      Plot.ruleX(summary_OB_OJS_all_T_selected_cohort_ind, {
+        x: "first",
+        y: 1,
+        "stroke": "green"
+      }),
+      Plot.ruleX(summary_OB_OJS_all_T_selected_cohort_ind, {
+        x: "last",
+        y: 1,
+        "stroke": "red"
+      })
+      ,
+      Plot.text(summary_OB_OJS_all_T_selected_cohort_ind, 
+                Plot.selectFirst({
+                  x: 11,
+                  y: 1,
+                  text: d => d.cohort
+                })
+      )
+    ],
+    facet: {
+      data: summary_OB_OJS_all_T_selected_cohort_ind,
+      x: "ind"
+    }
+  })
 
 ```
 
+
+```{ojs}
+//| label: plotWeight
+Plot.plot({
+    width: width,
+    height: 350,
+    inset: 10,
+    color: {
+      scheme: "greys"
+    },
+    x: { label: "Age/season combination" },
+    y: { label: "Standardized body mass (mg)" },
+    marks: [
+      Plot.frame(),
+      Plot.dot(summary_OB_OJS_all_T_selected_cohort_ind, {
+        x: "t",
+        y: "mean_weight"
+      }),
+      Plot.line(summary_OB_OJS_all_T_selected_cohort_ind, {
+        x: "t",
+        y: "mean_weight"
+      }),
+      <!-- Plot.dot(d, { -->
+          <!--   x: "t", -->
+          <!--   y: "mean_gr", -->
+          <!--   fill: "green" -->
+          <!-- }), -->
+        Plot.dot(summary_OB_OJS_all_T_selected_cohort_ind, {
+          x: "t",
+          y: "weightDATA_std",
+          fill: "orange"
+        }),
+      Plot.ruleX(summary_OB_OJS_all_T_selected_cohort_ind, {
+        x: "first",
+        y: 3,
+        "stroke": "green"
+      }),
+      Plot.ruleX(summary_OB_OJS_all_T_selected_cohort_ind, {
+        x: "last",
+        y: 3,
+        "stroke": "red"
+      }),
+      Plot.text(summary_OB_OJS_all_T_selected_cohort_ind,
+                Plot.selectFirst({
+                  x: 1,
+                  y: 4,
+                  frameAnchor: "top-left",
+                  text: (d) => "Cohort = " + d.cohort
+                })
+      ),
+      Plot.text(summary_OB_OJS_all_T_selected_cohort_ind,
+                Plot.selectFirst({
+                  x: 1,
+                  y: 3.5,
+                  frameAnchor: "top-left",
+                  text: (d) => "Residual = " + d.meanResid
+                })
+      )
+    ],
+    facet: {
+      data: summary_OB_OJS_all_T_selected_cohort_ind,
+      x: "ind"
+    }
+  })
+```
+  
