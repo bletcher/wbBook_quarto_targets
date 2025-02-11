@@ -97,7 +97,7 @@ modelNum <- 3 # phi * growth
 ```{r}
 
 # all cohorts have the same code for a given model. show model code for one of them here
-load('./models/production/runsOut/production_OB_model_3_2002__mostRecent.RData')
+load('./models/production/runsOut/production_OB_model_3_2002_mostRecent.RData')
 d$modelCode
 
 ```
@@ -107,12 +107,12 @@ d$modelCode
 
 getSummaryByCohort <- function(cohort, modelNum = 3) {
   # Load the data
-  load(paste0('./models/production/runsOut/production_OB_model', '_', modelNum, '_', cohort, '__mostRecent.RData')) 
+  load(paste0('./models/production/runsOut/production_OB_model', '_', modelNum, '_', cohort, '_mostRecent.RData')) 
   
   # Input data
   eh <- tar_read_raw(paste0('eh_OB_', cohort, '_target'))
   
-  paste0('Run time = ', round(d$runTime, 3), ' ', attr(d$runTime, "units"))
+  print(paste0('Run time = ', round(d$runTime, 3), ' ', attr(d$runTime, "units")))
   
   get_MCMCTrace_OB(d)
   
@@ -127,7 +127,13 @@ getSummaryByCohort <- function(cohort, modelNum = 3) {
     stats = kable(as_tibble(d$runData), caption = "Run statistics"),
     runTime = paste0('Run time = ', round(d$runTime, 3), ' ', attr(d$runTime, "units")),
     #traces = get_MCMCTrace_OB(d),
-    summaryMod3_tt_growth = MCMCsummary(object = d$mcmc, params = c("phiIntTOut", "p", "grIntT", "phiBetaT"), round = 3) %>%
+    summaryMod3_tt_growth = MCMCsummary(object = d$mcmc, params = c(
+        #"phiIntT", 
+        "phiIntTOut", 
+        "p", 
+        "grIntT", 
+        "phiBetaT"
+      ), round = 3) %>%
       rownames_to_column(var = "var"),
     summary_OB = get_summary_OB(d, eh)
   )
