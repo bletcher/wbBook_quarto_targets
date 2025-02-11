@@ -96,7 +96,7 @@ modelNum <- 3 # phi * growth
 ### Model code
 ```{r}
 
-# all cohorts have the same code. show here
+# all cohorts have the same code for a given model. show model code for one of them here
 load('./models/production/runsOut/production_OB_model_3_2002__mostRecent.RData')
 d$modelCode
 
@@ -111,6 +111,8 @@ getSummaryByCohort <- function(cohort, modelNum = 3) {
   
   # Input data
   eh <- tar_read_raw(paste0('eh_OB_', cohort, '_target'))
+  
+  paste0('Run time = ', round(d$runTime, 3), ' ', attr(d$runTime, "units"))
   
   get_MCMCTrace_OB(d)
   
@@ -261,7 +263,7 @@ ojs_define(summary_OB_OJS_all = sAll)
 #ojs_define(summary_tt_z_OJS = (summary_tt_z_mod3))
 ```
 
-### Select cohort(s):
+#### Select cohort(s):
 
 ```{ojs}
 //| label: summary_OB_OJS_all_T
@@ -288,7 +290,7 @@ summary_OB_OJS_all_T_selected_cohort = summary_OB_OJS_all_T.filter((d) =>
 )
 ```
 
-### Select one or more individuals:
+#### Select one or more individuals:
 
 ```{ojs}
 //| label: selectInd
@@ -311,7 +313,7 @@ summary_OB_OJS_all_T_selected_cohort_ind = summary_OB_OJS_all_T_selected_cohort.
 Black dots/line is estimated mass and orange dots are observed masses. The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort.
 
 
-### Plot survival
+#### Plot survival
 
 Black dots/line is estimated probability of survival and orange dots are encountered yes (y = 0.8)/no (y = 0). The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort.
 
@@ -435,3 +437,118 @@ Plot.plot({
   })
 ```
   
+### Compare cohorts
+Combine s`cohort`$summaryMod3_tt_growth data into one data frame
+```{r}
+#| label: cobmineCohortsSummaryGrowth
+
+sParamsAll0 <- tibble(.rows = 0) |>
+  add_column(!!!s2002$summaryMod3_tt_growth[0,])
+
+# Fill tibble
+for (cohort in cohorts) {
+  summary_obj <- get(paste0("s", cohort))$summaryMod3_tt_growth
+  summary_obj$cohort <- cohort
+  sParamsAll0 <- bind_rows(sParamsAll0, summary_obj)
+}
+
+# remove brackets for filtering
+sParamsAll0$varNoIndex <- sParamsAll0$var |>
+  str_remove("\\[.*\\]")
+
+# for numeric ordering
+sParamsAll1 <- sParamsAll0 |> filter(varNoIndex != "phiBetaT") |>
+  mutate(
+    varNumeric1 = var |>
+      str_extract("\\[(\\d+)\\]") %>%
+      str_remove_all("\\[|\\]") %>%
+      as.numeric()
+  )
+
+sParamsAll2 <- sParamsAll0 |> filter(varNoIndex == "phiBetaT") |>
+  mutate(
+    varNumeric1 = var |>
+      str_extract("\\[(\\d+),") %>%           # Changed to match number before comma
+      str_remove_all("\\[|,") %>%             # Remove [ and comma
+      as.numeric(),
+    varNumeric2 = var |>
+      str_extract(",\\s*(\\d+)\\]") %>%
+      str_remove_all(",|\\s|\\]") %>%
+      as.numeric()
+  )
+
+sParamsAll = bind_rows(sParamsAll1, sParamsAll2)
+
+```
+
+#### Combined cohorts
+
+#### p
+```{r}
+#| label: cobmineCohortsGraphsP
+
+ggplot(sParamsAll |> filter(varNoIndex == "p"), aes(varNumeric1, mean, group = cohort, color = cohort)) +
+  geom_point() + 
+  geom_line() +
+  xlab("AgeInSamples")
+```
+
+#### phi
+```{r}
+#| label: cobmineCohortsGraphsphiIntTOut
+
+ggplot(sParamsAll |> filter(varNoIndex == "phiIntTOut"), aes(varNumeric1, mean, group = cohort, color = cohort)) +
+  geom_point() + 
+  geom_line() +
+  xlab("AgeInSamples")
+```
+
+#### grIntT
+```{r}
+#| label: cobmineCohortsGraphsgrIntT
+
+ggplot(sParamsAll |> filter(varNoIndex == "grIntT"), aes(varNumeric1, mean, group = cohort, color = cohort)) +
+  geom_point() + 
+  geom_line() +
+  xlab("AgeInSamples")
+```
+
+
+#### grIntT, filtered
+```{r}
+#| label: cobmineCohortsGraphsgrIntTFiltered
+
+ggplot(sParamsAll |> filter(varNoIndex == "grIntT", mean > -5, mean < 5), aes(varNumeric1, mean, group = cohort, color = cohort)) +
+  geom_point() + 
+  geom_line() +
+  xlab("AgeInSamples")
+```
+
+#### phiBetaT
+```{r}
+#| label: cobmineCohortsGraphsphiBetaT
+
+ggplot(sParamsAll |> filter(varNoIndex == "phiBetaT", mean > -5, mean < 5), aes(varNumeric2, mean, group = cohort, color = cohort)) +
+  geom_point() + 
+  geom_line() +
+  xlab("AgeInSamples") +
+  facet_wrap((~varNumeric1))
+```
+
+### Size-dependent survival
+
+```{r}
+#| label: sizeDepSurv
+
+
+# weights = expand.grid(weight = seq(-2,2,0.25), yoy = 1:2, season = 1:4) |> 
+#     left_join(summaryMod4_tt_growth_phiParams) |> 
+#     filter(!(yoy == 1 & season == 2)) |> 
+#     mutate(pSurv = ilogit(phiInt + beta_1*weight))# + beta_2*weight^2))
+
+
+#logit(phiIntOutT) + phiBeta * weight + phiBeta2 * weight^2
+
+
+```
+
