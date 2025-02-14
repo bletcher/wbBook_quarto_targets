@@ -82,6 +82,7 @@ cohorts <- 2002:2014
 #| label: productionSource
 #| cache: false
 library(targets)
+library(nimble)
 # Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
 # 
 # 
@@ -573,13 +574,24 @@ ggplot(sParamsAll |> filter(varNoIndex == "sumZ01"), aes(varNumeric1, mean, grou
 #| label: sizeDepSurv
 
 
-# weights = expand.grid(weight = seq(-2,2,0.25), yoy = 1:2, season = 1:4) |> 
-#     left_join(summaryMod4_tt_growth_phiParams) |> 
-#     filter(!(yoy == 1 & season == 2)) |> 
-#     mutate(pSurv = ilogit(phiInt + beta_1*weight))# + beta_2*weight^2))
+phiInt <- sParamsAll |> filter(varNoIndex == "phiIntTOut") |>
+  dplyr::select(mean, varNumeric1, cohort) |>
+  rename(phiIntOut = mean, ais = varNumeric1)
 
+phiBetas <- sParamsAll |> filter(varNoIndex == "phiBetaT", mean > -5, mean < 5) |>
+  dplyr::select(mean, varNumeric1, varNumeric2, cohort) |>
+  pivot_wider(names_from = varNumeric1, values_from = mean, names_prefix = "beta") |>
+  rename(ais = varNumeric2)
 
-#logit(phiIntOutT) + phiBeta * weight + phiBeta2 * weight^2
+phiSize = expand.grid(weight = seq(-2,2,0.25), ais = 1:11, cohort = cohorts) |> 
+   left_join(phiInt) |> 
+   left_join(phiBetas) |>
+   mutate(pSurv = ilogit(phiIntOut + beta1*weight + beta2*weight^2))# + beta_2*weight^2))
+
+ggplot(phiSize, aes(weight, pSurv, color = cohort, group = cohort)) +
+  geom_line() +
+  geom_point() +
+  facet_wrap(~ais)
 
 
 ```
