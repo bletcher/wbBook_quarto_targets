@@ -120,6 +120,8 @@ getSummaryByCohort <- function(cohort, modelNum = 3) {
   MCMCplot(object = d$mcmc, params = c("phiBetaT"), ref_ovl = TRUE)
   MCMCplot(object = d$mcmc, params = c("p"), ref_ovl = TRUE)
   MCMCplot(object = d$mcmc, params = c("grIntT"), ref_ovl = TRUE)
+  MCMCplot(object = d$mcmc, params = c("sumWeightZ01"), ref_ovl = TRUE)
+  MCMCplot(object = d$mcmc, params = c("sumZ01"), ref_ovl = TRUE)
   
   # Create the summary list
   summary_list <- list(
@@ -132,7 +134,9 @@ getSummaryByCohort <- function(cohort, modelNum = 3) {
         "phiIntTOut", 
         "p", 
         "grIntT", 
-        "phiBetaT"
+        "phiBetaT",
+        "sumWeightZ01",
+        "sumZ01"
       ), round = 3) %>%
       rownames_to_column(var = "var"),
     summary_OB = get_summary_OB(d, eh)
@@ -540,6 +544,28 @@ ggplot(sParamsAll |> filter(varNoIndex == "phiBetaT", mean > -5, mean < 5), aes(
   xlab("AgeInSamples") +
   facet_wrap((~varNumeric1))
 ```
+
+#### sumWeightZ01
+```{r}
+#| label: cobmineCohortsGraphssumWeightZ01
+
+ggplot(sParamsAll |> filter(varNoIndex == "sumWeightZ01"), aes(varNumeric1, mean, group = cohort, color = cohort)) +
+  geom_point() + 
+  geom_line() +
+  xlab("AgeInSamples")
+```
+
+#### sumZ01
+```{r}
+#| label: cobmineCohortsGraphssumZ01
+
+ggplot(sParamsAll |> filter(varNoIndex == "sumZ01"), aes(varNumeric1, mean, group = cohort, color = cohort)) +
+  geom_point() + 
+  geom_line() +
+  xlab("AgeInSamples")
+```
+
+
 
 ### Size-dependent survival
 
