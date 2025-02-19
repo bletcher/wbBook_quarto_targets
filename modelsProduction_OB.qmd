@@ -28,41 +28,17 @@ library(tibble)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
-Using model #3 from `modelsCMR_Growth_NN_OB.qmd` as a staring point for the models, but adapting the model by\
-Prob not 1) Extending AgeInSamples from 1-11 to 1-x to allow bigger fish to be present for the production estimates. Prob not 2) Loop over first\[i\]:lastAIS so fish have the chance to survive to large size.\
-3) Add sample random effect structured by cohort to allow cohort effects on growth.
-
-## By Cohort, modelNum 3: phi(i,t) \* g(i,t), p(i,t) model
-
-Model with phi and p for each age-in-samples (t = column in the encounter history file) and individual (i)
-
-Probability of survival (phi) model structure:
-
-```         
-      logit(phi[i,t]) <- 
-        phiInt[i,t] + 
-        phiBeta[1,i,t] * weight[i,t] + 
-        phiBeta[2,i,t] * weight[i,t] * weight[i,t] +
-        phiBetaCohort[cohort[i]] 
-```
-
-Probability of capture (p) model structure:
-
-p(t,i) \<- pInt(t,i)
-
-Growth rate (gr) model structure:
-
-gr(t,i) \<- grInt(t) + cohort(i)
-
-Survival/growth rate interaction:
-
-Multiplicative
 
 Model code is in `./models/production/modelProduction_OB_functionsToSource.R`\
 Model is run 'by hand' in `./models/modelProduction_OB_makeFile.R`\
 Functions for this qmd file in `./models/qmdProduction_OB_functionsToSource.R`\
 
-Model runs:\
+There are **3** models here:
+All cohorts:  
+  model **1**, with quadratic weight effect on phi
+By cohort:  
+  model **2**, with linear weight effect on phi
+  model **3**, with quadratic weight effect on phi
 
 ### How many ageInSamples to include?
 
@@ -76,10 +52,45 @@ cohorts <- 2002:2014
 
 ```
 
+## All Cohorts, modelNum **1**: phi(i,t,c) \* g(i,t,c), p(i,t) model
+
+
+## By Cohort, modelNum **2**: phi(i,t) \* g(i,t), p(i,t) model
+
+
+Using model #3 from `modelsCMR_Growth_NN_OB.qmd` as a staring point for the models, but adapting the model by\
+Prob not 1) Extending AgeInSamples from 1-11 to 1-x to allow bigger fish to be present for the production estimates.  
+Prob not 2) Loop over first\[i\]:lastAIS so fish have the chance to survive to large size.\
+
+
+Model with phi and p for each age-in-samples (t = column in the encounter history file) and individual (i)
+
+Probability of survival (phi) model structure:
+
+```         
+      logit(phi[i,t]) <- 
+        phiInt[i,t] + 
+        phiBeta[1,i,t] * weight[i,t] 
+```
+
+Probability of capture (p) model structure:
+
+p(t,i) \<- pInt(t,i)
+
+Growth rate (gr) model structure:
+
+gr(t,i) \<- grInt(t)
+
+Survival/growth rate interaction:
+
+Multiplicative
+
+Model runs:\
+
 ### Retrieve model results
 
 ```{r}
-#| label: productionSource
+#| label: productionSource_2
 #| cache: false
 library(targets)
 library(nimble)
@@ -91,20 +102,20 @@ library(nimble)
 source('./models/production/modelProduction_OB_functionsToSource.R')
 source('./models/production/qmdProduction_OB_functionsToSource.R')
 
-modelNum <- 3 # phi * growth
+modelNum <- 2 # phi * growth
 ```
 
 ### Model code
 ```{r}
 
 # all cohorts have the same code for a given model. show model code for one of them here
-load('./models/production/runsOut/production_OB_model_3_2002_mostRecent.RData')
+load('./models/production/runsOut/production_OB_model_2_2002_mostRecent.RData')
 d$modelCode
 
 ```
 
 ```{r}
-#| label: productionFunction
+#| label: productionFunction2
 
 getSummaryByCohort <- function(cohort, modelNum = 3) {
   # Load the data
@@ -114,17 +125,17 @@ getSummaryByCohort <- function(cohort, modelNum = 3) {
   eh <- tar_read_raw(paste0('eh_OB_', cohort, '_target'))
   
   print(paste0('Run time = ', round(d$runTime, 3), ' ', attr(d$runTime, "units")))
-  
-  get_MCMCTrace_OB(d)
-  
-  MCMCplot(object = d$mcmc, params = c("phiIntTOut"), ref_ovl = TRUE)
-  MCMCplot(object = d$mcmc, params = c("phiBetaT"), ref_ovl = TRUE)
+
+  MCMCplot(object = d$mcmc, params = c("sumZ01"), ref_ovl = TRUE)
+  MCMCplot(object = d$mcmc, params = c("sumWeightZ01"), ref_ovl = TRUE)
   MCMCplot(object = d$mcmc, params = c("p"), ref_ovl = TRUE)
   MCMCplot(object = d$mcmc, params = c("grIntT"), ref_ovl = TRUE)
-  MCMCplot(object = d$mcmc, params = c("sumWeightZ01"), ref_ovl = TRUE)
-  MCMCplot(object = d$mcmc, params = c("sumZ01"), ref_ovl = TRUE)
+  MCMCplot(object = d$mcmc, params = c("phiIntTOut"), ref_ovl = TRUE)
+  MCMCplot(object = d$mcmc, params = c("phiBetaT"), ref_ovl = TRUE)
+
+  get_MCMCTrace_OB(d)
   
-  # Create the summary list
+   # Create the summary list
   summary_list <- list(
     eh = eh,
     stats = kable(as_tibble(d$runData), caption = "Run statistics"),
@@ -155,138 +166,138 @@ getSummaryByCohort <- function(cohort, modelNum = 3) {
 ::: {.panel-tabset}
 #### 2002
 ```{r}
-#| label: s2002
+#| label: s2002_2
 #| cache: TRUE
-s2002 = getSummaryByCohort(2002, modelNum)
+s2002_2 = getSummaryByCohort(2002, modelNum)
 ```
 
 #### 2003
 ```{r}
-#| label: s2003
+#| label: s2003_2
 #| cache: TRUE
-s2003 = getSummaryByCohort(2003, modelNum)
+s2003_2 = getSummaryByCohort(2003, modelNum)
 ```
 
 #### 2004
 ```{r}
-#| label: s2004
+#| label: s2004_2
 #| cache: TRUE
-s2004 = getSummaryByCohort(2004, modelNum)
+s2004_2 = getSummaryByCohort(2004, modelNum)
 ```
 
 #### 2005
 ```{r}
-#| label: s2005
+#| label: s2005_2
 #| cache: TRUE
-s2005 = getSummaryByCohort(2005, modelNum)
+s2005_2 = getSummaryByCohort(2005, modelNum)
 ```
 
 #### 2006
 ```{r}
-#| label: s2006
+#| label: s2006_2
 #| cache: TRUE
-s2006 = getSummaryByCohort(2006, modelNum)
+s2006_2 = getSummaryByCohort(2006, modelNum)
 ```
 
 #### 2007
 ```{r}
-#| label: s2007
+#| label: s2007_2
 #| cache: TRUE
-s2007 = getSummaryByCohort(2007, modelNum)
+s2007_2 = getSummaryByCohort(2007, modelNum)
 ```
 
 #### 2008
 ```{r}
-#| label: s2008
+#| label: s2008_2
 #| cache: TRUE
-s2008 = getSummaryByCohort(2008, modelNum)
+s2008_2 = getSummaryByCohort(2008, modelNum)
 ```
 
 #### 2009
 ```{r}
-#| label: s2009
+#| label: s2009_2
 #| cache: TRUE
-s2009 = getSummaryByCohort(2009, modelNum)
+s2009_2 = getSummaryByCohort(2009, modelNum)
 ```
 
 #### 2010
 ```{r}
-#| label: s2010
+#| label: s2010_2
 #| cache: TRUE
-s2010 = getSummaryByCohort(2010, modelNum)
+s2010_2 = getSummaryByCohort(2010, modelNum)
 ```
 
 #### 2011
 ```{r}
-#| label: s2011
+#| label: s2011_2
 #| cache: TRUE
-s2011 = getSummaryByCohort(2011, modelNum)
+s2011_2 = getSummaryByCohort(2011, modelNum)
 ```
 
 #### 2012
 ```{r}
-#| label: s2012
+#| label: s2012_2
 #| cache: TRUE
-s2012 = getSummaryByCohort(2012, modelNum)
+s2012_2 = getSummaryByCohort(2012, modelNum)
 ```
 
 #### 2013
 ```{r}
-#| label: s2013
+#| label: s2013_2
 #| cache: TRUE
-s2013 = getSummaryByCohort(2013, modelNum)
+s2013_2 = getSummaryByCohort(2013, modelNum)
 ```
 
 #### 2014
 ```{r}
-#| label: s2014
+#| label: s2014_2
 #| cache: TRUE
-s2014 = getSummaryByCohort(2014, modelNum)
+s2014_2 = getSummaryByCohort(2014, modelNum)
 ```
 :::
 
 ### Combine cohort summaries
 ```{r}
-#| label: bindSummaries
+#| label: bindSummaries_2
 
-sAll <- tibble(.rows = 0) |>
-  add_column(!!!s2002$summary_OB[0,])
+sAll_2 <- tibble(.rows = 0) |>
+  add_column(!!!s2002_2$summary_OB[0,])
 
 # Fill tibble
 for (cohort in cohorts) {
-  summary_obj <- get(paste0("s", cohort))$summary_OB
-  summary_obj$cohort <- cohort
-  sAll <- bind_rows(sAll, summary_obj)
+  summary_obj_2 <- get(paste0("s", cohort, "_2"))$summary_OB
+  summary_obj_2$cohort <- cohort
+  sAll_2 <- bind_rows(sAll_2, summary_obj_2)
 }
 
-sAll$cohort_ind <- paste0(sAll$cohort, "_", sAll$ind)
+sAll_2$cohort_ind <- paste0(sAll_2$cohort, "_", sAll_2$ind)
 
 ```
 
 
 
 ```{r}
-#| label: ojsDefine
+#| label: ojsDefine_2
 #| cache: FALSE
 
 #ojs_define(numTags_OJS_mod3 = dim(s2002$eh$tags)[1]) # all cohorts have the same eh
-ojs_define(summary_OB_OJS_all = sAll)
+ojs_define(summary_OB_OJS_all_2 = sAll_2)
 #ojs_define(summary_tt_z_OJS = (summary_tt_z_mod3))
 ```
 
 #### Select cohort(s):
 
 ```{ojs}
-//| label: summary_OB_OJS_all_T
-summary_OB_OJS_all_T = transpose(summary_OB_OJS_all)
+//| label: summary_OB_OJS_all_T_2
+summary_OB_OJS_all_T_2 = transpose(summary_OB_OJS_all_2)
 ```
 
 ```{ojs}
-//| label: selectCohort
+//| label: selectCohort_2
 //| 
 import { range } from "d3";
 
-viewof selected_cohort = Inputs.select(d3.range(2002, 2015), {
+viewof selected_cohort_2 = Inputs.select(d3.range(2002, 2015), {
   label: "Which cohort?",
   value: 2002,
   step: 1,
@@ -295,19 +306,19 @@ viewof selected_cohort = Inputs.select(d3.range(2002, 2015), {
 ```
 
 ```{ojs}
-//| label: filterCohort
-summary_OB_OJS_all_T_selected_cohort = summary_OB_OJS_all_T.filter((d) =>
-  (selected_cohort.includes(d.cohort))
+//| label: filterCohort_2
+summary_OB_OJS_all_T_selected_cohort_2 = summary_OB_OJS_all_T_2.filter((d) =>
+  (selected_cohort_2.includes(d.cohort))
 )
 ```
 
 #### Select one or more individuals:
 
 ```{ojs}
-//| label: selectInd
-uniqueInds = [...new Set(summary_OB_OJS_all_T_selected_cohort.map(d => d.cohort_ind))].sort();
+//| label: selectInd_2
+uniqueInds_2 = [...new Set(summary_OB_OJS_all_T_selected_cohort_2.map(d => d.cohort_ind))].sort();
 
-viewof selectInd_mod3 = Inputs.select(uniqueInds, {
+viewof selectInd_mod_2 = Inputs.select(uniqueInds_2, {
   label: "Which fish?",
   value: 1,
   step: 1,
@@ -315,8 +326,8 @@ viewof selectInd_mod3 = Inputs.select(uniqueInds, {
 })
 
 
-summary_OB_OJS_all_T_selected_cohort_ind = summary_OB_OJS_all_T_selected_cohort.filter((d) =>
-  (selectInd_mod3.includes(d.cohort_ind))
+summary_OB_OJS_all_T_selected_cohort_ind_2 = summary_OB_OJS_all_T_selected_cohort_2.filter((d) =>
+  (selectInd_mod_2.includes(d.cohort_ind))
 )
 
 ```
@@ -329,7 +340,7 @@ Black dots/line is estimated mass and orange dots are observed masses. The green
 Black dots/line is estimated probability of survival and orange dots are encountered yes (y = 0.8)/no (y = 0). The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort.
 
 ```{ojs}
-//| label: plotZ
+//| label: plotZ_2
 
  Plot.plot({
     width: width,
@@ -342,31 +353,31 @@ Black dots/line is estimated probability of survival and orange dots are encount
     y: { label: "Probability of survival" },
     marks: [
       Plot.frame(),
-      Plot.dot(summary_OB_OJS_all_T_selected_cohort_ind, {
+      Plot.dot(summary_OB_OJS_all_T_selected_cohort_ind_2, {
         x: "t",
         y: "pSurv"
       }),
-      Plot.dot(summary_OB_OJS_all_T_selected_cohort_ind, {
+      Plot.dot(summary_OB_OJS_all_T_selected_cohort_ind_2, {
         x: "t",
         y: "enc8",
         fill: "orange"
       }),
-      Plot.line(summary_OB_OJS_all_T_selected_cohort_ind, {
+      Plot.line(summary_OB_OJS_all_T_selected_cohort_ind_2, {
         x: "t",
         y: "pSurv"
       }),
-      Plot.ruleX(summary_OB_OJS_all_T_selected_cohort_ind, {
+      Plot.ruleX(summary_OB_OJS_all_T_selected_cohort_ind_2, {
         x: "first",
         y: 1,
         "stroke": "green"
       }),
-      Plot.ruleX(summary_OB_OJS_all_T_selected_cohort_ind, {
+      Plot.ruleX(summary_OB_OJS_all_T_selected_cohort_ind_2, {
         x: "last",
         y: 1,
         "stroke": "red"
       })
       ,
-      Plot.text(summary_OB_OJS_all_T_selected_cohort_ind, 
+      Plot.text(summary_OB_OJS_all_T_selected_cohort_ind_2, 
                 Plot.selectFirst({
                   x: 11,
                   y: 1,
@@ -375,7 +386,7 @@ Black dots/line is estimated probability of survival and orange dots are encount
       )
     ],
     facet: {
-      data: summary_OB_OJS_all_T_selected_cohort_ind,
+      data: summary_OB_OJS_all_T_selected_cohort_ind_2,
       x: "ind"
     }
   })
@@ -384,7 +395,7 @@ Black dots/line is estimated probability of survival and orange dots are encount
 
 
 ```{ojs}
-//| label: plotWeight
+//| label: plotWeight_2
 Plot.plot({
     width: width,
     height: 350,
@@ -396,11 +407,11 @@ Plot.plot({
     y: { label: "Standardized body mass (mg)" },
     marks: [
       Plot.frame(),
-      Plot.dot(summary_OB_OJS_all_T_selected_cohort_ind, {
+      Plot.dot(summary_OB_OJS_all_T_selected_cohort_ind_2, {
         x: "t",
         y: "mean_weight"
       }),
-      Plot.line(summary_OB_OJS_all_T_selected_cohort_ind, {
+      Plot.line(summary_OB_OJS_all_T_selected_cohort_ind_2, {
         x: "t",
         y: "mean_weight"
       }),
@@ -409,22 +420,22 @@ Plot.plot({
           <!--   y: "mean_gr", -->
           <!--   fill: "green" -->
           <!-- }), -->
-        Plot.dot(summary_OB_OJS_all_T_selected_cohort_ind, {
+        Plot.dot(summary_OB_OJS_all_T_selected_cohort_ind_2, {
           x: "t",
           y: "weightDATA_std",
           fill: "orange"
         }),
-      Plot.ruleX(summary_OB_OJS_all_T_selected_cohort_ind, {
+      Plot.ruleX(summary_OB_OJS_all_T_selected_cohort_ind_2, {
         x: "first",
         y: 3,
         "stroke": "green"
       }),
-      Plot.ruleX(summary_OB_OJS_all_T_selected_cohort_ind, {
+      Plot.ruleX(summary_OB_OJS_all_T_selected_cohort_ind_2, {
         x: "last",
         y: 3,
         "stroke": "red"
       }),
-      Plot.text(summary_OB_OJS_all_T_selected_cohort_ind,
+      Plot.text(summary_OB_OJS_all_T_selected_cohort_ind_2,
                 Plot.selectFirst({
                   x: 1,
                   y: 4,
@@ -432,7 +443,7 @@ Plot.plot({
                   text: (d) => "Cohort = " + d.cohort
                 })
       ),
-      Plot.text(summary_OB_OJS_all_T_selected_cohort_ind,
+      Plot.text(summary_OB_OJS_all_T_selected_cohort_ind_2,
                 Plot.selectFirst({
                   x: 1,
                   y: 3.5,
@@ -442,33 +453,33 @@ Plot.plot({
       )
     ],
     facet: {
-      data: summary_OB_OJS_all_T_selected_cohort_ind,
+      data: summary_OB_OJS_all_T_selected_cohort_ind_2,
       x: "ind"
     }
   })
 ```
   
 ### Compare cohorts
-Combine s`cohort`$summaryMod3_tt_growth data into one data frame
+Combine s`cohort`$summaryMod2_tt_growth data into one data frame
 ```{r}
-#| label: cobmineCohortsSummaryGrowth
+#| label: cobmineCohortsSummaryGrowth_2
 
-sParamsAll0 <- tibble(.rows = 0) |>
-  add_column(!!!s2002$summaryMod3_tt_growth[0,])
+sParamsAll0_2 <- tibble(.rows = 0) |>
+  add_column(!!!s2002_2$summaryMod3_tt_growth[0,]) # need to change to mod2
 
 # Fill tibble
 for (cohort in cohorts) {
-  summary_obj <- get(paste0("s", cohort))$summaryMod3_tt_growth
-  summary_obj$cohort <- cohort
-  sParamsAll0 <- bind_rows(sParamsAll0, summary_obj)
+  summary_obj_2 <- get(paste0("s", cohort, "_2"))$summaryMod3_tt_growth # need to change to mod2
+  summary_obj_2$cohort <- cohort
+  sParamsAll0_2 <- bind_rows(sParamsAll0_2, summary_obj_2)
 }
 
 # remove brackets for filtering
-sParamsAll0$varNoIndex <- sParamsAll0$var |>
+sParamsAll0_2$varNoIndex <- sParamsAll0_2$var |>
   str_remove("\\[.*\\]")
 
 # for numeric ordering
-sParamsAll1 <- sParamsAll0 |> filter(varNoIndex != "phiBetaT") |>
+sParamsAll1_2 <- sParamsAll0_2 |> filter(varNoIndex != "phiBetaT") |>
   mutate(
     varNumeric1 = var |>
       str_extract("\\[(\\d+)\\]") %>%
@@ -476,7 +487,7 @@ sParamsAll1 <- sParamsAll0 |> filter(varNoIndex != "phiBetaT") |>
       as.numeric()
   )
 
-sParamsAll2 <- sParamsAll0 |> filter(varNoIndex == "phiBetaT") |>
+sParamsAll2_2 <- sParamsAll0_2 |> filter(varNoIndex == "phiBetaT") |>
   mutate(
     varNumeric1 = var |>
       str_extract("\\[(\\d+),") %>%           # Changed to match number before comma
@@ -488,7 +499,7 @@ sParamsAll2 <- sParamsAll0 |> filter(varNoIndex == "phiBetaT") |>
       as.numeric()
   )
 
-sParamsAll = bind_rows(sParamsAll1, sParamsAll2)
+sParamsAll_2 = bind_rows(sParamsAll1_2, sParamsAll2_2)
 
 ```
 
@@ -496,9 +507,9 @@ sParamsAll = bind_rows(sParamsAll1, sParamsAll2)
 
 #### p
 ```{r}
-#| label: cobmineCohortsGraphsP
+#| label: cobmineCohortsGraphsP_2
 
-ggplot(sParamsAll |> filter(varNoIndex == "p"), aes(varNumeric1, mean, group = cohort, color = cohort)) +
+ggplot(sParamsAll_2 |> filter(varNoIndex == "p"), aes(varNumeric1, mean, group = cohort, color = cohort)) +
   geom_point() + 
   geom_line() +
   xlab("AgeInSamples")
@@ -506,9 +517,9 @@ ggplot(sParamsAll |> filter(varNoIndex == "p"), aes(varNumeric1, mean, group = c
 
 #### phi
 ```{r}
-#| label: cobmineCohortsGraphsphiIntTOut
+#| label: cobmineCohortsGraphsphiIntTOut_2
 
-ggplot(sParamsAll |> filter(varNoIndex == "phiIntTOut"), aes(varNumeric1, mean, group = cohort, color = cohort)) +
+ggplot(sParamsAll_2 |> filter(varNoIndex == "phiIntTOut"), aes(varNumeric1, mean, group = cohort, color = factor(cohort))) +
   geom_point() + 
   geom_line() +
   xlab("AgeInSamples")
@@ -516,9 +527,9 @@ ggplot(sParamsAll |> filter(varNoIndex == "phiIntTOut"), aes(varNumeric1, mean, 
 
 #### grIntT
 ```{r}
-#| label: cobmineCohortsGraphsgrIntT
+#| label: cobmineCohortsGraphsgrIntT_2
 
-ggplot(sParamsAll |> filter(varNoIndex == "grIntT"), aes(varNumeric1, mean, group = cohort, color = cohort)) +
+ggplot(sParamsAll_2 |> filter(varNoIndex == "grIntT"), aes(varNumeric1, mean, group = cohort, color = factor(cohort))) +
   geom_point() + 
   geom_line() +
   xlab("AgeInSamples")
@@ -527,9 +538,9 @@ ggplot(sParamsAll |> filter(varNoIndex == "grIntT"), aes(varNumeric1, mean, grou
 
 #### grIntT, filtered
 ```{r}
-#| label: cobmineCohortsGraphsgrIntTFiltered
+#| label: cobmineCohortsGraphsgrIntTFiltered_2
 
-ggplot(sParamsAll |> filter(varNoIndex == "grIntT", mean > -5, mean < 5), aes(varNumeric1, mean, group = cohort, color = cohort)) +
+ggplot(sParamsAll_2 |> filter(varNoIndex == "grIntT", mean > -5, mean < 5), aes(varNumeric1, mean, group = cohort, color = factor(cohort))) +
   geom_point() + 
   geom_line() +
   xlab("AgeInSamples")
@@ -537,9 +548,9 @@ ggplot(sParamsAll |> filter(varNoIndex == "grIntT", mean > -5, mean < 5), aes(va
 
 #### phiBetaT
 ```{r}
-#| label: cobmineCohortsGraphsphiBetaT
+#| label: cobmineCohortsGraphsphiBetaT_2
 
-ggplot(sParamsAll |> filter(varNoIndex == "phiBetaT", mean > -5, mean < 5), aes(varNumeric2, mean, group = cohort, color = cohort)) +
+ggplot(sParamsAll_2 |> filter(varNoIndex == "phiBetaT", mean > -5, mean < 5), aes(varNumeric2, mean, group = cohort, color = factor(cohort))) +
   geom_point() + 
   geom_line() +
   xlab("AgeInSamples") +
@@ -548,9 +559,9 @@ ggplot(sParamsAll |> filter(varNoIndex == "phiBetaT", mean > -5, mean < 5), aes(
 
 #### sumWeightZ01
 ```{r}
-#| label: cobmineCohortsGraphssumWeightZ01
+#| label: cobmineCohortsGraphssumWeightZ01_2
 
-ggplot(sParamsAll |> filter(varNoIndex == "sumWeightZ01"), aes(varNumeric1, mean, group = cohort, color = cohort)) +
+ggplot(sParamsAll_2 |> filter(varNoIndex == "sumWeightZ01"), aes(varNumeric1, mean, group = cohort, color = factor(cohort))) +
   geom_point() + 
   geom_line() +
   xlab("AgeInSamples")
@@ -558,9 +569,9 @@ ggplot(sParamsAll |> filter(varNoIndex == "sumWeightZ01"), aes(varNumeric1, mean
 
 #### sumZ01
 ```{r}
-#| label: cobmineCohortsGraphssumZ01
+#| label: cobmineCohortsGraphssumZ01_2
 
-ggplot(sParamsAll |> filter(varNoIndex == "sumZ01"), aes(varNumeric1, mean, group = cohort, color = cohort)) +
+ggplot(sParamsAll_2 |> filter(varNoIndex == "sumZ01"), aes(varNumeric1, mean, group = cohort, color = factor(cohort))) +
   geom_point() + 
   geom_line() +
   xlab("AgeInSamples")
@@ -569,30 +580,540 @@ ggplot(sParamsAll |> filter(varNoIndex == "sumZ01"), aes(varNumeric1, mean, grou
 
 
 ### Size-dependent survival
-
+Need to get rid of squared term for cohort-specific models
 ```{r}
-#| label: sizeDepSurv
+#| label: sizeDepSurv_2
 
 
-phiInt <- sParamsAll |> filter(varNoIndex == "phiIntTOut") |>
+phiInt_2 <- sParamsAll_2 |> filter(varNoIndex == "phiIntTOut") |>
   dplyr::select(mean, varNumeric1, cohort) |>
   rename(phiIntOut = mean, ais = varNumeric1)
 
-phiBetas <- sParamsAll |> filter(varNoIndex == "phiBetaT", mean > -5, mean < 5) |>
+phiBetas_2 <- sParamsAll_2 |> filter(varNoIndex == "phiBetaT", mean > -5, mean < 5) |>
   dplyr::select(mean, varNumeric1, varNumeric2, cohort) |>
   pivot_wider(names_from = varNumeric1, values_from = mean, names_prefix = "beta") |>
   rename(ais = varNumeric2)
 
-phiSize = expand.grid(weight = seq(-2,2,0.25), ais = 1:11, cohort = cohorts) |> 
-   left_join(phiInt) |> 
-   left_join(phiBetas) |>
-   mutate(pSurv = ilogit(phiIntOut + beta1*weight + beta2*weight^2))# + beta_2*weight^2))
+phiSize_2 = expand.grid(weight = seq(-2,2,0.25), ais = 1:11, cohort = cohorts) |> 
+   left_join(phiInt_2) |> 
+   left_join(phiBetas_2) |>
+   mutate(pSurv = ilogit(phiIntOut + beta1*weight))# + beta_2*weight^2))
 
-ggplot(phiSize, aes(weight, pSurv, color = cohort, group = cohort)) +
+ggplot(phiSize_2, aes(weight, pSurv, color = factor(cohort), group = cohort)) +
   geom_line() +
   geom_point() +
   facet_wrap(~ais)
 
 
 ```
+
+
+## By Cohort, modelNum **3**: phi(i,t) \* g(i,t)^2, p(i,t) model
+
+
+Using model #3 from `modelsCMR_Growth_NN_OB.qmd` as a staring point for the models, but adapting the model by\
+Prob not 1) Extending AgeInSamples from 1-11 to 1-x to allow bigger fish to be present for the production estimates.  
+Prob not 2) Loop over first\[i\]:lastAIS so fish have the chance to survive to large size.\
+
+
+Model with phi and p for each age-in-samples (t = column in the encounter history file) and individual (i)
+
+Probability of survival (phi) model structure:
+
+```         
+      logit(phi[i,t]) <- 
+        phiInt[i,t] + 
+        phiBeta[1,i,t] * weight[i,t] + 
+        phiBeta[2,i,t] * weight[i,t] * weight[i,t] 
+```
+
+Probability of capture (p) model structure:
+
+p(t,i) \<- pInt(t,i)
+
+Growth rate (gr) model structure:
+
+gr(t,i) \<- grInt(t)
+
+Survival/growth rate interaction:
+
+Multiplicative
+
+Model runs:\
+
+### Retrieve model results
+
+```{r}
+#| label: productionSource_3
+#| cache: false
+library(targets)
+library(nimble)
+# Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
+# 
+# 
+
+# To get the mMCMCSummaryRMNA funcion which I adapted to deal with NAs
+#source('./models/production/modelProduction_OB_functionsToSource.R')
+#source('./models/production/qmdProduction_OB_functionsToSource.R')
+
+modelNum <- 3 # phi * growth
+```
+
+### Model code
+```{r}
+
+# all cohorts have the same code for a given model. show model code for one of them here
+load('./models/production/runsOut/production_OB_model_3_2002_mostRecent.RData')
+d$modelCode
+
+```
+
+
+### Summaries by cohort
+
+::: {.panel-tabset}
+#### 2002
+```{r}
+#| label: s2002_3
+#| cache: TRUE
+s2002_3 = getSummaryByCohort(2002, modelNum)
+```
+
+#### 2003
+```{r}
+#| label: s2003_3
+#| cache: TRUE
+s2003_3 = getSummaryByCohort(2003, modelNum)
+```
+
+#### 2004
+```{r}
+#| label: s2004_3
+#| cache: TRUE
+s2004_3 = getSummaryByCohort(2004, modelNum)
+```
+
+#### 2005
+```{r}
+#| label: s2005_3
+#| cache: TRUE
+s2005_3 = getSummaryByCohort(2005, modelNum)
+```
+
+#### 2006
+```{r}
+#| label: s2006_3
+#| cache: TRUE
+s2006_3 = getSummaryByCohort(2006, modelNum)
+```
+
+#### 2007
+```{r}
+#| label: s2007_3
+#| cache: TRUE
+s2007_3 = getSummaryByCohort(2007, modelNum)
+```
+
+#### 2008
+```{r}
+#| label: s2008_3
+#| cache: TRUE
+s2008_3 = getSummaryByCohort(2008, modelNum)
+```
+
+#### 2009
+```{r}
+#| label: s2009_3
+#| cache: TRUE
+s2009_3 = getSummaryByCohort(2009, modelNum)
+```
+
+#### 2010
+```{r}
+#| label: s2010_3
+#| cache: TRUE
+s2010_3 = getSummaryByCohort(2010, modelNum)
+```
+
+#### 2011
+```{r}
+#| label: s2011_3
+#| cache: TRUE
+s2011_3 = getSummaryByCohort(2011, modelNum)
+```
+
+#### 2012
+```{r}
+#| label: s2012_3
+#| cache: TRUE
+s2012_3 = getSummaryByCohort(2012, modelNum)
+```
+
+#### 2013
+```{r}
+#| label: s2013_3
+#| cache: TRUE
+s2013_3 = getSummaryByCohort(2013, modelNum)
+```
+
+#### 2014
+```{r}
+#| label: s2014_3
+#| cache: TRUE
+s2014_3 = getSummaryByCohort(2014, modelNum)
+```
+:::
+
+### Combine cohort summaries
+```{r}
+#| label: bindSummaries_3
+
+sAll_3 <- tibble(.rows = 0) |>
+  add_column(!!!s2002_3$summary_OB[0,])
+
+# Fill tibble
+for (cohort in cohorts) {
+  summary_obj_3 <- get(paste0("s", cohort, "_3"))$summary_OB
+  summary_obj_3$cohort <- cohort
+  sAll_3 <- bind_rows(sAll_3, summary_obj_3)
+}
+
+sAll_3$cohort_ind <- paste0(sAll_3$cohort, "_", sAll_3$ind)
+
+```
+
+
+
+```{r}
+#| label: ojsDefine_3
+#| cache: FALSE
+
+#ojs_define(numTags_OJS_mod3 = dim(s2002$eh$tags)[1]) # all cohorts have the same eh
+ojs_define(summary_OB_OJS_all_3 = sAll_3)
+#ojs_define(summary_tt_z_OJS = (summary_tt_z_mod3))
+```
+
+#### Select cohort(s):
+
+```{ojs}
+//| label: summary_OB_OJS_all_T_3
+summary_OB_OJS_all_T_3 = transpose(summary_OB_OJS_all_3)
+```
+
+```{ojs}
+//| label: selectCohort_3
+//| 
+import { range } from "d3";
+
+viewof selected_cohort_3 = Inputs.select(d3.range(2002, 2015), {
+  label: "Which cohort?",
+  value: 2002,
+  step: 1,
+  multiple: true
+})
+```
+
+```{ojs}
+//| label: filterCohort_3
+summary_OB_OJS_all_T_selected_cohort_3 = summary_OB_OJS_all_T_3.filter((d) =>
+  (selected_cohort_3.includes(d.cohort))
+)
+```
+
+#### Select one or more individuals:
+
+```{ojs}
+//| label: selectInd_3
+uniqueInds_3 = [...new Set(summary_OB_OJS_all_T_selected_cohort_3.map(d => d.cohort_ind))].sort();
+
+viewof selectInd_mod_3 = Inputs.select(uniqueInds_3, {
+  label: "Which fish?",
+  value: 1,
+  step: 1,
+  multiple: true
+})
+
+
+summary_OB_OJS_all_T_selected_cohort_ind_3 = summary_OB_OJS_all_T_selected_cohort_3.filter((d) =>
+  (selectInd_mod_3.includes(d.cohort_ind))
+)
+
+```
+
+Black dots/line is estimated mass and orange dots are observed masses. The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort.
+
+
+#### Plot survival
+
+Black dots/line is estimated probability of survival and orange dots are encountered yes (y = 0.8)/no (y = 0). The green line is the first observation and the red line is the last observation. The number in the upper right corner of each panel is the fish's cohort.
+
+```{ojs}
+//| label: plotZ_3
+
+ Plot.plot({
+    width: width,
+    height: 350,
+    inset: 10,
+    color: {
+      scheme: "greys"
+    },
+    x: { label: "Age/season combination" },
+    y: { label: "Probability of survival" },
+    marks: [
+      Plot.frame(),
+      Plot.dot(summary_OB_OJS_all_T_selected_cohort_ind_3, {
+        x: "t",
+        y: "pSurv"
+      }),
+      Plot.dot(summary_OB_OJS_all_T_selected_cohort_ind_3, {
+        x: "t",
+        y: "enc8",
+        fill: "orange"
+      }),
+      Plot.line(summary_OB_OJS_all_T_selected_cohort_ind_3, {
+        x: "t",
+        y: "pSurv"
+      }),
+      Plot.ruleX(summary_OB_OJS_all_T_selected_cohort_ind_3, {
+        x: "first",
+        y: 1,
+        "stroke": "green"
+      }),
+      Plot.ruleX(summary_OB_OJS_all_T_selected_cohort_ind_3, {
+        x: "last",
+        y: 1,
+        "stroke": "red"
+      })
+      ,
+      Plot.text(summary_OB_OJS_all_T_selected_cohort_ind_3, 
+                Plot.selectFirst({
+                  x: 11,
+                  y: 1,
+                  text: d => d.cohort
+                })
+      )
+    ],
+    facet: {
+      data: summary_OB_OJS_all_T_selected_cohort_ind_3,
+      x: "ind"
+    }
+  })
+
+```
+
+
+```{ojs}
+//| label: plotWeight_3
+Plot.plot({
+    width: width,
+    height: 350,
+    inset: 10,
+    color: {
+      scheme: "greys"
+    },
+    x: { label: "Age/season combination" },
+    y: { label: "Standardized body mass (mg)" },
+    marks: [
+      Plot.frame(),
+      Plot.dot(summary_OB_OJS_all_T_selected_cohort_ind_3, {
+        x: "t",
+        y: "mean_weight"
+      }),
+      Plot.line(summary_OB_OJS_all_T_selected_cohort_ind_3, {
+        x: "t",
+        y: "mean_weight"
+      }),
+      <!-- Plot.dot(d, { -->
+          <!--   x: "t", -->
+          <!--   y: "mean_gr", -->
+          <!--   fill: "green" -->
+          <!-- }), -->
+        Plot.dot(summary_OB_OJS_all_T_selected_cohort_ind_3, {
+          x: "t",
+          y: "weightDATA_std",
+          fill: "orange"
+        }),
+      Plot.ruleX(summary_OB_OJS_all_T_selected_cohort_ind_3, {
+        x: "first",
+        y: 3,
+        "stroke": "green"
+      }),
+      Plot.ruleX(summary_OB_OJS_all_T_selected_cohort_ind_3, {
+        x: "last",
+        y: 3,
+        "stroke": "red"
+      }),
+      Plot.text(summary_OB_OJS_all_T_selected_cohort_ind_3,
+                Plot.selectFirst({
+                  x: 1,
+                  y: 4,
+                  frameAnchor: "top-left",
+                  text: (d) => "Cohort = " + d.cohort
+                })
+      ),
+      Plot.text(summary_OB_OJS_all_T_selected_cohort_ind_3,
+                Plot.selectFirst({
+                  x: 1,
+                  y: 3.5,
+                  frameAnchor: "top-left",
+                  text: (d) => "Residual = " + d.meanResid
+                })
+      )
+    ],
+    facet: {
+      data: summary_OB_OJS_all_T_selected_cohort_ind_3,
+      x: "ind"
+    }
+  })
+```
+  
+### Compare cohorts
+Combine s`cohort`$summaryMod2_tt_growth data into one data frame
+```{r}
+#| label: cobmineCohortsSummaryGrowth_3
+
+sParamsAll0_3 <- tibble(.rows = 0) |>
+  add_column(!!!s2002_3$summaryMod3_tt_growth[0,]) 
+
+# Fill tibble
+for (cohort in cohorts) {
+  summary_obj_3 <- get(paste0("s", cohort, "_3"))$summaryMod3_tt_growth 
+  summary_obj_3$cohort <- cohort
+  sParamsAll0_3 <- bind_rows(sParamsAll0_3, summary_obj_3)
+}
+
+# remove brackets for filtering
+sParamsAll0_3$varNoIndex <- sParamsAll0_3$var |>
+  str_remove("\\[.*\\]")
+
+# for numeric ordering
+sParamsAll1_3 <- sParamsAll0_3 |> filter(varNoIndex != "phiBetaT") |>
+  mutate(
+    varNumeric1 = var |>
+      str_extract("\\[(\\d+)\\]") %>%
+      str_remove_all("\\[|\\]") %>%
+      as.numeric()
+  )
+
+sParamsAll2_3 <- sParamsAll0_3 |> filter(varNoIndex == "phiBetaT") |>
+  mutate(
+    varNumeric1 = var |>
+      str_extract("\\[(\\d+),") %>%           # Changed to match number before comma
+      str_remove_all("\\[|,") %>%             # Remove [ and comma
+      as.numeric(),
+    varNumeric2 = var |>
+      str_extract(",\\s*(\\d+)\\]") %>%
+      str_remove_all(",|\\s|\\]") %>%
+      as.numeric()
+  )
+
+sParamsAll_3 = bind_rows(sParamsAll1_3, sParamsAll2_3)
+
+```
+
+#### Combined cohorts
+
+#### p
+```{r}
+#| label: cobmineCohortsGraphsP_3
+
+ggplot(sParamsAll_3 |> filter(varNoIndex == "p"), aes(varNumeric1, mean, group = cohort, color = cohort)) +
+  geom_point() + 
+  geom_line() +
+  xlab("AgeInSamples")
+```
+
+#### phi
+```{r}
+#| label: cobmineCohortsGraphsphiIntTOut_3
+
+ggplot(sParamsAll_3 |> filter(varNoIndex == "phiIntTOut"), aes(varNumeric1, mean, group = cohort, color = cohort)) +
+  geom_point() + 
+  geom_line() +
+  xlab("AgeInSamples")
+```
+
+#### grIntT
+```{r}
+#| label: cobmineCohortsGraphsgrIntT_3
+
+ggplot(sParamsAll_3 |> filter(varNoIndex == "grIntT"), aes(varNumeric1, mean, group = cohort, color = cohort)) +
+  geom_point() + 
+  geom_line() +
+  xlab("AgeInSamples")
+```
+
+
+#### grIntT, filtered
+```{r}
+#| label: cobmineCohortsGraphsgrIntTFiltered_3
+
+ggplot(sParamsAll_3 |> filter(varNoIndex == "grIntT", mean > -5, mean < 5), aes(varNumeric1, mean, group = cohort, color = cohort)) +
+  geom_point() + 
+  geom_line() +
+  xlab("AgeInSamples")
+```
+
+#### phiBetaT
+```{r}
+#| label: cobmineCohortsGraphsphiBetaT_3
+
+ggplot(sParamsAll_3 |> filter(varNoIndex == "phiBetaT", mean > -5, mean < 5), aes(varNumeric2, mean, group = cohort, color = cohort)) +
+  geom_point() + 
+  geom_line() +
+  xlab("AgeInSamples") +
+  facet_wrap((~varNumeric1))
+```
+
+#### sumWeightZ01
+```{r}
+#| label: cobmineCohortsGraphssumWeightZ01_3
+
+ggplot(sParamsAll_3 |> filter(varNoIndex == "sumWeightZ01"), aes(varNumeric1, mean, group = cohort, color = cohort)) +
+  geom_point() + 
+  geom_line() +
+  xlab("AgeInSamples")
+```
+
+#### sumZ01
+```{r}
+#| label: cobmineCohortsGraphssumZ01_3
+
+ggplot(sParamsAll_3 |> filter(varNoIndex == "sumZ01"), aes(varNumeric1, mean, group = cohort, color = cohort)) +
+  geom_point() + 
+  geom_line() +
+  xlab("AgeInSamples")
+```
+
+
+
+### Size-dependent survival
+Need to get rid of squared term for cohort-specific models
+```{r}
+#| label: sizeDepSurv_3
+
+
+phiInt_3 <- sParamsAll_3 |> filter(varNoIndex == "phiIntTOut") |>
+  dplyr::select(mean, varNumeric1, cohort) |>
+  rename(phiIntOut = mean, ais = varNumeric1)
+
+phiBetas_3 <- sParamsAll_3 |> filter(varNoIndex == "phiBetaT", mean > -5, mean < 5) |>
+  dplyr::select(mean, varNumeric1, varNumeric2, cohort) |>
+  pivot_wider(names_from = varNumeric1, values_from = mean, names_prefix = "beta") |>
+  rename(ais = varNumeric2)
+
+phiSize_3 = expand.grid(weight = seq(-2,2,0.25), ais = 1:11, cohort = cohorts) |> 
+   left_join(phiInt_3) |> 
+   left_join(phiBetas_3) |>
+   mutate(pSurv = ilogit(phiIntOut + beta1*weight + beta2*weight^2))
+
+ggplot(phiSize_3, aes(weight, pSurv, color = factor(cohort), group = cohort)) +
+  geom_line() +
+  geom_point() +
+  facet_wrap(~ais)
+
+
+```
+
+
 
