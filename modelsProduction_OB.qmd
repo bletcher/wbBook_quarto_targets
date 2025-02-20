@@ -54,6 +54,16 @@ cohorts <- 2002:2014
 
 ## All Cohorts, modelNum **1**: phi(i,t,c) \* g(i,t,c), p(i,t) model
 
+### Model code
+```{r}
+#| label: modelCode1
+
+# all cohorts have the same code for a given model. show model code for one of them here
+load('./models/production/runsOut/production_OB_model_1_2025-01-30 22.RData') # WILL NEED TO CHANGE TO MOST RECENT
+d$modelCode
+
+```
+
 
 ## By Cohort, modelNum **2**: phi(i,t) \* g(i,t), p(i,t) model
 
