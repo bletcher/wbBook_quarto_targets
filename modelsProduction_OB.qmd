@@ -116,6 +116,7 @@ d$modelCode
 
 ```{r}
 #| label: productionFunction2
+#| cache: FALSE
 
 getSummaryByCohort <- function(cohort, modelNum = 3) {
   # Load the data
