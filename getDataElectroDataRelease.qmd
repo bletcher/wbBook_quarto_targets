@@ -36,12 +36,12 @@ cdWB_electro <- tar_read(cdWB_electro_target)
 #str(cdWB_electro)
 
 # Left over variables
-   #                                 <dbl>,  <dbl>,  <dbl>, sdFlow <dbl>, sdFlowByRiver <dbl>, sdFlowByArea_flowExt <dbl>, sdFlowByArea_ByRiver <dbl>, propBelowLoFlowThreshByRiver <dbl>,
-   # propAboveHiFlowThreshByRiver <dbl>, propBelowLoFlowThreshByArea_flowExt <dbl>, propAboveHiFlowThreshByArea_flowExt <dbl>,  <ord>, readerId <lgl>,  <dbl>,  <chr>, instance <lgl>,  <lgl>,
-   # leftOrRight <lgl>, habitat <lgl>, cover <lgl>, justification <lgl>,  <lgl>, <lgl>,  <date>,  <dbl>,  <chr>,  <lgl>,    <dbl>,  <lgl>,  <dbl>,
-   #   <dbl>,  <dbl>, minYear <dbl>,  <dbl>,  <dbl>,
-   # 
-   # 
+#                                 <dbl>,  <dbl>,  <dbl>, sdFlow <dbl>, sdFlowByRiver <dbl>, sdFlowByArea_flowExt <dbl>, sdFlowByArea_ByRiver <dbl>, propBelowLoFlowThreshByRiver <dbl>,
+# propAboveHiFlowThreshByRiver <dbl>, propBelowLoFlowThreshByArea_flowExt <dbl>, propAboveHiFlowThreshByArea_flowExt <dbl>,  <ord>, readerId <lgl>,  <dbl>,  <chr>, instance <lgl>,  <lgl>,
+# leftOrRight <lgl>, habitat <lgl>, cover <lgl>, justification <lgl>,  <lgl>, <lgl>,  <date>,  <dbl>,  <chr>,  <lgl>,    <dbl>,  <lgl>,  <dbl>,
+#   <dbl>,  <dbl>, minYear <dbl>,  <dbl>,  <dbl>,
+# 
+# 
 
 
 # select vars and order for data release
@@ -84,23 +84,23 @@ __cohort__ Year the fish emerged from gravel in the spring (spawning occurred pr
 
 __river__ River the fish was observed in. NA if the fish was not observed.  
 
-  "west brook" The mainstem ("West Brook" from Letcher et al 2015).  
+"west brook" The mainstem ("West Brook" from Letcher et al 2015).  
 
-  "wb jimmy" Larger tributary that fish can move back and forth into from WB section 31 ("Open Large" from Letcher et al 2015).  
+"wb jimmy" Larger tributary that fish can move back and forth into from WB section 31 ("Open Large" from Letcher et al 2015).  
 
-  "wb mitchell" Smaller tributary that fish can move back and forth into from WB section 35 ("Open Small" from Letcher et al 2015).  
+"wb mitchell" Smaller tributary that fish can move back and forth into from WB section 35 ("Open Small" from Letcher et al 2015).  
 
-  "wb obear" Smaller tributary that has a waterfall at its mouth, so fish can only move downstream into WB section 20 ("Isolated Small" from Letcher et al 2015).  
+"wb obear" Smaller tributary that has a waterfall at its mouth, so fish can only move downstream into WB section 20 ("Isolated Small" from Letcher et al 2015).  
 
 __riverOrdered__ River the fish was observed in, ordered as a factor and renamed. NA if the fish was not observed.  
-  
-  - "West Brook" The mainstem ("West Brook" from Letcher et al 2015).  
 
-  - "Open Large" Larger tributary that fish can move back and forth into from WB section 31 ("Open Large" from Letcher et al 2015).  
+- "West Brook" The mainstem ("West Brook" from Letcher et al 2015).  
 
-  - "Open Small" Smaller tributary that fish can move back and forth into from WB section 35 ("Open Small" from Letcher et al 2015).  
-  
-  - "Isolated Small" Smaller tributary that has a waterfall at its mouth, so fish can only move downstream into WB section 20 ("Isolated Small" from Letcher et al 2015).  
+- "Open Large" Larger tributary that fish can move back and forth into from WB section 31 ("Open Large" from Letcher et al 2015).  
+
+- "Open Small" Smaller tributary that fish can move back and forth into from WB section 35 ("Open Small" from Letcher et al 2015).  
+
+- "Isolated Small" Smaller tributary that has a waterfall at its mouth, so fish can only move downstream into WB section 20 ("Isolated Small" from Letcher et al 2015).  
 
 
 __tag__ PIT tag number, unique identifier, character. Tags are 12-mm, full duplex. Biomark tags were used until **2002 (check this)**, and then replaced with Destron-fearing tags.  
@@ -202,6 +202,5 @@ __meanFlowByArea_flowExtScaledBySeason__ Mean flow by area (flow extension) betw
 __meanFlowByArea_ByRiverScaledBySeason__ Mean flow by area (by river) between observation dates scaled within season. If individual was not observed, median observation date for the sampling occasion was used.  
 
 __comments__ Comments from the field crew during sampling.
-
 
 

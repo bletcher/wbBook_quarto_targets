@@ -51,6 +51,8 @@ list(
   getEnvData_target,
   modelFDC_target,  
   getElectroData_target,
+  getAllDAta_noWB_target, # for the nonWB data release
+  
   dataCMR_WB_2002_2014_target,
   dataCMR_WBbkt_2002_2014_target,
   dataCMR_WBbnt_2002_2014_target,

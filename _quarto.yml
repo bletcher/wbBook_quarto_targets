@@ -31,6 +31,7 @@ book:
     - part: "Data releases"
       chapters: 
         - getDataElectroDataRelease.qmd
+        - getDataNoWB_DataRelease.qmd
     - part: "Data"
       chapters: 
         - dataAll.qmd
