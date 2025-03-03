@@ -59,11 +59,32 @@ cohorts <- 2002:2014
 #| label: modelCode1
 
 # all cohorts have the same code for a given model. show model code for one of them here
-load('./models/production/runsOut/production_OB_model_1_2025-01-30 22.RData') # WILL NEED TO CHANGE TO MOST RECENT
+load('./models/production/runsOut/production_OB_model_1_mostRecent.RData') # WILL NEED TO CHANGE TO MOST RECENT
+load('./models/production/runsOut/production_OB_model_2_2025-02-28 19.RData')
+
 d$modelCode
 
 ```
 
+```{r}
+#| label: productionFunction1
+
+  MCMCplot(object = d$mcmc, params = c("sumZ01"), ref_ovl = TRUE)
+  MCMCplot(object = d$mcmc, params = c("sumWeightZ01"), ref_ovl = TRUE)
+  
+  MCMCplot(object = d$mcmc, params = c("sumZ01ByCohort"), ref_ovl = TRUE)
+  MCMCplot(object = d$mcmc, params = c("sumWeightZ01ByCohort"), ref_ovl = TRUE)
+  
+  
+  MCMCplot(object = d$mcmc, params = c("p"), ref_ovl = TRUE)
+  MCMCplot(object = d$mcmc, params = c("grIntT"), ref_ovl = TRUE)
+  
+  MCMCplot(object = d$mcmc, params = c("phiIntTOut"), ref_ovl = TRUE)
+  MCMCplot(object = d$mcmc, params = c("phiBetaT"), ref_ovl = TRUE)
+
+  MCMCplot(object = d$mcmc, params = c("phiBetaCohort"), ref_ovl = TRUE)
+  
+```
 
 ## By Cohort, modelNum **2**: phi(i,t) \* g(i,t), p(i,t) model
 

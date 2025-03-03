@@ -261,8 +261,8 @@ vals_OB <- list(2002:2014, "wb obear")
 
 dataCMR_OB_2002_2014_target <-
   tar_plan(
-    eh_OB_2002_2014_target = getEH_AIS(cdWB_CMR0_target, cols_OB, ops_OB, vals_OB, maxAgeInSamples),#, maxIndexByCohort = 100)
-    eh_OB_2002_2014_AISall_target = getEH_AIS(cdWB_CMR0_2_target, cols_OB, ops_OB, vals_OB, maxAgeInSamples2)
+    eh_OB_2002_2014_target = getEH_AIS_Filter_first(cdWB_CMR0_target, cols_OB, ops_OB, vals_OB, maxAgeInSamples),#, maxIndexByCohort = 100)
+    eh_OB_2002_2014_AISall_target = getEH_AIS_Filter_first(cdWB_CMR0_2_target, cols_OB, ops_OB, vals_OB, maxAgeInSamples2)
   )  
 
 
@@ -277,7 +277,7 @@ ops_OB <-  list("%in%",    "==")
 
 dataCMR_OB_singleCohorts_target <-
   tar_plan(
-    eh_OB_2002_target = getEH_AIS(cdWB_CMR0_target, cols_OB, ops_OB, list(2002, "wb obear"), maxAgeInSamples),
+    eh_OB_2002_target = getEH_AIS(cdWB_CMR0_target, cols_OB, ops_OB, list(2002, "wb obear"), maxAgeInSamples), # don't need getEH_AIS_Filter_first() because cohorts are independent and limited to observed AIS values
     eh_OB_2003_target = getEH_AIS(cdWB_CMR0_target, cols_OB, ops_OB, list(2003, "wb obear"), maxAgeInSamples),
     eh_OB_2004_target = getEH_AIS(cdWB_CMR0_target, cols_OB, ops_OB, list(2004, "wb obear"), maxAgeInSamples),
     eh_OB_2005_target = getEH_AIS(cdWB_CMR0_target, cols_OB, ops_OB, list(2005, "wb obear"), maxAgeInSamples),
@@ -331,7 +331,40 @@ addFirstLast <- function(d){
   left_join(d, firstLast) %>%
     mutate(isFirstObserved = sampleNumber == firstObserved,
            isLastObserved = sampleNumber == lastObserved)
-}    
+} 
+
+addFirstLastAIS <- function(d){
+  firstLast <- d %>% 
+    group_by(tag) %>%
+    filter(knownZ == 1) %>%
+    summarize(firstObservedAIS = min(ageInSamples, na.rm = TRUE),
+              lastObservedAIS = max(ageInSamples, na.rm = TRUE)) %>%
+    ungroup()
+  
+  left_join(d, firstLast) %>%
+    mutate(isFirstObservedAIS = ageInSamples == firstObservedAIS,
+           isLastObservedAIS = ageInSamples == lastObservedAIS)
+}
+
+getMaxAISByCohort <- function(d) {
+  maxAIS <- d |>
+    group_by(cohort, ageInSamples) |>
+    summarize(
+      count = n()
+    ) |>
+    group_by(cohort) |>
+    summarize(maxAISByCohort = max(ageInSamples)) |>
+    ungroup()
+  
+  d <- left_join(d, maxAIS)
+}
+
+removeFishLastPossibleAIS <- function(d) {
+  d |> 
+    group_by(tag) |> 
+    filter(firstObservedAIS < maxAISByCohort - 1) |> # minus one because last is defined as minus one in getEH_AIs
+    ungroup()
+}
 
 fillRiver <- function (data, location = T){
   fillLocation <- function(location) {
@@ -489,7 +522,177 @@ getEH_AIS <- function(dIn, cols, ops, vals, maxOccasionValue, maxIndexByCohort =
   
   d <- dIn %>% 
     #filter(ageInSamples > 0, ageInSamples <= maxOccasionValue)
-    filter(ageInSamples %in% 1:maxOccasionValue)
+    filter(ageInSamples %in% 1:maxOccasionValue) 
+   # addFirstLast() |>
+  #  filter(ageInSamples != maxOccasionValue, !isFirstObserved) # remove fish seen for the first time on the last occasion
+
+  # Fish with no observed occasions
+  neverCaptured <- getNeverCaptured(d, maxOccasionValue)
+  d <- d %>%
+    filter(tag %notin% neverCaptured$tag)
+  
+  # limit data to first 'maxIndexByCohort' individuals for each cohort
+  d <- d %>%
+    group_by(cohort) %>%
+    mutate(indexByCohort = rleid(tag)) %>%
+    filter(indexByCohort <= maxIndexByCohort) %>%
+    ungroup()
+  
+  # for sectionRiverN for Xioawei
+  d <- d %>%
+    mutate(
+      sectionTMP = ifelse(riverN == 3 & section < 1, 1, section),
+      sectionRiverN = case_when(
+        riverN == 1 & area == "below" ~ 0,
+        riverN == 1 & area == "inside" ~ as.numeric(sectionTMP),
+        riverN == 1 & area == "above" ~ 48,
+        riverN == 2 ~ as.numeric(sectionTMP) + 48,
+        riverN == 3 ~ as.numeric(sectionTMP) + 63,
+        riverN == 4 ~ as.numeric(sectionTMP) + 79,
+      )
+    )
+  #table(dIn2$riverN,dIn2$sectionRiverN, dIn2$area)
+  
+  encWide <- getEHDataWide_AIS(d, cols, ops, vals, "enc", maxOccasionValue, valuesFill = 0)
+  eh <- as.matrix(encWide %>% dplyr::select(-tag), nrow = nrow(encWide), ncol = ncol(encWide) - 1)
+  
+  flowFill <- 0
+  flowWide <- getEHDataWide_AIS(d, cols, ops, vals, "meanFlowScaled", maxOccasionValue, valuesFill = flowFill)
+  flowMatrix <- as.matrix(flowWide %>% dplyr::select(-tag), nrow = nrow(flowWide), ncol = ncol(flowWide) - 1)
+  flowMatrix <- ifelse(is.finite(flowMatrix), flowMatrix, flowFill)
+  
+  flowByRiverFill <- 0
+  flowByRiverWide <- getEHDataWide_AIS(d, cols, ops, vals, "meanFlowByRiverScaled", maxOccasionValue, valuesFill = flowByRiverFill)
+  flowByRiverMatrix <- as.matrix(flowByRiverWide %>% dplyr::select(-tag), nrow = nrow(flowByRiverWide), ncol = ncol(flowByRiverWide) - 1)
+  flowByRiverMatrix <- ifelse(is.finite(flowByRiverMatrix), flowByRiverMatrix, flowByRiverFill)
+  
+  flowByArea_flowExtFill <- 0
+  flowByArea_flowExtWide <- getEHDataWide_AIS(d, cols, ops, vals, "meanFlowByArea_flowExtScaled", maxOccasionValue, valuesFill = flowByArea_flowExtFill)
+  flowByArea_flowExtMatrix <- as.matrix(flowByArea_flowExtWide %>% dplyr::select(-tag), nrow = nrow(flowByArea_flowExtWide), ncol = ncol(flowByArea_flowExtWide) - 1)
+  flowByArea_flowExtMatrix <- ifelse(is.finite(flowByArea_flowExtMatrix), flowByArea_flowExtMatrix, flowByArea_flowExtFill)
+  
+  flowByArea_ByRiverFill <- 0
+  flowByArea_ByRiverWide <- getEHDataWide_AIS(d, cols, ops, vals, "meanFlowByArea_ByRiverScaled", maxOccasionValue, valuesFill = flowByArea_ByRiverFill)
+  flowByArea_ByRiverMatrix <- as.matrix(flowByArea_ByRiverWide %>% dplyr::select(-tag), nrow = nrow(flowByArea_ByRiverWide), ncol = ncol(flowByArea_ByRiverWide) - 1)
+  flowByArea_ByRiverMatrix <- ifelse(is.finite(flowByArea_ByRiverMatrix), flowByArea_ByRiverMatrix, flowByArea_ByRiverFill)
+  
+  temperatureFill <- 0
+  temperatureWide <- getEHDataWide_AIS(d, cols, ops, vals, "meanTemperatureScaled", maxOccasionValue, valuesFill = temperatureFill)
+  temperatureMatrix <- as.matrix(temperatureWide %>% dplyr::select(-tag), nrow = nrow(temperatureWide), ncol = ncol(temperatureWide) - 1)
+  temperatureMatrix <- ifelse(is.finite(temperatureMatrix), temperatureMatrix, temperatureFill)
+  
+  propBelowLoFlowThreshByRiverFill <- 0
+  propBelowLoFlowThreshByRiverWide <- getEHDataWide_AIS(d, cols, ops, vals, "propBelowLoFlowThreshByRiver", maxOccasionValue, valuesFill = propBelowLoFlowThreshByRiverFill)
+  propBelowLoFlowThreshByRiverMatrix <- as.matrix(propBelowLoFlowThreshByRiverWide %>% dplyr::select(-tag), nrow = nrow(propBelowLoFlowThreshByRiverWide), ncol = ncol(propBelowLoFlowThreshByRiverWide) - 1)
+  propBelowLoFlowThreshByRiverMatrix <- ifelse(is.finite(propBelowLoFlowThreshByRiverMatrix), propBelowLoFlowThreshByRiverMatrix, propBelowLoFlowThreshByRiverFill)
+  
+  propAboveHiFlowThreshByRiverFill <- 0
+  propAboveHiFlowThreshByRiverWide <- getEHDataWide_AIS(d, cols, ops, vals, "propAboveHiFlowThreshByRiver", maxOccasionValue, valuesFill = propAboveHiFlowThreshByRiverFill)
+  propAboveHiFlowThreshByRiverMatrix <- as.matrix(propAboveHiFlowThreshByRiverWide %>% dplyr::select(-tag), nrow = nrow(propAboveHiFlowThreshByRiverWide), ncol = ncol(propAboveHiFlowThreshByRiverWide) - 1)
+  propAboveHiFlowThreshByRiverMatrix <- ifelse(is.finite(propAboveHiFlowThreshByRiverMatrix), propAboveHiFlowThreshByRiverMatrix, propAboveHiFlowThreshByRiverFill)
+  
+  propBelowLoFlowThreshByArea_flowExtFill <- 0
+  propBelowLoFlowThreshByArea_flowExtWide <- getEHDataWide_AIS(d, cols, ops, vals, "propBelowLoFlowThreshByArea_flowExt", maxOccasionValue, valuesFill = propBelowLoFlowThreshByArea_flowExtFill)
+  propBelowLoFlowThreshByArea_flowExtMatrix <- as.matrix(propBelowLoFlowThreshByArea_flowExtWide %>% dplyr::select(-tag), nrow = nrow(propBelowLoFlowThreshByArea_flowExtWide), ncol = ncol(propBelowLoFlowThreshByArea_flowExtWide) - 1)
+  propBelowLoFlowThreshByArea_flowExtMatrix <- ifelse(is.finite(propBelowLoFlowThreshByArea_flowExtMatrix), propBelowLoFlowThreshByArea_flowExtMatrix, propBelowLoFlowThreshByArea_flowExtFill)
+  
+  propAboveHiFlowThreshByArea_flowExtFill <- 0
+  propAboveHiFlowThreshByArea_flowExtWide <- getEHDataWide_AIS(d, cols, ops, vals, "propAboveHiFlowThreshByArea_flowExt", maxOccasionValue, valuesFill = propAboveHiFlowThreshByArea_flowExtFill)
+  propAboveHiFlowThreshByArea_flowExtMatrix <- as.matrix(propAboveHiFlowThreshByArea_flowExtWide %>% dplyr::select(-tag), nrow = nrow(propAboveHiFlowThreshByArea_flowExtWide), ncol = ncol(propAboveHiFlowThreshByArea_flowExtWide) - 1)
+  propAboveHiFlowThreshByArea_flowExtMatrix <- ifelse(is.finite(propAboveHiFlowThreshByArea_flowExtMatrix), propAboveHiFlowThreshByArea_flowExtMatrix, propAboveHiFlowThreshByArea_flowExtFill)
+  
+  riverWide <- getEHDataWide_AIS(d, cols, ops, vals, "river", maxOccasionValue, valuesFill = NA)
+  riverMatrix <- as.matrix(riverWide %>% dplyr::select(-tag), nrow = nrow(riverWide), ncol = ncol(riverWide) - 1)
+  
+  riverNWide <- getEHDataWide_AIS(d, cols, ops, vals, "riverN", maxOccasionValue, valuesFill = 0)
+  riverNMatrix <- as.matrix(riverNWide %>% dplyr::select(-tag), nrow = nrow(riverNWide), ncol = ncol(riverNWide) - 1)
+  
+  sectionRiverNWide <- getEHDataWide_AIS(d, cols, ops, vals, "sectionRiverN", maxOccasionValue, valuesFill = NA)
+  sectionRiverNMatrix <- as.matrix(sectionRiverNWide %>% dplyr::select(-tag), nrow = nrow(sectionRiverNWide), ncol = ncol(sectionRiverNWide) - 1)
+  
+  isYOYWide <- getEHDataWide_AIS(d, cols, ops, vals, "isYOY", maxOccasionValue, valuesFill = 2)
+  isYOYMatrix <- as.matrix(isYOYWide %>% dplyr::select(-tag), nrow = nrow(isYOYWide), ncol = ncol(riverWide) - 1)
+  
+  lengthWide <- getEHDataWide_AIS(d, cols, ops, vals, "observedLength", maxOccasionValue, valuesFill = NA)
+  lengthMatrix <- as.matrix(lengthWide %>% dplyr::select(-tag), nrow = nrow(lengthWide), ncol = ncol(lengthWide) - 1)
+  
+  weightWide <- getEHDataWide_AIS(d, cols, ops, vals, "observedWeight", maxOccasionValue, valuesFill = NA)
+  weightMatrix <- as.matrix(weightWide %>% dplyr::select(-tag), nrow = nrow(weightWide), ncol = ncol(weightWide) - 1)
+  
+  sampleIntervalWide <- getEHDataWide_AIS(d, cols, ops, vals, "sampleInterval", maxOccasionValue, valuesFill = NA)
+  sampleIntervalMatrix <- as.matrix(sampleIntervalWide %>% dplyr::select(-tag), nrow = nrow(sampleIntervalWide), ncol = ncol(sampleIntervalWide) - 1)
+  
+  seasonWide <- getEHDataWide_AIS(d, cols, ops, vals, "season", maxOccasionValue, valuesFill = NA)
+  seasonMatrix <- as.matrix(seasonWide %>% dplyr::select(-tag), nrow = nrow(seasonWide), ncol = ncol(seasonWide) - 1)
+  
+  yearWide <- getEHDataWide_AIS(d, cols, ops, vals, "year", maxOccasionValue, valuesFill = NA)
+  yearMatrix <- as.matrix(yearWide %>% dplyr::select(-tag), nrow = nrow(yearWide), ncol = ncol(yearWide) - 1)
+  
+  tags <- encWide %>% dplyr::select(tag)
+  
+  data <- d %>%
+    ehFilter(cols, ops, vals) %>% 
+    #filter(ageInSamples > 0, ageInSamples <= maxOccasionValue) %>%
+    filter(ageInSamples %in% 1:maxOccasionValue) %>%
+    arrange(tag, ageInSamples)
+  
+  cohorts <- tags %>% left_join(data %>% dplyr::select(tag, cohort) %>% unique()) %>% dplyr::select(cohort)
+  seasons <- tags %>% left_join(data %>% dplyr::select(tag, season) %>% unique()) %>% dplyr::select(season)
+  species <- tags %>% left_join(data %>% dplyr::select(tag, species) %>% unique()) %>% dplyr::select(species)
+  
+  first <- apply(eh, 1, function(x) min(which(x != 0)))
+  last <- apply(riverMatrix, 1, function(x) max(which(!is.na(x))))
+  last <- ifelse(last == maxOccasionValue, last, last - 1) #commented out because this leads to first=last and backwards indexing. we have last[i]-1 in the model
+  
+  meanWeight_AIS <- d |> 
+    group_by(ageInSamples) |> 
+    summarize(meanWeight = mean(observedWeight, na.rm = TRUE))
+  
+  return(list(eh = eh, flow = flowMatrix, flowByRiver = flowByRiverMatrix, flowByArea_flowExt = flowByArea_flowExtMatrix, 
+              flowByArea_ByRiver = flowByArea_ByRiverMatrix, 
+              propBelowLoFlowThreshByRiver = propBelowLoFlowThreshByRiverMatrix, propAboveHiFlowThreshByRiver = propAboveHiFlowThreshByRiverMatrix,
+              propBelowLoFlowThreshByArea_flowExt = propBelowLoFlowThreshByArea_flowExtMatrix, propAboveHiFlowThreshByArea_flowExt = propAboveHiFlowThreshByArea_flowExtMatrix,
+              temperature = temperatureMatrix, river = riverMatrix, section = sectionRiverNMatrix,
+              riverN = riverNMatrix, isYOY = isYOYMatrix, length = lengthMatrix, weight = weightMatrix,
+              sampleInterval = sampleIntervalMatrix, season = seasonMatrix, year = yearMatrix,
+              tags = tags, cohorts = cohorts, seasons = seasons, species = species,
+              first = first, last = last, meanWeight_AIS = meanWeight_AIS, data = data))
+}
+
+# filter out fish that we caught for the first time on the last or 2nd to last occasion
+getEH_AIS_Filter_first <- function(dIn, cols, ops, vals, maxOccasionValue, maxIndexByCohort = 1E10){
+  
+  d <- dIn %>% 
+    #filter(ageInSamples > 0, ageInSamples <= maxOccasionValue)
+    filter(ageInSamples %in% 1:maxOccasionValue) |>
+    ehFilter(cols, ops, vals) |>
+    getMaxAISByCohort() |>
+    addFirstLastAIS() |>
+    removeFishLastPossibleAIS()
+  
+
+#> table(d2$cohort,d2$ageInSamples)
+
+#        1   2   3   4   5   6   7   8   9  10  11  12
+# 2002  44  44 139 193 204 212 218 218 219 219 220 220
+# 2003 111 145 185 239 256 259 261 262 263 263 263 263
+# 2004  61  75  85 152 165 169 172 173 174 174 174 174
+# 2005  29  43  50  59  66  68  68  68  68  68  68  68
+# 2006  60  90  99 119 121 121 122 124 125 125 125 125
+# 2007  38  64  71  88  89  93  93  93  93  93  94  94
+# 2008  40  61  67  72  75  80  81  82  82  82  82  82
+# 2009 193 281 332 458 488 499 501 503 503 504 504 505
+# 2010   8  18  28  39  44  47  47  48  48  48  48  48
+# 2011  22  31  35  35  36  37  37  38  38  38  38  38
+# 2012 266 391 440 500 520 525 525 526 527 527 527 527
+# 2013  54  77  79  86  89  89  89  89  89   0   0   0
+# 2014  91 134 148 177 177   0   0   0   0   0   0   0
+
+  
+      #filter(ageInSamples > 0, ageInSamples <= maxOccasionValue) %>%
+
+  #addFirstLast() 
+  #  filter(ageInSamples != maxOccasionValue, !isFirstObserved) # remove fish seen for the first time on the last occasion
   
   # Fish with no observed occasions
   neverCaptured <- getNeverCaptured(d, maxOccasionValue)
@@ -607,7 +810,7 @@ getEH_AIS <- function(dIn, cols, ops, vals, maxOccasionValue, maxIndexByCohort =
   
   first <- apply(eh, 1, function(x) min(which(x != 0)))
   last <- apply(riverMatrix, 1, function(x) max(which(!is.na(x))))
-  last <- ifelse(last == maxOccasionValue, last, last - 1)
+  last <- ifelse(last == maxOccasionValue, last, last - 1) #commented out because this leads to first=last and backwards indexing. we have last[i]-1 in the model
   
   meanWeight_AIS <- d |> 
     group_by(ageInSamples) |> 
