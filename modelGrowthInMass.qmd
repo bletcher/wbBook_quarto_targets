@@ -676,15 +676,36 @@ ggplot(cd1, aes(grLength, grWeight)) +
   theme_publication() +  
   facet_grid(seasonGG~speciesGG)
 
+ggplot(cd1, aes(grLength, grWeight)) +
+  geom_point(alpha = 0.02) +
+  guides(size = guide_legend(override.aes = list(alpha = 1))) +
+  labs(x = "Growth in length", y = "Growth in mass") +
+  scale_color_discrete() +
+  theme_publication() +  
+  facet_grid(seasonGG~speciesGG)
+
+plotGrLenMassBySeason <- function(d, speciesIn, seasonIn){
+  ggplot(d |> filter(species == speciesIn, seasonGG == seasonIn), aes(grLength, grWeight)) +
+    geom_point(alpha = 0.5) +
+    geom_vline(xintercept = 0) +
+    geom_hline(yintercept = 0) +
+    geom_smooth(method="lm", se=FALSE) +
+    guides(size = guide_legend(override.aes = list(alpha = 1))) +
+    labs(x = "Growth in length", y = "Growth in mass") +
+    scale_color_discrete() +
+    theme_publication(legendPosition = "right", legendDirection = "vertical") +
+    facet_wrap(~year, scales = 'free') 
+}
+
 plotGrLenMass <- function(d, s){
-  ggplot(cd1 |> filter(species==s), aes(grLength, grWeight, color = factor(year))) +
+  ggplot(d |> filter(species == s), aes(grLength, grWeight, color = factor(year))) +
     geom_point(alpha = 0.5) +
     geom_smooth(method="lm", se=FALSE) +
     guides(size = guide_legend(override.aes = list(alpha = 1))) +
     labs(x = "Growth in length", y = "Growth in mass") +
     scale_color_discrete() +
     theme_publication(legendPosition = "right", legendDirection = "vertical") +
-    facet_wrap(~seasonGG, scales = 'free')  
+    facet_grid(seasonGG~year, scales = 'free')  
 }
 #  facet_wrap(~year)
 ```
@@ -696,6 +717,11 @@ plotGrLenMass <- function(d, s){
 #| label: grLen_v_grWeight_bkt
 
 plotGrLenMass(cd1, "bkt")
+
+plotGrLenMassBySeason(cd1, "bkt", "Spring")
+plotGrLenMassBySeason(cd1, "bkt", "Summer")
+plotGrLenMassBySeason(cd1, "bkt", "Autumn")
+plotGrLenMassBySeason(cd1, "bkt", "Winter")
 ```
 
 #### Brown trout
@@ -704,6 +730,11 @@ plotGrLenMass(cd1, "bkt")
 #| label: grLen_v_grWeight_bnt
 
 plotGrLenMass(cd1, "bnt")
+
+plotGrLenMassBySeason(cd1, "bnt", "Spring")
+plotGrLenMassBySeason(cd1, "bnt", "Summer")
+plotGrLenMassBySeason(cd1, "bnt", "Autumn")
+plotGrLenMassBySeason(cd1, "bnt", "Winter")
 ```
 
 #### Atlantic salmon
@@ -712,6 +743,11 @@ plotGrLenMass(cd1, "bnt")
 #| label: grLen_v_grWeight_ats
 
 plotGrLenMass(cd1, "ats")
+
+plotGrLenMassBySeason(cd1, "ats", "Spring")
+plotGrLenMassBySeason(cd1, "ats", "Summer")
+plotGrLenMassBySeason(cd1, "ats", "Autumn")
+plotGrLenMassBySeason(cd1, "ats", "Winter")
 ```
 :::
 
@@ -916,6 +952,7 @@ ggplot(cd1 |> filter(!is.na(negGrowth), seasonGG == "Summer", speciesGG == "Broo
 ## Flow and temperature growth relationships
 
 ### Mean flow effect on growth?
+
 
 ```{r}
 #| label: flow_weight
@@ -1450,13 +1487,47 @@ cd1 |>
 ```{r}
 #| label: propModBKTData
 
+# propNegSRsN <- propNegSRsN |>
+#   mutate(
+#     mFZ = (mF - mean(mF, na.rm = TRUE))/sd(mF, na.rm = TRUE), 
+#     mF_log10Z = (mF_log10 - mean(mF_log10, na.rm = TRUE))/sd(mF_log10, na.rm = TRUE),  
+#     mTZ = (mT - mean(mT, na.rm = TRUE))/sd(mT, na.rm = TRUE),
+#     nIndZ = (nInd - mean(nInd, na.rm = TRUE))/sd(nInd, na.rm = TRUE)
+#   )
+
 propNegSRsN <- propNegSRsN |>
   mutate(
+    #mFZ = (mF - mean(mF, na.rm = TRUE))/sd(mF, na.rm = TRUE), 
+    #mF_log10Z = (mF_log10 - mean(mF_log10, na.rm = TRUE))/sd(mF_log10, na.rm = TRUE),  
+    #mTZ = (mT - mean(mT, na.rm = TRUE))/sd(mT, na.rm = TRUE),
+    #nIndZ = (nInd - mean(nInd, na.rm = TRUE))/sd(nInd, na.rm = TRUE)
+  ) |>
+  group_by(riverGG) |>
+  mutate( 
     mFZ = (mF - mean(mF, na.rm = TRUE))/sd(mF, na.rm = TRUE), 
     mF_log10Z = (mF_log10 - mean(mF_log10, na.rm = TRUE))/sd(mF_log10, na.rm = TRUE),  
     mTZ = (mT - mean(mT, na.rm = TRUE))/sd(mT, na.rm = TRUE),
     nIndZ = (nInd - mean(nInd, na.rm = TRUE))/sd(nInd, na.rm = TRUE)
-  )
+  ) |>
+  ungroup()
+
+
+propNegSRsN <- propNegSRsN |> filter(!(seasonGG == "Summer" & mTZ <0))
+
+```
+
+### Flow/temperature data
+```{r}
+#| label: propModBKT_flow_temp
+
+ggplot(propNegSRsN, aes(mTZ, mF_log10Z, color = riverGG), shape = riverGG) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Standardized stream temperature", y = "Standardized stream flow") +
+  theme_publication(base_size = 20) +
+  scale_color_discrete(drop = FALSE) +
+  facet_wrap(~seasonGG)
+
 
 ```
 
@@ -1498,6 +1569,7 @@ propModBKT15 <- lm(propNeg ~ (mTZ)^2, data = propNegSRsN |> filter(speciesGG == 
 
 propModAIC <- AIC(propModBKT1, propModBKT2, propModBKT3, propModBKT4, propModBKT5, propModBKT6, propModBKT7, propModBKT8, propModBKT9, propModBKT10, propModBKT11, propModBKT12, propModBKT13, propModBKT14, propModBKT15) |>  arrange(AIC)
 
+propModAIC
 # q: return the model with the lowest AIC? 
 
 #summary(rownames(propModAIC)[1])
@@ -1509,8 +1581,8 @@ get(rownames(propModAIC)[1])
 predPropNeg0 <- 
   expand.grid(
     mF_log10Z = seq(-1.5,1.5,0.25), 
-    #mTZ = seq(-1.5,1.5,0.25), 
-    #nIndZ = seq(-1.5,1.5,0.25),
+    mTZ = seq(-1.5,1.5,0.25), 
+    nIndZ = seq(-1.5,1.5,0.25),
     riverGG = unique(propNegSRsN$riverGG), 
     seasonGG= unique(propNegSRsN$seasonGG)
   ) |>
@@ -1525,7 +1597,7 @@ predPropNeg <-
 #
 ggplot(predPropNeg, aes(mF_log10Z, pred, color = seasonGG)) +
   geom_line() +
-  facet_grid(~riverGG)
+  facet_wrap(~riverGG)
 
 # 
 ```
@@ -1568,6 +1640,7 @@ propModBNT15 <- lm(propNeg ~ (mTZ)^2, data = propNegSRsN |> filter(speciesGG == 
 
 propModAIC <- AIC(propModBNT1, propModBNT2, propModBNT3, propModBNT4, propModBNT5, propModBNT6, propModBNT7, propModBNT8, propModBNT9, propModBNT10, propModBNT11, propModBNT12, propModBNT13, propModBNT14, propModBNT15) |>  arrange(AIC)
 
+propModAIC
 # q: return the model with the lowest AIC? 
 
 #summary(rownames(propModAIC)[1])
@@ -1616,6 +1689,7 @@ propModATS15 <- lm(propNeg ~ (mTZ)^2, data = propNegSRsN |> filter(speciesGG == 
 
 propModAIC <- AIC(propModATS1, propModATS2, propModATS3, propModATS4, propModATS5, propModATS6, propModATS7, propModATS8, propModATS9, propModATS10, propModATS11, propModATS12, propModATS13, propModATS14, propModATS15) |>  arrange(AIC)
 
+propModAIC
 # q: return the model with the lowest AIC? 
 
 #summary(rownames(propModAIC)[1])
@@ -3057,7 +3131,7 @@ negGr_seenNotSeenCD = cd |>
   filter(!is.na(negGrowth), n > 5)
 
 
-negGr_seenNotSeenCD_wide <- negGr_seenNotSeenCD |> ungroup() |> select(-meanGR) |> spread(lastInterval, n, fill = 0) |>
+negGr_seenNotSeenCD_wide <- negGr_seenNotSeenCD |> ungroup() |> dplyr::select(-meanGR) |> spread(lastInterval, n, fill = 0) |>
   mutate(
     ratio = `TRUE`/`FALSE`, 
     propNotSeenAgain = `TRUE`/(`FALSE` + `TRUE`),
@@ -3079,7 +3153,7 @@ ggplot(negGr_seenNotSeenCD_wide |> filter(seasonGG %in% c("Summer","Autumn"), ri
   geom_col(position = "dodge") +
   geom_hline(yintercept = 1, linetype = "dashed") +
   geom_text(aes(label = n), vjust = 0, nudge_y = +0.075, check_overlap = TRUE, size = 4) +
-  labs(y = "PNumber of fish not seen again / number of fish seen again", x = "Growth in mass") +
+  labs(y = "Number of fish not seen again / number of fish seen again", x = "Growth in mass") +
   theme_publication(base_size = 18) +    
   facet_grid(seasonGG~speciesGG)
 ```

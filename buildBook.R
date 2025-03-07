@@ -33,8 +33,8 @@ quarto::quarto_render("modelsCMR_NN_SIM.qmd",
 
 quarto::quarto_render("getDataElectroDataRelease.qmd", output_format = "html")#, cache_refresh = TRUE)
 
-quarto::quarto_render("getDataElectro.qmd", 
-                      cache_refresh = TRUE,
+quarto::quarto_render("modelGrowthInMass.qmd", 
+                      #cache_refresh = TRUE,
                       output_format = "html")
 
 # working chapter
