@@ -684,19 +684,6 @@ ggplot(cd1, aes(grLength, grWeight)) +
   theme_publication() +  
   facet_grid(seasonGG~speciesGG)
 
-plotGrLenMassBySeason <- function(d, speciesIn, seasonIn){
-  ggplot(d |> filter(species == speciesIn, seasonGG == seasonIn), aes(grLength, grWeight)) +
-    geom_point(alpha = 0.5) +
-    geom_vline(xintercept = 0) +
-    geom_hline(yintercept = 0) +
-    geom_smooth(method="lm", se=FALSE) +
-    guides(size = guide_legend(override.aes = list(alpha = 1))) +
-    labs(x = "Growth in length", y = "Growth in mass") +
-    scale_color_discrete() +
-    theme_publication(legendPosition = "right", legendDirection = "vertical") +
-    facet_wrap(~year, scales = 'free') 
-}
-
 plotGrLenMass <- function(d, s){
   ggplot(d |> filter(species == s), aes(grLength, grWeight, color = factor(year))) +
     geom_point(alpha = 0.5) +
@@ -706,6 +693,20 @@ plotGrLenMass <- function(d, s){
     scale_color_discrete() +
     theme_publication(legendPosition = "right", legendDirection = "vertical") +
     facet_grid(seasonGG~year, scales = 'free')  
+}
+
+plotGrLenMassBySeason <- function(d, speciesIn, seasonIn){
+  ggplot(d |> filter(species == speciesIn, seasonGG == seasonIn), aes(grLength, grWeight)) +
+    geom_point(alpha = 0.5) +
+    geom_vline(xintercept = 0) +
+    geom_hline(yintercept = 0) +
+    geom_smooth(method="lm", se=FALSE) +
+    guides(size = guide_legend(override.aes = list(alpha = 1))) +
+    labs(x = "Growth in length", y = "Growth in mass") +
+    scale_color_discrete() +
+    #theme_publication(legendPosition = "right", legendDirection = "vertical") +
+    ggtitle(seasonIn) +
+    facet_wrap(~year, scales = 'free') 
 }
 #  facet_wrap(~year)
 ```
@@ -750,6 +751,60 @@ plotGrLenMassBySeason(cd1, "ats", "Autumn")
 plotGrLenMassBySeason(cd1, "ats", "Winter")
 ```
 :::
+
+```{r}
+#| label: get_intercepts
+
+getIntercepts <- function(d){
+  library(broom)
+  
+  d |> 
+    group_by(speciesGG, seasonGG, year) |> 
+    nest() |> 
+    mutate(
+      model = map(data, ~{
+        if(nrow(.x) >= 2) {
+          tryCatch(
+            lm(grWeight ~ grLength, data = .x),
+            error = function(e) NULL
+          )
+        } else {
+          NULL
+        }
+      }),
+      tidy_model = map(model, ~{
+        if(!is.null(.x)) {
+          tidy(.x)
+        } else {
+          NULL
+        }
+      })
+    ) |> 
+    select(speciesGG, seasonGG, year, tidy_model) |> 
+    unnest(tidy_model) |> 
+    pivot_wider(names_from = term, values_from = estimate) |>
+    rename(intercept = `(Intercept)`, slope = grLength) 
+    #filter(term == "(Intercept)") |> 
+    #select(speciesGG, seasonGG, year, intercept = estimate)
+}
+
+grLgrWIntercepts <- getIntercepts(cd1)
+
+
+ggplot(grLgrWIntercepts, aes(intercept, color = seasonGG)) +
+  geom_vline(xintercept = 0, color = "darkgrey") +
+  geom_density(adjust = 1.5) +
+  scale_color_discrete() +
+  facet_wrap(~speciesGG)
+
+ggplot(grLgrWIntercepts, aes(slope, color = seasonGG)) +
+  geom_vline(xintercept = 0, color = "darkgrey") +
+  geom_density(adjust = 1.5) +
+  scale_color_discrete() +
+  facet_grid(~speciesGG)
+```
+
+
 
 No relationship between means of neg and pos growth
 
