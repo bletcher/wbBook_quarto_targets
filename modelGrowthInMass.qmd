@@ -668,13 +668,8 @@ ggplot(cd1Wide_grWeight |> filter(speciesGG == "Brook trout", cohort %in% 2000:2
 
 ```{r}
 #| label: grLen_v_grWeight
-ggplot(cd1, aes(grLength, grWeight)) +
-  geom_point(aes(size = observedWeight), alpha = 0.02) +
-  guides(size = guide_legend(override.aes = list(alpha = 1))) +
-  labs(x = "Growth in length", y = "Growth in mass") +
-  scale_color_discrete() +
-  theme_publication() +  
-  facet_grid(seasonGG~speciesGG)
+#| cache: FALSE
+library(tidyverse)
 
 ggplot(cd1, aes(grLength, grWeight)) +
   geom_point(alpha = 0.02) +
@@ -717,7 +712,7 @@ plotGrLenMassBySeason <- function(d, speciesIn, seasonIn){
 ```{r}
 #| label: grLen_v_grWeight_bkt
 
-plotGrLenMass(cd1, "bkt")
+#plotGrLenMass(cd1, "bkt")
 
 plotGrLenMassBySeason(cd1, "bkt", "Spring")
 plotGrLenMassBySeason(cd1, "bkt", "Summer")
@@ -730,7 +725,7 @@ plotGrLenMassBySeason(cd1, "bkt", "Winter")
 ```{r}
 #| label: grLen_v_grWeight_bnt
 
-plotGrLenMass(cd1, "bnt")
+#plotGrLenMass(cd1, "bnt")
 
 plotGrLenMassBySeason(cd1, "bnt", "Spring")
 plotGrLenMassBySeason(cd1, "bnt", "Summer")
@@ -743,7 +738,7 @@ plotGrLenMassBySeason(cd1, "bnt", "Winter")
 ```{r}
 #| label: grLen_v_grWeight_ats
 
-plotGrLenMass(cd1, "ats")
+#plotGrLenMass(cd1, "ats")
 
 plotGrLenMassBySeason(cd1, "ats", "Spring")
 plotGrLenMassBySeason(cd1, "ats", "Summer")
@@ -763,7 +758,7 @@ getIntercepts <- function(d){
     nest() |> 
     mutate(
       model = map(data, ~{
-        if(nrow(.x) >= 2) {
+        if(nrow(.x) >= 10) {
           tryCatch(
             lm(grWeight ~ grLength, data = .x),
             error = function(e) NULL
@@ -780,7 +775,7 @@ getIntercepts <- function(d){
         }
       })
     ) |> 
-    select(speciesGG, seasonGG, year, tidy_model) |> 
+    dplyr::select(speciesGG, seasonGG, year, tidy_model) |> 
     unnest(tidy_model) |> 
     pivot_wider(names_from = term, values_from = estimate) |>
     rename(intercept = `(Intercept)`, slope = grLength) 
