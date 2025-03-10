@@ -88,6 +88,72 @@ d$runTime
   
 ```
 
+
+```{r}
+#| label: get_MCMCSummary_OB
+
+MCMCsummary(object = d$mcmc, params = c(
+        #"phiIntT", 
+        "phiIntTOut", 
+        "p", 
+        "grIntT", 
+        "phiBetaT",
+        "sumWeightZ01",
+        "sumZ01"
+      ), round = 3) %>%
+      rownames_to_column(var = "var")
+
+sumWeightZ01ByCohortS <- MCMCsummary(object = d$mcmc, params = c(
+        "sumWeightZ01ByCohort"
+      ), round = 3) %>%
+  rownames_to_column(var = "var")|>
+  mutate(
+    cohort0 = var |>
+      str_extract("\\[(\\d+),") %>%           # Changed to match number before comma
+      str_remove_all("\\[|,") %>%             # Remove [ and comma
+      as.numeric(),
+    ais = var |>
+      str_extract(",\\s*(\\d+)\\]") %>%
+      str_remove_all(",|\\s|\\]") %>%
+      as.numeric(),
+    cohort = cohort0 + cohorts[1]
+  )
+
+sumZ01ByCohortS <- MCMCsummary(object = d$mcmc, params = c(
+        "sumZ01ByCohort"
+      ), round = 3) %>%
+  rownames_to_column(var = "var") |>
+  mutate(
+    cohort0 = var |>
+      str_extract("\\[(\\d+),") %>%           # Changed to match number before comma
+      str_remove_all("\\[|,") %>%             # Remove [ and comma
+      as.numeric(),
+    ais = var |>
+      str_extract(",\\s*(\\d+)\\]") %>%
+      str_remove_all(",|\\s|\\]") %>%
+      as.numeric(),
+    cohort = cohort0 + cohorts[1]
+  )
+```
+
+
+```{r}
+#| label: get_MCMCSummary_OB_plots
+
+ggplot(sumZ01ByCohortS, aes(ais, mean, group = cohort, color = cohort)) +
+  geom_line(aes(linetype = factor(cohort))) +
+  labs(#title = "sumZ01 by cohort and age in samples",
+       x = "Age in samples",
+       y = "Estimated number of fish alive")
+
+ggplot(sumWeightZ01ByCohortS, aes(ais, mean, group = cohort, color = cohort)) +
+  geom_line(aes(linetype = factor(cohort))) +
+  labs(#title = "sumZ01 by cohort and age in samples",
+       x = "Age in samples",
+       y = "Estimated sum of fish mass")
+```
+
+
 ## By Cohort, modelNum **2**: phi(i,t) \* g(i,t), p(i,t) model
 
 
