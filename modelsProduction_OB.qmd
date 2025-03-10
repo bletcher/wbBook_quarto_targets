@@ -47,6 +47,7 @@ By cohort:
 
 all <- tar_read(cdWB_electro_target)
 table(all %>% filter(river == "wb obear")|> dplyr::select(ageInSamples))
+table(all %>% filter(river == "wb obear")|> dplyr::select(cohort,ageInSamples))
 
 cohorts <- 2002:2014
 
@@ -60,9 +61,10 @@ cohorts <- 2002:2014
 
 # all cohorts have the same code for a given model. show model code for one of them here
 load('./models/production/runsOut/production_OB_model_1_mostRecent.RData') # WILL NEED TO CHANGE TO MOST RECENT
-load('./models/production/runsOut/production_OB_model_2_2025-02-28 19.RData')
+#load('./models/production/runsOut/production_OB_model_2_2025-02-28 19.RData')
 
 d$modelCode
+d$runTime
 
 ```
 
