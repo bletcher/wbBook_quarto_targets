@@ -33,6 +33,8 @@ Raw antenna data from the WB database (see [get data info chapter](https://bletc
 deploy <- tar_read(antennaDeployment_target)
 str(deploy)
 #write.csv(deploy, file = "./data/outForDownload/antenna/deploy.csv")
+#
+table(deploy$riverOrdered, deploy$riverMeter)
 ```
 
 ### Antenna log
@@ -40,6 +42,8 @@ str(deploy)
 log <- tar_read(antennaLog_target)
 str(log)
 #write.csv(log, file = "./data/outForDownload/antenna/log.csv")
+
+table(log$riverMeter,log$reader_id)
 ```
 
 
@@ -71,6 +75,32 @@ str(cdWB_antenna0)
 # write.csv(cdWB_antenna0, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_antenna0.csv")
 # Save rData file for downloading
 # save(cdWB_antenna0, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_antenna0.RData")
-table(cdWB_antenna0$riverMeter, cdWB_antenna0$river, cdWB_antenna0$survey)
+table(cdWB_antenna0$riverMeter, cdWB_antenna0$riverOrdered, cdWB_antenna0$survey)
+```
+
+### Update antenna names  
+Todd created a file `antennaLocationsHistory_correctionsAntennaNaming.xlsx` that has the updated names for the antennas. Names follow river_rkm format.  Merge in updated names below.  
+```{r}
+#| label: updateAntennaNames
+
+antennaNames <- read.csv("./data/in/antennaLocationsHistory_correctionsAntennaNaming.csv") |>
+  # remove left multiplexor anntenna names for now
+  filter(!(antennaName %in% c(
+    "WB_A1_RL_4259.55",
+    #"WB_A1_RR_4259.55",
+    "WB_A2_RL_4263.95"
+    #"WB_A2_RR_4263.95"
+  )))
+antennaNames
+
+cdWB_antenna <- cdWB_antenna0 |>
+  left_join(antennaNames) |>
+  dplyr::select(-survey, -sex, -river, -drainage)
+
+# Save csv for downloading
+# write.csv(cdWB_antenna, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_antenna.csv")
+# Save rData file for downloading
+# save(cdWB_antenna, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_antenna.RData")
+table(cdWB_antenna$riverMeter, cdWB_antenna$riverOrdered, cdWB_antenna$survey)
 ```
 

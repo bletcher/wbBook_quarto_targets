@@ -1,0 +1,231 @@
+
+## Sawmill, Shorey, Catamaran data
+```{r}
+#| label: getElectroNonWBDataOptionsDataRelease
+#| include: false
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
+```{r}
+#| label: librariesGetElectroDataDataRelease
+#| echo: false
+#library(devtools)
+#options(download.file.method = "wininet") or turn off VPN
+#devtools::install_github('Conte-Ecology/westBrookData/getWBData')
+library(getWBData)
+library(tidyverse)
+library(lubridate)
+library(targets)
+
+# devtools::install_github('bletcher/getPrepareWBData')
+# use this if command above doesn't work: options(download.file.method = "wininet")
+#library(getPrepareWBData)
+```
+
+Data are generated in `R/getDataAll_noWB_targets.R` [file](https://github.com/bletcher/wbBook_quarto_targets/blob/main/R/getDataAll_noWB_targets.R)  
+
+## Get data target  
+Select variables for data release
+```{r}
+#| label: getNoWBDataDataRelease
+#| cache: false
+
+library(targets)
+cdNoWB_all0 <- tar_read(cdNoWB_all_target)
+
+str(cdNoWB_all0)
+
+```
+
+## Data checks  
+
+```{r}
+#| label: getNoWBDataSummary
+
+table(cdNoWB_all0$drainage, cdNoWB_all0$river)
+
+countTags <- cdNoWB_all0 |>
+  group_by(tagNumber, survey) |>
+  summarize(count = n(), river = unique(riverTagged))
+  
+ggplot(countTags |> filter(survey %in% c("ANTENNA","NIGHT SEINE", "SHOCK", "SMOLT TRAP" ), river != ""), aes(count, fill = survey)) +
+  geom_histogram() +
+  scale_x_log10("Count per individual") +
+  facet_grid(survey~river, scales = "free")
+```
+
+## Data checks  
+
+```{r}
+#| label: getNoWBDatLW_Summary
+#| 
+ggplot(cdNoWB_all0, aes(observedLength, observedMass)) +
+  geom_point() +
+  facet_wrap(~river)
+
+cdNoWB_all <- cdNoWB_all0 |> 
+  filter(!(observedLength < 100 & observedMass > 25)) |>
+  filter(!(observedLength > 150 & observedMass < 10))
+
+ggplot(cdNoWB_all, aes(observedLength, observedMass)) +
+  geom_point() +
+  facet_wrap(~river)
+
+```
+
+## Summary data
+```{r}
+#| label: summaryTables
+#| 
+table(cdNoWB_all$river, cdNoWB_all$survey)
+
+table(cdNoWB_all$river, cdNoWB_all$species)
+
+table(cdNoWB_all$river, cdNoWB_all$season)
+
+table(cdNoWB_all$river, cdNoWB_all$sampleNumber)
+
+table(cdNoWB_all$river, cdNoWB_all$area)
+```
+
+Antenna sections from Shorey are missing from this that are text (A3, A4, SECTION -6 ANTENNA, TEMPORARY ANTENNA)
+```{r}
+#| label: summaryTables2
+table(cdNoWB_all$river, as.numeric(cdNoWB_all$section))
+```
+
+Some formatting/filtering
+```{r}
+#| label: moreFiltering
+
+cdNoWB_all <- cdNoWB_all |>
+  mutate(
+    source = tolower(source),
+    source = ifelse(source == "sawmill river", "sawmill", source),
+    sampleType = tolower(sampleType),
+    survey = tolower(survey),
+    area = tolower(area),
+    estimatedYearOfStocking = tolower(estimatedYearOfStocking),
+    aliveDead = tolower(aliveDead)
+  )
+
+```
+
+## Save files for outputting
+```{r}
+# Save csv for downloading
+# write.csv(cdNoWB_all, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/out/dataRelease/cdNoWB_all_DR.csv")
+
+# Save rData file for downloading
+# save(cdNoWB_all, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdNoWB_all.RData")
+# 
+```
+
+
+## Metadata
+
+#### Column explanations
+__id__ Unique row ID from the original datasets.  
+
+__source__ `shorey` = non-antenna data from shorey, `antenna tags` = antenna data from shorey,  `catamaran` = all data from catamaran, `sawmill` = all data from sawmill  
+
+__sampleType__ `shorey` = non-antenna data from shorey, `stationary 1001` = antenna data from shorey, `stationary 2001` = antenna data from shorey, `catamaran` = all data from catamaran, `shorey`. The field is blank for sawmill.    
+
+__drainage__ `catamaran` = Catamaran Brook drainage, `sawmill` = Sawmill River drainage, `shorey` = Shorey Brook drainage.  
+
+__species__  
+`bkt` = brook trout (*Salvelinus fontinalis*, native, self-sustaining population)  
+`bnt` = brown trout (*Salmo trutta*, non-native, self-sustaining population)  
+`ats` = Atlantic salmon (*Salmo salar*, stocked as fry in sawmill and shorey, natural reproduction in catamaran)
+`splake` = splake (*Salvelinus namaycush X Salvelinus fontinalis*, hybrid of brook and lake trout - only in shorey)  
+
+__river__ Same as __drainage__.    
+
+__survey__ `antenna` = antenna data from shorey, `cc` = x from shorey `lf` = x from shorey, `night seine` = night seining from sawmill and shorey, `shock` = electroshocking sample, `smolt trap` = smolt trap data for salmon from catamaran and shorey.    
+
+__tag__ PIT tag number, unique identifier, character. Tags are 12-mm, full duplex.    
+
+__firstSeen__ Binary variable for whether the occasion is the first observation (1) or the fish, or not (0).  
+ 
+__lastSeen__ Binary variable for whether the occasion is the last observation (1) or the fish, or not (0).   
+
+__sampleNumber__ An identifier for the consecturitve sample number for each river.  
+
+__section__ Identifier for the 20m section where the fish was captured. This is ordered from downstream to upstream starting at 1 for the bottom of the main study area.  
+
+__area__ `inside` = primary study area for each river. `above` and `above above` are sections above the main study area, `below` and `below below` are sections below the main study area, `antenna` are antenna sections  , `smolt trap` and `smolt trap new` represent the  smolt trap areas.    
+
+__sampleName__ Represents the sample name for the sample and is a combination of "fish age"_"season number"_"season name".  
+
+__season__ `Fall`, `Fall2` = second fall sample in shorey, `July` = July in shorey, `PostSmolt` = after the smolt sample, `PreSmolt` = before the smolt sample, `PreWinter` = before winter, `Smolt` = the smolt trap sample, `Summer`.  
+
+__everEmMain__ Binary variable for whether the fish was ever observed in the main study area (1) or not (0).  
+
+__riverTagged__ The river in whcih the fish was tagged.  
+
+__areaTagged__ The area in which the fish was tagged.  
+
+__riverKM__ River kilometer from the bottom of the study river.  
+
+__date__ Date of observation. POSIXct format.  
+
+__medianSampleDate__ Median date of the sampling occasion. POSIXct format.  
+
+__fishNumber__ The consecutive fish number for each section and sample during sampling.  
+
+__recap__ Binary variable for whether the fish was recaptured ("Y") or not ("0").  
+
+__yearOfStocking__ Year of stocking when stocking occured.  
+
+__estimatedYearOfStocking__ Whether the year of stocking was estimated from fish length or not.   
+
+__age__ Age of the fish in years.  
+
+__observedLength__ Fish fork length in mm (+/-1 mm).  
+
+__observedLength2__ Observed length lagged forward one observation for consecutive capture occasions. NA if not observed.  
+
+__grLength__ Growth rate in length. (observedLength2 - observedLength) / sampleInterval (days).   
+
+__grOstrovskyLength__ Growth rate in length after accounting for allometry. Based on Ostrovsky 1995.    
+
+__observedMass__ Fish wet mass in g (+/- 0.1 g).  
+
+__predMass__ Whether mass was prdicted from length ("Yes") or measured ("No").  
+
+__observedMass2__ Observed mass lagged forward one observation for consecutive capture occasions. NA if not observed.
+
+__grMass__ 'Instantaneous' growth rate in mass. ln(lagObservedMass - observedMass) / sampleInterval.  
+
+__grOstrovskyMass__ Growth rate in length after accounting for allometry. Based on Ostrovsky 1995.    
+
+__grInterval__ Number of days between consecutive capture occasions.  
+
+__cf__ Condition factor. (observedMass / observedMass^3) * 100.  
+
+__mature__ Whether the fish was mature ("P") or not ("NP"). "P" stands for "precocious".  
+
+__everMat__ Whether the fish was ever mature at any observation ("P") or not ("empty").  
+
+__geneticSample__ Whether the fish was sampled for genetic analysis ("Y") or not ("N").  
+
+__readerID__ PIT antenna reader ID for shorey data.  
+
+__aliveDead__ `alive-moved` = returned alive to the stream in a new location, `alive-sample` = returned alive to the stream, `alive-sampled` = returned alive to the stream, `alive-samplemort` = mortality during workup.  
+
+__antInstance__ PIT antenna instance number for individual fish.  
+
+__pass__ Electrofishing pass 1, 2 or 3, 0 for antennas.  
+
+__effort__ Electrofishing effort in seconds.  
+
+__comment__ Comments from the field crew during sampling.  
+
+__quarterWidth__ Width of the quarter in meters.  
+
+__quarterLength__ Length of the quarter in meters.  
+
+
+
+
+

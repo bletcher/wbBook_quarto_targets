@@ -47,7 +47,10 @@ book:
         - modelFlow.qmd
         - modelConditionFactor.qmd
         - modelGrowthInMass.qmd
-        - modelsProduction_OB.qmd
+    - part: "Production models"
+      chapters: 
+        - modelsProduction_CJS_OB.qmd
+        - modelsProduction_JS_OB.qmd
     - part: "Neural network/CMR model comparison"
       chapters: 
         - modelsCMR_NN_SIM.qmd
