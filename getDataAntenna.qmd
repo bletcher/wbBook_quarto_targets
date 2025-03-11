@@ -101,6 +101,6 @@ cdWB_antenna <- cdWB_antenna0 |>
 # write.csv(cdWB_antenna, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_antenna.csv")
 # Save rData file for downloading
 # save(cdWB_antenna, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdWB_antenna.RData")
-table(cdWB_antenna$riverMeter, cdWB_antenna$riverOrdered, cdWB_antenna$survey)
+table(cdWB_antenna$riverMeter, cdWB_antenna$riverOrdered)
 ```
 
