@@ -19,9 +19,10 @@ library(ggplot2)
 #source('./R/generalFunctions.R') #to get global_labeller_WB
 ```
 
-Visualize the targets network
+### Visualize the targets network
 ```{r}
 #| label: vizTargets
 
 tar_visnetwork()
 ```
+

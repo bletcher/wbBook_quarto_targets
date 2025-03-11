@@ -1,5 +1,8 @@
 tar_option_set(packages = c("tidyverse", "lubridate", "getWBData"))
 
+
+tmp=data.frame(tbl(conDplyr,"raw_tags_antenna"))
+
 dataAntenna_target <-
   tar_plan(
     cdWB_antenna0_target = createCoreData(
@@ -11,6 +14,7 @@ dataAntenna_target <-
           "survey",
       #"section",
           "readerID",
+         # "antenna_name",
           "comments"
         )
       ) %>%  

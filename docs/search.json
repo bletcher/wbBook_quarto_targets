@@ -985,5 +985,49 @@
       "Neural network/CMR model comparison",
       "<span class='chapter-number'>22</span>  <span class='chapter-title'>River 4 (IS) - CJS - growth model</span>"
     ]
+  },
+  {
+    "objectID": "modelsProduction_JS_OB.html",
+    "href": "modelsProduction_JS_OB.html",
+    "title": "20  Production model Abundance model - river 4 (IS)",
+    "section": "",
+    "text": "20.0.1 How many ageInSamples to include?\nCode\nall &lt;- tar_read(cdWB_electro_target)\ntable(all %&gt;% filter(river == \"wb obear\")|&gt; dplyr::select(ageInSamples))\n\n\nageInSamples\n   0    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15 \n1308 1890 1007  837 1486  875  446  298  444  159  155   57   47   17   16    3 \n  16   18 \n   3    3 \n\n\nCode\ntable(all %&gt;% filter(river == \"wb obear\")|&gt; dplyr::select(cohort,ageInSamples))\n\n\n      ageInSamples\ncohort   0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  18\n  1999   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0\n  2000   0   0   0   0   0   0   0   0  19  10   0   6   3   1   1   1   1   0\n  2001   0   0   0   0  79  73   0  58  48  22  14  15   8   3   3   1   1   3\n  2002  73 131   0 120 137  83  35  59  41  13  33   6   3   1   7   1   1   0\n  2003 104 147  52 118 129  86  49  50  56  22  73   5   6   4   3   0   0   0\n  2004   3  95   0  44 109  62 100  18  28  17   8   4   6   4   1   0   0   0\n  2005  46  54  42  18  31  32  14   5   4   1   0   0   0   0   1   0   0   0\n  2006  21  73  61  27  60  33  16   9   9   5   2   0   0   0   0   0   0   0\n  2007  28  49  46  26  52  28  25   5   6   3   2   2   0   0   0   0   0   0\n  2008  11  44  52  21  28  14  18   8  14   1   2   1   1   0   0   0   0   0\n  2009  44 310 213 154 225 122  84  38  63  18  11  14   5   0   0   0   0   0\n  2010  89  36  28  13  21  16  12  11   5   2   0   0   0   0   0   0   0   0\n  2011   8  21  22  24   9  11   8   4   5   0   0   0   0   0   0   0   0   0\n  2012 167 307 319 197 196 142  72  28  39  20  10   4   4   3   0   0   0   0\n  2013  17  67  63  18  33  24  13   5  10   3   0   0   0   0   0   0   0   0\n  2014  31 168 109  57 100  73   0   0  17   0   0   0   0   0   0   0   0   0\n  2015 395 295   0   0 113   0   0   0   1   0   0   0   0   0   0   0   0   0\n  2016 157   0   0   0  56   0   0   0   4   5   0   0   6   0   0   0   0   0\n  2017   6   0   0   0  28  36   0   0  10   0   0   0   3   0   0   0   0   0\n  2018  45  16   0   0  21   0   0   0  53   2   0   0   1   1   0   0   0   0\n  2019  51   0   0   0   2  19   0   0  12  15   0   0   0   0   0   0   0   0\n  2020  12  44   0   0  57  21   0   0   0   0   0   0   0   0   0   0   0   0\n  2021   0  33   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0\n\n\nCode\ncohorts &lt;- 2002:2014",
+    "crumbs": [
+      "Production models",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Production model Abundance model - river 4 (IS)</span>"
+    ]
+  },
+  {
+    "objectID": "modelsProduction_JS_OB.html#all-cohorts-modelnum-1-phiitc-gitc-pit-model",
+    "href": "modelsProduction_JS_OB.html#all-cohorts-modelnum-1-phiitc-gitc-pit-model",
+    "title": "20  Production model Abundance model - river 4 (IS)",
+    "section": "20.1 All Cohorts, modelNum 1: phi(i,t,c) * g(i,t,c), p(i,t) model",
+    "text": "20.1 All Cohorts, modelNum 1: phi(i,t,c) * g(i,t,c), p(i,t) model",
+    "crumbs": [
+      "Production models",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Production model Abundance model - river 4 (IS)</span>"
+    ]
+  },
+  {
+    "objectID": "modelsProduction_JS_OB.html#by-cohort-modelnum-2-phiit-git-pit-model",
+    "href": "modelsProduction_JS_OB.html#by-cohort-modelnum-2-phiit-git-pit-model",
+    "title": "20  Production model Abundance model - river 4 (IS)",
+    "section": "20.2 By Cohort, modelNum 2: phi(i,t) * g(i,t), p(i,t) model",
+    "text": "20.2 By Cohort, modelNum 2: phi(i,t) * g(i,t), p(i,t) model\nUsing model #3 from modelsCMR_Growth_NN_OB.qmd as a staring point for the models, but adapting the model by\nProb not 1) Extending AgeInSamples from 1-11 to 1-x to allow bigger fish to be present for the production estimates.\nProb not 2) Loop over first[i]:lastAIS so fish have the chance to survive to large size.\n\nModel with phi and p for each age-in-samples (t = column in the encounter history file) and individual (i)\nProbability of survival (phi) model structure:\n      logit(phi[i,t]) &lt;- \n        phiInt[i,t] + \n        phiBeta[1,i,t] * weight[i,t] \nProbability of capture (p) model structure:\np(t,i) &lt;- pInt(t,i)\nGrowth rate (gr) model structure:\ngr(t,i) &lt;- grInt(t)\nSurvival/growth rate interaction:\nMultiplicative\nModel runs:",
+    "crumbs": [
+      "Production models",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Production model Abundance model - river 4 (IS)</span>"
+    ]
+  },
+  {
+    "objectID": "modelsProduction_JS_OB.html#by-cohort-modelnum-3-phiit-git2-pit-model",
+    "href": "modelsProduction_JS_OB.html#by-cohort-modelnum-3-phiit-git2-pit-model",
+    "title": "20  Production model Abundance model - river 4 (IS)",
+    "section": "20.3 By Cohort, modelNum 3: phi(i,t) * g(i,t)^2, p(i,t) model",
+    "text": "20.3 By Cohort, modelNum 3: phi(i,t) * g(i,t)^2, p(i,t) model\nUsing model #3 from modelsCMR_Growth_NN_OB.qmd as a staring point for the models, but adapting the model by\nProb not 1) Extending AgeInSamples from 1-11 to 1-x to allow bigger fish to be present for the production estimates.\nProb not 2) Loop over first[i]:lastAIS so fish have the chance to survive to large size.\n\nModel with phi and p for each age-in-samples (t = column in the encounter history file) and individual (i)\nProbability of survival (phi) model structure:\n      logit(phi[i,t]) &lt;- \n        phiInt[i,t] + \n        phiBeta[1,i,t] * weight[i,t] + \n        phiBeta[2,i,t] * weight[i,t] * weight[i,t] \nProbability of capture (p) model structure:\np(t,i) &lt;- pInt(t,i)\nGrowth rate (gr) model structure:\ngr(t,i) &lt;- grInt(t)\nSurvival/growth rate interaction:\nMultiplicative\nModel runs:\n\n\n20.3.1 Retrieve model results\n\n\nCode\nlibrary(targets)\nlibrary(nimble)\n# Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html\n# \n# \n\n# To get the mMCMCSummaryRMNA funcion which I adapted to deal with NAs\n#source('./models/production/modelProduction_JS_OB_functionsToSource.R')\n#source('./models/production/qmdProduction_JS_OB_functionsToSource.R')\n\nmodelNum &lt;- 3 # phi * growth",
+    "crumbs": [
+      "Production models",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Production model Abundance model - river 4 (IS)</span>"
+    ]
   }
 ]

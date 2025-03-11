@@ -641,7 +641,7 @@ getEH_AIS <- function(dIn, cols, ops, vals, maxOccasionValue, maxIndexByCohort =
   species <- tags %>% left_join(data %>% dplyr::select(tag, species) %>% unique()) %>% dplyr::select(species)
   
   first <- apply(eh, 1, function(x) min(which(x != 0)))
-  last <- apply(riverMatrix, 1, function(x) max(which(!is.na(x))))
+  last <- apply(riverMatrix, 1, function(x) max(which(!is.na(x)))) # riverMatrix fills in river values between frist and last
   last <- ifelse(last == maxOccasionValue, last, last - 1) #commented out because this leads to first=last and backwards indexing. we have last[i]-1 in the model
   
   meanWeight_AIS <- d |> 
