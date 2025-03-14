@@ -1,0 +1,163 @@
+# Production model Abundance model - river 4 (IS)
+
+Simple JS model integrated with a growth in weight model to get phi, p, and growth estimates to develop a production model. The CJS model in modelProduction_CJS_OB.qmd was used to test out the combined mass/survival model. here here take from that .qmd page and run abundance models that start at ageInSamples 1 (or 0). So we can estimate biomass for all fish estimated to be alive for any occasion.  
+
+In all the models below, 1 = not observed and 2 = observed in the input *encounter data*.\
+Encounter data are available [here](https://drive.google.com/drive/folders/1UmPv49xL-mzUBndqjRISylNO3q3Zs-cm) in the `eh.csv` file. Weight data are in `weight.csv`
+
+```{r}
+#| label: librariesModelsNimbleProduction
+#| echo: false
+library(getWBData)
+library(lubridate)
+library(kableExtra)
+library(GGally)
+library(nimble)
+library(nimbleEcology)
+library(MCMCvis)
+library(tidyverse)
+library(targets)
+
+library(shiny)
+library(tibble)
+```
+
+```{r}
+#| label: globalModelsNimbleProduction
+#| include: false
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+TO DO:
+
+1) Evaluate need to run full all-cohort models vs. cohort-specific models.\
+
+2) Evaluate first or second order quadratic models (model 2 0r 3).  
+
+3) We are going to build off of the OB models here by  
+  - CJS -> JS in OB
+  - OB JS model to WB by adding **species** and **movement* among rivers. Could run species models separately  
+  
+  
+
+
+All target files are in `./R`. From `getDataElectro_targets.R` we have the following target files: cdWB_electro_target.  
+
+Encounter history files come from `dataCMR_OB_2002_2014_target` or `dataCMR_OB_singleCohorts_target` in `getDataCMR_targets.R`  
+`getEH_AIS()` is the main function to create the CMR list.  
+
+Run the model with `run_production_OB_model()` which is in `./R/modelProduction_JS_OB_functionsToSource.R`
+
+
+
+Model code is in `./models/production/modelProduction_JS_OB_functionsToSource.R`\
+Model is run 'by hand' in `./models/modelProduction_JS_OB_makeFile.R`\
+Functions for this qmd file in `./models/qmdProduction_JS_OB_functionsToSource.R`\
+
+There are **3** models here:
+All cohorts:  
+  model **1**, with quadratic weight effect on phi
+By cohort:  
+  model **2**, with linear weight effect on phi
+  model **3**, with quadratic weight effect on phi
+
+### How many ageInSamples to include?
+
+```{r}
+#| label: production
+
+all <- tar_read(cdWB_electro_target)
+table(all %>% filter(river == "wb obear")|> dplyr::select(ageInSamples))
+table(all %>% filter(river == "wb obear")|> dplyr::select(cohort,ageInSamples))
+
+cohorts <- 2002:2014
+
+```
+
+## All Cohorts, modelNum **1**: phi(i,t,c) \* g(i,t,c), p(i,t) model
+
+
+## By Cohort, modelNum **2**: phi(i,t) \* g(i,t), p(i,t) model
+
+
+Using model #3 from `modelsCMR_Growth_NN_OB.qmd` as a staring point for the models, but adapting the model by\
+Prob not 1) Extending AgeInSamples from 1-11 to 1-x to allow bigger fish to be present for the production estimates.  
+Prob not 2) Loop over first\[i\]:lastAIS so fish have the chance to survive to large size.\
+
+
+Model with phi and p for each age-in-samples (t = column in the encounter history file) and individual (i)
+
+Probability of survival (phi) model structure:
+
+```         
+      logit(phi[i,t]) <- 
+        phiInt[i,t] + 
+        phiBeta[1,i,t] * weight[i,t] 
+```
+
+Probability of capture (p) model structure:
+
+p(t,i) \<- pInt(t,i)
+
+Growth rate (gr) model structure:
+
+gr(t,i) \<- grInt(t)
+
+Survival/growth rate interaction:
+
+Multiplicative
+
+Model runs:\
+
+## By Cohort, modelNum **3**: phi(i,t) \* g(i,t)^2, p(i,t) model
+
+
+Using model #3 from `modelsCMR_Growth_NN_OB.qmd` as a staring point for the models, but adapting the model by\
+Prob not 1) Extending AgeInSamples from 1-11 to 1-x to allow bigger fish to be present for the production estimates.  
+Prob not 2) Loop over first\[i\]:lastAIS so fish have the chance to survive to large size.\
+
+
+Model with phi and p for each age-in-samples (t = column in the encounter history file) and individual (i)
+
+Probability of survival (phi) model structure:
+
+```         
+      logit(phi[i,t]) <- 
+        phiInt[i,t] + 
+        phiBeta[1,i,t] * weight[i,t] + 
+        phiBeta[2,i,t] * weight[i,t] * weight[i,t] 
+```
+
+Probability of capture (p) model structure:
+
+p(t,i) \<- pInt(t,i)
+
+Growth rate (gr) model structure:
+
+gr(t,i) \<- grInt(t)
+
+Survival/growth rate interaction:
+
+Multiplicative
+
+Model runs:\
+
+### Retrieve model results
+
+```{r}
+#| label: productionSource_3
+#| cache: false
+library(targets)
+library(nimble)
+# Following https://oliviergimenez.github.io/bayesian-cr-workshop/worksheets/4_demo.html
+# 
+# 
+
+# To get the mMCMCSummaryRMNA funcion which I adapted to deal with NAs
+#source('./models/production/modelProduction_JS_OB_functionsToSource.R')
+#source('./models/production/qmdProduction_JS_OB_functionsToSource.R')
+
+modelNum <- 3 # phi * growth
+```
+
+

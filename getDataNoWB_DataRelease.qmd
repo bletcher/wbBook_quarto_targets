@@ -31,7 +31,13 @@ Select variables for data release
 #| cache: false
 
 library(targets)
-cdNoWB_all0 <- tar_read(cdNoWB_all_target)
+cdNoWB_all0 <- tar_read(cdNoWB_all_target) |>
+  mutate(
+    date = mdy(date),
+    medianSampleDate = mdy(medianSampleDate)
+  )
+
+#cdNoWB_all0[2,]
 
 str(cdNoWB_all0)
 
@@ -45,7 +51,7 @@ str(cdNoWB_all0)
 table(cdNoWB_all0$drainage, cdNoWB_all0$river)
 
 countTags <- cdNoWB_all0 |>
-  group_by(tagNumber, survey) |>
+  group_by(tag, survey) |>
   summarize(count = n(), river = unique(riverTagged))
   
 ggplot(countTags |> filter(survey %in% c("ANTENNA","NIGHT SEINE", "SHOCK", "SMOLT TRAP" ), river != ""), aes(count, fill = survey)) +
@@ -71,7 +77,17 @@ ggplot(cdNoWB_all, aes(observedLength, observedMass)) +
   geom_point() +
   facet_wrap(~river)
 
+str(cdNoWB_all)
 ```
+
+Date range
+```{r}
+#| label: dataRange
+#|
+min(cdNoWB_all$date)
+max(cdNoWB_all$date)
+```
+
 
 ## Summary data
 ```{r}
@@ -86,6 +102,7 @@ table(cdNoWB_all$river, cdNoWB_all$season)
 table(cdNoWB_all$river, cdNoWB_all$sampleNumber)
 
 table(cdNoWB_all$river, cdNoWB_all$area)
+
 ```
 
 Antenna sections from Shorey are missing from this that are text (A3, A4, SECTION -6 ANTENNA, TEMPORARY ANTENNA)
@@ -149,7 +166,7 @@ __firstSeen__ Binary variable for whether the occasion is the first observation 
  
 __lastSeen__ Binary variable for whether the occasion is the last observation (1) or the fish, or not (0).   
 
-__sampleNumber__ An identifier for the consecturitve sample number for each river.  
+__sampleNumber__ An identifier for the consecutive sample number for each river.  
 
 __section__ Identifier for the 20m section where the fish was captured. This is ordered from downstream to upstream starting at 1 for the bottom of the main study area.  
 
@@ -161,7 +178,7 @@ __season__ `Fall`, `Fall2` = second fall sample in shorey, `July` = July in shor
 
 __everEmMain__ Binary variable for whether the fish was ever observed in the main study area (1) or not (0).  
 
-__riverTagged__ The river in whcih the fish was tagged.  
+__riverTagged__ The river in which the fish was tagged.  
 
 __areaTagged__ The area in which the fish was tagged.  
 
@@ -175,7 +192,7 @@ __fishNumber__ The consecutive fish number for each section and sample during sa
 
 __recap__ Binary variable for whether the fish was recaptured ("Y") or not ("0").  
 
-__yearOfStocking__ Year of stocking when stocking occured.  
+__yearOfStocking__ Year of stocking when stocking occurred.  
 
 __estimatedYearOfStocking__ Whether the year of stocking was estimated from fish length or not.   
 
@@ -191,7 +208,7 @@ __grOstrovskyLength__ Growth rate in length after accounting for allometry. Base
 
 __observedMass__ Fish wet mass in g (+/- 0.1 g).  
 
-__predMass__ Whether mass was prdicted from length ("Yes") or measured ("No").  
+__predMass__ Whether mass was predicted from length ("Yes") or measured ("No").  
 
 __observedMass2__ Observed mass lagged forward one observation for consecutive capture occasions. NA if not observed.
 
@@ -217,7 +234,7 @@ __antInstance__ PIT antenna instance number for individual fish.
 
 __pass__ Electrofishing pass 1, 2 or 3, 0 for antennas.  
 
-__effort__ Electrofishing effort in seconds.  
+__effort__ Electrofishing effort in seconds for each pass.  
 
 __comment__ Comments from the field crew during sampling.  
 

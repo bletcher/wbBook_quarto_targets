@@ -442,10 +442,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>cdNoWB_all0 <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cdNoWB_all_target)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cdNoWB_all0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>cdNoWB_all0 <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cdNoWB_all_target) <span class="sc">|&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> <span class="fu">mdy</span>(date),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">medianSampleDate =</span> <span class="fu">mdy</span>(medianSampleDate)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#cdNoWB_all0[2,]</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cdNoWB_all0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   24525 obs. of  47 variables:
@@ -468,8 +475,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  $ riverTagged            : chr  "SHOREY BROOK" "SHOREY BROOK" "SHOREY BROOK" "SHOREY BROOK" ...
  $ areaTagged             : chr  "INSIDE" "INSIDE" "INSIDE" "INSIDE" ...
  $ riverKM                : num  1565 1639 1639 720 680 ...
- $ date                   : chr  "6/6/2001" "9/14/2001" "10/20/2001" "11/30/2001" ...
- $ medianSampleDate       : chr  "6/6/2001" "9/14/2001" "10/20/2001" "" ...
+ $ date                   : Date, format: "2001-06-06" "2001-09-14" ...
+ $ medianSampleDate       : Date, format: "2001-06-06" "2001-09-14" ...
  $ fishNumber             : int  2 3 5 NA 2 5 2 2 11 1 ...
  $ recap                  : chr  "N" "N" "Y" "" ...
  $ yearOfStocking         : int  2000 2001 2001 2001 1999 1998 2000 2000 2000 2000 ...
@@ -516,7 +523,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>countTags <span class="ot">&lt;-</span> cdNoWB_all0 <span class="sc">|&gt;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(tagNumber, survey) <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(tag, survey) <span class="sc">|&gt;</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">count =</span> <span class="fu">n</span>(), <span class="at">river =</span> <span class="fu">unique</span>(riverTagged))</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(countTags <span class="sc">|&gt;</span> <span class="fu">filter</span>(survey <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"ANTENNA"</span>,<span class="st">"NIGHT SEINE"</span>, <span class="st">"SHOCK"</span>, <span class="st">"SMOLT TRAP"</span> ), river <span class="sc">!=</span> <span class="st">""</span>), <span class="fu">aes</span>(count, <span class="at">fill =</span> survey)) <span class="sc">+</span></span>
@@ -566,6 +573,78 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cdNoWB_all)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   22190 obs. of  47 variables:
+ $ id                     : int  3995029 3995969 3996609 7470638 3998096 3992189 3993072 3994601 3995019 3995462 ...
+ $ source                 : chr  "SHOREY" "SHOREY" "SHOREY" "ANTENNA TAGS" ...
+ $ sampleType             : chr  "SHOREY" "SHOREY" "SHOREY" "STATIONARY 2001" ...
+ $ drainage               : chr  "shorey" "shorey" "shorey" "shorey" ...
+ $ species                : chr  "BKT" "ATS" "ATS" "ATS" ...
+ $ river                  : chr  "shorey brook" "shorey brook" "shorey brook" "shorey brook" ...
+ $ survey                 : chr  "SHOCK" "SHOCK" "SHOCK" "ANTENNA" ...
+ $ tag                    : chr  "1BF0DDB13E" "1BF0DDB143" "1BF0DDB143" "1BF0DDB143" ...
+ $ firstSeen              : int  1 1 0 0 1 1 1 0 0 0 ...
+ $ lastSeen               : int  1 0 0 1 1 1 0 0 0 0 ...
+ $ sampleNumber           : num  11 13 14 0 17 3 6 9 11 12 ...
+ $ section                : chr  "8" "12" "12" "TEMPORARY ANTENNA" ...
+ $ area                   : chr  "INSIDE" "INSIDE" "INSIDE" "ANTENNA" ...
+ $ sampleName             : chr  "1_3_POSTSMOLT" "0_6_FALL" "0_7_FALL2" "0_7_FALL2ANT" ...
+ $ season                 : chr  "PostSmolt" "Fall" "Fall2" "Fall2" ...
+ $ everEmMain             : chr  "NO" "YES" "YES" "YES" ...
+ $ riverTagged            : chr  "SHOREY BROOK" "SHOREY BROOK" "SHOREY BROOK" "SHOREY BROOK" ...
+ $ areaTagged             : chr  "INSIDE" "INSIDE" "INSIDE" "INSIDE" ...
+ $ riverKM                : num  1565 1639 1639 720 680 ...
+ $ date                   : Date, format: "2001-06-06" "2001-09-14" ...
+ $ medianSampleDate       : Date, format: "2001-06-06" "2001-09-14" ...
+ $ fishNumber             : int  2 3 5 NA 2 5 2 2 11 1 ...
+ $ recap                  : chr  "N" "N" "Y" "" ...
+ $ yearOfStocking         : int  2000 2001 2001 2001 1999 1998 2000 2000 2000 2000 ...
+ $ estimatedYearOfStocking: chr  "YES" "NO" "NO" "NO" ...
+ $ age                    : int  1 0 0 0 3 2 0 1 1 1 ...
+ $ observedLength         : int  94 70 70 70 141 120 65 69 79 86 ...
+ $ observedLength2        : int  NA 70 NA NA NA NA NA 79 86 86 ...
+ $ grLen                  : num  NA 0 NA NA NA ...
+ $ grOstrovskyLength      : num  NA 0 NA NA NA ...
+ $ observedMass           : num  9 3.7 3.6 3.6 25.2 ...
+ $ predMass               : chr  "No" "No" "No" "No" ...
+ $ observedMass2          : num  NA 3.6 NA NA NA NA NA 5.4 7 7 ...
+ $ grMass                 : num  NA -0.000761 NA NA NA ...
+ $ grInterval             : int  NA 36 NA -41 NA NA NA 33 58 41 ...
+ $ cf                     : num  0.1084 0.1079 0.105 NA 0.0899 ...
+ $ mature                 : chr  "NP" "NP" "NP" "" ...
+ $ everMat                : chr  "" "" "" "" ...
+ $ geneticSample          : chr  "Y" "Y" "N" "" ...
+ $ readerID               : chr  NA NA NA "-13" ...
+ $ aliveDead              : chr  "ALIVE-SAMPLED" "ALIVE-SAMPLED" "ALIVE-SAMPLED" "ALIVE-MOVED" ...
+ $ antInstance            : int  NA NA NA 1 NA NA NA NA NA NA ...
+ $ pass                   : int  1 1 2 0 NA 1 1 1 2 1 ...
+ $ effort                 : int  552 406 265 NA NA 446 314 675 303 NA ...
+ $ comment                : chr  "0" "0" "0" "" ...
+ $ quarterWidth           : num  5.9 3.2 3.5 NA NA 5.3 5.6 7.1 5.9 4.4 ...
+ $ quarterLength          : int  7 5 5 NA NA 5 7 7 7 7 ...</code></pre>
+</div>
+</div>
+<p>Date range</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(cdNoWB_all<span class="sc">$</span>date)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "1998-05-04"</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(cdNoWB_all<span class="sc">$</span>date)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2004-05-29"</code></pre>
+</div>
 </div>
 </section>
 <section id="summary-data" class="level2" data-number="9.4">
@@ -573,7 +652,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdNoWB_all<span class="sc">$</span>river, cdNoWB_all<span class="sc">$</span>survey)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdNoWB_all<span class="sc">$</span>river, cdNoWB_all<span class="sc">$</span>survey)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 
@@ -584,7 +663,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdNoWB_all<span class="sc">$</span>river, cdNoWB_all<span class="sc">$</span>species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdNoWB_all<span class="sc">$</span>river, cdNoWB_all<span class="sc">$</span>species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 
@@ -595,7 +674,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdNoWB_all<span class="sc">$</span>river, cdNoWB_all<span class="sc">$</span>season)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdNoWB_all<span class="sc">$</span>river, cdNoWB_all<span class="sc">$</span>season)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 
@@ -611,7 +690,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdNoWB_all<span class="sc">$</span>river, cdNoWB_all<span class="sc">$</span>sampleNumber)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdNoWB_all<span class="sc">$</span>river, cdNoWB_all<span class="sc">$</span>sampleNumber)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 
@@ -632,7 +711,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdNoWB_all<span class="sc">$</span>river, cdNoWB_all<span class="sc">$</span>area)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdNoWB_all<span class="sc">$</span>river, cdNoWB_all<span class="sc">$</span>area)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 
@@ -651,7 +730,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdNoWB_all<span class="sc">$</span>river, <span class="fu">as.numeric</span>(cdNoWB_all<span class="sc">$</span>section))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdNoWB_all<span class="sc">$</span>river, <span class="fu">as.numeric</span>(cdNoWB_all<span class="sc">$</span>section))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 
@@ -720,16 +799,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>cdNoWB_all <span class="ot">&lt;-</span> cdNoWB_all <span class="sc">|&gt;</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">source =</span> <span class="fu">tolower</span>(source),</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">source =</span> <span class="fu">ifelse</span>(source <span class="sc">==</span> <span class="st">"sawmill river"</span>, <span class="st">"sawmill"</span>, source),</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sampleType =</span> <span class="fu">tolower</span>(sampleType),</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">survey =</span> <span class="fu">tolower</span>(survey),</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">area =</span> <span class="fu">tolower</span>(area),</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">estimatedYearOfStocking =</span> <span class="fu">tolower</span>(estimatedYearOfStocking),</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">aliveDead =</span> <span class="fu">tolower</span>(aliveDead)</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>cdNoWB_all <span class="ot">&lt;-</span> cdNoWB_all <span class="sc">|&gt;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">source =</span> <span class="fu">tolower</span>(source),</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">source =</span> <span class="fu">ifelse</span>(source <span class="sc">==</span> <span class="st">"sawmill river"</span>, <span class="st">"sawmill"</span>, source),</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sampleType =</span> <span class="fu">tolower</span>(sampleType),</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">survey =</span> <span class="fu">tolower</span>(survey),</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">area =</span> <span class="fu">tolower</span>(area),</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">estimatedYearOfStocking =</span> <span class="fu">tolower</span>(estimatedYearOfStocking),</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">aliveDead =</span> <span class="fu">tolower</span>(aliveDead)</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -738,12 +817,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save csv for downloading</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(cdNoWB_all, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/out/dataRelease/cdNoWB_all_DR.csv")</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Save rData file for downloading</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># save(cdNoWB_all, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdNoWB_all.RData")</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save csv for downloading</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(cdNoWB_all, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/out/dataRelease/cdNoWB_all_DR.csv")</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Save rData file for downloading</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># save(cdNoWB_all, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdNoWB_all.RData")</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -764,20 +843,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>tag</strong> PIT tag number, unique identifier, character. Tags are 12-mm, full duplex.</p>
 <p><strong>firstSeen</strong> Binary variable for whether the occasion is the first observation (1) or the fish, or not (0).</p>
 <p><strong>lastSeen</strong> Binary variable for whether the occasion is the last observation (1) or the fish, or not (0).</p>
-<p><strong>sampleNumber</strong> An identifier for the consecturitve sample number for each river.</p>
+<p><strong>sampleNumber</strong> An identifier for the consecutive sample number for each river.</p>
 <p><strong>section</strong> Identifier for the 20m section where the fish was captured. This is ordered from downstream to upstream starting at 1 for the bottom of the main study area.</p>
 <p><strong>area</strong> <code>inside</code> = primary study area for each river. <code>above</code> and <code>above above</code> are sections above the main study area, <code>below</code> and <code>below below</code> are sections below the main study area, <code>antenna</code> are antenna sections , <code>smolt trap</code> and <code>smolt trap new</code> represent the smolt trap areas.</p>
 <p><strong>sampleName</strong> Represents the sample name for the sample and is a combination of “fish age”<em>“season number”</em>”season name”.</p>
 <p><strong>season</strong> <code>Fall</code>, <code>Fall2</code> = second fall sample in shorey, <code>July</code> = July in shorey, <code>PostSmolt</code> = after the smolt sample, <code>PreSmolt</code> = before the smolt sample, <code>PreWinter</code> = before winter, <code>Smolt</code> = the smolt trap sample, <code>Summer</code>.</p>
 <p><strong>everEmMain</strong> Binary variable for whether the fish was ever observed in the main study area (1) or not (0).</p>
-<p><strong>riverTagged</strong> The river in whcih the fish was tagged.</p>
+<p><strong>riverTagged</strong> The river in which the fish was tagged.</p>
 <p><strong>areaTagged</strong> The area in which the fish was tagged.</p>
 <p><strong>riverKM</strong> River kilometer from the bottom of the study river.</p>
 <p><strong>date</strong> Date of observation. POSIXct format.</p>
 <p><strong>medianSampleDate</strong> Median date of the sampling occasion. POSIXct format.</p>
 <p><strong>fishNumber</strong> The consecutive fish number for each section and sample during sampling.</p>
 <p><strong>recap</strong> Binary variable for whether the fish was recaptured (“Y”) or not (“0”).</p>
-<p><strong>yearOfStocking</strong> Year of stocking when stocking occured.</p>
+<p><strong>yearOfStocking</strong> Year of stocking when stocking occurred.</p>
 <p><strong>estimatedYearOfStocking</strong> Whether the year of stocking was estimated from fish length or not.</p>
 <p><strong>age</strong> Age of the fish in years.</p>
 <p><strong>observedLength</strong> Fish fork length in mm (+/-1 mm).</p>
@@ -785,7 +864,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>grLength</strong> Growth rate in length. (observedLength2 - observedLength) / sampleInterval (days).</p>
 <p><strong>grOstrovskyLength</strong> Growth rate in length after accounting for allometry. Based on Ostrovsky 1995.</p>
 <p><strong>observedMass</strong> Fish wet mass in g (+/- 0.1 g).</p>
-<p><strong>predMass</strong> Whether mass was prdicted from length (“Yes”) or measured (“No”).</p>
+<p><strong>predMass</strong> Whether mass was predicted from length (“Yes”) or measured (“No”).</p>
 <p><strong>observedMass2</strong> Observed mass lagged forward one observation for consecutive capture occasions. NA if not observed.</p>
 <p><strong>grMass</strong> ‘Instantaneous’ growth rate in mass. ln(lagObservedMass - observedMass) / sampleInterval.</p>
 <p><strong>grOstrovskyMass</strong> Growth rate in length after accounting for allometry. Based on Ostrovsky 1995.</p>
@@ -798,7 +877,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>aliveDead</strong> <code>alive-moved</code> = returned alive to the stream in a new location, <code>alive-sample</code> = returned alive to the stream, <code>alive-sampled</code> = returned alive to the stream, <code>alive-samplemort</code> = mortality during workup.</p>
 <p><strong>antInstance</strong> PIT antenna instance number for individual fish.</p>
 <p><strong>pass</strong> Electrofishing pass 1, 2 or 3, 0 for antennas.</p>
-<p><strong>effort</strong> Electrofishing effort in seconds.</p>
+<p><strong>effort</strong> Electrofishing effort in seconds for each pass.</p>
 <p><strong>comment</strong> Comments from the field crew during sampling.</p>
 <p><strong>quarterWidth</strong> Width of the quarter in meters.</p>
 <p><strong>quarterLength</strong> Length of the quarter in meters.</p>
@@ -1404,235 +1483,253 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb22" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sawmill, Shorey, Catamaran data</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: getElectroNonWBDataOptionsDataRelease</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">message =</span> <span class="cn">FALSE</span>, <span class="at">warning =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: librariesGetElectroDataDataRelease</span></span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="co">#library(devtools)</span></span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="co">#options(download.file.method = "wininet") or turn off VPN</span></span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="co">#devtools::install_github('Conte-Ecology/westBrookData/getWBData')</span></span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(getWBData)</span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
-<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a><span class="co"># devtools::install_github('bletcher/getPrepareWBData')</span></span>
-<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a><span class="co"># use this if command above doesn't work: options(download.file.method = "wininet")</span></span>
-<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a><span class="co">#library(getPrepareWBData)</span></span>
-<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>Data are generated in <span class="in">`R/getDataAll_noWB_targets.R`</span> <span class="co">[</span><span class="ot">file</span><span class="co">](https://github.com/bletcher/wbBook_quarto_targets/blob/main/R/getDataAll_noWB_targets.R)</span>  </span>
-<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## Get data target  </span></span>
-<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>Select variables for data release</span>
-<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: getNoWBDataDataRelease</span></span>
-<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: false</span></span>
-<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
-<span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a>cdNoWB_all0 <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cdNoWB_all_target)</span>
-<span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cdNoWB_all0)</span>
-<span id="cb22-42"><a href="#cb22-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-43"><a href="#cb22-43" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-44"><a href="#cb22-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-45"><a href="#cb22-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data checks  </span></span>
-<span id="cb22-46"><a href="#cb22-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-49"><a href="#cb22-49" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-50"><a href="#cb22-50" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: getNoWBDataSummary</span></span>
-<span id="cb22-51"><a href="#cb22-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-52"><a href="#cb22-52" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdNoWB_all0<span class="sc">$</span>drainage, cdNoWB_all0<span class="sc">$</span>river)</span>
-<span id="cb22-53"><a href="#cb22-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-54"><a href="#cb22-54" aria-hidden="true" tabindex="-1"></a>countTags <span class="ot">&lt;-</span> cdNoWB_all0 <span class="sc">|&gt;</span></span>
-<span id="cb22-55"><a href="#cb22-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(tagNumber, survey) <span class="sc">|&gt;</span></span>
-<span id="cb22-56"><a href="#cb22-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">count =</span> <span class="fu">n</span>(), <span class="at">river =</span> <span class="fu">unique</span>(riverTagged))</span>
-<span id="cb22-57"><a href="#cb22-57" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb22-58"><a href="#cb22-58" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(countTags <span class="sc">|&gt;</span> <span class="fu">filter</span>(survey <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"ANTENNA"</span>,<span class="st">"NIGHT SEINE"</span>, <span class="st">"SHOCK"</span>, <span class="st">"SMOLT TRAP"</span> ), river <span class="sc">!=</span> <span class="st">""</span>), <span class="fu">aes</span>(count, <span class="at">fill =</span> survey)) <span class="sc">+</span></span>
-<span id="cb22-59"><a href="#cb22-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb22-60"><a href="#cb22-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="st">"Count per individual"</span>) <span class="sc">+</span></span>
-<span id="cb22-61"><a href="#cb22-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(survey<span class="sc">~</span>river, <span class="at">scales =</span> <span class="st">"free"</span>)</span>
-<span id="cb22-62"><a href="#cb22-62" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-63"><a href="#cb22-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-64"><a href="#cb22-64" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data checks  </span></span>
-<span id="cb22-65"><a href="#cb22-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-68"><a href="#cb22-68" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-69"><a href="#cb22-69" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: getNoWBDatLW_Summary</span></span>
-<span id="cb22-70"><a href="#cb22-70" aria-hidden="true" tabindex="-1"></a><span class="co">#| </span></span>
-<span id="cb22-71"><a href="#cb22-71" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cdNoWB_all0, <span class="fu">aes</span>(observedLength, observedMass)) <span class="sc">+</span></span>
-<span id="cb22-72"><a href="#cb22-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb22-73"><a href="#cb22-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>river)</span>
-<span id="cb22-74"><a href="#cb22-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-75"><a href="#cb22-75" aria-hidden="true" tabindex="-1"></a>cdNoWB_all <span class="ot">&lt;-</span> cdNoWB_all0 <span class="sc">|&gt;</span> </span>
-<span id="cb22-76"><a href="#cb22-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(observedLength <span class="sc">&lt;</span> <span class="dv">100</span> <span class="sc">&amp;</span> observedMass <span class="sc">&gt;</span> <span class="dv">25</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb22-77"><a href="#cb22-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(observedLength <span class="sc">&gt;</span> <span class="dv">150</span> <span class="sc">&amp;</span> observedMass <span class="sc">&lt;</span> <span class="dv">10</span>))</span>
-<span id="cb22-78"><a href="#cb22-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-79"><a href="#cb22-79" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cdNoWB_all, <span class="fu">aes</span>(observedLength, observedMass)) <span class="sc">+</span></span>
-<span id="cb22-80"><a href="#cb22-80" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb22-81"><a href="#cb22-81" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>river)</span>
-<span id="cb22-82"><a href="#cb22-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-83"><a href="#cb22-83" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-84"><a href="#cb22-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-85"><a href="#cb22-85" aria-hidden="true" tabindex="-1"></a><span class="fu">## Summary data</span></span>
-<span id="cb22-88"><a href="#cb22-88" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-89"><a href="#cb22-89" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: summaryTables</span></span>
-<span id="cb22-90"><a href="#cb22-90" aria-hidden="true" tabindex="-1"></a><span class="co">#| </span></span>
-<span id="cb22-91"><a href="#cb22-91" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdNoWB_all<span class="sc">$</span>river, cdNoWB_all<span class="sc">$</span>survey)</span>
-<span id="cb22-92"><a href="#cb22-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-93"><a href="#cb22-93" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdNoWB_all<span class="sc">$</span>river, cdNoWB_all<span class="sc">$</span>species)</span>
-<span id="cb22-94"><a href="#cb22-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-95"><a href="#cb22-95" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdNoWB_all<span class="sc">$</span>river, cdNoWB_all<span class="sc">$</span>season)</span>
-<span id="cb22-96"><a href="#cb22-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-97"><a href="#cb22-97" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdNoWB_all<span class="sc">$</span>river, cdNoWB_all<span class="sc">$</span>sampleNumber)</span>
-<span id="cb22-98"><a href="#cb22-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-99"><a href="#cb22-99" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdNoWB_all<span class="sc">$</span>river, cdNoWB_all<span class="sc">$</span>area)</span>
-<span id="cb22-100"><a href="#cb22-100" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-101"><a href="#cb22-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-102"><a href="#cb22-102" aria-hidden="true" tabindex="-1"></a>Antenna sections from Shorey are missing from this that are text (A3, A4, SECTION -6 ANTENNA, TEMPORARY ANTENNA)</span>
-<span id="cb22-105"><a href="#cb22-105" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-106"><a href="#cb22-106" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: summaryTables2</span></span>
-<span id="cb22-107"><a href="#cb22-107" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdNoWB_all<span class="sc">$</span>river, <span class="fu">as.numeric</span>(cdNoWB_all<span class="sc">$</span>section))</span>
-<span id="cb22-108"><a href="#cb22-108" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-109"><a href="#cb22-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-110"><a href="#cb22-110" aria-hidden="true" tabindex="-1"></a>Some formatting/filtering</span>
-<span id="cb22-113"><a href="#cb22-113" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-114"><a href="#cb22-114" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: moreFiltering</span></span>
-<span id="cb22-115"><a href="#cb22-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-116"><a href="#cb22-116" aria-hidden="true" tabindex="-1"></a>cdNoWB_all <span class="ot">&lt;-</span> cdNoWB_all <span class="sc">|&gt;</span></span>
-<span id="cb22-117"><a href="#cb22-117" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb22-118"><a href="#cb22-118" aria-hidden="true" tabindex="-1"></a>    <span class="at">source =</span> <span class="fu">tolower</span>(source),</span>
-<span id="cb22-119"><a href="#cb22-119" aria-hidden="true" tabindex="-1"></a>    <span class="at">source =</span> <span class="fu">ifelse</span>(source <span class="sc">==</span> <span class="st">"sawmill river"</span>, <span class="st">"sawmill"</span>, source),</span>
-<span id="cb22-120"><a href="#cb22-120" aria-hidden="true" tabindex="-1"></a>    <span class="at">sampleType =</span> <span class="fu">tolower</span>(sampleType),</span>
-<span id="cb22-121"><a href="#cb22-121" aria-hidden="true" tabindex="-1"></a>    <span class="at">survey =</span> <span class="fu">tolower</span>(survey),</span>
-<span id="cb22-122"><a href="#cb22-122" aria-hidden="true" tabindex="-1"></a>    <span class="at">area =</span> <span class="fu">tolower</span>(area),</span>
-<span id="cb22-123"><a href="#cb22-123" aria-hidden="true" tabindex="-1"></a>    <span class="at">estimatedYearOfStocking =</span> <span class="fu">tolower</span>(estimatedYearOfStocking),</span>
-<span id="cb22-124"><a href="#cb22-124" aria-hidden="true" tabindex="-1"></a>    <span class="at">aliveDead =</span> <span class="fu">tolower</span>(aliveDead)</span>
-<span id="cb22-125"><a href="#cb22-125" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb22-126"><a href="#cb22-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-127"><a href="#cb22-127" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-128"><a href="#cb22-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-129"><a href="#cb22-129" aria-hidden="true" tabindex="-1"></a><span class="fu">## Save files for outputting</span></span>
-<span id="cb22-132"><a href="#cb22-132" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-133"><a href="#cb22-133" aria-hidden="true" tabindex="-1"></a><span class="co"># Save csv for downloading</span></span>
-<span id="cb22-134"><a href="#cb22-134" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(cdNoWB_all, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/out/dataRelease/cdNoWB_all_DR.csv")</span></span>
-<span id="cb22-135"><a href="#cb22-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-136"><a href="#cb22-136" aria-hidden="true" tabindex="-1"></a><span class="co"># Save rData file for downloading</span></span>
-<span id="cb22-137"><a href="#cb22-137" aria-hidden="true" tabindex="-1"></a><span class="co"># save(cdNoWB_all, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdNoWB_all.RData")</span></span>
-<span id="cb22-138"><a href="#cb22-138" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb22-139"><a href="#cb22-139" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-140"><a href="#cb22-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-141"><a href="#cb22-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-142"><a href="#cb22-142" aria-hidden="true" tabindex="-1"></a><span class="fu">## Metadata</span></span>
-<span id="cb22-143"><a href="#cb22-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-144"><a href="#cb22-144" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Column explanations</span></span>
-<span id="cb22-145"><a href="#cb22-145" aria-hidden="true" tabindex="-1"></a>__id__ Unique row ID from the original datasets.  </span>
-<span id="cb22-146"><a href="#cb22-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-147"><a href="#cb22-147" aria-hidden="true" tabindex="-1"></a>__source__ <span class="in">`shorey`</span> = non-antenna data from shorey, <span class="in">`antenna tags`</span> = antenna data from shorey,  <span class="in">`catamaran`</span> = all data from catamaran, <span class="in">`sawmill`</span> = all data from sawmill  </span>
-<span id="cb22-148"><a href="#cb22-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-149"><a href="#cb22-149" aria-hidden="true" tabindex="-1"></a>__sampleType__ <span class="in">`shorey`</span> = non-antenna data from shorey, <span class="in">`stationary 1001`</span> = antenna data from shorey, <span class="in">`stationary 2001`</span> = antenna data from shorey, <span class="in">`catamaran`</span> = all data from catamaran, <span class="in">`shorey`</span>. The field is blank for sawmill.    </span>
-<span id="cb22-150"><a href="#cb22-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-151"><a href="#cb22-151" aria-hidden="true" tabindex="-1"></a>__drainage__ <span class="in">`catamaran`</span> = Catamaran Brook drainage, <span class="in">`sawmill`</span> = Sawmill River drainage, <span class="in">`shorey`</span> = Shorey Brook drainage.  </span>
-<span id="cb22-152"><a href="#cb22-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-153"><a href="#cb22-153" aria-hidden="true" tabindex="-1"></a>__species__  </span>
-<span id="cb22-154"><a href="#cb22-154" aria-hidden="true" tabindex="-1"></a><span class="in">`bkt`</span> = brook trout (*Salvelinus fontinalis*, native, self-sustaining population)  </span>
-<span id="cb22-155"><a href="#cb22-155" aria-hidden="true" tabindex="-1"></a><span class="in">`bnt`</span> = brown trout (*Salmo trutta*, non-native, self-sustaining population)  </span>
-<span id="cb22-156"><a href="#cb22-156" aria-hidden="true" tabindex="-1"></a><span class="in">`ats`</span> = Atlantic salmon (*Salmo salar*, stocked as fry in sawmill and shorey, natural reproduction in catamaran)</span>
-<span id="cb22-157"><a href="#cb22-157" aria-hidden="true" tabindex="-1"></a><span class="in">`splake`</span> = splake (*Salvelinus namaycush X Salvelinus fontinalis*, hybrid of brook and lake trout - only in shorey)  </span>
-<span id="cb22-158"><a href="#cb22-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-159"><a href="#cb22-159" aria-hidden="true" tabindex="-1"></a>__river__ Same as __drainage__.    </span>
-<span id="cb22-160"><a href="#cb22-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-161"><a href="#cb22-161" aria-hidden="true" tabindex="-1"></a>__survey__ <span class="in">`antenna`</span> = antenna data from shorey, <span class="in">`cc`</span> = x from shorey <span class="in">`lf`</span> = x from shorey, <span class="in">`night seine`</span> = night seining from sawmill and shorey, <span class="in">`shock`</span> = electroshocking sample, <span class="in">`smolt trap`</span> = smolt trap data for salmon from catamaran and shorey.    </span>
-<span id="cb22-162"><a href="#cb22-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-163"><a href="#cb22-163" aria-hidden="true" tabindex="-1"></a>__tag__ PIT tag number, unique identifier, character. Tags are 12-mm, full duplex.    </span>
-<span id="cb22-164"><a href="#cb22-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-165"><a href="#cb22-165" aria-hidden="true" tabindex="-1"></a>__firstSeen__ Binary variable for whether the occasion is the first observation (1) or the fish, or not (0).  </span>
-<span id="cb22-166"><a href="#cb22-166" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb22-167"><a href="#cb22-167" aria-hidden="true" tabindex="-1"></a>__lastSeen__ Binary variable for whether the occasion is the last observation (1) or the fish, or not (0).   </span>
-<span id="cb22-168"><a href="#cb22-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-169"><a href="#cb22-169" aria-hidden="true" tabindex="-1"></a>__sampleNumber__ An identifier for the consecturitve sample number for each river.  </span>
-<span id="cb22-170"><a href="#cb22-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-171"><a href="#cb22-171" aria-hidden="true" tabindex="-1"></a>__section__ Identifier for the 20m section where the fish was captured. This is ordered from downstream to upstream starting at 1 for the bottom of the main study area.  </span>
-<span id="cb22-172"><a href="#cb22-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-173"><a href="#cb22-173" aria-hidden="true" tabindex="-1"></a>__area__ <span class="in">`inside`</span> = primary study area for each river. <span class="in">`above`</span> and <span class="in">`above above`</span> are sections above the main study area, <span class="in">`below`</span> and <span class="in">`below below`</span> are sections below the main study area, <span class="in">`antenna`</span> are antenna sections  , <span class="in">`smolt trap`</span> and <span class="in">`smolt trap new`</span> represent the  smolt trap areas.    </span>
-<span id="cb22-174"><a href="#cb22-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-175"><a href="#cb22-175" aria-hidden="true" tabindex="-1"></a>__sampleName__ Represents the sample name for the sample and is a combination of "fish age"_"season number"_"season name".  </span>
-<span id="cb22-176"><a href="#cb22-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-177"><a href="#cb22-177" aria-hidden="true" tabindex="-1"></a>__season__ <span class="in">`Fall`</span>, <span class="in">`Fall2`</span> = second fall sample in shorey, <span class="in">`July`</span> = July in shorey, <span class="in">`PostSmolt`</span> = after the smolt sample, <span class="in">`PreSmolt`</span> = before the smolt sample, <span class="in">`PreWinter`</span> = before winter, <span class="in">`Smolt`</span> = the smolt trap sample, <span class="in">`Summer`</span>.  </span>
-<span id="cb22-178"><a href="#cb22-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-179"><a href="#cb22-179" aria-hidden="true" tabindex="-1"></a>__everEmMain__ Binary variable for whether the fish was ever observed in the main study area (1) or not (0).  </span>
-<span id="cb22-180"><a href="#cb22-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-181"><a href="#cb22-181" aria-hidden="true" tabindex="-1"></a>__riverTagged__ The river in whcih the fish was tagged.  </span>
-<span id="cb22-182"><a href="#cb22-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-183"><a href="#cb22-183" aria-hidden="true" tabindex="-1"></a>__areaTagged__ The area in which the fish was tagged.  </span>
-<span id="cb22-184"><a href="#cb22-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-185"><a href="#cb22-185" aria-hidden="true" tabindex="-1"></a>__riverKM__ River kilometer from the bottom of the study river.  </span>
-<span id="cb22-186"><a href="#cb22-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-187"><a href="#cb22-187" aria-hidden="true" tabindex="-1"></a>__date__ Date of observation. POSIXct format.  </span>
-<span id="cb22-188"><a href="#cb22-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-189"><a href="#cb22-189" aria-hidden="true" tabindex="-1"></a>__medianSampleDate__ Median date of the sampling occasion. POSIXct format.  </span>
-<span id="cb22-190"><a href="#cb22-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-191"><a href="#cb22-191" aria-hidden="true" tabindex="-1"></a>__fishNumber__ The consecutive fish number for each section and sample during sampling.  </span>
-<span id="cb22-192"><a href="#cb22-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-193"><a href="#cb22-193" aria-hidden="true" tabindex="-1"></a>__recap__ Binary variable for whether the fish was recaptured ("Y") or not ("0").  </span>
-<span id="cb22-194"><a href="#cb22-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-195"><a href="#cb22-195" aria-hidden="true" tabindex="-1"></a>__yearOfStocking__ Year of stocking when stocking occured.  </span>
-<span id="cb22-196"><a href="#cb22-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-197"><a href="#cb22-197" aria-hidden="true" tabindex="-1"></a>__estimatedYearOfStocking__ Whether the year of stocking was estimated from fish length or not.   </span>
-<span id="cb22-198"><a href="#cb22-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-199"><a href="#cb22-199" aria-hidden="true" tabindex="-1"></a>__age__ Age of the fish in years.  </span>
-<span id="cb22-200"><a href="#cb22-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-201"><a href="#cb22-201" aria-hidden="true" tabindex="-1"></a>__observedLength__ Fish fork length in mm (+/-1 mm).  </span>
-<span id="cb22-202"><a href="#cb22-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-203"><a href="#cb22-203" aria-hidden="true" tabindex="-1"></a>__observedLength2__ Observed length lagged forward one observation for consecutive capture occasions. NA if not observed.  </span>
-<span id="cb22-204"><a href="#cb22-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-205"><a href="#cb22-205" aria-hidden="true" tabindex="-1"></a>__grLength__ Growth rate in length. (observedLength2 - observedLength) / sampleInterval (days).   </span>
-<span id="cb22-206"><a href="#cb22-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-207"><a href="#cb22-207" aria-hidden="true" tabindex="-1"></a>__grOstrovskyLength__ Growth rate in length after accounting for allometry. Based on Ostrovsky 1995.    </span>
-<span id="cb22-208"><a href="#cb22-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-209"><a href="#cb22-209" aria-hidden="true" tabindex="-1"></a>__observedMass__ Fish wet mass in g (+/- 0.1 g).  </span>
-<span id="cb22-210"><a href="#cb22-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-211"><a href="#cb22-211" aria-hidden="true" tabindex="-1"></a>__predMass__ Whether mass was prdicted from length ("Yes") or measured ("No").  </span>
-<span id="cb22-212"><a href="#cb22-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-213"><a href="#cb22-213" aria-hidden="true" tabindex="-1"></a>__observedMass2__ Observed mass lagged forward one observation for consecutive capture occasions. NA if not observed.</span>
-<span id="cb22-214"><a href="#cb22-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-215"><a href="#cb22-215" aria-hidden="true" tabindex="-1"></a>__grMass__ 'Instantaneous' growth rate in mass. ln(lagObservedMass - observedMass) / sampleInterval.  </span>
-<span id="cb22-216"><a href="#cb22-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-217"><a href="#cb22-217" aria-hidden="true" tabindex="-1"></a>__grOstrovskyMass__ Growth rate in length after accounting for allometry. Based on Ostrovsky 1995.    </span>
-<span id="cb22-218"><a href="#cb22-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-219"><a href="#cb22-219" aria-hidden="true" tabindex="-1"></a>__grInterval__ Number of days between consecutive capture occasions.  </span>
-<span id="cb22-220"><a href="#cb22-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-221"><a href="#cb22-221" aria-hidden="true" tabindex="-1"></a>__cf__ Condition factor. (observedMass / observedMass^3) * 100.  </span>
-<span id="cb22-222"><a href="#cb22-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-223"><a href="#cb22-223" aria-hidden="true" tabindex="-1"></a>__mature__ Whether the fish was mature ("P") or not ("NP"). "P" stands for "precocious".  </span>
-<span id="cb22-224"><a href="#cb22-224" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-225"><a href="#cb22-225" aria-hidden="true" tabindex="-1"></a>__everMat__ Whether the fish was ever mature at any observation ("P") or not ("empty").  </span>
-<span id="cb22-226"><a href="#cb22-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-227"><a href="#cb22-227" aria-hidden="true" tabindex="-1"></a>__geneticSample__ Whether the fish was sampled for genetic analysis ("Y") or not ("N").  </span>
-<span id="cb22-228"><a href="#cb22-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-229"><a href="#cb22-229" aria-hidden="true" tabindex="-1"></a>__readerID__ PIT antenna reader ID for shorey data.  </span>
-<span id="cb22-230"><a href="#cb22-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-231"><a href="#cb22-231" aria-hidden="true" tabindex="-1"></a>__aliveDead__ <span class="in">`alive-moved`</span> = returned alive to the stream in a new location, <span class="in">`alive-sample`</span> = returned alive to the stream, <span class="in">`alive-sampled`</span> = returned alive to the stream, <span class="in">`alive-samplemort`</span> = mortality during workup.  </span>
-<span id="cb22-232"><a href="#cb22-232" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-233"><a href="#cb22-233" aria-hidden="true" tabindex="-1"></a>__antInstance__ PIT antenna instance number for individual fish.  </span>
-<span id="cb22-234"><a href="#cb22-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-235"><a href="#cb22-235" aria-hidden="true" tabindex="-1"></a>__pass__ Electrofishing pass 1, 2 or 3, 0 for antennas.  </span>
-<span id="cb22-236"><a href="#cb22-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-237"><a href="#cb22-237" aria-hidden="true" tabindex="-1"></a>__effort__ Electrofishing effort in seconds.  </span>
-<span id="cb22-238"><a href="#cb22-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-239"><a href="#cb22-239" aria-hidden="true" tabindex="-1"></a>__comment__ Comments from the field crew during sampling.  </span>
-<span id="cb22-240"><a href="#cb22-240" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-241"><a href="#cb22-241" aria-hidden="true" tabindex="-1"></a>__quarterWidth__ Width of the quarter in meters.  </span>
-<span id="cb22-242"><a href="#cb22-242" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-243"><a href="#cb22-243" aria-hidden="true" tabindex="-1"></a>__quarterLength__ Length of the quarter in meters.  </span>
-<span id="cb22-244"><a href="#cb22-244" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-245"><a href="#cb22-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-246"><a href="#cb22-246" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-247"><a href="#cb22-247" aria-hidden="true" tabindex="-1"></a></span>
+<div class="sourceCode" id="cb28" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sawmill, Shorey, Catamaran data</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: getElectroNonWBDataOptionsDataRelease</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">message =</span> <span class="cn">FALSE</span>, <span class="at">warning =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: librariesGetElectroDataDataRelease</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="co">#library(devtools)</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="co">#options(download.file.method = "wininet") or turn off VPN</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="co">#devtools::install_github('Conte-Ecology/westBrookData/getWBData')</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(getWBData)</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a><span class="co"># devtools::install_github('bletcher/getPrepareWBData')</span></span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a><span class="co"># use this if command above doesn't work: options(download.file.method = "wininet")</span></span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a><span class="co">#library(getPrepareWBData)</span></span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a>Data are generated in <span class="in">`R/getDataAll_noWB_targets.R`</span> <span class="co">[</span><span class="ot">file</span><span class="co">](https://github.com/bletcher/wbBook_quarto_targets/blob/main/R/getDataAll_noWB_targets.R)</span>  </span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## Get data target  </span></span>
+<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a>Select variables for data release</span>
+<span id="cb28-34"><a href="#cb28-34" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-35"><a href="#cb28-35" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: getNoWBDataDataRelease</span></span>
+<span id="cb28-36"><a href="#cb28-36" aria-hidden="true" tabindex="-1"></a><span class="co">#| cache: false</span></span>
+<span id="cb28-37"><a href="#cb28-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-38"><a href="#cb28-38" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb28-39"><a href="#cb28-39" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(targets)</span>
+<span id="cb28-40"><a href="#cb28-40" aria-hidden="true" tabindex="-1"></a>cdNoWB_all0 <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(cdNoWB_all_target) <span class="sc">|&gt;</span></span>
+<span id="cb28-41"><a href="#cb28-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb28-42"><a href="#cb28-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> <span class="fu">mdy</span>(date),</span>
+<span id="cb28-43"><a href="#cb28-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">medianSampleDate =</span> <span class="fu">mdy</span>(medianSampleDate)</span>
+<span id="cb28-44"><a href="#cb28-44" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb28-45"><a href="#cb28-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-46"><a href="#cb28-46" aria-hidden="true" tabindex="-1"></a><span class="co">#cdNoWB_all0[2,]</span></span>
+<span id="cb28-47"><a href="#cb28-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-48"><a href="#cb28-48" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cdNoWB_all0)</span>
+<span id="cb28-49"><a href="#cb28-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-50"><a href="#cb28-50" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-51"><a href="#cb28-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-52"><a href="#cb28-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data checks  </span></span>
+<span id="cb28-53"><a href="#cb28-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-56"><a href="#cb28-56" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-57"><a href="#cb28-57" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: getNoWBDataSummary</span></span>
+<span id="cb28-58"><a href="#cb28-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-59"><a href="#cb28-59" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdNoWB_all0<span class="sc">$</span>drainage, cdNoWB_all0<span class="sc">$</span>river)</span>
+<span id="cb28-60"><a href="#cb28-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-61"><a href="#cb28-61" aria-hidden="true" tabindex="-1"></a>countTags <span class="ot">&lt;-</span> cdNoWB_all0 <span class="sc">|&gt;</span></span>
+<span id="cb28-62"><a href="#cb28-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(tag, survey) <span class="sc">|&gt;</span></span>
+<span id="cb28-63"><a href="#cb28-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">count =</span> <span class="fu">n</span>(), <span class="at">river =</span> <span class="fu">unique</span>(riverTagged))</span>
+<span id="cb28-64"><a href="#cb28-64" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb28-65"><a href="#cb28-65" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(countTags <span class="sc">|&gt;</span> <span class="fu">filter</span>(survey <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"ANTENNA"</span>,<span class="st">"NIGHT SEINE"</span>, <span class="st">"SHOCK"</span>, <span class="st">"SMOLT TRAP"</span> ), river <span class="sc">!=</span> <span class="st">""</span>), <span class="fu">aes</span>(count, <span class="at">fill =</span> survey)) <span class="sc">+</span></span>
+<span id="cb28-66"><a href="#cb28-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb28-67"><a href="#cb28-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="st">"Count per individual"</span>) <span class="sc">+</span></span>
+<span id="cb28-68"><a href="#cb28-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(survey<span class="sc">~</span>river, <span class="at">scales =</span> <span class="st">"free"</span>)</span>
+<span id="cb28-69"><a href="#cb28-69" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-70"><a href="#cb28-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-71"><a href="#cb28-71" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data checks  </span></span>
+<span id="cb28-72"><a href="#cb28-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-75"><a href="#cb28-75" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-76"><a href="#cb28-76" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: getNoWBDatLW_Summary</span></span>
+<span id="cb28-77"><a href="#cb28-77" aria-hidden="true" tabindex="-1"></a><span class="co">#| </span></span>
+<span id="cb28-78"><a href="#cb28-78" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cdNoWB_all0, <span class="fu">aes</span>(observedLength, observedMass)) <span class="sc">+</span></span>
+<span id="cb28-79"><a href="#cb28-79" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb28-80"><a href="#cb28-80" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>river)</span>
+<span id="cb28-81"><a href="#cb28-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-82"><a href="#cb28-82" aria-hidden="true" tabindex="-1"></a>cdNoWB_all <span class="ot">&lt;-</span> cdNoWB_all0 <span class="sc">|&gt;</span> </span>
+<span id="cb28-83"><a href="#cb28-83" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(observedLength <span class="sc">&lt;</span> <span class="dv">100</span> <span class="sc">&amp;</span> observedMass <span class="sc">&gt;</span> <span class="dv">25</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb28-84"><a href="#cb28-84" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(observedLength <span class="sc">&gt;</span> <span class="dv">150</span> <span class="sc">&amp;</span> observedMass <span class="sc">&lt;</span> <span class="dv">10</span>))</span>
+<span id="cb28-85"><a href="#cb28-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-86"><a href="#cb28-86" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cdNoWB_all, <span class="fu">aes</span>(observedLength, observedMass)) <span class="sc">+</span></span>
+<span id="cb28-87"><a href="#cb28-87" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb28-88"><a href="#cb28-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>river)</span>
+<span id="cb28-89"><a href="#cb28-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-90"><a href="#cb28-90" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cdNoWB_all)</span>
+<span id="cb28-91"><a href="#cb28-91" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-92"><a href="#cb28-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-93"><a href="#cb28-93" aria-hidden="true" tabindex="-1"></a>Date range</span>
+<span id="cb28-96"><a href="#cb28-96" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-97"><a href="#cb28-97" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: dataRange</span></span>
+<span id="cb28-98"><a href="#cb28-98" aria-hidden="true" tabindex="-1"></a><span class="co">#|</span></span>
+<span id="cb28-99"><a href="#cb28-99" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(cdNoWB_all<span class="sc">$</span>date)</span>
+<span id="cb28-100"><a href="#cb28-100" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(cdNoWB_all<span class="sc">$</span>date)</span>
+<span id="cb28-101"><a href="#cb28-101" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-102"><a href="#cb28-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-103"><a href="#cb28-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-104"><a href="#cb28-104" aria-hidden="true" tabindex="-1"></a><span class="fu">## Summary data</span></span>
+<span id="cb28-107"><a href="#cb28-107" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-108"><a href="#cb28-108" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: summaryTables</span></span>
+<span id="cb28-109"><a href="#cb28-109" aria-hidden="true" tabindex="-1"></a><span class="co">#| </span></span>
+<span id="cb28-110"><a href="#cb28-110" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdNoWB_all<span class="sc">$</span>river, cdNoWB_all<span class="sc">$</span>survey)</span>
+<span id="cb28-111"><a href="#cb28-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-112"><a href="#cb28-112" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdNoWB_all<span class="sc">$</span>river, cdNoWB_all<span class="sc">$</span>species)</span>
+<span id="cb28-113"><a href="#cb28-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-114"><a href="#cb28-114" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdNoWB_all<span class="sc">$</span>river, cdNoWB_all<span class="sc">$</span>season)</span>
+<span id="cb28-115"><a href="#cb28-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-116"><a href="#cb28-116" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdNoWB_all<span class="sc">$</span>river, cdNoWB_all<span class="sc">$</span>sampleNumber)</span>
+<span id="cb28-117"><a href="#cb28-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-118"><a href="#cb28-118" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdNoWB_all<span class="sc">$</span>river, cdNoWB_all<span class="sc">$</span>area)</span>
+<span id="cb28-119"><a href="#cb28-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-120"><a href="#cb28-120" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-121"><a href="#cb28-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-122"><a href="#cb28-122" aria-hidden="true" tabindex="-1"></a>Antenna sections from Shorey are missing from this that are text (A3, A4, SECTION -6 ANTENNA, TEMPORARY ANTENNA)</span>
+<span id="cb28-125"><a href="#cb28-125" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-126"><a href="#cb28-126" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: summaryTables2</span></span>
+<span id="cb28-127"><a href="#cb28-127" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cdNoWB_all<span class="sc">$</span>river, <span class="fu">as.numeric</span>(cdNoWB_all<span class="sc">$</span>section))</span>
+<span id="cb28-128"><a href="#cb28-128" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-129"><a href="#cb28-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-130"><a href="#cb28-130" aria-hidden="true" tabindex="-1"></a>Some formatting/filtering</span>
+<span id="cb28-133"><a href="#cb28-133" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-134"><a href="#cb28-134" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: moreFiltering</span></span>
+<span id="cb28-135"><a href="#cb28-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-136"><a href="#cb28-136" aria-hidden="true" tabindex="-1"></a>cdNoWB_all <span class="ot">&lt;-</span> cdNoWB_all <span class="sc">|&gt;</span></span>
+<span id="cb28-137"><a href="#cb28-137" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb28-138"><a href="#cb28-138" aria-hidden="true" tabindex="-1"></a>    <span class="at">source =</span> <span class="fu">tolower</span>(source),</span>
+<span id="cb28-139"><a href="#cb28-139" aria-hidden="true" tabindex="-1"></a>    <span class="at">source =</span> <span class="fu">ifelse</span>(source <span class="sc">==</span> <span class="st">"sawmill river"</span>, <span class="st">"sawmill"</span>, source),</span>
+<span id="cb28-140"><a href="#cb28-140" aria-hidden="true" tabindex="-1"></a>    <span class="at">sampleType =</span> <span class="fu">tolower</span>(sampleType),</span>
+<span id="cb28-141"><a href="#cb28-141" aria-hidden="true" tabindex="-1"></a>    <span class="at">survey =</span> <span class="fu">tolower</span>(survey),</span>
+<span id="cb28-142"><a href="#cb28-142" aria-hidden="true" tabindex="-1"></a>    <span class="at">area =</span> <span class="fu">tolower</span>(area),</span>
+<span id="cb28-143"><a href="#cb28-143" aria-hidden="true" tabindex="-1"></a>    <span class="at">estimatedYearOfStocking =</span> <span class="fu">tolower</span>(estimatedYearOfStocking),</span>
+<span id="cb28-144"><a href="#cb28-144" aria-hidden="true" tabindex="-1"></a>    <span class="at">aliveDead =</span> <span class="fu">tolower</span>(aliveDead)</span>
+<span id="cb28-145"><a href="#cb28-145" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb28-146"><a href="#cb28-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-147"><a href="#cb28-147" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-148"><a href="#cb28-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-149"><a href="#cb28-149" aria-hidden="true" tabindex="-1"></a><span class="fu">## Save files for outputting</span></span>
+<span id="cb28-152"><a href="#cb28-152" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-153"><a href="#cb28-153" aria-hidden="true" tabindex="-1"></a><span class="co"># Save csv for downloading</span></span>
+<span id="cb28-154"><a href="#cb28-154" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(cdNoWB_all, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/out/dataRelease/cdNoWB_all_DR.csv")</span></span>
+<span id="cb28-155"><a href="#cb28-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-156"><a href="#cb28-156" aria-hidden="true" tabindex="-1"></a><span class="co"># Save rData file for downloading</span></span>
+<span id="cb28-157"><a href="#cb28-157" aria-hidden="true" tabindex="-1"></a><span class="co"># save(cdNoWB_all, file = "C:/Users/bletcher/OneDrive - DOI/projects/wbBook_quarto_targets/data/outForDownload/cdNoWB_all.RData")</span></span>
+<span id="cb28-158"><a href="#cb28-158" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb28-159"><a href="#cb28-159" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-160"><a href="#cb28-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-161"><a href="#cb28-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-162"><a href="#cb28-162" aria-hidden="true" tabindex="-1"></a><span class="fu">## Metadata</span></span>
+<span id="cb28-163"><a href="#cb28-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-164"><a href="#cb28-164" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Column explanations</span></span>
+<span id="cb28-165"><a href="#cb28-165" aria-hidden="true" tabindex="-1"></a>__id__ Unique row ID from the original datasets.  </span>
+<span id="cb28-166"><a href="#cb28-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-167"><a href="#cb28-167" aria-hidden="true" tabindex="-1"></a>__source__ <span class="in">`shorey`</span> = non-antenna data from shorey, <span class="in">`antenna tags`</span> = antenna data from shorey,  <span class="in">`catamaran`</span> = all data from catamaran, <span class="in">`sawmill`</span> = all data from sawmill  </span>
+<span id="cb28-168"><a href="#cb28-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-169"><a href="#cb28-169" aria-hidden="true" tabindex="-1"></a>__sampleType__ <span class="in">`shorey`</span> = non-antenna data from shorey, <span class="in">`stationary 1001`</span> = antenna data from shorey, <span class="in">`stationary 2001`</span> = antenna data from shorey, <span class="in">`catamaran`</span> = all data from catamaran, <span class="in">`shorey`</span>. The field is blank for sawmill.    </span>
+<span id="cb28-170"><a href="#cb28-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-171"><a href="#cb28-171" aria-hidden="true" tabindex="-1"></a>__drainage__ <span class="in">`catamaran`</span> = Catamaran Brook drainage, <span class="in">`sawmill`</span> = Sawmill River drainage, <span class="in">`shorey`</span> = Shorey Brook drainage.  </span>
+<span id="cb28-172"><a href="#cb28-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-173"><a href="#cb28-173" aria-hidden="true" tabindex="-1"></a>__species__  </span>
+<span id="cb28-174"><a href="#cb28-174" aria-hidden="true" tabindex="-1"></a><span class="in">`bkt`</span> = brook trout (*Salvelinus fontinalis*, native, self-sustaining population)  </span>
+<span id="cb28-175"><a href="#cb28-175" aria-hidden="true" tabindex="-1"></a><span class="in">`bnt`</span> = brown trout (*Salmo trutta*, non-native, self-sustaining population)  </span>
+<span id="cb28-176"><a href="#cb28-176" aria-hidden="true" tabindex="-1"></a><span class="in">`ats`</span> = Atlantic salmon (*Salmo salar*, stocked as fry in sawmill and shorey, natural reproduction in catamaran)</span>
+<span id="cb28-177"><a href="#cb28-177" aria-hidden="true" tabindex="-1"></a><span class="in">`splake`</span> = splake (*Salvelinus namaycush X Salvelinus fontinalis*, hybrid of brook and lake trout - only in shorey)  </span>
+<span id="cb28-178"><a href="#cb28-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-179"><a href="#cb28-179" aria-hidden="true" tabindex="-1"></a>__river__ Same as __drainage__.    </span>
+<span id="cb28-180"><a href="#cb28-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-181"><a href="#cb28-181" aria-hidden="true" tabindex="-1"></a>__survey__ <span class="in">`antenna`</span> = antenna data from shorey, <span class="in">`cc`</span> = x from shorey <span class="in">`lf`</span> = x from shorey, <span class="in">`night seine`</span> = night seining from sawmill and shorey, <span class="in">`shock`</span> = electroshocking sample, <span class="in">`smolt trap`</span> = smolt trap data for salmon from catamaran and shorey.    </span>
+<span id="cb28-182"><a href="#cb28-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-183"><a href="#cb28-183" aria-hidden="true" tabindex="-1"></a>__tag__ PIT tag number, unique identifier, character. Tags are 12-mm, full duplex.    </span>
+<span id="cb28-184"><a href="#cb28-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-185"><a href="#cb28-185" aria-hidden="true" tabindex="-1"></a>__firstSeen__ Binary variable for whether the occasion is the first observation (1) or the fish, or not (0).  </span>
+<span id="cb28-186"><a href="#cb28-186" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb28-187"><a href="#cb28-187" aria-hidden="true" tabindex="-1"></a>__lastSeen__ Binary variable for whether the occasion is the last observation (1) or the fish, or not (0).   </span>
+<span id="cb28-188"><a href="#cb28-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-189"><a href="#cb28-189" aria-hidden="true" tabindex="-1"></a>__sampleNumber__ An identifier for the consecutive sample number for each river.  </span>
+<span id="cb28-190"><a href="#cb28-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-191"><a href="#cb28-191" aria-hidden="true" tabindex="-1"></a>__section__ Identifier for the 20m section where the fish was captured. This is ordered from downstream to upstream starting at 1 for the bottom of the main study area.  </span>
+<span id="cb28-192"><a href="#cb28-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-193"><a href="#cb28-193" aria-hidden="true" tabindex="-1"></a>__area__ <span class="in">`inside`</span> = primary study area for each river. <span class="in">`above`</span> and <span class="in">`above above`</span> are sections above the main study area, <span class="in">`below`</span> and <span class="in">`below below`</span> are sections below the main study area, <span class="in">`antenna`</span> are antenna sections  , <span class="in">`smolt trap`</span> and <span class="in">`smolt trap new`</span> represent the  smolt trap areas.    </span>
+<span id="cb28-194"><a href="#cb28-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-195"><a href="#cb28-195" aria-hidden="true" tabindex="-1"></a>__sampleName__ Represents the sample name for the sample and is a combination of "fish age"_"season number"_"season name".  </span>
+<span id="cb28-196"><a href="#cb28-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-197"><a href="#cb28-197" aria-hidden="true" tabindex="-1"></a>__season__ <span class="in">`Fall`</span>, <span class="in">`Fall2`</span> = second fall sample in shorey, <span class="in">`July`</span> = July in shorey, <span class="in">`PostSmolt`</span> = after the smolt sample, <span class="in">`PreSmolt`</span> = before the smolt sample, <span class="in">`PreWinter`</span> = before winter, <span class="in">`Smolt`</span> = the smolt trap sample, <span class="in">`Summer`</span>.  </span>
+<span id="cb28-198"><a href="#cb28-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-199"><a href="#cb28-199" aria-hidden="true" tabindex="-1"></a>__everEmMain__ Binary variable for whether the fish was ever observed in the main study area (1) or not (0).  </span>
+<span id="cb28-200"><a href="#cb28-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-201"><a href="#cb28-201" aria-hidden="true" tabindex="-1"></a>__riverTagged__ The river in which the fish was tagged.  </span>
+<span id="cb28-202"><a href="#cb28-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-203"><a href="#cb28-203" aria-hidden="true" tabindex="-1"></a>__areaTagged__ The area in which the fish was tagged.  </span>
+<span id="cb28-204"><a href="#cb28-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-205"><a href="#cb28-205" aria-hidden="true" tabindex="-1"></a>__riverKM__ River kilometer from the bottom of the study river.  </span>
+<span id="cb28-206"><a href="#cb28-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-207"><a href="#cb28-207" aria-hidden="true" tabindex="-1"></a>__date__ Date of observation. POSIXct format.  </span>
+<span id="cb28-208"><a href="#cb28-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-209"><a href="#cb28-209" aria-hidden="true" tabindex="-1"></a>__medianSampleDate__ Median date of the sampling occasion. POSIXct format.  </span>
+<span id="cb28-210"><a href="#cb28-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-211"><a href="#cb28-211" aria-hidden="true" tabindex="-1"></a>__fishNumber__ The consecutive fish number for each section and sample during sampling.  </span>
+<span id="cb28-212"><a href="#cb28-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-213"><a href="#cb28-213" aria-hidden="true" tabindex="-1"></a>__recap__ Binary variable for whether the fish was recaptured ("Y") or not ("0").  </span>
+<span id="cb28-214"><a href="#cb28-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-215"><a href="#cb28-215" aria-hidden="true" tabindex="-1"></a>__yearOfStocking__ Year of stocking when stocking occurred.  </span>
+<span id="cb28-216"><a href="#cb28-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-217"><a href="#cb28-217" aria-hidden="true" tabindex="-1"></a>__estimatedYearOfStocking__ Whether the year of stocking was estimated from fish length or not.   </span>
+<span id="cb28-218"><a href="#cb28-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-219"><a href="#cb28-219" aria-hidden="true" tabindex="-1"></a>__age__ Age of the fish in years.  </span>
+<span id="cb28-220"><a href="#cb28-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-221"><a href="#cb28-221" aria-hidden="true" tabindex="-1"></a>__observedLength__ Fish fork length in mm (+/-1 mm).  </span>
+<span id="cb28-222"><a href="#cb28-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-223"><a href="#cb28-223" aria-hidden="true" tabindex="-1"></a>__observedLength2__ Observed length lagged forward one observation for consecutive capture occasions. NA if not observed.  </span>
+<span id="cb28-224"><a href="#cb28-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-225"><a href="#cb28-225" aria-hidden="true" tabindex="-1"></a>__grLength__ Growth rate in length. (observedLength2 - observedLength) / sampleInterval (days).   </span>
+<span id="cb28-226"><a href="#cb28-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-227"><a href="#cb28-227" aria-hidden="true" tabindex="-1"></a>__grOstrovskyLength__ Growth rate in length after accounting for allometry. Based on Ostrovsky 1995.    </span>
+<span id="cb28-228"><a href="#cb28-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-229"><a href="#cb28-229" aria-hidden="true" tabindex="-1"></a>__observedMass__ Fish wet mass in g (+/- 0.1 g).  </span>
+<span id="cb28-230"><a href="#cb28-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-231"><a href="#cb28-231" aria-hidden="true" tabindex="-1"></a>__predMass__ Whether mass was predicted from length ("Yes") or measured ("No").  </span>
+<span id="cb28-232"><a href="#cb28-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-233"><a href="#cb28-233" aria-hidden="true" tabindex="-1"></a>__observedMass2__ Observed mass lagged forward one observation for consecutive capture occasions. NA if not observed.</span>
+<span id="cb28-234"><a href="#cb28-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-235"><a href="#cb28-235" aria-hidden="true" tabindex="-1"></a>__grMass__ 'Instantaneous' growth rate in mass. ln(lagObservedMass - observedMass) / sampleInterval.  </span>
+<span id="cb28-236"><a href="#cb28-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-237"><a href="#cb28-237" aria-hidden="true" tabindex="-1"></a>__grOstrovskyMass__ Growth rate in length after accounting for allometry. Based on Ostrovsky 1995.    </span>
+<span id="cb28-238"><a href="#cb28-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-239"><a href="#cb28-239" aria-hidden="true" tabindex="-1"></a>__grInterval__ Number of days between consecutive capture occasions.  </span>
+<span id="cb28-240"><a href="#cb28-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-241"><a href="#cb28-241" aria-hidden="true" tabindex="-1"></a>__cf__ Condition factor. (observedMass / observedMass^3) * 100.  </span>
+<span id="cb28-242"><a href="#cb28-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-243"><a href="#cb28-243" aria-hidden="true" tabindex="-1"></a>__mature__ Whether the fish was mature ("P") or not ("NP"). "P" stands for "precocious".  </span>
+<span id="cb28-244"><a href="#cb28-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-245"><a href="#cb28-245" aria-hidden="true" tabindex="-1"></a>__everMat__ Whether the fish was ever mature at any observation ("P") or not ("empty").  </span>
+<span id="cb28-246"><a href="#cb28-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-247"><a href="#cb28-247" aria-hidden="true" tabindex="-1"></a>__geneticSample__ Whether the fish was sampled for genetic analysis ("Y") or not ("N").  </span>
+<span id="cb28-248"><a href="#cb28-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-249"><a href="#cb28-249" aria-hidden="true" tabindex="-1"></a>__readerID__ PIT antenna reader ID for shorey data.  </span>
+<span id="cb28-250"><a href="#cb28-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-251"><a href="#cb28-251" aria-hidden="true" tabindex="-1"></a>__aliveDead__ <span class="in">`alive-moved`</span> = returned alive to the stream in a new location, <span class="in">`alive-sample`</span> = returned alive to the stream, <span class="in">`alive-sampled`</span> = returned alive to the stream, <span class="in">`alive-samplemort`</span> = mortality during workup.  </span>
+<span id="cb28-252"><a href="#cb28-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-253"><a href="#cb28-253" aria-hidden="true" tabindex="-1"></a>__antInstance__ PIT antenna instance number for individual fish.  </span>
+<span id="cb28-254"><a href="#cb28-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-255"><a href="#cb28-255" aria-hidden="true" tabindex="-1"></a>__pass__ Electrofishing pass 1, 2 or 3, 0 for antennas.  </span>
+<span id="cb28-256"><a href="#cb28-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-257"><a href="#cb28-257" aria-hidden="true" tabindex="-1"></a>__effort__ Electrofishing effort in seconds for each pass.  </span>
+<span id="cb28-258"><a href="#cb28-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-259"><a href="#cb28-259" aria-hidden="true" tabindex="-1"></a>__comment__ Comments from the field crew during sampling.  </span>
+<span id="cb28-260"><a href="#cb28-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-261"><a href="#cb28-261" aria-hidden="true" tabindex="-1"></a>__quarterWidth__ Width of the quarter in meters.  </span>
+<span id="cb28-262"><a href="#cb28-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-263"><a href="#cb28-263" aria-hidden="true" tabindex="-1"></a>__quarterLength__ Length of the quarter in meters.  </span>
+<span id="cb28-264"><a href="#cb28-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-265"><a href="#cb28-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-266"><a href="#cb28-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-267"><a href="#cb28-267" aria-hidden="true" tabindex="-1"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

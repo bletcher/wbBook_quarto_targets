@@ -23,6 +23,7 @@ replace_negative_9999 <- function(df) {
 getAllDAta_noWB_target <-
   tar_plan(
     cdNoWB_all_target = read.csv("C:/Users/bletcher/OneDrive - DOI/PITTAGMAIN/lengths and weights by fish_noWB.csv") |>
+      filter(River != "west brook") |>
       dplyr::select(
         id = ID,
         source = Source,
@@ -59,7 +60,7 @@ getAllDAta_noWB_target <-
         predMass = PredMass,
         observedMass2 = Mass2,
         grMass,
-        #grOstrovskyMass = grOstrovskyWeight,
+        grOstrovskyMass = grOstrovskyMass,
         grInterval,
         cf = CF,
         mature = Mature,
@@ -79,9 +80,10 @@ getAllDAta_noWB_target <-
       ) |>
       mutate(
         drainage = str_to_lower(drainage),
-        river = str_to_lower(river),
+        river = str_to_lower(river)
+        #dateDate = (mdy(date)),
+       # medianSampleDateDate = mdy(medianSampleDate)
       ) |>
-      filter(river != "west brook") |>
       replace_negative_9999()
   )
 
